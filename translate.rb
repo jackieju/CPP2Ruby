@@ -1,4 +1,8 @@
 #!/Users/i027910/.rvm/rubies/ruby-2.1.2/bin/ruby
+# TODO
+# static function
+# function def outside class
+# member var, global var
 require 'set'
 def indent_block(src, n)
     ind = ""
@@ -92,8 +96,8 @@ def add_class_method_def(class_name, method_name, args, acc="public")
     method_sig = "#{method_name}\#\##{_args.size}"
     if $class_list[class_name.to_s][:methods][method_sig] == nil
         $class_list[class_name.to_s][:methods][method_sig]={
-            :name=>method,
-            :body=>body,
+            :name=>method_name,
+            :body=>nil,
             :args=>_args,
             :acc=>acc
         }
@@ -147,17 +151,18 @@ def translate_function_impl(content)
          # break if n >10
     }
 end
-def translate_block_in_class_body(class_name, src, acc)
+def translate_block_in_class_body(class_name, content, acc)
     # take out and translate function def
     n =0 
-    content.scan(/(\?<m1>\w+\s+)*?\*?(?<m3>\w+)\s*\((?<m4>.*?)\)\s*(?<match>\{((\g<match>|[^\{\}]*))*\})/im){|m| 
+    content.scan(/(\?<m1>\w+\s+)*?\*?(?<m3>\w+)\s*\((?<m4>.*?)\)\s*(?<match>\{((\g<match>|[^\{\}]*))\})/im){|m| 
          # p "=>result:#{m.inspect}"
          # p "rv=#{m[0]}, class_name=#{m[1]}"
          # p "size=#{m.size}"
          
-         method_name = m[1]
-         args = m[2]
-         _body = m[3]
+         method_name = m[0]
+         args = m[1]
+         _body = m[2]
+         p "method_name:#{method_name}"
          p "body:#{_body}"
          body = ""
          # remove {}
@@ -176,16 +181,19 @@ def translate_block_in_class_body(class_name, src, acc)
     lines = content.split(/;\s*$/m)
     p "--->lines in class #{class_name}/#{acc} #{lines.size}"
     lines.each{|line|
-        translate_line_in_class_body(classname, line, acc)
+        translate_line_in_class_body(class_name, line, acc)
     }
 end
 # it's not actually line, can be multiline because c/c++ using ; as delimiter
 def translate_line_in_class_body(class_name, line, acc)
     n =0 
     # if function declaration
-    if line =~ /^\s*([\w\d_]*)\s+\*?([\w\d_]+)\s*\((?<m4>.*?)\)\s*$/m
-         method_name = m[1]
-         args = m[2]
+    p "line:#{line}"
+    if line =~ /^\s*([\w\d_]*)\s+\*?([\w\d_]+)\s*\((.*?)\)\s*$/m
+         method_name = $2
+         p "--->4method_name=#{method_name}"
+         args = $3
+         p "--->4args=#{args}"
          
          add_class_method_def(class_name, method_name, args, acc)
          n+=1
@@ -195,19 +203,27 @@ def translate_line_in_class_body(class_name, line, acc)
 
 end
 
-def translate_classdef_body(class_name, content)
+def translate_classdef_body(class_name, body)
      array = body.split(/^\s*(public|private|protected)\s*:\s*$/m)
        
         p "=>>4,size=#{array.size}\n"
         i = 0
+       
         while (i<array.size) do
+             acc = nil
+            p "#{i}:#{array[i]}"
             acc = array[i]
-            if acc =~ /public|private|protected/ == nil
-                acc= "protected"
+            if acc =~ /public|private|protected/
+                i+=1
+            else
+                if acc==nil 
+                    acc= "protected"
+                end
             end
-            i+=1
+        
             src = array[i]
             translate_block_in_class_body(class_name, src, acc)
+            i+=1
         end
     
 end
@@ -311,13 +327,17 @@ def translate(fname)
                
         # class_list = Set.new 
        translate_function_impl(content)
-        $class_list.each{|k,v|
-            p "class #{k}"
+        $class_list.each{|kn,v|
+            p "class #{kn}"
             methods = ""
-            $class_list[k][:methods].each{|k,v|
-            p "method #{k}(#{v[:args].join(", ")})"
-            tranlsate_body = translate_block(v[:body])
-            tranlsate_body = indent_block(tranlsate_body, 1)
+            $class_list[kn][:methods].each{|k,v|
+                p "method #{k}(#{v[:args].join(", ")})"
+                if (v[:body])
+                    tranlsate_body = translate_block(v[:body]) 
+                else
+                    p "!!class #{kn} method #{k} has not impl"
+                end
+                tranlsate_body = indent_block(tranlsate_body, 1)
 method_template = <<HERE
     def #{k}(#{v[:args].join(", ")})
 #{tranlsate_body}
@@ -326,7 +346,7 @@ method_template = <<HERE
 HERE
     methods += method_template
             }
-            class_name = k
+            class_name = kn
             class_template = <<HERE
 class #{class_name}
 #{methods}
