@@ -332,6 +332,7 @@ def translate(fname)
             methods = ""
             $class_list[kn][:methods].each{|k,v|
                 p "method #{k}(#{v[:args].join(", ")})"
+                tranlsate_body = ""
                 if (v[:body])
                     tranlsate_body = translate_block(v[:body]) 
                 else
