@@ -3,6 +3,7 @@
 # static function
 # function def outside class
 # member var, global var
+# process .h .cpp at the same time
 require 'set'
 def indent_block(src, n)
     ind = ""
@@ -28,7 +29,7 @@ def isKeyword?(s)
     return a.include?(s)
 end
 def translate_functioncall(line)
-    return line.gsub(/(\w[\w\d_\*]*)\s*->([\w\d_]+)/im, '\1.\2')
+    return line.gsub(/(\w[\w\d_\*\)]*)\s*->([\w\d_]+)/im, '\1.\2')
 end
 def tranlate_line(context, line)
     ret = line
@@ -340,7 +341,7 @@ def translate(fname)
                 end
                 tranlsate_body = indent_block(tranlsate_body, 1)
 method_template = <<HERE
-    def #{k}(#{v[:args].join(", ")})
+    def #{v[:name]}(#{v[:args].join(", ")})
 #{tranlsate_body}
     end
     
@@ -353,7 +354,8 @@ class #{class_name}
 #{methods}
 end
 HERE
-    write_class(ruby_filename, class_template)
+    wfname = "#{class_name.downcase}.rb"
+    write_class(wfname, class_template)
         }
         # generate ruby file
 
