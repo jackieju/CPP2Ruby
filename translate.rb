@@ -4,7 +4,40 @@
 # function def outside class
 # member var, global var
 # process .h .cpp at the same time
+# TCHAR			tmpStr[256]={0};
+# if ...{
+# }
+
+require 'cp.rb'
 require 'set'
+# temp dict
+class TempDict
+    def initialize
+        @dict={}
+        @next_id=1
+    end
+    def add(s)
+         k = @next_id.to_s
+         @dict[k]=s
+         @next_id += 1
+         return k
+    end
+    def get(id)
+        @dict[id.to_s]
+    end
+end
+$td = TempDict.new
+class Context
+    def initialize
+        @vars={}
+    end
+    def add_var(v)
+        @vars[v]=1
+    end
+    def isVarExist?(v)
+        return @vars[v] == 1
+    end
+end
 def indent_block(src, n)
     ind = ""
     for i in 0..n-1
@@ -12,10 +45,9 @@ def indent_block(src, n)
     end
     return src.gsub(/^/im, ind)
 end
+# translate code block between {}
 def translate_block(block)
-    context={
-        :vars=>{}
-    }
+    context = Context.new
     
     ret = ""
     lines = block.split(/;\s*$/m)
@@ -25,33 +57,110 @@ def translate_block(block)
     return ret
 end
 def isKeyword?(s)
-    a = ["for", "if", "return"]
+    a = ["for", "if", "return", "false", "true"]
     return a.include?(s)
 end
 def translate_functioncall(line)
     return line.gsub(/(\w[\w\d_\*\)]*)\s*->([\w\d_]+)/im, '\1.\2')
 end
+
+def recover_src(s)
+    p "recover #{s}"
+    s.gsub(/_%#(\d+)#%_/){|s|
+        p "-->#{$1}"
+        $td.get($1)
+    }
+end
+
+def isLiteral?(s)
+    s = s.strip
+    
+    s =~ /^\d+$/
+end
+
+def isVariable?(s)
+    s = s.strip
+    return false if isLiteral?(s) || isKeyword?(s)
+    
+    s =~ /^[\*&]*[\w\d_]+$/
+end
+def translate_variable(context,varname)
+    if context.isVarExist?(varname) == false
+        varname = "@#{varname}"
+    end
+    return varname
+end
+def translate_primary(context, s)
+    if isVariable?(s)
+        return translate_variable(context, s)
+    end
+    return s
+end
+
 def tranlate_line(context, line)
     ret = line
     p "translate line #{line}"
     
     # var declaration
     # parse comma exp
-    exps = line.split(",")
-    exps.each{|e|
-        if e =~/^\s*?(\w[\w\d_\*]*)\s+[\w\d_\*,]+\s*?;\s*?$/ && !isKeyword?($1)
-            p "-->decleration:#{line}"
-            
-        end
-    
-        if e =~/^\s*?(\w[\w\d_\*]*)\s+([\w\d_\*]+\s*=.*?);\s*?$/ && !isKeyword?($1)
-            p "-->decleration assgin:#{line}"
-            ret = "#{$2}\n"
-            return translate_functioncall(ret)
-        end
+    line = line.gsub(/(?<match>\(((\g<match>|[^\(\)]*))*\))/m){|s|
+        k = $td.add(s)
+        "_\%\##{k}#%_"
+    }.gsub(/\".*?\"/){|s|
+        k = $td.add(s)
+        "_\%\##{k}#%_"
     }
-    
-    return translate_functioncall(ret)
+    exps = line.split(",")
+    _line = ""
+    exps.each{|e|
+        exp = recover_src(e)
+        # var decl
+        if exp=~/^\s*?([\w\d_&\*]*)\s+[&\*]*([\w\d_\*]+)(.*?)\s*$/m
+            if exp=~ /^\s*?([\w\d_&\*]*)\s+[&\*]*([\w\d_\*]+)\s*$/m
+                varname=$2
+                varname = varname.gsub(/^\s*\*/,"")
+                context.add_var(varname)
+                next
+            end
+        
+            if exp=~ /^\s*?([\w\d_&\*]*)\s+[&\*]*([\w\d_\*]+)\s*=(.*?)\s*$/m
+                p "==>32-#{e}"
+                p "==>33-#{$1}, #{$2}, #{$3}"
+                p3 = translate_primary(context, $3)
+                varname=$2
+                varname = varname.gsub(/^\s*\*/,"")
+                context.add_var(varname)
+                _line += "#{varname}=#{p3}\n"
+                p "==>line=#{_line}"
+                next
+            end
+        # assignment
+        elsif exp=~/^\s*([\w\d_\*]+)\s*=(.*?)\s*$/m
+            varname=$1
+            p3 = translate_primary(context, $2)
+            varname = varname.gsub(/^\s*\*/,"")
+            varname = translate_variable(context, varname)
+            # p "exp=#{exp}, #{$1}, #{$2}"
+           
+            _line += "#{varname} = #{p3}"
+        else
+            _line += "#{exp}\n"
+        end
+        
+        # e.scan(/^\s*?([\w\d_&\*]*)\s+[&\*]*([\w\d_\*]+)\s*=(.*?)\s*$/m){|m|
+        #     next
+        # }
+    }
+    # if e =~/^\s*?(\w[\w\d_\*]*)\s+[\w\d_\*,]+\s*?;\s*?$/ && !isKeyword?($1)
+    #       p "-->decleration:#{line}"
+    #   end
+    #   
+    #   if e =~/^\s*?(\w[\w\d_\*]*)\s+([\w\d_\*]+\s*=.*?);\s*?$/ && !isKeyword?($1)
+    #       p "-->decleration assgin:#{line}"
+    #       ret = "#{$2}\n"
+    #       return translate_functioncall(ret)
+    #   end
+    return translate_functioncall(_line)
 end
 def write_class(ruby_filename, class_template)
     
@@ -77,6 +186,9 @@ def translate_functioncall_argslist(args)
          arg = _ar[_ar.size-1]
          arg = arg.strip
          while arg[0] == "*" do
+            arg = arg[1..arg.size-1]
+         end
+         while arg[0] == "&" do
             arg = arg[1..arg.size-1]
          end
          _args.push(arg)
@@ -320,6 +432,17 @@ def translate(fname)
             i+=1
         end while (i<array.size)
 =end        
+        # remove comments
+        content = content.gsub(/^\s*\/\/.*?$/, "")
+        content = content.gsub(/\s*\/\/(.*?)$/){|s|
+            if $1.index("\"")
+                s
+            else
+                ""
+            end
+        }
+        # content = content.gsub(/(?<match>\/\*((\g<match>|[^\/\*\*\/]*))*\*\/)/m, "")
+        # p content
         # translate class definition
         translate_classdef(content)
         
@@ -328,7 +451,13 @@ def translate(fname)
                
         # class_list = Set.new 
        translate_function_impl(content)
-        $class_list.each{|kn,v|
+       
+
+
+end
+ # generate ruby file
+def generate_ruby()
+    $class_list.each{|kn,v|
             p "class #{kn}"
             methods = ""
             $class_list[kn][:methods].each{|k,v|
@@ -357,9 +486,7 @@ HERE
     wfname = "#{class_name.downcase}.rb"
     write_class(wfname, class_template)
         }
-        # generate ruby file
-
-
+       
 end
 p $*.inspect
 if $*.size >0
@@ -367,6 +494,7 @@ if $*.size >0
         p a
         translate(a)
     end
+    generate_ruby
 else
     p "no file specified"
     p "usage: ruby generate_obj.rb <c source file>\n
