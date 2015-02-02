@@ -21,6 +21,12 @@ class ErrDesc
     # ErrDesc *next
 end
 class AbsError 
+        attr_accessor :minUserError, :errorDist, :errors       
+    
+    
+    
+    
+    
 end
 class CRError < AbsError 
   public

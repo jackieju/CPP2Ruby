@@ -7,9 +7,14 @@
 # TCHAR			tmpStr[256]={0};
 # if ...{
 # }
-
-require 'cp.rb'
+# ++, --
+# local var vs constant
+# if 0 => if false
+# swtich case without break , 1. add "," 2. remove break in when
 require 'set'
+load 'parse.rb'
+
+
 # temp dict
 class TempDict
     def initialize
@@ -55,6 +60,9 @@ def translate_block(block)
         ret += tranlate_line(context, l)
     }
     return ret
+end
+def translate_block_by_parse(block)
+    parse(block, "Statements")
 end
 def isKeyword?(s)
     a = ["for", "if", "return", "false", "true"]
@@ -464,14 +472,15 @@ def generate_ruby()
                 p "method #{k}(#{v[:args].join(", ")})"
                 tranlsate_body = ""
                 if (v[:body])
-                    tranlsate_body = translate_block(v[:body]) 
+                    # tranlsate_body = translate_block(v[:body]) 
+                    translate_body = translate_block_by_parse(v[:body])
                 else
                     p "!!class #{kn} method #{k} has not impl"
                 end
-                tranlsate_body = indent_block(tranlsate_body, 1)
+                translate_body = indent_block(tranlsate_body, 1)
 method_template = <<HERE
     def #{v[:name]}(#{v[:args].join(", ")})
-#{tranlsate_body}
+#{translate_body}
     end
     
 HERE

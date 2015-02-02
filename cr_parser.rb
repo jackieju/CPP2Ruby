@@ -29,7 +29,7 @@ class CRParser
         if (errorNo <= @error.MinUserError) 
             errorNo = @error.MinUserError
         end    
-        @error.StoreErr(errorNo, @scanner.NextSym)
+        @error.StoreErr(errorNo, @scanner.nextSym)
              
     end
     # Records syntax error ErrorNo
@@ -57,9 +57,8 @@ class CRParser
     end
     
     def Expect(n)
-        p "expect #{n}, sym = #{@sym}"
+        p "expect #{n}, sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{@scanner.nextSym.sym}"
         if @sym == n 
-            p "1"
             Get()
         else 
             GenError(n)
@@ -67,8 +66,8 @@ class CRParser
     end
     
     def GenError(errorNo)
-        p "error #{errorNo}"
-        @error.StoreErr(errorNo, @scanner.NextSym)
+        p "error #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym}"
+        @error.StoreErr(errorNo, @scanner.nextSym)
     end
     # Scanner
     #    Error

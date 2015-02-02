@@ -1,5 +1,5 @@
 class AbsToken 
-
+    attr_accessor :len, :pos, :col, :line, :sym
   public
     # virtual ~AbsToken() { }
     # int  Sym;              // Token Number
@@ -29,6 +29,15 @@ class AbsToken
 end
 
 class AbsScanner 
+    attr_accessor :nextSym, :currSym
+    def initialize
+        p "init absscanner"
+        @nextSym = AbsToken.new
+        @nextSym.init
+        p "nextSym=#{nextSym}"
+        @currSym = AbsToken.new
+        @currSym.init
+    end
 =begin
 
   public:
@@ -87,17 +96,29 @@ def Upcase(c)
    return (c >= 'a' && c <= 'z') ? c-32 : c; 
 end
 
+
+
 # from CR_SCAN.hpp
 class CRScanner < AbsScanner 
 
   public
     def initialize()
+        super
         @buffer = nil
+         Reset()
     end
     
     def initialize(s, ing)
+        p "init CRScanner"
+        
+        super()
         @buffer = s
         @ignoreCase = ing
+        p "next sym = #{nextSym}"
+        
+        Reset()
+        p "next sym = #{nextSym}"
+        p "init CRScanner OK"
     end 
 
     # def CRScanner(ignoreCase)
@@ -106,13 +127,12 @@ class CRScanner < AbsScanner
     # end
     # 
     # 
-    # def initialize( SrcFile, ignoreCase)
-    #     @buffer = NULL
-    #     ReadFile(SrcFile)
+    # def initialize( srcFile, ignoreCase)
+    #     @buffer = nil
+    #     ReadFile(srcFile)
     #     Reset()
-    #     IgnoreCase = ignoreCase
+    #     @ignoreCase = ignoreCase
     # end
-
 
     # ~CRScanner()
 
@@ -122,14 +142,30 @@ class CRScanner < AbsScanner
         @buffPos = -1
         @currCol = 0
         @comEols = 0
-        @nextSym = AbsToken.new.init()
+        @nextSym = AbsToken.new
+        @nextSym.init()
         NextCh()
     end
 
 
     def EqualStr(s)
-        raise("not implemented")
         
+        p "EqualStr: #{s}, #{@buffer[nextSym.pos..@buffer.size-1]}"
+        # raise ("EqualStr")
+        # long pos; char c;
+         if (nextSym.len != s.size) 
+             return false
+         end
+         pos = nextSym.pos
+         s.each_char{|cc|
+           c = CurrentCh(pos)
+           pos+=1
+           # if (IgnoreCase) c = Upcase(c);
+           if (c != cc)
+               return false
+           end
+         }
+         return true    
     end
 
 
@@ -151,8 +187,8 @@ class CRScanner < AbsScanner
     end
     def GetName(sym)
         ret = ""
-         len = sym.Len
-         pos = sym.Pos
+         len = sym.len
+         pos = sym.pos
 
         while (true) 
           ret += CurrentCh(pos)
@@ -168,9 +204,9 @@ class CRScanner < AbsScanner
         raise("not implemented")
         
     end
-    def NextSym
-        @nextSym
-    end
+    # def NextSym
+    #     @nextSym
+    # end
   private
     # unsigned char *Buffer
   protected
@@ -187,14 +223,19 @@ class CRScanner < AbsScanner
         raise("not implemented")
     end
     def CurrentCh( pos)
-        return @buffer[Pos]
+        p "buffer:#{@buffer}"
+        return @buffer[pos]
     end
     def NextCh()
+        p "NextCh() @ch=#{@ch}"
         @buffPos+=1
+        p "@buffPos=#{@buffPos}"
         @ch = CurrentCh(@buffPos)
+      
         if (@ignoreCase) 
             @ch = Upcase(@ch)
         end
+         p "@ch=#{@ch}"
         if (@ch == TAB_CHAR) 
             @currCol += TAB_SIZE - (@currCol % TAB_SIZE)
         elsif (@ch == LF_CHAR) 

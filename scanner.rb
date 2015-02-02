@@ -1,4 +1,10 @@
-require "cr_scan.rb"
+load "cr_scan.rb"
+class String
+    def to_byte
+        # self.bytes[0] # not work for ruby 1.8.7
+        self[0].ord
+    end
+end
 COCO_WCHAR_MAX =65535
 MIN_BUFFER_LENGTH =1024
 MAX_BUFFER_LENGTH =(64*MIN_BUFFER_LENGTH)
@@ -30,7 +36,7 @@ void  coco_string_delete(char* &data)
 =end
 
 
-
+=begin
 class Token  
 
 public
@@ -51,6 +57,7 @@ public
     end
     # ~Token()
 end
+=end
 
 =begin
 class Buffer 
@@ -263,45 +270,52 @@ public:
 end # end Scanner
 =end
 
-Scan_Ch        Ch
+# Scan_Ch        Ch
 
 
 
 
-
+           MAX_IDENTIFIER_LENGTH = 1000
 class CScanner <  CRScanner
    def Scan_NextCh    
-       @nextCh
-   def Scan_ComEols   
-       @comEols
+       NextCh()
    end
-   def Scan_CurrLine 
-        @currLine
-    end
+   # def Scan_ComEols   
+   #     @comEols
+   # end
+   # def Scan_CurrLine 
+   #      @currLine
+   #  end
 
-   def Scan_CurrCol  
-        @currCol
-        end
+   # def Scan_CurrCol  
+   #      @currCol
+   #      end
         
-   def Scan_LineStart 
-       @lineStart
-       end
+   # def Scan_LineStart 
+   #     @lineStart
+   #     end
        
-   def Scan_BuffPos   
-       @buffPos
-       end
+   # def Scan_BuffPos   
+   #     @buffPos
+   #     end
        
    def Scan_NextLen   
-       NextSym.Len
+       nextSym.len
    end
    
    
   public
-    def initialize( srcFile,  ignoreCase) 
-        super(srcFile, ignoreCase)
+    # def initialize( srcFile,  ignoreCase) 
+    #     super(srcFile, ignoreCase)
+    # end
+    def initialize( str,  ignoreCase) 
+        super(str, ignoreCase)
     end
+ 
     def GetName()
-		return super(@CurrSym, MAX_IDENTIFIER_LENGTH-1)
+
+        # return super(@CurrSym, MAX_IDENTIFIER_LENGTH-1)
+        return super(@currSym)
 	end
   protected
     @@STATE0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -315,75 +329,75 @@ class CScanner <  CRScanner
                       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
     # static int STATE0[]
     def CheckLiteral( id)
-        char c
-          c =  CurrentCh(NextSym.Pos)
+        # char c
+          c =  CurrentCh(nextSym.pos)
           # if (IgnoreCase) c = Upcase(c)
           case (c) 
-          	when 'b':
+          	when 'b'
           		if (EqualStr("break")) 
           		    return C_breakSym
       		    end
-          		break
-          	when 'c':
+          		#break
+          	when 'c'
           		if (EqualStr("class"))
           		     return C_classSym
       		     end
           		return C_charSym if (EqualStr("char")) 
           		return C_caseSym if (EqualStr("case")) 
           		return C_continueSym if (EqualStr("continue"))
-          		break
-          	when 'd':
+          		#break
+          	when 'd'
           		return C_doubleSym if (EqualStr("double")) 
           		return C_defaultSym if (EqualStr("default")) 
           		return C_doSym if (EqualStr("do")) 
-          		break
-          	when 'e':
+          		#break
+          	when 'e'
           		return C_elseSym if (EqualStr("else")) 
-          		break
-          	when 'f':
+          		#break
+          	when 'f'
           		return C_functionSym if (EqualStr("function"))  
           		return C_floatSym if (EqualStr("float"))  
           		return C_forSym if (EqualStr("for")) 
-          		break
-          	when 'i':
+          		#break
+          	when 'i'
           		return C_inheritSym if (EqualStr("inherit")) 
           		return C_intSym if (EqualStr("int")) 
           		return C_ifSym if (EqualStr("if")) 
-          		break
-          	when 'l':
+          		#break
+          	when 'l'
           		return C_loadSym if (EqualStr("load")) 
           		return C_longSym if (EqualStr("long")) 
-          		break
-          	when 'm':
+          		#break
+          	when 'm'
           		return C_mySym if (EqualStr("my")) 
           		return C_mixedSym if (EqualStr("mixed")) 
-          		break
-          	when 'n':
+          		#break
+          	when 'n'
           		return C_newSym if (EqualStr("new")) 
-          		break
-          	when 'p':
+          		#break
+          	when 'p'
           		return C_packageSym if (EqualStr("package")) 
-          		break
-          	when 'r':
+          		#break
+          	when 'r'
           		return C_returnSym if (EqualStr("return")) 
-          		break
-          	when 's':
+          		#break
+          	when 's'
           		return C_staticSym if (EqualStr("static")) 
           		return C_shortSym if (EqualStr("short")) 
           		return C_stringSym if (EqualStr("string")) 
           		return C_switchSym if (EqualStr("switch")) 
-          		break
-          	when 'u':
+          		#break
+          	when 'u'
           		return C_useSym if (EqualStr("use")) 
           		return C_unsignedSym if (EqualStr("unsigned")) 
-          		break
-          	when 'v':
+          		#break
+          	when 'v'
           		return C_varSym if (EqualStr("var")) 
           		return C_voidSym if (EqualStr("void")) 
-          		break
-          	when 'w':
+          		#break
+          	when 'w'
           		return C_whileSym if (EqualStr("while")) 
-          		break
+          		#break
 
           end
           return id
@@ -395,42 +409,42 @@ class CScanner <  CRScanner
           long OldLineStart
 
           Level = 1; StartLine = CurrLine
-          OldLineStart = LineStart; OldCol = CurrCol
-          if (Scan_Ch == '/') { 
+          OldLineStart = LineStart; OldCol = @currCol
+          if (@ch == '/') { 
           	Scan_NextCh()
-          	if (Scan_Ch == '*') { 
+          	if (@ch == '*') { 
           		Scan_NextCh()
           		while (1) {
-          			if (Scan_Ch== '*') { 
+          			if (@ch== '*') { 
           				Scan_NextCh()
-          				if (Scan_Ch == '/') { 
-          					Level--; Scan_NextCh(); Scan_ComEols = Scan_CurrLine - StartLine
+          				if (@ch == '/') { 
+          					Level--; Scan_NextCh(); Scan_ComEols = @currLine - StartLine
           					if(Level == 0) return 1
           				}  
           			} else 
-          			if (Scan_Ch == EOF_CHAR) return 0
+          			if (@ch == EOF_CHAR) return 0
           			else Scan_NextCh()
           		} 
           	} else { 
-          		if (Scan_Ch == LF_CHAR) { Scan_CurrLine--; Scan_LineStart = OldLineStart; }
-          		Scan_BuffPos -= 2; Scan_CurrCol = OldCol - 1; Scan_NextCh()
+          		if (@ch == LF_CHAR) { @currLine--; @lineStart = OldLineStart; }
+          		@buffPos -= 2; @currCol = OldCol - 1; Scan_NextCh()
           	} 
           } 
-          if (Scan_Ch == '/') { 
+          if (@ch == '/') { 
           	Scan_NextCh()
-          	if (Scan_Ch == '/') { 
+          	if (@ch == '/') { 
           		Scan_NextCh()
           		while (1) {
-          			if (Scan_Ch== 10) { 
-          				Level--; Scan_NextCh(); Scan_ComEols = Scan_CurrLine - StartLine
+          			if (@ch== 10) { 
+          				Level--; Scan_NextCh(); Scan_ComEols = @currLine - StartLine
           				if(Level == 0) return 1
           			} else 
-          			if (Scan_Ch == EOF_CHAR) return 0
+          			if (@ch == EOF_CHAR) return 0
           			else Scan_NextCh()
           		} 
           	} else { 
-          		if (Scan_Ch == LF_CHAR) { Scan_CurrLine--; Scan_LineStart = OldLineStart; }
-          		Scan_BuffPos -= 2; Scan_CurrCol = OldCol - 1; Scan_NextCh()
+          		if (@ch == LF_CHAR) { @currLine--; @lineStart = OldLineStart; }
+          		@buffPos -= 2; @currCol = OldCol - 1; Scan_NextCh()
           	} 
           } 
 
@@ -442,373 +456,468 @@ class CScanner <  CRScanner
         #       long OldLineStart
     
           level = 1
-           startLine = CurrLine
+           startLine = @currLine
           oldLineStart = LineStart
-           oldCol = CurrCol
-          if (Scan_Ch == '/') 
+           oldCol = @currCol
+          if (@ch == '/') 
           	Scan_NextCh()
-          	if (Scan_Ch == '*')  
+          	if (@ch == '*')  
           		Scan_NextCh()
           		while (1) 
-          			if (Scan_Ch== '*') 
+          			if (@ch== '*') 
           				Scan_NextCh()
-          				if (Scan_Ch == '/') 
-          					Level--; Scan_NextCh(); Scan_ComEols = Scan_CurrLine - StartLine
+          				if (@ch == '/') 
+          					level-=1
+          					Scan_NextCh()
+          					@comEols = @currLine - startLine
           					if(Level == 0) 
           					    return 1
       					    end
           				end  
-          			elsif (Scan_Ch == EOF_CHAR) 
+          			elsif (@ch == EOF_CHAR) 
           			    return 0
           			else
           			     Scan_NextCh()
       			    end
           	    end # while
           	else  
-          		if (Scan_Ch == LF_CHAR) 
-          		     Scan_CurrLine-=1
-          		      Scan_LineStart = OldLineStart
+          		if (@ch == LF_CHAR) 
+          		     @currLine-=1
+          		      @lineStart = oldLineStart
           		end
-          		Scan_BuffPos -= 2
-          		Scan_CurrCol = OldCol - 1
+          		@buffPos -= 2
+          		@currCol = OldCol - 1
           		Scan_NextCh()
           	end 
-          end # if (Scan_Ch == '/') 
-          if (Scan_Ch == '/')  
+          end # if (@ch == '/') 
+          if (@ch == '/')  
           	Scan_NextCh()
-          	if (Scan_Ch == '/')  
+          	if (@ch == '/')  
           		Scan_NextCh()
           		while (1)
-          			if (Scan_Ch== 10)  
-          				Level--
+          			if (@ch== 10)  
+          				level--
           				Scan_NextCh()
-          				Scan_ComEols = Scan_CurrLine - StartLine
-          				if(Level == 0) 
+          				@comEols = @currLine - startLine
+          				if(level == 0) 
           				    return 1
       				    end
-          			elsif (Scan_Ch == EOF_CHAR) 
+          			elsif (@ch == EOF_CHAR) 
           			    return 0
           			else
           			    Scan_NextCh()
+      			    end
           		end 
           	else  
-          		if (Scan_Ch == LF_CHAR)
-          		     Scan_CurrLine-=1
-          		      Scan_LineStart = OldLineStart 
+          		if (@ch == LF_CHAR)
+          		     @currLine-=1
+          		      @lineStart = oldLineStart 
       		     end
-          		Scan_BuffPos -= 2
-          		 Scan_CurrCol = OldCol - 1
+          		@buffPos -= 2
+          		 @currCol = oldCol - 1
           		  Scan_NextCh()
           	end 
-          end  # if (Scan_Ch == '/')  
+          end  # if (@ch == '/')  
 
           return 0
     end
+public
     def Get()
-        int state, ctx
+        # int state, ctx
+        p "Get(): nextSym=#{nextSym}, @ch=#{@ch}"
+        
+        return C_EOF_Sym if @ch == nil
+        
+         begin
+            while (@ch.to_byte >= 9 && @ch.to_byte <= 10 ||
+                   @ch.to_byte == 13 ||
+                   @ch == ' ')
+                    Scan_NextCh()
+                    return C_EOF_Sym if @ch == nil 
+            end
+        end while ((@ch == '/') && Comment()) 
 
-          start:
-            while (Scan_Ch >= 9 && Scan_Ch <= 10 ||
-                   Scan_Ch == 13 ||
-                   Scan_Ch == ' ') Scan_NextCh()
-            if ((Scan_Ch == '/') && Comment()) goto start
+            @currSym = nextSym
+            nextSym.init(0, @currLine, @currCol - 1, @buffPos, 0)
+            nextSym.len  = 0
+             ctx = 0
 
-            CurrSym = NextSym
-            NextSym.Init(0, CurrLine, CurrCol - 1, BuffPos, 0)
-            NextSym.Len  = 0; ctx = 0
-
-            if (Ch == EOF_CHAR) return EOF_Sym
-            state = STATE0[Ch]
+            if (@ch == EOF_CHAR || @ch == nil) 
+                return C_EOF_Sym
+            end
+            state = @@STATE0[@ch.to_byte]
             while(1) 
               Scan_NextCh()
-              NextSym.Len+=1
+              nextSym.len+=1
               case (state) 
            
-              when 1:
-              	if (Scan_Ch >= '0' && Scan_Ch <= '9' ||
-              	    Scan_Ch >= 'A' && Scan_Ch <= 'Z' ||
-              	    Scan_Ch == '_' ||
-              	    Scan_Ch >= 'a' && Scan_Ch <= 'z') ; 
+              when 1
+              	if (@ch >= '0' && @ch <= '9' ||
+              	    @ch >= 'A' && @ch <= 'Z' ||
+              	    @ch == '_' ||
+              	    @ch >= 'a' && @ch <= 'z') 
+              	    #;
               	    else
-              	        return CheckLiteral(identifierSym)
+              	        return CheckLiteral(C_identifierSym)
           	        end
-              	break
-              when 2:
-              	if (Scan_Ch == 'U')
+              	#break
+              when 2
+              	if (@ch == 'U')
               	    state = 5
-              	elsif (Scan_Ch == 'u') 
+              	elsif (@ch == 'u') 
               	    state = 6
-              	elsif (Scan_Ch == 'L') 
+              	elsif (@ch == 'L') 
               	    state = 7 
-              	elsif (Scan_Ch == 'l') 
+              	elsif (@ch == 'l') 
               	    state = 8 
-              	elsif (Scan_Ch == '.') 
+              	elsif (@ch == '.') 
               	    state = 4 
-              	elsif (Scan_Ch >= '0' && Scan_Ch <= '9') 
-              	e   lse
-              	    return numberSym
+              	elsif (@ch >= '0' && @ch <= '9') 
+              	else
+              	    return C_numberSym
           	    end
-              	break
-              when 4:
-              	if (Scan_Ch == 'U') 
+              	#break
+              when 4
+              	if (@ch == 'U') 
               	    state = 13 
-              	elsif (Scan_Ch == 'u') 
+              	elsif (@ch == 'u') 
               	    state = 14 
-              	elsif (Scan_Ch == 'L')
+              	elsif (@ch == 'L')
               	     state = 15 
-              	elsif (Scan_Ch == 'l') 
+              	elsif (@ch == 'l') 
               	    state = 16 
-              	elsif (Scan_Ch >= '0' && Scan_Ch <= '9') 
+              	elsif (@ch >= '0' && @ch <= '9') 
               	else
               	    return C_numberSym 
           	    end
-              	break
-              when 5:
+              	#break
+              when 5
               	return C_numberSym 
-              when 6:
+              when 6
               	return C_numberSym 
-              when 7:
+              when 7
               	return C_numberSym 
-              when 8:
+              when 8
               	return C_numberSym 
-              when 13:
+              when 13
               	return C_numberSym 
-              when 14:
+              when 14
               	return C_numberSym 
-              when 15:
+              when 15
               	return C_numberSym 
-              when 16:
+              when 16
               	return C_numberSym 
-              when 18:
-              	if (Scan_Ch >= '0' && Scan_Ch <= '9' ||
-              	    Scan_Ch >= 'A' && Scan_Ch <= 'F' ||
-              	    Scan_Ch >= 'a' && Scan_Ch <= 'f')
+              when 18
+              	if (@ch >= '0' && @ch <= '9' ||
+              	    @ch >= 'A' && @ch <= 'F' ||
+              	    @ch >= 'a' && @ch <= 'f')
               	    state = 19
                 else
-              	    return No_Sym
+              	    return C_No_Sym
           	    end
-              	break
-              when 19:
-              	if (Scan_Ch == 'U') 
+              	#break
+              when 19
+              	if (@ch == 'U') 
               	    state = 20
-              	elsif (Scan_Ch == 'u') 
+              	elsif (@ch == 'u') 
               	    state = 21
-              	elsif (Scan_Ch == 'L') 
+              	elsif (@ch == 'L') 
               	    state = 22
-              	elsif (Scan_Ch == 'l') 
+              	elsif (@ch == 'l') 
               	    state = 23
-              	elsif (Scan_Ch >= '0' && Scan_Ch <= '9' ||
-              	    Scan_Ch >= 'A' && Scan_Ch <= 'F' ||
-              	    Scan_Ch >= 'a' && Scan_Ch <= 'f') 
+              	elsif (@ch >= '0' && @ch <= '9' ||
+              	    @ch >= 'A' && @ch <= 'F' ||
+              	    @ch >= 'a' && @ch <= 'f') 
                 else
               	    return C_hexnumberSym
                 end
-              	break
-              when 20:
+              	#break
+              when 20
               	return C_hexnumberSym
-              when 21:
+              when 21
               	return C_hexnumberSym
-              when 22:
+              when 22
               	return C_hexnumberSym
-              when 23:
+              when 23
               	return C_hexnumberSym
-              when 24:
-              	if (Scan_Ch == '"') state = 25; else
-              	if (Scan_Ch >= ' ' && Scan_Ch <= '!' ||
-              	    Scan_Ch >= '#' && Scan_Ch <= 255) 
+              when 24
+              	if (@ch == '"') 
+              	    state = 25
+              	elsif (@ch >= ' ' && @ch <= '!' ||
+              	    @ch >= '#' && @ch.to_byte <= 255) 
               	else
-              	    return No_Sym
+              	    return C_No_Sym
               	end
-              	break
-              when 25:
-              	return stringD1Sym
-              when 26:
-              	if (Scan_Ch >= ' ' && Scan_Ch <= '&' ||
-              	    Scan_Ch >= '(' && Scan_Ch <= '[' ||
-              	    Scan_Ch >= ']' && Scan_Ch <= 255) state = 28; else
-              	if (Scan_Ch == 92) state = 36; else
-              	return No_Sym
-              	break
-              when 28:
-              	if (Scan_Ch == 39) state = 29; else
-              	return No_Sym
-              	break
-              when 29:
-              	return charD1Sym
-              when 30:
-              	if (Scan_Ch == '.' ||
-              	    Scan_Ch >= '0' && Scan_Ch <= ':' ||
-              	    Scan_Ch >= 'A' && Scan_Ch <= 'Z' ||
-              	    Scan_Ch == 92 ||
-              	    Scan_Ch >= 'a' && Scan_Ch <= 'z') state = 31; else
-              	if (Scan_Ch == '=') state = 58; else
-              	if (Scan_Ch == '<') state = 60; else
-              	return LessSym
-              	break
-              when 31:
-              	if (Scan_Ch == '>') state = 32; else
-              	if (Scan_Ch == '.' ||
-              	    Scan_Ch >= '0' && Scan_Ch <= ':' ||
-              	    Scan_Ch >= 'A' && Scan_Ch <= 'Z' ||
-              	    Scan_Ch == 92 ||
-              	    Scan_Ch >= 'a' && Scan_Ch <= 'z') ; else
-              	return No_Sym
-              	break
-              when 32:
+              	#break
+              when 25
+              	return C_stringD1Sym
+              when 26
+              	if (@ch >= ' ' && @ch <= '&' ||
+              	    @ch >= '(' && @ch <= '[' ||
+              	    @ch >= ']' && @ch.to_byte <= 255) 
+              	    state = 28
+              	elsif (@ch.to_byte == 92) 
+              	    state = 36
+                else
+              	    return C_No_Sym
+              	end
+              	#break
+              when 28
+              	if (@ch.to_byte == 39) 
+              	    state = 29
+              	else
+              	    return C_No_Sym
+          	    end
+              	#break
+              when 29
+              	return C_charD1Sym
+              when 30
+              	if (@ch == '.' ||
+              	    @ch >= '0' && @ch <= ':' ||
+              	    @ch >= 'A' && @ch <= 'Z' ||
+              	    @ch.to_byte == 92 ||
+              	    @ch >= 'a' && @ch <= 'z') 
+              	    state = 31
+              	elsif (@ch == '=') 
+              	    state = 58
+              	elsif (@ch == '<') 
+              	    state = 60
+          	    else
+              	    return C_LessSym
+          	    end
+              	#break
+              when 31
+              	if (@ch == '>')
+              	     state = 32
+              	elsif (@ch == '.' ||
+              	    @ch >= '0' && @ch <= ':' ||
+              	    @ch >= 'A' && @ch <= 'Z' ||
+              	    @ch.to_byte == 92 ||
+              	    @ch >= 'a' && @ch <= 'z') 
+              	    return C_No_Sym
+          	    end
+              	#break
+              when 32
               	return librarySym
-              when 33:
-              	if (Scan_Ch >= 'A' && Scan_Ch <= 'Z' ||
-              	    Scan_Ch >= 'a' && Scan_Ch <= 'z') state = 34; else
-              	if (Scan_Ch == '#') state = 70; else
-              	return No_Sym
-              	break
-              when 34:
-              	return PreProcessorSym
-              when 35:
-              	if (Scan_Ch == 'U') state = 5; else
-              	if (Scan_Ch == 'u') state = 6; else
-              	if (Scan_Ch == 'L') state = 7; else
-              	if (Scan_Ch == 'l') state = 8; else
-              	if (Scan_Ch == '.') state = 4; else
-              	if (Scan_Ch >= '0' && Scan_Ch <= '9') state = 2; else
-              	if (Scan_Ch == 'X' ||
-              	    Scan_Ch == 'x') state = 18; else
-              	return numberSym
-              	break
-              when 36:
-              	if (Scan_Ch >= ' ' && Scan_Ch <= '&' ||
-              	    Scan_Ch >= '(' && Scan_Ch <= 255) state = 28; else
-              	if (Scan_Ch == 39) state = 29; else
-              	return No_Sym
-              	break
-              when 37:
-              	return SemicolonSym
-              when 38:
-              	if (Scan_Ch == '=') state = 73; else
-              	return SlashSym
-              	break
-              when 39:
-              	return LbraceSym
-              when 40:
-              	return RbraceSym
-              when 41:
-              	if (Scan_Ch == '=') state = 54; else
-              	return EqualSym
-              	break
-              when 42:
-              	return CommaSym
-              when 43:
-              	return LbrackSym
-              when 44:
-              	return RbrackSym
-              when 45:
-              	return LparenSym
-              when 46:
-              	return RparenSym
-              when 47:
-              	if (Scan_Ch == '=') state = 72; else
-              	return StarSym
-              	break
-              when 48:
-              	if (Scan_Ch == ':') state = 69; else
-              	return ColonSym
-              	break
-              when 49:
-              	if (Scan_Ch == '|') state = 50; else
-              	if (Scan_Ch == '=') state = 79; else
-              	return BarSym
-              	break
-              when 50:
-              	return BarBarSym
-              when 51:
-              	if (Scan_Ch == '&') state = 52; else
-              	if (Scan_Ch == '=') state = 77; else
-              	return AndSym
-              	break
-              when 52:
-              	return AndAndSym
-              when 53:
-              	if (Scan_Ch == '=') state = 78; else
-              	return UparrowSym
-              	break
-              when 54:
-              	return EqualEqualSym
-              when 55:
-              	if (Scan_Ch == '=') state = 56; else
-              	return BangSym
-              	break
-              when 56:
-              	return BangEqualSym
-              when 57:
-              	if (Scan_Ch == '=') state = 59; else
-              	if (Scan_Ch == '>') state = 61; else
-              	return GreaterSym
-              	break
-              when 58:
-              	return LessEqualSym
-              when 59:
-              	return GreaterEqualSym
-              when 60:
-              	if (Scan_Ch == '=') state = 80; else
-              	return LessLessSym
-              	break
-              when 61:
-              	if (Scan_Ch == '=') state = 81; else
-              	return GreaterGreaterSym
-              	break
-              when 62:
-              	if (Scan_Ch == '+') state = 65; else
-              	if (Scan_Ch == '=') state = 75; else
-              	return PlusSym
-              	break
-              when 63:
-              	if (Scan_Ch == '-') state = 66; else
-              	if (Scan_Ch == '>') state = 68; else
-              	if (Scan_Ch == '=') state = 76; else
-              	return MinusSym
-              	break
-              when 64:
-              	if (Scan_Ch == '=') state = 74; else
-              	return PercentSym
-              	break
-              when 65:
+              when 33
+              	if (@ch >= 'A' && @ch <= 'Z' ||
+              	    @ch >= 'a' && @ch <= 'z') 
+              	    state = 34
+              	elsif (@ch == '#') 
+              	    state = 70
+              	else
+              	    return C_No_Sym
+          	    end
+              	#break
+              when 34
+              	return C_PreProcessorSym
+              when 35
+              	if (@ch == 'U') 
+              	    state = 5
+              	elsif (@ch == 'u') 
+              	    state = 6
+              	elsif (@ch == 'L') 
+              	    state = 7
+              	elsif (@ch == 'l') 
+              	    state = 8
+              	elsif (@ch == '.') 
+              	    state = 4
+              	elsif (@ch >= '0' && @ch <= '9') 
+              	    state = 2
+              	elsif (@ch == 'X' ||
+              	    @ch == 'x') 
+              	    state = 18
+              	else
+              	    return C_numberSym
+          	    end
+              	#break
+              when 36
+              	if (@ch >= ' ' && @ch <= '&' ||
+              	    @ch >= '(' && @ch <= 255) 
+              	    state = 28
+              	elsif (@ch == 39) 
+              	    state = 29
+              	else
+              	    return C_No_Sym
+          	    end
+              	#break
+              when 37
+              	return C_SemicolonSym
+              when 38
+              	if (@ch == '=') 
+              	    state = 73
+          	    else
+              	    return C_SlashSym    
+          	    end            
+              	#break                         
+              when 39                        
+              	return C_LbraceSym              
+              when 40                        
+              	return C_RbraceSym              
+              when 41                        
+              	if (@ch == '=') 
+              	    state = 54
+              	else
+              	    return C_EqualSym
+          	    end
+              	#break
+              when 42
+              	return C_CommaSym
+              when 43
+              	return C_LbrackSym
+              when 44
+              	return C_RbrackSym
+              when 45
+              	return C_LparenSym
+              when 46
+              	return C_RparenSym
+              when 47
+              	if (@ch == '=') 
+              	    state = 72
+          	    else
+                  	return C_StarSym            
+              	end                           
+              	#break                         
+              when 48                        
+              	if (@ch == ':') 
+              	    state = 69
+          	    else
+              	    return C_ColonSym    
+          	    end           
+              	#break                         
+              when 49                        
+              	if (@ch == '|') 
+              	    state = 50
+              	elsif (@ch == '=') 
+              	    state = 79
+          	    else
+                    return C_BarSym
+                end
+              	#break
+              when 50
+              	return C_BarBarSym
+              when 51
+              	if (@ch == '&') 
+              	    state = 52
+              	elsif (@ch == '=') 
+              	    state = 77
+          	    else
+              	    return C_AndSym
+          	    end
+              	#break
+              when 52
+              	return C_AndAndSym
+              when 53
+              	if (@ch == '=') 
+              	    state = 78
+              	else
+              	    return C_UparrowSym
+          	    end
+              	#break
+              when 54
+              	return C_EqualEqualSym
+              when 55
+              	if (@ch == '=') 
+              	    state = 56
+          	    else
+              	    return C_BangSym   
+              	end             
+              	#break                         
+              when 56                        
+              	return C_BangEqualSym           
+              when 57                        
+              	if (@ch == '=') 
+              	    state = 59
+              	elsif (@ch == '>') 
+              	    state = 61
+              	else
+              	    return C_GreaterSym
+          	    end
+              	#break
+              when 58
+              	return C_LessEqualSym
+              when 59
+              	return C_GreaterEqualSym
+              when 60
+              	if (@ch == '=') 
+              	    state = 80
+          	    else
+              	    return C_LessLessSym     
+          	    end       
+              	#break                         
+              when 61                        
+              	if (@ch == '=') 
+              	    state = 81
+          	    else
+              	    return C_GreaterGreaterSym      
+          	    end
+              	#break                         
+              when 62                        
+              	if (@ch == '+') 
+              	    state = 65
+              	elsif (@ch == '=') 
+              	    state = 75
+          	    else
+                    return C_PlusSym
+                end
+              	#break
+              when 63
+              	if (@ch == '-') 
+              	    state = 66
+          	    elsif (@ch == '>') 
+          	        state = 68
+              	elsif (@ch == '=') 
+              	    state = 76
+              	else
+              	    return MinusSym
+          	    end               
+              	#break                         
+              when 64                        
+              	if (@ch == '=') 
+              	    state = 74
+                else
+              	    return PercentSym
+          	    end
+              	#break
+              when 65
               	return PlusPlusSym
-              when 66:
+              when 66
               	return MinusMinusSym
-              when 67:
+              when 67
               	return PointSym
-              when 68:
+              when 68
               	return MinusGreaterSym
-              when 69:
+              when 69
               	return ColonColonSym
-              when 70:
+              when 70
               	return HashHashSym
-              when 71:
+              when 71
               	return DollarSym
-              when 72:
+              when 72
               	return StarEqualSym
-              when 73:
+              when 73
               	return SlashEqualSym
-              when 74:
+              when 74
               	return PercentEqualSym
-              when 75:
+              when 75
               	return PlusEqualSym
-              when 76:
+              when 76
               	return MinusEqualSym
-              when 77:
+              when 77
               	return AndEqualSym
-              when 78:
+              when 78
               	return UparrowEqualSym
-              when 79:
+              when 79
               	return BarEqualSym
-              when 80:
+              when 80
               	return LessLessEqualSym
-              when 81:
+              when 81
               	return GreaterGreaterEqualSym
-              when 82:
+              when 82
               	return TildeSym
 
-              default: return No_Sym; 
+              else
+                   return No_Sym
              end #case
         end #while
     end
