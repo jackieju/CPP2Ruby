@@ -187,6 +187,7 @@ class CRScanner < AbsScanner
     end
     def GetName(sym)
         ret = ""
+        p "sym==== "
          len = sym.len
          pos = sym.pos
 
@@ -231,14 +232,14 @@ class CRScanner < AbsScanner
         @buffPos+=1
         p "@buffPos=#{@buffPos}"
         @ch = CurrentCh(@buffPos)
-      
+        return if @ch == nil
         if (@ignoreCase) 
             @ch = Upcase(@ch)
         end
          p "@ch=#{@ch}"
         if (@ch == TAB_CHAR) 
             @currCol += TAB_SIZE - (@currCol % TAB_SIZE)
-        elsif (@ch == LF_CHAR) 
+        elsif (@ch.to_byte == LF_CHAR) 
           @currLine+=1
           @currCol = 0
           @lineStart = @buffPos + 1

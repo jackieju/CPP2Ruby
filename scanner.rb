@@ -457,7 +457,7 @@ class CScanner <  CRScanner
     
           level = 1
            startLine = @currLine
-          oldLineStart = LineStart
+          oldLineStart = @lineStart
            oldCol = @currCol
           if (@ch == '/') 
           	Scan_NextCh()
@@ -470,18 +470,18 @@ class CScanner <  CRScanner
           					level-=1
           					Scan_NextCh()
           					@comEols = @currLine - startLine
-          					if(Level == 0) 
+          					if(level == 0) 
           					    return 1
       					    end
           				end  
-          			elsif (@ch == EOF_CHAR) 
+          			elsif (@ch == nil || @ch.to_byte == EOF_CHAR) 
           			    return 0
           			else
           			     Scan_NextCh()
       			    end
           	    end # while
           	else  
-          		if (@ch == LF_CHAR) 
+          		if (@ch == nil || @ch.to_byte == LF_CHAR) 
           		     @currLine-=1
           		      @lineStart = oldLineStart
           		end
@@ -496,20 +496,20 @@ class CScanner <  CRScanner
           		Scan_NextCh()
           		while (1)
           			if (@ch== 10)  
-          				level--
+          				level-=1
           				Scan_NextCh()
           				@comEols = @currLine - startLine
           				if(level == 0) 
           				    return 1
       				    end
-          			elsif (@ch == EOF_CHAR) 
+          			elsif (@ch == nil || @ch.to_byte == EOF_CHAR) 
           			    return 0
           			else
           			    Scan_NextCh()
       			    end
           		end 
           	else  
-          		if (@ch == LF_CHAR)
+          		if (@ch == nil || @ch.to_byte == LF_CHAR)
           		     @currLine-=1
           		      @lineStart = oldLineStart 
       		     end
@@ -869,55 +869,55 @@ public
               	elsif (@ch == '=') 
               	    state = 76
               	else
-              	    return MinusSym
+              	    return C_MinusSym
           	    end               
               	#break                         
               when 64                        
               	if (@ch == '=') 
               	    state = 74
                 else
-              	    return PercentSym
+              	    return C_PercentSym
           	    end
               	#break
               when 65
-              	return PlusPlusSym
+              	return C_PlusPlusSym
               when 66
-              	return MinusMinusSym
+              	return C_MinusMinusSym
               when 67
-              	return PointSym
+              	return C_PointSym
               when 68
-              	return MinusGreaterSym
+              	return C_MinusGreaterSym
               when 69
-              	return ColonColonSym
+              	return C_ColonColonSym
               when 70
-              	return HashHashSym
+              	return C_HashHashSym
               when 71
-              	return DollarSym
+              	return C_DollarSym
               when 72
-              	return StarEqualSym
+              	return C_StarEqualSym
               when 73
-              	return SlashEqualSym
+              	return C_SlashEqualSym
               when 74
-              	return PercentEqualSym
+              	return C_PercentEqualSym
               when 75
-              	return PlusEqualSym
+              	return C_PlusEqualSym
               when 76
-              	return MinusEqualSym
+              	return C_MinusEqualSym
               when 77
-              	return AndEqualSym
+              	return C_AndEqualSym
               when 78
-              	return UparrowEqualSym
+              	return C_UparrowEqualSym
               when 79
-              	return BarEqualSym
+              	return C_BarEqualSym
               when 80
-              	return LessLessEqualSym
+              	return C_LessLessEqualSym
               when 81
-              	return GreaterGreaterEqualSym
+              	return C_GreaterGreaterEqualSym
               when 82
-              	return TildeSym
+              	return C_TildeSym
 
               else
-                   return No_Sym
+                   return C_No_Sym
              end #case
         end #while
     end

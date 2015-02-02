@@ -13,7 +13,7 @@
 # swtich case without break , 1. add "," 2. remove break in when
 require 'set'
 load 'parse.rb'
-
+load 'log.rb'
 
 # temp dict
 class TempDict
@@ -465,15 +465,20 @@ def translate(fname)
 end
  # generate ruby file
 def generate_ruby()
+    log_msg("generate_ruby")
     $class_list.each{|kn,v|
             p "class #{kn}"
+            log_msg("class #{kn}")
             methods = ""
             $class_list[kn][:methods].each{|k,v|
                 p "method #{k}(#{v[:args].join(", ")})"
+                log_msg ("method #{k}(#{v[:args].join(", ")})")
                 tranlsate_body = ""
                 if (v[:body])
                     # tranlsate_body = translate_block(v[:body]) 
+                    log_msg("v_body:#{v[:body]}")
                     translate_body = translate_block_by_parse(v[:body])
+                    log_msg("translate_body:#{translate_body}")
                 else
                     p "!!class #{kn} method #{k} has not impl"
                 end

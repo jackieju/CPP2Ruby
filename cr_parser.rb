@@ -1,3 +1,4 @@
+load 'log.rb'
 class CRParser 
 # Abstract Parser
   public
@@ -67,6 +68,7 @@ class CRParser
     
     def GenError(errorNo)
         p "error #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym}"
+        p("stack:", 30)
         @error.StoreErr(errorNo, @scanner.nextSym)
     end
     # Scanner
