@@ -1,11 +1,7 @@
 class CJdtODHelper
-    def ODRefDateChange()
+def ODRefDateChange()
 	
-    end
-    
-    def ODMemoChange()
-	
-    end
+end
     
 
 end

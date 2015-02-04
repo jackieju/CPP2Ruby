@@ -1,4 +1,12 @@
 load 'log.rb'
+class Scope
+    attr_accessor :name, :vars
+    def initialize(name)
+        @name = name
+        @vars = {}
+    end
+
+end
 class CRParser 
 # Abstract Parser
   public
@@ -10,8 +18,27 @@ class CRParser
         @scanner = s
         @error = e
         @sym = 0
+        @sstack = [] # scope stack
         p "haha"
     end
+    
+    def canUseBreak?
+        i = @sstack.size-1
+        while (i>=0)
+            if @sstack[i].name == "FunctionBody" 
+                return false
+            end
+            
+            if  @sstack[i].name == "ForStatement" || @sstack[i].name == "WhileStatement" || @sstack[i].name == "DoStatement"
+                return true
+            end
+            i -= 1
+        end
+        return false
+        
+    end
+    
+    
     # Constructs abstract parser, and associates it with scanner S and
     # customized error reporter E
 
@@ -67,7 +94,8 @@ class CRParser
     end
     
     def GenError(errorNo)
-        p "error #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym}"
+        p "error #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym} val #{@scanner.GetName()}"
+        p "line:#{@scanner.cur_line()}"
         p("stack:", 30)
         @error.StoreErr(errorNo, @scanner.nextSym)
     end

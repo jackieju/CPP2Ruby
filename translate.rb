@@ -173,7 +173,6 @@ end
 def write_class(ruby_filename, class_template)
     
     begin
-     
          aFile = File.new(ruby_filename, "w+")
          aFile.puts class_template
          aFile.close
@@ -483,20 +482,23 @@ def generate_ruby()
                     p "!!class #{kn} method #{k} has not impl"
                 end
                 translate_body = indent_block(tranlsate_body, 1)
-method_template = <<HERE
-    def #{v[:name]}(#{v[:args].join(", ")})
+method_template =<<HERE
+def #{v[:name]}(#{v[:args].join(", ")})
 #{translate_body}
-    end
+end
     
 HERE
     methods += method_template
+    break
             }
+            p "==>methods:#{methods}"
             class_name = kn
             class_template = <<HERE
 class #{class_name}
 #{methods}
 end
 HERE
+
     wfname = "#{class_name.downcase}.rb"
     write_class(wfname, class_template)
         }

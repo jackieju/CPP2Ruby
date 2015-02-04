@@ -150,7 +150,7 @@ class CRScanner < AbsScanner
 
     def EqualStr(s)
         
-        p "EqualStr: #{s}, #{@buffer[nextSym.pos..@buffer.size-1]}"
+        # p "EqualStr: #{s}, #{@buffer[nextSym.pos..@buffer.size-1]}"
         # raise ("EqualStr")
         # long pos; char c;
          if (nextSym.len != s.size) 
@@ -185,7 +185,7 @@ class CRScanner < AbsScanner
         raise("not implemented")
         
     end
-    def GetName(sym)
+    def GetSymValue(sym)
         ret = ""
         p "sym==== "
          len = sym.len
@@ -201,9 +201,30 @@ class CRScanner < AbsScanner
         end
         return ret
     end
+    def GetName(sym)
+        ret = ""
+        p "sym len #{sym.len} "
+         len = sym.len
+         pos = sym.pos
+
+        while (len > 0) 
+            c = CurrentCh(pos)
+            break if c == nil
+          ret += c
+          pos +=1
+          len -=1
+          # if len <=0
+          #             break
+          #         end
+        end
+        return ret
+    end
     def GetLine( pos,  line,  max)
         raise("not implemented")
         
+    end
+    def cur_line()
+        @buffer.lines[@currLine-1]
     end
     # def NextSym
     #     @nextSym
@@ -220,11 +241,12 @@ class CRScanner < AbsScanner
     #    unsigned char  Ch
     #    int   IgnoreCase
 
+
     def ReadFile( srcFile)
         raise("not implemented")
     end
     def CurrentCh( pos)
-        p "buffer:#{@buffer}"
+        # p "buffer:#{@buffer}"
         return @buffer[pos]
     end
     def NextCh()

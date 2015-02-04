@@ -317,6 +317,9 @@ class CScanner <  CRScanner
         # return super(@CurrSym, MAX_IDENTIFIER_LENGTH-1)
         return super(@currSym)
 	end
+	def GetNextName()
+	    return GetSymValue(@nextSym)
+    end
   protected
     @@STATE0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                       0,0,0,55,24,33,71,64,51,26,45,46,47,62,42,63,67,38,35,2,2,2,2,2,2,2,2,2,48,37,
@@ -454,7 +457,7 @@ class CScanner <  CRScanner
     def Comment()
         # int Level, StartLine, OldCol
         #       long OldLineStart
-    
+    p "comment1"
           level = 1
            startLine = @currLine
           oldLineStart = @lineStart
@@ -481,12 +484,14 @@ class CScanner <  CRScanner
       			    end
           	    end # while
           	else  
+          	    p "comment3"
+                
           		if (@ch == nil || @ch.to_byte == LF_CHAR) 
           		     @currLine-=1
           		      @lineStart = oldLineStart
           		end
           		@buffPos -= 2
-          		@currCol = OldCol - 1
+          		@currCol = oldCol - 1
           		Scan_NextCh()
           	end 
           end # if (@ch == '/') 
@@ -495,6 +500,8 @@ class CScanner <  CRScanner
           	if (@ch == '/')  
           		Scan_NextCh()
           		while (1)
+          		    p "comment4"
+                    
           			if (@ch== 10)  
           				level-=1
           				Scan_NextCh()
@@ -509,6 +516,8 @@ class CScanner <  CRScanner
       			    end
           		end 
           	else  
+          	    p "comment5"
+                
           		if (@ch == nil || @ch.to_byte == LF_CHAR)
           		     @currLine-=1
           		      @lineStart = oldLineStart 
@@ -522,6 +531,15 @@ class CScanner <  CRScanner
           return 0
     end
 public
+    def get(currLine, currCol, buffer, buffPos)
+    end
+    # get next next sym
+    def getNext()
+        cl= @currLine
+        cc = @currCol
+        bp = @buffPos
+    end
+    # get next sym
     def Get()
         # int state, ctx
         p "Get(): nextSym=#{nextSym}, @ch=#{@ch}"
@@ -529,13 +547,14 @@ public
         return C_EOF_Sym if @ch == nil
         
          begin
+            return C_EOF_Sym if @ch == nil
             while (@ch.to_byte >= 9 && @ch.to_byte <= 10 ||
                    @ch.to_byte == 13 ||
                    @ch == ' ')
                     Scan_NextCh()
                     return C_EOF_Sym if @ch == nil 
             end
-        end while ((@ch == '/') && Comment()) 
+        end while ((@ch == '/') && Comment()==1) 
 
             @currSym = nextSym
             nextSym.init(0, @currLine, @currCol - 1, @buffPos, 0)
@@ -733,7 +752,7 @@ public
               	#break
               when 36
               	if (@ch >= ' ' && @ch <= '&' ||
-              	    @ch >= '(' && @ch <= 255) 
+              	    @ch >= '(' && @ch.to_byte <= 255) 
               	    state = 28
               	elsif (@ch == 39) 
               	    state = 29
