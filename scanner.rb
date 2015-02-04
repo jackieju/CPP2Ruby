@@ -308,10 +308,32 @@ class CScanner <  CRScanner
     # def initialize( srcFile,  ignoreCase) 
     #     super(srcFile, ignoreCase)
     # end
-    def initialize( str,  ignoreCase) 
+    def initialize( str="",  ignoreCase=true) 
         super(str, ignoreCase)
     end
- 
+
+    
+    def set(_str, _ignoreCase, _currSym, _nextSym, _currLine, _currCol, _lineStart, _pos, _ch, _comEols)
+        @ch = _ch
+        @buffer = _str
+        @ignoreCase = _ignoreCase
+        @currSym = AbsToken.new
+        @currSym.init(_currSym.sym, _currSym.line, _currSym.col, _currSym.pos, _currSym.len)
+        @nextSym = AbsToken.new
+        @nextSym.init(_nextSym.sym, _nextSym.line, _nextSym.col, _nextSym.pos, _nextSym.len)  
+        @currLine = _currLine
+        @currCol = _currCol
+        @lineStart = _lineStart
+        @buffPos = _pos
+        @comEols = _comEols
+    end
+    
+    def clone()
+        sc = CScanner.new
+        sc.set(@buffer, @ignoreCase, @currSym, @nextSym, @currLine, @currCol, @lineStart, @buffPos, @ch, @comEols)
+        return sc
+    end
+    
     def GetName()
 
         # return super(@CurrSym, MAX_IDENTIFIER_LENGTH-1)
@@ -333,7 +355,9 @@ class CScanner <  CRScanner
     # static int STATE0[]
     def CheckLiteral( id)
         # char c
+
           c =  CurrentCh(nextSym.pos)
+         
           # if (IgnoreCase) c = Upcase(c)
           case (c) 
           	when 'b'
@@ -364,8 +388,8 @@ class CScanner <  CRScanner
           		#break
           	when 'i'
           		return C_inheritSym if (EqualStr("inherit")) 
-          		return C_intSym if (EqualStr("int")) 
-          		return C_ifSym if (EqualStr("if")) 
+                return C_intSym if (EqualStr("int")) 
+           		return C_ifSym if (EqualStr("if")) 
           		#break
           	when 'l'
           		return C_loadSym if (EqualStr("load")) 
@@ -531,14 +555,14 @@ class CScanner <  CRScanner
           return 0
     end
 public
-    def get(currLine, currCol, buffer, buffPos)
-    end
-    # get next next sym
-    def getNext()
-        cl= @currLine
-        cc = @currCol
-        bp = @buffPos
-    end
+    
+    # # get next next sym
+    #  def getNext()
+    #      sc = CScanner.new
+    #      sc.set(@buffer, @ignoreCase, @currSym, @nextSym, @currLine, @currCol, @lineStart, @buffPos, @ch, @comEols))
+    #      return sc.Get()
+    #      
+    #  end
     # get next sym
     def Get()
         # int state, ctx
@@ -555,12 +579,20 @@ public
                     return C_EOF_Sym if @ch == nil 
             end
         end while ((@ch == '/') && Comment()==1) 
-
+          if $sc_cur != $sc.currSym.sym
+            pp("!!!===", 20)
+        end
             @currSym = nextSym
+            p "!!!!!#{self}::currSym changed to #{@currSym.sym}", 29
+              if $sc_cur != $sc.currSym.sym
+                pp("!!!===", 20)
+            end
             nextSym.init(0, @currLine, @currCol - 1, @buffPos, 0)
             nextSym.len  = 0
              ctx = 0
-
+               if $sc_cur != $sc.currSym.sym
+                 pp("!!!===", 20)
+             end
             if (@ch == EOF_CHAR || @ch == nil) 
                 return C_EOF_Sym
             end
@@ -577,7 +609,9 @@ public
               	    @ch >= 'a' && @ch <= 'z') 
               	    #;
               	    else
+
               	        return CheckLiteral(C_identifierSym)
+             
           	        end
               	#break
               when 2

@@ -1,19 +1,24 @@
 #!/Users/i027910/.rvm/rubies/ruby-2.1.2/bin/ruby
 # TODO
-# static function
-# function def outside class
-# member var, global var
-# process .h .cpp at the same time
 # TCHAR			tmpStr[256]={0};
 # if ...{
 # }
 # ++, --
+
+# static function
+# function def outside class SCOPE (global function)
+# member var, global var
+# process .h .cpp at one time running and by order
 # local var vs constant
 # if 0 => if false
 # swtich case without break , 1. add "," 2. remove break in when
+# class assgin in c++ is object clone, but in ruby is same instance.
+# KEEP COMMENT
+# 
 require 'set'
 load 'parse.rb'
 load 'log.rb'
+load 'rbeautify.rb'
 
 # temp dict
 class TempDict
@@ -171,14 +176,16 @@ def tranlate_line(context, line)
     return translate_functioncall(_line)
 end
 def write_class(ruby_filename, class_template)
-    
+    s = class_template
+    # s = RBeautify.beautify_string(class_template)
     begin
          aFile = File.new(ruby_filename, "w+")
-         aFile.puts class_template
+         aFile.puts s
          aFile.close
      rescue Exception=>e
          p e
      end
+     # RBeautify.beautify_file(ruby_filename)
      p "done"
  end
 
@@ -481,7 +488,7 @@ def generate_ruby()
                 else
                     p "!!class #{kn} method #{k} has not impl"
                 end
-                translate_body = indent_block(tranlsate_body, 1)
+                translate_body = indent_block(translate_body, 1)
 method_template =<<HERE
 def #{v[:name]}(#{v[:args].join(", ")})
 #{translate_body}
@@ -489,7 +496,7 @@ end
     
 HERE
     methods += method_template
-    break
+    
             }
             p "==>methods:#{methods}"
             class_name = kn

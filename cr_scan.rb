@@ -268,5 +268,6 @@ class CRScanner < AbsScanner
         end
         @currCol+=1
     end
+
 end
 

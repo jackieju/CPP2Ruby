@@ -46,6 +46,39 @@ class Parser < CRParser
     #     Get()
     #     C()
     # end
+    def GetNext
+        _scanner = @scanner.clone()
+        p "==>scanner clone =#{_scanner.inspect}"
+
+        
+         begin 
+            _sym = _scanner.Get()
+            
+            if $sc_cur != $sc.currSym.sym
+                pp("!!!===", 20)
+            end
+            
+            _scanner.nextSym.SetSym(_sym)
+            if (_sym <= C_MAXT) 
+                # _error.errorDist +=1
+            
+            else 
+                if (_sym == C_PreProcessorSym) # /*86*/
+                  # line 65 "cs.atg"
+	    
+                else
+                    #/* Empty Stmt */ ;
+                    _scanner.nextSym = _scanner.currSym
+                end
+            end
+            
+            if $sc_cur != $sc.currSym.sym
+                pp("!!!===", 20)
+            end
+            
+        end while (_sym > C_MAXT)
+        return _sym
+    end
     def Get
         p "sym1=#{@sym}"
          begin 
@@ -118,6 +151,34 @@ class Parser < CRParser
     	
     	return ret
     end
+    
+    def gStatement()
+        rStatement = ""
+        
+		if (@sym == C_identifierSym )
+		     # p "|||||||||||||@sym = #{@sym}, #{@scanner.currSym.inspect}, #{curString()}, @scanner=#{@scanner}"
+        	    #                 $sc_cur = $sc.currSym.sym
+                _next = GetNext()
+        	    #                 if $sc_cur != $sc.currSym.sym
+        	    #                     pp("!!!===", 20)
+        	    #                 end
+        	    #                 p "GetNext=#{_next}"
+        	    #                 p "|||||||||||||@sym = #{@sym}, #{@scanner.currSym.inspect}, #{curString()}, @scanner=#{@scanner}"
+        	    #                 
+        	    
+        	    # TODO, theoritcally, user can write "a *b;", which is ambiguious (see where a is type)
+        	    if  _next == C_identifierSym || _next == C_AndSym || _next == C_StarSym
+        	        rStatement += LocalDeclaration()
+                else
+                    rStatement += Statement()
+                    # p "statement return #{rStatement}"
+                end
+        elsif (@sym >= C_staticSym && @sym <= C_stringSym )
+        # line 711 "cs.atg"
+        		rStatement += LocalDeclaration()
+       end
+        return rStatement
+    end
     # line 711 "cs.atg"
     def Statements()
         rStatement = ""
@@ -138,25 +199,20 @@ class Parser < CRParser
                @sym == C_newSym || 
     	       @sym >= C_BangSym && @sym <= C_TildeSym)  do
     # line 711 "cs.atg"
-            if (@sym == C_identifierSym)
-                @prev_sym = @sym
-            	prev_name = curString()
-    			p "nextString = #{nextString()}"
-           
-                Get()
-    			if @sym == C_LparenSym
-    			    rStatement += "#{prev_name}#{FunctionCall()}"
-			    else
-			        p "enter ld"
-    			    rStatement += LocalDeclaration()+"\n"
-			    end
-    		elsif (@sym >= C_staticSym && @sym <= C_stringSym )
-    # line 711 "cs.atg"
-    		
-    			
-    		    rStatement += LocalDeclaration()+"\n"
-    			
-    			
+                #             if (@sym == C_identifierSym)
+                #                 @prev_sym = @sym
+                #               prev_name = curString()
+                # p "nextString = #{nextString()}"
+                #            
+                #                 Get()
+                # if @sym == C_LparenSym
+                #     rStatement += "#{prev_name}#{FunctionCall()}"
+                #               else
+                #                   p "enter ld"
+                #     rStatement += LocalDeclaration()+"\n"
+                #               end
+    		if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_stringSym)
+    		    rStatement += gStatement() + "\n"			
     		 elsif (@sym >= C_identifierSym && @sym <= C_numberSym ||
     		           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     		           @sym == C_SemicolonSym ||
@@ -541,7 +597,7 @@ class Parser < CRParser
     def Statement()
         stmt = ""
     # line 657 "cs.atg"
-    	debug("====>statement")
+    	debug("====>statement:#{@sym}")
     # line 658 "cs.atg"
     	while (@sym == C_caseSym ||
     	       @sym == C_defaultSym) 
@@ -624,13 +680,13 @@ class Parser < CRParser
     def AssignmentStatement()
         ret = ""
     # line 679 "cs.atg"
-    	debug("===>AssignmentStatement1")
+    	debug("===>AssignmentStatement:#{@sym}")
     # line 679 "cs.atg"
     	ret += Expression()
     # line 679 "cs.atg"
     	Expect(C_SemicolonSym)
     # line 679 "cs.atg"
-    	debug("===>AssignmentStatement2")
+    	debug("===>AssignmentStatement1:#{ret}")
     	return ret
     end
 
@@ -655,11 +711,11 @@ class Parser < CRParser
     	Expect(C_continueSym)
     # line 714 "cs.atg"
 	
-	       
-	
     # line 721 "cs.atg"
     	Expect(C_SemicolonSym)
     # line 721 "cs.atg"
+    
+        return "next\n"
     end
 
     # line 724 "cs.atg"
@@ -700,6 +756,7 @@ HERE
     # line 726 "cs.atg"
     	Expect(C_LparenSym)
     	exp1 = ""
+=begin
     # line 726 "cs.atg"
     	if (@sym >= C_identifierSym && @sym <= C_numberSym ||
     	    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
@@ -713,12 +770,14 @@ HERE
             @sym == C_newSym ||
     	    @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 726 "cs.atg"
-    		exp1 = Expression()
+            exp1 = Expression()
     	end
     # line 726 "cs.atg"
-    	Expect(C_SemicolonSym)
+        Expect(C_SemicolonSym)
     # line 727 "cs.atg"
-	
+=end
+      exp1= gStatement()
+        p "exp1:#{exp1}"	
 
 	
     # line 738 "cs.atg"
@@ -740,8 +799,9 @@ HERE
     	end
     # line 740 "cs.atg"
 	
-	   
-	
+
+   	
+	p "exp2:#{exp2}"
     # line 746 "cs.atg"
     	Expect(C_SemicolonSym)
     # line 746 "cs.atg"
@@ -775,15 +835,16 @@ HERE
     # line 768 "cs.atg"
     	stmt = Statement()
     # line 769 "cs.atg"
+        p "for,#{exp1},#{stmt},#{exp2},#{exp3}"
 	    ret =<<HERE
 #{exp1}
 begin
     #{stmt}
     
-    #{exp2}
-end while (#{exp3})
+    #{exp3}
+end while (#{exp2})
 HERE
-    ret = ret.gsub(/next|continue/m, exp2)
+        # ret = ret.gsub(/next|continue/m, exp2)
 	    @sstack.pop()
         return ret
     end
@@ -942,7 +1003,7 @@ HERE
     def Expression
         ret = ""
     # line 966 "cs.atg"
-    	debug("===>Expression")
+    	debug("===>Expression:#{@sym}")
     	
     	
     	if @sym == C_LbraceSym
@@ -1053,7 +1114,7 @@ HERE
     end
     
     def Conditional()
-    	debug("===>Conditional")
+    	debug("===>Conditional:#{@sym}")
     
     # line 975 "cs.atg"
     	ret = LogORExp()
@@ -1180,7 +1241,7 @@ HERE
     # line 1105 "cs.atg"
     def EqualExp()
         ret = ""
-    	debug("===>EqualExp")
+    	debug("===>EqualExp:#{@sym}")
 
     # line 1106 "cs.atg"
 
@@ -1222,7 +1283,7 @@ HERE
     
     def curString()
         ret = @scanner.GetName()
-        p "------#{ret}"
+        p "------#{@scanner}"
         return ret
     end
     def nextString()
@@ -1449,6 +1510,7 @@ HERE
     # line 1572 "cs.atg"
     def PostFixExp()
         ret = ""
+        p "====>PostFixExp:#{@sym}"
     # line 1572 "cs.atg"
     # line 1573 "cs.atg"
     	ret += Primary()
@@ -1467,7 +1529,9 @@ HERE
     # line 1574 "cs.atg"
     				ret += Expression()
     # line 1574 "cs.atg"
+    				ret += curString()
     				Expect(C_RbrackSym)
+    			
     # line 1575 "cs.atg"
 
     			
@@ -1580,14 +1644,14 @@ HERE
     			    GenError(109)
     		end # case
     	end # while
-    	p "==>primary:#{ret}"
+    	p "==>PostFixExp1:#{ret}"
     	return ret
     end
     # line 1538 "cs.atg"
     def UnaryExp()
         ret = ""
     # line 1538 "cs.atg"
-    	debug("===>UnaryExp:#{@sym}");
+    	debug("===>UnaryExp:#{@sym}, #{curString()}");
     	pp "unaryexp", 20
     # line 1539 "cs.atg"
     	if (@sym >= C_identifierSym && @sym <= C_numberSym ||
@@ -1669,6 +1733,7 @@ HERE
        
     # line 2327 "cs.atg"
     def Primary()
+        p "=====>Primary:#{@sym}, #{curString()}"
         ret = ""
     # line 2328 "cs.atg"
 
@@ -1679,6 +1744,7 @@ HERE
             	Get()
     # line 2334 "cs.atg"
                 while (@sym == C_ColonColonSym)
+                    p "====>233:#{curString()}"
                     # line 2353 "cs.atg"
                     	Get();
                     # line 2353 "cs.atg"
@@ -1774,6 +1840,8 @@ HERE
     		else 
     		    GenError(112)
     	end # case
+    	p "=====>Primary1:#{ret}"
+        
         return ret
     end
     
@@ -1803,6 +1871,7 @@ HERE
     # line 2605 "cs.atg"
     	Expect(C_RparenSym);
     # line 2606 "cs.atg"
+        p "====>FunctionCall1:(#{ret})"
         return "(#{ret})"
     end
 
@@ -1910,6 +1979,7 @@ if (m_pSequenceParameter)
 HERE
 s =<<HERE
 {
+    int* *a = 11;
     _TRACER("UpdateDocBudget");
     SBOErr          ooErr = ooNoErr;
     PDAG            dagBGT =NULL, dagBGT1=NULL;
@@ -1957,14 +2027,26 @@ s =<<HERE
             return (ooNoErr);
         break;
     }
-    a = 1;
     
+    int a = 1;
+    b = 10;
+    for ( int i = 0;i < b; i++)
+        a(i);
+        CBizEnv    &bizEnv = GetEnv ();
     return 20;
 }   
 HERE
-scanner = CScanner.new(s, false)
-p "==>#{scanner.nextSym}"
+s = <<HERE
+{
 
+   a[0]=0;
+}
+HERE
+scanner = CScanner.new(s, false)
+p "===>scanner =#{scanner}"
+p "==>#{scanner.nextSym}"
+$sc = scanner
+$sc_cur = scanner.currSym.sym
 error = MyError.new("whaterver", scanner)
 parser = Parser.new(scanner, error)
 parser.Get
