@@ -176,8 +176,8 @@ def tranlate_line(context, line)
     return translate_functioncall(_line)
 end
 def write_class(ruby_filename, class_template)
-    s = class_template
-    # s = RBeautify.beautify_string(class_template)
+    # s = class_template
+    s = RBeautify.beautify_string(class_template)
     begin
          aFile = File.new(ruby_filename, "w+")
          aFile.puts s
