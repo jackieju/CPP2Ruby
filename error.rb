@@ -1,3 +1,4 @@
+load "errmsg.rb"
 
 MINERRORNO = 1000
 
@@ -44,6 +45,8 @@ class CRError < AbsError
          @errorDist = minErr
          @minErrorDist = minErr
          @minUserError = minUserNo
+         
+         @error_list = []
     end
     
     def ReportError( nr)
@@ -61,7 +64,12 @@ class CRError < AbsError
     def SetOutput(file) 
      lst = file
     end
-    def PrintListing(scanner)
+    def PrintListing(scanner=nil)
+        p "===== parsing done ===="
+        @error_list.each{|e|
+            p "error #{e[:errno]}, #{ERRMSG[e[:errno]]},  line #{e[:sym].line} col #{e[:sym].col} sym #{e[:sym].sym} val #{@scanner.GetSymString(e[:sym])}"    
+        }
+        p "Total #{@error_list.size} errors"
     end
     def SummarizeErrors()
     end
@@ -72,6 +80,10 @@ class CRError < AbsError
     def Store( nr,  line,  col,  pos)
     end
     def StoreErr( nr,  token)
+        @error_list.push({
+            :errno=>nr,
+            :sym=>token
+        })
     end
     def StoreWarn( nr,  token)
     end

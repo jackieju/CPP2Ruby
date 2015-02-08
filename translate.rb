@@ -14,6 +14,7 @@
 # swtich case without break , 1. add "," 2. remove break in when
 # class assgin in c++ is object clone, but in ruby is same instance.
 # KEEP COMMENT
+# Release resource in desconstructor
 # 
 require 'set'
 load 'parse.rb'
@@ -396,6 +397,7 @@ def translate_classdef(content)
     }
     p "find #{n} classes"
 end
+
 def translate(fname)
    
    # advanced regexp only availale when ruby version>=1.9.2
@@ -469,6 +471,27 @@ def translate(fname)
 
 
 end
+
+def read_file(fname)
+    begin
+        if FileTest::exists?(fname) 
+            data= nil  
+            open(fname, "r") {|f|
+                   data = f.read
+            }
+            return data
+        end
+    rescue Exception=>e
+         # logger.error e
+         p e.inspect
+    end
+    return nil
+end
+# def parse_file(fname)
+#     content = read_file(fname)
+#     # parse(content, "C")
+#     parse(content)
+# end
  # generate ruby file
 def generate_ruby()
     log_msg("generate_ruby")
@@ -515,7 +538,8 @@ p $*.inspect
 if $*.size >0
     for a in $*[0..$*.size-1]
         p a
-        translate(a)
+        # translate(a)
+        parse_file(a)
     end
     generate_ruby
 else

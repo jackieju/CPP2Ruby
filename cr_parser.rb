@@ -97,7 +97,7 @@ class CRParser
         p "error #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym} val #{@scanner.GetName()}"
         p "line:#{@scanner.cur_line()}"
         p("stack:", 30)
-        @error.StoreErr(errorNo, @scanner.nextSym)
+        @error.StoreErr(errorNo, @scanner.nextSym.clone)
     end
     # Scanner
     #    Error

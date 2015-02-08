@@ -26,10 +26,16 @@ class AbsToken
        @pos = pos
        @len = len
    end
+ 
+  def clone
+      ret = AbsToken.new
+      ret.init(sym, line, col, pos, len)
+      return ret
+  end
 end
 
 class AbsScanner 
-    attr_accessor :nextSym, :currSym
+    attr_accessor :nextSym, :currSym, :buffer
     def initialize
         p "init absscanner"
         @nextSym = AbsToken.new
@@ -201,7 +207,7 @@ class CRScanner < AbsScanner
         end
         return ret
     end
-    def GetName(sym)
+    def GetSymString(sym)
         ret = ""
         p "sym len #{sym.len} "
          len = sym.len
@@ -219,6 +225,24 @@ class CRScanner < AbsScanner
         end
         return ret
     end
+    # def GetName(sym)
+    #     ret = ""
+    #     p "sym len #{sym.len} "
+    #      len = sym.len
+    #      pos = sym.pos
+    # 
+    #     while (len > 0) 
+    #         c = CurrentCh(pos)
+    #         break if c == nil
+    #       ret += c
+    #       pos +=1
+    #       len -=1
+    #       # if len <=0
+    #       #             break
+    #       #         end
+    #     end
+    #     return ret
+    # end
     def GetLine( pos,  line,  max)
         raise("not implemented")
         
@@ -267,6 +291,20 @@ class CRScanner < AbsScanner
           @lineStart = @buffPos + 1
         end
         @currCol+=1
+    end
+    
+    def NextLine()
+        begin
+            p "NextLine() @ch=#{@ch}"
+            @buffPos+=1
+            p "@buffPos=#{@buffPos}"
+            @ch = CurrentCh(@buffPos)
+            return if @ch == nil
+        end while (@ch != "\n")
+        @currLine += 1
+        @currCol = 1
+        @lineStart = @buffPos + 1
+        
     end
 
 end

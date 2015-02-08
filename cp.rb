@@ -46,17 +46,18 @@ class Parser < CRParser
     #     Get()
     #     C()
     # end
+
     def GetNext
         _scanner = @scanner.clone()
-        p "==>scanner clone =#{_scanner.inspect}"
+        # p "==>scanner clone =#{_scanner.inspect}"
 
         
          begin 
             _sym = _scanner.Get()
             
-            if $sc_cur != $sc.currSym.sym
-                pp("!!!===", 20)
-            end
+            # if $sc_cur != $sc.currSym.sym
+            #     pp("!!!===", 20)
+            # end
             
             _scanner.nextSym.SetSym(_sym)
             if (_sym <= C_MAXT) 
@@ -72,12 +73,25 @@ class Parser < CRParser
                 end
             end
             
-            if $sc_cur != $sc.currSym.sym
-                pp("!!!===", 20)
-            end
+            # if $sc_cur != $sc.currSym.sym
+            #     pp("!!!===", 20)
+            # end
             
         end while (_sym > C_MAXT)
         return _sym
+    end
+    def include_file(finclude)
+        # make sure include only once
+        if (@included_files[finclude] == 1)
+            @scanner.delete_curline
+            return
+        else
+            if !@scanner.include_file(finclude)
+                GenError(114)
+            else
+                @included_files[finclude] = 1
+            end
+        end
     end
     def Get
         p "sym1=#{@sym}"
@@ -91,7 +105,39 @@ class Parser < CRParser
             
             else 
                 if (@sym == C_PreProcessorSym) # /*86*/
-                  # line 65 "cs.atg"
+                    if @in_preprocessing
+                        break
+                    end
+=begin                    
+                 # line 65 "cs.atg"
+                  _str1 = curString()
+                  pp "preprocessor #{}", 20
+                  @sym = @scanner.Get()
+                  _str2 = curString()
+                  directive = "#{_str1}#{_str2}"
+                  p "directive=#{directive}"
+                  if  directive == "\#include"
+                      @sym = @scanner.Get()
+                      finclude = curString()
+                      if finclude[0]=="\"" || finclude[0] =="\'"
+                            finclude = finclude[1..finclude.size-1]
+                      end
+                      if finclude[finclude.size-1]=="\"" || finclude[finclude.size-1] =="\'"
+                            finclude = finclude[0..finclude.size-2]
+                      end
+                      p "include file #{finclude}"
+                      include_file(finclude)
+                         
+                  end
+                  
+                  # skip current line
+                  @scanner.NextLine
+=end                  
+                  
+                  
+                  
+                  
+                   # p "preprocessor2 #{curString()}"
 =begin
                   	char str[256];
                   	str = @scanner.GetName(@scanner.nextSym)
@@ -125,10 +171,131 @@ class Parser < CRParser
         
     end
     
-    # def initialize(scanner, error)
-    #     @scanner = scanner
-    #     @error = MyError.new("whaterver", scanner)
-    # end
+    def preprocess()
+          _str1 = curString()
+          pp "preprocessor: #{}", 20
+          Get()
+          _str2 = curString()
+          directive = "#{_str1}#{_str2}"
+          p "directive=#{directive}"
+          if  directive == "\#include"
+              Get()
+              finclude = curString()
+              if finclude[0]=="\"" || finclude[0] =="\'"
+                    finclude = finclude[1..finclude.size-1]
+              end
+              if finclude[finclude.size-1]=="\"" || finclude[finclude.size-1] =="\'"
+                    finclude = finclude[0..finclude.size-2]
+              end
+              p "include file #{finclude}"
+              include_file(finclude)   
+          else
+               @scanner.delete_curline
+          end
+        
+    end
+    def Preprocess()
+        @in_preprocessing = true
+        while (@sym!=C_EOF_Sym)
+            Get()
+            if @sym == C_PreProcessorSym
+                preprocess()
+            end
+        end
+        @in_preprocessing = false
+        p "after preprocess: #{@scanner.buffer}"
+        return @scanner.buffer
+    end
+    # line 98 "cs.atg"
+    def C()
+        ret = ""
+        p "==>C:"
+    # line 98 "cs.atg"
+    
+ 
+    # line 135 "cs.atg"
+    #   if (Sym == packageSym) {
+    # # line 135 "cs.atg"
+    #       Package();
+    #   }
+    # line 135 "cs.atg"
+    #   while (Sym == useSym ||
+    #          Sym == loadSym) {
+    # # line 135 "cs.atg"
+    #       if (Sym == useSym) {
+    # # line 135 "cs.atg"
+    #           Import();
+    #       } elsif (Sym == loadSym) {
+    # # line 135 "cs.atg"
+    #           LoadLib();
+    #       } else GenError(87);
+    #   }
+    # # line 135 "cs.atg"
+    #   if (Sym >= inheritSym && Sym <= LessSym) {
+    # # line 135 "cs.atg"
+    #       Inheritance();
+    #   }
+    # line 137 "cs.atg"
+    	while (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
+    	       @sym == C_SemicolonSym ||
+    	       @sym >= C_classSym && @sym <= C_LbraceSym ||
+    	       @sym >= C_staticSym && @sym <= C_stringSym ||
+    	       @sym == C_LparenSym ||
+    	       @sym >= C_StarSym && @sym <= C_caseSym ||
+    	       @sym >= C_defaultSym && @sym <= C_ifSym ||
+    	       @sym >= C_returnSym && @sym <= C_switchSym ||
+    	       @sym == C_AndSym ||
+    	       @sym >= C_PlusSym && @sym <= C_MinusSym ||
+    	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
+    	       @sym >= C_newSym && @sym <= C_DollarSym ||
+    	       @sym >= C_BangSym && @sym <= C_TildeSym) 
+    # line 137 "cs.atg"
+    		ret += Definition()
+    	end
+    # line 137 "cs.atg"
+    	Expect(C_EOF_Sym)
+    # line 137 "cs.atg"
+
+    	return ret
+    end
+    
+    # line 218 "cs.atg"
+    def Definition()
+        ret = ""
+    # line 218 "cs.atg"
+    	debug("===>Definition:#{@sym}, #{curString()}");
+    # line 219 "cs.atg"
+    	if (@sym == C_classSym) 
+    # line 219 "cs.atg"
+    		ClassDef();
+    	elsif (@sym >= C_EOF_Sym && @sym <= C_numberSym ||
+    	           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
+    	           @sym == C_SemicolonSym ||
+    	           @sym >= C_LbraceSym && @sym <= C_stringSym ||
+    	           @sym == C_LparenSym ||
+    	           @sym >= C_StarSym && @sym <= C_caseSym ||
+    	           @sym >= C_defaultSym && @sym <= C_ifSym ||
+    	           @sym >= C_returnSym && @sym <= C_switchSym ||
+    	           @sym == C_AndSym ||
+    	           @sym >= C_PlusSym && @sym <= C_MinusSym ||
+    	           @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
+    	           @sym >= C_newSym && @sym <= C_DollarSym ||
+    	           @sym >= C_BangSym && @sym <= C_TildeSym) 
+    # line 219 "cs.atg"
+    		ret += Statements();
+    	else 
+    	    GenError(89)
+	    end
+	    return ret
+    end
+    
+    def initialize(scanner, error)
+        # @scanner = scanner
+        #         @error = MyError.new("whaterver", scanner)
+        super(scanner, error)
+        @included_files = {}
+    end
     
     # line 561 "cs.atg"
     def FunctionBody()
@@ -2042,6 +2209,14 @@ s = <<HERE
    a[0]=0;
 }
 HERE
+s=<<HERE
+a = 1;
+#include "a.h"
+#fdaaslk
+#include "bss.h"
+b =1;
+HERE
+p s
 scanner = CScanner.new(s, false)
 p "===>scanner =#{scanner}"
 p "==>#{scanner.nextSym}"
@@ -2050,7 +2225,16 @@ $sc_cur = scanner.currSym.sym
 error = MyError.new("whaterver", scanner)
 parser = Parser.new(scanner, error)
 parser.Get
-puts "FunctionBody return \n#{parser.send("FunctionBody")}"
+# puts "FunctionBody return \n#{parser.send("FunctionBody")}"
+# parser.C
+
+parser.Preprocess
+scanner.Reset
+
+parser.Get
+ret = parser.C
+p "parsing result:#{ret}"
+error.PrintListing
 end
 #=end
-test
+# test

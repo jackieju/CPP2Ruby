@@ -1,4 +1,5 @@
 load "cr_scan.rb"
+load "rubyutility.rb"
 class String
     def to_byte
         # self.bytes[0] # not work for ruby 1.8.7
@@ -337,7 +338,8 @@ class CScanner <  CRScanner
     def GetName()
 
         # return super(@CurrSym, MAX_IDENTIFIER_LENGTH-1)
-        return super(@currSym)
+        # return super(@currSym)
+        return GetSymString(@currSym)
 	end
 	def GetNextName()
 	    return GetSymValue(@nextSym)
@@ -556,6 +558,59 @@ class CScanner <  CRScanner
     end
 public
     
+    def delete_curline
+        replace_start = @buffPos-1
+        replace_end = @buffPos
+        # to line start
+        while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
+            replace_start -=1
+        end
+        
+        # to line end
+        while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r")
+            replace_end +=1
+        end
+        while @buffer[replace_end] == "\n" || @buffer[replace_end] == "\r"
+            replace_end +=1
+        end
+        
+        # p "c:#{c}"
+        # p "str1:#{@buffer[0..replace_start]}"
+        # p "str2:#{@buffer[@buffPos..@buffer.size-1]}"
+        str = @buffer[0..replace_start]+@buffer[replace_end..@buffer.size-1]
+        @buffPos = replace_start
+        p "new buffer after delete current line: #{@buffer[@buffPos..@buffer.size-1]}"
+        @buffer=str
+    end
+    def include_file(fname)
+        path = find_file(fname)
+        c = read_file(path)
+        if c == nil || c == ""
+            delete_curline
+            return false
+        end
+        # p "===>432q42#{@buffer[@buffPos..@buffer.size-1]}"
+        replace_start = @buffPos-1
+        replace_end = @buffPos
+        while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
+            replace_start -=1
+        end
+        p "===>432q42#{@buffer[replace_start..@buffer.size-1]}"
+        while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r")
+            replace_end +=1
+        end
+        while @buffer[replace_end] == "\n" || @buffer[replace_end] == "\r"
+            replace_end +=1
+        end
+        # p "c:#{c}"
+        # p "str1:#{@buffer[0..replace_start]}"
+        # p "str2:#{@buffer[@buffPos..@buffer.size-1]}"
+        str = @buffer[0..replace_start]+c+@buffer[@buffPos..@buffer.size-1]
+        @buffPos = replace_start
+        p "new buffer after include: #{@buffer[@buffPos..@buffer.size-1]}"
+        @buffer=str
+        return true
+    end
     # # get next next sym
     #  def getNext()
     #      sc = CScanner.new
@@ -579,20 +634,20 @@ public
                     return C_EOF_Sym if @ch == nil 
             end
         end while ((@ch == '/') && Comment()==1) 
-          if $sc_cur != $sc.currSym.sym
-            pp("!!!===", 20)
-        end
+        # if $sc_cur != $sc.currSym.sym
+        #     pp("!!!===", 20)
+        # end
             @currSym = nextSym
-            p "!!!!!#{self}::currSym changed to #{@currSym.sym}", 29
-              if $sc_cur != $sc.currSym.sym
-                pp("!!!===", 20)
-            end
+            # p "!!!!!#{self}::currSym changed to #{@currSym.sym}", 29
+            # if $sc_cur != $sc.currSym.sym
+            #          pp("!!!===", 20)
+            #      end
             nextSym.init(0, @currLine, @currCol - 1, @buffPos, 0)
             nextSym.len  = 0
              ctx = 0
-               if $sc_cur != $sc.currSym.sym
-                 pp("!!!===", 20)
-             end
+             # if $sc_cur != $sc.currSym.sym
+             #     pp("!!!===", 20)
+             # end
             if (@ch == EOF_CHAR || @ch == nil) 
                 return C_EOF_Sym
             end

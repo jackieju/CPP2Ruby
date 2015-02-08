@@ -1,2 +1,2 @@
-
-require 'error.rb'
+load 'cp.rb'
+test()
