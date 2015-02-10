@@ -94,9 +94,10 @@ class Parser < CRParser
         end
     end
     def Get
-        p "sym1=#{@sym}"
+        # p "sym1=#{@sym}"
          begin 
             @sym = @scanner.Get()
+            p "Get(): sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@sym]}"
             # p "sym2=#{@sym}"
             # pp("hhhh", 30) if @sym==9
             @scanner.nextSym.SetSym(@sym)
@@ -108,6 +109,7 @@ class Parser < CRParser
                     if @in_preprocessing
                         break
                     end
+                    @scanner.skip_curline
 =begin                    
                  # line 65 "cs.atg"
                   _str1 = curString()
@@ -167,13 +169,158 @@ class Parser < CRParser
                 end
             end
         end while (@sym > C_MAXT)
-        p "sym2 #{@scanner.nextSym.sym}, line #{@scanner.nextSym.line}, col #{@scanner.nextSym.col}, value #{curString()}"
+        p "Get()2 #{@scanner.nextSym.sym}, line #{@scanner.nextSym.line}, col #{@scanner.nextSym.col}, value #{curString()}"
         
     end
     
-    def preprocess()
+    def add_macro(n,v)
+        ret = ""
+        v = v.strip
+        if v =~ /^(\d+)\w?$/
+            ret = "#{n.capitalize} = #{$1}"
+            @macros[n] = $1
+        elsif v =~ /^\"(.*?)\"$/ || v =~ /^\'(.)\'$/
+             ret = "#{n.capitalize} = #{v}"
+             @macros[n] = $1
+        else
+            @macros[n] = v
+        end
+        return ret
+    end
+    def ifdefined?(n)
+        return @macros[n] != nil
+    end
+    def GetPre()
+        while Get() != C_PreProcessorSym
+        end
+        
+        if @sym == C_PreProcessorSym
+            Get()
+             _str2 = curString()
+            directive = "#{_str1}#{_str2}"
+        end
+        return directive
+    end
+    def pre_if()
+        Get()
+         n = curString()
+         @scanner.delete_curline
+         
+         pos1 = @scanner.buffPos
+         directive=_preprocess()
+         pos2 = @scanner.buffPos
+         
+         if n=~ /^\d+$/
+            idf = (n.to_i !=0)
+         else
+            idf = (ifdefined?(n) && @macros[n].to_i != 0)
+         end
+         
+         if !idf
+             @scanner.delete_lines(pos1, pos2) # delete whole block
+         else
+             @scanner.delete_curline # only delete #preprocess line
+         end        
+        # pre = GetPre()
+        
+        # _str1 = curString()
+        #   Get()
+        #   _str2 = curString()
+        #   directive = "#{_str1}#{_str2}"
+        
+
+
+        
+        while directive == "\#elif"
+             Get()
+             n1 = curString()
+             @scanner.delete_curline
+             pos11 = @scanner.buffPos
+             directive=_preprocess()
+             pos22 = @scanner.buffPos
+             idf2 = ifdefined?(n1)
+             if !idf2
+                 @scanner.delete_lines(pos11, pos22)
+             end
+        end
+        
+        if directive == "\#else"
+            @scanner.delete_curline
+             pos11 = @scanner.buffPos
+             directive=_preprocess()
+             pos22 = @scanner.buffPos
+            if idf
+                @scanner.delete_lines(pos11, pos22)
+            else
+                 @scanner.delete_curline # only delete #preprocess line
+             end
+            if directive == "\#endif"
+                # @scanner.delete_curline
+            end
+ 
+        elsif directive == "\#endif"
+            @scanner.delete_curline
+        end
+    end
+    def pre_ifdef()
+         Get()
+         n = curString()
+         @scanner.delete_curline
+         
+         pos1 = @scanner.buffPos
+         directive=_preprocess()
+         pos2 = @scanner.buffPos
+         idf = ifdefined?(n)
+         if !idf
+             @scanner.delete_lines(pos1, pos2) # delete whole block
+         else
+             @scanner.delete_curline # only delete #preprocess line
+         end 
+         
+        # pre = GetPre()
+        
+        # _str1 = curString()
+        #   Get()
+        #   _str2 = curString()
+        #   directive = "#{_str1}#{_str2}"
+        
+        
+        while directive == "\#elif"
+             Get()
+             n1 = curString()
+             @scanner.delete_curline
+             pos11 = @scanner.buffPos
+             directive=_preprocess()
+             pos22 = @scanner.buffPos
+             idf2 = ifdefined?(n1)
+             if !idf2
+                 @scanner.delete_lines(pos11, pos22)
+             end
+        end
+        
+        if directive == "\#else"
+            @scanner.delete_curline
+             pos11 = @scanner.buffPos
+             directive=_preprocess()
+             pos22 = @scanner.buffPos
+            if idf
+                @scanner.delete_lines(pos11, pos22)
+            else
+                 @scanner.delete_curline # only delete #preprocess line
+             end
+            if directive == "\#endif"
+                # @scanner.delete_curline
+            end
+ 
+        elsif directive == "\#endif"
+            # @scanner.delete_curline
+        end
+    end
+    
+    # process every directive
+    def preprocess_directive()
           _str1 = curString()
-          pp "preprocessor: #{}", 20
+          pp "preprocessor: #{@sym}, #{_str1}", 20
           Get()
           _str2 = curString()
           directive = "#{_str1}#{_str2}"
@@ -188,20 +335,44 @@ class Parser < CRParser
                     finclude = finclude[0..finclude.size-2]
               end
               p "include file #{finclude}"
-              include_file(finclude)   
-          else
-               @scanner.delete_curline
-          end
-        
+              include_file(finclude)  
+        elsif directive == "\#define" 
+            
+            Get()
+            n = curString()
+           
+            v = @scanner.skip_curline
+             p "==>define:#{n},#{v}"
+            macro_str = add_macro(n, v)
+            @scanner.delete_prevline
+            if macro_str
+                @scanner.insert_line(macro_str)
+            end
+        elsif directive == "\#ifdef"
+            pre_ifdef()
+        elsif directive == "\#if"
+            pre_if()
+        else
+               # @scanner.delete_curline
+               return directive
+        end
+        return nil
+    end
+    def _preprocess()
+        while (@sym!=C_EOF_Sym)
+            
+            p "sym2:#{@sym}"
+            if @sym == C_PreProcessorSym
+                directive = preprocess_directive()
+                return directive if directive
+            end
+            Get()
+        end
     end
     def Preprocess()
         @in_preprocessing = true
-        while (@sym!=C_EOF_Sym)
-            Get()
-            if @sym == C_PreProcessorSym
-                preprocess()
-            end
-        end
+        Get()
+        _preprocess()
         @in_preprocessing = false
         p "after preprocess: #{@scanner.buffer}"
         return @scanner.buffer
@@ -209,7 +380,7 @@ class Parser < CRParser
     # line 98 "cs.atg"
     def C()
         ret = ""
-        p "==>C:"
+        p "==>C:#{SYMS[@sym]}"
     # line 98 "cs.atg"
     
  
@@ -249,7 +420,8 @@ class Parser < CRParser
     	       @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
-    	       @sym >= C_BangSym && @sym <= C_TildeSym) 
+    	       @sym >= C_BangSym && @sym <= C_TildeSym ||
+    	       @sym == C_EnumSym) 
     # line 137 "cs.atg"
     		ret += Definition()
     	end
@@ -260,6 +432,51 @@ class Parser < CRParser
     	return ret
     end
     
+    def ClassDef
+        debug("===>ClassDef:#{@sym}, #{curString()}");
+
+    end
+    
+    def Enum()
+        ret = ""
+        debug("===>Enum:#{@sym}, #{curString()}");
+    	Get()
+        Expect(C_LbraceSym)
+    	base = 0
+    	while @sym == C_identifierSym
+    	    a = curString()
+    	    # to constant
+    	    a = a[0].upcase+a[1..a.size-1]
+    	    
+    	    Get()
+    	    if (@sym == C_EqualSym)
+    	        Get()
+    	        Expect(C_numberSym)
+    	        v = curString()
+    	        if v =~ /^([\d.]+)\w*$/
+    	            v = $1
+	            end
+    	        base = v.to_i
+    	        Get()
+	        end
+	        ret += "#{a} = #{base}\n"
+	        if @sym == C_CommaSym
+	            Get()
+	            base += 1
+            end
+            p "==>enum22:#{SYMS[@sym]}"
+            
+    	end
+    	
+    	Expect(C_RbraceSym)
+    	debug("===>Enum1:#{@sym}, #{ret}");
+    	return ret
+    end
+    
+    def StructDef()
+        debug("===>ClassDef:#{@sym}, #{curString()}");
+        
+    end
     # line 218 "cs.atg"
     def Definition()
         ret = ""
@@ -268,7 +485,11 @@ class Parser < CRParser
     # line 219 "cs.atg"
     	if (@sym == C_classSym) 
     # line 219 "cs.atg"
-    		ClassDef();
+    		ClassDef()
+    	elsif (@sym == C_EnumSym)
+    	    Enum()
+    	elsif (@sym == C_StructSym)
+    	    StructDef()
     	elsif (@sym >= C_EOF_Sym && @sym <= C_numberSym ||
     	           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	           @sym == C_SemicolonSym ||
@@ -295,6 +516,7 @@ class Parser < CRParser
         #         @error = MyError.new("whaterver", scanner)
         super(scanner, error)
         @included_files = {}
+        @macros = {}
     end
     
     # line 561 "cs.atg"
@@ -2210,11 +2432,31 @@ s = <<HERE
 }
 HERE
 s=<<HERE
-a = 1;
+//a = 1;
 #include "a.h"
 #fdaaslk
 #include "bss.h"
 b =1;
+enum
+{
+	resTax1AbsEntry = 0L,
+	resTax1TaxCode, 
+	resTax1EqPercent,
+	resJdt1TransId,
+	resJdt1Line_ID,
+};
+HERE
+s=<<HERE
+#define bb 1
+#ifdef bb
+a = 1
+#elif cc
+a = 2
+#elif bb
+a = 22
+#else
+a =3
+#endif
 HERE
 p s
 scanner = CScanner.new(s, false)
@@ -2224,17 +2466,20 @@ $sc = scanner
 $sc_cur = scanner.currSym.sym
 error = MyError.new("whaterver", scanner)
 parser = Parser.new(scanner, error)
-parser.Get
+# parser.Get
 # puts "FunctionBody return \n#{parser.send("FunctionBody")}"
 # parser.C
 
 parser.Preprocess
-scanner.Reset
 
-parser.Get
-ret = parser.C
-p "parsing result:#{ret}"
+# scanner.Reset
+# parser.Get
+
+# ret = parser.C
+
+# p "parsing result:#{ret}"
 error.PrintListing
+
 end
 #=end
-# test
+test

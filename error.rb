@@ -67,7 +67,7 @@ class CRError < AbsError
     def PrintListing(scanner=nil)
         p "===== parsing done ===="
         @error_list.each{|e|
-            p "error #{e[:errno]}, #{ERRMSG[e[:errno]]},  line #{e[:sym].line} col #{e[:sym].col} sym #{e[:sym].sym} val #{@scanner.GetSymString(e[:sym])}"    
+            p "error #{e[:errno]}, #{ERRMSG[e[:errno]]},  line #{e[:sym].line} col #{e[:sym].col} sym #{SYMS[e[:sym].sym]} val #{@scanner.GetSymString(e[:sym])}"    
         }
         p "Total #{@error_list.size} errors"
     end

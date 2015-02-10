@@ -85,7 +85,7 @@ class CRParser
     end
     
     def Expect(n)
-        p "expect #{n}, sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{@scanner.nextSym.sym}"
+        p "expect #{SYMS[n]}, sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@scanner.nextSym.sym]}"
         if @sym == n 
             Get()
         else 

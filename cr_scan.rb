@@ -35,7 +35,7 @@ class AbsToken
 end
 
 class AbsScanner 
-    attr_accessor :nextSym, :currSym, :buffer
+    attr_accessor :nextSym, :currSym, :buffer, :buffPos
     def initialize
         p "init absscanner"
         @nextSym = AbsToken.new
@@ -250,6 +250,42 @@ class CRScanner < AbsScanner
     def cur_line()
         @buffer.lines[@currLine-1]
     end
+    def _get()
+         @buffPos+=1
+        @ch = CurrentCh(@buffPos)
+        return @ch
+    end
+    def NextLine()
+        ret_start = @buffPos+1
+        begin
+            # p "NextLine() @ch=#{@ch}"
+            # @buffPos+=1
+            #            # p "@buffPos=#{@buffPos}"
+            #            @ch = CurrentCh(@buffPos)
+            _get()
+            return if @ch == nil
+            if (@ch == "\\")
+               while (_get() =~ /\s/)
+               end
+               if @ch == "\n"
+                   _get()
+               end
+            end
+        end while (@ch != "\n")
+        ret_end = @buffPos-1
+        @currLine += 1
+        @currCol = 1
+        @lineStart = @buffPos + 1
+        
+        return @buffer[ret_start..ret_end]
+    end
+    
+    # return skipped content
+    def skip_curline
+        ret = NextLine()
+        pp "after skip current line:@buffPos=#{@buffPos}, buffer=#{@buffer}, ret=#{ret}", 20
+        return ret
+    end
     # def NextSym
     #     @nextSym
     # end
@@ -269,14 +305,18 @@ class CRScanner < AbsScanner
     def ReadFile( srcFile)
         raise("not implemented")
     end
+   
     def CurrentCh( pos)
         # p "buffer:#{@buffer}"
         return @buffer[pos]
     end
+     def cch()
+         CurrentCh(@buffer[@buffPos])
+     end
     def NextCh()
-        p "NextCh() @ch=#{@ch}"
+        # p "NextCh() @ch=#{@ch}"
         @buffPos+=1
-        p "@buffPos=#{@buffPos}"
+        # p "@buffPos=#{@buffPos}"
         @ch = CurrentCh(@buffPos)
         return if @ch == nil
         if (@ignoreCase) 
@@ -293,19 +333,7 @@ class CRScanner < AbsScanner
         @currCol+=1
     end
     
-    def NextLine()
-        begin
-            p "NextLine() @ch=#{@ch}"
-            @buffPos+=1
-            p "@buffPos=#{@buffPos}"
-            @ch = CurrentCh(@buffPos)
-            return if @ch == nil
-        end while (@ch != "\n")
-        @currLine += 1
-        @currCol = 1
-        @lineStart = @buffPos + 1
-        
-    end
+
 
 end
 

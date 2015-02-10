@@ -382,6 +382,8 @@ class CScanner <  CRScanner
           		#break
           	when 'e'
           		return C_elseSym if (EqualStr("else")) 
+          		return C_EnumSym if (EqualStr("enum")) 
+          		
           		#break
           	when 'f'
           		return C_functionSym if (EqualStr("function"))  
@@ -483,7 +485,7 @@ class CScanner <  CRScanner
     def Comment()
         # int Level, StartLine, OldCol
         #       long OldLineStart
-    p "comment1"
+        p "comment1"
           level = 1
            startLine = @currLine
           oldLineStart = @lineStart
@@ -510,7 +512,7 @@ class CScanner <  CRScanner
       			    end
           	    end # while
           	else  
-          	    p "comment3"
+                p "comment3"
                 
           		if (@ch == nil || @ch.to_byte == LF_CHAR) 
           		     @currLine-=1
@@ -526,9 +528,9 @@ class CScanner <  CRScanner
           	if (@ch == '/')  
           		Scan_NextCh()
           		while (1)
-          		    p "comment4"
+                    p "comment4:level #{level}, ch #{@ch}"
                     
-          			if (@ch== 10)  
+          			if (@ch.to_byte == 10)  
           				level-=1
           				Scan_NextCh()
           				@comEols = @currLine - startLine
@@ -542,7 +544,7 @@ class CScanner <  CRScanner
       			    end
           		end 
           	else  
-          	    p "comment5"
+                p "comment5"
                 
           		if (@ch == nil || @ch.to_byte == LF_CHAR)
           		     @currLine-=1
@@ -557,30 +559,102 @@ class CScanner <  CRScanner
           return 0
     end
 public
+    def delete_prevline
+        pos = @buffPos
+        while CurrentCh(pos) == "\n" 
+            # break if CurrentCh(pos) == nil
+            pos -=1
+          
+            # p cch().to_byte
+        end
+        while CurrentCh(pos) != nil && CurrentCh(pos) != "\n"
+            pos -= 1
+        end
+        pos = 0 if pos < 0
+        delete_line(pos)
+    end
+    def insert_line(str, pos=nil)
+        pp "insert line #{str}, pos=#{pos}, #{self.inspect}"
+        pp "old buffer before insert:#{@buffer}", 20
+        pos = @buffPos if pos == nil
+        pos = -1 if pos <-1
+        str += "\n"
+        p "pos=#{pos}"
+        str1 = ""
+        if pos >=0 
+            str1 = @buffer[0..pos]
+        end
+        str2 = @buffer[pos+1..@buffer.size-1]
+        p "str1:#{str1}"
+        @buffer = "#{str1}#{str}#{str2}"
+        p "new buffer after insert:#{@buffer}"
+    end
+    
     
     def delete_curline
-        replace_start = @buffPos-1
-        replace_end = @buffPos
-        # to line start
+        delete_line()
+    end
+    
+    def delete_lines(pos1, pos2)
+        pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
+        
+        replace_start = pos1
+        replace_end = pos2-1
+        
+         # to line start
         while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
+            replace_start -=1
+        end
+        # to line end
+        while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r")
+            replace_end +=1
+        end
+        str1 = ""
+        if replace_start >= 0 
+            str1 = @buffer[0..replace_start]
+        end
+        @buffer = "#{str1}#{@buffer[replace_end..@buffer.size-1]}"
+        @buffPos = replace_start
+        pp "===>delete_lines2, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
+        
+    end
+    
+    def delete_line(pos=nil)
+        pp "===>delete_line, pos=#{pos}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
+        pos = @buffPos if pos == nil
+        replace_start = pos-1
+        replace_start = 0 if replace_start < 0
+        replace_end = pos
+        # to line start
+        while (@buffer[replace_start] && @buffer[replace_start] != "\n" && @buffer[replace_start] != "\r" )
             replace_start -=1
         end
         
         # to line end
-        while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r")
+        while (@buffer[replace_start] && @buffer[replace_end] != "\n" && @buffer[replace_end] != "\r" )
             replace_end +=1
         end
         while @buffer[replace_end] == "\n" || @buffer[replace_end] == "\r"
             replace_end +=1
         end
-        
+
         # p "c:#{c}"
         # p "str1:#{@buffer[0..replace_start]}"
         # p "str2:#{@buffer[@buffPos..@buffer.size-1]}"
-        str = @buffer[0..replace_start]+@buffer[replace_end..@buffer.size-1]
-        @buffPos = replace_start
-        p "new buffer after delete current line: #{@buffer[@buffPos..@buffer.size-1]}"
+  p "old buffer before delete current line: #{@buffer}"
+        str1 = ""
+        if replace_start >= 0
+            str1 = @buffer[0..replace_start]
+        end
+        p "replace_start=#{replace_start}, replace_end=#{replace_end}"
+        p "str1=#{str1}"
+        p "str2=#{@buffer[replace_end..@buffer.size-1]}"       
+        str = str1+@buffer[replace_end..@buffer.size-1]
         @buffer=str
+        @buffPos = replace_start
+        # p "new buffer after delete current line: #{@buffer[pos..@buffer.size-1]}"
+        p "new buffer after delete current line: #{@buffer}"
+        
     end
     def include_file(fname)
         path = find_file(fname)
@@ -621,7 +695,7 @@ public
     # get next sym
     def Get()
         # int state, ctx
-        p "Get(): nextSym=#{nextSym}, @ch=#{@ch}"
+        p "Get0: nextSym=#{nextSym}, @ch=#{@ch}"
         
         return C_EOF_Sym if @ch == nil
         
@@ -634,6 +708,7 @@ public
                     return C_EOF_Sym if @ch == nil 
             end
         end while ((@ch == '/') && Comment()==1) 
+        p "get1:#{@ch}"
         # if $sc_cur != $sc.currSym.sym
         #     pp("!!!===", 20)
         # end

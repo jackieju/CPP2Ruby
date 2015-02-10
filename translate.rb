@@ -15,7 +15,15 @@
 # class assgin in c++ is object clone, but in ruby is same instance.
 # KEEP COMMENT
 # Release resource in desconstructor
-# 
+# enum type like
+# enum
+# {
+#   resTax1AbsEntry = 0L,
+#   resTax1TaxCode,
+#   resTax1EqPercent,
+#   resJdt1TransId,
+#   resJdt1Line_ID,
+# };
 require 'set'
 load 'parse.rb'
 load 'log.rb'
