@@ -595,7 +595,7 @@ public
         delete_line()
     end
     
-    def delete_lines(pos1, pos2)
+    def delete_lines(pos1, pos2, include_last_line=true)
         pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
         
         replace_start = pos1
@@ -605,18 +605,31 @@ public
         while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
             replace_start -=1
         end
-        # to line end
-        while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r")
-            replace_end +=1
+        if include_last_line
+            # to line end
+            while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r")
+                replace_end +=1
+            end
+        else
+            while (@buffer[replace_end] == "\n" || @buffer[replace_end] == "\r")
+                replace_end -=1
+            end
+            while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r" && @buffer[replace_end] !=nil)
+                replace_end -=1
+            end            
         end
         str1 = ""
         if replace_start >= 0 
             str1 = @buffer[0..replace_start]
         end
+        old_buffer_size = @buffer.size
         @buffer = "#{str1}#{@buffer[replace_end..@buffer.size-1]}"
-        @buffPos = replace_start
-        pp "===>delete_lines2, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
-        
+        if include_last_line
+            @buffPos = replace_start
+        else
+            @buffPos -= (old_buffer_size - @buffer.size )
+        end
+        pp "===>delete_lines2, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20 
     end
     
     def delete_line(pos=nil)

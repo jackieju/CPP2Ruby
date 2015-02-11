@@ -217,7 +217,7 @@ class Parser < CRParser
          end
          
          if !idf
-             @scanner.delete_lines(pos1, pos2) # delete whole block
+             @scanner.delete_lines(pos1, pos2, false) # delete whole block
          else
              @scanner.delete_curline # only delete #preprocess line
          end        
@@ -229,38 +229,53 @@ class Parser < CRParser
         #   directive = "#{_str1}#{_str2}"
         
 
-
-        
         while directive == "\#elif"
-             Get()
+            # Get()
+            Get()
              n1 = curString()
+             p "==>112:#{n1}, #{@scanner.buffPos}"
              @scanner.delete_curline
              pos11 = @scanner.buffPos
              directive=_preprocess()
              pos22 = @scanner.buffPos
-             idf2 = ifdefined?(n1)
-             if !idf2
-                 @scanner.delete_lines(pos11, pos22)
-             end
+             if !idf
+                if is_number?(n1)
+                    idf = n1.to_i != 0
+                else
+                    idf = ifdefined?(n1) && @macros[n1].to_i !=0
+                end
+                p "==>111:#{n1}, #{idf}"
+                if !idf
+                    @scanner.delete_lines(pos11, pos22, false)
+                end
+            else
+                @scanner.delete_lines(pos11, pos22, false)
+            end
+         
         end
+        
         
         if directive == "\#else"
             @scanner.delete_curline
              pos11 = @scanner.buffPos
              directive=_preprocess()
              pos22 = @scanner.buffPos
+     
             if idf
-                @scanner.delete_lines(pos11, pos22)
+                @scanner.delete_lines(pos11, pos22) # delete whole else part
             else
-                 @scanner.delete_curline # only delete #preprocess line
-             end
+                @scanner.delete_curline # only delete #preprocess line
+            end
             if directive == "\#endif"
                 # @scanner.delete_curline
             end
- 
+            
         elsif directive == "\#endif"
-            @scanner.delete_curline
+            # @scanner.delete_curline
         end
+    end
+    def is_number?(s)
+        s =~ /^\d+\w?$/
     end
     def pre_ifdef()
          Get()
@@ -271,8 +286,9 @@ class Parser < CRParser
          directive=_preprocess()
          pos2 = @scanner.buffPos
          idf = ifdefined?(n)
+         p "===>113:#{@scanner.buffer}"
          if !idf
-             @scanner.delete_lines(pos1, pos2) # delete whole block
+             @scanner.delete_lines(pos1, pos2, false) # delete whole block
          else
              @scanner.delete_curline # only delete #preprocess line
          end 
@@ -284,34 +300,48 @@ class Parser < CRParser
         #   _str2 = curString()
         #   directive = "#{_str1}#{_str2}"
         
-        
+        # Get()
         while directive == "\#elif"
-             Get()
+            # Get()
+            Get()
              n1 = curString()
+             p "==>112:#{n1}, #{@scanner.buffPos}"
              @scanner.delete_curline
              pos11 = @scanner.buffPos
              directive=_preprocess()
              pos22 = @scanner.buffPos
-             idf2 = ifdefined?(n1)
-             if !idf2
-                 @scanner.delete_lines(pos11, pos22)
-             end
+             if !idf
+                if is_number?(n1)
+                    idf = n1.to_i != 0
+                else
+                    idf = ifdefined?(n1) && @macros[n1].to_i !=0
+                end
+                p "==>111:#{n1}, #{idf}"
+                if !idf
+                    @scanner.delete_lines(pos11, pos22, false)
+                end
+            else
+                @scanner.delete_lines(pos11, pos22, false)
+            end
+         
         end
+        
         
         if directive == "\#else"
             @scanner.delete_curline
              pos11 = @scanner.buffPos
              directive=_preprocess()
              pos22 = @scanner.buffPos
+     
             if idf
-                @scanner.delete_lines(pos11, pos22)
+                @scanner.delete_lines(pos11, pos22) # delete whole else part
             else
-                 @scanner.delete_curline # only delete #preprocess line
-             end
+                @scanner.delete_curline # only delete #preprocess line
+            end
             if directive == "\#endif"
                 # @scanner.delete_curline
             end
- 
+            
         elsif directive == "\#endif"
             # @scanner.delete_curline
         end
@@ -2447,12 +2477,12 @@ enum
 };
 HERE
 s=<<HERE
-#define bb 1
-#ifdef bb
+#define cc 1
+#if 0
 a = 1
 #elif cc
 a = 2
-#elif bb
+#elif cc
 a = 22
 #else
 a =3
