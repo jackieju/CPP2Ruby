@@ -547,7 +547,8 @@ if $*.size >0
     for a in $*[0..$*.size-1]
         p a
         # translate(a)
-        parse_file(a)
+        # parse_file(a)
+        preprocess_file(a)
     end
     generate_ruby
 else

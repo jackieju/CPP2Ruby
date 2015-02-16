@@ -88,6 +88,7 @@ class Parser < CRParser
         else
             if !@scanner.include_file(finclude)
                 GenError(114)
+                pp "===>114",20
             else
                 @included_files[finclude] = 1
             end
@@ -96,9 +97,11 @@ class Parser < CRParser
     def Get
         # p "sym1=#{@sym}"
          begin 
+                   # p "Get0: nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
             @sym = @scanner.Get()
-            p "Get(): sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@sym]}"
-            # p "sym2=#{@sym}"
+                  # p "Get1: nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
+            # p "Get(): sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@sym]}"
+            # p "sym1=#{@sym}"
             # pp("hhhh", 30) if @sym==9
             @scanner.nextSym.SetSym(@sym)
             if (@sym <= C_MAXT) 
@@ -169,7 +172,7 @@ class Parser < CRParser
                 end
             end
         end while (@sym > C_MAXT)
-        p "Get()2 #{@scanner.nextSym.sym}, line #{@scanner.nextSym.line}, col #{@scanner.nextSym.col}, value #{curString()}"
+        # p "Get()2 #{@scanner.nextSym.sym}, line #{@scanner.nextSym.line}, col #{@scanner.nextSym.col}, value #{curString()}"
         
     end
     
@@ -197,9 +200,9 @@ class Parser < CRParser
         if @sym == C_PreProcessorSym
             Get()
              _str2 = curString()
-            directive = "#{_str1}#{_str2}"
+            @directive = "#{_str1}#{_str2}"
         end
-        return directive
+        return @directive
     end
     def pre_if()
         Get()
@@ -207,7 +210,7 @@ class Parser < CRParser
          @scanner.delete_curline
          
          pos1 = @scanner.buffPos
-         directive=_preprocess()
+         @directive=_preprocess()
          pos2 = @scanner.buffPos
          
          if n=~ /^\d+$/
@@ -229,14 +232,40 @@ class Parser < CRParser
         #   directive = "#{_str1}#{_str2}"
         
 
-        while directive == "\#elif"
+        pre_elif(idf)
+         pre_else(idf)
+         pre_endif(idf)
+    end
+    def is_number?(s)
+        s =~ /^\d+\w?$/
+    end
+    def delete_curline
+        pos = @scanner.buffPos
+        
+        @scanner.delete_curline
+            Get() if pos != @scanner.buffPos
+    end
+    def delete_prevline
+        pos = @scanner.buffPos
+        @scanner.delete_prevline
+        # Get() if pos != @scanner.buffPos
+        # p "==>sym2221:#{@sym}, #{curString()}"
+    end
+    def delete_lines(p1,p2,inclue = true)
+        pos = @scanner.buffPos
+        @scanner.delete_lines(p1, p2, inclue)
+        
+        Get() if pos != @scanner.buffPos
+    end
+    def pre_elif(idf)
+        while @directive == "\#elif"
             # Get()
             Get()
              n1 = curString()
-             p "==>112:#{n1}, #{@scanner.buffPos}"
-             @scanner.delete_curline
+             # p "==>112:#{n1}, #{@scanner.buffPos}"
+             delete_curline
              pos11 = @scanner.buffPos
-             directive=_preprocess()
+             @directive=_preprocess()
              pos22 = @scanner.buffPos
              if !idf
                 if is_number?(n1)
@@ -244,55 +273,59 @@ class Parser < CRParser
                 else
                     idf = ifdefined?(n1) && @macros[n1].to_i !=0
                 end
-                p "==>111:#{n1}, #{idf}"
+                # p "==>111:#{n1}, #{idf}"
                 if !idf
-                    @scanner.delete_lines(pos11, pos22, false)
+                    delete_lines(pos11, pos22, false)
                 end
             else
-                @scanner.delete_lines(pos11, pos22, false)
+                delete_lines(pos11, pos22, false)
             end
          
         end
-        
-        
-        if directive == "\#else"
-            @scanner.delete_curline
+    end
+    def pre_else(idf)
+        if @directive == "\#else"
+            delete_curline # delete #else line
              pos11 = @scanner.buffPos
-             directive=_preprocess()
+             @directive=_preprocess()
              pos22 = @scanner.buffPos
-     
+             # p "hahaha11:#{directive}"
+        
             if idf
-                @scanner.delete_lines(pos11, pos22) # delete whole else part
+                delete_lines(pos11, pos22) # delete whole else part include
             else
-                @scanner.delete_curline # only delete #preprocess line
+                delete_curline # only delete #end line
             end
-            if directive == "\#endif"
-                # @scanner.delete_curline
+            if @directive == "\#endif"
+                # p "hahaha:#{directive}"
+                @scanner.delete_curline
             end
-            
-        elsif directive == "\#endif"
-            # @scanner.delete_curline
         end
     end
-    def is_number?(s)
-        s =~ /^\d+\w?$/
-    end
-    def pre_ifdef()
+    def pre_ifdef(ifndef=false)
          Get()
          n = curString()
-         @scanner.delete_curline
-         
-         pos1 = @scanner.buffPos
-         directive=_preprocess()
-         pos2 = @scanner.buffPos
+         p "n=#{n}"
+         delete_curline
          idf = ifdefined?(n)
+         pp "idf=#{idf}",20
+          if ifndef
+              idf = !idf
+          end
+          
+         pos1 = @scanner.buffPos
+         @directive=_preprocess()
+         pos2 = @scanner.buffPos
+         # p "pos:#{@scanner.buffPos}"
+         
+ 
          p "===>113:#{@scanner.buffer}"
          if !idf
-             @scanner.delete_lines(pos1, pos2, false) # delete whole block
+             delete_lines(pos1, pos2, false) # delete whole block
          else
-             @scanner.delete_curline # only delete #preprocess line
+             delete_curline # only delete #preprocess line
          end 
-         
+          p "pos1:#{@scanner.buffPos}"
         # pre = GetPre()
         
         # _str1 = curString()
@@ -301,61 +334,29 @@ class Parser < CRParser
         #   directive = "#{_str1}#{_str2}"
         
         # Get()
-        while directive == "\#elif"
-            # Get()
-            Get()
-             n1 = curString()
-             p "==>112:#{n1}, #{@scanner.buffPos}"
-             @scanner.delete_curline
-             pos11 = @scanner.buffPos
-             directive=_preprocess()
-             pos22 = @scanner.buffPos
-             if !idf
-                if is_number?(n1)
-                    idf = n1.to_i != 0
-                else
-                    idf = ifdefined?(n1) && @macros[n1].to_i !=0
-                end
-                p "==>111:#{n1}, #{idf}"
-                if !idf
-                    @scanner.delete_lines(pos11, pos22, false)
-                end
-            else
-                @scanner.delete_lines(pos11, pos22, false)
-            end
-         
-        end
         
-        
-        if directive == "\#else"
-            @scanner.delete_curline
-             pos11 = @scanner.buffPos
-             directive=_preprocess()
-             pos22 = @scanner.buffPos
-     
-            if idf
-                @scanner.delete_lines(pos11, pos22) # delete whole else part
-            else
-                @scanner.delete_curline # only delete #preprocess line
-            end
-            if directive == "\#endif"
+        pre_elif(idf)
+        pre_else(idf)
+        pre_endif(idf)
+       
+    end
+    def pre_endif(idf)
+        if @directive == "\#endif"
                 # @scanner.delete_curline
-            end
-            
-        elsif directive == "\#endif"
-            # @scanner.delete_curline
         end
     end
-    
+    def pre_ifndef()
+         pre_ifdef(true)
+    end    
     # process every directive
     def preprocess_directive()
           _str1 = curString()
-          pp "preprocessor: #{@sym}, #{_str1}", 20
+          # pp "preprocessor: #{@sym}, #{_str1}", 20
           Get()
           _str2 = curString()
-          directive = "#{_str1}#{_str2}"
-          p "directive=#{directive}"
-          if  directive == "\#include"
+          @directive = "#{_str1}#{_str2}"
+          p "directive=#{@directive}, line=#{@scanner.currLine}"
+          if  @directive == "\#include"
               Get()
               finclude = curString()
               if finclude[0]=="\"" || finclude[0] =="\'"
@@ -366,7 +367,7 @@ class Parser < CRParser
               end
               p "include file #{finclude}"
               include_file(finclude)  
-        elsif directive == "\#define" 
+        elsif @directive == "\#define" 
             
             Get()
             n = curString()
@@ -374,27 +375,31 @@ class Parser < CRParser
             v = @scanner.skip_curline
              p "==>define:#{n},#{v}"
             macro_str = add_macro(n, v)
-            @scanner.delete_prevline
+            delete_prevline
+            # @scanner.delete_line
+            # p "pos:#{@scanner.buffPos}, buffer:#{@scanner.buffer}"
             if macro_str
                 @scanner.insert_line(macro_str)
             end
-        elsif directive == "\#ifdef"
+        elsif @directive == "\#ifdef"
             pre_ifdef()
-        elsif directive == "\#if"
+        elsif @directive == "\#ifndef"
+            pre_ifndef()
+        elsif @directive == "\#if"
             pre_if()
         else
                # @scanner.delete_curline
-               return directive
+            return @directive
         end
         return nil
     end
-    def _preprocess()
+    def _preprocess(stop_on_unkown_directive = true)
         while (@sym!=C_EOF_Sym)
             
-            p "sym2:#{@sym}"
+             p "sym2:#{@sym}, #{curString()}"
             if @sym == C_PreProcessorSym
-                directive = preprocess_directive()
-                return directive if directive
+                @directive = preprocess_directive()
+                return @directive if stop_on_unkown_directive && @directive
             end
             Get()
         end
@@ -402,7 +407,7 @@ class Parser < CRParser
     def Preprocess()
         @in_preprocessing = true
         Get()
-        _preprocess()
+        _preprocess(false)
         @in_preprocessing = false
         p "after preprocess: #{@scanner.buffer}"
         return @scanner.buffer
@@ -1702,7 +1707,7 @@ HERE
     
     def curString()
         ret = @scanner.GetName()
-        p "------#{@scanner}"
+        # p "------#{@scanner}"
         return ret
     end
     def nextString()
@@ -2480,13 +2485,64 @@ s=<<HERE
 #define cc 1
 #if 0
 a = 1
-#elif cc
+#elif ccc
 a = 2
 #elif cc
 a = 22
 #else
 a =3
 #endif
+
+#ifdef bb
+c = 1
+#elif ccc
+c = 2
+#elif ccc
+c = 22
+#else
+c =3
+#endif
+
+#define MDR_ASSIGN_STR_NUM 						80304
+#define INVALID_OCR_FOR_POSTDATE_INDEX 			13
+#define AMOUNT_CHANGED_INDEX 					15
+#define ROW_DIMENSION_LOCATION					16
+HERE
+
+s=<<HERE
+#define bbb 1
+#ifdef bbb
+a=12;
+#else
+a=11;
+#define bb 1
+c=1;
+d=1;
+#endif
+HERE
+
+s=<<HERE
+
+#define		JDT_WARNING_BLOCK	3
+#ifdef JDT_WARNING_BLOCK1
+a = 1
+#else
+a = 2
+#endif
+
+HERE
+s =<<HERE
+//a = 1;
+//#define bbc
+
+//abc=1;
+
+#include "a.h"
+
+//#fdaaslk
+//c=1;
+//#include "bss.h"
+//b =1;
 HERE
 p s
 scanner = CScanner.new(s, false)

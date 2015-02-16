@@ -36,6 +36,26 @@ def parse(s, preprocess = true)
     return ret
 end
 
+def preprocess(s)
+    scanner = CScanner.new(s, false)
+    error = MyError.new("whaterver", scanner)
+    parser = Parser.new(scanner, error)
+    content = parser.Preprocess
+    begin
+       aFile = File.new("pre.#{Time.now.to_i}", "w+")
+       aFile.puts content
+       aFile.close
+    rescue Exception=>e
+       p e
+    end
+    p "after preprocess:#{content}"
+end
+
+def preprocess_file(fname)
+    s = read_file(fname)
+    preprocess(s)
+end
+
 def parse_file(fname, preprocess = true)
     content = read_file(fname)
     parse(content, preprocess)
@@ -44,4 +64,4 @@ end
 def test
     parse_file("pre.1423408171", false)
 end
-test
+# test

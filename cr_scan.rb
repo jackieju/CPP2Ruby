@@ -35,7 +35,7 @@ class AbsToken
 end
 
 class AbsScanner 
-    attr_accessor :nextSym, :currSym, :buffer, :buffPos
+    attr_accessor :nextSym, :currSym, :buffer, :buffPos, :ch
     def initialize
         p "init absscanner"
         @nextSym = AbsToken.new
@@ -142,11 +142,27 @@ class CRScanner < AbsScanner
 
     # ~CRScanner()
 
-    def Reset()
-        @currLine = 1
-        @lineStart = 0
-        @buffPos = -1
-        @currCol = 0
+    def Reset(buffPos=nil, currLine=nil, lineStart=nil, currCol=nil)
+        if !currLine
+            @currLine = 1 
+        else
+            @currLine = currLine
+        end
+        if !lineStart
+            @lineStart = 0 
+        else
+            @lineStart = lineStart
+        end
+        if !buffPos
+            @buffPos = -1 
+        else
+             @buffPos = buffPos
+        end
+        if !currCol
+            @currCol = 0 
+        else
+            @currCol = currCol
+        end
         @comEols = 0
         @nextSym = AbsToken.new
         @nextSym.init()
@@ -209,7 +225,7 @@ class CRScanner < AbsScanner
     end
     def GetSymString(sym)
         ret = ""
-        p "sym len #{sym.len} "
+        # p "sym len #{sym.len} "
          len = sym.len
          pos = sym.pos
 
@@ -257,33 +273,37 @@ class CRScanner < AbsScanner
     end
     def NextLine()
         ret_start = @buffPos+1
-        begin
-            # p "NextLine() @ch=#{@ch}"
-            # @buffPos+=1
-            #            # p "@buffPos=#{@buffPos}"
-            #            @ch = CurrentCh(@buffPos)
-            _get()
-            return if @ch == nil
-            if (@ch == "\\")
-               while (_get() =~ /\s/)
-               end
-               if @ch == "\n"
-                   _get()
-               end
-            end
-        end while (@ch != "\n")
+        if cch() == "\n"
+        else
+            begin
+                # p "NextLine() @ch=#{@ch}"
+                # @buffPos+=1
+                #            # p "@buffPos=#{@buffPos}"
+                #            @ch = CurrentCh(@buffPos)
+                _get()
+                return if @ch == nil
+                if (@ch == "\\")
+                   while (_get() =~ /\s/)
+                   end
+                   if @ch == "\n"
+                       _get()
+                   end
+                end
+            end while (@ch != "\n")
+        end
         ret_end = @buffPos-1
         @currLine += 1
         @currCol = 1
         @lineStart = @buffPos + 1
-        
+        @buffPos+=1
         return @buffer[ret_start..ret_end]
     end
     
     # return skipped content
     def skip_curline
         ret = NextLine()
-        pp "after skip current line:@buffPos=#{@buffPos}, buffer=#{@buffer}, ret=#{ret}", 20
+        # p "after skip current line, pos #{@buffPos}, ch = #{@buffer[@buffPos].to_byte}"
+        # pp "after skip current line:@buffPos=#{@buffPos}, buffer=#{@buffer}, ret=#{ret}", 20
         return ret
     end
     # def NextSym
@@ -308,10 +328,11 @@ class CRScanner < AbsScanner
    
     def CurrentCh( pos)
         # p "buffer:#{@buffer}"
+        # p "pos:#{pos}"
         return @buffer[pos]
     end
      def cch()
-         CurrentCh(@buffer[@buffPos])
+         CurrentCh(@buffPos)
      end
     def NextCh()
         # p "NextCh() @ch=#{@ch}"
@@ -322,7 +343,7 @@ class CRScanner < AbsScanner
         if (@ignoreCase) 
             @ch = Upcase(@ch)
         end
-         p "@ch=#{@ch}"
+         # p "@ch=#{@ch}"
         if (@ch == TAB_CHAR) 
             @currCol += TAB_SIZE - (@currCol % TAB_SIZE)
         elsif (@ch.to_byte == LF_CHAR) 
