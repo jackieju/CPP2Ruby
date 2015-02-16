@@ -704,7 +704,7 @@ public
     end
     
     def delete_line(pos=nil)
-        pp "===>delete_line, pos=#{pos}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
+        # pp "===>delete_line, pos=#{pos}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
         pos = @buffPos if pos == nil
         # replace_start is excluded, replace_end is excluded
         replace_start = pos-1 
@@ -771,7 +771,7 @@ public
         end
         
         # p "new buffer after delete current line: #{@buffer[pos..@buffer.size-1]}"
-        p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
+        # p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
         # p "pos:#{@buffPos}"
     end
     def include_file(fname)
@@ -785,10 +785,10 @@ public
         # end
         
         if c == nil
-           c = "\# include file #{fname} failed"
+           c = "// include file #{fname} failed"
            ret = false
         else
-           c = "\# included from file #{fname}\n#{c}"   
+           c = "// included from file #{fname}\n#{c}"   
         end
         # p "===>432q42#{@buffer[@buffPos..@buffer.size-1]}"
         replace_start = @buffPos-1
@@ -831,7 +831,7 @@ public
     # get next sym
     def Get()
         # int state, ctx
-  
+    p "pos:#{@buffPos}"
         
         return C_EOF_Sym if @ch == nil
         
@@ -840,11 +840,13 @@ public
             while (@ch.to_byte >= 9 && @ch.to_byte <= 10 ||
                    @ch.to_byte == 13 ||
                    @ch == ' ')
+                    # p "get30:#{@ch}, #{@buffPos}"
                     Scan_NextCh()
+                     # p "get31:#{@ch}, #{@buffPos}"
                     return C_EOF_Sym if @ch == nil 
             end
         end while ((@ch == '/') && Comment()==1) 
-        # p "get1:#{@ch}"
+        # p "get3:#{@ch}"
         # if $sc_cur != $sc.currSym.sym
         #     pp("!!!===", 20)
         # end
@@ -856,16 +858,18 @@ public
             nextSym.init(0, @currLine, @currCol - 1, @buffPos, 0)
             nextSym.len  = 0
              ctx = 0
-             # if $sc_cur != $sc.currSym.sym
-             #     pp("!!!===", 20)
-             # end
+             # p "get4:#{@ch}"
+
             if (@ch == EOF_CHAR || @ch == nil) 
                 return C_EOF_Sym
             end
             state = @@STATE0[@ch.to_byte]
             while(1) 
+                # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               Scan_NextCh()
               nextSym.len+=1
+              # p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
+              
               case (state) 
            
               when 1

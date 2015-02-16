@@ -267,7 +267,7 @@ class CRScanner < AbsScanner
         @buffer.lines[@currLine-1]
     end
     def _get()
-         @buffPos+=1
+        @buffPos+=1
         @ch = CurrentCh(@buffPos)
         return @ch
     end
@@ -291,11 +291,13 @@ class CRScanner < AbsScanner
                 end
             end while (@ch != "\n")
         end
-        ret_end = @buffPos-1
+        # bufferpos point to "\n"
+        ret_end = @buffPos-1 #return value not include \n
         @currLine += 1
         @currCol = 1
         @lineStart = @buffPos + 1
-        @buffPos+=1
+        
+        _get()
         return @buffer[ret_start..ret_end]
     end
     

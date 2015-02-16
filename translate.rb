@@ -24,6 +24,9 @@
 #   resJdt1TransId,
 #   resJdt1Line_ID,
 # };
+# stl
+# typedef
+
 require 'set'
 load 'parse.rb'
 load 'log.rb'

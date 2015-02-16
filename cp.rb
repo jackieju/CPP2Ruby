@@ -97,9 +97,9 @@ class Parser < CRParser
     def Get
         # p "sym1=#{@sym}"
          begin 
-                   # p "Get0: nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
+# p "Get0:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
             @sym = @scanner.Get()
-                  # p "Get1: nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
+ # p "Get1:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
             # p "Get(): sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@sym]}"
             # p "sym1=#{@sym}"
             # pp("hhhh", 30) if @sym==9
@@ -113,7 +113,9 @@ class Parser < CRParser
                         break
                     end
                     @scanner.skip_curline
-=begin                    
+                    # p "ch #{@scanner.ch}"
+                    # p "pos:#{@scanner.buffPos}, #{@scanner.ch}, #{@scanner.buffer[@scanner.buffPos]}, buffer:#{@scanner.buffer}"
+=begin              
                  # line 65 "cs.atg"
                   _str1 = curString()
                   pp "preprocessor #{}", 20
@@ -180,10 +182,12 @@ class Parser < CRParser
         ret = ""
         v = v.strip
         if v =~ /^(\d+)\w?$/
-            ret = "#{n.capitalize} = #{$1}"
+            n1 = n[0].upcase+n[1..n.size-1]
+            ret = "dummy_type #{n1} = #{$1};"
             @macros[n] = $1
         elsif v =~ /^\"(.*?)\"$/ || v =~ /^\'(.)\'$/
-             ret = "#{n.capitalize} = #{v}"
+             n1 = n[0].upcase+n[1..n.size-1]
+             ret = "dummy_type #{n1} = #{v};"
              @macros[n] = $1
         else
             @macros[n] = v
@@ -308,7 +312,7 @@ class Parser < CRParser
          p "n=#{n}"
          delete_curline
          idf = ifdefined?(n)
-         pp "idf=#{idf}",20
+         # pp "idf=#{idf}",20
           if ifndef
               idf = !idf
           end
@@ -359,6 +363,9 @@ class Parser < CRParser
           if  @directive == "\#include"
               Get()
               finclude = curString()
+              p "@sym=#{@sym}"
+              p "current sym:#{@scanner.currSym.sym}"
+              p "fclude:#{finclude}"
               if finclude[0]=="\"" || finclude[0] =="\'"
                     finclude = finclude[1..finclude.size-1]
               end
@@ -467,9 +474,89 @@ class Parser < CRParser
     	return ret
     end
     
+    # line 246 "cs.atg"
+    def Inheritance()
+        debug("===>Inheritance:#{@sym}, #{curString()}");
+    
+    # line 246 "cs.atg"
+    	if (@sym == C_inheritSym) 
+    # line 246 "cs.atg"
+    		Get()
+    	elsif (@sym == C_LessSym) 
+    # line 246 "cs.atg"
+    		Get()
+    	else 
+    	    GenError(88)
+        end
+    # line 246 "cs.atg"
+    	Expect(C_identifierSym)
+    # line 247 "cs.atg"
+        
+    while (@sym==C_CommaSym)
+        Get()
+        Expect(C_identifierSym)
+    end
+
+
+    # line 264 "cs.atg"
+    	Expect(C_SemicolonSym);
+    end
+    
     def ClassDef
         debug("===>ClassDef:#{@sym}, #{curString()}");
+        # line 267 "cs.atg"
+        	Expect(C_classSym)
+        # line 267 "cs.atg"
+        	Expect(C_identifierSym)
+        # line 268 "cs.atg"
 
+        # line 295 "cs.atg"
+        	while (@sym == C_ColonSym) 
+        # line 295 "cs.atg"
+        		Inheritance()
+        	end
+        # line 296 "cs.atg"
+        	if (@sym == C_LbraceSym)
+        	    ClassBody()
+    	    else
+    	        # line 296 "cs.atg"
+                Expect(C_SemicolonSym)
+    	    end
+ 
+    end
+    
+    # line 297 "cs.atg"
+    def ClassBody()
+        debug("===>ClassBody:#{@sym}, #{curString()}");
+    
+    # line 298 "cs.atg"
+
+    # line 322 "cs.atg"
+    	Expect(C_LbraceSym)
+    	
+    # line 322 "cs.atg"
+    	while (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
+    	       @sym == C_SemicolonSym ||
+    	       @sym >= C_classSym && @sym <= C_LbraceSym ||
+    	       @sym >= C_staticSym && @sym <= C_stringSym ||
+    	       @sym == C_LparenSym ||
+    	       @sym >= C_StarSym && @sym <= C_caseSym ||
+    	       @sym >= C_defaultSym && @sym <= C_ifSym ||
+    	       @sym >= C_returnSym && @sym <= C_switchSym ||
+    	       @sym == C_AndSym ||
+    	       @sym >= C_PlusSym && @sym <= C_MinusSym ||
+    	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
+    	       @sym >= C_newSym && @sym <= C_DollarSym ||
+    	       @sym >= C_BangSym && @sym <= C_TildeSym) 
+    # line 322 "cs.atg"
+    		Definition()
+    	end
+    # line 322 "cs.atg"
+    	Expect(C_RbraceSym)
+    # line 324 "cs.atg"
+
+    	
     end
     
     def Enum()
@@ -2521,15 +2608,11 @@ d=1;
 #endif
 HERE
 
-s=<<HERE
 
-#define		JDT_WARNING_BLOCK	3
-#ifdef JDT_WARNING_BLOCK1
-a = 1
-#else
-a = 2
-#endif
-
+s =<<HERE
+#dfsfffff
+#adfa
+ff=1;
 HERE
 s =<<HERE
 //a = 1;
@@ -2544,6 +2627,20 @@ s =<<HERE
 //#include "bss.h"
 //b =1;
 HERE
+s=<<HERE
+#include "a.h"
+HERE
+s=<<HERE
+
+#define		JDT_WARNING_BLOCK	3
+#ifdef JDT_WARNING_BLOCK1
+a = 1
+#else
+a = 2
+#endif
+
+HERE
+
 p s
 scanner = CScanner.new(s, false)
 p "===>scanner =#{scanner}"
@@ -2552,11 +2649,11 @@ $sc = scanner
 $sc_cur = scanner.currSym.sym
 error = MyError.new("whaterver", scanner)
 parser = Parser.new(scanner, error)
-# parser.Get
+parser.Get
 # puts "FunctionBody return \n#{parser.send("FunctionBody")}"
-# parser.C
+ret = parser.C
 
-parser.Preprocess
+# parser.Preprocess
 
 # scanner.Reset
 # parser.Get
@@ -2568,4 +2665,4 @@ error.PrintListing
 
 end
 #=end
-test
+# test
