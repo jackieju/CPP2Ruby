@@ -1,11 +1,36 @@
 load 'log.rb'
+class Variable
+    attr_accessor :name, :type
+    def initialize(name, type)
+        @name = name
+        @type = type
+    end
+end
+class VarType
+    attr_accessor :name, :ref
+    def initialize(name)
+        @name = name
+        @ref = 0
+    end
+end
 class Scope
     attr_accessor :name, :vars
     def initialize(name)
         @name = name
         @vars = {}
     end
+    
+    def add_var(v)
+        @vars[v.name] = v
+    end
 
+end
+class ClassDef < Scope
+    attr_accessor :class_name, :parent, :modules
+    def initialize(name)
+        super("class")
+        @class_name = name
+    end
 end
 class CRParser 
 # Abstract Parser
@@ -19,9 +44,23 @@ class CRParser
         @error = e
         @sym = 0
         @sstack = [] # scope stack
+        @classdefs = {}
         p "haha"
     end
     
+    def current_scope
+        @sstack.last
+    end
+    def current_class_scope
+         i = @sstack.size-1
+         while (i>=0)
+             if @sstack[i].name == "class"
+                 return @sstack[i]
+             end
+             i -= 1
+         end
+         return nil
+    end
     def canUseBreak?
         i = @sstack.size-1
         while (i>=0)

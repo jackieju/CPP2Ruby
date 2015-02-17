@@ -62,6 +62,6 @@ def parse_file(fname, preprocess = true)
 end
 
 def test
-    parse_file("pre.1424096273", false)
+    p parse_file("pre.1424096273", false)
 end
 test

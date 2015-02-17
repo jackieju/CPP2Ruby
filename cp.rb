@@ -476,6 +476,7 @@ class Parser < CRParser
     
     # line 246 "cs.atg"
     def Inheritance()
+        # TODO
         debug("===>Inheritance:#{@sym}, #{curString()}");
     
     # line 246 "cs.atg"
@@ -503,30 +504,39 @@ class Parser < CRParser
     end
     
     def ClassDef
-        debug("===>ClassDef:#{@sym}, #{curString()}");
+        debug("===>ClassDef:#{@sym}, #{curString()}")
         # line 267 "cs.atg"
         	Expect(C_classSym)
         # line 267 "cs.atg"
+        	_class_name = curString()
         	Expect(C_identifierSym)
+        	clsdef = ClassDef.new(_class_name)
+            # class_name = _class_name[0].upcase + _class_name[1.._class_name.size-1]
         # line 268 "cs.atg"
 
         # line 295 "cs.atg"
         	while (@sym == C_ColonSym) 
         # line 295 "cs.atg"
-        		Inheritance()
+        		Inheritance(clsdef)
         	end
         # line 296 "cs.atg"
         	if (@sym == C_LbraceSym)
-        	    ClassBody()
+        	    ClassBody(clsdef)
     	    else
     	        # line 296 "cs.atg"
                 Expect(C_SemicolonSym)
     	    end
- 
+    	    
+    	    @classdefs[_class_name] = clsdef
+            # @classdefs.each{|k,v|
+            #               p "classdef #{k}=#{v}"
+            #           }
     end
     
     # line 297 "cs.atg"
-    def ClassBody()
+    def ClassBody(clsdef)
+        
+        @sstack.push(clsdef)
         debug("===>ClassBody:#{@sym}, #{curString()}");
     
     # line 298 "cs.atg"
@@ -556,7 +566,7 @@ class Parser < CRParser
     	Expect(C_RbraceSym)
     # line 324 "cs.atg"
 
-    	
+    	 @sstack.pop
     end
     
     def Enum()
@@ -612,6 +622,10 @@ class Parser < CRParser
     	    Enum()
     	elsif (@sym == C_StructSym)
     	    StructDef()
+	    # elsif
+	    #          [ StorageClass ] Type { "*" } identifier
+	    #                                    ( FunctionDefinition | VarList ";" ) 
+	    #                                    | Inheritance .
     	elsif (@sym >= C_EOF_Sym && @sym <= C_numberSym ||
     	           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	           @sym == C_SemicolonSym ||
@@ -663,6 +677,7 @@ class Parser < CRParser
     	return ret
     end
     
+    # general statement, can be local definition or statement
     def gStatement()
         rStatement = ""
         
@@ -723,7 +738,8 @@ class Parser < CRParser
                 #     rStatement += LocalDeclaration()+"\n"
                 #               end
     		if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_stringSym)
-    		    rStatement += gStatement() + "\n"			
+    		    rStatement += "\n" if rStatement != ""
+    		    rStatement += gStatement()	
     		 elsif (@sym >= C_identifierSym && @sym <= C_numberSym ||
     		           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     		           @sym == C_SemicolonSym ||
@@ -739,11 +755,12 @@ class Parser < CRParser
                        @sym == C_newSym ||
     		           @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 711 "cs.atg"
-    			rStatement += Statement()+"\n"
+    			rStatement += "\n" if rStatement != ""
+    			rStatement += Statement()
     		 else 
     		     GenError(90)
 		     end
-    	end
+    	end # while
     	return rStatement
     # line 711 "cs.atg"
     end    
@@ -778,9 +795,13 @@ class Parser < CRParser
         end
     # line 699 "cs.atg"
         
+        if type != ""
+            var_type = VarType.new(type)
+        end
  
         
     	while (@sym == C_StarSym || @sym == C_AndSym) 
+    	    var_type.ref += 1
     # line 699 "cs.atg"
     		Get()
     # line 699 "cs.atg"
@@ -788,18 +809,34 @@ class Parser < CRParser
     # line 702 "cs.atg"
         p "type=#{type}, storageclass=#{storageclass}, prev=#{@prev_sym}, cur=#{@sym}"
     	varname = curString()
+    	fname = varname
     	Expect(C_identifierSym)
+    	p "===>33:#{varname}"
+    	if @sym == C_ColonColonSym
+    	    @classdefs.each{|k,v|
+    	        p "class #{k} = #{v}"
+    	    }
+    	    if @classdefs[varname] == nil
+    	        raise "class #{varname} not found"
+	        end
+	        class_name = varname
+    	    Get()
+    	    fname = curString()
+    	    p "===>332:#{fname}"
+    	    Expect(C_identifierSym)
+	    end
     # line 702 "cs.atg"
 
     # line 706 "cs.atg"
     	if (@sym == C_LparenSym) 
     # line 706 "cs.atg"
-            # fd = FunctionDefinition()
-            fd = FunctionCall()
+            fd = FunctionDefinition(class_name)
+            # fd = FunctionCall()
     	elsif (@sym == C_SemicolonSym ||
     	           @sym >= C_EqualSym && @sym <= C_LbrackSym) 
+    	    current_scope.add_var(Variable.new(varname, var_type))
     # line 706 "cs.atg"
-            vl = VarList()
+            vl = VarList(var_type)
 	
     # line 706 "cs.atg"
     		Expect(C_SemicolonSym)
@@ -808,7 +845,7 @@ class Parser < CRParser
 	    end
     # line 706 "cs.atg"
         if fd && fd != ""
-            ret = "def #{varname}\n#{fd}\nend"
+            ret = "def #{fname}#{fd}\nend"
         else
             _ret = "#{varname}#{vl}"
             ar = _ret.split(",")
@@ -825,7 +862,7 @@ class Parser < CRParser
         return ret
     end
     # line 440 "cs.atg"
-    def VarList()
+    def VarList(var_type)
     
         ret = ""
     # line 441 "cs.atg"
@@ -848,8 +885,11 @@ class Parser < CRParser
     # line 446 "cs.atg"
     		Get()
     # line 446 "cs.atg"
-    		ret += curString()
+            varname = curString()
+    		ret += varname
     		Expect(C_identifierSym)
+    		current_scope.add_var(Variable.new(varname, var_type))
+    	    
     # line 447 "cs.atg"
 
 
@@ -897,15 +937,19 @@ class Parser < CRParser
     	return ""
     end    
     # line 465 "cs.atg"
-    def FunctionDefinition()
+    def FunctionDefinition(class_name = nil)
         ret = ""
- 	   
+        if class_name
+ 	        classdef = @classdefs[class_name]
+        end
     # line 466 "cs.atg"
 
     # line 509 "cs.atg"
-    	ret += FunctionHeader();
+    	ret += FunctionHeader()
     # line 509 "cs.atg"
-    	fb = FunctionBody();
+        @sstack.push(classdef) if classdef
+    	fb = FunctionBody()
+    	@sstack.pop if classdef
     # line 510 "cs.atg"
         
         if (fb && fb != "")
@@ -940,6 +984,52 @@ class Parser < CRParser
  
     end
     
+    # line 567 "cs.atg"
+    def FormalParamList()
+    
+        ret = ""
+    # line 567 "cs.atg"
+    	ret += FormalParameter();
+    	
+    # line 567 "cs.atg"
+    	while (@sym == C_CommaSym) 
+    	    ret += ","
+    # line 567 "cs.atg"
+    		Get()
+    # line 567 "cs.atg"
+    		ret += FormalParameter()
+    		
+    	end
+    	
+    	return ret
+    end
+    # line 441 "cs.atg"
+    def FormalParameter()
+        ret = ""
+    # line 441 "cs.atg"
+        # PTYPEDES type = new TYPEDES;
+    # line 442 "cs.atg"
+    	type = Type()
+    # line 442 "cs.atg"
+    	while (@sym == C_StarSym) 
+    # line 442 "cs.atg"
+    # line 442 "cs.atg"
+    		Get()
+    # line 442 "cs.atg"
+            # type->refLevel++;
+    	end
+    # line 444 "cs.atg"
+        ret += curString()
+    	Expect(C_identifierSym)
+    # line 445 "cs.atg"
+
+    # line 450 "cs.atg"
+    	ArraySize()
+    # line 451 "cs.atg"
+        
+        return ret
+        
+    end
     # line 394 "cs.atg"
     def StorageClass()
         ret = ""
@@ -1039,7 +1129,7 @@ class Parser < CRParser
 				    end
     			end
     			#break;
-    		when C_intSym  
+    		when C_charSym  
     # line 429 "cs.atg"
     			ret += curString()
     		    Get();
@@ -1051,23 +1141,23 @@ class Parser < CRParser
     		    Get();
     # line 432 "cs.atg"
     			#break;
-    		when C_intSym  
+    		when C_floatSym  
     # line 433 "cs.atg"
     			ret += curString()
     		    Get();
     # line 434 "cs.atg"
     			#break;
-    		when C_intSym  
+    		when C_doubleSym  
     # line 436 "cs.atg"
     			ret += curString()
     		    Get();
     			#break;
-    		when C_intSym  
+    		when C_voidSym  
     # line 436 "cs.atg"
     			ret += curString()
     		    Get();
     			#break;
-    		when C_intSym  
+    		when C_stringSym  
     # line 436 "cs.atg"
     			ret += curString()
     		    Get();
@@ -2052,6 +2142,8 @@ HERE
     
     				    
     # line 1733 "cs.atg"
+                    # in c/c++, class member variable and member method cannot have same name, so we don't need to 
+                    # check @ here
                     # ret += FunctionCall(&fn)
                     ret += FunctionCall()
     # line 1734 "cs.atg"
@@ -2251,20 +2343,29 @@ HERE
     # line 2475 "cs.atg"
     	case @sym
     		when C_identifierSym  
-    		    ret += curString()
+    		    varname = curString()
+                
             	Get()
     # line 2334 "cs.atg"
-                while (@sym == C_ColonColonSym)
-                    p "====>233:#{curString()}"
-                    # line 2353 "cs.atg"
-                    	Get();
-                    # line 2353 "cs.atg"
+                if @sym == C_ColonColonSym
+                    ret += varname
+                    while (@sym == C_ColonColonSym)
+                        p "====>233:#{curString()}"
+                        # line 2353 "cs.atg"
+                        	Get();
+                        # line 2353 "cs.atg"
                     
-                        ret += "::#{curString()}"
-                    	Expect(C_identifierSym)
-                    
-            	end
-    			
+                            ret += "::#{curString()}"
+                        	Expect(C_identifierSym)
+                	end
+            	else
+    		    	ccs =  current_class_scope
+        			if ccs && ccs.vars[varname]
+        			    ret += "@#{varname}"
+    			    else
+    			        ret += varname
+    			    end
+    		    end
     # line 2335 "cs.atg"
 
 =begin    	
@@ -2358,6 +2459,7 @@ HERE
     
     # line 2597 "cs.atg"
     def FunctionCall()
+        pp "functioncall()",20
         ret  =""
     # line 2597 "cs.atg"
     	Expect(C_LparenSym);
@@ -2641,6 +2743,25 @@ a = 2
 
 HERE
 
+s=<<HERE
+B c = A(b);
+HERE
+s=<<HERE
+class Test{
+    int a;
+    void test1(){
+        printf("test1");
+        a = 1;
+    }
+}
+int Test::test(int a, B* b){
+    printf("int");
+    printf("int");
+    a = 1;
+    
+}
+HERE
+
 p s
 scanner = CScanner.new(s, false)
 p "===>scanner =#{scanner}"
@@ -2660,9 +2781,9 @@ ret = parser.C
 
 # ret = parser.C
 
-# p "parsing result:#{ret}"
+p "parsing result:#{ret}"
 error.PrintListing
 
 end
 #=end
-# test
+test
