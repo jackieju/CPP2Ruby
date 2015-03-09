@@ -173,8 +173,10 @@ C_BangSym = 83	# "!" */
 C_TildeSym = 84	# "~" */
 C_EnumSym = 85
 C_StructSym = 86
-C_No_Sym = 87	# not */
-C_PreProcessorSym = 88	# PreProcessor */
+C_TypedefSym = 87
+#*** insert new sym here ***#
+C_No_Sym = 88	# not */
+C_PreProcessorSym = 89	# PreProcessor */
 C_MAXT = C_No_Sym	# Max Terminals */
 
 SYMS=[                                                
@@ -265,6 +267,7 @@ SYMS=[
 "~"                          ,
 "enum",
 "struct",
+"typedef",
 "not"                          ,
 "PreProcessor"         ,
     ]

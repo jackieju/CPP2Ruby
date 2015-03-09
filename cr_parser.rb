@@ -27,9 +27,9 @@ class Scope
 end
 class ClassDef < Scope
     attr_accessor :class_name, :parent, :modules
-    def initialize(name)
+    def initialize(class_name)
         super("class")
-        @class_name = name
+        @class_name = class_name
     end
 end
 class CRParser 

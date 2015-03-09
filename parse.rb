@@ -11,6 +11,8 @@ def parse_block(s, method="FunctionBody")
     return ret
 end
 
+# parse string
+# preprocess - true: do preprocess first, false: no do preprocess, just parse
 def parse(s, preprocess = true)
     p "parse #{s}"
     scanner = CScanner.new(s, false)
@@ -56,6 +58,8 @@ def preprocess_file(fname)
     preprocess(s)
 end
 
+# parse file
+# preprocess - true: do preprocess first, false: no do preprocess, just parse
 def parse_file(fname, preprocess = true)
     content = read_file(fname)
     parse(content, preprocess)
@@ -64,4 +68,4 @@ end
 def test
     p parse_file("pre.1424096273", false)
 end
-test
+# test

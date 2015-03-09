@@ -419,7 +419,11 @@ class CScanner <  CRScanner
           		return C_shortSym if (EqualStr("short")) 
           		return C_stringSym if (EqualStr("string")) 
           		return C_switchSym if (EqualStr("switch")) 
+          		return C_StructSym if (EqualStr("struct")) 
+          		
           		#break
+          	when 't'
+          	    return C_TypedefSym if (EqualStr("typedef")) 
           	when 'u'
           		return C_useSym if (EqualStr("use")) 
           		return C_unsignedSym if (EqualStr("unsigned")) 
@@ -1238,7 +1242,6 @@ public
               	return C_GreaterGreaterEqualSym
               when 82
               	return C_TildeSym
-
               else
                    return C_No_Sym
              end #case

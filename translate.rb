@@ -1,31 +1,5 @@
 #!/Users/i027910/.rvm/rubies/ruby-2.1.2/bin/ruby
-# TODO
-# TCHAR			tmpStr[256]={0};
-# if ...{
-# }
-# ++, --
 
-# static function
-# function def outside class SCOPE (global function)
-# member var, global var
-# process .h .cpp at one time running and by order
-# local var vs constant
-# if 0 => if false
-# swtich case without break , 1. add "," 2. remove break in when
-# class assgin in c++ is object clone, but in ruby is same instance.
-# KEEP COMMENT
-# Release resource in desconstructor
-# enum type like
-# enum
-# {
-#   resTax1AbsEntry = 0L,
-#   resTax1TaxCode,
-#   resTax1EqPercent,
-#   resJdt1TransId,
-#   resJdt1Line_ID,
-# };
-# stl
-# typedef
 
 require 'set'
 load 'parse.rb'
@@ -546,14 +520,34 @@ HERE
        
 end
 p $*.inspect
+$mode = "translate"
 if $*.size >0
     for a in $*[0..$*.size-1]
         p a
+        if a == "-pre"
+            $mode = "preprocess"
+        elsif a == "-parse"
+            $mode = "parse"
+        end
+    end
+    p "mode=#{$mode}"
+    
+    for a in $*[0..$*.size-1]
+        p a
+        next if a.start_with?("-")
+        if $mode == "parse"
+            parse_file(a, false)
+            generate_ruby
+        elsif $mode == "translate"
+            parse_file(a)
+            generate_ruby    
+        elsif $mode == "preprocess"
+            preprocess_file(a)
+        end
         # translate(a)
         # parse_file(a)
-        preprocess_file(a)
+        # preprocess_file(a)
     end
-    generate_ruby
 else
     p "no file specified"
     p "usage: ruby generate_obj.rb <c source file>\n

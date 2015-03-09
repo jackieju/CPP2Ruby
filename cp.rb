@@ -170,7 +170,7 @@ class Parser < CRParser
               	    
                 else
                     #/* Empty Stmt */ ;
-                    @scanner.nextSym = @scanner.CurrSym;
+                    @scanner.nextSym = @scanner.currSym
                 end
             end
         end while (@sym > C_MAXT)
@@ -421,6 +421,8 @@ class Parser < CRParser
     end
     # line 98 "cs.atg"
     def C()
+        @sstack.push(Scope.new("::"))
+    	
         ret = ""
         p "==>C:#{SYMS[@sym]}"
     # line 98 "cs.atg"
@@ -463,44 +465,59 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
-    	       @sym == C_EnumSym) 
+    	       @sym == C_EnumSym || 
+    	       @sym == C_TypedefSym || 
+    	       @sym == C_StructSym) 
     # line 137 "cs.atg"
     		ret += Definition()
     	end
     # line 137 "cs.atg"
     	Expect(C_EOF_Sym)
     # line 137 "cs.atg"
-
+        
+        @sstack.pop
     	return ret
     end
     
     # line 246 "cs.atg"
-    def Inheritance()
+    def Inheritance(clsdef)
         # TODO
         debug("===>Inheritance:#{@sym}, #{curString()}");
     
+    # # line 246 "cs.atg"
+    #   if (@sym == C_inheritSym) 
+    # # line 246 "cs.atg"
+    #       Get()
+    #   elsif (@sym == C_LessSym) 
+    # # line 246 "cs.atg"
+    #       Get()
+    #   else 
+    #       GenError(88)
+    #     end
     # line 246 "cs.atg"
-    	if (@sym == C_inheritSym) 
-    # line 246 "cs.atg"
-    		Get()
-    	elsif (@sym == C_LessSym) 
-    # line 246 "cs.atg"
-    		Get()
-    	else 
-    	    GenError(88)
+        Get()
+        decorators = ["public", "protected", "privrate"]
+        if (@sym == C_identifierSym && decorators.include?(curString()) )
+            Get()  # Expect(C_identifierSym) # public/private
         end
-    # line 246 "cs.atg"
-    	Expect(C_identifierSym)
+        
+    	Expect(C_identifierSym) # parent class name
+    	parent_class_name = curString()
+    	p "parent class name = #{parent_class_name}"
+    	
     # line 247 "cs.atg"
         
-    while (@sym==C_CommaSym)
-        Get()
-        Expect(C_identifierSym)
-    end
+        while (@sym==C_CommaSym)
+            Get()
+            if (@sym == C_identifierSym && decorators.include?(curString()) )
+                Get()  # Expect(C_identifierSym) # public/private
+            end
+            Expect(C_identifierSym)
+        end
 
 
     # line 264 "cs.atg"
-    	Expect(C_SemicolonSym);
+        # Expect(C_SemicolonSym)
     end
     
     def ClassDef
@@ -523,8 +540,11 @@ class Parser < CRParser
         	if (@sym == C_LbraceSym)
         	    ClassBody(clsdef)
     	    else
+    	        p "--->classdef33, #{@sym}, #{curString()}"
     	        # line 296 "cs.atg"
                 Expect(C_SemicolonSym)
+                p "--->classdef34, #{@sym}, #{curString()}"
+    	        
     	    end
     	    
     	    @classdefs[_class_name] = clsdef
@@ -533,9 +553,14 @@ class Parser < CRParser
             #           }
     end
     
+    def FriendClass()
+             Expect(C_classSym)
+                Expect(C_identifierSym)
+                Expect(C_SemicolonSym)
+    end
     # line 297 "cs.atg"
     def ClassBody(clsdef)
-        
+       
         @sstack.push(clsdef)
         debug("===>ClassBody:#{@sym}, #{curString()}");
     
@@ -543,7 +568,7 @@ class Parser < CRParser
 
     # line 322 "cs.atg"
     	Expect(C_LbraceSym)
-    	
+    	$class_current_mode = "public"
     # line 322 "cs.atg"
     	while (@sym >= C_identifierSym && @sym <= C_numberSym ||
     	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
@@ -560,7 +585,25 @@ class Parser < CRParser
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 322 "cs.atg"
+                cs = curString()
+                p "cs:#{cs}"
+                # if (cs == "friend") #ignore
+                #                    Get()
+                #                    FriendClass()
+                #                    next
+                #                end
+                # if cs == "public" || cs == "private" || cs == "protected"
+                #           Get()
+                #           Expect(C_ColonSym)
+                #           if cs == "private" 
+                #               $class_current_mode = "private"
+                #           else
+                #               $class_current_mode = "public"
+                #           end
+                #           next
+                #       end 
     		Definition()
+		
     	end
     # line 322 "cs.atg"
     	Expect(C_RbraceSym)
@@ -606,8 +649,32 @@ class Parser < CRParser
     end
     
     def StructDef()
-        debug("===>ClassDef:#{@sym}, #{curString()}");
-        
+        debug("===>StructDef:#{@sym}, #{curString()}");
+        	Expect(C_StructSym)
+        # line 267 "cs.atg"
+        	_class_name = curString()
+        	Expect(C_identifierSym)
+        	clsdef = ClassDef.new(_class_name)
+            # class_name = _class_name[0].upcase + _class_name[1.._class_name.size-1]
+        # line 268 "cs.atg"
+
+        # line 295 "cs.atg"
+        	while (@sym == C_ColonSym) 
+        # line 295 "cs.atg"
+        		Inheritance(clsdef)
+        	end
+        # line 296 "cs.atg"
+        	if (@sym == C_LbraceSym)
+        	    ClassBody(clsdef)
+    	    else
+    	        p "--->classdef33, #{@sym}, #{curString()}"
+    	        # line 296 "cs.atg"
+                Expect(C_SemicolonSym)
+                p "--->classdef34, #{@sym}, #{curString()}"
+    	        
+    	    end
+    	    
+    	    @classdefs[_class_name] = clsdef
     end
     # line 218 "cs.atg"
     def Definition()
@@ -618,6 +685,7 @@ class Parser < CRParser
     	if (@sym == C_classSym) 
     # line 219 "cs.atg"
     		ClassDef()
+            # p "--->classDef11, #{@sym}, #{curString()}"
     	elsif (@sym == C_EnumSym)
     	    Enum()
     	elsif (@sym == C_StructSym)
@@ -638,9 +706,10 @@ class Parser < CRParser
     	           @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	           @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	           @sym >= C_newSym && @sym <= C_DollarSym ||
-    	           @sym >= C_BangSym && @sym <= C_TildeSym) 
+    	           @sym >= C_BangSym && @sym <= C_TildeSym ||
+    	           @sym == C_TypedefSym ) 
     # line 219 "cs.atg"
-    		ret += Statements();
+    		ret += Statements()
     	else 
     	    GenError(89)
 	    end
@@ -679,6 +748,7 @@ class Parser < CRParser
     
     # general statement, can be local definition or statement
     def gStatement()
+        p "-->gStatement1, sym=#{@sym}, val=#{curString()}"
         rStatement = ""
         
 		if (@sym == C_identifierSym )
@@ -688,18 +758,27 @@ class Parser < CRParser
         	    #                 if $sc_cur != $sc.currSym.sym
         	    #                     pp("!!!===", 20)
         	    #                 end
-        	    #                 p "GetNext=#{_next}"
+                                p "GetNext=#{_next}"
         	    #                 p "|||||||||||||@sym = #{@sym}, #{@scanner.currSym.inspect}, #{curString()}, @scanner=#{@scanner}"
         	    #                 
         	    
         	    # TODO, theoritcally, user can write "a *b;", which is ambiguious (see where a is type)
-        	    if  _next == C_identifierSym || _next == C_AndSym || _next == C_StarSym
+        	    p "current scope:#{current_scope.name}"
+        	    if current_scope.name == "class"
+        	        p "class name #{current_scope.class_name}, curString()=#{curString()}"
+    	        end
+        	    if  _next == C_identifierSym || _next == C_AndSym || _next == C_StarSym ||
+        	        _next == C_TypedefSym ||
+        	        (
+        	            _next == C_LparenSym  && ['class', 'struct'].include?(current_scope.name) && current_scope.class_name == curString()
+        	         ) # for constructor in class for struct
+        	        
         	        rStatement += LocalDeclaration()
                 else
                     rStatement += Statement()
                     # p "statement return #{rStatement}"
                 end
-        elsif (@sym >= C_staticSym && @sym <= C_stringSym )
+        elsif (@sym >= C_staticSym && @sym <= C_stringSym || @sym == C_TypedefSym )
         # line 711 "cs.atg"
         		rStatement += LocalDeclaration()
        end
@@ -723,7 +802,8 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
                # @sym >= C_newSym && @sym <= C_DollarSym ||
                @sym == C_newSym || 
-    	       @sym >= C_BangSym && @sym <= C_TildeSym)  do
+    	       @sym >= C_BangSym && @sym <= C_TildeSym ||
+    	       @sym == C_TypedefSym)  do
     # line 711 "cs.atg"
                 #             if (@sym == C_identifierSym)
                 #                 @prev_sym = @sym
@@ -737,7 +817,24 @@ class Parser < CRParser
                 #                   p "enter ld"
                 #     rStatement += LocalDeclaration()+"\n"
                 #               end
-    		if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_stringSym)
+    		cs = curString()
+    		if @sym == C_identifierSym && cs == "friend"#ignore
+                Get()
+                FriendClass()
+                next
+            end
+            if cs == "public" || cs == "private" || cs == "protected"
+                Get()
+                Expect(C_ColonSym)
+                if cs == "private" 
+                    $class_current_mode = "private"
+                else
+                    $class_current_mode = "public"
+                end
+                next
+            end    		
+            if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_stringSym ||
+    		    @sym == C_TypedefSym)
     		    rStatement += "\n" if rStatement != ""
     		    rStatement += gStatement()	
     		 elsif (@sym >= C_identifierSym && @sym <= C_numberSym ||
@@ -776,7 +873,7 @@ class Parser < CRParser
             @prev_sym = nil
         else
         
-        
+            p "=3>#{@sym}"
         # line 696 "cs.atg"
         	if (@sym >= C_varSym && @sym <= C_stringSym || @sym == C_identifierSym) 
         # line 696 "cs.atg"
@@ -789,6 +886,14 @@ class Parser < CRParser
         # line 696 "cs.atg"
                     # Type()  
                 # end       
+        	
+        	# just ignore typdef, cuz ruby dosen't need any type definition
+        	elsif @sym == C_TypedefSym
+        	    p "--->typedef"
+        	    while @sym != C_SemicolonSym
+        	        Get()
+    	        end
+    	        return ""
         	else 
         	    GenError(98)
     	    end
@@ -810,7 +915,11 @@ class Parser < CRParser
         p "type=#{type}, storageclass=#{storageclass}, prev=#{@prev_sym}, cur=#{@sym}"
     	varname = curString()
     	fname = varname
-    	Expect(C_identifierSym)
+    	if @sym == C_LparenSym
+    	    # for constructor with initialization list in classdef or sturctdef
+	    else
+        	Expect(C_identifierSym)
+    	end
     	p "===>33:#{varname}"
     	if @sym == C_ColonColonSym
     	    @classdefs.each{|k,v|
@@ -947,9 +1056,41 @@ class Parser < CRParser
     # line 509 "cs.atg"
     	ret += FunctionHeader()
     # line 509 "cs.atg"
-        @sstack.push(classdef) if classdef
-    	fb = FunctionBody()
-    	@sstack.pop if classdef
+        # p "--->FunctionDefinition sym:#{@sym}"
+        if @sym == C_SemicolonSym
+            #if just function declaration without body
+            return ""
+        else
+
+            @sstack.push(classdef) if classdef
+            if @sym == C_ColonSym
+                # initialization list, for constructor of class/struct
+                
+                i_list = ""
+                Get()
+                Expect(C_identifierSym)
+                m = curString()
+                
+                Expect(C_LparenSym)
+                v = Expression()
+                Expect(C_RparenSym)
+                i_list += "@#{m} = #{v}\n"
+                while (@sym == C_CommaSym)
+                     Get()
+                     Expect(C_identifierSym)
+                     m = curString()
+                     Expect(C_LparenSym)
+                     v = Expression()
+                     Expect(C_RparenSym)
+                     
+                     i_list += "@#{m} = #{v}\n"
+                     
+                end
+            end
+        	fb = FunctionBody()
+        	fb = i_list + fb if i_list
+        	@sstack.pop if classdef
+    	end
     # line 510 "cs.atg"
         
         if (fb && fb != "")
@@ -1011,7 +1152,7 @@ class Parser < CRParser
     # line 442 "cs.atg"
     	type = Type()
     # line 442 "cs.atg"
-    	while (@sym == C_StarSym) 
+    	while (@sym == C_StarSym || @sym == C_AndSym) 
     # line 442 "cs.atg"
     # line 442 "cs.atg"
     		Get()
@@ -1027,6 +1168,14 @@ class Parser < CRParser
     	ArraySize()
     # line 451 "cs.atg"
         
+        if @sym == C_EqualSym #default value for parameter
+            Get()
+            r = Expression()
+            ret += " = #{r}"
+            p "===>FormalParameter default value"
+        end
+        
+    
         return ret
         
     end
@@ -1034,7 +1183,7 @@ class Parser < CRParser
     def StorageClass()
         ret = ""
     # line 396 "cs.atg"
-    	if (Sym == staticSym) 
+    	if (@sym == C_staticSym) 
     	    ret += curString()
     # line 395 "cs.atg"
     		Get();
@@ -1198,7 +1347,7 @@ class Parser < CRParser
     def Statement()
         stmt = ""
     # line 657 "cs.atg"
-    	debug("====>statement:#{@sym}")
+    	debug("====>statement:#{@sym},#{curString()}")
     # line 658 "cs.atg"
     	while (@sym == C_caseSym ||
     	       @sym == C_defaultSym) 
@@ -2750,7 +2899,7 @@ s=<<HERE
 class Test{
     int a;
     void test1(){
-        printf("test1");
+        printf("show test1");
         a = 1;
     }
 }
