@@ -2616,7 +2616,19 @@ HERE
         #            Expect(C_RparenSym)
         #            CastExp()
         # els
-    	if (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	
+    	if @sym >= C_identifierSym && curString() == 'static_cast'
+    	    Expect(C_LessSym)
+    	    Type()
+  	    	while (@sym == C_StarSym || @sym == C_AndSym) 
+        		Get()
+        	end
+        	Expect(C_GreaterSym)
+        	Expect(C_LparenSym)
+        	ret += Expression()
+        	Expect(C_RparenSym)
+        	
+    	elsif (@sym >= C_identifierSym && @sym <= C_numberSym ||
     	    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
