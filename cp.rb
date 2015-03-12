@@ -46,38 +46,74 @@ class Parser < CRParser
     #     Get()
     #     C()
     # end
-
-    def GetNext
+    def GetNextSym(step =1)
         _scanner = @scanner.clone()
         # p "==>scanner clone =#{_scanner.inspect}"
-
-        
-         begin 
-            _sym = _scanner.Get()
+        _sym = nil
+        while step > 0
+             begin 
+                _sym = _scanner.Get()
             
-            # if $sc_cur != $sc.currSym.sym
-            #     pp("!!!===", 20)
-            # end
+                # if $sc_cur != $sc.currSym.sym
+                #     pp("!!!===", 20)
+                # end
             
-            _scanner.nextSym.SetSym(_sym)
-            if (_sym <= C_MAXT) 
-                # _error.errorDist +=1
+                _scanner.nextSym.SetSym(_sym)
+                if (_sym <= C_MAXT) 
+                    # _error.errorDist +=1
             
-            else 
-                if (_sym == C_PreProcessorSym) # /*86*/
-                  # line 65 "cs.atg"
+                else 
+                    if (_sym == C_PreProcessorSym) # /*86*/
+                      # line 65 "cs.atg"
 	    
-                else
-                    #/* Empty Stmt */ ;
-                    _scanner.nextSym = _scanner.currSym
+                    else
+                        #/* Empty Stmt */ ;
+                        _scanner.nextSym = _scanner.currSym
+                    end
                 end
-            end
             
-            # if $sc_cur != $sc.currSym.sym
-            #     pp("!!!===", 20)
-            # end
+                # if $sc_cur != $sc.currSym.sym
+                #     pp("!!!===", 20)
+                # end
             
-        end while (_sym > C_MAXT)
+            end while (_sym > C_MAXT)
+            step -= 1
+        end
+        return _scanner.nextSym
+    end
+    def GetNext(step =1)
+        _scanner = @scanner.clone()
+        # p "==>scanner clone =#{_scanner.inspect}"
+        _sym = nil
+        while step > 0
+             begin 
+                _sym = _scanner.Get()
+            
+                # if $sc_cur != $sc.currSym.sym
+                #     pp("!!!===", 20)
+                # end
+            
+                _scanner.nextSym.SetSym(_sym)
+                if (_sym <= C_MAXT) 
+                    # _error.errorDist +=1
+            
+                else 
+                    if (_sym == C_PreProcessorSym) # /*86*/
+                      # line 65 "cs.atg"
+	    
+                    else
+                        #/* Empty Stmt */ ;
+                        _scanner.nextSym = _scanner.currSym
+                    end
+                end
+            
+                # if $sc_cur != $sc.currSym.sym
+                #     pp("!!!===", 20)
+                # end
+            
+            end while (_sym > C_MAXT)
+            step -= 1
+        end
         return _sym
     end
     def include_file(finclude)
@@ -98,6 +134,7 @@ class Parser < CRParser
         # p "sym1=#{@sym}"
          begin 
 # p "Get0:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
+            @prev_sym = @sym
             @sym = @scanner.Get()
  # p "Get1:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
             # p "Get(): sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@sym]}"
@@ -759,7 +796,7 @@ class Parser < CRParser
     
     # general statement, can be local definition or statement
     def gStatement()
-        p "-->gStatement1, sym=#{@sym}, val=#{curString()}"
+        p "-->gStatement1, line #{@scanner.currLine}, sym=#{@sym}, val=#{curString()}"
         rStatement = ""
         if @sym == C_TildeSym 
             if ['class', 'struct'].include?(current_scope.name)
@@ -784,7 +821,18 @@ class Parser < CRParser
         	    if current_scope.name == "class"
         	        p "class name #{current_scope.class_name}, curString1()=#{cs}"
     	        end
-    	        if cs == "virtual" && ['class', 'struct'].include?(current_scope.name)
+                if _next == C_ColonColonSym
+    	            _nn = GetNextSym(2)
+    	            _c_nn = getSymValue(_nn) 
+    	            if _nn.sym == C_TildeSym
+    	                LocalDeclaration() # deconstructor
+    	            elsif _nn.sym == C_identifierSym && _c_nn == cs # constructor
+    	                LocalDeclaration() 
+	                else
+	                    rStatement += Statement()
+    	            end 
+    	            
+    	        elsif cs == "virtual" && ['class', 'struct'].include?(current_scope.name)
     	            Get()
 	                if curString() == "~"
 	                    Get()
@@ -811,8 +859,8 @@ class Parser < CRParser
                     end
     	            
         	    elsif  _next == C_identifierSym || _next == C_AndSym || _next == C_StarSym ||
-        	        _next == C_TypedefSym || _next == C_staticSym ||
-        	        _next == C_ColonColonSym # TODO this will unsupport A::B::C.callmethod()
+        	        _next == C_TypedefSym || _next == C_staticSym #||
+                    # _next == C_ColonColonSym # TODO this will unsupport A::B::C.callmethod()
         	        rStatement += LocalDeclaration()
                 else
                     rStatement += Statement()
@@ -1884,8 +1932,8 @@ HERE
     # line 966 "cs.atg"
     	debug("===>Expression:#{@sym}")
     	
-    	
-    	if @sym == C_LbraceSym
+
+    	if @sym == C_LbraceSym  # {a, b, c}
     	    Get()
     	    Expression()
     	    while (@sym==C_CommaSym)
@@ -1931,6 +1979,19 @@ HERE
                 
         	end
     	end
+    	
+    	if @sym!= C_CommaSym && @sym!= C_RparenSym && @sym!= C_SemicolonSym && @prev_sym == C_RparenSym # (exp)exp
+            p "sym112:#{@sym}"
+            # Get()
+            #           Type()
+            #           while (@sym == C_StarSym || @sym == C_AndSym) 
+            #               Get()
+            #           end
+            # Expect(C_RparenSym)
+            # Get()
+    	    ret = Expression()
+	    end
+	    
     	debug("===>Expression1:#{ret}")
     	return ret
     end
@@ -2178,7 +2239,10 @@ HERE
         ret = @scanner.GetNextName()
         p "------#{ret}"
         return ret
-    end    
+    end
+    def getSymValue(sym)
+        @scanner.GetSymString(sym)
+    end
     # line 1182 "cs.atg"
     def RelationExp()
     	debug("===>RelationExp")
@@ -2544,6 +2608,14 @@ HERE
     	debug("===>UnaryExp:#{@sym}, #{curString()}");
     	pp "unaryexp", 20
     # line 1539 "cs.atg"
+        #         _next = GetNext()
+        #         if @sym == C_LparenSym && (_next ==C_identifierSym ||  _next >=C_shortSym && _next <=C_stringSym)
+        #            # type cast
+        #            Get()
+        #            Type()
+        #            Expect(C_RparenSym)
+        #            CastExp()
+        # els
     	if (@sym >= C_identifierSym && @sym <= C_numberSym ||
     	    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	    @sym == C_LbraceSym ||
