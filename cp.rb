@@ -2618,6 +2618,7 @@ HERE
         # els
     	
     	if @sym >= C_identifierSym && curString() == 'static_cast'
+    	    Get()
     	    Expect(C_LessSym)
     	    Type()
   	    	while (@sym == C_StarSym || @sym == C_AndSym) 
@@ -2642,7 +2643,7 @@ HERE
     		if (@sym == C_PlusPlusSym) 
     # line 1539 "cs.atg"
     			ret += "+=1"
-            	Get()
+            	Get() 
     		elsif (@sym == C_MinusMinusSym) 
     # line 1539 "cs.atg"
     			ret += "-=1"
