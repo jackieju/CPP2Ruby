@@ -1,0 +1,34 @@
+# how to add one keyword
+
+1. add it in sym.rb before C_No_Sym, also same position in the arrasy SYMS
+2. add it in CheckLiteral() of scanner.rb
+3. add it in cp.rb where it should be allowed
+e.g.
+ while (@sym >= C_identifierSym && @sym <= C_numberSym ||
+        @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
+        @sym == C_SemicolonSym ||
+        @sym >= C_classSym && @sym <= C_LbraceSym ||
+        @sym >= C_staticSym && @sym <= C_stringSym ||
+        @sym == C_LparenSym ||
+        @sym >= C_StarSym && @sym <= C_caseSym ||
+        @sym >= C_defaultSym && @sym <= C_ifSym ||
+        @sym >= C_returnSym && @sym <= C_switchSym ||
+        @sym == C_AndSym ||
+        @sym >= C_PlusSym && @sym <= C_MinusSym ||
+        @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
+        @sym >= C_newSym && @sym <= C_DollarSym ||
+        @sym >= C_BangSym && @sym <= C_TildeSym ||
+        @sym == C_EnumSym || 
+        @sym == C_TypedefSym || 
++       @sym == C_StructSym
+		) 
+ 
+ 	ret += Definition()
+ end
+
+# how to add one sym, e.g. ? (question mark)
+1. add its symbol name (e.g. C_QuestionMarkSym) in sym.rb before C_No_Sym, also same position in the arrays SYMS
+2. Get it's ascii code. e.g. 63 (question mark), in scanner.rb, set @@STATE0's 63th element to a new state. e.g. 83
+3. still scanner.rb, goto end of switch/case in function Get(), add 
+when 83
+    return C_QuestionMarkSym

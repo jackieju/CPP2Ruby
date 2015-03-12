@@ -1,0 +1,49 @@
+
+------------
+--- DONE ---
+------------
+TCHAR			tmpStr[256]={0};
+
+if ...{
+}
+
+++, --
+
+------------
+--- TODO ---
+------------
+
+
+
+
+static function
+
+function def outside class SCOPE (global function)
+
+member var, global var
+
+process .h .cpp at one time running and by order
+
+local var vs constant
+
+if 0 => if false
+
+swtich case without break , 1. add "," 2. remove break in when
+
+class assgin in c++ is object clone, but in ruby is same instance.
+
+KEEP COMMENT
+
+Release resource in desconstructor
+
+enum type like
+enum
+{
+  resTax1AbsEntry = 0L,
+  resTax1TaxCode,
+  resTax1EqPercent,
+  resJdt1TransId,
+  resJdt1Line_ID,
+};
+stl
+typedef

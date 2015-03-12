@@ -349,7 +349,7 @@ class CScanner <  CRScanner
   protected
     @@STATE0 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                       0,0,0,55,24,33,71,64,51,26,45,46,47,62,42,63,67,38,35,2,2,2,2,2,2,2,2,2,48,37,
-                      30,41,57,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                      30,41,57,83,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                       1,43,0,44,53,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
                       1,1,1,39,49,40,82,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
                       0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -868,6 +868,7 @@ public
                 return C_EOF_Sym
             end
             state = @@STATE0[@ch.to_byte]
+            # p "--->111"
             while(1) 
                 # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               Scan_NextCh()
@@ -999,13 +1000,15 @@ public
               when 29
               	return C_charD1Sym
               when 30
-              	if (@ch == '.' ||
-              	    @ch >= '0' && @ch <= ':' ||
-              	    @ch >= 'A' && @ch <= 'Z' ||
-              	    @ch.to_byte == 92 ||
-              	    @ch >= 'a' && @ch <= 'z') 
-              	    state = 31
-              	elsif (@ch == '=') 
+                  # p "fdaklfdjlajsdkj-----, ch=#{@ch}, #{currLine}"
+                # if (@ch == '.' ||
+                #     @ch >= '0' && @ch <= ':' ||
+                #     @ch >= 'A' && @ch <= 'Z' ||
+                #     @ch.to_byte == 92 ||
+                #     @ch >= 'a' && @ch <= 'z') 
+                #     state = 31
+                # elsif (@ch == '=') 
+                if (@ch == '=') 
               	    state = 58
               	elsif (@ch == '<') 
               	    state = 60
@@ -1013,7 +1016,7 @@ public
               	    return C_LessSym
           	    end
               	#break
-              when 31
+              when 31 # for librarySym, not used
               	if (@ch == '>')
               	     state = 32
               	elsif (@ch == '.' ||
@@ -1021,6 +1024,8 @@ public
               	    @ch >= 'A' && @ch <= 'Z' ||
               	    @ch.to_byte == 92 ||
               	    @ch >= 'a' && @ch <= 'z') 
+              	    # /*same state*/
+          	    else
               	    return C_No_Sym
           	    end
               	#break
@@ -1242,6 +1247,8 @@ public
               	return C_GreaterGreaterEqualSym
               when 82
               	return C_TildeSym
+              when 83
+                  return C_QuestionMarkSym 
               else
                    return C_No_Sym
              end #case

@@ -181,11 +181,11 @@ class Parser < CRParser
     def add_macro(n,v)
         ret = ""
         v = v.strip
-        if v =~ /^(\d+)\w?$/
-            n1 = n[0].upcase+n[1..n.size-1]
+        if v =~ /^(\d+)\w?$/                        # number literal
+            n1 = n[0].upcase+n[1..n.size-1]        
             ret = "dummy_type #{n1} = #{$1};"
             @macros[n] = $1
-        elsif v =~ /^\"(.*?)\"$/ || v =~ /^\'(.)\'$/
+        elsif v =~ /^\"(.*?)\"$/ || v =~ /^\'(.)\'$/ # string literal
              n1 = n[0].upcase+n[1..n.size-1]
              ret = "dummy_type #{n1} = #{v};"
              @macros[n] = $1
@@ -197,6 +197,7 @@ class Parser < CRParser
     def ifdefined?(n)
         return @macros[n] != nil
     end
+    # get the whole preprocessor directive
     def GetPre()
         while Get() != C_PreProcessorSym
         end
@@ -408,6 +409,12 @@ class Parser < CRParser
                 @directive = preprocess_directive()
                 return @directive if stop_on_unkown_directive && @directive
             end
+            # if @sym == C_identifierSym
+            #     cs = curString()
+            #     if ifdefined?(cs)
+            #         @macros[n]
+            #     end
+            # end
             Get()
         end
     end
@@ -616,6 +623,10 @@ class Parser < CRParser
         ret = ""
         debug("===>Enum:#{@sym}, #{curString()}");
     	Get()
+    	
+    	if @sym == C_identifierSym # enum name before {}
+    	    Get()
+	    end
         Expect(C_LbraceSym)
     	base = 0
     	while @sym == C_identifierSym
@@ -750,8 +761,13 @@ class Parser < CRParser
     def gStatement()
         p "-->gStatement1, sym=#{@sym}, val=#{curString()}"
         rStatement = ""
-        
-		if (@sym == C_identifierSym )
+        if @sym == C_TildeSym 
+            if ['class', 'struct'].include?(current_scope.name)
+                Get()
+                Expect(C_identifierSym)
+                FunctionDefinition(current_scope.class_name)
+	        end     
+		elsif (@sym == C_identifierSym )
 		     # p "|||||||||||||@sym = #{@sym}, #{@scanner.currSym.inspect}, #{curString()}, @scanner=#{@scanner}"
         	    #                 $sc_cur = $sc.currSym.sym
                 _next = GetNext()
@@ -764,15 +780,39 @@ class Parser < CRParser
         	    
         	    # TODO, theoritcally, user can write "a *b;", which is ambiguious (see where a is type)
         	    p "current scope:#{current_scope.name}"
+        	    cs = curString()
         	    if current_scope.name == "class"
-        	        p "class name #{current_scope.class_name}, curString()=#{curString()}"
+        	        p "class name #{current_scope.class_name}, curString1()=#{cs}"
     	        end
-        	    if  _next == C_identifierSym || _next == C_AndSym || _next == C_StarSym ||
-        	        _next == C_TypedefSym ||
-        	        (
-        	            _next == C_LparenSym  && ['class', 'struct'].include?(current_scope.name) && current_scope.class_name == curString()
-        	         ) # for constructor in class for struct
-        	        
+    	        if cs == "virtual" && ['class', 'struct'].include?(current_scope.name)
+    	            Get()
+	                if curString() == "~"
+	                    Get()
+	                    Expect(C_identifierSym)
+    	                FunctionDefinition(current_scope.class_name)
+	                else
+	                    while GetNext() != C_LparenSym
+	                        Get()
+                        end
+                        Get()
+     	                FunctionDefinition(current_scope.class_name)
+    
+                    end
+ 
+    	        elsif _next == C_LparenSym  && ['class', 'struct'].include?(current_scope.name)# for constructor in class for struct
+    	            p "--> in class scope"
+    	            if current_scope.class_name == cs # constructor
+    	                Get()
+                        rStatement += FunctionDefinition(current_scope.class_name)
+	                elsif cs=="~" # deconstructor
+                        Get()
+                        Expect(C_identifierSym)
+	                    rStatement += FunctionDefinition(current_scope.class_name)                        
+                    end
+    	            
+        	    elsif  _next == C_identifierSym || _next == C_AndSym || _next == C_StarSym ||
+        	        _next == C_TypedefSym || _next == C_staticSym ||
+        	        _next == C_ColonColonSym # TODO this will unsupport A::B::C.callmethod()
         	        rStatement += LocalDeclaration()
                 else
                     rStatement += Statement()
@@ -833,8 +873,12 @@ class Parser < CRParser
                 end
                 next
             end    		
+            p "sym:#{@sym}"
             if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_stringSym ||
-    		    @sym == C_TypedefSym)
+    		    @sym == C_TypedefSym ||
+    		    (@sym == C_TildeSym && GetNext() == C_identifierSym)
+    		    )
+    		    p "enter 1"
     		    rStatement += "\n" if rStatement != ""
     		    rStatement += gStatement()	
     		 elsif (@sym >= C_identifierSym && @sym <= C_numberSym ||
@@ -868,7 +912,15 @@ class Parser < CRParser
 
         storageclass = ""
         type = ""
-        
+        if @sym == C_TypedefSym
+    	    p "--->typedef"
+    	    while @sym != C_SemicolonSym
+    	        Get()
+    	        p "cs in td:#{@sym},#{curString}"
+	        end
+	        return ""
+        end
+=begin        
         if @prev_sym == C_identifierSym
             @prev_sym = nil
         else
@@ -911,10 +963,51 @@ class Parser < CRParser
     		Get()
     # line 699 "cs.atg"
     	end
+    	
+    	# sometime static occur after type
+    	if (@sym >= C_staticSym && @sym <= C_functionSym) 
+    		storageclass += StorageClass()
+    	end
+=end
+    _next = GetNext()
+    while (@sym != C_LparenSym && 
+            (   _next == C_identifierSym || _next >= C_varSym && _next <= C_stringSym || _next >= C_staticSym && _next <= C_functionSym ||
+                _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym
+            )
+           )
+          if @sym == C_identifierSym && curString == "operator"
+             break
+          end
+         p "-->sym:#{@sym}, next:#{_next}, line #{@scanner.nextSym.line }, v=#{curString()}"
+    	if (@sym >= C_staticSym && @sym <= C_functionSym) 
+    		storageclass += StorageClass()
+    	elsif (@sym >= C_varSym && @sym <= C_stringSym)
+            type += Type()
+        elsif @sym == C_identifierSym
+            type = Type()   # replace, to remove decorator like __dll_export
+        end
+        if type != ""
+            var_type = VarType.new(type)
+        end
+    	while (@sym == C_StarSym || @sym == C_AndSym) 
+    	    var_type.ref += 1
+            # line 699 "cs.atg"
+    		Get()
+            # line 699 "cs.atg"
+    	end
+    	 _next = GetNext()
+    end
+
     # line 702 "cs.atg"
-        p "type=#{type}, storageclass=#{storageclass}, prev=#{@prev_sym}, cur=#{@sym}"
+        p "type=#{type}, storageclass=#{storageclass}, prev=#{@prev_sym}, cur=#{@sym}, val #{curString}"
     	varname = curString()
     	fname = varname
+    	if fname =="operator"
+    	    Get()
+    	    fname = curString()
+    	    Get()
+	    end
+	    
     	if @sym == C_LparenSym
     	    # for constructor with initialization list in classdef or sturctdef
 	    else
@@ -925,7 +1018,7 @@ class Parser < CRParser
     	    @classdefs.each{|k,v|
     	        p "class #{k} = #{v}"
     	    }
-    	    if @classdefs[varname] == nil
+    	    if @classdefs[varname] == nil #&& varname != "std"
     	        raise "class #{varname} not found"
 	        end
 	        class_name = varname
@@ -937,6 +1030,7 @@ class Parser < CRParser
     # line 702 "cs.atg"
 
     # line 706 "cs.atg"
+    p "sym333:#{@sym}, lin #{@scanner.currLine}"
     	if (@sym == C_LparenSym) 
     # line 706 "cs.atg"
             fd = FunctionDefinition(class_name)
@@ -945,7 +1039,7 @@ class Parser < CRParser
     	           @sym >= C_EqualSym && @sym <= C_LbrackSym) 
     	    current_scope.add_var(Variable.new(varname, var_type))
     # line 706 "cs.atg"
-            vl = VarList(var_type)
+            vl = VarList(var_type) # define lots of variables in one line splitted by comma
 	
     # line 706 "cs.atg"
     		Expect(C_SemicolonSym)
@@ -1057,9 +1151,13 @@ class Parser < CRParser
     	ret += FunctionHeader()
     # line 509 "cs.atg"
         # p "--->FunctionDefinition sym:#{@sym}"
-        if @sym == C_SemicolonSym
+        if @sym == C_SemicolonSym 
             #if just function declaration without body
             return ""
+        elsif @sym == C_EqualSym
+            Get()
+            Expression()
+            Expect(C_SemicolonSym)
         else
 
             @sstack.push(classdef) if classdef
@@ -1072,7 +1170,7 @@ class Parser < CRParser
                 m = curString()
                 
                 Expect(C_LparenSym)
-                v = Expression()
+                v = ActualParameters()
                 Expect(C_RparenSym)
                 i_list += "@#{m} = #{v}\n"
                 while (@sym == C_CommaSym)
@@ -1120,17 +1218,22 @@ class Parser < CRParser
     # line 545 "cs.atg"
     	Expect(C_RparenSym)
     # line 546 "cs.atg"
-
+        
+        if @sym == C_identifierSym && curString() == 'const'
+            Get()
+            
+        end
+        
         return "(#{ret})"
  
     end
     
     # line 567 "cs.atg"
     def FormalParamList()
-    
+        $formal_p_count = 0
         ret = ""
     # line 567 "cs.atg"
-    	ret += FormalParameter();
+    	ret += FormalParameter()
     	
     # line 567 "cs.atg"
     	while (@sym == C_CommaSym) 
@@ -1150,6 +1253,9 @@ class Parser < CRParser
     # line 441 "cs.atg"
         # PTYPEDES type = new TYPEDES;
     # line 442 "cs.atg"
+        if @sym == C_identifierSym && curString() == 'const'
+            Get()
+        end
     	type = Type()
     # line 442 "cs.atg"
     	while (@sym == C_StarSym || @sym == C_AndSym) 
@@ -1160,8 +1266,16 @@ class Parser < CRParser
             # type->refLevel++;
     	end
     # line 444 "cs.atg"
-        ret += curString()
-    	Expect(C_identifierSym)
+   
+        if @sym == C_identifierSym 
+            ret += curString()
+            Get()
+        else # when in function declaration, parameter name is optional
+            ret += "dummy#{$formal_p_count}"
+            $formal_p_count +=1
+        end
+        # Expect(C_identifierSym)
+    	
     # line 445 "cs.atg"
 
     # line 450 "cs.atg"
@@ -1200,6 +1314,7 @@ class Parser < CRParser
     end
     # line 400 "cs.atg"
     def Type()
+        debug("---->type:#{@sym}")
         ret = ""
     # line 423 "cs.atg"
     	case (@sym) 
@@ -1315,6 +1430,20 @@ class Parser < CRParser
     		when C_identifierSym
     		    ret += curString()
     		    Get()
+                # p "sym1:#{@sym}"
+		        
+    		    while @sym == C_ColonColonSym
+    		        Get()
+    		        ret += "::#{curString()}"
+    		        Get()
+		        end
+                # p "sym2:#{@sym}"
+		        if @sym == C_LessSym # stl type
+		            Get()
+		            FormalParamList()
+		            Expect(C_GreaterSym)
+	            end
+	            p "sym3:#{@sym}, val #{curString()}"
     		else 
     		    GenError(95)
     	end # case
@@ -1774,23 +1903,32 @@ HERE
     	
         # line 966 "cs.atg"
         	while (@sym == C_EqualSym ||
-        	       @sym >= C_StarEqualSym && @sym <= C_GreaterGreaterEqualSym) 
+        	       @sym >= C_StarEqualSym && @sym <= C_GreaterGreaterEqualSym ||
+        	       @sym == C_QuestionMarkSym
+        	       ) 
         # line 966 "cs.atg"
                 debug("===>Expression0:#{ret}")
-	
-        		ret += AssignmentOperator()
-        		debug("===>Expression00:#{ret}")
+                if @sym == C_QuestionMarkSym
+                    Get()
+                    ret += "?#{Expression()}"
+                    Expect(C_ColonSym)
+                    ret += "#{Expression()}"
+                else
+	                
+            		ret += AssignmentOperator()
+            		debug("===>Expression00:#{ret}")
         	
-        # line 966 "cs.atg"
-        		ret += Expression()
-        		debug("===>Expression000:#{ret}")
+            # line 966 "cs.atg"
+            		ret += Expression()
+            		debug("===>Expression000:#{ret}")
         	
-        # line 967 "cs.atg"
+            # line 967 "cs.atg"
 
-                # printf("===>AssignmentOperator\n")
-                    # if (!doAssign()) 
-                    #                       continue;
-
+                    # printf("===>AssignmentOperator\n")
+                        # if (!doAssign()) 
+                        #                       continue;
+                end
+                
         	end
     	end
     	debug("===>Expression1:#{ret}")
@@ -2598,6 +2736,8 @@ HERE
     # line 2594 "cs.atg"
                 # SetDef();
                 # break;
+    		when C_QuestionMarkSym
+    		    ret += "?#{Expression} :#{Expression}"
     		else 
     		    GenError(112)
     	end # case
