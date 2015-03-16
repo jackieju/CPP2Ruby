@@ -1081,7 +1081,24 @@ class Parser < CRParser
     p "sym333:#{@sym}, lin #{@scanner.currLine}"
     	if (@sym == C_LparenSym) 
     # line 706 "cs.atg"
-            fd = FunctionDefinition(class_name)
+            nn  =  GetNext(2)
+            _n = GetNext()
+            p "sym331:#{nn}, #{_n}"
+            if nn != C_RparenSym && nn != C_CommaSym || _n == C_voidSym
+                fd = FunctionDefinition(class_name)
+            else
+            	current_scope.add_var(Variable.new(varname, var_type))
+                # fc = "#{varname} = #{var_type.name}.new"
+                # fc += FunctionCall()
+                # p "fc=#{fc}"
+            	
+                # line 706 "cs.atg"
+                vl = VarList(var_type) # define lots of variables in one line splitted by comma
+
+                # line 706 "cs.atg"
+            	Expect(C_SemicolonSym)
+            end
+            
             # fd = FunctionCall()
     	elsif (@sym == C_SemicolonSym ||
     	           @sym >= C_EqualSym && @sym <= C_LbrackSym) 
@@ -1116,6 +1133,13 @@ class Parser < CRParser
     def VarList(var_type)
     
         ret = ""
+        
+        
+        if @sym == C_LparenSym
+        	ret += " = #{var_type.name}.new"
+        	ret += FunctionCall()
+        end
+        
     # line 441 "cs.atg"
     	ArraySize();
     # line 442 "cs.atg"
@@ -1142,8 +1166,11 @@ class Parser < CRParser
     		current_scope.add_var(Variable.new(varname, var_type))
     	    
     # line 447 "cs.atg"
-
-
+        	
+        	if @sym == C_LparenSym
+            	ret += " = #{var_type.name}.new"
+            	ret += FunctionCall()
+            end
     # line 454 "cs.atg"
     		ArraySize()
     # line 455 "cs.atg"
@@ -1359,6 +1386,18 @@ class Parser < CRParser
     	    GenError(91)
 	    end
 	    return ret
+    end
+    def FullType
+        type = Type()
+        if type
+            var_type = VarType.new(type)
+        end
+    	while (@sym == C_StarSym || @sym == C_AndSym) 
+    	    var_type.ref += 1 if var_type
+            # line 699 "cs.atg"
+    		Get()
+            # line 699 "cs.atg"
+    	end
     end
     # line 400 "cs.atg"
     def Type()
@@ -2357,13 +2396,16 @@ HERE
     end
     # line 1337 "cs.atg"
     def MultExp()
+        p "===>MultExp:#{@sym}, #{curString}"
+        
         ret = ""
     # line 1337 "cs.atg"
     # line 1338 "cs.atg"
     	ret += CastExp()
     # line 1339 "cs.atg"
     # ret += curString()
-
+    p "===>MultExp2:#{@sym}, #{curString}"
+    
     # line 1342 "cs.atg"
     	while (@sym == C_SlashSym ||
     	       @sym == C_StarSym ||
@@ -2387,12 +2429,16 @@ HERE
     		 else 
     		     GenError(105)
 		     end
+		
+		     p "===>MultExp3:#{@sym}, #{curString}"
+             
     # line 1342 "cs.atg"
     		ret += CastExp()
     # line 1343 "cs.atg"
 
     		 
 	    end
+	    
 	    p "==>MultExp:#{ret}"
 	    return ret
     end
@@ -2807,15 +2853,26 @@ HERE
     # line 2573 "cs.atg"
 
     		when C_LparenSym  
-    		    ret += curString()
+    		    # ret += curString()
             	
     # line 2593 "cs.atg"
     			Get()
     # line 2593 "cs.atg"
-    			ret +=Expression()
+    p "sym555:#{@sym}, val #{curString()}"
+                if @sym == C_identifierSym || @sym >=C_shortSym && @sym <= C_stringSym
+                    _next = GetNext()
+                    if _next == C_RparenSym || 
+                        ( ( _next == StarSym || _next == C_AndSym ) && (_next2 < C_identifierSym || _next2 > C_charD1Sym) )
+                        Type()
+                        Expect(C_RparenSym)
+                        break
+                    end
+                end
+    			exp +=Expression()
+    			   p "sym556:#{@sym}, val #{curString()}"
     # line 2593 "cs.atg"
     			Expect(C_RparenSym)
-    			ret += ")"
+    			ret += "(#{exp})"
                 # break;
     		when C_LbraceSym  
     # line 2594 "cs.atg"

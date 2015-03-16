@@ -135,7 +135,7 @@ class CRParser
     def GenError(errorNo)
         p "error #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym} val #{@scanner.GetName()}"
         # p "line:#{@scanner.cur_line()}"
-        p("stack:", 30)
+        p("stack:", 1000)
         @error.StoreErr(errorNo, @scanner.nextSym.clone)
     end
     # Scanner
