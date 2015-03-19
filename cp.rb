@@ -3,6 +3,7 @@ load 'scanner.rb'
 load 'cr_parser.rb'
 load 'error.rb'
 load 'log.rb'
+load 'c_classdefs.rb'
 
 
 def pp(m, stack=0)
@@ -39,6 +40,8 @@ end
 =end
 
 
+# $g_classdefs = {}
+
 
 class Parser < CRParser
     # def Parse()
@@ -46,6 +49,26 @@ class Parser < CRParser
     #     Get()
     #     C()
     # end
+    def pclass
+        p "=====classdefs====="
+          @classdefs.each{|k,v|
+                                     p "classdef #{k}=#{v}"
+            }
+            p "=====classdefs end====="
+            
+    end
+    def find_class(varname)
+               @classdefs.each{|k,v|
+                                         p "classdef #{k}=#{v}"
+                }
+         if @classdefs[varname]
+             return @classdefs[varname]
+         end
+    end
+    def add_class(class_name, parent, modules)
+        clsdef = ClassDef.new(class_name)
+        @classdefs[class_name] = clsdef
+    end
     def GetNextSym(step =1)
         _scanner = @scanner.clone()
         # p "==>scanner clone =#{_scanner.inspect}"
@@ -83,6 +106,83 @@ class Parser < CRParser
     end
     def GetNext(step =1)
         _scanner = @scanner.clone()
+        # p "==>scanner clone =#{_scanner.inspect}"
+        _sym = nil
+        while step > 0
+             begin 
+                _sym = _scanner.Get()
+            
+                # if $sc_cur != $sc.currSym.sym
+                #     pp("!!!===", 20)
+                # end
+            
+                _scanner.nextSym.SetSym(_sym)
+                if (_sym <= C_MAXT) 
+                    # _error.errorDist +=1
+            
+                else 
+                    if (_sym == C_PreProcessorSym) # /*86*/
+                      # line 65 "cs.atg"
+	    
+                    else
+                        #/* Empty Stmt */ ;
+                        _scanner.nextSym = _scanner.currSym
+                    end
+                end
+            
+                # if $sc_cur != $sc.currSym.sym
+                #     pp("!!!===", 20)
+                # end
+            
+            end while (_sym > C_MAXT)
+            step -= 1
+        end
+        return _sym
+    end
+    def GetNextSymFromSym(sym, step =1)
+        _scanner = @scanner.clone()
+        _scanner.currLine = sym.line
+        _scanner.currCol = sym.col
+        _scanner.buffPos = sym.pos+sym.len
+        # p "==>scanner clone =#{_scanner.inspect}"
+        _sym = nil
+        while step > 0
+             begin 
+                _sym = _scanner.Get()
+            
+                # if $sc_cur != $sc.currSym.sym
+                #     pp("!!!===", 20)
+                # end
+            
+                _scanner.nextSym.SetSym(_sym)
+                if (_sym <= C_MAXT) 
+                    # _error.errorDist +=1
+            
+                else 
+                    if (_sym == C_PreProcessorSym) # /*86*/
+                      # line 65 "cs.atg"
+	    
+                    else
+                        #/* Empty Stmt */ ;
+                        _scanner.nextSym = _scanner.currSym
+                    end
+                end
+            
+                # if $sc_cur != $sc.currSym.sym
+                #     pp("!!!===", 20)
+                # end
+            
+            end while (_sym > C_MAXT)
+            step -= 1
+        end
+        return _scanner.nextSym
+    end
+    def GetNextFromSym(sym, step =1)
+        _scanner = @scanner.clone()
+        _scanner.currLine = sym.line
+        _scanner.currCol = sym.col
+        _scanner.buffPos = sym.pos+sym.len
+        
         # p "==>scanner clone =#{_scanner.inspect}"
         _sym = nil
         while step > 0
@@ -465,6 +565,7 @@ class Parser < CRParser
     end
     # line 98 "cs.atg"
     def C()
+        pclass()
         @sstack.push(Scope.new("::"))
     	
         ret = ""
@@ -770,6 +871,9 @@ class Parser < CRParser
         super(scanner, error)
         @included_files = {}
         @macros = {}
+        @classdefs=$g_classdefs
+        p "init end"
+        pclass
     end
     
     # line 561 "cs.atg"
@@ -822,14 +926,31 @@ class Parser < CRParser
         	        p "class name #{current_scope.class_name}, curString1()=#{cs}"
     	        end
                 if _next == C_ColonColonSym
-    	            _nn = GetNextSym(2)
+                    #    A::~A
+                    #_nn--->^
+    	            _nn = GetNextSym(2) 
     	            _c_nn = getSymValue(_nn) 
     	            if _nn.sym == C_TildeSym
     	                LocalDeclaration() # deconstructor
     	            elsif _nn.sym == C_identifierSym && _c_nn == cs # constructor
+    	            #    A::A
+                    #_nn--->^
     	                LocalDeclaration() 
 	                else
-	                    rStatement += Statement()
+	                    count = 3
+	                    _nnn = GetNext(count)
+	                    while ( _nnn== C_ColonColonSym)
+	                        count +=1
+	                        GetNext(count)
+	                        count +=1
+	                        _nnn = GetNext(count)
+                        end
+                        if _nnn == C_LessSym || # template,e.g. A::B::C<D,F> t;
+                            _nnn == C_identifierSym # A::B::C t;
+                            LocalDeclaration()
+                        else
+	                        rStatement += Statement() # functioncall A::B::C.method();
+                        end
     	            end 
     	            
     	        elsif cs == "virtual" && ['class', 'struct'].include?(current_scope.name)
@@ -857,7 +978,8 @@ class Parser < CRParser
                         Expect(C_identifierSym)
 	                    rStatement += FunctionDefinition(current_scope.class_name)                        
                     end
-    	            
+    	        elsif _next == C_LessSym # template
+    	           LocalDeclaration() 
         	    elsif  _next == C_identifierSym || _next == C_AndSym || _next == C_StarSym ||
         	        _next == C_TypedefSym || _next == C_staticSym #||
                     # _next == C_ColonColonSym # TODO this will unsupport A::B::C.callmethod()
@@ -953,6 +1075,55 @@ class Parser < CRParser
     	return rStatement
     # line 711 "cs.atg"
     end    
+    
+    
+    def isTypeStart(sym)
+        # pos1 = sym.pos
+        _sym = sym.sym
+        if _sym >= C_shortSym && _sym <= C_voidSym
+            return true
+        end
+        if _sym == C_identifierSym
+            _n = GetNextFromSym(sym)
+            count = 1
+            if _n == C_ColonColonSym
+                count = 2
+                _n = GetNextFromSym(sym, count)
+                while (_n == C_ColonColonSym)
+                    count += 1
+                    GetNextFromSym(sym, count)
+                    count +=1
+                end
+                
+            end
+                
+            if _n == C_identifierSym # A::B::C d; 
+                return true
+            end    
+             
+            if _n == C_LessSym # A::B::C<
+                nsym = GetNextSymFromSym(_sym, count+1)
+                if isTypeStart(nsym) # A::B::C<short>
+                    return true
+                else
+                    p "==>symbol #{getSymValue(sym)} is not type start!"
+                    
+                    return false # A::B::C<123
+                end
+            end
+            
+            varname = getSymValue(sym)
+            # if @classdefs[varname] != nil
+            if find_class(varname)
+                return true
+            else
+                p "==>isTypeStart:class #{getSymValue(sym)} not found"
+            end
+            
+        end
+       p "==>symbol #{getSymValue(sym)} is not type start!"
+        return false
+    end
     # line 689 "cs.atg"
    def LocalDeclaration()
         ret = ""
@@ -1017,12 +1188,17 @@ class Parser < CRParser
     		storageclass += StorageClass()
     	end
 =end
+    
+    p "---->LocalDeclaration2, #{@sym}, #{curString()}"
     _next = GetNext()
     while (@sym != C_LparenSym && 
             (   _next == C_identifierSym || _next >= C_varSym && _next <= C_stringSym || _next >= C_staticSym && _next <= C_functionSym ||
-                _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym
+                _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym ||
+                _next == C_LessSym # template
             )
            )
+           p "---->LocalDeclaration3, #{@sym}, #{curString()}"
+           
           if @sym == C_identifierSym && curString == "operator"
              break
           end
@@ -1032,7 +1208,8 @@ class Parser < CRParser
     	elsif (@sym >= C_varSym && @sym <= C_stringSym)
             type += Type()
         elsif @sym == C_identifierSym
-            type = Type()   # replace, to remove decorator like __dll_export
+            type = Type()   # replace last one, to remove decorator like __dll_export
+            
         end
         if type != ""
             var_type = VarType.new(type)
@@ -1063,9 +1240,9 @@ class Parser < CRParser
     	end
     	p "===>33:#{varname}"
     	if @sym == C_ColonColonSym
-    	    @classdefs.each{|k,v|
-    	        p "class #{k} = #{v}"
-    	    }
+    	    # @classdefs.each{|k,v|
+    	    #              p "class #{k} = #{v}"
+    	    #          }
     	    if @classdefs[varname] == nil #&& varname != "std"
     	        raise "class #{varname} not found"
 	        end
@@ -1084,7 +1261,16 @@ class Parser < CRParser
             nn  =  GetNext(2)
             _n = GetNext()
             p "sym331:#{nn}, #{_n}"
-            if nn != C_RparenSym && nn != C_CommaSym || _n == C_voidSym
+            # if nn != C_RparenSym && nn != C_CommaSym || 
+            #     # not following case
+            #     # A fn(a)
+            #     # A fn(a,
+            #     _n == C_voidSym # A fn(void)
+            #     fd = FunctionDefinition(class_name)
+            # if nn != C_RparenSym && isTypeStart(GetNextSym())
+            if _n == C_RparenSym || isTypeStart(GetNextSym())
+                # A fn();
+                # A fn(a* b)
                 fd = FunctionDefinition(class_name)
             else
             	current_scope.add_var(Variable.new(varname, var_type))
@@ -1392,12 +1578,27 @@ class Parser < CRParser
         if type
             var_type = VarType.new(type)
         end
-    	while (@sym == C_StarSym || @sym == C_AndSym) 
-    	    var_type.ref += 1 if var_type
-            # line 699 "cs.atg"
-    		Get()
-            # line 699 "cs.atg"
+
+###############################################
+#        int (*pFunction)(float,char,char)=NULL;
+#        int (MyClass::*pMemberFunction)(float,char,char)=NULL;
+#        int (MyClass::*pConstMemberFunction)(float,char,char) const=NULL;
+##############################################
+        if @sym == C_LparenSym  # pointer to function
+            Get()
+            Expect(C_StarSym)
+            Expect(C_identifierSym)
+            Expect(C_RparenSym)
+            FunctionHeader()
+        else
+        	while (@sym == C_StarSym || @sym == C_AndSym) 
+        	    var_type.ref += 1 if var_type
+                # line 699 "cs.atg"
+        		Get()
+                # line 699 "cs.atg"
+        	end
     	end
+    	return var_type
     end
     # line 400 "cs.atg"
     def Type()
@@ -1517,14 +1718,14 @@ class Parser < CRParser
     		when C_identifierSym
     		    ret += curString()
     		    Get()
-                # p "sym1:#{@sym}"
+                p "sym1:#{@sym}"
 		        
     		    while @sym == C_ColonColonSym
     		        Get()
     		        ret += "::#{curString()}"
     		        Get()
 		        end
-                # p "sym2:#{@sym}"
+                p "sym2:#{@sym}"
 		        if @sym == C_LessSym # stl type
 		            Get()
 		            FormalParamList()
@@ -1995,7 +2196,7 @@ HERE
         	       ) 
         # line 966 "cs.atg"
                 debug("===>Expression0:#{ret}")
-                if @sym == C_QuestionMarkSym
+                if @sym == C_QuestionMarkSym  # exp ? A:B
                     Get()
                     ret += "?#{Expression()}"
                     Expect(C_ColonSym)
@@ -2016,11 +2217,14 @@ HERE
                         #                       continue;
                 end
                 
-        	end
+        	end # while
     	end
     	
-    	if @sym!= C_CommaSym && @sym!= C_RparenSym && @sym!= C_SemicolonSym && @prev_sym == C_RparenSym # (exp)exp
-            p "sym112:#{@sym}"
+    	if @sym!= C_CommaSym && @sym!= C_RparenSym && @sym!= C_SemicolonSym && @sym!=C_RbrackSym && @sym!=C_RbraceSym &&
+    	     @prev_sym == C_RparenSym # (exp)exp
+    	    # (exp)exp
+    	    #      ^
+            p "sym112:#{@sym}, #{curLine()}, #{curCol()}"
             # Get()
             #           Type()
             #           while (@sym == C_StarSym || @sym == C_AndSym) 
@@ -2269,6 +2473,12 @@ HERE
   
     end
     
+    def curLine()
+        @scanner.currLine
+    end
+    def curCol()
+        @scanner.currCol
+    end
     def curString()
         ret = @scanner.GetName()
         # p "------#{@scanner}"
@@ -2662,8 +2872,8 @@ HERE
         #            Expect(C_RparenSym)
         #            CastExp()
         # els
-    	
-    	if @sym >= C_identifierSym && curString() == 'static_cast'
+    	cs = curString()
+    	if @sym >= C_identifierSym && (cs == 'static_cast' || cs == 'dynamic_cast')
     	    Get()
     	    Expect(C_LessSym)
     	    Type()
@@ -2861,18 +3071,21 @@ HERE
     p "sym555:#{@sym}, val #{curString()}"
                 if @sym == C_identifierSym || @sym >=C_shortSym && @sym <= C_stringSym
                     _next = GetNext()
+                    _next2 = GetNext(2)
                     if _next == C_RparenSym || 
-                        ( ( _next == StarSym || _next == C_AndSym ) && (_next2 < C_identifierSym || _next2 > C_charD1Sym) )
-                        Type()
+                        ( ( _next == C_StarSym || _next == C_AndSym ) && (_next2 < C_identifierSym || _next2 > C_charD1Sym) )
+                        FullType()
                         Expect(C_RparenSym)
-                        break
+                        bT = true
                     end
                 end
-    			exp +=Expression()
-    			   p "sym556:#{@sym}, val #{curString()}"
-    # line 2593 "cs.atg"
-    			Expect(C_RparenSym)
-    			ret += "(#{exp})"
+                if !bT  # ( Expression )
+    		    	exp =Expression()
+        			   p "sym556:#{@sym}, val #{curString()}"
+        # line 2593 "cs.atg"
+        			Expect(C_RparenSym)
+        			ret += "(#{exp})"
+    			end
                 # break;
     		when C_LbraceSym  
     # line 2594 "cs.atg"
@@ -2936,7 +3149,7 @@ HERE
     # line 2701 "cs.atg"
     		ret += curString()
     		
-    		Get();
+    		Get()
     # line 2701 "cs.atg"
     		ret += Expression()
     # line 2703 "cs.atg"
@@ -3192,7 +3405,11 @@ int Test::test(int a, B* b){
     
 }
 HERE
+s=<<HERE
+//StdMap<SBOString, FCRoundingStruct, False, False> currencyRoundingMap;
+std::map<SBOString, FCRoundingStruct, False, False> currencyRoundingMap;
 
+HERE
 p s
 scanner = CScanner.new(s, false)
 p "===>scanner =#{scanner}"

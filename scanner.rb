@@ -279,7 +279,7 @@ end # end Scanner
            MAX_IDENTIFIER_LENGTH = 1000
 class CScanner <  CRScanner
     
-    attr_accessor :currLine
+    attr_accessor :currLine, :currCol
    def Scan_NextCh    
        NextCh()
    end
