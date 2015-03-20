@@ -209,7 +209,7 @@ class CRScanner < AbsScanner
     end
     def GetSymValue(sym)
         ret = ""
-        p "sym==== "
+        p "sym #{sym.sym} pos #{sym.pos} "
          len = sym.len
          pos = sym.pos
 

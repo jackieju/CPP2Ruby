@@ -239,7 +239,7 @@ private
     end
 	def Init()
     end
-	def NextCh()
+	DEF nEXTcH()
     end
 	def AddCh()
     end
@@ -835,7 +835,7 @@ public
     # get next sym
     def Get()
         # int state, ctx
-    p "pos:#{@buffPos}"
+    p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
         
         return C_EOF_Sym if @ch == nil
         
@@ -854,7 +854,7 @@ public
         # if $sc_cur != $sc.currSym.sym
         #     pp("!!!===", 20)
         # end
-            @currSym = nextSym
+            @currSym = nextSym.clone
             # p "!!!!!#{self}::currSym changed to #{@currSym.sym}", 29
             # if $sc_cur != $sc.currSym.sym
             #          pp("!!!===", 20)
@@ -868,10 +868,11 @@ public
                 return C_EOF_Sym
             end
             state = @@STATE0[@ch.to_byte]
-            # p "--->111"
+             p "--->111ch:#{@ch}"
             while(1) 
                 # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               Scan_NextCh()
+              p "ch:#{@ch}, #{@buffer[nextSym.pos+nextSym.len]}, stat #{state}"
               nextSym.len+=1
               # p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               
@@ -884,7 +885,7 @@ public
               	    @ch >= 'a' && @ch <= 'z') 
               	    #;
               	    else
-
+                        p "C_identifierSym #{CurrentCh(nextSym.pos)}"
               	        return CheckLiteral(C_identifierSym)
              
           	        end
