@@ -104,80 +104,81 @@ C_classSym = 14	# "class" */
 C_LbraceSym = 15	# "{" */
 C_RbraceSym = 16	# "}" */
 C_staticSym = 17	# "static" */
-C_mySym = 18	# "my" */
-C_functionSym = 19	# "function" */
-C_varSym = 20	# "var" */
-C_mixedSym = 21	# "mixed" */
-C_shortSym = 22	# "short" */
-C_intSym = 23	# "int" */
-C_longSym = 24	# "long" */
-C_floatSym = 25	# "float" */
-C_unsignedSym = 26	# "unsigned" */
-C_charSym = 27	# "char" */
-C_doubleSym = 28	# "double" */
-C_voidSym = 29	# "void" */
-C_stringSym = 30	# "string" */
-C_EqualSym = 31	# "=" */
-C_CommaSym = 32	# "," */
-C_LbrackSym = 33	# "[" */
-C_RbrackSym = 34	# "]" */
-C_LparenSym = 35	# "(" */
-C_RparenSym = 36	# ")" */
-C_StarSym = 37	# "*" */
-C_caseSym = 38	# "case" */
-C_ColonSym = 39	# ":" */
-C_defaultSym = 40	# "default" */
-C_breakSym = 41	# "break" */
-C_continueSym = 42	# "continue" */
-C_doSym = 43	# "do" */
-C_whileSym = 44	# "while" */
-C_forSym = 45	# "for" */
-C_ifSym = 46	# "if" */
-C_elseSym = 47	# "else" */
-C_returnSym = 48	# "return" */
-C_switchSym = 49	# "switch" */
-C_BarBarSym = 50	# "||" */
-C_AndAndSym = 51	# "&&" */
-C_BarSym = 52	# "|" */
-C_UparrowSym = 53	# "^" */
-C_AndSym = 54	# "&" */
-C_EqualEqualSym = 55	# "==" */
-C_BangEqualSym = 56	# "!=" */
-C_GreaterSym = 57	# ">" */
-C_LessEqualSym = 58	# "<=" */
-C_GreaterEqualSym = 59	# ">=" */
-C_LessLessSym = 60	# "<<" */
-C_GreaterGreaterSym = 61	# ">>" */
-C_PlusSym = 62	# "+" */
-C_MinusSym = 63	# "-" */
-C_PercentSym = 64	# "%" */
-C_PlusPlusSym = 65	# "++" */
-C_MinusMinusSym = 66	# "--" */
-C_PointSym = 67	# "." */
-C_MinusGreaterSym = 68	# "->" */
-C_ColonColonSym = 69	# "::" */
-C_HashHashSym = 70	# "##" */
-C_newSym = 71	# "new" */
-C_DollarSym = 72	# "$" */
-C_StarEqualSym = 73	# "*=" */
-C_SlashEqualSym = 74	# "/=" */
-C_PercentEqualSym = 75	# "%=" */
-C_PlusEqualSym = 76	# "+=" */
-C_MinusEqualSym = 77	# "-=" */
-C_AndEqualSym = 78	# "&=" */
-C_UparrowEqualSym = 79	# "^=" */
-C_BarEqualSym = 80	# "|=" */
-C_LessLessEqualSym = 81	# "<<=" */
-C_GreaterGreaterEqualSym = 82	# ">>=" */
-C_BangSym = 83	# "!" */
-C_TildeSym = 84	# "~" */
-C_EnumSym = 85
-C_StructSym = 86
-C_TypedefSym = 87
-C_QuestionMarkSym = 88
+C_constSym = 18   # "const" */
+C_mySym = 19	# "my" */
+C_functionSym = 20	# "function" */
+C_varSym = 21	# "var" */
+C_mixedSym = 22	# "mixed" */
+C_shortSym = 23	# "short" */
+C_intSym = 24	# "int" */
+C_longSym = 25	# "long" */
+C_floatSym = 26	# "float" */
+C_unsignedSym = 27	# "unsigned" */
+C_charSym = 28	# "char" */
+C_doubleSym = 29	# "double" */
+C_voidSym = 30	# "void" */
+C_stringSym = 31	# "string" */
+C_EqualSym = 32	# "=" */
+C_CommaSym = 33	# ",        " */
+C_LbrackSym =                   34	# "[" */
+C_RbrackSym =                   35	# "]" */
+C_LparenSym =                   36	# "(" */
+C_RparenSym =                   37	# ")" */
+C_StarSym =                     38	# "*" */
+C_caseSym =                     39	# "case" */
+C_ColonSym =                    40	# ":" */
+C_defaultSym =                  41	# "default" */
+C_breakSym =                    42	# "break" */
+C_continueSym =                 43	# "continue" */
+C_doSym =                       44	# "do" */
+C_whileSym =                    45	# "while" */
+C_forSym =                      46	# "for" */
+C_ifSym =                       47	# "if" */
+C_elseSym =                     48	# "else" */
+C_returnSym =                   49	# "return" */
+C_switchSym =                   50	# "switch" */
+C_BarBarSym =                   51	# "||" */
+C_AndAndSym =                   52	# "&&" */
+C_BarSym =                      53	# "|" */
+C_UparrowSym =                  54	# "^" */
+C_AndSym =                      55	# "&" */
+C_EqualEqualSym =               56	# "==" */
+C_BangEqualSym =                57	# "!=" */
+C_GreaterSym =                  58	# ">" */
+C_LessEqualSym =                59	# "<=" */
+C_GreaterEqualSym =             60	# ">=" */
+C_LessLessSym =                 61	# "<<" */
+C_GreaterGreaterSym =           62	# ">>" */
+C_PlusSym =                     63	# "+" */
+C_MinusSym =                    64	# "-" */
+C_PercentSym =                  65	# "%" */
+C_PlusPlusSym =                 66	# "++" */
+C_MinusMinusSym =               67	# "--" */
+C_PointSym =                    68	# "." */
+C_MinusGreaterSym =             69	# "->" */
+C_ColonColonSym =               70	# "::" */
+C_HashHashSym =                 71	# "##" */
+C_newSym =                      72	# "new" */
+C_DollarSym =                   73	# "$" */
+C_StarEqualSym =                74	# "*=" */
+C_SlashEqualSym =               75	# "/=" */
+C_PercentEqualSym =             76	# "%=" */
+C_PlusEqualSym =                77	# "+=" */
+C_MinusEqualSym =               78	# "-=" */
+C_AndEqualSym =                 79	# "&=" */
+C_UparrowEqualSym =             80	# "^=" */
+C_BarEqualSym =                 81	# "|=" */
+C_LessLessEqualSym =            82	# "<<=" */
+C_GreaterGreaterEqualSym =      83	# ">>=" */
+C_BangSym =                     84	# "!" */
+C_TildeSym =                    85	# "~" */
+C_EnumSym =                     86
+C_StructSym =                   87
+C_TypedefSym =                  88
+C_QuestionMarkSym =             89
 #*** insert new sym here ***#
-C_No_Sym = 89	# not */
-C_PreProcessorSym = 90	# PreProcessor */
+C_No_Sym =                      90	# not */
+C_PreProcessorSym =             91	# PreProcessor */
 C_MAXT = C_No_Sym	# Max Terminals */
 
 SYMS=[                                                
@@ -199,6 +200,7 @@ SYMS=[
 "{"                      ,
 "}"                      ,
 "static"                 ,
+"const"                     ,
 "my"                         ,
 "function"               ,
 "var"                        ,

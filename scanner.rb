@@ -376,6 +376,7 @@ class CScanner <  CRScanner
           		return C_charSym if (EqualStr("char")) 
           		return C_caseSym if (EqualStr("case")) 
           		return C_continueSym if (EqualStr("continue"))
+          		return C_constSym if (EqualStr("const")) 
           		#break
           	when 'd'
           		return C_doubleSym if (EqualStr("double")) 
@@ -835,7 +836,7 @@ public
     # get next sym
     def Get()
         # int state, ctx
-    p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
+    # p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
         
         return C_EOF_Sym if @ch == nil
         
@@ -868,11 +869,11 @@ public
                 return C_EOF_Sym
             end
             state = @@STATE0[@ch.to_byte]
-             p "--->111ch:#{@ch}"
+             # p "--->111ch:#{@ch}"
             while(1) 
                 # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               Scan_NextCh()
-              p "ch:#{@ch}, #{@buffer[nextSym.pos+nextSym.len]}, stat #{state}"
+              # p "ch:#{@ch}, #{@buffer[nextSym.pos+nextSym.len]}, stat #{state}"
               nextSym.len+=1
               # p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               

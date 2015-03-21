@@ -7,7 +7,10 @@ $ar_classdefs = [
     "CBizEnv",
     "SBOString",
     "DBD_Tables",
-    "CManualDistributionRuleObject"
-    
+    "CManualDistributionRuleObject",
+    "CWTAllCurBaseCalcParams",
+    "CJDTWTInfo",
+    "AccountsConstArray",
+    "ObjectAbbrevsMap"
     
     ]

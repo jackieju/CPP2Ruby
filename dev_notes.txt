@@ -1,4 +1,4 @@
-# how to add one keyword
+# how to add one keyword sym
 
 1. add it in sym.rb before C_No_Sym, also same position in the arrasy SYMS
 2. add it in CheckLiteral() of scanner.rb
