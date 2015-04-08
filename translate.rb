@@ -550,6 +550,6 @@ if $*.size >0
     end
 else
     p "no file specified"
-    p "usage: ruby generate_obj.rb <c source file>\n
-    example: ruby generate_obj.rb xiaolu.c"
+    p "usage: ruby translate.rb <c source file>\n
+    example: ruby translate.rb xiaolu.c"
 end

@@ -117,7 +117,7 @@ C_unsignedSym = 27	# "unsigned" */
 C_charSym = 28	# "char" */
 C_doubleSym = 29	# "double" */
 C_voidSym = 30	# "void" */
-C_stringSym = 31	# "string" */
+C_stringSym = 31	# keyword "string" */
 C_EqualSym = 32	# "=" */
 C_CommaSym = 33	# ",        " */
 C_LbrackSym =                   34	# "[" */
@@ -176,9 +176,11 @@ C_EnumSym =                     86
 C_StructSym =                   87
 C_TypedefSym =                  88
 C_QuestionMarkSym =             89
+C_CRLF_Sym = 90 
 #*** insert new sym here ***#
-C_No_Sym =                      90	# not */
-C_PreProcessorSym =             91	# PreProcessor */
+C_No_Sym =                      91	# not */
+C_PreProcessorSym =             92	# PreProcessor */
+
 C_MAXT = C_No_Sym	# Max Terminals */
 
 SYMS=[                                                
@@ -272,6 +274,7 @@ SYMS=[
 "struct",
 "typedef",
 "?",
+"CRLF",
 "not"                          ,
 "PreProcessor"         ,
     ]

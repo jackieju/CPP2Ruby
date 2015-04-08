@@ -1,4 +1,5 @@
 load 'cp.rb'
+load 'macro.rb'
 
 def parse_block(s, method="FunctionBody")
     p "parse using #{method}, #{s}"
@@ -11,14 +12,16 @@ def parse_block(s, method="FunctionBody")
     return ret
 end
 
+
 # parse string
 # preprocess - true: do preprocess first, false: no do preprocess, just parse
 def parse(s, preprocess = true)
     p "parse #{s}"
+    
     scanner = CScanner.new(s, false)
     error = MyError.new("whaterver", scanner)
     parser = Parser.new(scanner, error)
-    parser.Get
+    # parser.Get
     if preprocess
         content = parser.Preprocess
             begin
@@ -30,18 +33,20 @@ def parse(s, preprocess = true)
             end
         
         scanner.Reset
-        parser.Get
+        # parser.Get
     end
     p "===== start parsing ====="
+    parser.Get
     ret = parser.C
     error.PrintListing
+    p "===== end of parsing ====="
     return ret
 end
 
 def preprocess(s)
     scanner = CScanner.new(s, false)
     error = MyError.new("whaterver", scanner)
-    parser = Parser.new(scanner, error)
+    parser = Preprocessor.new(scanner, error)
     content = parser.Preprocess
     begin
        aFile = File.new("pre.#{Time.now.to_i}", "w+")
@@ -66,6 +71,7 @@ def parse_file(fname, preprocess = true)
 end
 
 def test
-    p parse_file("pre.1424096273", false)
+    # p parse_file("pre.1424096273", false)
+    p parse_file("pre.1428384522", false)
 end
 # test

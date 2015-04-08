@@ -214,7 +214,9 @@ class CRScanner < AbsScanner
          pos = sym.pos
 
         while (true) 
-          ret += CurrentCh(pos)
+            _cch =  CurrentCh(pos) 
+         break if _cch == nil
+          ret += _cch
           pos +=1
           len -=1
           if len <=0
@@ -271,17 +273,39 @@ class CRScanner < AbsScanner
         @ch = CurrentCh(@buffPos)
         return @ch
     end
-    def NextLine()
-        ret_start = @buffPos+1
+    # include_current_char: returned string includes current char
+    def NextLine(include_current_char = false, from = nil)
+        p "from:#{from}, ch #{@buffer[from]}" if from 
+        ret = ""
+        if include_current_char
+            if from 
+                ret_start = from
+                # ret = "#{@buffer[from]}"
+                @buffPos = from
+            else
+                ret_start = @buffPos
+                # ret = "#{@buffer[@buffPos]}"
+            end
+        else
+            if from 
+                ret_start = from +1
+                @buffPos = from +1
+            else
+                ret_start = @buffPos+1
+            end
+        end
+        @ch = @buffer[buffPos]
+        p "nextline ret_start:#{ret_start}, ch #{@ch}, @buffPos:#{@buffPos}, pos #{@buffPos}", 20
         if cch() == "\n"
         else
-            begin
+            begin # while (@ch != "\n")
                 # p "NextLine() @ch=#{@ch}"
                 # @buffPos+=1
                 #            # p "@buffPos=#{@buffPos}"
                 #            @ch = CurrentCh(@buffPos)
-                _get()
-                return if @ch == nil
+                # _get()
+                # return @buffer[ret_start..@buffer.size-1] if @ch == nil || @ch.to_byte == EOF_CHAR
+                return ret if @ch == nil || @ch.to_byte == EOF_CHAR
                 if (@ch == "\\")
                    while (_get() =~ /\s/)
                    end
@@ -289,24 +313,83 @@ class CRScanner < AbsScanner
                        _get()
                    end
                 end
+                p "@ch011=#{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, pos #{@buffPos}, ret=#{ret}"
+                if (@ch == '"')
+                    ret += ""
+                    p "@ch222:#{@ch}"
+                    _get()
+                    while @ch != '"'
+                     
+                        if @ch == "\\"
+                            ret += "\\"
+                            _get()
+                              p "@ch = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
+                        elsif (@ch >= ' ' && @ch <= '!' ||
+                      	    @ch >= '#' && @ch.to_byte <= 255)
+                            ret += @ch
+                            _get()
+                        elsif @ch.to_byte >= 9 && @ch.to_byte <= 10 || @ch == nil || @ch.to_byte == EOF_CHAR
+                            break
+                        else
+                            ret += @ch
+                            _get()
+                        end
+                        
+                    end
+                    
+                    ret += '"'
+                elsif @ch == '/'
+                    _pos = @buffPos
+                    line = @currLine
+                    Comment()
+                    ret += @ch
+                    p "pos=#{@buffPos}, @ch1111 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
+                    
+                    if @currLine > line # if multi line comments
+                        break
+                        # return @buffer[ret_start.._pos]
+                    end
+                else
+                    ret += @ch
+                end
+                _get()
+                p "@ch2 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, ret=#{ret}"
             end while (@ch != "\n")
         end
+        p "nextline2:#{ret}"
+        
+        @ch = '\0' if @ch == nil
+            
+        p "@ch3 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
+     
         # bufferpos point to "\n"
+     
         ret_end = @buffPos-1 #return value not include \n
         @currLine += 1
         @currCol = 1
         @lineStart = @buffPos + 1
         
         _get()
-        return @buffer[ret_start..ret_end]
+        @ch = '\0' if @ch == nil
+        p "@ch4 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
+        
+        return "" if ret_end < ret_start
+        p "nextline:#{@buffer[ret_start..ret_end]}", 30
+        p "nextline1:#{ret}"
+        # return @buffer[ret_start..ret_end]
+        return ret
     end
     
     # return skipped content
-    def skip_curline
-        ret = NextLine()
+    # include_current_char: returned string includes current char
+    def skip_curline(include_current_char = false, from=nil)
+        ret = NextLine(include_current_char, from)
         # p "after skip current line, pos #{@buffPos}, ch = #{@buffer[@buffPos].to_byte}"
         # pp "after skip current line:@buffPos=#{@buffPos}, buffer=#{@buffer}, ret=#{ret}", 20
         return ret
+    end
+    def cch()
+        CurrentCh(@buffPos)
     end
     # def NextSym
     #     @nextSym
@@ -333,9 +416,7 @@ class CRScanner < AbsScanner
         # p "pos:#{pos}"
         return @buffer[pos]
     end
-     def cch()
-         CurrentCh(@buffPos)
-     end
+
     def NextCh()
         # p "NextCh() @ch=#{@ch}"
         @buffPos+=1
