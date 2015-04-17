@@ -11,6 +11,18 @@ $ar_classdefs = [
     "CWTAllCurBaseCalcParams",
     "CJDTWTInfo",
     "AccountsConstArray",
-    "ObjectAbbrevsMap"
-    
+    "ObjectAbbrevsMap",
+    "CBusinessService",
+    "CJDTStornoExtraInfoCreator",
+    "ArcDeletePrefs",
+    "CJECompression",
+    "ObjectWTaxInfo",
+    "DBQRetrieveStatement",
+    "CMatchData",
+    "MONEY",
+    "BPBalanceChangeLogDataArr",
+    "FCRoundingStruct",
+    "StdMap",
+    "CostAccountingFieldMap",
+    "bool"
     ]

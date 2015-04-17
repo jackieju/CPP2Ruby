@@ -315,10 +315,11 @@ class CRScanner < AbsScanner
                 end
                 p "@ch011=#{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, pos #{@buffPos}, ret=#{ret}"
                 if (@ch == '"')
-                    ret += ""
+                    ret += "\""
                     p "@ch222:#{@ch}"
                     _get()
                     while @ch != '"'
+                        p "@ch333:#{@ch.to_byte}, pos #{@buffPos}"
                      
                         if @ch == "\\"
                             ret += "\\"
@@ -328,13 +329,13 @@ class CRScanner < AbsScanner
                       	    @ch >= '#' && @ch.to_byte <= 255)
                             ret += @ch
                             _get()
-                        elsif @ch.to_byte >= 9 && @ch.to_byte <= 10 || @ch == nil || @ch.to_byte == EOF_CHAR
+                        elsif @ch.to_byte == 13 || @ch.to_byte == 10 || @ch == nil || @ch.to_byte == EOF_CHAR
                             break
                         else
                             ret += @ch
                             _get()
                         end
-                        
+                        p "ret:#{ret}"
                     end
                     
                     ret += '"'
@@ -353,7 +354,7 @@ class CRScanner < AbsScanner
                     ret += @ch
                 end
                 _get()
-                p "@ch2 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, ret=#{ret}"
+                # p "@ch2 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, ret=#{ret}"
             end while (@ch != "\n")
         end
         p "nextline2:#{ret}"

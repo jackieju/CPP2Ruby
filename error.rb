@@ -64,10 +64,17 @@ class CRError < AbsError
     def SetOutput(file) 
      lst = file
     end
+
     def PrintListing(scanner=nil)
         p "===== parsing done ===="
         @error_list.each{|e|
             p "error #{e[:errno]}, #{ERRMSG[e[:errno]]},  line #{e[:sym].line+1} col #{e[:sym].col} sym #{SYMS[e[:sym].sym]} val #{@scanner.GetSymString(e[:sym])}"    
+            pos = e[:sym].pos
+            pos1 = pos -10
+            pos2 = pos +10
+            pos1 = 0 if pos1 < 0
+            pos2 = @scanner.buffer.size-1 if pos2 > @scanner.buffer.size-1
+            p "....#{@scanner.buffer[pos1..pos2]}......"
         }
         p "Total #{@error_list.size} errors"
     end

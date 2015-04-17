@@ -220,3 +220,9 @@ def test
 end
 =end
 # p i_to_ch(3)
+
+def test
+   s= File.open("ccc1.txt").read
+   p s
+end
+test

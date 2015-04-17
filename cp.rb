@@ -117,16 +117,18 @@ class Parser < CRParser
             
     end
     def find_class(varname)
-               @classdefs.each{|k,v|
-                                         p "classdef #{k}=#{v}"
-                }
+        @classdefs.each{|k,v|
+                 p "classdef #{k}=#{v}"
+        }
          if @classdefs[varname]
              return @classdefs[varname]
          end
+         return nil
     end
-    def add_class(class_name, parent, modules)
+    def add_class(class_name, parent=nil, modules=nil)
         clsdef = ClassDef.new(class_name)
         @classdefs[class_name] = clsdef
+        return clsdef
     end
     def GetNextSym(step =1)
         _scanner = @scanner.clone()
@@ -285,11 +287,12 @@ class Parser < CRParser
             return
         else
             if !@scanner.include_file(finclude)
-                GenError(114)
+                # GenError(114)
                 pp "===>114",20
             else
                 @included_files[finclude] = 1
             end
+            p "after include:pos #{@scanner.buffPos}, ch #{@scanner.cch}, sym #{@sym},#{@scanner.buffer}"
         end
     end
     def ignoreSym?(sym)
@@ -308,7 +311,7 @@ class Parser < CRParser
 # p "Get0:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
             @prev_sym = @sym
             @sym = @scanner.Get(ignore_crlf)
- # p "Get1:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
+ p "Get1:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
             # p "Get(): sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@sym]}"
             # p "sym1=#{@sym}"
             # pp("hhhh", 30) if @sym==9
@@ -384,7 +387,7 @@ class Parser < CRParser
                 end
             end
         end while (@sym > C_MAXT || ignoreSym?(@sym))
-        p "get()2: #{@sym}"
+        # p "get()2: #{@sym}"
         # p "Get()2 #{@scanner.nextSym.sym}, line #{@scanner.nextSym.line}, col #{@scanner.nextSym.col}, value #{curString()}"
         p("Get()3:#{@sym}, #{curString()}, line #{curLine}", 20)
     end
@@ -989,6 +992,8 @@ class Parser < CRParser
         @included_files = {}
         @macros = {}
         @classdefs=$g_classdefs if $g_classdefs
+        @root_class = add_class("::")
+        
         p "init end"
         pclass
     end
@@ -1020,7 +1025,10 @@ class Parser < CRParser
     def gStatement()
         pdebug("-->gStatement, line #{@scanner.currLine}, sym=#{@sym}, val=#{curString()}")
         rStatement = ""
-        if @sym == C_TildeSym 
+        if @sym == C_SemicolonSym
+            Get()
+           return "" 
+        elsif @sym == C_TildeSym 
             if ['class', 'struct'].include?(current_scope.name)
                 Get()
                 Expect(C_identifierSym)
@@ -1076,13 +1084,14 @@ class Parser < CRParser
 	                if curString() == "~"
 	                    Get()
 	                    Expect(C_identifierSym)
-    	                FunctionDefinition(current_scope.class_name)
+    	                FunctionDefinition(current_scope.class_name, "uninitialize")
 	                else
+	                    fn_name = ""
 	                    while GetNext() != C_LparenSym
-	                        Get()
+	                        fn_name = Get()
                         end
                         Get()
-     	                FunctionDefinition(current_scope.class_name)
+     	                FunctionDefinition(current_scope.class_name, fn_name)
     
                     end
  
@@ -1090,11 +1099,11 @@ class Parser < CRParser
     	            p "--> in class scope"
     	            if current_scope.class_name == cs # constructor
     	                Get()
-                        rStatement += FunctionDefinition(current_scope.class_name)
+                        rStatement += FunctionDefinition(current_scope.class_name, "initialize")
 	                elsif cs=="~" # deconstructor
                         Get()
                         Expect(C_identifierSym)
-	                    rStatement += FunctionDefinition(current_scope.class_name)                        
+	                    rStatement += FunctionDefinition(current_scope.class_name, "uninitialize")                        
                     end
     	        elsif _next == C_LessSym # template
     	           LocalDeclaration() 
@@ -1326,45 +1335,70 @@ class Parser < CRParser
     	end
 =end
     
-    p "---->LocalDeclaration2, #{@sym}, #{curString()}"
-    _next = GetNext()
-    while (@sym != C_LparenSym && 
-            (   _next == C_identifierSym ||
-                _next >= C_varSym && _next <= C_stringSym || 
-                _next >= C_staticSym && _next <= C_functionSym ||
-                _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym ||
-                _next == C_LessSym # template
-            )
-           )
-           p "---->LocalDeclaration3, #{@sym}, #{curString()}, line #{curLine()}, col #{curCol()}"
+        p "---->LocalDeclaration2, #{@sym}, #{curString()}"
+        _next = GetNext()
+        while (@sym != C_LparenSym && @sym != C_ColonColonSym &&
+                (   _next == C_identifierSym ||
+                    _next >= C_varSym && _next <= C_stringSym || 
+                    _next >= C_staticSym && _next <= C_functionSym ||
+                    _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym ||
+                    _next == C_LessSym # template
+                )
+               )
+               p "---->LocalDeclaration3, #{@sym}, #{curString()}, line #{curLine()}, col #{curCol()}"
            
-          if @sym == C_identifierSym && curString == "operator"
-             break
-          end
-         p "-->sym:#{@sym}, next:#{_next}, line #{@scanner.nextSym.line }, v=#{curString()}"
-    	if (@sym >= C_staticSym && @sym <= C_functionSym) 
-    		storageclass += StorageClass()
-    	elsif (@sym >= C_varSym && @sym <= C_stringSym)
-            type += Type()
-        elsif @sym == C_identifierSym
-            type = Type()   # replace last one, to remove decorator like __dll_export
-        elsif _next == C_ColonColonSym
-            type = Type() 
+              if @sym == C_identifierSym && curString == "operator"
+                 break
+              end
+             p "-->sym:#{@sym}, next:#{_next}, line #{@scanner.nextSym.line }, v=#{curString()}"
+        	if (@sym >= C_staticSym && @sym <= C_functionSym) 
+        		storageclass += StorageClass()
+        	elsif (@sym >= C_varSym && @sym <= C_stringSym)
+                type += Type()
+            elsif @sym == C_identifierSym
+                type = Type()   # replace last one, to remove decorator like __dll_export
+            elsif _next == C_ColonColonSym
+                type = Type() 
+            end
+            if type != ""
+                var_type = VarType.new(type)
+            end
+            if (@sym == C_StarSym || @sym == C_AndSym) 
+            	while (@sym == C_StarSym || @sym == C_AndSym) 
+            	    var_type.ref += 1
+                    # line 699 "cs.atg"
+            		Get()
+                    # line 699 "cs.atg"
+            	end
+            	break
+        	end
+        	 _next = GetNext()
         end
-        if type != ""
-            var_type = VarType.new(type)
-        end
-    	while (@sym == C_StarSym || @sym == C_AndSym) 
-    	    var_type.ref += 1
-            # line 699 "cs.atg"
-    		Get()
-            # line 699 "cs.atg"
-    	end
-    	 _next = GetNext()
-    end
 
-    # line 702 "cs.atg"
+ 
+        
+        # line 702 "cs.atg"
         p "type=#{type}, storageclass=#{storageclass}, prev=#{@prev_sym}, cur=#{@sym}, val #{curString}"
+        
+        
+        
+        # variable name, function name, function operator name
+=begin
+        if @sym == C_identifierSym
+            _name = curString()
+            
+            if _name == "operator"
+                op_name = ""
+                Get()
+               
+                begin 
+                    op_name += curString()
+                    Get()
+                end while @sym != C_identifierSym && @sym != C_constSym && @sym != C_LparenSym
+            elsif 
+        end
+=end         
+         
     	varname = curString()
     	fname = varname
     	if fname =="operator"
@@ -1389,8 +1423,20 @@ class Parser < CRParser
 	        class_name = varname
     	    Get()
     	    fname = curString()
-    	    p "===>332:#{fname}"
-    	    Expect(C_identifierSym)
+            # Expect(C_identifierSym)
+    	    p "===>332:class_name=#{class_name}, fname=#{fname}"
+            if fname == "operator"
+                op_name = ""
+                Get()
+                begin 
+                    op_name += curString()
+                    Get()
+                end while @sym != C_identifierSym && @sym != C_constSym && @sym != C_LparenSym
+                p "opname:#{op_name}"
+                fname=op_name
+            else
+                Get()
+            end
 	    end
     # line 702 "cs.atg"
 
@@ -1411,7 +1457,7 @@ class Parser < CRParser
             if _n == C_RparenSym || isTypeStart(GetNextSym())
                 # A fn();
                 # A fn(a* b)
-                fd = FunctionDefinition(class_name)
+                fd = FunctionDefinition(class_name, fname)
             else
             	current_scope.add_var(Variable.new(varname, var_type))
                 # fc = "#{varname} = #{var_type.name}.new"
@@ -1545,7 +1591,7 @@ class Parser < CRParser
     	return ""
     end    
     # line 465 "cs.atg"
-    def FunctionDefinition(class_name = nil)
+    def FunctionDefinition(class_name = nil, fn_name)
         ret = ""
         if class_name
  	        classdef = @classdefs[class_name]
@@ -1554,7 +1600,12 @@ class Parser < CRParser
 
     # line 509 "cs.atg"
     	ret += FunctionHeader()
-    	
+    	if ret.gsub(/\s/,"") == "()"
+    	    args_num = 0
+	    else
+    	    args_num = ret.split(",").size
+    	end
+    	p "function header:#{fn_name} #{ret}, arg num #{args_num}"
     	if @sym == C_constSym
     	    Get()
 	    end
@@ -1600,12 +1651,17 @@ class Parser < CRParser
     	end
     # line 510 "cs.atg"
         
-        if (fb && fb != "")
-            ret = "#{ret}\n#{fb}"
+        if (fb)
+            ret = "#{ret}\n#{fb}\nend"
         end
-        
+        # add_class_method_def(class_name, fn_name, args)
+        p "add mehtod '#{fn_name}' to clas '#{class_name}':#{ret}"
+        if (classdef)
+            classdef.add_method(fn_name, args_num, ret)
+        else
+            @root_class.add_method(fn_name, args_num, ret)
+        end
         return ret
-
     end
 
     # line 537 "cs.atg"
@@ -1894,6 +1950,12 @@ class Parser < CRParser
 		        if @sym == C_LessSym # stl type
 		            STLType()
 	            end
+	            while @sym == C_ColonColonSym
+    		        Get()
+    		        ret += "::#{curString()}"
+    		        Get()
+    		        
+		        end
 	            p "sym3:#{@sym}, val #{curString()}"
     		else 
     		    GenError(95)
@@ -1937,11 +1999,12 @@ class Parser < CRParser
             pdebug("===>TryStatement3, #{@sym}")
             
             Expect(C_LparenSym)
-            Expect(C_identifierSym)
-            exptype = prevString()
-            while (@sym == C_StarSym || @sym == C_AndSym)
-                Get()
-            end
+            # Expect(C_identifierSym)
+            #             exptype = prevString()
+            #             while (@sym == C_StarSym || @sym == C_AndSym)
+            #                 Get()
+            #             end
+            exptype = FullType()
             Expect(C_identifierSym)
             expvar = prevString()
             Expect(C_RparenSym)
@@ -1950,11 +2013,11 @@ class Parser < CRParser
         stmt =<<HERE
         begin
             #{try_stmt}
-        rescue #{exptype}=>#{expvar}
+        rescue #{exptype.name}=>#{expvar}
             #{catch_stmt}
         end
 HERE
-        pdebug("===>TryStatement1")
+        pdebug("===>TryStatement1:#{stmt}")
         return stmt
     end
     # line 657 "cs.atg"
@@ -2158,11 +2221,11 @@ HERE
     # line 727 "cs.atg"
 =end
       exp1= gStatement()
-        p "exp1:#{exp1}"	
+        p "exp1:#{exp1}, SYM:#{@sym}"	
 
 	
     # line 738 "cs.atg"
-	        exp2 = ""
+	    exp2 = ""
     # line 739 "cs.atg"
     	if (@sym >= C_identifierSym && @sym <= C_numberSym ||
     	    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
@@ -2176,6 +2239,8 @@ HERE
             @sym == C_newSym ||
     	    @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 739 "cs.atg"
+    		
+    		p "exp22:#{exp2}"
     		exp2 = Expression()
     	end
     # line 740 "cs.atg"
@@ -2393,6 +2458,9 @@ HERE
     	    Expression()
     	    while (@sym==C_CommaSym)
     	        Get()
+    	        if @sym==C_RbraceSym
+    	            break
+	            end
     	        Expression()
 	        end
     	    Expect(C_RbraceSym)
@@ -2475,7 +2543,7 @@ HERE
     
     # line 2134 "cs.atg"
     def AssignmentOperator()
-        ret= @scanner.GetName
+        ret= curString()
         # p "getname:#{@scanner.GetName}"
     # line 2134 "cs.atg"
     	case @sym 
@@ -3656,7 +3724,48 @@ s=<<HERE
 //CMessagesManager::GetHandle ()->Message (_132_APP_MSG_AP_AR_USER_NOT_ASSINED_BPL, EMPTY_STR, this, (const TCHAR*)BPLName);
 aaaa((const TCHAR*)BPLName);
 HERE
+s=<<HERE
+class CJDTStornoExtraInfoCreator{
+CJDTStornoExtraInfoCreator(){
+    
+}
+}
+CJDTStornoExtraInfoCreator * CJDTStornoExtraInfoCreator::operator=(const CJDTStornoExtraInfoCreator & other){
+    
+}
+HERE
+s=<<HERE
+_LOGMSG(logDebugComponent, logNoteSeverity, 
+	_T("In CTransactionJournalObject::BeforeDeleteArchivedObject - starting JEComp.execute()"));
+
+
+HERE
+s=<<HERE
+try{
+    
+}catch (nsDataArchive::CDataArchiveException& e){
+    
+}
+HERE
+s=<<HERE
+    _MEM_MYRPT0 (_T("CDocumentObject::UpdateWTOnRecon - \
+                 JDT2 should contain 1 rec at the most for reconciliation!"));
+HERE
+s=<<HERE
+a = 1U;
+HERE
+s=<<HERE
+fdafa;
+a = 1U;
+b= 1usl;
+HERE
+s=<<HERE
+
+StdMap<SBOString, FCRoundingStruct, False, False>::const_iterator itr = currencyMap.begin();
+
+HERE
 p s
+
 scanner = CScanner.new(s, false)
 p "===>scanner =#{scanner}"
 p "==>#{scanner.nextSym}"

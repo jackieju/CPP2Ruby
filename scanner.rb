@@ -858,36 +858,48 @@ public
            c = "// include file #{fname} failed"
            ret = false
         else
-           c = "// included from file #{fname}\n#{c}\n // end include file #{fname}"   
+           c = "// included from file #{fname}\n#{c}\n // end include file #{fname}\n"   
         end
         # p "===>432q42#{@buffer[@buffPos..@buffer.size-1]}"
         replace_start = @buffPos-1
-        replace_end = @buffPos
-        while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
+       
+        # replace_end = @buffPos
+        # p "3323:#{replace_start}, #{@buffer[replace_start].inspect}"
+
+        while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r" && replace_start >=0)
             replace_start -=1
         end
         # p "===>432q42#{@buffer[replace_start..@buffer.size-1]}"
-        while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r")
-            replace_end +=1
-        end
-        while @buffer[replace_end] == "\n" || @buffer[replace_end] == "\r"
-            replace_end +=1
-        end
+        # while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r")
+        #     replace_end +=1
+        # end
+        # while @buffer[replace_end] == "\n" || @buffer[replace_end] == "\r"
+        #     replace_end +=1
+        # end
         # p "3, replace_start=#{replace_start}, @buffPos=#{@buffPos}"
         # p "c:#{c}"
         # p "str1:#{@buffer[0..replace_start]}"
         # p "str2:#{@buffer[@buffPos..@buffer.size-1]}"
+        # p "3324:#{replace_start}, #{@buffer[replace_start].inspect}"
+
         if replace_start < 0
             str = c+@buffer[@buffPos..@buffer.size-1]
-            @buffPos = 0
+            @buffer=str
+            
+            @buffPos = -1
+           
         else
             str = @buffer[0..replace_start]+c+@buffer[@buffPos..@buffer.size-1]
+            @buffer=str
+            
             @buffPos = replace_start
         end
-        
+         Scan_NextCh()
+         # p "3325:#{@ch}"
+         
         # p "new buffer after include: #{@buffer[@buffPos..@buffer.size-1]}"
-        @buffer=str
-        p "new buffer:#{@buffer}"
+        
+        # p "new buffer after include :#{@buffer}"
         # p "pos1:#{@buffPos}, #{@buffer[@buffPos..@buffPos+30]}"
         return ret
     end
@@ -903,7 +915,7 @@ public
 
     def Get(ignore_crlf=true)
         # int state, ctx
-    # p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
+    p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
         
         return C_EOF_Sym if @ch == nil
         
@@ -976,13 +988,25 @@ public
               	#break
               when 2
               	if (@ch == 'U')
-              	    state = 5
+                    # state = 5
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == 'u') 
-              	    state = 6
+                    # state = 6
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == 'L') 
-              	    state = 7 
+              	    p "=>L1"
+                    # state = 7 
+                    Scan_NextCh()
+                     if @ch == 'L'
+                         Scan_NextCh()
+                     end
+                     return C_numberSym
               	elsif (@ch == 'l') 
-              	    state = 8 
+                    # state = 8 
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == '.') 
               	    state = 4 
               	elsif (@ch >= '0' && @ch <= '9') 
@@ -992,13 +1016,25 @@ public
               	#break
               when 4
               	if (@ch == 'U') 
-              	    state = 13 
+                    # state = 13 
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == 'u') 
-              	    state = 14 
+                    # state = 14 
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == 'L')
-              	     state = 15 
+              	    p "=>L11"
+                     # state = 15 
+                     Scan_NextCh()
+                     if @ch == 'L'
+                         Scan_NextCh()
+                     end
+                     return C_numberSym
               	elsif (@ch == 'l') 
-              	    state = 16 
+                    # state = 16 
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch >= '0' && @ch <= '9') 
               	else
               	    return C_numberSym 
@@ -1031,13 +1067,25 @@ public
               	#break
               when 19
               	if (@ch == 'U') 
-              	    state = 20
+                    # state = 20
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == 'u') 
-              	    state = 21
+                    # state = 21
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == 'L') 
-              	    state = 22
+              	    p "=>L111"
+                    # state = 22
+                    Scan_NextCh()
+                     if @ch == 'L'
+                         Scan_NextCh()
+                     end
+                     return C_numberSym
               	elsif (@ch == 'l') 
-              	    state = 23
+                    # state = 23
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch >= '0' && @ch <= '9' ||
               	    @ch >= 'A' && @ch <= 'F' ||
               	    @ch >= 'a' && @ch <= 'f') 
@@ -1056,6 +1104,8 @@ public
               when 24
               	if (@ch == '"') 
               	    state = 25
+          	    elsif @ch == "\\"
+          	        Scan_NextCh()
               	elsif (@ch >= ' ' && @ch <= '!' ||
               	    @ch >= '#' && @ch.to_byte <= 255) 
               	   # same state
@@ -1131,13 +1181,25 @@ public
               	return C_PreProcessorSym
               when 35
               	if (@ch == 'U') 
-              	    state = 5
+                    # state = 5
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == 'u') 
-              	    state = 6
+                    # state = 6
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == 'L') 
-              	    state = 7
+              	    p "=>L133"
+                    # state = 7
+                    Scan_NextCh()
+                     if @ch == 'L'
+                         Scan_NextCh()
+                     end
+                     return C_numberSym
               	elsif (@ch == 'l') 
-              	    state = 8
+                    # state = 8
+                    Scan_NextCh()
+                    return C_numberSym
               	elsif (@ch == '.') 
               	    state = 4
               	elsif (@ch >= '0' && @ch <= '9') 

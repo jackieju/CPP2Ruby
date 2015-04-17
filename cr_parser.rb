@@ -26,10 +26,18 @@ class Scope
 
 end
 class ClassDef < Scope
-    attr_accessor :class_name, :parent, :modules
+    attr_accessor :class_name, :parent, :modules, :methods
     def initialize(class_name)
         super("class")
         @class_name = class_name
+        @methods = {}
+    end
+    def add_method(method_name, arg_number, src, acc="public")
+        method_sig = "#{method_name}\#\##{arg_number}"
+        @methods[method_sig]={
+            :name=>method_name,
+            :src=>src
+        }
     end
 end
 class CRParser 
@@ -131,12 +139,78 @@ class CRParser
             GenError(n)
         end
     end
-    
+    def prevline(pos, num=1)
+        ret = ""
+        # pos = @scanner.buffPos
+        buffer = @scanner.buffer
+        
+        p "p1:#{pos}"
+        while pos>0 && buffer[pos] && (buffer[pos].to_byte == 10 || buffer[pos].to_byte == 13)
+            pos -= 1
+        end
+        p "p2:#{pos}"
+        
+        while  pos>0 && buffer[pos] && (buffer[pos].to_byte != 10 && buffer[pos].to_byte != 13)
+            pos -= 1
+        end
+        
+        p "p3:#{pos}"
+        while (num>0)
+
+            
+            pos_end = pos
+            while  pos>0 && buffer[pos] && (buffer[pos].to_byte == 10 || buffer[pos].to_byte == 13)
+                pos -= 1
+            end   
+            p "p4:#{pos}"
+            
+            while  pos>0 && buffer[pos] && (buffer[pos].to_byte != 10 && buffer[pos].to_byte != 13)
+                pos -= 1
+            end
+            p "p5:#{pos}"
+            
+            if pos == 0
+                pos_start = 0
+            else
+                pos_start = pos+1 
+            end
+            ret = buffer[pos_start..pos_end]+ret if buffer[pos_start..pos_end]
+            num -= 1
+        end
+        
+        return ret
+    end    
     def GenError(errorNo)
         p "generror #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym} val #{@scanner.GetName()}"
-        # p "line:#{@scanner.cur_line()}"
+        
+        
+        pos = @scanner.nextSym.pos
+        
+        p prevline(pos, 2)
+        
+        
+        pos1 = pos
+        while (pos1 > 0 && @scanner.buffer[pos1-1] != "\n" )
+            pos1 -= 1
+        end
+        pos2 = pos 
+        while (pos2 < @scanner.buffer.size-1 && @scanner.buffer[pos2+1] != "\n" )
+            pos2 += 1
+        end        
+        p "......#{@scanner.buffer[pos1..pos2].gsub("\t",' ')}......"
+        s1 = ""
+        for a in 0..pos-pos1-1
+            s1 += "~"
+        end
+        s2 = ""
+        for a in 0..pos2-pos-1
+            s2 += "~"
+        end
+        p "......#{s1}^#{s2}......"
+        # # p "line:#{@scanner.cur_line()}"
         p("stack:", 1000)
         @error.StoreErr(errorNo, @scanner.nextSym.clone)
+        raise "stopped because error"
     end
     # Scanner
     #    Error

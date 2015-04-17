@@ -198,7 +198,11 @@ end
 def add_class_method_def(class_name, method_name, args, acc="public")
     _args = []
     
-    _args = translate_functioncall_argslist(args) if args
+    if args
+        _args = translate_functioncall_argslist(args) if args.class == String
+        _args = args if args.class == Array
+    end
+    
     p "args=>#{_args}"
     
     if $class_list[class_name.to_s] == nil
