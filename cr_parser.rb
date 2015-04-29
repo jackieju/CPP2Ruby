@@ -34,10 +34,28 @@ class ClassDef < Scope
     end
     def add_method(method_name, arg_number, src, acc="public")
         method_sig = "#{method_name}\#\##{arg_number}"
-        @methods[method_sig]={
-            :name=>method_name,
-            :src=>src
-        }
+        if @methods[method_sig]
+            @methods[method_sig][:name] = method_name
+            if src && src.strip != ""
+                @methods[method_sig][:src] =src
+            end
+            if @methods[method_sig][:decoration] == nil
+                @methods[method_sig][:decoration] = ""
+            end
+            ar = acc.split(" ")
+            ar.each{|v|
+                if @methods[method_sig][:decoration].index(v) == nil
+                    @methods[method_sig][:decoration] += " #{v}"
+                end
+            }
+            
+        else
+            @methods[method_sig]={
+                :name=>method_name,
+                :src=>src,
+                :decoration=>acc
+            }
+        end
     end
 end
 class CRParser 

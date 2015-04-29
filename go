@@ -1,1 +1,1 @@
-ruby translate.rb POJDT.c
+ruby translate.rb -d output POJDT.c

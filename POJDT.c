@@ -18751,6 +18751,7 @@ SBOErr CTransactionJournalObject::UpgradeERDBaseTrans ()
  *
  * @return  dbmTableNotFound if backup table does not exists
  */
+#if 0
 SBOErr CTransactionJournalObject::UpgradeERDBaseTransFromBackup ()
 {
 	SBOErr			ooErr = ooNoErr, tmpErr;
@@ -18847,6 +18848,7 @@ leave:
 
 	return ooErr;
 }
+#endif
 /****************************************************************************/
 
 /**

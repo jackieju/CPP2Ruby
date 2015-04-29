@@ -22,7 +22,7 @@ class ErrDesc
     # ErrDesc *next
 end
 class AbsError 
-        attr_accessor :minUserError, :errorDist, :errors       
+        attr_accessor :minUserError, :errorDist, :errors, :error_list  
     
     
     

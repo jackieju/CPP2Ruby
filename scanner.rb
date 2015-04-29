@@ -607,7 +607,7 @@ class CScanner <  CRScanner
     end
 public
     def delete_prevline
-        p "-=-->delete_prevline:pos #{@buffPos}, cur line #{@currLine}, ch #{@buffer[@buffPos].inspect}, buffer size #{@buffer.size}, buffer=#{@buffer}"
+        # p "-=-->delete_prevline:pos #{@buffPos}, cur line #{@currLine}, ch #{@buffer[@buffPos].inspect}, buffer size #{@buffer.size}, buffer=#{@buffer}"
         pos = @buffPos
         if pos > @buffer.size-1
             return delete_line(@buffer.size-1)
@@ -671,7 +671,7 @@ public
     
     # delete lines where from line pos1 located1 to line pos2 located
     def delete_lines(pos1, pos2, include_last_line=true)
-        pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
+        # pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
         
         replace_start = pos1
         replace_end = pos2-1
@@ -765,7 +765,7 @@ public
     
     def delete_line(pos=nil)
         pos = @buffPos if pos == nil
-        pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
+        # pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
         
         # replace_start is excluded, replace_end is excluded
         replace_start = pos 
@@ -840,7 +840,7 @@ public
         end
         
         # p "new buffer after delete current line: #{@buffer[pos..@buffer.size-1]}"
-        p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
+        # p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
         # p "pos:#{@buffPos}"
         
     end
@@ -848,7 +848,7 @@ public
         ret = true
         path = find_file(fname)
         c = read_file(path) if path
-        p "read file #{path}, return #{c}"
+        # p "read file #{path}, return #{c}"
         # if c == nil #|| c == ""
         #     delete_curline
         #     return false
@@ -1102,12 +1102,22 @@ public
               when 23
               	return C_hexnumberSym
               when 24
+                # p "->111:#{@ch}"
               	if (@ch == '"') 
               	    state = 25
+                    # p "->1111:#{@ch}"
           	    elsif @ch == "\\"
-          	        Scan_NextCh()
+                    Scan_NextCh()
+                    if @ch == "\n"
+                        nextSym.len+=1
+                    else
+                        nextSym.len+=1
+                    end
+                    # p "->112:#{@ch}"
               	elsif (@ch >= ' ' && @ch <= '!' ||
               	    @ch >= '#' && @ch.to_byte <= 255) 
+                    # p "->113:#{@ch}"
+          	        
               	   # same state
               	else
               	    return C_No_Sym
