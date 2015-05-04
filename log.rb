@@ -102,6 +102,38 @@ def p_f(m)
    # p "|==>perf(#{$uid}):(#{Time.now.to_f}) #{m}" if $uid==25579#  玩玩走走
 end
 
+$Hidden_log_files = []
+def hide_p_in_file(file) # after call this the log performance will down
+    # begin
+    #     raise Exception.new
+    # rescue Exception=>e
+    #    
+    #     if e.backtrace.size >=2
+    #         trace = e.backtrace[2..e.backtrace.size-1].join("\n") 
+    #         p trace
+    #     end
+    # end
+   $Hidden_log_files.push(file) if file && file.strip !=""
+end
+
+def hide_log?
+     begin
+          raise Exception.new
+      rescue Exception=>e
+         # puts e.backtrace.inspect
+          if e.backtrace.size >=2
+              # trace = e.backtrace[2..e.backtrace.size-1].join("\n") 
+              trace =  e.backtrace[2] # posistion 2 is where p was called
+              # puts "logfromfile:"+trace.split(":")[0]
+              # puts "$Hidden_log_files:#{$Hidden_log_files}"
+              # puts "result:#{$Hidden_log_files.include?(trace.split(":")[0] )}"
+              if $Hidden_log_files.include?(trace.split(":")[0] )
+                  return true
+              end
+          end
+      end
+      return false
+end
 #### log on rails #####
 def p(m, stack=0, showTime=false)
 =begin
@@ -118,7 +150,7 @@ def p(m, stack=0, showTime=false)
         end
     end
 =end
-    
+    return if hide_log?()
     m = format_msg(m, "", stack, showTime)
     # puts m
     begin
@@ -148,3 +180,6 @@ def err(m)
          print "#{m}\n"
     end
 end
+# hide_p_in_file("log.rb")
+# p "aaaa"
+# p __FILE__

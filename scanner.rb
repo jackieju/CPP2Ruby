@@ -1,5 +1,7 @@
 load "cr_scan.rb"
 load "rubyutility.rb"
+load "log.rb"
+
 class String
     def to_byte
         # self.bytes[0] # not work for ruby 1.8.7
@@ -500,14 +502,14 @@ class CScanner <  CRScanner
           startLine = @currLine
           oldLineStart = @lineStart
           oldCol = @currCol
-          p "comments:pos #{@buffPos}, ch #{@ch}"
+          # p "comments:pos #{@buffPos}, ch #{@ch}"
           if (@ch == '/') 
               Scan_NextCh()
-              p "comments3:pos #{@buffPos}, ch #{@ch}"
+              # p "comments3:pos #{@buffPos}, ch #{@ch}"
               
           	  if (@ch == '*')  
           		  Scan_NextCh()
-          		  p "comments2:pos #{@buffPos}, ch #{@ch}"
+                  # p "comments2:pos #{@buffPos}, ch #{@ch}"
           		  while (1) 
           			  if (@ch== '*') 
           				  Scan_NextCh()
@@ -527,7 +529,7 @@ class CScanner <  CRScanner
           	      end # while
           	  else  
           	      # p "comment3"
-          	      p "comments4:pos #{@buffPos}, ch #{@ch}"
+                  # p "comments4:pos #{@buffPos}, ch #{@ch}"
                   
           	      if (@ch == nil || @ch.to_byte == LF_CHAR) 
                          @currLine -= 1
@@ -538,15 +540,15 @@ class CScanner <  CRScanner
                   Scan_NextCh()
               end # if (@ch == '*') 
           end # if (@ch == '/') 
-           p "comments5:pos #{@buffPos}, ch #{@ch}"
+           # p "comments5:pos #{@buffPos}, ch #{@ch}"
            
           if (@ch == '/')  
           	Scan_NextCh()
-          	p "comments6:pos #{@buffPos}, ch #{@ch}"
+            # p "comments6:pos #{@buffPos}, ch #{@ch}"
             
           	if (@ch == '/')  # 2
           		Scan_NextCh()
-          		p "comments7:pos #{@buffPos}, ch #{@ch}"
+                # p "comments7:pos #{@buffPos}, ch #{@ch}"
               	
           		while (1)
                     # p "comment4:level #{level}, ch #{@ch}"
@@ -559,7 +561,7 @@ class CScanner <  CRScanner
           			    # @comEols = @currLine - startLine
           				
           				if(level == 0) 
-          				    p "comments9:pos #{@buffPos}, ch #{@ch}"
+                            # p "comments9:pos #{@buffPos}, ch #{@ch}"
           				    
           				    # make it stop before CRLF
                     		# if @ch.to_byte == 10 || @ch.to_byte==13
@@ -572,26 +574,26 @@ class CScanner <  CRScanner
                     		#                                  Scan_NextCh()
                     		#                             end
             		        # end of change
-            		        p "comments91:pos #{@buffPos}, ch #{@ch}"
+                            # p "comments91:pos #{@buffPos}, ch #{@ch}"
           				    
           				    return 1
       				    end
           			elsif (@ch == nil || @ch.to_byte == EOF_CHAR) 
-          			    p "comments8:pos #{@buffPos}, ch #{@ch}"
+                        # p "comments8:pos #{@buffPos}, ch #{@ch}"
                 
           			    return 0
           			else
           			    Scan_NextCh()
       			    end
           		end # while (1)
-          		p "comments7:pos #{@buffPos}, ch #{@ch}"
+                # p "comments7:pos #{@buffPos}, ch #{@ch}"
           		
           	else  
                 # p "comment5"
-                p "comments71:pos #{@buffPos}, ch #{@ch}"
+                # p "comments71:pos #{@buffPos}, ch #{@ch}"
           		
           		if (@ch == nil || @ch.to_byte == LF_CHAR)
-          		    p "comments72:pos #{@buffPos}, ch #{@ch}"
+                    # p "comments72:pos #{@buffPos}, ch #{@ch}"
                     
           		     @currLine-=1
           		      @lineStart = oldLineStart 
@@ -601,13 +603,15 @@ class CScanner <  CRScanner
           		Scan_NextCh()
           	end # if (@ch == '/')  2
           end  # if (@ch == '/')  
-    		p "comments10:pos #{@buffPos}, ch #{@ch}"
+            # p "comments10:pos #{@buffPos}, ch #{@ch}"
 
           return 0
     end
 public
     def delete_prevline
-        # p "-=-->delete_prevline:pos #{@buffPos}, cur line #{@currLine}, ch #{@buffer[@buffPos].inspect}, buffer size #{@buffer.size}, buffer=#{@buffer}"
+        p "-=-->delete_prevline:pos #{@buffPos}, cur line #{@currLine}, ch #{@buffer[@buffPos].inspect}, buffer size #{@buffer.size}, buffer=#{@buffer}", 10
+        return if @buffPos <=0
+        
         pos = @buffPos
         if pos > @buffer.size-1
             return delete_line(@buffer.size-1)
@@ -671,7 +675,7 @@ public
     
     # delete lines where from line pos1 located1 to line pos2 located
     def delete_lines(pos1, pos2, include_last_line=true)
-        # pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
+        pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
         
         replace_start = pos1
         replace_end = pos2-1
@@ -680,6 +684,9 @@ public
         while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
             replace_start -=1
         end
+        p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+        p "replace_end:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+        
         if include_last_line
             # to line end
             while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r")
@@ -689,9 +696,15 @@ public
             while (@buffer[replace_end] == "\n" || @buffer[replace_end] == "\r")
                 replace_end -=1
             end
+            p "replace_start2:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+            p "replace_end2:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+            
             while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r" && @buffer[replace_end] !=nil)
                 replace_end -=1
-            end            
+            end         
+            p "replace_start3:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+            p "replace_end4:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+               
         end
         
 
@@ -763,6 +776,15 @@ public
         return [replace_start, replace_end] # replace_start not replaced, replace_end replaced
     end
     
+    def dump_char(pos=@buffPos)
+        if @buffer[pos]  == nil
+            return "(nil)"
+        elsif @buffer[pos].to_byte == 10 || @buffer[pos].to_byte == 13
+            return "(#{@buffer[pos].to_byte}@#{pos})"
+        else
+            return "#{@buffer[pos]}(#{@buffer[pos].to_byte}@#{pos})"
+        end
+    end
     def delete_line(pos=nil)
         pos = @buffPos if pos == nil
         # pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
@@ -771,24 +793,25 @@ public
         replace_start = pos 
         replace_start = 0 if replace_start < 0
         replace_end = pos
-        p "replace_start1:#{replace_start}, #{cch}"
+        p "replace_start1:#{dump_char(replace_start)}, #{cch}"
         
         # to line start
-        if @buffer[replace_start] == "\r" 
-            replace_start -=1
-        end
         if @buffer[replace_start] == "\n" 
             replace_start -=1
         end
-        p "replace_start2:#{replace_start}"
+        if @buffer[replace_start] == "\r" 
+            replace_start -=1
+        end
+
+        p "replace_start2:#{dump_char(replace_start)}"
 
         #move replace_start before the first pos which will be replaced
         while (@buffer[replace_start] && @buffer[replace_start] != "\n" && @buffer[replace_start] != "\r" )
             replace_start -=1
-            p "replace_start3:#{replace_start}"
+            p "replace_start3:#{dump_char(replace_start)}"
             
         end
-        p "replace_start4:#{replace_start}"
+        p "replace_start4:#{dump_char(replace_start)}"
         
         # to line end
         # p "==>replace_end=#{replace_end}, #{@buffer[replace_end]}, #{@buffer[replace_end].to_byte}"
@@ -797,12 +820,13 @@ public
             p "==>replace_end2=#{replace_end}, #{@buffer[replace_end]}"
             
         end
-        if @buffer[replace_end] == "\n"
-            replace_end +=1
-        end
+
         if @buffer[replace_end] == "\r"
              replace_end +=1
-        end      
+        end     
+        if @buffer[replace_end] == "\n"
+            replace_end +=1
+        end 
             #     
             # while @buffer[replace_end] == "\n" || @buffer[replace_end] == "\r"
             #     replace_end +=1
@@ -816,12 +840,19 @@ public
         if replace_start >= 0
             str1 = @buffer[0..replace_start]
         end
-        p "delete_line3: replace_start=#{replace_start}, replace_end=#{replace_end}, #{@buffer[replace_start+1..replace_end]}\n=====\n#{@buffer[replace_end..replace_end+15]}", 20
+        # p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+        # p "replace_end:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+        
+        # p "delete_line3: replace_start=#{replace_start}, replace_end=#{replace_end}, #{@buffer[replace_start+1..replace_end]}\n=====\n#{@buffer[replace_end+1..replace_end+15]}", 20
+        
         # p "str1=#{str1}"
         # p "str2=#{@buffer[replace_end..@buffer.size-1]}"    
         old_size = @buffer.size   
         str = str1+@buffer[replace_end..@buffer.size-1]
+        # p "buffer1:#{@buffer}"
+        
         @buffer=str
+        # p "buffer2:#{@buffer}"
         
         if @buffPos > replace_start# &&  @buffPos <replace_end
             if replace_start < 0
@@ -839,7 +870,10 @@ public
             Reset(@buffPos, @currLine, @lineStart, @currCol)
         end
         
-        # p "new buffer after delete current line: #{@buffer[pos..@buffer.size-1]}"
+        # p "new buffer after delete current line(from #{pos} to #{@buffer.size-1}): #{@buffer[pos..@buffer.size-1]}, ||\n#{@buffer}"
+        # p "buffer3(size=#{@buffer.size}, pos #{@buffPos}):#{@buffer[0..552]}"
+        # p "buffer4(size=#{@buffer.size}):#{@buffer[0..431]}\n=========\n#{@buffer[432..552]}"
+        
         # p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
         # p "pos:#{@buffPos}"
         
@@ -915,7 +949,7 @@ public
 
     def Get(ignore_crlf=true)
         # int state, ctx
-    p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
+    # p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
         
         return C_EOF_Sym if @ch == nil
         

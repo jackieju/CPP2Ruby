@@ -1,9 +1,23 @@
 load 'log.rb'
+def translate_varname(varname)
+    return "" if varname==nil or varname == ""
+    if varname.size ==1 
+        varname = varname.downcase
+    else
+        varname = varname[0].downcase+varname[1..varname.size-1]
+    end
+    keywords = ["begin", "end", "def", "rescue"]
+    if keywords.include?(varname)
+        return "_translated_#{varname}"
+    end
+    return varname
+end
 class Variable
-    attr_accessor :name, :type
-    def initialize(name, type)
+    attr_accessor :name, :type, :newname
+    def initialize(name, type, newname=name)
         @name = name
         @type = type
+        @newname = translate_varname(newname)
     end
 end
 class VarType
@@ -23,6 +37,7 @@ class Scope
     def add_var(v)
         @vars[v.name] = v
     end
+    
 
 end
 class ClassDef < Scope
@@ -74,8 +89,16 @@ class CRParser
         p "haha"
     end
     
-    def current_scope
-        @sstack.last
+    def current_scope(name=nil)
+        return @sstack.last if name == nil
+         i = @sstack.size-1
+         while (i>=0)
+             if @sstack[i].name == name
+                 return @sstack[i]
+             end
+             i -= 1
+         end
+         return nil
     end
     def current_class_scope
          i = @sstack.size-1

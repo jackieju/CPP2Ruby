@@ -534,6 +534,9 @@ HERE
        
 end
 
+hide_p_in_file("scanner.rb")
+hide_p_in_file("macro.rb")
+p "Hidden_log_files=#{$Hidden_log_files}"
  
 p $*.inspect
 $mode = "translate"
@@ -587,3 +590,4 @@ else
     p "usage: ruby translate.rb <c source file>\n
     example: ruby translate.rb xiaolu.c"
 end
+

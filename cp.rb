@@ -379,7 +379,7 @@ class Parser < CRParser
             else
                 @included_files[finclude] = 1
             end
-            # p "after include:pos #{@scanner.buffPos}, ch #{@scanner.cch}, sym #{@sym},#{@scanner.buffer}"
+            p "after include:pos #{@scanner.buffPos}, ch #{@scanner.cch}, sym #{@sym},#{@scanner.buffer}"
         end
     end
     def ignoreSym?(sym)
@@ -398,7 +398,7 @@ class Parser < CRParser
 # p "Get0:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
             @prev_sym = @sym
             @sym = @scanner.Get(ignore_crlf)
- p "Get1:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
+ # p "Get1:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
             # p "Get(): sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@sym]}"
             # p "sym1=#{@sym}"
             # pp("hhhh", 30) if @sym==9
@@ -476,7 +476,7 @@ class Parser < CRParser
         end while (@sym > C_MAXT || ignoreSym?(@sym))
         # p "get()2: #{@sym}"
         # p "Get()2 #{@scanner.nextSym.sym}, line #{@scanner.nextSym.line}, col #{@scanner.nextSym.col}, value #{curString()}"
-        p("Get()3:#{@sym}, #{curString()}, line #{curLine}", 20)
+        # p("Get()3:#{@sym}, #{curString()}, line #{curLine}", 20)
     end
     
     def add_macro(n,v)
@@ -514,12 +514,6 @@ class Parser < CRParser
     def pre_if()
         Get()
          n = curString()
-         @scanner.delete_curline
-         
-         pos1 = @scanner.buffPos
-         @directive=_preprocess()
-         p "directive=#{@directive}"
-         pos2 = @scanner.buffPos
          
          if n=~ /^\d+$/
             idf = (n.to_i !=0)
@@ -527,10 +521,19 @@ class Parser < CRParser
             idf = (ifdefined?(n) && @macros[n].to_i != 0)
          end
          
+         @scanner.delete_curline
+         
+         pos1 = @scanner.buffPos
+         @directive=_preprocess(["#else", "#endif", "#elif"], idf)
+         p "directive=#{@directive}", 10
+         pos2 = @scanner.buffPos
+         
+
+         
          if !idf
-             p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
+             # p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
              @scanner.delete_lines(pos1, pos2, false) # delete whole block
-             p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
+             # p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
              
          else
              p "-->333332"
@@ -559,15 +562,22 @@ class Parser < CRParser
             Get() if pos != @scanner.buffPos
     end
     def delete_prevline
-        pos = @scanner.buffPos
+        # pos = @scanner.buffPos
+        p "==>sym2220:#{@sym}, #{curString()}, #{@scanner.buffPos}"
+        
         @scanner.delete_prevline
+        if @scanner.buffPos <= 0
+            @scanner.Reset
+            # Get()
+        end
+        Get()
         # Get() if pos != @scanner.buffPos
-        # p "==>sym2221:#{@sym}, #{curString()}"
+        p "==>sym2221:#{@sym}, #{curString()}, #{@scanner.buffPos}"
     end
     def delete_lines(p1,p2,inclue = true)
         pos = @scanner.buffPos
         pos1,pos2 = @scanner.delete_lines(p1, p2, inclue)
-        p "after delete_lines:#{pos1}, #{pos2}, pos #{pos}"
+        # p "after delete_lines:#{pos1}, #{pos2}, pos #{pos}, buffer:#{@scanner.buffer}", 10
         # Get() if pos != @scanner.buffPos
         Get() if pos >pos1 && pos <= pos2
     end
@@ -579,8 +589,8 @@ class Parser < CRParser
              # p "==>112:#{n1}, #{@scanner.buffPos}"
              delete_curline
              pos11 = @scanner.buffPos
-             @directive=_preprocess()
-             p "directive=#{@directive}"
+             @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
+             p "directive=#{@directive}", 10
              
              pos22 = @scanner.buffPos
              if !idf
@@ -603,11 +613,11 @@ class Parser < CRParser
         if @directive == "\#else"
             # p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}"
             delete_prevline # delete #else line
-            # p "112=>#{@scanner.buffer}, pos #{@scanner.buffPos}"
+            # p "112=>#{@scanner.buffer}, pos #{@scanner.buffPos}, idf=#{idf}"
                 
              pos11 = @scanner.buffPos
-             @directive=_preprocess()
-             p "directive=#{@directive}"
+             @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
+             # p "pre_else: directive=#{@directive}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}, #{@scanner.dump_char}", 20
              # p "222=>#{@scanner.buffer}, pos #{@scanner.buffPos}, ch #{@scanner.cch.inspect}"
              
              pos22 = @scanner.buffPos
@@ -615,12 +625,12 @@ class Parser < CRParser
         
             if idf
                 # p "==>pos11:#{pos11}, #{pos22}, buffer #{@scanner.buffer}"
-                delete_lines(pos11, pos22) # delete whole else part include #endif
+                delete_lines(pos11, pos22, false) # delete whole else part include #endif
                 # p "==>pos12:#{pos11}, #{pos22}, buffer #{@scanner.buffer}"
                 
             else
                 # pos is next char after current directive
-                delete_prevline # only delete #endif line
+                # delete_prevline # only delete #endif line
             end
 
             if @directive == "\#endif"
@@ -632,31 +642,34 @@ class Parser < CRParser
     def pre_ifdef(ifndef=false)
          Get()
          n = curString()
-         p "n=#{n}"
-         delete_curline
+         # p "n=#{n}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}"
+         delete_curline  # delele line #ifdef
+         # p "pos #{@scanner.buffPos}, buffer #{@scanner.buffer}"
+         
          idf = ifdefined?(n)
-         # pp "idf=#{idf}",20
+         pp "idf=#{idf}",20
           if ifndef
               idf = !idf
           end
           
          pos1 = @scanner.buffPos
-         @directive=_preprocess()
-         p "directive=#{@directive}"
+         @directive=_preprocess(["#else", "#endif", "#elif"], idf)
+         p "pre_ifdef: directive=#{@directive}"
          
          pos2 = @scanner.buffPos
          # p "pos:#{@scanner.buffPos}"
          
- 
+         # p "pre_ifdef1:pos:#{@scanner.buffPos}, #{@sym}, #{curString()}"
+ # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}"
          # p "===>113:#{@scanner.buffer}"
          # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}, buffer=#{@scanner.buffer}, #{@scanner.buffer[@scanner.buffPos].inspect}"
          if !idf
-             delete_lines(pos1, pos2, false) # delete whole block
+             delete_lines(pos1, pos2, false) # delete whole block (...)#else
              # p "===>115:pos #{@scanner.buffPos}, buffer=#{@scanner.buffer}"
          else
              # delete_curline # only delete #preprocess line
          end 
-          p "pos1:#{@scanner.buffPos}"
+          # p "pre_ifdef2:pos:#{@scanner.buffPos}, #{@sym}, #{curString()}, @directive=#{@directive}"
         # pre = GetPre()
         
         # _str1 = curString()
@@ -673,20 +686,21 @@ class Parser < CRParser
     end
     def pre_endif(idf)
         if @directive == "\#endif"
-            p "9999:pos #{@scanner.buffPos},#{@scanner.cch.inspect}"
+            # p "9999:pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}"
             # @scanner.delete_prevline
+            delete_curline
         end
     end
     def pre_ifndef()
          pre_ifdef(true)
     end    
-    
+=begin    
     def pre_define()
          Get()
         n = curString()
        
         v = @scanner.skip_curline
-         p "==>define:#{n},#{v}"
+         p "==>define:#{n},#{v}", 10
         macro_str = add_macro(n, v)
         delete_prevline
         # @scanner.delete_line
@@ -695,14 +709,17 @@ class Parser < CRParser
             @scanner.insert_line(macro_str)
         end
     end
+=end
     # process every directive
     def preprocess_directive()
+=begin        
           _str1 = curString()
           # pp "preprocessor: #{@sym}, #{_str1}", 20
           Get()
           _str2 = curString()
           @directive = "#{_str1}#{_str2}"
-          p "directive=#{@directive}, line=#{@scanner.currLine}"
+=end          
+          p "preprocess_directive #{@directive}, line=#{@scanner.currLine}", 10
           if  @directive == "\#include"
               p "====>preprocess_directive1"
               Get()
@@ -745,10 +762,11 @@ class Parser < CRParser
         # p "after process directive #{@directive}:#{@scanner.buffer}"
         return nil
     end
+=begin    
     def _preprocess(stop_on_unkown_directive = true)
         while (@sym!=C_EOF_Sym)
             
-             p "sym2:#{@sym}, #{curString()}"
+             # p "sym2:#{@sym}, #{curString()}"
             if @sym == C_PreProcessorSym
                 @directive = preprocess_directive()
                 return @directive if stop_on_unkown_directive && @directive
@@ -770,6 +788,7 @@ class Parser < CRParser
         # p "after preprocess: #{@scanner.buffer}"
         return @scanner.buffer
     end
+=end
     # line 98 "cs.atg"
     def C()
         pclass()
@@ -982,20 +1001,23 @@ class Parser < CRParser
     	    Get()
     	    if (@sym == C_EqualSym)
     	        Get()
-    	        Expect(C_numberSym)
     	        v = curString()
+    	        Expect(C_numberSym)
+    	        p "v=#{v}, sym:#{@sym}"
     	        if v =~ /^([\d.]+)\w*$/
     	            v = $1
 	            end
     	        base = v.to_i
-    	        Get()
+                # Get()
 	        end
 	        ret += "#{a} = #{base}\n"
+	        p "#{a} = #{base}\n"
+	        p "sym:#{@sym}"
 	        if @sym == C_CommaSym
 	            Get()
 	            base += 1
             end
-            p "==>enum22:#{SYMS[@sym]}"
+            p "==>enum22:#{@sym}, #{SYMS[@sym]}, #{curString}"
             
     	end
     	
@@ -1725,7 +1747,7 @@ class Parser < CRParser
             end
         end
     # line 466 "cs.atg"
-
+        @sstack.push(Scope.new("FunctionDefinition"))
     # line 509 "cs.atg"
     	ret += FunctionHeader()
     	if ret.gsub(/\s/,"") == "()"
@@ -1777,6 +1799,7 @@ class Parser < CRParser
         	fb = i_list + fb if i_list
         	@sstack.pop if classdef
     	end
+    	 @sstack.pop
     # line 510 "cs.atg"
         method_src = nil
         if (fb)
@@ -1855,7 +1878,7 @@ class Parser < CRParser
         if @sym == C_identifierSym && curString() == 'const'
             Get()
         end
-    	type = Type()
+    	var_type = Type()
     # line 442 "cs.atg"
     	while (@sym == C_StarSym || @sym == C_AndSym) 
     # line 442 "cs.atg"
@@ -1867,7 +1890,12 @@ class Parser < CRParser
     # line 444 "cs.atg"
    
         if @sym == C_identifierSym 
-            ret += curString()
+             param_name = varname = curString()
+           
+            # here parameter in function header cannot be Const (Capital on first char)
+            param_name = param_name[0].downcase + param_name[1..param_name.size-1]
+            ret += param_name
+            current_scope("FunctionDefinition").add_var(Variable.new(varname, var_type, param_name))
             Get()
         else # when in function declaration, parameter name is optional
             ret += "dummy#{$formal_p_count}"
@@ -2079,7 +2107,7 @@ class Parser < CRParser
     		            STLType()
     	            end
 		        end
-                p "sym2:#{@sym}"
+                # p "sym2:#{@sym}"
 		        if @sym == C_LessSym # stl type
 		            STLType()
 	            end
@@ -3015,7 +3043,7 @@ HERE
     end
     # line 1337 "cs.atg"
     def MultExp()
-        p "===>MultExp:#{@sym}, #{curString}"
+        pdebug "===>MultExp:#{@sym}, #{curString}"
         
         ret = ""
     # line 1337 "cs.atg"
@@ -3058,7 +3086,7 @@ HERE
     		 
 	    end
 	    
-	    p "==>MultExp:#{ret}"
+	    pdebug "==>MultExp:#{ret}"
 	    return ret
     end
     
@@ -3072,7 +3100,7 @@ HERE
     # line 1405 "cs.atg"
         ret =	UnaryExp()
     # line 1407 "cs.atg"
-       p "<===CastExpCastExp:#{ret}"
+       pdebug "<===CastExp:#{ret}"
 	   return ret
     end
 =begin    
@@ -3251,7 +3279,8 @@ HERE
 
     			when C_PlusPlusSym  
     # line 2025 "cs.atg"
-    				ret += "+=1"
+                    # ret += "+=1"
+                    ret = "(#{ret}+=1;#{ret}-2)"
         			Get()
     # line 2027 "cs.atg"
 
@@ -3259,7 +3288,8 @@ HERE
                     # break;
     			when C_MinusMinusSym  
     # line 2079 "cs.atg"
-    				ret += "-=1"
+                    # ret += "-=1"
+    				ret = "(#{ret}-=1;#{ret}+2)"
         			Get()
     # line 2081 "cs.atg"
 
@@ -3276,7 +3306,7 @@ HERE
     def UnaryExp()
         ret = ""
     # line 1538 "cs.atg"
-    	pdebug("===>UnaryExp:#{@sym}, #{curString()}");
+    	pdebug("===>UnaryExp:#{@sym}, #{curString()}")
         # pp "unaryexp", 20
     # line 1539 "cs.atg"
         #         _next = GetNext()
@@ -3323,20 +3353,31 @@ HERE
     		    GenError(106)
 		    end
     # line 1539 "cs.atg"
-    		ret += UnaryExp()
+    		ue = UnaryExp()
+    		ret = "(#{ue}#{ret})"
     	elsif (@sym == C_StarSym ||
     	           @sym == C_AndSym ||
     	           @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	           @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 1540 "cs.atg"
-    		ret += UnaryOperator()
+    		if @sym != C_StarSym &&
+        	           @sym != C_AndSym
+        	    # except case *var and &var
+        	    _uo = UnaryOperator()
+    		    ret += _uo
+    		    # p "<=====UnaryExp2:#{_uo}"
+                
+		    else
+		        UnaryOperator()
+		    end
+		    p "<=====UnaryExp3:#{ret}"
     # line 1540 "cs.atg"
     		ret += CastExp()
     	else 
             # pp("dff", 100)
     	    GenError(107)
 	    end
-	    p "<=====UnaryExp1:#{ret}"
+	    pdebug "<=====UnaryExp1:#{ret}"
 	    return ret
     end
     
@@ -3378,13 +3419,7 @@ HERE
     end
        
      
-    def translate_varname(varname)
-        keywords = ["begin", "end", "def", "rescue"]
-        if keywords.include?(varname)
-            return "_translated_#{varname}"
-        end
-        return varname
-    end
+
     # line 2327 "cs.atg"
     def Primary()
         p "=====>Primary:#{@sym}, #{curString()}"
@@ -3394,12 +3429,12 @@ HERE
     # line 2475 "cs.atg"
     	case @sym
     		when C_identifierSym  
-    		    varname = translate_varname(curString())
-                
+                # varname = translate_varname()
+                varname = curString()
             	Get()
     # line 2334 "cs.atg"
                 if @sym == C_ColonColonSym
-                    ret += varname
+                    ret += translate_varname(varname)
                     while (@sym == C_ColonColonSym)
                         p "====>233:#{curString()}"
                         # line 2353 "cs.atg"
@@ -3410,12 +3445,20 @@ HERE
                         	Expect(C_identifierSym)
                 	end
             	else
-    		    	ccs =  current_class_scope
-        			if ccs && ccs.vars[varname]
-        			    ret += "@#{varname}"
-    			    else
-    			        ret += varname
-    			    end
+            	    cs = current_scope("FunctionDefinition")
+			        if cs && cs.vars[varname]
+			            ret += cs.vars[varname].newname
+		            else
+		                ccs =  current_class_scope
+            			if ccs && ccs.vars[varname]
+                            # ret += "@#{varname}"
+                            ret += "@#{ccs.vars[varname].newname}"
+        			    else
+        			         ret += translate_varname(varname)
+        			    end
+		                
+	                end
+    		    	
     		    end
     # line 2335 "cs.atg"
 
@@ -4032,8 +4075,20 @@ s=<<HERE
     }
 HERE
 s=<<HERE
-for (long i = 0; i < 100;i++)
-    ;
+++i;
+HERE
+s=<<HERE
+// formal argument cannot be a constant
+void a(int A){
+    
+}
+HERE
+s=<<HERE
+// formal argument cannot be a constant
+a(&t);
+HERE
+s=<<HERE
+bizObject=&other;
 HERE
 p s
 
