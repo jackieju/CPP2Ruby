@@ -41,11 +41,15 @@ class Scope
 
 end
 class ClassDef < Scope
-    attr_accessor :class_name, :parent, :modules, :methods
+    attr_accessor :class_name, :parent, :modules, :methods, :src
     def initialize(class_name)
         super("class")
         @class_name = class_name
         @methods = {}
+    end
+    def add_src(src)
+        @src = "" if !@src
+        @src += src
     end
     def add_method(method_name, arg_number, src, acc="public")
         method_sig = "#{method_name}\#\##{arg_number}"

@@ -45,9 +45,10 @@ def parse(s, preprocess = true, to_ruby=true)
     p "===== start parsing ====="
     parser.Get
     ret = parser.C
+    p ret
     error.PrintListing
     p "===== end of parsing ====="
-  
+    
     parser.dump_classes_as_ruby if to_ruby
     # $classdefs = parser.classdefs
     # $classdefs.each{|k,v|
@@ -101,6 +102,6 @@ end
 
 def test
     # p parse_file("pre.1424096273", false)
-    p parse_file("pre.1428906753", false)
+    p parse_file("pre.1430836855", false)
 end
 # test

@@ -96,24 +96,24 @@ def dump_classes_as_ruby(classdefs)
                 # p "       methods signature:#{k}"
                 # p "       methods name:#{v[:name]}"
                 # p "       src:#{v[:src]}" 
-            method_name = v[:name]
-            if method_name =~ /SetJournalDocumentNumber/
-                p "--->src111:#{v[:src]}"
-            end
-            if v[:decoration] =~ /static/
-                method_name = "self.#{v[:name]}"
-            end
+                method_name = v[:name]
+                # if method_name =~ /SetJournalDocumentNumber/
+                #     p "--->src111:#{v[:src]}"
+                # end
+                if v[:decoration] =~ /static/
+                    method_name = "self.#{v[:name]}"
+                end
             
             
-            if v[:src] && v[:src].strip != ""
-                method_template =<<HERE
-            def #{method_name}#{v[:src]}
+                if v[:src] && v[:src].strip != ""
+                    method_template =<<HERE
+                def #{method_name}#{v[:src]}
                 
 HERE
-            else
-                next
-            end
-            s_methods += method_template
+                else
+                    next
+                end
+                s_methods += method_template
 
             }
             # p "==>methods:#{methods}"
@@ -122,6 +122,7 @@ HERE
                     class_name ="_global_"
                     class_template = <<HERE
                     #{s_methods}
+                    #{v.src}
 HERE
             else
                 class_template = <<HERE
@@ -611,9 +612,10 @@ class Parser < CRParser
     end
     def pre_else(idf)
         if @directive == "\#else"
-            # p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}"
-            delete_prevline # delete #else line
-            # p "112=>#{@scanner.buffer}, pos #{@scanner.buffPos}, idf=#{idf}"
+            p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}, #{@scanner.dump_char}"
+            # delete_prevline # delete #else line
+            delete_curline
+            p "112=>#{@scanner.buffer}, pos #{@scanner.buffPos}, idf=#{idf}"
                 
              pos11 = @scanner.buffPos
              @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
@@ -647,7 +649,7 @@ class Parser < CRParser
          # p "pos #{@scanner.buffPos}, buffer #{@scanner.buffer}"
          
          idf = ifdefined?(n)
-         pp "idf=#{idf}",20
+         pp "idf=#{idf}, @sym=#{@sym}",20
           if ifndef
               idf = !idf
           end
@@ -659,7 +661,7 @@ class Parser < CRParser
          pos2 = @scanner.buffPos
          # p "pos:#{@scanner.buffPos}"
          
-         # p "pre_ifdef1:pos:#{@scanner.buffPos}, #{@sym}, #{curString()}"
+         p "pre_ifdef1:pos:#{@scanner.buffPos}, #{@sym}, #{curString()}, #{@scanner.dump_char}"
  # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}"
          # p "===>113:#{@scanner.buffer}"
          # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}, buffer=#{@scanner.buffer}, #{@scanner.buffer[@scanner.buffPos].inspect}"
@@ -755,13 +757,22 @@ class Parser < CRParser
         else
                # @scanner.delete_curline
                # if !["#else", "#endif", "elif"].include?(@directive)
-                   @scanner.skip_curline
+                   # @scanner.skip_curline
+                skip_curline
                # end
                return @directive
         end
         # p "after process directive #{@directive}:#{@scanner.buffer}"
         return nil
     end
+
+    def skip_curline
+        ret = @scanner.skip_curline
+        Get()
+        
+        return ret
+    end
+
 =begin    
     def _preprocess(stop_on_unkown_directive = true)
         while (@sym!=C_EOF_Sym)
@@ -847,6 +858,8 @@ class Parser < CRParser
     # line 137 "cs.atg"
         
         @sstack.pop
+        
+        @root_class.add_src(ret)
     	return ret
     end
     
@@ -1017,12 +1030,12 @@ class Parser < CRParser
 	            Get()
 	            base += 1
             end
-            p "==>enum22:#{@sym}, #{SYMS[@sym]}, #{curString}"
+            p "==>enum22:#{@sym}, #{SYMS[@sym]}, #{curString}", 10
             
     	end
     	
     	Expect(C_RbraceSym)
-    	pdebug("===>Enum1:#{@sym}, #{ret}");
+    	pdebug("===>Enum1:#{@sym}, #{ret}")
     	return ret
     end
     
@@ -1065,7 +1078,7 @@ class Parser < CRParser
     		ClassDef()
             # p "--->classDef11, #{@sym}, #{curString()}"
     	elsif (@sym == C_EnumSym)
-    	    Enum()
+    	    ret += Enum()
     	elsif (@sym == C_StructSym)
     	    StructDef()
 	    # elsif
@@ -1289,13 +1302,13 @@ class Parser < CRParser
     		    @sym == C_TypedefSym ||
     		    (@sym == C_TildeSym && GetNext() == C_identifierSym)
     		    )
-    		    p "enter 1,#{rStatement}"
+                # p "enter 1,#{rStatement}"
     		    _retg = gStatement()
     		    if _retg && _retg.strip != ""
     		        rStatement += "\n" if rStatement.strip != ""
     		        rStatement += _retg	
 		        end
-    		    p "enter 11,#{rStatement}"
+                # p "enter 11,#{rStatement}"
     		 elsif (@sym >= C_identifierSym && @sym <= C_numberSym ||
     		           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     		           @sym == C_SemicolonSym ||
@@ -3155,7 +3168,7 @@ HERE
     # line 1572 "cs.atg"
     def PostFixExp()
         ret = ""
-        p "====>PostFixExp:#{@sym}"
+        pdebug "====>PostFixExp:#{@sym}"
     # line 1572 "cs.atg"
     # line 1573 "cs.atg"
     	ret += Primary()
@@ -3299,7 +3312,7 @@ HERE
     			    GenError(109)
     		end # case
     	end # while
-    	p "==>PostFixExp1:#{ret}"
+    	pdebug "==>PostFixExp1:#{ret}"
     	return ret
     end
     # line 1538 "cs.atg"
@@ -3422,7 +3435,7 @@ HERE
 
     # line 2327 "cs.atg"
     def Primary()
-        p "=====>Primary:#{@sym}, #{curString()}"
+        pdebug "=====>Primary:#{@sym}, #{curString()}"
         ret = ""
     # line 2328 "cs.atg"
 
@@ -3541,7 +3554,8 @@ HERE
                     end
                     _next = GetNext()
                     _next2 = GetNext(2)
-                    if _next == C_RparenSym || 
+                    p "_next:#{_next}, _next2:#{_next2}"
+                    if (_next == C_RparenSym&&  _next2 != C_QuestionMarkSym) || 
                         ( ( _next == C_StarSym || _next == C_AndSym ) && (_next2 < C_identifierSym || _next2 > C_charD1Sym) )
                         FullType()
                         Expect(C_RparenSym)
@@ -3565,7 +3579,7 @@ HERE
     		else 
     		    GenError(112)
     	end # case
-    	p "=====>Primary1:#{ret}"
+    	pdebug "=====>Primary1:#{ret}"
         
         return ret
     end
@@ -4089,6 +4103,131 @@ a(&t);
 HERE
 s=<<HERE
 bizObject=&other;
+HERE
+s=<<HERE
+bizObject=L"fsdfsd";
+HERE
+s=<<HERE
+bool CJDTDeferredTaxUtil::IsBPWithEqTax(const SBOString bpCode, CBizEnv& bizEnv)
+{
+	APCompanyDAG dagCRD;	
+	bizEnv.OpenDAG (dagCRD, SBOString(CRD));
+	dagCRD->GetBySegment (OACT_KEYNUM_PRIMARY, bpCode);
+	SBOString eqTax;
+	dagCRD->GetColStr (eqTax, OCRD_EQUALIZATION);
+	eqTax.Trim();
+
+	return eqTax == VAL_YES;
+}
+
+
+bool CJDTDeferredTaxUtil:: IsBPWithEqTax()
+{
+	PDAG dagJDT1 = m_bo->GetDAG (JDT, ao_Arr1);
+	SBOString bpCode;
+	dagJDT1->GetColStr (bpCode, JDT1_SHORT_NAME, m_bpLine);
+	bpCode.Trim ();
+	CBizEnv& bizEnv = m_bo->GetEnv();
+
+	return CJDTDeferredTaxUtil:: IsBPWithEqTax (bpCode, bizEnv);
+}
+
+bool CJDTDeferredTaxUtil:: IsValidDeferredTax()
+{
+	return IsValidOnEqTax();
+}
+
+bool CJDTDeferredTaxUtil:: IsValidOnEqTax()
+{
+	CBizEnv& bizEnv = m_bo->GetEnv();
+	if (!bizEnv.IsLocalSettingsFlag (lsf_EnableEqualizationVat))
+	{
+		return true;
+	}
+
+	bool isValidLine = true;
+	PDAG dagJDT1 = m_bo->GetDAG(JDT, ao_Arr1);
+    long bpLineCount = 0;
+    long recJDT1 = dagJDT1->GetRealSize (dbmDataBuffer);
+    SBOString acct, shortname;
+    CTaxGroupCache *taxGroupCache = bizEnv.GetTaxGroupCache ();
+	SBOString vatGroup, eqTaxAcct, vatLine;	
+	
+    for(long rec = 0; rec < recJDT1; rec++)
+    {
+        dagJDT1->GetColStr(vatLine, JDT1_VAT_LINE, rec);
+		vatLine.Trim ();
+        if(vatLine == VAL_YES)    
+        {
+			dagJDT1->GetColStr(vatGroup, JDT1_VAT_GROUP, rec);
+			vatGroup.Trim ();
+			taxGroupCache->GetAcctInfo (bizEnv, vatGroup, OVTG_EQU_VAT_ACCOUNT, eqTaxAcct);		
+			eqTaxAcct.Trim();
+			if (!eqTaxAcct.IsEmpty ())
+			{
+				isValidLine = false;
+				break;
+			}
+        }
+    }
+
+	return isValidLine;
+}
+
+bool CJDTDeferredTaxUtil::SkipValidate ()
+{
+	return GetDeferredTaxStatus () == dts_Skip;
+}
+
+bool CJDTDeferredTaxUtil::IsValid ()
+{
+	if (!IsValidDeferredTaxStatus ())
+	{
+		return false;
+	}
+
+	if (SkipValidate ())
+	{
+		return true;
+	}
+
+	if (!IsValidBPLines())
+	{
+		CMessagesManager::GetHandle()->Message (_147_APP_MSG_FIN_JDT_DEFERRED_TAX_NO_MULTI_BP, EMPTY_STR, m_bo);
+		return false;
+	}
+
+	if (IsBPWithEqTax())
+	{
+		CMessagesManager::GetHandle()->Message (_147_APP_MSG_FIN_JDT_DEFERRED_TAX_BP_WITH_EQ_TAX, EMPTY_STR, m_bo);
+		return false;
+	}
+
+	if (!IsValidDeferredTax())
+	{
+		CMessagesManager::GetHandle()->Message (_147_APP_MSG_FIN_JDT_DEFERRED_TAX_WITH_EQ_TAX, EMPTY_STR, m_bo);
+		return false;
+	}
+
+	return true;
+}
+HERE
+s=<<HERE
+// b=(aaaa()+1)?1:2;
+if (!forceBalance)
+{
+	return ooNoErr;
+}
+
+dagJDT->GetColMoney (&tmpMoney, (frgCurr) ? OJDT_FC_TOTAL:OJDT_LOC_TOTAL, 0, DBM_NOT_ARRAY);
+ooErr = GNTranslateToSysAmmount (&tmpMoney, currStr, refDate, &systMoney, bizEnv);
+HERE
+s=<<HERE
+enum eColumnJDT1
+{
+		// Transaction Key
+		JDT1_TRANS_ABS									=	0,
+}
 HERE
 p s
 

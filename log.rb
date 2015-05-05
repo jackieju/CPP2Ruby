@@ -150,7 +150,7 @@ def p(m, stack=0, showTime=false)
         end
     end
 =end
-    return if hide_log?()
+    # return if hide_log?()
     m = format_msg(m, "", stack, showTime)
     # puts m
     begin
