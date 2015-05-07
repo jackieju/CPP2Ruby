@@ -1,10 +1,12 @@
 load 'log.rb'
-def translate_varname(varname)
+def translate_varname(varname, uncapitalize=true)
     return "" if varname==nil or varname == ""
-    if varname.size ==1 
-        varname = varname.downcase
-    else
-        varname = varname[0].downcase+varname[1..varname.size-1]
+    if uncapitalize
+        if varname.size ==1 
+            varname = varname.downcase
+        else
+            varname = varname[0].downcase+varname[1..varname.size-1]
+        end
     end
     keywords = ["begin", "end", "def", "rescue"]
     if keywords.include?(varname)
@@ -28,16 +30,24 @@ class VarType
     end
 end
 class Scope
-    attr_accessor :name, :vars
+    attr_accessor :name, :vars, :parent
     def initialize(name)
         @name = name
         @vars = {}
     end
     
     def add_var(v)
+        p "add_var:#{v.name}", 20
+        if @name == "class"
+            v.newname = "@#{v.newname}"
+        end
         @vars[v.name] = v
+        return v.newname
     end
     
+    def get_var(k)
+        return @vars[k]
+    end
 
 end
 class ClassDef < Scope
@@ -104,6 +114,37 @@ class CRParser
          end
          return nil
     end
+    
+    def list_scopes
+        cs = current_scope
+        s = ""
+        while cs
+            s+= "scope:#{cs.name}=>"
+            cs = cs.parent
+        end
+        p s
+    end
+    def in_scope(name)
+        cs = current_scope
+        p "==>cs0:#{name}"
+        
+        # p "==>cs1:#{cs.inspect}"
+        if name.class == String
+            @sstack.push(Scope.new(name))
+        else
+            if name == cs
+                throw Exception.new("enter wrong scope")
+            end
+            @sstack.push(name)
+        end
+        # p "cs2:#{current_scope.inspect}"
+        current_scope.parent = cs
+        # p "cs3:#{current_scope.inspect}, parent=#{current_scope.parent}", 30
+        
+    end
+    def out_scope()
+        @sstack.pop
+    end    
     def current_class_scope
          i = @sstack.size-1
          while (i>=0)
@@ -113,6 +154,29 @@ class CRParser
              i -= 1
          end
          return nil
+    end
+    
+    def find_var(name, scope=nil)
+        p "find_var:#{name}", 10
+        scope= current_scope  if !scope
+        i = 1
+        while scope 
+            # p "scope:#{scope.inspect}"
+            
+            i+=1
+            if i>=20
+                dump_pos
+                p "scope:#{scope.inspect}"
+                throw Exception.new("===>error<====")
+            end
+            scope.vars.each{|k,v|
+                p "===>var:#{k}"
+            }
+            ret = scope.get_var(name)
+            return ret if ret
+            scope = scope.parent
+        end
+        return nil
     end
     def canUseBreak?
         i = @sstack.size-1
@@ -224,16 +288,11 @@ class CRParser
         end
         
         return ret
-    end    
-    def GenError(errorNo)
-        p "generror #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym} val #{@scanner.GetName()}"
-        
-        
-        pos = @scanner.nextSym.pos
-        
+    end
+    
+    def dump_pos(pos=@scanner.buffPos)
         p prevline(pos, 2)
-        
-        
+       
         pos1 = pos
         while (pos1 > 0 && @scanner.buffer[pos1-1] != "\n" )
             pos1 -= 1
@@ -252,6 +311,16 @@ class CRParser
             s2 += "~"
         end
         p "......#{s1}^#{s2}......"
+    end    
+    
+    def GenError(errorNo)
+        p "generror #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym} val #{@scanner.GetName()}"
+        
+        
+        pos = @scanner.nextSym.pos
+        
+        dump_pos(pos)
+        
         # # p "line:#{@scanner.cur_line()}"
         p("stack:", 1000)
         @error.StoreErr(errorNo, @scanner.nextSym.clone)

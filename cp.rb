@@ -125,11 +125,19 @@ HERE
                     #{v.src}
 HERE
             else
-                class_template = <<HERE
+                if v.parent
+                    class_template =<<HERE
+            class #{class_name} < #{v.parent}
+            #{s_methods}
+            end
+HERE
+                else
+                    class_template =<<HERE
             class #{class_name}
             #{s_methods}
             end
 HERE
+                end
             end
             
             if $output_dir && $output_dir != ""
@@ -380,7 +388,7 @@ class Parser < CRParser
             else
                 @included_files[finclude] = 1
             end
-            p "after include:pos #{@scanner.buffPos}, ch #{@scanner.cch}, sym #{@sym},#{@scanner.buffer}"
+            # p "after include:pos #{@scanner.buffPos}, ch #{@scanner.cch}, sym #{@sym},#{@scanner.buffer}"
         end
     end
     def ignoreSym?(sym)
@@ -612,10 +620,10 @@ class Parser < CRParser
     end
     def pre_else(idf)
         if @directive == "\#else"
-            p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}, #{@scanner.dump_char}"
+            # p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}, #{@scanner.dump_char}"
             # delete_prevline # delete #else line
             delete_curline
-            p "112=>#{@scanner.buffer}, pos #{@scanner.buffPos}, idf=#{idf}"
+            # p "112=>#{@scanner.buffer}, pos #{@scanner.buffPos}, idf=#{idf}"
                 
              pos11 = @scanner.buffPos
              @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
@@ -803,7 +811,7 @@ class Parser < CRParser
     # line 98 "cs.atg"
     def C()
         pclass()
-        @sstack.push(Scope.new("::"))
+    	in_scope("::")
     	
         ret = ""
         p "==>C:#{SYMS[@sym]}"
@@ -857,7 +865,7 @@ class Parser < CRParser
     	Expect(C_EOF_Sym)
     # line 137 "cs.atg"
         
-        @sstack.pop
+        out_scope()
         
         @root_class.add_src(ret)
     	return ret
@@ -886,9 +894,9 @@ class Parser < CRParser
         end
         
     	Expect(C_identifierSym) # parent class name
-    	parent_class_name = curString()
+    	parent_class_name = prevString()
     	p "parent class name = #{parent_class_name}"
-    	
+    	clsdef.parent=parent_class_name
     # line 247 "cs.atg"
         
         while (@sym==C_CommaSym)
@@ -945,7 +953,7 @@ class Parser < CRParser
     # line 297 "cs.atg"
     def ClassBody(clsdef)
        
-        @sstack.push(clsdef)
+        in_scope(clsdef)
         pdebug("===>ClassBody:#{@sym}, #{curString()}");
     
     # line 298 "cs.atg"
@@ -993,7 +1001,7 @@ class Parser < CRParser
     	Expect(C_RbraceSym)
     # line 324 "cs.atg"
 
-    	 @sstack.pop
+    	 out_scope()
     end
     
     def Enum()
@@ -1123,11 +1131,11 @@ class Parser < CRParser
     
     # line 561 "cs.atg"
     def FunctionBody()
-    	@sstack.push(Scope.new("FunctionBody"))
+        # in_scope("FunctionBody"))
     # line 561 "cs.atg"
     	ret = CompoundStatement()
     # line 562 "cs.atg"
-	    @sstack.pop()
+        # out_scope()
 	    return ret
     end
     # line 709 "cs.atg"
@@ -1180,11 +1188,24 @@ class Parser < CRParser
     	            _nn = GetNextSym(2) 
     	            _c_nn = getSymValue(_nn) 
     	            if _nn.sym == C_TildeSym
-    	                LocalDeclaration() # deconstructor
+                        # LocalDeclaration() # deconstructor
+                        class_name = curString()
+                        Expect(C_identifierSym)
+                        Expect(C_ColonColonSym)
+                        Expect(C_TildeSym)
+                        Expect(C_identifierSym)
+                        
+                        FunctionDefinition(class_name, "uninitialize")
+                        
     	            elsif _nn.sym == C_identifierSym && _c_nn == cs # constructor
     	            #    A::A
                     #_nn--->^
-    	                LocalDeclaration() 
+                        # LocalDeclaration() 
+                        class_name = curString()
+                        Expect(C_identifierSym)
+                        Expect(C_ColonColonSym)
+                        Expect(C_identifierSym)
+                        FunctionDefinition(class_name, "initialize")
 	                else
 	                    count = 3
 	                    _nnn = GetNext(count)
@@ -1468,6 +1489,8 @@ class Parser < CRParser
 =end
     
         p "---->LocalDeclaration2, #{@sym}, #{curString()}"
+        dump_pos()
+        
         _next = GetNext()
         while (@sym != C_LparenSym && @sym != C_ColonColonSym &&
                 (   _next == C_identifierSym ||
@@ -1478,6 +1501,7 @@ class Parser < CRParser
                 )
                )
                p "---->LocalDeclaration3, #{@sym}, #{curString()}, line #{curLine()}, col #{curCol()}"
+           dump_pos()
            
            if @sym == C_identifierSym && _next == C_ColonColonSym  && type != ""
                break
@@ -1514,7 +1538,8 @@ class Parser < CRParser
         
         # line 702 "cs.atg"
         p "type=#{type}, storageclass=#{storageclass}, prev=#{@prev_sym}, cur=#{@sym}, val #{curString}"
-        
+        dump_pos()
+
         
         
         # variable name, function name, function operator name
@@ -1613,7 +1638,7 @@ class Parser < CRParser
             # fd = FunctionCall()
     	elsif (@sym == C_SemicolonSym ||
     	           @sym >= C_EqualSym && @sym <= C_LbrackSym) 
-    	    current_scope.add_var(Variable.new(varname, var_type))
+    	    varname = current_scope.add_var(Variable.new(varname, var_type))
     # line 706 "cs.atg"
             vl = VarList(var_type) # define lots of variables in one line splitted by comma
 	
@@ -1754,13 +1779,23 @@ class Parser < CRParser
         ret = ""
         if class_name
  	        classdef = @classdefs[class_name]
+ 	        if !classdef
+ 	            if current_scope.is_a?(ClassDef)
+                    classdef = current_scope
+                end
+            end
         else
             if current_scope.is_a?(ClassDef)
                 classdef = current_scope
             end
         end
+        if classdef && classdef != current_scope
+            in_scope(classdef)
+        end
+        # list_scopes
+        p "classdef:#{classdef.inspect}"
     # line 466 "cs.atg"
-        @sstack.push(Scope.new("FunctionDefinition"))
+        in_scope("FunctionDefinition")
     # line 509 "cs.atg"
     	ret += FunctionHeader()
     	if ret.gsub(/\s/,"") == "()"
@@ -1773,7 +1808,7 @@ class Parser < CRParser
     	    Get()
 	    end
     # line 509 "cs.atg"
-        # p "--->FunctionDefinition sym:#{@sym}"
+        p "--->FunctionDefinition sym:#{@sym}"
         if @sym == C_SemicolonSym 
             #if just function declaration without body
             # return ""
@@ -1783,23 +1818,31 @@ class Parser < CRParser
             Expect(C_SemicolonSym)
         else
 
-            @sstack.push(classdef) if classdef
+            # in_scope(classdef) if classdef
             if @sym == C_ColonSym
                 # initialization list, for constructor of class/struct
-                
+                p "# initialization list, for constructor of class/struct:#{classdef}"
                 i_list = ""
                 Get()
+                 m = curString()
+                 p "m=#{m}, parent=#{classdef.parent}"
+                 if m == classdef.parent
+                     m = "super"
+                 end
                 Expect(C_identifierSym)
-                m = curString()
-                
+               
                 Expect(C_LparenSym)
                 v = ActualParameters()
                 Expect(C_RparenSym)
-                i_list += "@#{m} = #{v}\n"
+                if m == "super"
+                    i_list += "super(#{v})\n"
+                else
+                    i_list += "@#{m} = #{v}\n"
+                end
                 while (@sym == C_CommaSym)
                      Get()
                      Expect(C_identifierSym)
-                     m = curString()
+                     m = prevString()
                      Expect(C_LparenSym)
                      v = Expression()
                      Expect(C_RparenSym)
@@ -1810,9 +1853,9 @@ class Parser < CRParser
             end
         	fb = FunctionBody()
         	fb = i_list + fb if i_list
-        	@sstack.pop if classdef
+            # out_scope() if classdef
     	end
-    	 @sstack.pop
+    	 out_scope()
     # line 510 "cs.atg"
         method_src = nil
         if (fb)
@@ -2338,7 +2381,7 @@ HERE
 
     # line 724 "cs.atg"
     def DoStatement()
-        @sstack.push(Scope.new("DoStatement"))
+        in_scope("DoStatement")
 	    
         ret = ""
     # line 724 "cs.atg"
@@ -2361,14 +2404,14 @@ begin
     #{stmt}
 end while (#{exp})
 HERE
-	    @sstack.pop()
+	    out_scope()
 	    return ret
     end
 
     # line 726 "cs.atg"
     def ForStatement()
         ret = ""
-	    @sstack.push(Scope.new("ForStatement"))
+	    in_scope("ForStatement")
     # line 726 "cs.atg"
     	Expect(C_forSym)
     # line 726 "cs.atg"
@@ -2466,7 +2509,7 @@ begin
 end while (#{exp2})
 HERE
         # ret = ret.gsub(/next|continue/m, exp2)
-	    @sstack.pop()
+	    out_scope()
         return ret
     end
 
@@ -2575,7 +2618,7 @@ HERE2
     # line 872 "cs.atg"
     	Expect(C_RparenSym)
     # line 872 "cs.atg"
-    @sstack.push(Scope.new("SwitchStatement"))
+    in_scope("SwitchStatement")
     
     	stmt = Statement()
     	ret =<<HERE
@@ -2584,7 +2627,7 @@ case #{exp}\n
 end
 HERE
     
-    @sstack.pop()
+    out_scope()
         return ret
     end
 
@@ -2605,7 +2648,7 @@ HERE
     # line 922 "cs.atg"
     	Expect(C_RparenSym)
     	
-    	@sstack.push(Scope.new("WhileStatement"))
+    	in_scope("WhileStatement")
 
     # line 922 "cs.atg"
     	stmt = Statement()
@@ -2615,7 +2658,7 @@ while (#{exp})
     #{stmt}
 end
 HERE
-	    @sstack.pop
+	    out_scope()
 	    return ret
     end
 
@@ -3458,18 +3501,31 @@ HERE
                         	Expect(C_identifierSym)
                 	end
             	else
+            	     p "====>2330:#{current_scope.inspect}"
             	    cs = current_scope("FunctionDefinition")
-			        if cs && cs.vars[varname]
-			            ret += cs.vars[varname].newname
+			        if cs && find_var(varname, cs)
+			             p "====>2331:"
+			            ret += find_var(varname, cs).newname
 		            else
+=begin			            
 		                ccs =  current_class_scope
-            			if ccs && ccs.vars[varname]
-                            # ret += "@#{varname}"
-                            ret += "@#{ccs.vars[varname].newname}"
-        			    else
-        			         ret += translate_varname(varname)
-        			    end
+		                 p "====>2332:#{ccs}"
 		                
+            			if ccs && find_var(varname, ccs)
+                            # ret += "@#{varname}"
+                            # ccs.vars.each{|k,v|
+                            #                            p "==>var:#{v.inspect}"
+                            #                        }
+                            ret += "@#{find_var(varname, ccs).newname}"
+        			    else
+        			        # when var is not found, keep it's original name
+        			        # Note that const like enum will not be added as var
+        			         ret += translate_varname(varname, false)
+        			         
+        			    end
+=end		                
+                        ret += translate_varname(varname, false)
+
 	                end
     		    	
     		    end
@@ -3575,7 +3631,7 @@ HERE
                 # SetDef();
                 # break;
     		when C_QuestionMarkSym
-    		    ret += "?#{Expression} :#{Expression}"
+    		    ret += " ?#{Expression} :#{Expression}"
     		else 
     		    GenError(112)
     	end # case
@@ -4227,6 +4283,36 @@ enum eColumnJDT1
 {
 		// Transaction Key
 		JDT1_TRANS_ABS									=	0,
+}
+HERE
+s=<<HERE
+class CBizEnv;
+class TCHAR;
+class CTransactionJournalObject: public CSystemBusinessObject, public IReconcilable, public IWithHoldingAble
+{
+};
+CTransactionJournalObject::CTransactionJournalObject (const TCHAR *id, CBizEnv &env) :
+							CSystemBusinessObject (id, env), m_digitalSignature (env)
+{
+      
+}
+HERE
+s=<<HERE
+enum{
+ ConnID = 1
+};
+void a(){
+     
+DBM_ServerTypes   ServerType = DBMCconnManager::GetHandle()->GetConnectionType (ConnID);
+}
+HERE
+s=<<HERE
+class A{
+    virtual bool	IsDeferredAble	() const {return false;}
+	int b;
+}
+void A::a(){
+    b = 0;
 }
 HERE
 p s
