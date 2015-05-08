@@ -1789,8 +1789,10 @@ class Parser < CRParser
                 classdef = current_scope
             end
         end
+        pushed = false
         if classdef && classdef != current_scope
             in_scope(classdef)
+            pushed = true
         end
         # list_scopes
         p "classdef:#{classdef.inspect}"
@@ -1855,7 +1857,7 @@ class Parser < CRParser
         	fb = i_list + fb if i_list
             # out_scope() if classdef
     	end
-    	 out_scope()
+    	 out_scope() # functiondefinition
     # line 510 "cs.atg"
         method_src = nil
         if (fb)
@@ -1873,6 +1875,9 @@ class Parser < CRParser
         p "classdef #{classdef.inspect}"
         pdebug "===>FunctionDefinition1:#{class_name}::#{fn_name}"
         
+        if pushed
+            out_scope()
+        end
         return ret
     end
 
@@ -2698,7 +2703,7 @@ HERE
                 pdebug("===>Expression0:#{ret}")
                 if @sym == C_QuestionMarkSym  # exp ? A:B
                     Get()
-                    ret += "?#{Expression()}"
+                    ret += " ?#{Expression()}"
                     Expect(C_ColonSym)
                     ret += ":#{Expression()}"
                 else
@@ -3501,32 +3506,37 @@ HERE
                         	Expect(C_identifierSym)
                 	end
             	else
-            	     p "====>2330:#{current_scope.inspect}"
-            	    cs = current_scope("FunctionDefinition")
-			        if cs && find_var(varname, cs)
-			             p "====>2331:"
-			            ret += find_var(varname, cs).newname
-		            else
+            	    if varname == "this"
+            	        ret += "self"
+        	        else
+        	            
+                         # p "====>2330:#{current_scope.inspect}"
+                	    cs = current_scope("FunctionDefinition")
+    			        if cs && find_var(varname, cs)
+    			             p "====>2331:"
+    			            ret += find_var(varname, cs).newname
+    		            else
 =begin			            
-		                ccs =  current_class_scope
-		                 p "====>2332:#{ccs}"
+    		                ccs =  current_class_scope
+    		                 p "====>2332:#{ccs}"
 		                
-            			if ccs && find_var(varname, ccs)
-                            # ret += "@#{varname}"
-                            # ccs.vars.each{|k,v|
-                            #                            p "==>var:#{v.inspect}"
-                            #                        }
-                            ret += "@#{find_var(varname, ccs).newname}"
-        			    else
-        			        # when var is not found, keep it's original name
-        			        # Note that const like enum will not be added as var
-        			         ret += translate_varname(varname, false)
+                			if ccs && find_var(varname, ccs)
+                                # ret += "@#{varname}"
+                                # ccs.vars.each{|k,v|
+                                #                            p "==>var:#{v.inspect}"
+                                #                        }
+                                ret += "@#{find_var(varname, ccs).newname}"
+            			    else
+            			        # when var is not found, keep it's original name
+            			        # Note that const like enum will not be added as var
+            			         ret += translate_varname(varname, false)
         			         
-        			    end
+            			    end
 =end		                
-                        ret += translate_varname(varname, false)
+                            ret += translate_varname(varname, false)
 
-	                end
+    	                end
+                    end
     		    	
     		    end
     # line 2335 "cs.atg"
@@ -4313,6 +4323,23 @@ class A{
 }
 void A::a(){
     b = 0;
+}
+
+
+HERE
+s=<<HERE
+class CJDTStornoExtraInfoCreator{
+    
+}
+CJDTStornoExtraInfoCreator & CJDTStornoExtraInfoCreator::operator=(const CJDTStornoExtraInfoCreator & other)
+{
+	if(this == &other){
+		return *this;
+	}
+
+	m_jdtBusinessObject = other.m_jdtBusinessObject;
+	
+	return *this;
 }
 HERE
 p s

@@ -30,7 +30,7 @@ class VarType
     end
 end
 class Scope
-    attr_accessor :name, :vars, :parent
+    attr_accessor :name, :vars, :parentScope
     def initialize(name)
         @name = name
         @vars = {}
@@ -100,7 +100,7 @@ class CRParser
         @sym = 0
         @sstack = [] # scope stack
         @classdefs = {}
-        p "haha"
+        # p "haha"
     end
     
     def current_scope(name=nil)
@@ -120,7 +120,7 @@ class CRParser
         s = ""
         while cs
             s+= "scope:#{cs.name}=>"
-            cs = cs.parent
+            cs = cs.parentScope
         end
         p s
     end
@@ -138,7 +138,7 @@ class CRParser
             @sstack.push(name)
         end
         # p "cs2:#{current_scope.inspect}"
-        current_scope.parent = cs
+        current_scope.parentScope = cs
         # p "cs3:#{current_scope.inspect}, parent=#{current_scope.parent}", 30
         
     end
@@ -157,11 +157,13 @@ class CRParser
     end
     
     def find_var(name, scope=nil)
-        p "find_var:#{name}", 10
+        # p "find_var:#{name}", 10
         scope= current_scope  if !scope
         i = 1
         while scope 
             # p "scope:#{scope.inspect}"
+            p "scope:#{scope}"
+            p "class:#{scope.class_name}" if scope.is_a?(ClassDef)
             
             i+=1
             if i>=20
@@ -174,7 +176,7 @@ class CRParser
             }
             ret = scope.get_var(name)
             return ret if ret
-            scope = scope.parent
+            scope = scope.parentScope
         end
         return nil
     end
