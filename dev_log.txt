@@ -47,3 +47,8 @@ enum
 };
 stl
 typedef
+
+
+
+20150511
+Everything seems OK regarding translation
