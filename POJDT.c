@@ -102,6 +102,11 @@
 
 #include "OGen/LinkMap/LinkMapCommon.h"
 
+/** added by jackie
+
+*/
+#include "__SBOERR.h"
+
 // VF_FederalTaxIdOnJERow
 #define JE_TAX_ID_ON_HEADER_ALIAS		_T("OCRDLicTradNum")
 #define JE_TAX_ID_ON_LINE_ALIAS			_T("CRD1LicTradNum")

@@ -24,5 +24,7 @@ $ar_classdefs = [
     "FCRoundingStruct",
     "StdMap",
     "CostAccountingFieldMap",
-    "bool"
+    "bool",
+    "AccountsArray",
+    "CSystemBusinessObject"
     ]

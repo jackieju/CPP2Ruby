@@ -1359,7 +1359,7 @@ class Parser < CRParser
     end    
     
     
-    def isTypeStart(sym)
+    def isTypeStart(sym=@scanner.nextSym)
         p "===>isTypeStart:#{sym.sym}, val #{getSymValue(sym)}"
         # pos1 = sym.pos
         _sym = sym.sym
@@ -1622,7 +1622,7 @@ class Parser < CRParser
                 # A fn(a* b)
                 fd = FunctionDefinition(class_name, fname, storageclass)
             else
-            	current_scope.add_var(Variable.new(varname, var_type))
+            	varname = current_scope.add_var(Variable.new(varname, var_type))
                 # fc = "#{varname} = #{var_type.name}.new"
                 # fc += FunctionCall()
                 # p "fc=#{fc}"
@@ -1719,10 +1719,10 @@ class Parser < CRParser
             Expect(C_identifierSym)
             varname = prevString()
             p "varname=#{varname}"
-    		ret += varname
     		
-    		current_scope.add_var(Variable.new(varname, var_type))
-    	    
+    		newname = current_scope.add_var(Variable.new(varname, var_type))
+    	    ret += newname
+    		
     # line 447 "cs.atg"
         	
         	if @sym == C_LparenSym
@@ -2703,9 +2703,9 @@ HERE
                 pdebug("===>Expression0:#{ret}")
                 if @sym == C_QuestionMarkSym  # exp ? A:B
                     Get()
-                    ret += " ?#{Expression()}"
+                    ret += " ? #{Expression()}"
                     Expect(C_ColonSym)
-                    ret += ":#{Expression()}"
+                    ret += " : #{Expression()}"
                 else
 	                
             		ret += AssignmentOperator()
@@ -2923,6 +2923,7 @@ HERE
     # line 1101 "cs.atg"
     		ret += ANDExp()
     	end
+    	    	pdebug("===>ExclORExp1:#{ret}")
     	return ret
     end
 
@@ -2933,16 +2934,20 @@ HERE
 
     # line 1103 "cs.atg"
     	ret = EqualExp()
+    	pdebug("===>ANDExp2:#{ret}")
     	
     # line 1103 "cs.atg"
     	while (@sym == C_AndSym) 
     # line 1103 "cs.atg"
-    		ret += curString()
+            
+            ret += curString()
         	
     		Get()
     # line 1103 "cs.atg"
     		ret += EqualExp()
     	end
+    	pdebug("===>ANDExp1:#{ret}")
+    	
     	return ret
     end
 
@@ -3425,7 +3430,7 @@ HERE
         	           @sym != C_AndSym
         	    # except case *var and &var
         	    _uo = UnaryOperator()
-    		    ret += _uo
+                ret += _uo
     		    # p "<=====UnaryExp2:#{_uo}"
                 
 		    else
@@ -3436,7 +3441,8 @@ HERE
     		ret += CastExp()
     	else 
             # pp("dff", 100)
-    	    GenError(107)
+            # GenError(107)
+            
 	    end
 	    pdebug "<=====UnaryExp1:#{ret}"
 	    return ret
@@ -3445,7 +3451,7 @@ HERE
     # line 2791 "cs.atg"
     def UnaryOperator()
         ret = ""
-        ret += curString()
+        ret += curString() if @sym != C_AndSym && @sym != C_StarSym
     # line 2791 "cs.atg"
     	case (@sym) 
     		when C_PlusSym  
@@ -3614,7 +3620,11 @@ HERE
     			Get()
     # line 2593 "cs.atg"
     p "sym555:#{@sym}, val #{curString()}"
-                if @sym == C_identifierSym || @sym == C_constSym || @sym >= C_shortSym && @sym <= C_stringSym
+    
+                if (@sym == C_identifierSym && isTypeStart()) || 
+                    @sym == C_constSym || 
+                    @sym >= C_shortSym && @sym <= C_stringSym
+                    # type cast (A*)
                     if @sym == C_constSym
                         Get()
                     end
@@ -3623,8 +3633,10 @@ HERE
                     p "_next:#{_next}, _next2:#{_next2}"
                     if (_next == C_RparenSym&&  _next2 != C_QuestionMarkSym) || 
                         ( ( _next == C_StarSym || _next == C_AndSym ) && (_next2 < C_identifierSym || _next2 > C_charD1Sym) )
-                        FullType()
+                        vt = FullType()
+                        p "vt:#{vt.inspect}"
                         Expect(C_RparenSym)
+                        ret += Expression()
                         bT = true
                     end
                 end
@@ -3641,10 +3653,15 @@ HERE
                 # SetDef();
                 # break;
     		when C_QuestionMarkSym
-    		    ret += " ?#{Expression} :#{Expression}"
+    		    ret += " ? #{Expression} : #{Expression}"
     		else 
     		    GenError(112)
     	end # case
+    	
+    	if /\([\w\d_]+\)/ =~ ret
+            # (abc) => abc
+    	    ret = ret.gsub(/\(([\w\d_]+)\)/, '\1')
+	    end
     	pdebug "=====>Primary1:#{ret}"
         
         return ret
@@ -3728,7 +3745,7 @@ HERE
     	end
     # line 2303 "cs.atg"
         
-        ret = "#{className}.new(#{fCall})"
+        ret = "#{className}.new#{fCall}"
         p "===>Creator1:#{ret}"
         return ret
     end
@@ -4341,6 +4358,43 @@ CJDTStornoExtraInfoCreator & CJDTStornoExtraInfoCreator::operator=(const CJDTSto
 	
 	return *this;
 }
+HERE
+s=<<HERE
+a = new A(1,2);
+HERE
+s=<<HERE
+class CBusinessService;
+class CTransactionJournalObject{
+    
+}
+void	CTransactionJournalObject::CopyNoType (const CBusinessService& other)
+{
+     
+
+		CTransactionJournalObject	*bizObject = (CTransactionJournalObject*) &other;
+
+
+}
+
+HERE
+s=<<HERE
+int *b = 1;
+int a = (int *)&b;
+HERE
+s=<<HERE
+(*currentMoney) += sumRow;
+HERE
+s=<<HERE
+class A;
+A B(1,2);
+HERE
+s=<<HERE
+//int a = b & c;
+//int a = &b;
+
+//int a = b(1,(int *)&b);
+delete a;
+
 HERE
 p s
 
