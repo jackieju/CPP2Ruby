@@ -1,4 +1,12 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :jdt1s
+
+  map.resources :jdt1s
+
+  map.resources :jdt1s
+
+  map.resources :jdt1s
+
   map.resources :ojdts
 
   # The priority is based upon order of creation: first created -> highest priority.

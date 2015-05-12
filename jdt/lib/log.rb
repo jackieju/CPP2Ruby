@@ -155,7 +155,9 @@ def trc(m)
         p m
     end
 end
-
+def trace(m)
+    trc(m)
+end
 class SlowLog
     @@th = 1 #threshhold
     

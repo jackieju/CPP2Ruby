@@ -22,7 +22,7 @@ def translate(fname)
         # p content
         table_name = nil
         content.scan(/<table.*?<id>(.*?)<\/id>/im){|m|
-            table_name = m[0].strip
+            table_name = m[0].strip.downcase
         }
         p "table_name = #{table_name}"
         raise "cannot find table name" if !table_name

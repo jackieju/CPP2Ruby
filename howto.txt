@@ -1,66 +1,88 @@
+1. First Step, translate cpp to ruby
+# download the translation tools from https://github.com/jackieju/SimpleC2Ruby.git
+# you need install ruby version >= 1.9
+$ ruby translate.rb -d output POJDT.c POJDT1.c
+You don't need involve all filed included by POJDT.c (which will leads to a hell), you just
+need to copy those file you really want them logic.
+So here we only copy 3 file POJDT.c POJDT1.c and POJDT.h
 
-------------
---- DONE ---
-------------
-TCHAR			tmpStr[256]={0};
+Before translation, you need 
+1) define some macro in c_macros.c
+2) define all classes name referenced in your c/cpp file in c_classdefs.rb
+$ar_classdefs = [
+    "std",
+    "SJournalKeys",
+    "CBusinessObject",
+    "PDAG",
+    "TCHAR",
+    "CBizEnv",
+    "SBOString",
+    "DBD_Tables",
+    "CManualDistributionRuleObject",
+    "CWTAllCurBaseCalcParams",
+    "CJDTWTInfo",
+    "AccountsConstArray",
+    "ObjectAbbrevsMap",
+    "CBusinessService",
+    "CJDTStornoExtraInfoCreator",
+    "ArcDeletePrefs",
+    "CJECompression",
+    "ObjectWTaxInfo",
+    "DBQRetrieveStatement",
+    "CMatchData",
+    "MONEY",
+    "BPBalanceChangeLogDataArr",
+    "FCRoundingStruct",
+    "StdMap",
+    "CostAccountingFieldMap",
+    "bool",
+    "AccountsArray",
+    "CSystemBusinessObject"
+    ]
 
-if ...{
-}
+When you encounter error while translating, you need to add more class and macro in above 2 steps.
 
-++, --
+If you'v done translation successfully, you will see all ruby files under directory "output"
 
-------------
---- TODO ---
-------------
+2. Modify your source code
+You will need to rewrite the method you want following just 2 rules:
+1. Change all GetEnv() to context
+I use context, which is just a ruby hash, maybe will be a class in the future if we want some special method.
+2. Change all dag related things to easy ruby object. You don't need dag anymore.
+examples:
 
+# dagJDT=GetDAG()
+ojdt = Ojdt.new
 
+# dagJDT1=GetDAG(JDT,ao_Arr1)
+jdt1 = JDT1.all
 
+# DAG_GetCount(dagJDT1,numOfRecs)
+numOfRecs = jdt1.size
 
-static function
+# dagJDT1.GetColLong(lTmp,JDT1_BPL_ID,rec)
+lTmp = jdt1[rec][JDT1_BPL_ID] # use column index
+# or lTmp = jdt1[rec][:BPLId]
+# or jdt1[rec].BPLId
 
-function def outside class SCOPE (global function)
+# if dagJDT1.IsNullCol(JDT1_LINE_MEMO,rec)
+  if jdt1[rec].LineMemo == nil
+	# dagJDT1.CopyColumn(dagJDT,JDT1_LINE_MEMO,rec,OJDT_MEMO,0)
+	jdt1[rec].LineMemo = ojdt[0].memo
+  end
 
-member var, global var
+# dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,rec)
+jdt1[rec].ValidFrom = validFrom
 
-process .h .cpp at one time running and by order
-
-local var vs constant
-
-if 0 => if false
-
-swtich case without break , 1. add "," 2. remove break in when
-
-class assgin in c++ is object clone, but in ruby is same instance.
-
-KEEP COMMENT
-
-Release resource in desconstructor
-
-enum type like
-enum
-{
-  resTax1AbsEntry = 0L,
-  resTax1TaxCode,
-  resTax1EqPercent,
-  resJdt1TransId,
-  resJdt1Line_ID,
-};
-stl
-typedef
-
-
-
-20150511
-Everything seems OK regarding translation
-
-20150512
-Modify:
-1. change GetEnv()/env to context
-2. remove GetDag
-3. 
+3. Run your module on rails (as openapi)
+# create your rails app ( For sure you need install rails, here I use ruby 1.8.7 with rails 2.3.5 for testing)
+$ rails jdt
+$ cd jdt
+# copy b1 table definition xml here
 $ cp ../Tables/JDT1.xml .
 # generate script to create rails migration
 $ script/generate_table.rb JDT1.xml
+script will generate shell script like:
 "script/generate scafold jdt1 TransId:integer Line_ID:integer Account:string Debit:float Credit:float SYSCred:float SYSDeb:float FCDebit:float FCCredit:float FCCurrency:string DueDate:date SourceID:integer SourceLine:integer ShortName:string IntrnMatch:integer ExtrMatch:integer ContraAct:string LineMemo:string Ref3Line:string TransType:string RefDate:date Ref2Date:date Ref1:string Ref2:string CreatedBy:integer BaseRef:string Project:string TransCode:string ProfitCode:string TaxDate:date SystemRate:float MthDate:date ToMthSum:float UserSign:integer BatchNum:integer FinncPriod:integer RelTransId:integer RelLineID:integer RelType:string LogInstanc:integer VatGroup:string BaseSum:float VatRate:float Indicator:string AdjTran:string RevSource:string ObjType:string VatDate:date PaymentRef:string SYSBaseSum:float MultMatch:integer VatLine:string VatAmount:float SYSVatSum:float Closed:string GrossValue:float CheckAbs:integer LineType:integer DebCred:string SequenceNr:integer StornoAcc:string BalDueDeb:float BalDueCred:float BalFcDeb:float BalFcCred:float BalScDeb:float BalScCred:float IsNet:string DunWizBlck:string DunnLevel:integer DunDate:date TaxType:integer TaxPostAcc:string StaCode:string StaType:integer TaxCode:string ValidFrom:date GrossValFc:float LvlUpdDate:date OcrCode2:string OcrCode3:string OcrCode4:string OcrCode5:string MIEntry:integer MIVEntry:integer ClsInTP:integer CenVatCom:integer MatType:integer PstngType:integer ValidFrom2:date ValidFrom3:date ValidFrom4:date ValidFrom5:date Location:integer WTaxCode:string EquVatRate:float EquVatSum:float SYSEquSum:float TotalVat:float SYSTVat:float WTLiable:string WTLine:string WTApplied:float WTAppliedS:float WTAppliedF:float WTSum:float WTSumFC:float WTSumSC:float PayBlock:string PayBlckRef:integer LicTradNum:string InterimTyp:integer DprId:integer MatchRef:string Ordered:string CUP:integer CIG:integer BPLId:integer BPLName:string VatRegNum:string SLEDGERF:string "
 # execute the command to create model (scafold is for testing, you can just create model instead)
 $ script/generate scafold jdt1 TransId:integer Line_ID:integer Account:string Debit:float Credit:float SYSCred:float SYSDeb:float FCDebit:float FCCredit:float FCCurrency:string DueDate:date SourceID:integer SourceLine:integer ShortName:string IntrnMatch:integer ExtrMatch:integer ContraAct:string LineMemo:string Ref3Line:string TransType:string RefDate:date Ref2Date:date Ref1:string Ref2:string CreatedBy:integer BaseRef:string Project:string TransCode:string ProfitCode:string TaxDate:date SystemRate:float MthDate:date ToMthSum:float UserSign:integer BatchNum:integer FinncPriod:integer RelTransId:integer RelLineID:integer RelType:string LogInstanc:integer VatGroup:string BaseSum:float VatRate:float Indicator:string AdjTran:string RevSource:string ObjType:string VatDate:date PaymentRef:string SYSBaseSum:float MultMatch:integer VatLine:string VatAmount:float SYSVatSum:float Closed:string GrossValue:float CheckAbs:integer LineType:integer DebCred:string SequenceNr:integer StornoAcc:string BalDueDeb:float BalDueCred:float BalFcDeb:float BalFcCred:float BalScDeb:float BalScCred:float IsNet:string DunWizBlck:string DunnLevel:integer DunDate:date TaxType:integer TaxPostAcc:string StaCode:string StaType:integer TaxCode:string ValidFrom:date GrossValFc:float LvlUpdDate:date OcrCode2:string OcrCode3:string OcrCode4:string OcrCode5:string MIEntry:integer MIVEntry:integer ClsInTP:integer CenVatCom:integer MatType:integer PstngType:integer ValidFrom2:date ValidFrom3:date ValidFrom4:date ValidFrom5:date Location:integer WTaxCode:string EquVatRate:float EquVatSum:float SYSEquSum:float TotalVat:float SYSTVat:float WTLiable:string WTLine:string WTApplied:float WTAppliedS:float WTAppliedF:float WTSum:float WTSumFC:float WTSumSC:float PayBlock:string PayBlckRef:integer LicTradNum:string InterimTyp:integer DprId:integer MatchRef:string Ordered:string CUP:integer CIG:integer BPLId:integer BPLName:string VatRegNum:string SLEDGERF:string
@@ -95,7 +117,7 @@ $ script/generate scafold jdt1 TransId:integer Line_ID:integer Account:string De
       exists    db/migrate
       create    db/migrate/20150512164453_create_jdt1s.rb
 
-# create table
+# create table ( you need to set your config/database.yml to connect your database)
 $ rake db:migrate
 (in /Users/i027910/Desktop/ju/projects/b1or/postingr/SimpleC2Ruby/jdt)
 ==  CreateJdt1s: migrating ====================================================
@@ -104,5 +126,27 @@ $ rake db:migrate
 ==  CreateJdt1s: migrated (0.0195s) ===========================================
 
 # create control to process request
-$ script/generate control ojdt
+$ script/generate control jdt
+# open app/controller/jdt_controller.rb with your text editor
+# add your code
+e.g.
+require 'bobject.rb'
+require 'ctransactionjournalobject.rb'
+class JdtController < ApplicationController
+    def CreateJournalEntry
+        context = {}
+        # context = build_context(params)
+        tjObj = CTransactionJournalObject.new(context)
+        tjObj.CompleteJdtLine()
+        tjObj.save
+        
+        render :text=>"ok"
+    end
+end
 
+# start your web server ( for testing)
+script/server -p 80
+
+# DONE !
+
+Once you enable ruby gem for oauth/openAPI, you model will just be exposed as openAPI.

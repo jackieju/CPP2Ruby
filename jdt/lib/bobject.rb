@@ -21,7 +21,7 @@ class BObject < CSystemBusinessObject
         @context = {} if @context == nil
         @context
     end
-    def initilize(context)
+    def initialize(context)
         
     end
 

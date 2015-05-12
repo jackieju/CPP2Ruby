@@ -3214,9 +3214,13 @@ class CTransactionJournalObject < BObject
       bizEnv=context
       mbEnabled=false
       isAutoCompleteBPLFromUD = false
-      dagJDT=GetDAG()
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      DAG_GetCount(dagJDT1,numOfRecs)
+      # dagJDT=GetDAG()
+      ojdt = Ojdt.new
+      # dagJDT1=GetDAG(JDT,ao_Arr1)
+      jdt1 = JDT1.all
+      # DAG_GetCount(dagJDT1,numOfRecs)
+      numOfRecs = jdt1.size 
+      
       mbEnabled=VF_MultiBranch_EnabledInOADM(bizEnv)
       isAutoCompleteBPLFromUD=mbEnabled&&GetDataSource()==VAL_OBSERVER_SOURCE&&cBusinessPlaceObject.isAutoCompleteBPLFromUserDefaults(GetID().strtol())
       rec=0
@@ -3231,14 +3235,23 @@ class CTransactionJournalObject < BObject
 
             end
 
-            dagJDT1.GetColLong(lTmp,JDT1_BPL_ID,rec)
+            # dagJDT1.GetColLong(lTmp,JDT1_BPL_ID,rec)
+            lTmp = jdt1[rec][JDT1_BPL_ID] # use column index
+            # or lTmp = jdt1[rec][:BPLId]
+            # or jdt1[rec].BPLId
+            
             cBusinessPlaceObject.getBPLInfo(bizEnv,lTmp,bplInfo)
-            dagJDT1.SetColStr(bplInfo.GetBPLName(),JDT1_BPL_NAME,rec)
-            dagJDT1.SetColStr(bplInfo.GetVatRegNum(),JDT1_VAT_REG_NUM,rec)
+            # dagJDT1.SetColStr(bplInfo.GetBPLName(),JDT1_BPL_NAME,rec)
+            jdt1[rec].BPLName = bplInfo.GetBPLName()
+            
+            # dagJDT1.SetColStr(bplInfo.GetVatRegNum(),JDT1_VAT_REG_NUM,rec)
+            jdt1[rec].VatRegNum = bplInfo.GetVatRegNum()
          end
 
-         if dagJDT1.IsNullCol(JDT1_LINE_MEMO,rec)
-            dagJDT1.CopyColumn(dagJDT,JDT1_LINE_MEMO,rec,OJDT_MEMO,0)
+         #if dagJDT1.IsNullCol(JDT1_LINE_MEMO,rec)
+             if jdt1[rec].LineMemo == nil
+            #dagJDT1.CopyColumn(dagJDT,JDT1_LINE_MEMO,rec,OJDT_MEMO,0)
+            jdt1[rec].LineMemo = ojdt[0].memo
          end
 
          if dagJDT1.IsNullCol(JDT1_REF_DATE,rec)
@@ -3246,7 +3259,8 @@ class CTransactionJournalObject < BObject
             dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,rec)
             dagJDT1.GetColStr(postDate,JDT1_REF_DATE,rec)
             cOverheadCostRateObject.getValidFrom(context,ocrCode,postDate,validFrom)
-            dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,rec)
+            # dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,rec)
+            jdt1[rec].ValidFrom = validFrom
          end
 
          if VF_EnableVATDate(context)
@@ -10817,19 +10831,31 @@ class CTransactionJournalObject < BObject
       return @m_bZeroBalanceDue
    end
 
-   def initialize(id,env)
-      super(id,env)
-      @m_digitalSignature = env
-      trace("CSystemBusinessObject")
-      @m_isVatJournalEntry=false
-      @m_taxAdaptor=nil
-      @m_stornoExtraInfoCreator=nil
-      @m_reconcileBPLines=true
-      @m_pSequenceParameter=nil
-      @m_isInCancellingAcctRecon=false
-      @m_isPostingPreviewMode=false
-      @m_isPostingTemplate=false
+   def initialize(context)
+       @m_digitalSignature = context
+       trace("CSystemBusinessObject")
+       @m_isVatJournalEntry=false
+       @m_taxAdaptor=nil
+       @m_stornoExtraInfoCreator=nil
+       @m_reconcileBPLines=true
+       @m_pSequenceParameter=nil
+       @m_isInCancellingAcctRecon=false
+       @m_isPostingPreviewMode=false
+       @m_isPostingTemplate=false
    end
+   # def initialize(id,env)
+   #    super(id,env)
+   #    @m_digitalSignature = env
+   #    trace("CSystemBusinessObject")
+   #    @m_isVatJournalEntry=false
+   #    @m_taxAdaptor=nil
+   #    @m_stornoExtraInfoCreator=nil
+   #    @m_reconcileBPLines=true
+   #    @m_pSequenceParameter=nil
+   #    @m_isInCancellingAcctRecon=false
+   #    @m_isPostingPreviewMode=false
+   #    @m_isPostingTemplate=false
+   # end
 
    def uninitialize()
       trace("~CTransactionJournalObject")

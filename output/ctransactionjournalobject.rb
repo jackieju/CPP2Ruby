@@ -10818,19 +10818,32 @@ class CTransactionJournalObject < BObject
       return @m_bZeroBalanceDue
    end
 
-   def initialize(id,env)
-      super(id,env)
-      @m_digitalSignature = env
-      trace("CSystemBusinessObject")
-      @m_isVatJournalEntry=false
-      @m_taxAdaptor=nil
-      @m_stornoExtraInfoCreator=nil
-      @m_reconcileBPLines=true
-      @m_pSequenceParameter=nil
-      @m_isInCancellingAcctRecon=false
-      @m_isPostingPreviewMode=false
-      @m_isPostingTemplate=false
+   def initialize(context)
+       @m_digitalSignature = env
+       trace("CSystemBusinessObject")
+       @m_isVatJournalEntry=false
+       @m_taxAdaptor=nil
+       @m_stornoExtraInfoCreator=nil
+       @m_reconcileBPLines=true
+       @m_pSequenceParameter=nil
+       @m_isInCancellingAcctRecon=false
+       @m_isPostingPreviewMode=false
+       @m_isPostingTemplate=false
    end
+   
+   # def initialize(id,env)
+   #    super(id,env)
+   #    @m_digitalSignature = env
+   #    trace("CSystemBusinessObject")
+   #    @m_isVatJournalEntry=false
+   #    @m_taxAdaptor=nil
+   #    @m_stornoExtraInfoCreator=nil
+   #    @m_reconcileBPLines=true
+   #    @m_pSequenceParameter=nil
+   #    @m_isInCancellingAcctRecon=false
+   #    @m_isPostingPreviewMode=false
+   #    @m_isPostingTemplate=false
+   # end
 
    def uninitialize()
       trace("~CTransactionJournalObject")
