@@ -1,5 +1,4 @@
 class CTransactionJournalObject < BObject
-    @@model_name = "Ojdt"
    def ValidateRelations(arrOffset,rec,field,object,showError)
       trace("ValidateRelations")
       dag=GetDAG(JDT,arrOffset)

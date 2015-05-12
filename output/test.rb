@@ -16,6 +16,13 @@ class CSystemBusinessObject < CBusinessObject
     def InitData()
     end
 end
+class BObject < CSystemBusinessObject
+    def context
+        @context = {} if @context == nil
+        @context
+    end
+
+end
 def trace(m)
     p m
 end

@@ -32,3 +32,19 @@ e.g.
 3. still scanner.rb, goto end of switch/case in function Get(), add 
 when 83
     return C_QuestionMarkSym
+
+
+rails table definition
+http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column 
++------------------------------------------------------------+
+| :limit | Numeric Type  | Column Size |      Max Value      |
+|--------+---------------+-------------+---------------------|
+|    1   |    TINYINT    |   1 byte    | 127                 |
+|    2   |    SMALLINT   |   2 bytes   | 32767               |
+|    3   |    MEDIUMINT  |   3 bytes   | 8388607             |
+|    4   |     INT(11)   |   4 bytes   | 2147483647          |
+|    8   |     BIGINT    |   8 bytes   | 9223372036854775807 |
++------------------------------------------------------------+
+
+compared with db type
+http://overooped.com/post/100354794/ruby-script-generate-scaffold-types

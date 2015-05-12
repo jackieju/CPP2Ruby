@@ -1,0 +1,3 @@
+class StdMap
+
+end

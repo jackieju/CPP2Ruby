@@ -52,3 +52,8 @@ typedef
 
 20150511
 Everything seems OK regarding translation
+
+20150512
+Modify:
+1. change GetEnv() to context
+2. GetDag

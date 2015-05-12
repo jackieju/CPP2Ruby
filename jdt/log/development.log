@@ -1,0 +1,350 @@
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2015-05-12 23:50:35) [GET]
+
+ActionController::RoutingError (No route matches "/ojdt" with {:method=>:get}):
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2015-05-12 23:51:06) [GET]
+
+ActionController::RoutingError (No route matches "/ojdt" with {:method=>:get}):
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2015-05-12 23:51:08) [GET]
+
+ActionController::RoutingError (No route matches "/ojdt" with {:method=>:get}):
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing OjdtsController#index (for 127.0.0.1 at 2015-05-12 23:51:20) [GET]
+  [4;35;1mOjdt Load (0.0ms)[0m   [0mMysql::Error: Table 'jdt_dev.ojdts' doesn't exist: SELECT * FROM `ojdts` [0m
+
+ActiveRecord::StatementInvalid (Mysql::Error: Table 'jdt_dev.ojdts' doesn't exist: SELECT * FROM `ojdts` ):
+  app/controllers/ojdts_controller.rb:5:in `index'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (18.9ms)
+Rendered rescues/_request_and_response (1.4ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateOjdts (20150512155051)
+  [4;35;1mSQL (11.8ms)[0m   [0mCREATE TABLE `ojdts` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `BatchNum` int(11), `TransId` int(11), `BtfStatus` varchar(255), `TransType` varchar(255), `BaseRef` varchar(255), `RefDate` date, `Memo` varchar(255), `Ref1` varchar(255), `Ref2` varchar(255), `CreatedBy` int(11), `LocTotal` float, `FcTotal` float, `SysTotal` float, `TransCode` varchar(255), `OrignCurr` varchar(255), `TransRate` float, `BtfLine` int(11), `TransCurr` varchar(255), `Project` varchar(255), `DueDate` date, `TaxDate` date, `PCAddition` varchar(255), `FinncPriod` int(11), `DataSource` varchar(255), `UpdateDate` date, `CreateDate` date, `UserSign` int(11), `UserSign2` int(11), `RefndRprt` varchar(255), `LogInstanc` int(11), `ObjType` varchar(255), `Indicator` varchar(255), `AdjTran` varchar(255), `RevSource` varchar(255), `StornoDate` date, `StornoToTr` int(11), `AutoStorno` varchar(255), `Corisptivi` varchar(255), `VatDate` date, `StampTax` varchar(255), `Series` int(11), `Number` int(11), `AutoVAT` varchar(255), `DocSeries` int(11), `FolioPref` varchar(255), `FolioNum` int(11), `CreateTime` int(11), `BlockDunn` varchar(255), `ReportEU` varchar(255), `Report347` varchar(255), `Printed` varchar(255), `DocType` varchar(255), `AttNum` int(11), `GenRegNo` varchar(255), `RG23APart2` int(11), `RG23CPart2` int(11), `MatType` int(11), `Creator` varchar(255), `Approver` varchar(255), `Location` int(11), `SeqCode` int(11), `Serial` int(11), `SeriesStr` varchar(255), `SubStr` varchar(255), `AutoWT` varchar(255), `WTSum` float, `WTSumSC` float, `WTSumFC` float, `WTApplied` float, `WTAppliedS` float, `WTAppliedF` float, `BaseAmnt` float, `BaseAmntSC` float, `BaseAmntFC` float, `BaseVtAt` float, `BaseVtAtSC` float, `BaseVtAtFC` float, `VersionNum` varchar(255), `BaseTrans` int(11), `ResidenNum` varchar(255), `OperatCode` varchar(255), `Ref3` varchar(255), `SSIExmpt` varchar(255), `SignMsg` text, `SignDigest` text, `CertifNum` varchar(255), `KeyVersion` int(11), `CUP` int(11), `CIG` int(11), `SupplCode` varchar(255), `SPSrcType` int(11), `SPSrcID` int(11), `SPSrcDLN` int(11), `DeferedTax` varchar(255), `AgrNo` int(11), `SeqNum` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20150512155051')[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (2.4ms)[0m   [0;1mSHOW FIELDS FROM `ojdts`[0m
+  [4;35;1mSQL (1.6ms)[0m   [0mdescribe `ojdts`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSHOW KEYS FROM `ojdts`[0m
+  [4;35;1mSQL (1.5ms)[0m   [0mSHOW FIELDS FROM `tests`[0m
+  [4;36;1mSQL (1.3ms)[0m   [0;1mdescribe `tests`[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSHOW KEYS FROM `tests`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing OjdtsController#index (for 127.0.0.1 at 2015-05-12 23:52:16) [GET]
+  [4;35;1mOjdt Load (0.4ms)[0m   [0mSELECT * FROM `ojdts` [0m
+Rendering template within layouts/ojdts
+Rendering ojdts/index
+Completed in 23ms (View: 20, DB: 1) | 200 OK [http://localhost/ojdts]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing OjdtsController#new (for 127.0.0.1 at 2015-05-12 23:52:20) [GET]
+  [4;35;1mOjdt Columns (2.5ms)[0m   [0mSHOW FIELDS FROM `ojdts`[0m
+Rendering template within layouts/ojdts
+Rendering ojdts/new
+Completed in 131ms (View: 102, DB: 3) | 200 OK [http://localhost/ojdts/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2015-05-13 00:27:16) [GET]
+
+ActionController::RoutingError (No route matches "/CreateJournalEntry" with {:method=>:get}):
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendering rescues/layout (not_found)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing JdtController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:27:20) [GET]
+
+NameError (uninitialized constant JdtController::CTransactionJournalObject):
+  app/controllers/jdt_controller.rb:3:in `CreateJournalEntry'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (37.5ms)
+Rendered rescues/_request_and_response (0.7ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:28:07) [GET]
+
+NameError (uninitialized constant BObject):
+  lib/ctransactionjournalobject.rb:1
+  app/controllers/jdt_controller.rb:1
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (16.5ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:28:22) [GET]
+
+MissingSourceFile (no such file to load -- bobject.rb):
+  app/controllers/jdt_controller.rb:1
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (20.5ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing JdtController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:28:44) [GET]
+
+ArgumentError (wrong number of arguments (0 for 2)):
+  app/controllers/jdt_controller.rb:5:in `initialize'
+  app/controllers/jdt_controller.rb:5:in `new'
+  app/controllers/jdt_controller.rb:5:in `CreateJournalEntry'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (15.0ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing JdtController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:29:53) [GET]
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/jdt_controller.rb:6:in `initialize'
+  app/controllers/jdt_controller.rb:6:in `new'
+  app/controllers/jdt_controller.rb:6:in `CreateJournalEntry'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (46.5ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing JdtController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:30:05) [GET]
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/jdt_controller.rb:6:in `initialize'
+  app/controllers/jdt_controller.rb:6:in `new'
+  app/controllers/jdt_controller.rb:6:in `CreateJournalEntry'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (16.0ms)
+Rendered rescues/_request_and_response (0.7ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing JdtController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:30:06) [GET]
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/jdt_controller.rb:6:in `initialize'
+  app/controllers/jdt_controller.rb:6:in `new'
+  app/controllers/jdt_controller.rb:6:in `CreateJournalEntry'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (47.3ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing JdtController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:30:08) [GET]
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/jdt_controller.rb:6:in `initialize'
+  app/controllers/jdt_controller.rb:6:in `new'
+  app/controllers/jdt_controller.rb:6:in `CreateJournalEntry'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (15.6ms)
+Rendered rescues/_request_and_response (0.1ms)
+Rendering rescues/layout (internal_server_error)
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing JdtController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:30:12) [GET]
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/jdt_controller.rb:6:in `initialize'
+  app/controllers/jdt_controller.rb:6:in `new'
+  app/controllers/jdt_controller.rb:6:in `CreateJournalEntry'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (43.9ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing JdtController#CreateJournalEntry (for 127.0.0.1 at 2015-05-13 00:30:12) [GET]
+
+ArgumentError (wrong number of arguments (1 for 2)):
+  app/controllers/jdt_controller.rb:6:in `initialize'
+  app/controllers/jdt_controller.rb:6:in `new'
+  app/controllers/jdt_controller.rb:6:in `CreateJournalEntry'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:104:in `service'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/httpserver.rb:65:in `run'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:173:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:162:in `start_thread'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:95:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `each'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:92:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:23:in `start'
+  /Users/i027910/.rvm/rubies/ruby-1.8.7-head/lib/ruby/1.8/webrick/server.rb:82:in `start'
+
+Rendered rescues/_trace (15.7ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)

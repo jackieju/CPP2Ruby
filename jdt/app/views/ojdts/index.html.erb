@@ -1,0 +1,210 @@
+<h1>Listing ojdts</h1>
+
+<table>
+  <tr>
+    <th>Batchnum</th>
+    <th>Transid</th>
+    <th>Btfstatus</th>
+    <th>Transtype</th>
+    <th>Baseref</th>
+    <th>Refdate</th>
+    <th>Memo</th>
+    <th>Ref1</th>
+    <th>Ref2</th>
+    <th>Createdby</th>
+    <th>Loctotal</th>
+    <th>Fctotal</th>
+    <th>Systotal</th>
+    <th>Transcode</th>
+    <th>Origncurr</th>
+    <th>Transrate</th>
+    <th>Btfline</th>
+    <th>Transcurr</th>
+    <th>Project</th>
+    <th>Duedate</th>
+    <th>Taxdate</th>
+    <th>Pcaddition</th>
+    <th>Finncpriod</th>
+    <th>Datasource</th>
+    <th>Updatedate</th>
+    <th>Createdate</th>
+    <th>Usersign</th>
+    <th>Usersign2</th>
+    <th>Refndrprt</th>
+    <th>Loginstanc</th>
+    <th>Objtype</th>
+    <th>Indicator</th>
+    <th>Adjtran</th>
+    <th>Revsource</th>
+    <th>Stornodate</th>
+    <th>Stornototr</th>
+    <th>Autostorno</th>
+    <th>Corisptivi</th>
+    <th>Vatdate</th>
+    <th>Stamptax</th>
+    <th>Series</th>
+    <th>Number</th>
+    <th>Autovat</th>
+    <th>Docseries</th>
+    <th>Foliopref</th>
+    <th>Folionum</th>
+    <th>Createtime</th>
+    <th>Blockdunn</th>
+    <th>Reporteu</th>
+    <th>Report347</th>
+    <th>Printed</th>
+    <th>Doctype</th>
+    <th>Attnum</th>
+    <th>Genregno</th>
+    <th>Rg23apart2</th>
+    <th>Rg23cpart2</th>
+    <th>Mattype</th>
+    <th>Creator</th>
+    <th>Approver</th>
+    <th>Location</th>
+    <th>Seqcode</th>
+    <th>Serial</th>
+    <th>Seriesstr</th>
+    <th>Substr</th>
+    <th>Autowt</th>
+    <th>Wtsum</th>
+    <th>Wtsumsc</th>
+    <th>Wtsumfc</th>
+    <th>Wtapplied</th>
+    <th>Wtapplieds</th>
+    <th>Wtappliedf</th>
+    <th>Baseamnt</th>
+    <th>Baseamntsc</th>
+    <th>Baseamntfc</th>
+    <th>Basevtat</th>
+    <th>Basevtatsc</th>
+    <th>Basevtatfc</th>
+    <th>Versionnum</th>
+    <th>Basetrans</th>
+    <th>Residennum</th>
+    <th>Operatcode</th>
+    <th>Ref3</th>
+    <th>Ssiexmpt</th>
+    <th>Signmsg</th>
+    <th>Signdigest</th>
+    <th>Certifnum</th>
+    <th>Keyversion</th>
+    <th>Cup</th>
+    <th>Cig</th>
+    <th>Supplcode</th>
+    <th>Spsrctype</th>
+    <th>Spsrcid</th>
+    <th>Spsrcdln</th>
+    <th>Deferedtax</th>
+    <th>Agrno</th>
+    <th>Seqnum</th>
+  </tr>
+
+<% @ojdts.each do |ojdt| %>
+  <tr>
+    <td><%=h ojdt.BatchNum %></td>
+    <td><%=h ojdt.TransId %></td>
+    <td><%=h ojdt.BtfStatus %></td>
+    <td><%=h ojdt.TransType %></td>
+    <td><%=h ojdt.BaseRef %></td>
+    <td><%=h ojdt.RefDate %></td>
+    <td><%=h ojdt.Memo %></td>
+    <td><%=h ojdt.Ref1 %></td>
+    <td><%=h ojdt.Ref2 %></td>
+    <td><%=h ojdt.CreatedBy %></td>
+    <td><%=h ojdt.LocTotal %></td>
+    <td><%=h ojdt.FcTotal %></td>
+    <td><%=h ojdt.SysTotal %></td>
+    <td><%=h ojdt.TransCode %></td>
+    <td><%=h ojdt.OrignCurr %></td>
+    <td><%=h ojdt.TransRate %></td>
+    <td><%=h ojdt.BtfLine %></td>
+    <td><%=h ojdt.TransCurr %></td>
+    <td><%=h ojdt.Project %></td>
+    <td><%=h ojdt.DueDate %></td>
+    <td><%=h ojdt.TaxDate %></td>
+    <td><%=h ojdt.PCAddition %></td>
+    <td><%=h ojdt.FinncPriod %></td>
+    <td><%=h ojdt.DataSource %></td>
+    <td><%=h ojdt.UpdateDate %></td>
+    <td><%=h ojdt.CreateDate %></td>
+    <td><%=h ojdt.UserSign %></td>
+    <td><%=h ojdt.UserSign2 %></td>
+    <td><%=h ojdt.RefndRprt %></td>
+    <td><%=h ojdt.LogInstanc %></td>
+    <td><%=h ojdt.ObjType %></td>
+    <td><%=h ojdt.Indicator %></td>
+    <td><%=h ojdt.AdjTran %></td>
+    <td><%=h ojdt.RevSource %></td>
+    <td><%=h ojdt.StornoDate %></td>
+    <td><%=h ojdt.StornoToTr %></td>
+    <td><%=h ojdt.AutoStorno %></td>
+    <td><%=h ojdt.Corisptivi %></td>
+    <td><%=h ojdt.VatDate %></td>
+    <td><%=h ojdt.StampTax %></td>
+    <td><%=h ojdt.Series %></td>
+    <td><%=h ojdt.Number %></td>
+    <td><%=h ojdt.AutoVAT %></td>
+    <td><%=h ojdt.DocSeries %></td>
+    <td><%=h ojdt.FolioPref %></td>
+    <td><%=h ojdt.FolioNum %></td>
+    <td><%=h ojdt.CreateTime %></td>
+    <td><%=h ojdt.BlockDunn %></td>
+    <td><%=h ojdt.ReportEU %></td>
+    <td><%=h ojdt.Report347 %></td>
+    <td><%=h ojdt.Printed %></td>
+    <td><%=h ojdt.DocType %></td>
+    <td><%=h ojdt.AttNum %></td>
+    <td><%=h ojdt.GenRegNo %></td>
+    <td><%=h ojdt.RG23APart2 %></td>
+    <td><%=h ojdt.RG23CPart2 %></td>
+    <td><%=h ojdt.MatType %></td>
+    <td><%=h ojdt.Creator %></td>
+    <td><%=h ojdt.Approver %></td>
+    <td><%=h ojdt.Location %></td>
+    <td><%=h ojdt.SeqCode %></td>
+    <td><%=h ojdt.Serial %></td>
+    <td><%=h ojdt.SeriesStr %></td>
+    <td><%=h ojdt.SubStr %></td>
+    <td><%=h ojdt.AutoWT %></td>
+    <td><%=h ojdt.WTSum %></td>
+    <td><%=h ojdt.WTSumSC %></td>
+    <td><%=h ojdt.WTSumFC %></td>
+    <td><%=h ojdt.WTApplied %></td>
+    <td><%=h ojdt.WTAppliedS %></td>
+    <td><%=h ojdt.WTAppliedF %></td>
+    <td><%=h ojdt.BaseAmnt %></td>
+    <td><%=h ojdt.BaseAmntSC %></td>
+    <td><%=h ojdt.BaseAmntFC %></td>
+    <td><%=h ojdt.BaseVtAt %></td>
+    <td><%=h ojdt.BaseVtAtSC %></td>
+    <td><%=h ojdt.BaseVtAtFC %></td>
+    <td><%=h ojdt.VersionNum %></td>
+    <td><%=h ojdt.BaseTrans %></td>
+    <td><%=h ojdt.ResidenNum %></td>
+    <td><%=h ojdt.OperatCode %></td>
+    <td><%=h ojdt.Ref3 %></td>
+    <td><%=h ojdt.SSIExmpt %></td>
+    <td><%=h ojdt.SignMsg %></td>
+    <td><%=h ojdt.SignDigest %></td>
+    <td><%=h ojdt.CertifNum %></td>
+    <td><%=h ojdt.KeyVersion %></td>
+    <td><%=h ojdt.CUP %></td>
+    <td><%=h ojdt.CIG %></td>
+    <td><%=h ojdt.SupplCode %></td>
+    <td><%=h ojdt.SPSrcType %></td>
+    <td><%=h ojdt.SPSrcID %></td>
+    <td><%=h ojdt.SPSrcDLN %></td>
+    <td><%=h ojdt.DeferedTax %></td>
+    <td><%=h ojdt.AgrNo %></td>
+    <td><%=h ojdt.SeqNum %></td>
+    <td><%= link_to 'Show', ojdt %></td>
+    <td><%= link_to 'Edit', edit_ojdt_path(ojdt) %></td>
+    <td><%= link_to 'Destroy', ojdt, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ojdt', new_ojdt_path %>
