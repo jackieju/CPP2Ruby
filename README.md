@@ -1,4 +1,4 @@
-# SimpleC2Ruby
+# CPP2Ruby
 Translator from c/c++ to ruby
 
 
@@ -13,30 +13,32 @@ You absolutely need do some manual work. This tool's goal is helping you do the 
 
 3. You can extend this compile by define more macros to translate platform dependant api to ruby api.
 
-Directory of this projects:
-1. All source of compiler is under root.
-2. ./output: The ruby code generated from POJDT.c
-3. ./jdt: The testing rails project for generated ruby code
+Directory of this projects:<br>
+1. All source of compiler is under root.<br> 
+2. ./output: The ruby code generated from POJDT.c<br>
+3. ./jdt: The testing rails project for generated ruby code<br>
 
-How to translate your cpp to ruby:
-1. Download the project from https://github.com/jackieju/CPP2Ruby.git
-# you need install ruby version >= 1.9
+How to translate your cpp to ruby:<br>
+1. Download the project from https://github.com/jackieju/CPP2Ruby.git<br>
+		You need install ruby version >= 1.9<br>
 
-1. Run translate.rb to do job
-$ ruby translate.rb -d output POJDT.c POJDT1.c
-You don't need involve all files included by POJDT.c (which will leads to a hell), you just
-need to copy those file you really want them logic.
+1. Run translate.rb to do job<br>
+$ ruby translate.rb -d output POJDT.c POJDT1.c<br>
+You don't need involve all files included by POJDT.c (which will leads to a hell), you just need to copy those file you really want them logic.
 So here I only want copy 3 file POJDT.c POJDT1.c and POJDT.h, and just declare those macros and class name that you don't want involve.
 
 2. Declare macros and class dependency
 Before translation, you need 
 1) Define some macro in c_macros.c
 e.g.
+<pre>
 	#define TRUE true
 	#define FALSE false
 	#define NULL nil
 	#define _LOGMSG(a,b,c)
+</pre>
 2) Define all classes name referenced in your c/cpp file in c_classdefs.rb
+<pre>
 $ar_classdefs = [
     "std",
     "SJournalKeys",
@@ -44,15 +46,17 @@ $ar_classdefs = [
     "PDAG",
 ...
     ]
+</pre>
 	When you encounter error while translating, please check the line and the perpetrator class and macro in above 2 steps.
 e.g. The error message is:
+<pre>
 41257|]...... SBOErr RecordHist (CBusinessObject& bizObject, PDAG dag);......
 41257|]......~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~......
 41257|]stack:(cr_parser.rb:327:in `GenError'
 cr_parser.rb:250:in `Expect'
 cp.rb:3695:in `FunctionCall'
 cp.rb:1693:in `VarList'
-
+</pre>
 Then you need add "CBusinessObject" and "PDAG" into the array of file c_classdefs.rb
 	
 	
@@ -61,7 +65,7 @@ If you'v done translation successfully, you will see all ruby files under direct
 3. You can define more macros in c_macros.c to extend this tranlate. 
 This is very useful to translate platform dependant api to ruby api.
 e.g. You want to translate strlen(s) to ruby code s.size()
-#define strlen(s) s.size
+		#define strlen(s) s.size
 
 Easy ? :)
 
