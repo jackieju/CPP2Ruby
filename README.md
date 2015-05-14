@@ -62,7 +62,7 @@ cr_parser.rb:250:in `Expect'
 cp.rb:3695:in `FunctionCall'
 cp.rb:1693:in `VarList'
 </pre>
-Then you need add "CBusinessObject" and "PDAG" into the array of file c_classdefs.rb
+Then you need add "CBusinessObject" and "PDAG" into the array in file c_classdefs.rb
 	
 	
 If you'v done translation successfully, you will see all ruby files under directory "output"
