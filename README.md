@@ -52,7 +52,7 @@ $ar_classdefs = [
 ...
     ]
 </pre>
-	When you encounter error while translating, please check the line and the perpetrator class and macro in above 2 steps.  
+When you encounter error while translating, please check the line and the perpetrator class and macro in above 2 steps.  
 e.g. The error message is:
 <pre>
 41257|]...... SBOErr RecordHist (CBusinessObject& bizObject, PDAG dag);......
