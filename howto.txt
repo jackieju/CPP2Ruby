@@ -1,5 +1,5 @@
 1. First Step, translate cpp to ruby (30min)
-# download the translation tools from https://github.com/jackieju/CPP2Ruby.git
+# download the translation tools from https://github.com/jackieju/CPP2Ruby
 # you need install ruby version >= 1.9
 $ ruby translate.rb -d output POJDT.c POJDT1.c
 You don't need involve all files included by POJDT.c (which will leads to a hell), you just
@@ -127,7 +127,7 @@ $ rake db:migrate
 ==  CreateJdt1s: migrated (0.0195s) ===========================================
 
 # create control to process request
-$ script/generate control jdt
+$ script/generate controller jdt
 # open app/controller/jdt_controller.rb with your text editor
 # add your code
 e.g.

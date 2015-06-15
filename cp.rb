@@ -2507,11 +2507,11 @@ HERE
         p "for,#{exp1},#{stmt},#{exp2},#{exp3}"
 	    ret =<<HERE
 #{exp1}
-begin
+while (#{exp2}) do
     #{stmt}
     
     #{exp3}
-end while (#{exp2})
+end 
 HERE
         # ret = ret.gsub(/next|continue/m, exp2)
 	    out_scope()
