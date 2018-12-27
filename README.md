@@ -14,10 +14,12 @@ You absolutely need do some manual work. This tool's goal is helping you do the 
 
 3 . You can extend this compile by define more macros to translate platform dependant api to ruby api.
 
-Directory of this projects:<br>
-1. All source of compiler is under root.<br> 
-2. ./output: The ruby code generated from POJDT.c<br>
-3. ./jdt: The testing rails project for generated ruby code<br>
+4 . Directory of this projects:<br>
+ 1) All source of compiler is under root.<br> 
+ 2) ./output: The ruby code generated from POJDT.c<br>
+ 3) ./jdt: The testing rails project for generated ruby code<br>
+
+5 . License is GPL
 
 How to translate your cpp to ruby:
 ===
