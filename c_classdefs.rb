@@ -1,4 +1,5 @@
 $ar_classdefs = [
+    "T", # for cpp template
     "std",
     "SJournalKeys",
     "CBusinessObject",

@@ -1,9 +1,8 @@
-class CTransactionJournalObject < BObject
-    @@model_name = "Ojdt"
+class CTransactionJournalObject < CSystemBusinessObject
    def ValidateRelations(arrOffset,rec,field,object,showError)
       trace("ValidateRelations")
       dag=GetDAG(JDT,arrOffset)
-      bizEnv=context
+      bizEnv=GetEnv()
       isVat=false
       tmpStr=""
       condNum=1
@@ -76,7 +75,7 @@ class CTransactionJournalObject < BObject
          if count<=0
             if showError
                SetErrorField(field)
-               context.GetTableDescription(tableStruct[0].tableCode,tableDesc)
+               GetEnv().GetTableDescription(tableStruct[0].tableCode,tableDesc)
                cMessagesManager.getHandle().Message(_1_APP_MSG_FIN_ITM_RELATED_ERR_FORMAT,EMPTY_STR,self,condStruct[0].condVal.GetBuffer(),tableDesc.GetBuffer())
             end
 
@@ -97,7 +96,7 @@ class CTransactionJournalObject < BObject
       forceBalance = true
 
       prevCurr = ""
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT=GetDAG()
       dagJDT1=GetDAG(JDT,ao_Arr1)
       multiFrgCurr=false
@@ -119,14 +118,14 @@ class CTransactionJournalObject < BObject
       debit.SetToZero()
       dagJDT.GetColStr(refDate,OJDT_REF_DATE,0)
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.GetColMoney(tmpMoney,JDT1_FC_CREDIT,rec,DBM_NOT_ARRAY)
          MONEY_Add(credFTotal,tmpMoney)
          dagJDT1.GetColMoney(tmpMoney,JDT1_FC_DEBIT,rec,DBM_NOT_ARRAY)
          MONEY_Add(debFTotal,tmpMoney)
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       if !GNCoinCmp(mainCurr,systCurr)
          notTranslateToSys=true
@@ -141,7 +140,7 @@ class CTransactionJournalObject < BObject
             else
                vatFound=false
                rec=0
-               begin
+               while (rec<numOfRecs) do
                   dagJDT1.GetColStr(tmpStr,bizEnv.IsVatPerLine() ? JDT1_VAT_GROUP : JDT1_TAX_CODE,rec)
                   if !_STR_IsSpacesStr(tmpStr)
                      vatFound=true
@@ -150,7 +149,7 @@ class CTransactionJournalObject < BObject
 
 
                   (rec+=1;rec-2)
-               end while (rec<numOfRecs)
+               end
 
                if !vatFound
                   getOnlyFromLocal=true
@@ -169,7 +168,7 @@ class CTransactionJournalObject < BObject
       debFTotal.SetToZero()
       if !getOnlyFromLocal
          rec=0
-         begin
+         while (rec<numOfRecs) do
             dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
             _STR_LRTrim(lineCurr)
             if lineCurr[0]&&prevCurr[0]&&GNCoinCmp(prevCurr,lineCurr)
@@ -183,13 +182,13 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
       end
 
       if !getOnlyFromLocal
          rec=0
-         begin
+         while (rec<numOfRecs) do
             dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
             _STR_LRTrim(lineCurr)
             if lineCurr[0]
@@ -207,13 +206,13 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
       end
 
       if GetDataSource()==VAL_OBSERVER_SOURCE
          rec=0
-         begin
+         while (rec<numOfRecs) do
             if !dagJDT1.IsNullCol(JDT1_SYS_CREDIT,rec)||!dagJDT1.IsNullCol(JDT1_SYS_DEBIT,rec)
                if bizEnv.IsBlockSystemCurrency()
                   SetErrorLine(rec+1)
@@ -228,20 +227,20 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
       end
 
       if forceBalance
          rec=0
-         begin
+         while (rec<numOfRecs) do
             dagJDT1.GetColMoney(tmpMoney,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
             MONEY_Add(credit,tmpMoney)
             dagJDT1.GetColMoney(tmpMoney,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
             MONEY_Add(debit,tmpMoney)
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
          if MONEY_Cmp(credit,debit)
             forceBalance=false
@@ -250,7 +249,7 @@ class CTransactionJournalObject < BObject
       end
 
       rec=0
-      begin
+      while (rec<numOfRecs) do
          sideOfDebit=true
          _STR_strcpy(currStr,mainCurr)
          tmpMoney.SetToZero()
@@ -304,7 +303,7 @@ class CTransactionJournalObject < BObject
          if (!GNCoinCmp(lineCurr,systCurr)&&!getOnlyFromLocal)||notTranslateToSys
             systMoney=tmpMoney
          else
-            ooErr=GNTranslateToSysAmmount(tmpMoney,currStr,refDate,systMoney,context)
+            ooErr=GNTranslateToSysAmmount(tmpMoney,currStr,refDate,systMoney,GetEnv())
             if ooErr||systMoney.IsZero()
                if IsExCommand(ooExAutoMode)
                   if ooErr==ooUndefinedCurrency
@@ -344,7 +343,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       if !forceBalance
          return ooNoErr
@@ -401,7 +400,7 @@ class CTransactionJournalObject < BObject
       dateStr=""
       needFC=false
       bpFC = false
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT=GetDAG()
       ooErr=dagJDT.GetColLong(transCode,OJDT_TRANS_TYPE,0)
       if ooErr
@@ -417,7 +416,7 @@ class CTransactionJournalObject < BObject
       _STR_LTrim(mainCurr)
       DAG_GetCount(dagJDT1,numOfRecs)
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.GetColStr(tLineCurr,JDT1_FC_CURRENCY,rec)
          tLineCurr.Trim()
          bpFC=false
@@ -472,14 +471,14 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1)
-      end while (rec<numOfRecs)
+      end
 
       if !GNCoinCmp(lineCurr,mainCurr)||!lineCurr.GetLength()
          return ooErr
       end
 
       rec=0
-      begin
+      while (rec<numOfRecs) do
          if dagJDT1.IsNullCol(JDT1_FC_CURRENCY,rec)
             if currencies.Lookup(rec,gCurr)
                if dagJDT1.IsNullCol(JDT1_FC_CREDIT,rec)&&dagJDT1.IsNullCol(JDT1_FC_DEBIT,rec)
@@ -575,14 +574,14 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       return ooErr
    end
 
    def IsCurValid(crnCode,dagCRN)
       trace("IsCurValid")
-      bizEnv=context
+      bizEnv=GetEnv()
       ooErr=GNCheckCurrencyCode(bizEnv,crnCode,exist)
       _STR_LRTrim(crnCode)
       if ooErr
@@ -659,16 +658,60 @@ class CTransactionJournalObject < BObject
       return 0
    end
 
+   def initialize(id,env)
+      super(id,env)
+      @m_digitalSignature = env
+      trace("CSystemBusinessObject")
+      @m_isVatJournalEntry=false
+      @m_taxAdaptor=nil
+      @m_stornoExtraInfoCreator=nil
+      @m_reconcileBPLines=true
+      @m_pSequenceParameter=nil
+      @m_isInCancellingAcctRecon=false
+      @m_isPostingPreviewMode=false
+      @m_isPostingTemplate=false
+   end
+
+   def uninitialize()
+      trace("~CTransactionJournalObject")
+      if @m_taxAdaptor
+         (@m_taxAdaptor).__delete
+      end
+
+      if @m_pSequenceParameter
+         m_pSequenceParameter=nil
+      end
+
+      @m_reconAcctSet.clear()
+   end
+
    def self.CreateObject(id,env)
       trace("CreateObject")
       return CTransactionJournalObject.new(id,env)
+   end
+
+   def CopyNoType(other)
+      trace("CopyNoType")
+      cSystemBusinessObject.copyNoType(other)
+      if other.GetID()==JDT
+         bizObject=other
+         @m_jrnlKeys=bizObject.GetJournalKeys()
+         @m_stornoExtraInfoCreator=other.m_stornoExtraInfoCreator
+         @m_isPostingPreviewMode=bizObject.m_isPostingPreviewMode
+      end
+
+   end
+
+   def IsPeriodIndicCondNeeded()
+      trace("IsPeriodIndicCondNeeded")
+      return GetEnv().IsLocalSettingsFlag(lsf_IsDocNumMethod)
    end
 
    def RecordHist(bizObject,dag)
       trace("RecordHist")
       num=0
 
-      bizEnv=bizObject.context
+      bizEnv=bizObject.GetEnv()
       dagOBJ=bizObject.GetDAG()
       bizObjId=bizObject.GetID().strtol()
       sboErr=IsValidUserPermissions()
@@ -693,7 +736,7 @@ class CTransactionJournalObject < BObject
       if VF_MultipleRegistrationNumber(bizEnv)
          dag.GetColLong(seqCode,OJDT_SEQ_CODE)
          if seqCode==0||seqCode==-1
-            seqManager=context.GetSequenceManager()
+            seqManager=GetEnv().GetSequenceManager()
             sboErr=seqManager.LoadDfltSeq(self)
             if !sboErr
                sboErr=seqManager.FillDAGBySeq(self)
@@ -711,7 +754,7 @@ class CTransactionJournalObject < BObject
 
       end
 
-      if VF_SupplCode(context)
+      if VF_SupplCode(GetEnv())
          pManager=bizEnv.GetSupplCodeManager()
          dag.GetColStr(strNum,OJDT_SUPPL_CODE)
          if strNum.IsNull()||strNum.IsEmpty()
@@ -798,6 +841,36 @@ class CTransactionJournalObject < BObject
       return sboErr
    end
 
+   def YouHaveBeenReconciled(yourMatchData)
+      ooErr=ooNoErr
+      if VF_JEWHT(GetEnv())
+         ooErr=UpdateWTOnRecon(yourMatchData)
+      end
+
+      return ooErr
+   end
+
+   def YouHaveBeenUnReconciled(yourMatchData)
+      ooErr=ooNoErr
+      if VF_JEWHT(GetEnv())
+         ooErr=UpdateWTOnCancelRecon(yourMatchData)
+      end
+
+      return ooErr
+   end
+
+   def IsDeferredAble()
+      return false
+   end
+
+   def IsSmallDifferenceAble()
+      return false
+   end
+
+   def IsWithHoldingAble()
+      return VF_JEWHT(GetEnv())
+   end
+
    def GetWithHoldingTax(onlyPaymentCateg,row)
       dagJDT2=GetArrayDAG(ao_Arr2)
       dagJDT1=GetArrayDAG(ao_Arr1)
@@ -806,6 +879,64 @@ class CTransactionJournalObject < BObject
       docTotal=deb-cred
       docTotal.Abs()
       return cDocumentObject.getWTTaxSet(dagJDT2,docTotal,onlyPaymentCateg,row)
+   end
+
+   def LoadObjInfoFromDags(objInfo,dagObj,dagWTaxs,dagObjRows)
+      sboErr=0
+      deb.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_DEBIT,JDT1_FC_DEBIT,JDT1_SYS_DEBIT)
+      cred.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_CREDIT,JDT1_FC_CREDIT,JDT1_SYS_CREDIT)
+      objInfo.m_DocTotal=deb-cred
+      objInfo.m_DocTotal.Abs()
+      tmpWTTaxSet=cDocumentObject.getWTTaxSet(dagWTaxs,objInfo.m_DocTotal,true)
+      objInfo.SetDocWTaxArray(tmpWTTaxSet)
+      deb.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_BALANCE_DUE_DEBIT,JDT1_BALANCE_DUE_FC_DEB,JDT1_BALANCE_DUE_SC_DEB)
+      cred.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_BALANCE_DUE_CREDIT,JDT1_BALANCE_DUE_FC_CRED,JDT1_BALANCE_DUE_SC_CRED)
+      deb-=cred
+      objInfo.m_DocApplied=objInfo.m_DocTotal-deb.AbsVal()
+      dagObj.GetColStr(objInfo.m_DocCurrency,OJDT_TRANS_CURR)
+      if objInfo.m_DocCurrency.IsEmpty()
+         objInfo.m_DocCurrency=objInfo.m_bizEnv.GetMainCurrency()
+      end
+
+      return sboErr
+   end
+
+   def GetWTaxReconDags(dagOBJ,dagObjWTax,dagObjRows)
+      dagOBJ=GetDAG()
+      dagObjWTax=GetArrayDAG(ao_Arr2)
+      dagObjRows=GetArrayDAG(ao_Arr1)
+      return 0
+   end
+
+   def CreateDocInfoQry(docInfoQry)
+      bizEnv=GetEnv()
+      objType=GetID().strtol()
+      tableObj=docInfoQry.From(bizEnv.ObjectToTable(objType,ao_Main))
+      tableObjRow=docInfoQry.Join(bizEnv.ObjectToTable(objType,ao_Arr1),tableObj)
+      docInfoQry.On(tableObjRow).Col(tableObj,OJDT_JDT_NUM).EQ().Col(tableObjRow,JDT1_TRANS_ABS)
+      tableObjWtax=docInfoQry.Join(bizEnv.ObjectToTable(objType,ao_Arr2),tableObj)
+      docInfoQry.On(tableObjWtax).Col(tableObj,OJDT_JDT_NUM).EQ().Col(tableObjWtax,JDT2_ABS_ENTRY).And().Col(tableObjWtax,JDT2_CATEGORY).EQ().Val(VAL_CATEGORY_PAYMENT)
+      docInfoQry.Select().Col(tableObjRow,JDT1_TRANS_ABS)
+      docInfoQry.Select().Col(tableObjRow,JDT1_LINE_ID)
+      docInfoQry.Select().Max().Col(tableObj,OJDT_TRANS_CURR).As(OJDT_TRANS_CURR_ALIAS)
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_CREDIT).Sub().Max().Col(tableObjRow,JDT1_DEBIT).As("Credit")
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_FC_CREDIT).Sub().Max().Col(tableObjRow,JDT1_FC_DEBIT).As("FCCredit")
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_SYS_CREDIT).Sub().Max().Col(tableObjRow,JDT1_SYS_DEBIT).As("SYSCred")
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_CREDIT).Sub().Max().Col(tableObjRow,JDT1_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_CREDIT).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_DEBIT).As("BalDueCred")
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_FC_CREDIT).Sub().Max().Col(tableObjRow,JDT1_FC_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_FC_CRED).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_FC_DEB).As("BalFcCred")
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_SYS_CREDIT).Sub().Max().Col(tableObjRow,JDT1_SYS_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_SC_CRED).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_SC_DEB).As("BalScCred")
+      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_AMOUNT).As(JDT2_WT_AMOUNT_ALIAS)
+      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_AMOUNT_FC).As(JDT2_WT_AMOUNT_FC_ALIAS)
+      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_AMOUNT_SC).As(JDT2_WT_AMOUNT_SC_ALIAS)
+      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_APPLIED_AMOUNT).As(JDT2_WT_APPLIED_AMOUNT_ALIAS)
+      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_APPLIED_AMOUNT_FC).As(JDT2_WT_APPLIED_AMOUNT_FC_ALIAS)
+      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_APPLIED_AMOUNT_SC).As(JDT2_WT_APPLIED_AMOUNT_SC_ALIAS)
+      docInfoQry.Select(tableObj,OJDT_LOC_TOTAL).Val(0).As(_T("DummyCol2"))
+      docInfoQry.Select(tableObj,OJDT_FC_TOTAL).Val(0).As(_T("DummyCol3"))
+      docInfoQry.Select(tableObj,OJDT_SYS_TOTAL).Val(0).As(_T("DummyCol4"))
+      docInfoQry.GroupBy(tableObjRow,JDT1_TRANS_ABS)
+      docInfoQry.GroupBy(tableObjRow,JDT1_LINE_ID)
+      return 0
    end
 
    def self.DocBudgetCurrentSum(bizObject,currentMoney,acctCode)
@@ -835,7 +966,7 @@ class CTransactionJournalObject < BObject
       sboErr=DBD_GetInNewFormat(dagObj,dagRES)
       if !sboErr
          rec=0
-         begin
+         while (rec<dagRES.GetRealSize(dbmDataBuffer)) do
             dagRES.GetColMoney(sumRow,0,rec)
             if !docDiscount.IsZero()
                tmpM=sumRow*docDiscount
@@ -845,7 +976,7 @@ class CTransactionJournalObject < BObject
             currentMoney+=sumRow
 
             (rec+=1;rec-2)
-         end while (rec<dagRES.GetRealSize(dbmDataBuffer))
+         end
 
       end
 
@@ -869,7 +1000,7 @@ class CTransactionJournalObject < BObject
       bgtDebitSize=false
       jdtDebitSize=false
       budgetAllYes=false
-      bizEnv=bizObject.context
+      bizEnv=bizObject.GetEnv()
       if isCard
          return ooNoErr
       end
@@ -1036,7 +1167,7 @@ class CTransactionJournalObject < BObject
       fromImport = false
       doTemlates = false
       objType=bizObject.GetID().strtol()
-      bizEnv=bizObject.context
+      bizEnv=bizObject.GetEnv()
       dagWDD=bizObject.GetDAG(WDD)
       numTemplatesApplied=dagWDD.GetRealSize(dbmDataBuffer)
       doTemlates=Boolean((OOIsSaleObjectobjType||OOIsPurchaseObjectobjType)&&bizEnv.IsWorkFlow())
@@ -1131,7 +1262,7 @@ class CTransactionJournalObject < BObject
                      bizObject.SetExCommand(ooDontUpdateBudget,fa_Set)
                   end
 
-                  if bizObject.context.GetPermission(PRM_ID_BUDGET_BLOCK)!=OO_PRM_FULL
+                  if bizObject.GetEnv().GetPermission(PRM_ID_BUDGET_BLOCK)!=OO_PRM_FULL
                      OODisplayError(bizObject,fuNoPermission)
                      return ooErrNoMsg
                   end
@@ -1161,7 +1292,7 @@ class CTransactionJournalObject < BObject
       bgtStr=""
       finYear=""
       bgtDebitSide=false
-      bizEnv=bizObject.context
+      bizEnv=bizObject.GetEnv()
       if bizEnv.IsComputeBudget()==false
          bizObject.SetExCommand(ooDontUpdateBudget,fa_Set)
          return ooNoErr
@@ -1419,7 +1550,7 @@ class CTransactionJournalObject < BObject
       bgtDebitSide=false
       subMoneyOper = false
       acctNum=0
-      bizEnv=bizObject.context
+      bizEnv=bizObject.GetEnv()
       if !dAG.isValid(dagDOC1)
          return -2007
       end
@@ -1467,7 +1598,7 @@ class CTransactionJournalObject < BObject
       dagBGT=bizObject.GetDAG(BGT)
       dagBGT1=bizObject.GetDAG(BGT,ao_Arr1)
       acctNum=0
-      begin
+      while (acctNum<updateBgtPtr.numOfAcct) do
          _STR_LRTrim(updateBgtPtr.acctBgtRecords[acctNum].acctCode)
          if _STR_IsSpacesStr(updateBgtPtr.acctBgtRecords[acctNum].acctCode)
             next
@@ -1565,7 +1696,7 @@ class CTransactionJournalObject < BObject
 
 
          (acctNum+=1;acctNum-2)
-      end while (acctNum<updateBgtPtr.numOfAcct)
+      end
 
       return ooErr
    end
@@ -1651,7 +1782,7 @@ class CTransactionJournalObject < BObject
    def self.OJDTValidateJDTOfLocalCard(bizObject)
       trace("OJDTValidateJDTOfLocalCard")
       isLocalCard=false
-      bizEnv=bizObject.context
+      bizEnv=bizObject.GetEnv()
       _STR_strcpy(localCurr,bizEnv.GetMainCurrency())
       dagJDT1=bizObject.GetDAGNoOpen(SBOString(JDT),ao_Arr1)
       if !dagJDT1
@@ -1667,7 +1798,7 @@ class CTransactionJournalObject < BObject
 
       numOfRecs=dagJDT1.GetRecordCount()
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.GetColStr(actCode,JDT1_ACCT_NUM,rec)
          dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
          if actCode.Compare(shortName)!=0
@@ -1697,7 +1828,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       return ooNoErr
    end
@@ -1713,7 +1844,7 @@ class CTransactionJournalObject < BObject
 
       DAG_GetCount(dagJDT1,records)
       rec=0
-      begin
+      while (rec<records) do
          dagJDT1.GetColMoney(tmpM,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
          ooErr=MONEY_Add(credit,tmpM)
          if ooErr
@@ -1752,7 +1883,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<records)
+      end
 
       if (MONEY_Cmp(credit,debit)!=0)||(MONEY_Cmp(creditS,debitS)!=0)
          return OJDTWriteErrorMessage(bizObject)
@@ -1786,13 +1917,13 @@ class CTransactionJournalObject < BObject
    end
 
    def self.OJDTValidateJDT1Accounts(bizObject)
-      bizEnv=bizObject.context
+      bizEnv=bizObject.GetEnv()
       dagACT=bizObject.GetDAG(ACT,ao_Main)
       dagJDT1=bizObject.GetDAG(JDT,ao_Arr1)
       numOfRecs=dagJDT1.GetRealSize(dbmDataBuffer)
       lock=!(bizObject.IsUpdateNum()||bizObject.IsExCommand3ooEx3DontTouchNextNum)
       jj=0
-      begin
+      while (jj<numOfRecs) do
          dagJDT1.GetColStr(actNum,JDT1_ACCT_NUM,jj)
          if _STR_IsSpacesStr(actNum)
             return ooInvalidAcctCode
@@ -1836,7 +1967,7 @@ class CTransactionJournalObject < BObject
 
 
          (jj+=1;jj-2)
-      end while (jj<numOfRecs)
+      end
 
       return ooNoErr
    end
@@ -1856,7 +1987,7 @@ class CTransactionJournalObject < BObject
 
       actsArraySize=actsArray.GetSize()
       ii=0
-      begin
+      while (ii<actsArraySize) do
          dagJDT1.GetColLong(internalMatch,resDagFields[17],fromOffset+ii)
          dagJDT1.GetColLong(multMatch,resDagFields[18],fromOffset+ii)
          dagJDT1.GetColStr(closed,resDagFields[19],fromOffset+ii)
@@ -1897,7 +2028,7 @@ class CTransactionJournalObject < BObject
 
 
          (ii+=1;ii-2)
-      end while (ii<actsArraySize)
+      end
 
       return 0
    end
@@ -1906,7 +2037,7 @@ class CTransactionJournalObject < BObject
       trace("OJDTFillAccountsFromJDT1RES")
       numOfRecs=dag.GetRecordCount()
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dag.GetColStr(actStruct.actCode,resDagFields[0],rec)
          dag.GetColStr(actStruct.shortName,resDagFields[1],rec)
          dag.GetColLong(actStruct.lineType,resDagFields[2],rec)
@@ -1931,7 +2062,7 @@ class CTransactionJournalObject < BObject
          accountsArrayRes.Add(actStruct.Clone())
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       return ooNoErr
    end
@@ -1950,20 +2081,20 @@ class CTransactionJournalObject < BObject
          case curSource
 
          when 2
-            _STR_strcpy(currency,bizObject.context.GetSystemCurrency())
+            _STR_strcpy(currency,bizObject.GetEnv().GetSystemCurrency())
          when 3
-            _STR_strcpy(currency,bizObject.context.GetMainCurrency())
+            _STR_strcpy(currency,bizObject.GetEnv().GetMainCurrency())
          end
 
          dagJDT.GetColStr(postingDate,OJDT_REF_DATE)
-         TZGetAndWaitUntilRate(currency,postingDate,rate,true,bizObject.context)
+         TZGetAndWaitUntilRate(currency,postingDate,rate,true,bizObject.GetEnv())
       end
 
    end
 
    def self.OJDTGetDocCurrency(bizObject,docCurrency)
       dagJDT=bizObject.GetDAG()
-      bizEnv=bizObject.context
+      bizEnv=bizObject.GetEnv()
       dagJDT.GetColStr(docCurrency,OJDT_TRANS_CURR)
       if _STR_IsSpacesStr(docCurrency)
          _STR_strcpy(docCurrency,bizEnv.GetMainCurrency())
@@ -1973,17 +2104,17 @@ class CTransactionJournalObject < BObject
 
    def self.CostAccountingAssignmentCheck(bizObject)
       sboErr=0
-      bizEnv=bizObject.context
+      bizEnv=bizObject.GetEnv()
       costAccountingRelevantFields=""
       costAccountingFields=""
       dagACT=bizObject.GetDAG(ACT,ao_Main)
       dagJDT1=bizObject.GetDAG(JDT,ao_Arr1)
       numOfRecs=dagJDT1.GetRealSize(dbmDataBuffer)
       i=0
-      begin
+      while (i<1+DIMENSION_MAX) do
          if bizEnv.IsCostAccountingBlocked(i)
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColStr(accountCode,JDT1_ACCT_NUM,rec)
                sboErr=bizEnv.GetByOneKey(dagACT,OACT_KEYNUM_PRIMARY,accountCode,true)
                if sboErr
@@ -2015,13 +2146,13 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
          end
 
 
          (i+=1;i-2)
-      end while (i<1+DIMENSION_MAX)
+      end
 
       return sboErr
    end
@@ -2065,7 +2196,7 @@ class CTransactionJournalObject < BObject
 
    def OJDTIsDueDateRangeValid()
       trace("OJDTIsDueDateRangeValid")
-      env=context
+      env=GetEnv()
       if !VF_PaymentDueDate(env)||!ContainsCardLine()
          return true
       end
@@ -2124,7 +2255,7 @@ class CTransactionJournalObject < BObject
       dagJDT2=GetDAG(JDT,ao_Arr2)
       numOfRecs=dagJDT2.GetRecordCount()
       i=0
-      begin
+      while (currSource[i]) do
          wtAllCurBaseCalcParamsPtr.InitWTBaseCalcParams(currSource[i])
          GetWTBaseAmount(currSource[i],wtAllCurBaseCalcParamsPtr.GetWtBaseCalcParams(currSource[i]))
          if numOfRecs>0
@@ -2139,7 +2270,7 @@ class CTransactionJournalObject < BObject
 
 
          (i+=1;i-2)
-      end while (currSource[i])
+      end
 
       UpdateWTAmounts(wtAllCurBaseCalcParamsPtr)
       dagDOC.Close()
@@ -2184,12 +2315,12 @@ class CTransactionJournalObject < BObject
       jdt1RecSize=dagJDT1.GetRealSize(dbmDataBuffer)
       jdt2RecSize=dagJDT2.GetRealSize(dbmDataBuffer)
       rec=0
-      begin
+      while (rec<jdt2RecSize) do
          dagJDT2.GetColStr(acctCode,INV5_ACCOUNT,rec)
          acctCode.Trim()
          found=false
          row=0
-         begin
+         while (row<jdt1RecSize) do
             dagJDT1.GetColStr(tmpStr,JDT1_WT_Line,row)
             if tmpStr.Trim()!=VAL_YES
                next
@@ -2204,7 +2335,7 @@ class CTransactionJournalObject < BObject
 
 
             (row+=1;row-2)
-         end while (row<jdt1RecSize)
+         end
 
          if found
             ooErr=WtUpdJDT1LineAmt(dagJDT1,row,dagJDT2,rec,isDebit,acctCode,wtSide)
@@ -2215,7 +2346,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<jdt2RecSize)
+      end
 
       return ooErr
    end
@@ -2233,7 +2364,7 @@ class CTransactionJournalObject < BObject
       if autoWT==VAL_YES
          recJDT1=dagJDT1.GetRealSize(dbmDataBuffer)
          rec=0
-         begin
+         while (rec<recJDT1) do
             dagJDT1.GetColStr(acct,JDT1_ACCT_NUM,rec)
             dagJDT1.GetColStr(shortname,JDT1_SHORT_NAME,rec)
             acct.Trim()
@@ -2244,7 +2375,7 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<recJDT1)
+         end
 
       end
 
@@ -2264,7 +2395,7 @@ class CTransactionJournalObject < BObject
       if autoWT==VAL_YES
          recJDT1=dagJDT1.GetRealSize(dbmDataBuffer)
          rec=0
-         begin
+         while (rec<recJDT1) do
             dagJDT1.GetColStr(acct,JDT1_ACCT_NUM,rec)
             dagJDT1.GetColStr(shortname,JDT1_SHORT_NAME,rec)
             dagJDT1.GetColStr(curr,JDT1_FC_CURRENCY,rec)
@@ -2277,7 +2408,7 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<recJDT1)
+         end
 
       end
 
@@ -2286,7 +2417,7 @@ class CTransactionJournalObject < BObject
 
    def SetCurrRateForDOC(dagDOC)
       ooErr=0
-      env=context
+      env=GetEnv()
       dagJDT=GetDAG(JDT)
       if !dAG.isValid(dagDOC)
          return ooErrNoMsg
@@ -2306,7 +2437,7 @@ class CTransactionJournalObject < BObject
 
    def SetSysCurrRateForDOC(dagDOC)
       ooErr=0
-      env=context
+      env=GetEnv()
       dagJDT=GetDAG(JDT)
       if !dAG.isValid(dagDOC)
          return ooErrNoMsg
@@ -2364,7 +2495,7 @@ class CTransactionJournalObject < BObject
       dagJDT1=GetDAG(JDT,ao_Arr1)
       DAG_GetCount(dagJDT1,numOfRecs)
       rec=0
-      begin
+      while (rec<numOfRecs) do
          if dagJDT1.IsNullCol(JDT1_DEBIT_CREDIT,rec)
             dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
             if !debAmount.IsZero()
@@ -2454,7 +2585,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       return ooNoErr
    end
@@ -2465,7 +2596,7 @@ class CTransactionJournalObject < BObject
       fld1List=""
       fldList=""
       msgStr=""
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT=GetDAG()
       dagJDT1=GetDAG(JDT,ao_Arr1)
       dagJDT.GetColStr(keyStr,OJDT_JDT_NUM,0)
@@ -2494,7 +2625,7 @@ class CTransactionJournalObject < BObject
          dagJDT.SetColStr(refDate,OJDT_TAX_DATE,0)
          DAG_GetCount(dagJDT1,count)
          rec=0
-         begin
+         while (rec<count) do
             dagJDT1.SetColStr(refDate,JDT1_REF_DATE,rec)
             dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,rec)
             cOverheadCostRateObject.getValidFrom(bizEnv,ocrCode,refDate.GetString(),validFrom)
@@ -2502,7 +2633,7 @@ class CTransactionJournalObject < BObject
             dagJDT1.SetColStr(refDate,JDT1_TAX_DATE,rec)
 
             (rec+=1;rec-2)
-         end while (rec<count)
+         end
 
       end
 
@@ -2523,7 +2654,7 @@ class CTransactionJournalObject < BObject
          periodID=periodManager.GetPeriodId(bizEnv,keyDate)
          DAG_GetCount(dagJDT1,count)
          ii=0
-         begin
+         while (ii<colsList.GetSize()) do
             case colsList[ii].GetColNum()
 
             when OJDT_REF_DATE
@@ -2536,14 +2667,14 @@ class CTransactionJournalObject < BObject
                end
 
                rec=0
-               begin
+               while (rec<count) do
                   dagJDT1.CopyColumn(dagJDT,JDT1_REF_DATE,rec,OJDT_REF_DATE,0)
                   dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,rec)
                   cOverheadCostRateObject.getValidFrom(bizEnv,ocrCode,refDate.GetString(),validFrom)
                   dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,rec)
 
                   (rec+=1;rec-2)
-               end while (rec<count)
+               end
 
                break
             when OJDT_DUE_DATE
@@ -2556,11 +2687,11 @@ class CTransactionJournalObject < BObject
                end
 
                rec=0
-               begin
+               while (rec<count) do
                   dagJDT1.CopyColumn(dagJDT,JDT1_DUE_DATE,rec,OJDT_DUE_DATE,0)
 
                   (rec+=1;rec-2)
-               end while (rec<count)
+               end
 
                break
             when OJDT_TAX_DATE
@@ -2573,29 +2704,29 @@ class CTransactionJournalObject < BObject
                end
 
                rec=0
-               begin
+               while (rec<count) do
                   dagJDT1.CopyColumn(dagJDT,JDT1_TAX_DATE,rec,OJDT_TAX_DATE,0)
 
                   (rec+=1;rec-2)
-               end while (rec<count)
+               end
 
                break
             when OJDT_REF1
                rec=0
-               begin
+               while (rec<count) do
                   dagJDT1.CopyColumn(dagJDT,JDT1_REF1,rec,OJDT_REF1,0)
 
                   (rec+=1;rec-2)
-               end while (rec<count)
+               end
 
                break
             when OJDT_REF2
                rec=0
-               begin
+               while (rec<count) do
                   dagJDT1.CopyColumn(dagJDT,JDT1_REF2,rec,OJDT_REF2,0)
 
                   (rec+=1;rec-2)
-               end while (rec<count)
+               end
 
                break
             when OJDT_PROJECT
@@ -2605,11 +2736,11 @@ class CTransactionJournalObject < BObject
                end
 
                rec=0
-               begin
+               while (rec<count) do
                   dagJDT1.CopyColumn(dagJDT,JDT1_PROJECT,rec,OJDT_PROJECT,0)
 
                   (rec+=1;rec-2)
-               end while (rec<count)
+               end
 
                break
             when OJDT_INDICATOR
@@ -2619,11 +2750,11 @@ class CTransactionJournalObject < BObject
                end
 
                rec=0
-               begin
+               while (rec<count) do
                   dagJDT1.CopyColumn(dagJDT,JDT1_INDICATOR,rec,OJDT_INDICATOR,0)
 
                   (rec+=1;rec-2)
-               end while (rec<count)
+               end
 
                break
             when OJDT_TRANS_CODE
@@ -2633,11 +2764,11 @@ class CTransactionJournalObject < BObject
                end
 
                rec=0
-               begin
+               while (rec<count) do
                   dagJDT1.CopyColumn(dagJDT,JDT1_TRANS_CODE,rec,OJDT_TRANS_CODE,0)
 
                   (rec+=1;rec-2)
-               end while (rec<count)
+               end
 
                break
             when OJDT_MEMO
@@ -2646,51 +2777,51 @@ class CTransactionJournalObject < BObject
                _STR_LRTrim(tmpStr)
                dagJDT1.SetColStr(tmpStr,OJDT_MEMO,0)
                rec=0
-               begin
+               while (rec<count) do
                   dagJDT1.CopyColumn(dagJDT,JDT1_LINE_MEMO,rec,OJDT_MEMO,0)
 
                   (rec+=1;rec-2)
-               end while (rec<count)
+               end
 
                break
             end
 
 
             (ii+=1;ii-2)
-         end while (ii<colsList.GetSize())
+         end
 
       end
 
       if bizEnv.GetUseNegativeAmount()
          ii=0
-         begin
+         while (fldList[ii]>=0) do
             dagJDT.GetColMoney(money,fldList[ii],0,DBM_NOT_ARRAY)
             MONEY_Multiply(money,-1,money)
             dagJDT.SetColMoney(money,fldList[ii],0,DBM_NOT_ARRAY)
 
             (ii+=1;ii-2)
-         end while (fldList[ii]>=0)
+         end
 
          DAG_GetCount(dagJDT1,count)
          rec=0
-         begin
+         while (rec<count) do
             ii=0
-            begin
+            while (fld1List[ii]>=0) do
                dagJDT1.GetColMoney(money,fld1List[ii],rec,DBM_NOT_ARRAY)
                MONEY_Multiply(money,-1,money)
                dagJDT1.SetColMoney(money,fld1List[ii],rec,DBM_NOT_ARRAY)
 
                (ii+=1;ii-2)
-            end while (fld1List[ii]>=0)
+            end
 
 
             (rec+=1;rec-2)
-         end while (rec<count)
+         end
 
       else
          DAG_GetCount(dagJDT1,count)
          rec=0
-         begin
+         while (rec<count) do
             dagJDT1.GetColMoney(money,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
             if !money.IsZero()
                dagJDT1.SetColMoney(money,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
@@ -2738,35 +2869,35 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<count)
+         end
 
       end
 
       rec=0
-      begin
+      while (rec<count) do
          dagJDT1.SetColLong(0,JDT1_EXTR_MATCH,rec)
 
          (rec+=1;rec-2)
-      end while (rec<count)
+      end
 
       dagJDT.GetColLong(transNum,OJDT_JDT_NUM,0)
       dagJDT.SetColLong(transNum,OJDT_STORNO_TO_TRANS,0)
       dagJDT.GetColStr(tmpStr,OJDT_MEMO,0)
       _STR_LRTrim(tmpStr)
-      _STR_GetStringResource(tmpStr2,JTE_JDT_FORM_NUM,7,context)
+      _STR_GetStringResource(tmpStr2,JTE_JDT_FORM_NUM,7,GetEnv())
       _STR_strcat(tmpStr,tmpStr2)
       _STR_LRTrim(tmpStr)
       _STR_ltoa(transNum,tmpStr2)
       _STR_strcat(tmpStr,_T(" - "))
       _STR_strcat(tmpStr,tmpStr2)
       dagJDT.SetColStr(tmpStr,OJDT_MEMO,0)
-      _STR_GetStringResource(tmpStr2,JTE_JDT_FORM_NUM,7,context)
+      _STR_GetStringResource(tmpStr2,JTE_JDT_FORM_NUM,7,GetEnv())
       _STR_LRTrim(tmpStr2)
       _STR_ltoa(transNum,tmpStr)
       _STR_strcat(tmpStr2,_T(" - "))
       _STR_strcat(tmpStr2,tmpStr)
       rec=0
-      begin
+      while (rec<count) do
          dagJDT1.GetColStr(tmpStr,JDT1_LINE_MEMO,rec)
          _STR_LRTrim(tmpStr)
          _STR_strcat(tmpStr,tmpStr2)
@@ -2775,20 +2906,20 @@ class CTransactionJournalObject < BObject
          dagJDT1.SetColStr(VAL_NO,JDT1_ORDERED,rec)
 
          (rec+=1;rec-2)
-      end while (rec<count)
+      end
 
-      if VF_CostAcctingEnh(context)
+      if VF_CostAcctingEnh(GetEnv())
          mdr = SBOString.new(MDR)
-         mdrObj=context.CreateBusinessObject(mdr)
+         mdrObj=GetEnv().CreateBusinessObject(mdr)
          dim = SBOString.new(DIM)
-         dimObj=context.CreateBusinessObject(dim)
+         dimObj=GetEnv().CreateBusinessObject(dim)
          dimObj.DIMGetAllDimensionsInfo(dimInfo)
          cols=""
          recCount=dagJDT1.GetRecordCount()
          j=0
-         begin
+         while (j<recCount) do
             i=0
-            begin
+            while (i<DIMENSION_MAX) do
                if dimInfo[i].DimActive
                   dagJDT1.GetColStr(mdrCodeSrc,cols[i],j)
                   if mdrObj.RuleIsManual(mdrCodeSrc)
@@ -2800,11 +2931,11 @@ class CTransactionJournalObject < BObject
 
 
                (i+=1;i-2)
-            end while (i<DIMENSION_MAX)
+            end
 
 
             (j+=1;j-2)
-         end while (j<recCount)
+         end
 
          dimObj.Destroy()
          mdrObj.Destroy()
@@ -2882,7 +3013,7 @@ class CTransactionJournalObject < BObject
       trace("ReconcileCertainLines")
       ooErr=0
       numOfConds=0
-      bizEnv=context
+      bizEnv=GetEnv()
       pMM=nil
       shouldAddLine2Match=true
       shouldCancelRecons=true
@@ -2908,12 +3039,12 @@ class CTransactionJournalObject < BObject
       if @m_isInCancellingAcctRecon
          dagRES.SetSize(@m_reconAcctSet.size(),dbmDropData)
          rec=0
-         begin
+         while (itr!=@m_reconAcctSet.end()) do
             dagRES.SetColStr(itr,0,rec)
             (rec+=1;rec-2)
 
             (itr+=1)
-         end while (itr!=@m_reconAcctSet.end())
+         end
 
       else
          if ooErr
@@ -2939,13 +3070,13 @@ class CTransactionJournalObject < BObject
 
       DAG_GetCount(dagRES,numOfBPOrACTs)
       bPOrACT_rec=0
-      begin
+      while (bPOrACT_rec<numOfBPOrACTs) do
          pMM=CSystemMatchManager.new(bizEnv,@m_isInCancellingAcctRecon==false,date.GetString(),JDT,transNum,rt_Reversal)
          dagRES.GetColStr(bPOrACTCode,0,bPOrACT_rec)
          bPOrACTCode.Trim()
          DAG_GetCount(dagJdt1,numOfRecs)
          rec=0
-         begin
+         while (rec<numOfRecs) do
             shouldAddLine2Match=true
             dagJdt1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
             shortName.Trim()
@@ -2962,11 +3093,11 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
          DAG_GetCount(dagDupJdt1,numOfRecs)
          rec=0
-         begin
+         while (rec<numOfRecs) do
             shouldAddLine2Match=true
             shouldCancelRecons=true
             dagDupJdt1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
@@ -3000,7 +3131,7 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
          ooErr=pMM.Reconcile()
          if ooErr
@@ -3010,7 +3141,7 @@ class CTransactionJournalObject < BObject
 
 
          (bPOrACT_rec+=1;bPOrACT_rec-2)
-      end while (bPOrACT_rec<numOfBPOrACTs)
+      end
 
       DAG_Close(dagDupJdt1)
       return ooErr
@@ -3018,7 +3149,7 @@ class CTransactionJournalObject < BObject
 
    def ReconcileDeferredTaxAcctLines()
       sboErr=ooNoErr
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT=GetDAG()
       dagJDT1=GetArrayDAG(ao_Arr1)
       dagJDT.GetColStr(stornoNum,OJDT_STORNO_TO_TRANS)
@@ -3035,7 +3166,7 @@ class CTransactionJournalObject < BObject
 
       deferredMM = CSystemMatchManager.new(bizEnv,false,date.GetString(),JDT,stornoNum,rt_Reversal)
       rec=0
-      begin
+      while (rec<dagJDT1.GetRealSize(dbmDataBuffer)) do
          dagJDT1.GetColLong(tmpL,JDT1_INTERIM_ACCT_TYPE,rec)
          interimType=tmpL
          if interimType==IAT_DeferTaxInterim_Type
@@ -3046,10 +3177,10 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1)
-      end while (rec<dagJDT1.GetRealSize(dbmDataBuffer))
+      end
 
       rec=0
-      begin
+      while (rec<dagStornoJDT1.GetRealSize(dbmDataBuffer)) do
          dagStornoJDT1.GetColLong(tmpL,JDT1_INTERIM_ACCT_TYPE,rec)
          interimType=tmpL
          if interimType==IAT_DeferTaxInterim_Type
@@ -3065,7 +3196,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1)
-      end while (rec<dagStornoJDT1.GetRealSize(dbmDataBuffer))
+      end
 
       sboErr=deferredMM.Reconcile()
       return sboErr
@@ -3078,26 +3209,26 @@ class CTransactionJournalObject < BObject
       yformatStr=""
       tmpStr=""
       monSymbol=""
-      bizEnv=context
+      bizEnv=GetEnv()
       strKey=acctKey
       strKey.Trim()
       _STR_strcpy(accountFormat,strKey.GetBuffer())
       bizEnv.GetAccountSegmentsByCode(accountFormat,accountFormat,true)
       _STR_strcpy(retMsgErr,_T(""))
       if bizEnv.GetBudgetWarningFrequency()==VAL_MONTHLY[0]
-         _STR_GetStringResource(mformatStr,BGT0_FORM_NUM,BGT0_CHECK_MONTH_TOTAL_STR,context)
+         _STR_GetStringResource(mformatStr,BGT0_FORM_NUM,BGT0_CHECK_MONTH_TOTAL_STR,GetEnv())
          MONEY_FromText(tmpMoney,yearmoneyStr,RC_SUM,monSymbol,bizEnv)
          if tmpMoney.IsPositive()
-            _STR_GetStringResource(yformatStr,BGT0_FORM_NUM,BGT0_CHECK_YEAR_TOTAL_STR,context)
+            _STR_GetStringResource(yformatStr,BGT0_FORM_NUM,BGT0_CHECK_YEAR_TOTAL_STR,GetEnv())
          else
             MONEY_Multiply(tmpMoney,-1,tmpMoney)
             MONEY_ToText(tmpMoney,yearmoneyStr,RC_SUM,monSymbol,bizEnv)
-            _STR_GetStringResource(yformatStr,BGT0_FORM_NUM,BGT0_BLNS_YEAR_TOTAL_STR,context)
+            _STR_GetStringResource(yformatStr,BGT0_FORM_NUM,BGT0_BLNS_YEAR_TOTAL_STR,GetEnv())
          end
 
       else
          yearWarning=true
-         _STR_GetStringResource(yformatStr,BGT0_FORM_NUM,BGT0_CHECK_YEAR_TOTAL_STR,context)
+         _STR_GetStringResource(yformatStr,BGT0_FORM_NUM,BGT0_CHECK_YEAR_TOTAL_STR,GetEnv())
       end
 
       if messgNumber==2
@@ -3126,7 +3257,7 @@ class CTransactionJournalObject < BObject
       dagJDT1=GetArrayDAG(ao_Arr1)
       numOfRecs=dagJDT1.GetRecordCount()
       i=0
-      begin
+      while (i<numOfRecs) do
          dagJDT1.GetColStr(ordered,JDT1_ORDERED,i)
          if ordered==VAL_YES
             return true
@@ -3134,7 +3265,7 @@ class CTransactionJournalObject < BObject
 
 
          (i+=1;i-2)
-      end while (i<numOfRecs)
+      end
 
       return false
    end
@@ -3164,11 +3295,11 @@ class CTransactionJournalObject < BObject
       dagJDT1=GetArrayDAG(ao_Arr1)
       numOfRecs=dagJDT1.GetRecordCount()
       ooErr=0
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT1.GetColLong(transID,JDT1_TRANS_ABS,0)
       isScAdjustment=false
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.GetColLong(lineNum,JDT1_LINE_ID,rec)
          dagRes=nil
          ooErr=cManualMatchManager.getReconciliationByTransaction(bizEnv,transID,lineNum,dagRes)
@@ -3186,7 +3317,7 @@ class CTransactionJournalObject < BObject
 
          sizeOfRes=dagRes.GetRecordCount()
          i=0
-         begin
+         while (i<sizeOfRes) do
             dagRes.GetColLong(reconType,REC_RES_RECON_TYPE,i)
             if reconType==rt_ScAdjument
                isScAdjustment=true
@@ -3195,7 +3326,7 @@ class CTransactionJournalObject < BObject
 
 
             (i+=1;i-2)
-         end while (i<sizeOfRes)
+         end
 
          dagRes.Close()
          if isScAdjustment
@@ -3204,7 +3335,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       return ooNoErr
    end
@@ -3212,7 +3343,7 @@ class CTransactionJournalObject < BObject
    def CompleteJdtLine()
       trace("CompleteJdtLine")
       ooErr=0
-      bizEnv=context
+      bizEnv=GetEnv()
       mbEnabled=false
       isAutoCompleteBPLFromUD = false
       dagJDT=GetDAG()
@@ -3221,7 +3352,7 @@ class CTransactionJournalObject < BObject
       mbEnabled=VF_MultiBranch_EnabledInOADM(bizEnv)
       isAutoCompleteBPLFromUD=mbEnabled&&GetDataSource()==VAL_OBSERVER_SOURCE&&cBusinessPlaceObject.isAutoCompleteBPLFromUserDefaults(GetID().strtol())
       rec=0
-      begin
+      while (rec<numOfRecs) do
          if mbEnabled
             if isAutoCompleteBPLFromUD&&!IsColumnChangedByDI(dagJDT1,rec,JDT1_BPL_ID)&&!cBusinessPlaceObject.isValidBPLId(dagJDT1.GetColStr(JDT1_BPL_ID,rec,coreSystemDefault).strtol())
                lTmp=bizEnv.GetUserDefaultBranch()
@@ -3246,11 +3377,11 @@ class CTransactionJournalObject < BObject
             dagJDT1.CopyColumn(dagJDT,JDT1_REF_DATE,rec,OJDT_REF_DATE,0)
             dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,rec)
             dagJDT1.GetColStr(postDate,JDT1_REF_DATE,rec)
-            cOverheadCostRateObject.getValidFrom(context,ocrCode,postDate,validFrom)
+            cOverheadCostRateObject.getValidFrom(GetEnv(),ocrCode,postDate,validFrom)
             dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,rec)
          end
 
-         if VF_EnableVATDate(context)
+         if VF_EnableVATDate(GetEnv())
             if dagJDT1.IsNullCol(JDT1_VAT_DATE,rec)
                dagJDT1.CopyColumn(dagJDT,JDT1_VAT_DATE,rec,OJDT_VAT_DATE,0)
             end
@@ -3272,7 +3403,7 @@ class CTransactionJournalObject < BObject
          if dagJDT1.IsNullCol(JDT1_PROJECT,rec)
             dagJDT.GetColStr(projectCode,OJDT_PROJECT,0)
             if projectCode.IsEmpty()
-               bizEnv=context
+               bizEnv=GetEnv()
                OpenDAG(dagACT,ACT)
                dagJDT1.GetColStr(acctCode,JDT1_ACCT_NUM,rec)
                ooErr=bizEnv.GetByOneKey(dagACT,OACT_KEYNUM_PRIMARY,acctCode)
@@ -3292,7 +3423,7 @@ class CTransactionJournalObject < BObject
          dagJDT1.CopyColumn(dagJDT,JDT1_CREATED_BY,rec,OJDT_CREATED_BY,0)
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       return ooErr
    end
@@ -3301,7 +3432,7 @@ class CTransactionJournalObject < BObject
       trace("CompleteVatLine")
       ooErr=0
       dateStr=""
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT=GetDAG(JDT)
       dagJDT1=GetDAG(JDT,ao_Arr1)
       dagACT=GetDAG(ACT)
@@ -3329,7 +3460,7 @@ class CTransactionJournalObject < BObject
          if tmpStr[0]==VAL_YES[0]
             if GetDataSource()==VAL_OBSERVER_SOURCE
                rec=0
-               begin
+               while (rec<numOfRecs) do
                   dagJDT1.GetColStr(actNum,JDT1_ACCT_NUM,rec)
                   dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
                   if _STR_strcmp(actNum,shortName)==0
@@ -3495,7 +3626,7 @@ class CTransactionJournalObject < BObject
 
 
                   (rec+=1;rec-2)
-               end while (rec<numOfRecs)
+               end
 
             end
 
@@ -3508,14 +3639,14 @@ class CTransactionJournalObject < BObject
             credit.SetToZero()
             DAG_GetCount(dagJDT1,numOfRecs)
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColMoney(money,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
                MONEY_Add(debit,money)
                dagJDT1.GetColMoney(money,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
                MONEY_Add(credit,money)
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             if MONEY_Cmp(debit,credit)
                MONEY_FromLong(0.02*MONEY_PERCISION_MUL,delta)
@@ -3538,7 +3669,7 @@ class CTransactionJournalObject < BObject
 
                   if enforceBalance
                      rec=numOfRecs-1
-                     begin
+                     while (rec>=0) do
                         dagJDT1.GetColStr(vatGroup,bizEnv.IsVatPerLine() ? JDT1_VAT_GROUP : JDT1_TAX_CODE,rec)
                         if _STR_IsSpacesStr(vatGroup)
                            dagJDT1.GetColStr(tmpStr,JDT1_DEBIT_CREDIT,rec)
@@ -3564,7 +3695,7 @@ class CTransactionJournalObject < BObject
 
 
                         (rec-=1;rec+2)
-                     end while (rec>=0)
+                     end
 
                   end
 
@@ -3575,27 +3706,27 @@ class CTransactionJournalObject < BObject
             debit.SetToZero()
             credit.SetToZero()
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColMoney(money,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
                MONEY_Add(debit,money)
                dagJDT1.GetColMoney(money,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
                MONEY_Add(credit,money)
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             if MONEY_Cmp(debit,credit)==0
                debit.SetToZero()
                credit.SetToZero()
                rec=0
-               begin
+               while (rec<numOfRecs) do
                   dagJDT1.GetColMoney(money,JDT1_SYS_DEBIT,rec,DBM_NOT_ARRAY)
                   MONEY_Add(debit,money)
                   dagJDT1.GetColMoney(money,JDT1_SYS_CREDIT,rec,DBM_NOT_ARRAY)
                   MONEY_Add(credit,money)
 
                   (rec+=1;rec-2)
-               end while (rec<numOfRecs)
+               end
 
                if MONEY_Cmp(debit,credit)
                   dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,numOfRecs-1)
@@ -3603,7 +3734,7 @@ class CTransactionJournalObject < BObject
                      found=false
                      MONEY_Sub(debit,credit)
                      rec=numOfRecs-1
-                     begin
+                     while (rec>=0) do
                         dagJDT1.GetColStr(vatGroup,bizEnv.IsVatPerLine() ? JDT1_VAT_GROUP : JDT1_TAX_CODE,rec)
                         if _STR_IsSpacesStr(vatGroup)
                            dagJDT1.GetColStr(tmpStr,JDT1_DEBIT_CREDIT,rec)
@@ -3631,11 +3762,11 @@ class CTransactionJournalObject < BObject
 
 
                         (rec-=1;rec+2)
-                     end while (rec>=0)
+                     end
 
                      if !found
                         rec=numOfRecs-1
-                        begin
+                        while (rec>=0) do
                            dagJDT1.GetColStr(vatGroup,bizEnv.IsVatPerLine() ? JDT1_VAT_GROUP : JDT1_TAX_CODE,rec)
                            dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,rec)
                            if !_STR_IsSpacesStr(vatGroup)&&tmpStr[0]!=VAL_YES[0]
@@ -3664,7 +3795,7 @@ class CTransactionJournalObject < BObject
 
 
                            (rec-=1;rec+2)
-                        end while (rec>=0)
+                        end
 
                      end
 
@@ -3676,7 +3807,7 @@ class CTransactionJournalObject < BObject
 
          else
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColStr(tmpStr,JDT1_VAT_GROUP,rec)
                if !_STR_IsSpacesStr(tmpStr)
                   if dagJDT1.IsNullCol(JDT1_DEBIT_CREDIT,rec)
@@ -3688,7 +3819,7 @@ class CTransactionJournalObject < BObject
                         else
                            debitSide=creditSide=false
                            rec2=0
-                           begin
+                           while (rec2<numOfRecs) do
                               if rec2!=rec
                                  dagJDT1.GetColStr(actNum,JDT1_ACCT_NUM,rec2)
                                  dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec2)
@@ -3712,7 +3843,7 @@ class CTransactionJournalObject < BObject
 
 
                               (rec2+=1;rec2-2)
-                           end while (rec2<numOfRecs)
+                           end
 
                            if debitSide
                               dagJDT1.SetColStr(VAL_DEBIT,JDT1_DEBIT_CREDIT,rec)
@@ -3720,7 +3851,7 @@ class CTransactionJournalObject < BObject
                               if creditSide
                                  dagJDT1.SetColStr(VAL_CREDIT,JDT1_DEBIT_CREDIT,rec)
                               else
-                                 _STR_GetStringResource(formatStr,JTE_JDT_FORM_NUM,23,context)
+                                 _STR_GetStringResource(formatStr,JTE_JDT_FORM_NUM,23,GetEnv())
                                  _STR_sprintf(tmpStr,formatStr,rec+1)
                                  Message(-1,-1,tmpStr,OO_ERROR)
                                  return ooErrNoMsg
@@ -3738,7 +3869,7 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             ooErr=GetTaxAdaptor().ConvertJDTDagToTaxData()
             if ooErr
@@ -3759,7 +3890,7 @@ class CTransactionJournalObject < BObject
       localCurr=""
       currency=""
       dateStr=""
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT=GetDAG(JDT)
       dagJDT1=GetDAG(JDT,ao_Arr1)
       dagACT=GetDAG(ACT)
@@ -3770,7 +3901,7 @@ class CTransactionJournalObject < BObject
          dagJDT.GetColStr(tmpStr,OJDT_AUTO_VAT,0)
          if tmpStr[0]==VAL_YES[0]
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColStr(actNum,JDT1_ACCT_NUM,rec)
                dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
                if _STR_strcmp(actNum,shortName)==0
@@ -3965,11 +4096,11 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             dagJDT.GetColStr(dateStr,OJDT_REF_DATE,0)
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColStr(vatGroup,JDT1_VAT_GROUP,rec)
                if !_STR_IsSpacesStr(vatGroup)
                   dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,rec)
@@ -3977,7 +4108,7 @@ class CTransactionJournalObject < BObject
                      found=false
                      DAG_GetCount(dagJDT1,numOfRecs2)
                      rec2=0
-                     begin
+                     while (rec2<numOfRecs2) do
                         dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,rec2)
                         if tmpStr[0]==VAL_YES[0]
                            dagJDT1.GetColStr(tmpStr,JDT1_VAT_GROUP,rec2)
@@ -3989,7 +4120,7 @@ class CTransactionJournalObject < BObject
 
 
                         (rec2+=1;rec2-2)
-                     end while (rec2<numOfRecs2)
+                     end
 
                      if !found
                         ooErr=DAG_SetSize(dagJDT1,numOfRecs2+1,dbmKeepData)
@@ -4021,11 +4152,11 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             DAG_GetCount(dagJDT1,numOfRecs)
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,rec)
                if tmpStr[0]==VAL_YES[0]
                   baseDebit.SetToZero()
@@ -4042,7 +4173,7 @@ class CTransactionJournalObject < BObject
                   multiCurr=false
                   dagJDT1.GetColStr(vatGroup,JDT1_VAT_GROUP,rec)
                   rec2=0
-                  begin
+                  while (rec2<numOfRecs) do
                      dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,rec2)
                      if tmpStr[0]==VAL_NO[0]
                         dagJDT1.GetColStr(tmpStr,JDT1_VAT_GROUP,rec2)
@@ -4118,7 +4249,7 @@ class CTransactionJournalObject < BObject
 
 
                      (rec2+=1;rec2-2)
-                  end while (rec2<numOfRecs)
+                  end
 
                   MONEY_Round(debit,RC_SUM,localCurr,bizEnv)
                   MONEY_Round(credit,RC_SUM,localCurr,bizEnv)
@@ -4156,7 +4287,7 @@ class CTransactionJournalObject < BObject
                            if currency[0]&&!multiCurr
                               money=debit
                               MONEY_Sub(money,credit)
-                              ooErr=GNLocalToForeignRate(money,currency,dateStr,0.0,frnAmnt,context)
+                              ooErr=GNLocalToForeignRate(money,currency,dateStr,0.0,frnAmnt,GetEnv())
                               if ooErr
                                  return ooErr
                               end
@@ -4182,7 +4313,7 @@ class CTransactionJournalObject < BObject
                            if currency[0]&&!multiCurr
                               money=credit
                               MONEY_Sub(money,debit)
-                              ooErr=GNLocalToForeignRate(money,currency,dateStr,0.0,frnAmnt,context)
+                              ooErr=GNLocalToForeignRate(money,currency,dateStr,0.0,frnAmnt,GetEnv())
                               if ooErr
                                  return ooErr
                               end
@@ -4215,19 +4346,19 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             debit.SetToZero()
             credit.SetToZero()
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColMoney(money,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
                MONEY_Add(debit,money)
                dagJDT1.GetColMoney(money,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
                MONEY_Add(credit,money)
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             if MONEY_Cmp(debit,credit)
                MONEY_FromLong(0.02*MONEY_PERCISION_MUL,delta)
@@ -4250,7 +4381,7 @@ class CTransactionJournalObject < BObject
 
                   if enforceBalance
                      rec=numOfRecs-1
-                     begin
+                     while (rec>=0) do
                         dagJDT1.GetColStr(vatGroup,JDT1_VAT_GROUP,rec)
                         if _STR_IsSpacesStr(vatGroup)
                            dagJDT1.GetColStr(tmpStr,JDT1_DEBIT_CREDIT,rec)
@@ -4276,7 +4407,7 @@ class CTransactionJournalObject < BObject
 
 
                         (rec-=1;rec+2)
-                     end while (rec>=0)
+                     end
 
                   end
 
@@ -4287,34 +4418,34 @@ class CTransactionJournalObject < BObject
             debit.SetToZero()
             credit.SetToZero()
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColMoney(money,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
                MONEY_Add(debit,money)
                dagJDT1.GetColMoney(money,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
                MONEY_Add(credit,money)
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             if MONEY_Cmp(debit,credit)==0
                debit.SetToZero()
                credit.SetToZero()
                rec=0
-               begin
+               while (rec<numOfRecs) do
                   dagJDT1.GetColMoney(money,JDT1_SYS_DEBIT,rec,DBM_NOT_ARRAY)
                   MONEY_Add(debit,money)
                   dagJDT1.GetColMoney(money,JDT1_SYS_CREDIT,rec,DBM_NOT_ARRAY)
                   MONEY_Add(credit,money)
 
                   (rec+=1;rec-2)
-               end while (rec<numOfRecs)
+               end
 
                if MONEY_Cmp(debit,credit)
                   dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,numOfRecs-1)
                   if tmpStr[0]==VAL_YES[0]
                      MONEY_Sub(debit,credit)
                      rec=numOfRecs-1
-                     begin
+                     while (rec>=0) do
                         dagJDT1.GetColStr(vatGroup,JDT1_VAT_GROUP,rec)
                         if _STR_IsSpacesStr(vatGroup)
                            dagJDT1.GetColStr(tmpStr,JDT1_DEBIT_CREDIT,rec)
@@ -4340,7 +4471,7 @@ class CTransactionJournalObject < BObject
 
 
                         (rec-=1;rec+2)
-                     end while (rec>=0)
+                     end
 
                   end
 
@@ -4350,7 +4481,7 @@ class CTransactionJournalObject < BObject
 
          else
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColStr(tmpStr,JDT1_VAT_GROUP,rec)
                if !_STR_IsSpacesStr(tmpStr)
                   if dagJDT1.IsNullCol(JDT1_DEBIT_CREDIT,rec)
@@ -4363,7 +4494,7 @@ class CTransactionJournalObject < BObject
                         else
                            debitSide=creditSide=false
                            rec2=0
-                           begin
+                           while (rec2<numOfRecs) do
                               if rec2!=rec
                                  dagJDT1.GetColStr(actNum,JDT1_ACCT_NUM,rec2)
                                  dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec2)
@@ -4387,7 +4518,7 @@ class CTransactionJournalObject < BObject
 
 
                               (rec2+=1;rec2-2)
-                           end while (rec2<numOfRecs)
+                           end
 
                            if debitSide
                               dagJDT1.SetColStr(VAL_DEBIT,JDT1_DEBIT_CREDIT,rec)
@@ -4395,7 +4526,7 @@ class CTransactionJournalObject < BObject
                               if creditSide
                                  dagJDT1.SetColStr(VAL_CREDIT,JDT1_DEBIT_CREDIT,rec)
                               else
-                                 _STR_GetStringResource(formatStr,JTE_JDT_FORM_NUM,23,context)
+                                 _STR_GetStringResource(formatStr,JTE_JDT_FORM_NUM,23,GetEnv())
                                  _STR_sprintf(tmpStr,formatStr,rec+1)
                                  Message(-1,-1,tmpStr,OO_ERROR)
                                  return ooErrNoMsg
@@ -4413,7 +4544,7 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
          end
 
@@ -4424,7 +4555,7 @@ class CTransactionJournalObject < BObject
 
    def CompleteTrans()
       trace("CompleteTrans")
-      bizEnv=context
+      bizEnv=GetEnv()
       _STR_strcpy(mainCurrency,bizEnv.GetMainCurrency())
       dagJDT=GetDAG(JDT)
       dagJDT1=GetDAG(JDT,ao_Arr1)
@@ -4436,7 +4567,7 @@ class CTransactionJournalObject < BObject
 
       if dagJDT.IsNullCol(OJDT_REF_DATE,0)
          if dagJDT1.IsNullCol(JDT1_DUE_DATE,0)
-            DBM_DATE_Get(curDate,context)
+            DBM_DATE_Get(curDate,GetEnv())
          else
             dagJDT1.GetColStr(curDate,JDT1_DUE_DATE,0)
          end
@@ -4468,7 +4599,7 @@ class CTransactionJournalObject < BObject
       end
 
       rec=0
-      begin
+      while (rec<numOfRecs) do
          if dagJDT1.IsNullCol(JDT1_DUE_DATE,rec)
             dagJDT1.SetColStr(curDate,JDT1_DUE_DATE,rec)
          end
@@ -4515,7 +4646,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       return ooNoErr
    end
@@ -4526,7 +4657,7 @@ class CTransactionJournalObject < BObject
 
       prevCurr = ""
       found=false
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT=GetDAG()
       dagJDT1=GetDAG(JDT,ao_Arr1)
       dagACT=GetDAG(ACT)
@@ -4554,7 +4685,7 @@ class CTransactionJournalObject < BObject
       end
 
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
          _STR_LRTrim(lineCurr)
          if lineCurr[0]&&prevCurr[0]&&GNCoinCmp(prevCurr,lineCurr)
@@ -4567,32 +4698,32 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       debit.SetToZero()
       credit.SetToZero()
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.GetColMoney(money,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
          MONEY_Add(debit,money)
          dagJDT1.GetColMoney(money,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
          MONEY_Add(credit,money)
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       if MONEY_Cmp(debit,credit)==0
          debit.SetToZero()
          credit.SetToZero()
          rec=0
-         begin
+         while (rec<numOfRecs) do
             dagJDT1.GetColMoney(money,JDT1_FC_DEBIT,rec,DBM_NOT_ARRAY)
             MONEY_Add(debit,money)
             dagJDT1.GetColMoney(money,JDT1_FC_CREDIT,rec,DBM_NOT_ARRAY)
             MONEY_Add(credit,money)
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
          if MONEY_Cmp(debit,credit)
             MONEY_Sub(debit,credit)
@@ -4636,7 +4767,7 @@ class CTransactionJournalObject < BObject
 
    def SetContraAccounts(dagJdt1,firstRec,maxRec,contraDebKey,contraCredKey,contraDebLines,contraCredLines)
       trace("SetContraAccounts")
-      env=context
+      env=GetEnv()
       DAG_GetCount(dagJdt1,numOfRecs)
       if maxRec>numOfRecs
          maxRec=numOfRecs
@@ -4663,7 +4794,7 @@ class CTransactionJournalObject < BObject
       end
 
       rec=firstRec
-      begin
+      while (rec<maxRec) do
          dagJdt1.GetColStr(tempStr,JDT1_CONTRA_ACT,rec)
          _STR_LRTrim(tempStr)
          if tempStr[0]
@@ -4688,7 +4819,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<maxRec)
+      end
 
    end
 
@@ -4719,6 +4850,120 @@ class CTransactionJournalObject < BObject
 
    def GetTaxAdaptor()
       return OnGetTaxAdaptor()
+   end
+
+   def OnGetTaxAdaptor()
+      trace("OnGetTaxAdaptor")
+      if !@m_taxAdaptor
+         @m_taxAdaptor=CTaxAdaptorJournalEntry.newself
+      end
+
+      return @m_taxAdaptor
+   end
+
+   def LoadTax()
+      trace("LoadTax")
+      taxAdaptor=OnGetTaxAdaptor()
+      if !taxAdaptor
+         return ooNoErr
+      end
+
+      dagJDT=GetDAG()
+      dagJDT.GetColLong(transId,OJDT_JDT_NUM)
+      ooErr=taxAdaptor.Load(transId)
+      if ooErr==-2028
+         ooErr=ooNoErr
+      end
+
+      return ooErr
+   end
+
+   def CreateTax()
+      trace("CreateTax")
+      taxAdaptor=OnGetTaxAdaptor()
+      if !taxAdaptor
+         return ooNoErr
+      end
+
+      ooErr=ooNoErr
+      if VF_DeferredTaxInJE(GetEnv())
+         ooErr=taxAdaptor.SetJEDeferredTax()
+         if ooErr
+            return ooErr
+         end
+
+      end
+
+      dagJDT=GetDAG()
+      dagJDT.GetColLong(transId,OJDT_JDT_NUM)
+      return taxAdaptor.Create(transId)
+   end
+
+   def BeforeDeleteArchivedObject(arcDelPref)
+      sboErr=0
+      dagDAR=GetDAG(DAR)
+      dagDAR.GetColLong(jEPref.arc_entry,ODAR_ABS_ENTRY)
+      dagDAR.GetColStr(tempStr,ODAR_JE_BY_PROJ)
+      jEPref.byProject=tempStr[0]==VAL_YES[0]
+      dagDAR.GetColStr(tempStr,ODAR_JE_BY_PROF)
+      jEPref.byProfitCenter=tempStr[0]==VAL_YES[0]
+      dagDAR.GetColStr(tempStr,ODAR_JE_BY_DIM2)
+      jEPref.byDimension2=(tempStr==VAL_YES)
+      dagDAR.GetColStr(tempStr,ODAR_JE_BY_DIM3)
+      jEPref.byDimension3=(tempStr==VAL_YES)
+      dagDAR.GetColStr(tempStr,ODAR_JE_BY_DIM4)
+      jEPref.byDimension4=(tempStr==VAL_YES)
+      dagDAR.GetColStr(tempStr,ODAR_JE_BY_DIM5)
+      jEPref.byDimension5=(tempStr==VAL_YES)
+      dagDAR.GetColStr(tempStr,ODAR_JE_BY_CURR)
+      jEPref.byCurrency=tempStr[0]==VAL_YES[0]
+      dagDAR.GetColStr(jEPref.periodLen,ODAR_JE_PERIOD_LEN)
+      dagDAR.GetColStr(jEPref.ref1,ODAR_JE_REF1)
+      dagDAR.GetColStr(jEPref.ref2,ODAR_JE_REF2)
+      dagDAR.GetColStr(jEPref.memo,ODAR_JE_MEMO)
+      dagDAR.GetColStr(jEPref.toDate,ODAR_PERIOD_DATE)
+      begin
+         jEComp = CJECompression.new(GetEnv(),jEPref)
+         sboErr=jEComp.execute()
+         if sboErr
+            return sboErr
+         end
+
+      rescue nsDataArchive::CDataArchiveException=>e
+         return e.GetSBOErr()
+      end
+
+      return sboErr
+   end
+
+   def AfterDeleteArchivedObject(arcDelPref)
+      sboErr=0
+      begin
+         dagACT=nil
+         dagCRD=nil
+         sboErr=GLFillActListDAG(dagACT,GetEnv())
+         if sboErr
+            return sboErr
+         end
+
+         stmt = DBQRetrieveStatement.new(GetEnv())
+         tCRD=stmt.From(GetEnv().ObjectToTable(CRD))
+         stmt.Select().Col(tCRD,OCRD_CARD_CODE)
+         stmt.Select().Col(tCRD,OCRD_CARD_NAME)
+         stmt.Select().Col(tCRD,OCRD_CARD_TYPE)
+         numOfReturnedRecs=stmt.Execute(dagCRD)
+         sboErr=RBARebuildAccountsAndCardsInternal(dagACT,dagCRD,false)
+         DAG_Close(dagCRD)
+         DAG_Close(dagACT)
+         if sboErr
+            return sboErr
+         end
+
+      rescue DBMException=>e
+         return e.GetCode()
+      end
+
+      return sboErr
    end
 
    def SetStornoExtraInfoCreator(stornoExtraInfoCreator)
@@ -4761,7 +5006,7 @@ class CTransactionJournalObject < BObject
       condPtr.SetSubQueryParams(subParams)
       condPtr.tableIndex=DBD_NO_TABLE
       condPtr.relationship=0
-      bizEnv=context
+      bizEnv=GetEnv()
       subTables=(subParams.GetCondTables())
       tablePtr=subTables.AddTable()
       tablePtr.tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
@@ -4819,7 +5064,7 @@ class CTransactionJournalObject < BObject
       dagRES = nil
       numOfConds=0
 
-      bizEnv=context
+      bizEnv=GetEnv()
       isIncoming=(paymentObj==RCT) ? true : false
       ooErr=ARP_GetAccountByType(bizEnv,nil,ARP_TYPE_DOWN_PAYMENT,dpAccount,true,(isIncoming ? VAL_CUSTOMER : VAL_VENDOR))
       dagJDT1=OpenDAG(JDT,ao_Arr1)
@@ -5010,7 +5255,7 @@ class CTransactionJournalObject < BObject
       end
 
       jj=0
-      begin
+      while (jj<2) do
          rec=0
          while (rec<numOfRecs)
             if rec||jj==1
@@ -5019,7 +5264,7 @@ class CTransactionJournalObject < BObject
 
             numOfConds=0
             ii=0
-            begin
+            while (ii<30&&rec<numOfRecs) do
                dagRES.GetColMoney(tmpM,resSumField,rec)
                if tmpM==0
                   dagRES.GetColMoney(tmpM,resSumField==2 ? 3 : 2,rec)
@@ -5065,7 +5310,7 @@ class CTransactionJournalObject < BObject
                condStruct2[numOfConds-1].bracketClose=1
 
                (ii+=1;ii-2);(rec+=1;rec-2)
-            end while (ii<30&&rec<numOfRecs)
+            end
 
             if numOfConds==0
                next
@@ -5087,7 +5332,7 @@ class CTransactionJournalObject < BObject
 
 
          (jj+=1;jj-2)
-      end while (jj<2)
+      end
 
       DAG_Close(dagRES)
       DAG_Close(dagJDT1)
@@ -5101,7 +5346,7 @@ class CTransactionJournalObject < BObject
       dagQuery=GetDAG()
       dpmStageArr=""
       stage=0
-      begin
+      while (dpmStageArr[stage]!=NOB) do
          ooErr=UpgradeDpmLineTypeExecuteQuery(dagQuery,dagRes,object,dpmStageArr[stage]==ooCtrlAct_DPRequestType)
          if ooErr==-2028
             ooErr=0
@@ -5121,7 +5366,7 @@ class CTransactionJournalObject < BObject
 
 
          (stage+=1)
-      end while (dpmStageArr[stage]!=NOB)
+      end
 
       return ooErr
    end
@@ -5129,7 +5374,7 @@ class CTransactionJournalObject < BObject
    def UpgradeDpmLineTypeExecuteQuery(dagQuery,dagRes,object,isFirst)
       trace("UpgradeDpmLineTypeExecuteQuery")
       ooErr=0
-      bizEnv=context
+      bizEnv=GetEnv()
       pmtMainTableNum=0
       pmtJDT1TableNum=0
       pmtArr2TableNum=0
@@ -5324,7 +5569,7 @@ class CTransactionJournalObject < BObject
       condPtr.relationship=0
       dagResSize=dagRes.GetRealSize(dbmDataBuffer)
       rec=0
-      begin
+      while (rec<dagResSize) do
          dagRes.GetColStr(condPtr.condVal,0,rec)
          dagJDT1.SetDBDParms(params)
          ooErr=DBD_UpdateCols(dagJDT1)
@@ -5335,10 +5580,181 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1)
-      end while (rec<dagResSize)
+      end
 
       params.Clear()
       return ooErr
+   end
+
+   def AddRowByParent(pParentDAG,lParentRow,pChildDAG)
+      lDagSize=pChildDAG.GetSize(dbmDataBuffer)
+      sboErr=pChildDAG.SetSize(lDagSize+1,dbmKeepData)
+      if sboErr!=0
+         return sboErr
+      end
+
+      if pChildDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr1)&&nil!=pParentDAG
+         pChildDAG.CopyColumn(pParentDAG,JDT1_TRANS_ABS,lDagSize,OJDT_JDT_NUM,lParentRow)
+         pChildDAG.SetColLong(lDagSize,JDT1_LINE_ID,lDagSize)
+      end
+
+      if pChildDAG.GetTableName()==m_env.ObjectToTable(CFT,ao_Main)&&nil!=pParentDAG
+         pChildDAG.CopyColumn(pParentDAG,OCFT_JDT_ID,lDagSize,JDT1_TRANS_ABS,lParentRow)
+         pChildDAG.CopyColumn(pParentDAG,OCFT_JDT_LINE_ID,lDagSize,JDT1_LINE_ID,lParentRow)
+      end
+
+      return 0
+   end
+
+   def GetFirstRowByParent(pParentDAG,lParentRow,pChildDAG)
+      if pChildDAG.GetTableName()==m_env.ObjectToTable(CFT,ao_Main)&&nil!=pParentDAG
+         lDagSize=pChildDAG.GetSize(dbmDataBuffer)
+         if lDagSize==0
+            return -1
+         end
+
+         pParentDAG.GetColLong(transId,JDT1_TRANS_ABS,lParentRow)
+         pParentDAG.GetColLong(lineId,JDT1_LINE_ID,lParentRow)
+         ii=0
+         while (ii<lDagSize) do
+            pChildDAG.GetColLong(jeAbsID,OCFT_JDT_ID,ii)
+            pChildDAG.GetColLong(jeLineId,OCFT_JDT_LINE_ID,ii)
+            if jeAbsID==transId&&jeLineId==lineId
+               return ii
+            end
+
+
+            (ii+=1;ii-2)
+         end
+
+      end
+
+      if pChildDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr1)
+         lDagSize=pChildDAG.GetSize(dbmDataBuffer)
+         if lDagSize==0
+            return -1
+         end
+
+         pParentDAG.GetColLong(transId,OJDT_JDT_NUM,lParentRow)
+         ii=0
+         while (ii<lDagSize) do
+            pChildDAG.GetColLong(transAbs,JDT1_TRANS_ABS,ii)
+            if transAbs==transId
+               return ii
+            end
+
+
+            (ii+=1;ii-2)
+         end
+
+      else
+         if VF_JEWHT(m_env)&&pChildDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr2)
+            lDagSize=pChildDAG.GetSize(dbmDataBuffer)
+            if lDagSize==0
+               return -1
+            end
+
+            pParentDAG.GetColLong(transId,OJDT_JDT_NUM,lParentRow)
+            ii=0
+            while (ii<lDagSize) do
+               pChildDAG.GetColLong(transAbs,JDT2_ABS_ENTRY,ii)
+               if transAbs==transId
+                  return ii
+               end
+
+
+               (ii+=1;ii-2)
+            end
+
+         else
+            return cSystemBusinessObject.getFirstRowByParent(pParentDAG,lParentRow,pChildDAG)
+         end
+
+      end
+
+      return -1
+   end
+
+   def GetNextRow(pParentDAG,pDAG,lRow,bNext)
+      if pDAG.GetTableName()==m_env.ObjectToTable(CFT,ao_Main)&&nil!=pParentDAG
+         lDagSize=pDAG.GetSize(dbmDataBuffer)
+         if lRow<0||lRow>=lDagSize
+            return -1
+         end
+
+         delta=bNext ? 1 : -1
+         pDAG.GetColLong(transAbs,OCFT_JDT_ID,lRow)
+         pDAG.GetColLong(lineID,OCFT_JDT_LINE_ID,lRow)
+         rec=lRow+delta
+         while (bNext ? rec<lDagSize : rec>=0) do
+            pDAG.GetColLong(tmpAbs,OCFT_JDT_ID,rec)
+            pDAG.GetColLong(tmpLineId,OCFT_JDT_LINE_ID,rec)
+            if tmpAbs==transAbs&&tmpLineId==lineID
+               return rec
+            end
+
+
+            rec+=delta
+         end
+
+      end
+
+      if pDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr1)
+         lDagSize=pDAG.GetSize(dbmDataBuffer)
+         if lRow<0||lRow>=lDagSize
+            return -1
+         end
+
+         delta=bNext ? 1 : -1
+         pDAG.GetColLong(transAbs,JDT1_TRANS_ABS,lRow)
+         rec=lRow+delta
+         while (bNext ? rec<lDagSize : rec>=0) do
+            pDAG.GetColLong(tmpAbs,JDT1_TRANS_ABS,rec)
+            if tmpAbs==transAbs
+               return rec
+            end
+
+
+            rec+=delta
+         end
+
+      else
+         if VF_JEWHT(m_env)&&pDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr2)
+            lDagSize=pDAG.GetSize(dbmDataBuffer)
+            if lRow<0||lRow>=lDagSize
+               return -1
+            end
+
+            delta=bNext ? 1 : -1
+            pDAG.GetColLong(transAbs,JDT2_ABS_ENTRY,lRow)
+            rec=lRow+delta
+            while (bNext ? rec<lDagSize : rec>=0) do
+               pDAG.GetColLong(tmpAbs,JDT2_ABS_ENTRY,rec)
+               if tmpAbs==transAbs
+                  return rec
+               end
+
+
+               rec+=delta
+            end
+
+         else
+            return cSystemBusinessObject.getNextRow(pParentDAG,pDAG,lRow,bNext)
+         end
+
+      end
+
+      return -1
+   end
+
+   def GetLogicRowCount(pParentDAG,lParentRow,pDAG)
+      trace("GetLogicRowCount")
+      if pDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr1)
+         return pDAG.GetRealSize(dbmDataBuffer)
+      else
+         return cBusinessService.getLogicRowCount(pParentDAG,lParentRow,pDAG)
+      end
+
    end
 
    def CancelJournalEntryInObject(objectId,postingDate,taxDate,dueDate)
@@ -5362,7 +5778,7 @@ class CTransactionJournalObject < BObject
          return ooErr
       end
 
-      bizEnv=context
+      bizEnv=GetEnv()
       DBM_DATE_Get(sysDate,bizEnv)
       dateColNum=dagOBJ.GetColumnByType(DATE_FLD)
       if postingDate.IsSpacesStr()
@@ -5430,7 +5846,7 @@ class CTransactionJournalObject < BObject
       dagJDT.SetColStr(sCancelDate,OJDT_STORNO_DATE)
       jdt1RecCount=dagJDT1.GetRecordCount()
       row=0
-      begin
+      while (row<jdt1RecCount) do
          dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,row)
          cOverheadCostRateObject.getValidFrom(bizEnv,ocrCode,sCancelDate,validFrom)
          dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,row)
@@ -5454,7 +5870,7 @@ class CTransactionJournalObject < BObject
 
 
          (row+=1;row-2)
-      end while (row<jdt1RecCount)
+      end
 
       dagOBJ.SetStrByColType(sCancelDate,CANCELLATION_DATE_FLD)
    end
@@ -5581,14 +5997,14 @@ class CTransactionJournalObject < BObject
 
       recCount=dagJDT1.GetRealSize(dbmDataBuffer)
       rec=0
-      begin
+      while (rec<recCount) do
          if IsCardLine(rec)
             return true
          end
 
 
          (rec+=1)
-      end while (rec<recCount)
+      end
 
       return false
    end
@@ -5601,9 +6017,39 @@ class CTransactionJournalObject < BObject
       return m_isPostingPreviewMode
    end
 
+   def GetLinkMapMetaData(el)
+      ooErr=cBusinessObjectBase.getLinkMapMetaData(el)
+      if ooErr
+         return ooErr
+      end
+
+      dagJDT=GetDAG()
+      ooErr=AddLinkMapIconMetaData(el,dagJDT,OJDT_PRINTED,VAL_YES,linkMap::iLMVertex::imdPrinted,LINKMAP_ICONSTR_PRINTED)
+      if ooErr
+         return ooErr
+      end
+
+      ooErr=AddLinkMapStringMetaData(el,dagJDT,OJDT_NUMBER)
+      if ooErr
+         return ooErr
+      end
+
+      ooErr=AddLinkMapStringMetaData(el,dagJDT,OJDT_REF_DATE)
+      if ooErr
+         return ooErr
+      end
+
+      ooErr=AddLinkMapStringMetaData(el,dagJDT,OJDT_MEMO)
+      if ooErr
+         return ooErr
+      end
+
+      return ooNoErr
+   end
+
    def ValidateBPL(bValidateSameBPLIDOnLines)
       ooErr=0
-      env=context
+      env=GetEnv()
       if !VF_MultiBranch_EnabledInOADM(env)
          return 0
       end
@@ -5620,7 +6066,7 @@ class CTransactionJournalObject < BObject
 
       dag1Size=dagJDT1.GetRealSize(dbmDataBuffer)
       dag1Row=0
-      begin
+      while (dag1Row<dag1Size) do
          bPLName=dagJDT1.GetColStrAndTrim(JDT1_BPL_NAME,dag1Row,coreSystemDefault)
          bPLId=dagJDT1.GetColStr(JDT1_BPL_ID,dag1Row,coreSystemDefault).strtol()
          bPLIds.insert(BPLId)
@@ -5658,7 +6104,7 @@ class CTransactionJournalObject < BObject
 
          accountCols=""
          i=0
-         begin
+         while (accountCols[i]!=-1) do
             accountCode=dagJDT1.GetColStr(accountCols[i],dag1Row,coreSystemDefault).Trim()
             if !cBusinessPlaceObject.isBPLIdAssignedToObject(env,BPLId,ACT,accountCode)
                SetArrNum(ao_Arr1)
@@ -5670,7 +6116,7 @@ class CTransactionJournalObject < BObject
 
 
             (i+=1;i-2)
-         end while (accountCols[i]!=-1)
+         end
 
          if bValidateSameBPLIDOnLines&&bPLIds.size()>1
             SetArrNum(ao_Arr1)
@@ -5682,7 +6128,7 @@ class CTransactionJournalObject < BObject
 
 
          (dag1Row+=1;dag1Row-2)
-      end while (dag1Row<dag1Size)
+      end
 
       dagJDT2=GetDAG(JDT,ao_Arr2)
       if !dAG.isValid(dagJDT2)
@@ -5691,7 +6137,7 @@ class CTransactionJournalObject < BObject
 
       dag2Size=dagJDT2.GetRealSize(dbmDataBuffer)
       dag2Row=0
-      begin
+      while (dag2Row<dag2Size) do
          wtaxCode=dagJDT2.GetColStr(JDT2_WT_CODE,dag2Row,coreSystemDefault).Trim()
          dag1Row=-1
          dagJDT1.FindColStr(wtaxCode,JDT1_WTAX_CODE,0,dag1Row)
@@ -5703,7 +6149,7 @@ class CTransactionJournalObject < BObject
          bPLId=dagJDT1.GetColStr(JDT1_BPL_ID,dag1Row,coreSystemDefault).strtol()
          accountCols=""
          i=0
-         begin
+         while (accountCols[i]<0) do
             accountCode=dagJDT2.GetColStr(accountCols[i],dag2Row,coreSystemDefault).Trim()
             if !cBusinessPlaceObject.isBPLIdAssignedToObject(env,BPLId,ACT,accountCode)
                SetArrNum(ao_Arr1)
@@ -5715,11 +6161,11 @@ class CTransactionJournalObject < BObject
 
 
             (i+=1;i-2)
-         end while (accountCols[i]<0)
+         end
 
 
          (dag2Row+=1;dag2Row-2)
-      end while (dag2Row<dag2Size)
+      end
 
       ooErr=IsBalancedByBPL()
       if ooErr
@@ -5731,7 +6177,7 @@ class CTransactionJournalObject < BObject
 
    def self.ValidateBPLEx(bizObject)
       ooErr=0
-      env=bizObject.context
+      env=bizObject.GetEnv()
       boJDT=env.CreateBusinessObject(SBOString(JDT))
       acBo = AutoCleanBOHandler.new(boJDT)
       boJDT.SetDAG(bizObject.GetDAG(JDT,ao_Main),false,JDT,ao_Main)
@@ -5753,5996 +6199,6 @@ class CTransactionJournalObject < BObject
       return m_isPostingTemplate
    end
 
-   def OJDTFillJDT1FromAccounts(accountsArrayFrom,accountsArrayRes,srcObject)
-      trace("OJDTFillJDT1FromAccounts")
-
-      linesAdded = false
-      dagJDT1=GetArrayDAG(ao_Arr1)
-      dagJDT=GetDAG()
-      bizEnv=context
-      if !DAG_IsValid(dagJDT1)
-         return (-2007)
-      end
-
-      numOfAccts=accountsArrayFrom.GetSize()
-      if numOfAccts<=0
-         return ooNoErr
-      end
-
-      ii=0
-      begin
-         if !accountsArrayFrom[ii].allowZeros
-            if accountsArrayFrom[ii].sum==0&&accountsArrayFrom[ii].sysSum==0&&accountsArrayFrom[ii].frgnSum==0
-               next
-
-            end
-
-         end
-
-         linesAdded=true
-         accountsArrayRes.Add((accountsArrayFrom[ii].Clone()))
-         jdtLine=accountsArrayRes.GetSize()-1
-         if jdtLine==0
-            DAG_SetSize(dagJDT1,1,dbmDropData)
-            dagJDT1.SetBackupSize(1,dbmDropData)
-         else
-            DAG_SetSize(dagJDT1,jdtLine+1,dbmKeepData)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].actCode)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].actCode,JDT1_ACCT_NUM,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].shortName)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].shortName,JDT1_SHORT_NAME,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].contraAct)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].contraAct,JDT1_CONTRA_ACT,jdtLine)
-         end
-
-         nDimCount=1
-         if VF_CostAcctingEnh(context)
-            nDimCount=DIMENSION_MAX
-         end
-
-         dagJDT1.GetColStr(postDate,JDT1_REF_DATE,jdtLine)
-         dim=0
-         begin
-            if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].ocrCode[dim])
-               dagJDT1.SetColStr(accountsArrayRes[jdtLine].ocrCode[dim],GetOcrCodeCol(dim),jdtLine)
-               cOverheadCostRateObject.getValidFrom(bizEnv,accountsArrayRes[jdtLine].ocrCode[dim],postDate,validFrom)
-               dagJDT1.SetColStr(validFrom,GetValidFromCol(dim),jdtLine)
-            end
-
-
-            (dim+=1;dim-2)
-         end while (dim<nDimCount)
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].prjCode)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].prjCode,JDT1_PROJECT,jdtLine)
-         end
-
-         if VF_PaymentTraceability(bizEnv)
-            if accountsArrayRes[jdtLine].cig!=0
-               dagJDT1.SetColLong(accountsArrayRes[jdtLine].cig,JDT1_CIG,jdtLine)
-            end
-
-            if accountsArrayRes[jdtLine].cup!=0
-               dagJDT1.SetColLong(accountsArrayRes[jdtLine].cup,JDT1_CUP,jdtLine)
-            end
-
-         end
-
-         isNegative=accountsArrayRes[jdtLine].sum.IsNegative()||accountsArrayRes[jdtLine].sysSum.IsNegative()||accountsArrayRes[jdtLine].frgnSum.IsNegative()
-         useNegativeAmount=bizEnv.GetUseNegativeAmount()
-         dagJDT.GetColLong(transType,OJDT_TRANS_TYPE)
-         if transType==RCT||transType==VPM
-            useNegativeAmount=true
-         end
-
-         if isNegative&&!useNegativeAmount
-            accountsArrayRes[jdtLine].sum*=-1
-            accountsArrayRes[jdtLine].sysSum*=-1
-            accountsArrayRes[jdtLine].frgnSum*=-1
-            if accountsArrayRes[jdtLine].debCred==DEBIT
-               accountsArrayRes[jdtLine].debCred=CREDIT
-            else
-               accountsArrayRes[jdtLine].debCred=DEBIT
-            end
-
-         end
-
-         if accountsArrayRes[jdtLine].debCred==DEBIT
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].sum,JDT1_DEBIT,jdtLine)
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].sysSum,JDT1_SYS_DEBIT,jdtLine)
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].frgnSum,JDT1_FC_DEBIT,jdtLine)
-            if accountsArrayRes[jdtLine].nullifyOppsSumCols
-               dagJDT1.NullifyCol(JDT1_CREDIT,jdtLine)
-               dagJDT1.NullifyCol(JDT1_SYS_CREDIT,jdtLine)
-               dagJDT1.NullifyCol(JDT1_FC_CREDIT,jdtLine)
-            else
-               dagJDT1.SetColMoney(zeroSum,JDT1_CREDIT,jdtLine)
-               dagJDT1.SetColMoney(zeroSum,JDT1_SYS_CREDIT,jdtLine)
-               dagJDT1.SetColMoney(zeroSum,JDT1_FC_CREDIT,jdtLine)
-            end
-
-         else
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].sum,JDT1_CREDIT,jdtLine)
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].sysSum,JDT1_SYS_CREDIT,jdtLine)
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].frgnSum,JDT1_FC_CREDIT,jdtLine)
-            if accountsArrayRes[jdtLine].nullifyOppsSumCols
-               dagJDT1.NullifyCol(JDT1_DEBIT,jdtLine)
-               dagJDT1.NullifyCol(JDT1_SYS_DEBIT,jdtLine)
-               dagJDT1.NullifyCol(JDT1_FC_DEBIT,jdtLine)
-            else
-               dagJDT1.SetColMoney(zeroSum,JDT1_DEBIT,jdtLine)
-               dagJDT1.SetColMoney(zeroSum,JDT1_SYS_DEBIT,jdtLine)
-               dagJDT1.SetColMoney(zeroSum,JDT1_FC_DEBIT,jdtLine)
-            end
-
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].vatGroup)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].vatGroup,JDT1_VAT_GROUP,jdtLine)
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].vatPrcnt,JDT1_VAT_PERCENT,jdtLine)
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].equVatPrcnt,JDT1_EQU_VAT_PERCENT,jdtLine)
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].vatBaseSum,JDT1_BASE_SUM,jdtLine)
-            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].vatBaseSC,JDT1_SYS_BASE_SUM,jdtLine)
-            dagJDT1.SetColStr(VAL_YES,JDT1_VAT_LINE,jdtLine)
-         end
-
-         dagJDT1.SetColLong(accountsArrayRes[jdtLine].lineType,JDT1_LINE_TYPE,jdtLine)
-         if !accountsArrayRes[jdtLine].frgnSum.IsZero()&&!_STR_IsSpacesStr(accountsArrayRes[jdtLine].curCurrency)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].curCurrency,JDT1_FC_CURRENCY,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].dueDate)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].dueDate,JDT1_DUE_DATE,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].taxDate)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].taxDate,JDT1_TAX_DATE,jdtLine)
-         end
-
-         if accountsArrayRes[jdtLine].debCred==DEBIT
-            dagJDT1.SetColStr(VAL_DEBIT,JDT1_DEBIT_CREDIT,jdtLine)
-         else
-            dagJDT1.SetColStr(VAL_CREDIT,JDT1_DEBIT_CREDIT,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].refDate)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].refDate,JDT1_REF_DATE,jdtLine)
-            dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,jdtLine)
-            cOverheadCostRateObject.getValidFrom(bizEnv,ocrCode,accountsArrayRes[jdtLine].refDate.GetString(),validFrom)
-            dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].vatDate)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].vatDate,JDT1_VAT_DATE,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].ref1)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].ref1,JDT1_REF1,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].ref2)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].ref2,JDT1_REF2,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].refLine)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].refLine,JDT1_REF3_LINE,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].indicator)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].indicator,JDT1_INDICATOR,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].paymentRef)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].paymentRef,JDT1_PAYMENT_REF,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].srcAbsId)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].srcAbsId,JDT1_SRC_ABS_ID,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].srcLine)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].srcLine,JDT1_SRC_LINE,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].checkAbs)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].checkAbs,JDT1_CHECK_ABS,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].relType)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].relType,JDT1_REL_TYPE,jdtLine)
-         end
-
-         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].lineMemo)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].lineMemo,JDT1_LINE_MEMO,jdtLine)
-         end
-
-         if VF_TaxPayment(bizEnv)
-            dagJDT1.SetColLong(accountsArrayRes[jdtLine].com_vat,JDT1_CENVAT_COM,jdtLine)
-            dagJDT1.SetColLong(accountsArrayRes[jdtLine].mat_type,JDT1_MATERIAL_TYPE,jdtLine)
-         end
-
-         if VF_MultipleRegistrationNumber(bizEnv)&&accountsArrayRes[jdtLine].location!=0
-            dagJDT1.SetColLong(accountsArrayRes[jdtLine].location,JDT1_LOCATION,jdtLine)
-         end
-
-         if VF_WTaxAccumulateControl(bizEnv)&&!_STR_IsSpacesStr(accountsArrayRes[jdtLine].m_WTCode)
-            dagJDT1.SetColStr(accountsArrayRes[jdtLine].m_WTCode,JDT1_WTAX_CODE,jdtLine)
-         end
-
-         if nil!=srcObject
-            referenceLinksBPtarget=((_STR_strcmp(accountsArrayRes[jdtLine].actCode,accountsArrayRes[jdtLine].shortName)!=0)&&(!_STR_IsSpacesStr(accountsArrayRes[jdtLine].shortName)))
-            ooErr=cRefLinksDef.executeRefLinks(srcObject,self,referenceLinksBPtarget ? RLD_TYPE_BP_LINE_VAL : RLD_TYPE_LINE_VAL,jdtLine)
-            if ooErr
-               return ooErr
-            end
-
-         end
-
-         dprAbsId=accountsArrayRes[jdtLine].dprAbsId
-         if -1!=dprAbsId
-            dagJDT1.SetColLong(dprAbsId,JDT1_DPR_ABS_ID,jdtLine)
-         end
-
-         dagJDT1.SetColLong(accountsArrayRes[jdtLine].interimAcctType,JDT1_INTERIM_ACCT_TYPE,jdtLine)
-         if VF_MultiBranch_EnabledInOADM(bizEnv)&&(cBusinessPlaceObject.isValidBPLId(accountsArrayRes[jdtLine].m_BPLId)||cBusinessPlaceObject.isValidBPLId(GetBPLId()))
-            bPLId=cBusinessPlaceObject.isValidBPLId(accountsArrayRes[jdtLine].m_BPLId) ? accountsArrayRes[jdtLine].m_BPLId : GetBPLId()
-            ooErr=cBusinessPlaceObject.getBPLInfo(bizEnv,BPLId,bplInfo)
-            if ooErr
-               return ooErr
-            end
-
-            dagJDT1.SetColLong(bplInfo.GetBPLId(),JDT1_BPL_ID,jdtLine)
-            dagJDT1.SetColStr(bplInfo.GetBPLName(),JDT1_BPL_NAME,jdtLine)
-            dagJDT1.SetColStr(bplInfo.GetVatRegNum(),JDT1_VAT_REG_NUM,jdtLine)
-         else
-            dagJDT1.NullifyCol(JDT1_BPL_ID,jdtLine)
-            dagJDT1.NullifyCol(JDT1_BPL_NAME,jdtLine)
-            dagJDT1.NullifyCol(JDT1_VAT_REG_NUM,jdtLine)
-         end
-
-
-         (ii+=1)
-      end while (ii<numOfAccts)
-
-      if bizEnv.IsCurrentLocalSettings(FRANCE_SETTINGS)
-         cJournalManager.getDefaultTransCode(self,dagJDT,dagJDT1,glAcct,transCode1,jdtLine)
-         if jdtLine>=0&&!glAcct.IsEmpty()&&!transCode1.IsEmpty()
-            dagJDT.GetColStr(transCode2,OJDT_TRANS_CODE,0)
-            if transCode2.IsEmpty()
-               dagJDT.SetColStr(transCode1,OJDT_TRANS_CODE,0)
-               numOfRecs=dagJDT1.GetRecordCount()
-               rec=0
-               begin
-                  dagJDT1.SetColStr(transCode1,JDT1_TRANS_CODE,rec)
-
-                  (rec+=1;rec-2)
-               end while (rec<=numOfRecs)
-
-            else
-               dagJDT1.SetColStr(transCode2,JDT1_TRANS_CODE,jdtLine)
-            end
-
-         end
-
-      end
-
-      if !linesAdded
-         return -2028
-      end
-
-      return ooNoErr
-   end
-
-   def UpgradeBoeActs()
-      trace("UpgradeBoeActs")
-
-      dagRES = nil
-      dagRES2 = nil
-      dagAnswer = nil
-
-      numOfCardConds = 0
-      numOfActsConds = 0
-      numOfConds = 0
-
-
-      firstErr = false
-
-      columns = ""
-      orders=""
-      bizEnv=context
-      iterationType=""
-      totalNumOfIterations=0
-      numOfIterations = 0
-      numOfTables = 0
-      if !bizEnv.IsLocalSettingsFlag(lsf_EnableBOE)
-         return ooNoErr
-      end
-
-      if UpgradeVersionCheck(VERSION_65_77)
-         ooErr=FixVendorsAndSpainBoeBalance()
-         if ooErr
-            return ooErr
-         end
-
-      end
-
-      if VF_BOEAsInSpain(bizEnv)
-         return ooNoErr
-      end
-
-      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
-      dagJDT1=OpenDAG(JDT,ao_Arr1)
-      if bizEnv.IsCurrentLocalSettings(FRANCE_SETTINGS)||VF_OpenFRBoE(bizEnv)
-         totalNumOfIterations=3
-      else
-         totalNumOfIterations=2
-      end
-
-      ii=0
-      begin
-         if !(bizEnv.IsCurrentLocalSettingsFRANCE_SETTINGS||VF_OpenFRBoEbizEnv)&&iterationType[ii]==1
-            next
-
-         end
-
-         _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
-         numOfTables=1
-         BuildRelatedBoeQuery(tableStruct,numOfConds,iterationType[ii],numOfTables,condStruct,joinCondStructForOtherObj,joinCondStructBoe)
-         _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(CRD,ao_Arr3))
-         tableStruct[numOfTables-1].doJoin=true
-         tableStruct[numOfTables-1].joinedToTable=0
-         tableStruct[numOfTables-1].numOfConds=1
-         tableStruct[numOfTables-1].joinConds=joinCondStruct
-         joinCondStruct[0].compareCols=true
-         joinCondStruct[0].compTableIndex=0
-         joinCondStruct[0].compColNum=JDT1_ACCT_NUM
-         joinCondStruct[0].tableIndex=numOfTables-1
-         joinCondStruct[0].colNum=CRD3_ACCOUNT_CODE
-         joinCondStruct[0].operation=DBD_EQ
-         condStruct[numOfConds].compareCols=true
-         condStruct[numOfConds].colNum=JDT1_SHORT_NAME
-         condStruct[numOfConds].operation=DBD_NE
-         condStruct[numOfConds].compColNum=JDT1_ACCT_NUM
-         condStruct[numOfConds].tableIndex=0
-         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-         condStruct[numOfConds].compareCols=true
-         condStruct[numOfConds].colNum=JDT1_SHORT_NAME
-         condStruct[numOfConds].operation=DBD_EQ
-         condStruct[numOfConds].compColNum=CRD3_CARD_CODE
-         condStruct[numOfConds].tableIndex=0
-         condStruct[numOfConds].compTableIndex=numOfTables-1
-         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-         if bizEnv.IsCurrentLocalSettings(ITALY_SETTINGS)
-            condStruct[numOfConds].tableIndex=numOfTables-1
-            condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
-            _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_PRESENTATION)
-            condStruct[numOfConds].operation=DBD_EQ
-            condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
-         else
-            if bizEnv.IsCurrentLocalSettings(FRANCE_SETTINGS)||VF_OpenFRBoE(bizEnv)
-               condStruct[numOfConds].bracketOpen=1
-               condStruct[numOfConds].tableIndex=numOfTables-1
-               condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
-               _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_ON_COLLECTION)
-               condStruct[numOfConds].operation=DBD_EQ
-               condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
-               condStruct[numOfConds].tableIndex=numOfTables-1
-               condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
-               _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_DISCOUNTED)
-               condStruct[numOfConds].operation=DBD_EQ
-               condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
-               condStruct[numOfConds].tableIndex=numOfTables-1
-               condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
-               _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_UNPAID_BoE)
-               condStruct[numOfConds].operation=DBD_EQ
-               condStruct[numOfConds].bracketClose=1
-               condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
-            else
-               if bizEnv.IsCurrentLocalSettings(PORTUGAL_SETTINGS)||VF_Boleto(bizEnv)
-                  condStruct[numOfConds].bracketOpen=1
-                  condStruct[numOfConds].tableIndex=numOfTables-1
-                  condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
-                  _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_PRESENTATION)
-                  condStruct[numOfConds].operation=DBD_EQ
-                  condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
-                  condStruct[numOfConds].tableIndex=numOfTables-1
-                  condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
-                  _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_DISCOUNTED)
-                  condStruct[numOfConds].operation=DBD_EQ
-                  condStruct[numOfConds].bracketClose=1
-                  condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
-               end
-
-            end
-
-         end
-
-         condStruct[numOfConds-1].relationship=0
-         resStruct[0].colNum=JDT1_TRANS_ABS
-         resStruct[0].tableIndex=0
-         resStruct[1].colNum=JDT1_LINE_ID
-         resStruct[1].tableIndex=0
-         resStruct[2].colNum=JDT1_ACCT_NUM
-         resStruct[2].tableIndex=0
-         resStruct[3].colNum=JDT1_INTR_MATCH
-         resStruct[3].tableIndex=0
-         resStruct[4].colNum=JDT1_SHORT_NAME
-         resStruct[4].tableIndex=0
-         DBD_SetDAGCond(dagJDT1,condStruct,numOfConds)
-         DBD_SetDAGRes(dagJDT1,resStruct,5)
-         DBD_SetTablesList(dagJDT1,tableStruct,numOfTables)
-         ooErr=DBD_GetInNewFormat(dagJDT1,dagAnswer)
-         dagAnswer.Detach()
-         if !ooErr&&numOfConds>1
-            if nil!=dagRES
-               dagRES.Concat(dagAnswer,dbmDataBuffer)
-            else
-               dagAnswer.Duplicate(dagRES,dbmKeepData)
-            end
-
-            DAG_Close(dagAnswer)
-            dagAnswer=nil
-         else
-            if ooErr==-2028
-               (numOfIterations+=1;numOfIterations-2)
-               if numOfIterations==totalNumOfIterations
-                  dagAnswer.Duplicate(dagRES,dbmKeepData)
-                  DAG_SetSize(dagRES,0,dbmDropData)
-               end
-
-               DAG_Close(dagAnswer)
-               dagAnswer=nil
-            else
-               if ooErr
-                  DAG_Close(dagAnswer)
-                  if dagRES
-                     DAG_Close(dagRES)
-                  end
-
-                  DAG_Close(dagJDT1)
-                  return ooErr
-               end
-
-            end
-
-         end
-
-         _MEM_Clear(condStruct,numOfConds)
-         _MEM_Clear(tableStruct,numOfTables)
-         numOfConds=0
-         numOfTables=0
-
-         (ii+=1;ii-2)
-      end while (ii<3)
-
-      ii=0
-      begin
-         if !(bizEnv.IsCurrentLocalSettingsFRANCE_SETTINGS||VF_OpenFRBoEbizEnv)&&iterationType[ii]==1
-            next
-
-         end
-
-         _MEM_Clear(condStruct,numOfConds)
-         _MEM_Clear(tableStruct,numOfTables)
-         numOfConds=0
-         numOfTables=0
-         _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
-         condStruct[numOfConds].compareCols=true
-         condStruct[numOfConds].colNum=JDT1_SHORT_NAME
-         condStruct[numOfConds].operation=DBD_NE
-         condStruct[numOfConds].compColNum=JDT1_ACCT_NUM
-         condStruct[numOfConds].tableIndex=0
-         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-         BuildRelatedBoeQuery(tableStruct,numOfConds,iterationType[ii],numOfTables,condStruct,joinCondStructForOtherObj,joinCondStructBoe)
-         if bizEnv.IsCurrentLocalSettings(ITALY_SETTINGS)
-            ooErr=ARP_GetAccountByType(context,nil,ARP_TYPE_BoE_PRESENTATION,tmpStr,true,VAL_CUSTOMER)
-            if !ooErr&&!_STR_IsSpacesStr(tmpStr)
-               _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
-               condStruct[numOfConds].tableIndex=0
-               condStruct[numOfConds].colNum=JDT1_ACCT_NUM
-               condStruct[numOfConds].operation=DBD_EQ
-               condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
-            end
-
-         else
-            if bizEnv.IsCurrentLocalSettings(FRANCE_SETTINGS)||VF_OpenFRBoE(bizEnv)
-               cmpNumOfConds=0
-               cmpNumOfConds=numOfConds
-               condStruct[numOfConds].bracketOpen=1
-               ooErr=ARP_GetAccountByType(context,nil,ARP_TYPE_BoE_ON_COLLECTION,tmpStr,true,VAL_CUSTOMER)
-               if !ooErr&&!_STR_IsSpacesStr(tmpStr)
-                  _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
-                  condStruct[numOfConds].tableIndex=0
-                  condStruct[numOfConds].colNum=JDT1_ACCT_NUM
-                  condStruct[numOfConds].operation=DBD_EQ
-                  condStruct[numOfConds].relationship=DBD_OR
-                  (numOfConds+=1;numOfConds-2)
-               end
-
-               ooErr=ARP_GetAccountByType(context,nil,ARP_TYPE_UNPAID_BoE,tmpStr,true,VAL_CUSTOMER)
-               if !ooErr&&!_STR_IsSpacesStr(tmpStr)
-                  _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
-                  condStruct[numOfConds].tableIndex=0
-                  condStruct[numOfConds].colNum=JDT1_ACCT_NUM
-                  condStruct[numOfConds].operation=DBD_EQ
-                  condStruct[numOfConds].relationship=DBD_OR
-                  (numOfConds+=1;numOfConds-2)
-               end
-
-               ooErr=ARP_GetAccountByType(context,nil,ARP_TYPE_BoE_DISCOUNTED,tmpStr,true,VAL_CUSTOMER)
-               if !ooErr&&!_STR_IsSpacesStr(tmpStr)
-                  _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
-                  condStruct[numOfConds].tableIndex=0
-                  condStruct[numOfConds].colNum=JDT1_ACCT_NUM
-                  condStruct[numOfConds].operation=DBD_EQ
-                  condStruct[numOfConds].relationship=0
-                  (numOfConds+=1;numOfConds-2)
-               end
-
-               if cmpNumOfConds<numOfConds
-                  condStruct[numOfConds-1].bracketClose=1
-               else
-                  condStruct[cmpNumOfConds].bracketClose=1
-               end
-
-            else
-               if bizEnv.IsCurrentLocalSettings(PORTUGAL_SETTINGS)||VF_Boleto(bizEnv)
-                  condStruct[numOfConds].bracketOpen=1
-                  ooErr=ARP_GetAccountByType(context,nil,ARP_TYPE_BoE_PRESENTATION,tmpStr,true,VAL_CUSTOMER)
-                  if !ooErr&&!_STR_IsSpacesStr(tmpStr)
-                     _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
-                     condStruct[numOfConds].tableIndex=0
-                     condStruct[numOfConds].colNum=JDT1_ACCT_NUM
-                     condStruct[numOfConds].operation=DBD_EQ
-                     condStruct[numOfConds].relationship=DBD_OR
-                     (numOfConds+=1;numOfConds-2)
-                  end
-
-                  ooErr=ARP_GetAccountByType(context,nil,ARP_TYPE_BoE_DISCOUNTED,tmpStr,true,VAL_CUSTOMER)
-                  if !ooErr&&!_STR_IsSpacesStr(tmpStr)
-                     _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
-                     condStruct[numOfConds].tableIndex=0
-                     condStruct[numOfConds].colNum=JDT1_ACCT_NUM
-                     condStruct[numOfConds].operation=DBD_EQ
-                     condStruct[numOfConds].relationship=0
-                     (numOfConds+=1;numOfConds-2)
-                  end
-
-                  condStruct[numOfConds-1].bracketClose=1
-               end
-
-            end
-
-         end
-
-         if numOfConds>1
-            condStruct[numOfConds].bracketClose=1
-            condStruct[numOfConds-1].relationship=0
-            DBD_SetDAGCond(dagJDT1,condStruct,numOfConds)
-            DBD_SetDAGRes(dagJDT1,resStruct,5)
-            DBD_SetTablesList(dagJDT1,tableStruct,numOfTables)
-            ooErr=DBD_GetInNewFormat(dagJDT1,dagAnswer)
-            dagAnswer.Detach()
-         end
-
-         if !ooErr&&numOfConds>1
-            dagRES.Concat(dagAnswer,dbmDataBuffer)
-            DAG_Close(dagAnswer)
-            dagAnswer=nil
-         else
-            if ooErr==-2028
-               DAG_Close(dagAnswer)
-               dagAnswer=nil
-            else
-               if ooErr
-                  DAG_Close(dagAnswer)
-                  DAG_Close(dagRES)
-                  DAG_Close(dagJDT1)
-                  return ooErr
-               end
-
-            end
-
-         end
-
-
-         (ii+=1;ii-2)
-      end while (ii<3)
-
-      DAG_GetCount(dagRES,numOfRecs)
-      if !numOfRecs
-         DAG_Close(dagJDT1)
-         DAG_Close(dagRES)
-         return ooNoErr
-      end
-
-      dagRES.SortByCols(columns,orders,3,false,false)
-      _MEM_Clear(condStruct,numOfConds)
-      cond=DBD_CondStruct.new[2*numOfRecs]
-      updateActBalanceCond=DBD_CondStruct.new[numOfRecs]
-      updateCardBalanceCond=DBD_CondStruct.new[numOfRecs]
-      rec=0
-      begin
-         dagRES.GetColStr(tmpStr,4,rec)
-         if !IsCardAlreadyThere(updateCardBalanceCond,tmpStr,0,numOfCardConds)
-            updateCardBalanceCond[numOfCardConds].colNum=OCRD_CARD_CODE
-            updateCardBalanceCond[numOfCardConds].operation=DBD_EQ
-            _STR_strcpy(updateCardBalanceCond[numOfCardConds].condVal,tmpStr)
-            updateCardBalanceCond[(numOfCardConds+=1;numOfCardConds-2)].relationship=DBD_OR
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<numOfRecs)
-
-      updateCardBalanceCond[numOfCardConds-1].relationship=0
-      rec=0
-      numOfConds=0
-      firstAct=true
-      while (rec<numOfRecs)
-         dagRES.GetColStr(savedAcc,2,rec)
-         _STR_LRTrim(savedAcc)
-         dagRES.GetColLong(intrnMatch,3,rec)
-         dagRES.GetColStr(savedShortName,4,rec)
-         while (rec<numOfRecs)
-            dagRES.GetColStr(tmpStr,2,rec)
-            _STR_LRTrim(tmpStr)
-            dagRES.GetColLong(tmpL,3,rec)
-            dagRES.GetColStr(shortName,4,rec)
-            if _STR_strcmp(tmpStr,savedAcc)||tmpL!=intrnMatch||_STR_strcmp(shortName,savedShortName)
-               break
-            end
-
-            cond[numOfConds].bracketOpen=1
-            cond[numOfConds].colNum=JDT1_TRANS_ABS
-            cond[numOfConds].operation=DBD_EQ
-            dagRES.GetColStr(tmpStr,0,rec)
-            _STR_strcpy(cond[numOfConds].condVal,tmpStr)
-            cond[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-            cond[numOfConds].colNum=JDT1_LINE_ID
-            cond[numOfConds].operation=DBD_EQ
-            dagRES.GetColStr(tmpStr,1,rec)
-            _STR_strcpy(cond[numOfConds].condVal,tmpStr)
-            cond[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
-            cond[numOfConds-1].bracketClose=1
-            (rec+=1;rec-2)
-         end
-
-         cond[numOfConds-1].relationship=0
-         if intrnMatch<0
-            GOGetNextSystemMatch(context,savedAcc,matchNum,false)
-            intrnMatch=matchNum
-         end
-
-         updStruct[0].colNum=JDT1_SHORT_NAME
-         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
-         updStruct[0].srcColNum=JDT1_ACCT_NUM
-         updStruct[1].colNum=JDT1_INTR_MATCH
-         _STR_sprintf(tmpStr,LONG_FORMAT,intrnMatch)
-         _STR_strcpy(updStruct[1].updateVal,tmpStr)
-         DBD_SetDAGCond(dagJDT1,cond,numOfConds)
-         DBD_SetDAGUpd(dagJDT1,updStruct,2)
-         ooErr=DBD_UpdateCols(dagJDT1)
-         if ooErr
-            cond.__delete
-            updateCardBalanceCond.__delete
-            updateActBalanceCond.__delete
-            DAG_Close(dagJDT1)
-            DAG_Close(dagRES)
-            return ooErr
-         end
-
-         if _STR_strcmp(tmpStr,savedAcc)||firstAct
-            updateActBalanceCond[numOfActsConds].colNum=OACT_ACCOUNT_CODE
-            updateActBalanceCond[numOfActsConds].operation=DBD_EQ
-            _STR_strcpy(updateActBalanceCond[numOfActsConds].condVal,savedAcc)
-            updateActBalanceCond[(numOfActsConds+=1;numOfActsConds-2)].relationship=DBD_OR
-         end
-
-         firstAct=false
-         if rec>=numOfRecs
-            break
-         end
-
-         numOfConds=0
-      end
-
-      DAG_Close(dagRES)
-      DAG_Close(dagJDT1)
-      updateActBalanceCond[numOfActsConds-1].relationship=0
-      dagACT=OpenDAG(ACT,ao_Main)
-      DBD_SetDAGCond(dagACT,updateActBalanceCond,numOfActsConds)
-      ooErr=DBD_Get(dagACT)
-      if ooErr
-         cond.__delete
-         updateCardBalanceCond.__delete
-         updateActBalanceCond.__delete
-         DAG_Close(dagACT)
-         return ooErr
-      end
-
-      dagCRD=OpenDAG(CRD,ao_Main)
-      DBD_SetDAGCond(dagCRD,updateCardBalanceCond,numOfCardConds)
-      ooErr=DBD_Get(dagCRD)
-      if ooErr
-         cond.__delete
-         updateCardBalanceCond.__delete
-         updateActBalanceCond.__delete
-         DAG_Close(dagCRD)
-         DAG_Close(dagACT)
-         return ooErr
-      end
-
-      RBARebuildAccountsAndCardsInternal(dagACT,dagCRD,false)
-      cond.__delete
-      updateCardBalanceCond.__delete
-      updateActBalanceCond.__delete
-      DAG_Close(dagCRD)
-      DAG_Close(dagACT)
-      return ooNoErr
-   end
-
-   def IsCardAlreadyThere(updateCardBalanceCond,cardCode,startingRec,numOfCardConds)
-      trace("IsCardAlreadyThere")
-      ii=startingRec
-      begin
-         if !_STR_strcmp(updateCardBalanceCond[ii].condVal,cardCode)
-            return true
-         end
-
-
-         (ii+=1;ii-2)
-      end while (ii<numOfCardConds)
-
-      return false
-   end
-
-   def FixVendorsAndSpainBoeBalance()
-      trace("FixVendorsAndSpainBoeBalance")
-      numOfCardConds=0
-      numOfActsConds = 0
-      numOfConds = 0
-
-      firstErr=false
-      bizEnv=context
-      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
-      dagJDT1=OpenDAG(JDT,ao_Arr1)
-      _STR_strcpy(tableStruct[1].tableCode,bizEnv.ObjectToTable(CRD,ao_Arr3))
-      tableStruct[1].doJoin=true
-      tableStruct[1].joinedToTable=0
-      tableStruct[1].numOfConds=1
-      tableStruct[1].joinConds=joinCondStruct
-      joinCondStruct[0].compareCols=true
-      joinCondStruct[0].compTableIndex=0
-      joinCondStruct[0].compColNum=JDT1_ACCT_NUM
-      joinCondStruct[0].tableIndex=1
-      joinCondStruct[0].colNum=CRD3_ACCOUNT_CODE
-      joinCondStruct[0].operation=DBD_EQ
-      condStruct[numOfConds].compareCols=true
-      condStruct[numOfConds].colNum=JDT1_SHORT_NAME
-      condStruct[numOfConds].operation=DBD_EQ
-      condStruct[numOfConds].compColNum=CRD3_CARD_CODE
-      condStruct[numOfConds].tableIndex=0
-      condStruct[numOfConds].compTableIndex=1
-      condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-      if VF_BOEAsInSpain(bizEnv)
-         condStruct[numOfConds].bracketOpen=1
-         condStruct[numOfConds].tableIndex=1
-         condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
-         _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_RECEIVABLE)
-         condStruct[numOfConds].operation=DBD_EQ
-         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
-      end
-
-      condStruct[numOfConds].tableIndex=1
-      condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
-      _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_PAYABLE)
-      condStruct[numOfConds].operation=DBD_EQ
-      condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
-      if VF_BOEAsInSpain(bizEnv)
-         condStruct[numOfConds-1].bracketClose=1
-      end
-
-      resStruct[0].colNum=JDT1_SHORT_NAME
-      resStruct[0].tableIndex=0
-      resStruct[0].group_by=true
-      DBD_SetDAGCond(dagJDT1,condStruct,numOfConds)
-      DBD_SetDAGRes(dagJDT1,resStruct,1)
-      DBD_SetTablesList(dagJDT1,tableStruct,2)
-      ooErr=DBD_GetInNewFormat(dagJDT1,dagRES)
-      if ooErr&&ooErr!=-2028
-         DAG_Close(dagJDT1)
-         return ooErr
-      else
-         if ooErr
-            firstErr=true
-            DAG_SetSize(dagRES,0,dbmDropData)
-         end
-
-      end
-
-      dagRES.Detach()
-      _MEM_Clear(condStruct,numOfConds)
-      _MEM_Clear(tableStruct,2)
-      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
-      numOfConds=0
-      if VF_BOEAsInSpain(bizEnv)
-         ooErr=ARP_GetAccountByType(context,nil,ARP_TYPE_BoE_RECEIVABLE,tmpStr,true,VAL_CUSTOMER)
-         if !ooErr&&!_STR_IsSpacesStr(tmpStr)
-            _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
-            condStruct[numOfConds].tableIndex=0
-            condStruct[numOfConds].colNum=JDT1_ACCT_NUM
-            condStruct[numOfConds].operation=DBD_EQ
-            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
-         end
-
-      end
-
-      ooErr=ARP_GetAccountByType(context,nil,ARP_TYPE_BoE_PAYABLE,tmpStr,true,VAL_VENDOR)
-      if !ooErr&&!_STR_IsSpacesStr(tmpStr)
-         _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
-         condStruct[numOfConds].tableIndex=0
-         condStruct[numOfConds].colNum=JDT1_ACCT_NUM
-         condStruct[numOfConds].operation=DBD_EQ
-         condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
-      end
-
-      if numOfConds
-         DBD_SetDAGCond(dagJDT1,condStruct,numOfConds)
-         DBD_SetDAGRes(dagJDT1,resStruct,1)
-         DBD_SetTablesList(dagJDT1,tableStruct,1)
-         ooErr=DBD_GetInNewFormat(dagJDT1,dagRES2)
-         dagRES2.Detach()
-      end
-
-      if !ooErr&&numOfConds
-         dagRES.Concat(dagRES2,dbmDataBuffer)
-         DAG_Close(dagRES2)
-      else
-         if ooErr==-2028
-            DAG_Close(dagRES2)
-            if firstErr
-               DAG_Close(dagRES)
-               DAG_Close(dagJDT1)
-               return ooNoErr
-            end
-
-         else
-            if ooErr
-               DAG_Close(dagRES2)
-               DAG_Close(dagRES)
-               DAG_Close(dagJDT1)
-               return ooErr
-            end
-
-         end
-
-      end
-
-      DAG_GetCount(dagRES,numOfRecs)
-      if !numOfRecs
-         DAG_Close(dagRES)
-         return ooNoErr
-      end
-
-      updateCardBalanceCond=DBD_CondStruct.new[numOfRecs]
-      rec=0
-      begin
-         updateCardBalanceCond[numOfCardConds].colNum=OCRD_CARD_CODE
-         updateCardBalanceCond[numOfCardConds].operation=DBD_EQ
-         dagRES.GetColStr(tmpStr,0,rec)
-         _STR_strcpy(updateCardBalanceCond[numOfCardConds].condVal,tmpStr)
-         updateCardBalanceCond[(numOfCardConds+=1;numOfCardConds-2)].relationship=DBD_OR
-
-         (rec+=1;rec-2)
-      end while (rec<numOfRecs)
-
-      updateCardBalanceCond[numOfCardConds-1].relationship=0
-      dagCRD=OpenDAG(CRD,ao_Main)
-      DBD_SetDAGCond(dagCRD,updateCardBalanceCond,numOfCardConds)
-      ooErr=DBD_Get(dagCRD)
-      if ooErr
-         updateCardBalanceCond.__delete
-         DAG_Close(dagCRD)
-         return ooNoErr
-      end
-
-      RBARebuildAccountsAndCardsInternal(nil,dagCRD,false)
-      updateCardBalanceCond.__delete
-      DAG_Close(dagCRD)
-      return ooNoErr
-   end
-
-   def UpgradePeriodIndic()
-      trace("UpgradePeriodIndic")
-      sboErr=ooNoErr
-      dagJDT1=OpenDAG(JDT,ao_Arr1)
-      condStruct[0].colNum=JDT1_TRANS_TYPE
-      condStruct[0].operation=DBD_EQ
-      condStruct[0].condVal=RCT
-      condStruct[0].relationship=DBD_OR
-      condStruct[1].colNum=JDT1_TRANS_TYPE
-      condStruct[1].operation=DBD_EQ
-      condStruct[1].condVal=VPM
-      DBD_SetDAGCond(dagJDT1,condStruct,2)
-      updateStruct[0].colNum=JDT1_SRC_ABS_ID
-      updateStruct[0].srcColNum=JDT1_CREATED_BY
-      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
-      DBD_SetDAGUpd(dagJDT1,updateStruct,1)
-      sboErr=DBD_UpdateCols(dagJDT1)
-      DAG_Close(dagJDT1)
-      return sboErr
-   end
-
-   def BuildRelatedBoeQuery(tableStruct,numOfConds,iterationType,numOfTables,condStruct,joinCondStructForOtherObj,joinCondStructBoe)
-      trace("BuildRelatedBoeQuery")
-      bizEnv=context
-      if iterationType==0
-         _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(BOT,ao_Main))
-         absJoinField=OBOT_ABS_ENTRY
-         jdt1JoinField=JDT1_SRC_ABS_ID
-         objJoinField=BOT
-      else
-         if iterationType==1
-            _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(RCT,ao_Main))
-            absJoinField=ORCT_NUM
-            _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(BOE,ao_Main))
-            objJoinField=RCT
-            jdt1JoinField=JDT1_CREATED_BY
-         else
-            _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(DPS,ao_Main))
-            absJoinField=ODPS_ABS_ENT
-            objJoinField=DPS
-            jdt1JoinField=JDT1_SRC_ABS_ID
-         end
-
-      end
-
-      tableStruct[1].doJoin=true
-      tableStruct[1].joinedToTable=0
-      tableStruct[1].numOfConds=2
-      tableStruct[1].joinConds=joinCondStructForOtherObj
-      joinCondStructForOtherObj[0].compareCols=true
-      joinCondStructForOtherObj[0].compTableIndex=0
-      joinCondStructForOtherObj[0].compColNum=jdt1JoinField
-      joinCondStructForOtherObj[0].tableIndex=1
-      joinCondStructForOtherObj[0].colNum=absJoinField
-      joinCondStructForOtherObj[0].operation=DBD_EQ
-      joinCondStructForOtherObj[0].relationship=DBD_AND
-      joinCondStructForOtherObj[1].tableIndex=0
-      joinCondStructForOtherObj[1].colNum=JDT1_TRANS_TYPE
-      joinCondStructForOtherObj[1].condVal=objJoinField
-      joinCondStructForOtherObj[1].operation=DBD_EQ
-      if iterationType==0
-         condStruct[numOfConds].bracketOpen=1
-         condStruct[numOfConds].colNum=OBOT_STATUS_FROM
-         condStruct[numOfConds].operation=DBD_EQ
-         condStruct[numOfConds].tableIndex=1
-         _STR_strcpy(condStruct[numOfConds].condVal,VAL_BOE_DEPOSITED)
-         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-         condStruct[numOfConds].colNum=JDT1_LINE_ID
-         condStruct[numOfConds].operation=DBD_EQ
-         condStruct[numOfConds].tableIndex=0
-         condStruct[numOfConds].condVal=1
-         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
-         condStruct[numOfConds].colNum=OBOT_STATUS_FROM
-         condStruct[numOfConds].operation=DBD_EQ
-         condStruct[numOfConds].tableIndex=1
-         _STR_strcpy(condStruct[numOfConds].condVal,VAL_BOE_PAID)
-         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-         condStruct[numOfConds].colNum=JDT1_LINE_ID
-         condStruct[numOfConds].operation=DBD_EQ
-         condStruct[numOfConds].tableIndex=0
-         condStruct[numOfConds].condVal=0
-         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-         condStruct[numOfConds-1].bracketClose=1
-      else
-         if iterationType==1
-            tableStruct[2].doJoin=true
-            tableStruct[2].joinedToTable=2
-            tableStruct[2].numOfConds=2
-            tableStruct[2].joinConds=joinCondStructBoe
-            joinCondStructBoe[0].compareCols=true
-            joinCondStructBoe[0].compTableIndex=1
-            joinCondStructBoe[0].compColNum=ORCT_BOE_NUM
-            joinCondStructBoe[0].tableIndex=2
-            joinCondStructBoe[0].colNum=OBOE_BOE_NUM
-            joinCondStructBoe[0].operation=DBD_EQ
-            joinCondStructBoe[0].relationship=DBD_AND
-            joinCondStructBoe[1].tableIndex=2
-            joinCondStructBoe[1].colNum=OBOE_TYPE
-            _STR_strcpy(joinCondStructBoe[1].condVal,VAL_INPUT)
-            joinCondStructBoe[1].operation=DBD_EQ
-            condStruct[numOfConds].colNum=ORCT_CANCELED
-            condStruct[numOfConds].operation=DBD_EQ
-            condStruct[numOfConds].tableIndex=1
-            _STR_strcpy(condStruct[numOfConds].condVal,VAL_YES)
-            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-            condStruct[numOfConds].colNum=OBOE_STATUS
-            condStruct[numOfConds].operation=DBD_EQ
-            condStruct[numOfConds].tableIndex=2
-            _STR_strcpy(condStruct[numOfConds].condVal,VAL_BOE_FAILED)
-            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-            condStruct[numOfConds].colNum=JDT1_SRC_LINE
-            condStruct[numOfConds].operation=DBD_EQ
-            condStruct[numOfConds].tableIndex=0
-            condStruct[numOfConds].condVal=PMN_VAL_BOE
-            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-            condStruct[numOfConds].colNum=JDT1_DEBIT
-            condStruct[numOfConds].operation=DBD_LE
-            condStruct[numOfConds].tableIndex=0
-            condStruct[numOfConds].condVal=0
-            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-         else
-            condStruct[numOfConds].colNum=ODPS_DEPOS_TYPE
-            condStruct[numOfConds].operation=DBD_EQ
-            condStruct[numOfConds].tableIndex=1
-            _STR_strcpy(condStruct[numOfConds].condVal,VAL_BOE)
-            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
-         end
-
-      end
-
-   end
-
-   def ValidateReportEU()
-      trace("ValidateReportEU")
-      bizEnv=context
-      if !bizEnv.IsLocalSettingsFlag(lsf_IsEC)
-         return ooNoErr
-      end
-
-      dagJDT=GetDAG()
-      sboErr=ooNoErr
-      dagJDT.GetColStr(reportEUStr,OJDT_REPORT_EU)
-      if reportEUStr.Compare(VAL_YES)
-         return ooNoErr
-      end
-
-      sboErr=ValidateVatReportTransType()
-      if sboErr==0
-         numOfBPfound=0
-         validateFedTaxId=bizEnv.IsVatPerLine()
-         sboErr=GetNumOfBPRecords(numOfBPfound,validateFedTaxId)
-         if sboErr
-            return sboErr
-         end
-
-         if numOfBPfound!=1
-            Message(GO_OBJ_ERROR_MSGS(JDT),12,nil,OO_ERROR)
-            sboErr=-10
-         end
-
-      end
-
-      if sboErr!=0
-         SetErrorField(-1)
-         SetErrorField(OJDT_REPORT_EU)
-      end
-
-      return sboErr
-   end
-
-   def ValidateReport347()
-      trace("ValidateReport347")
-      bizEnv=context
-      if !bizEnv.IsCurrentLocalSettings(SPAIN_SETTINGS)
-         return ooNoErr
-      end
-
-      dagJDT=GetDAG()
-      sboErr=ooNoErr
-      dagJDT.GetColStr(report347Str,OJDT_REPORT_347)
-      if report347Str.Compare(VAL_YES)
-         return ooNoErr
-      end
-
-      sboErr=ValidateVatReportTransType()
-      if sboErr==0
-         numOfBPfound=0
-         sboErr=GetNumOfBPRecords(numOfBPfound,false)
-         if sboErr
-            return sboErr
-         end
-
-         if numOfBPfound!=1
-            Message(GO_OBJ_ERROR_MSGS(JDT),13,nil,OO_ERROR)
-            sboErr=-10
-         end
-
-      end
-
-      if sboErr!=0
-         SetErrorField(-1)
-         SetErrorField(OJDT_REPORT_347)
-      end
-
-      return sboErr
-   end
-
-   def GetNumOfBPRecords(numOfBPfound,validateFedTaxId)
-      trace("GetNumOfBPRecords")
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      recCount=dagJDT1.GetRecordCount()
-      indexOfMissingTaxId=-1
-      foundECTax=false
-      bizEnv=context
-      numOfBPfound=0
-      ii=0
-      begin
-         dagJDT1.GetColStr(actCode,JDT1_ACCT_NUM,ii)
-         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,ii)
-         if actCode.Compare(shortName)!=0
-            (numOfBPfound+=1;numOfBPfound-2)
-            if validateFedTaxId&&indexOfMissingTaxId<0
-               dagJDT1.GetColStr(fedTaxId,JDT1_TAX_ID_NUMBER,ii)
-               if fedTaxId.IsSpacesStr()
-                  indexOfMissingTaxId=ii
-               end
-
-            end
-
-         end
-
-         if validateFedTaxId&&!foundECTax
-            dagJDT1.GetColStr(taxGroup,JDT1_VAT_GROUP,ii)
-            taxGroup.Trim()
-            if !taxGroup.IsSpacesStr()&&bizEnv.GetTaxGroupCache().IsEC(bizEnv,taxGroup)
-               foundECTax=true
-            end
-
-         end
-
-
-         (ii+=1;ii-2)
-      end while (ii<recCount)
-
-      if validateFedTaxId&&foundECTax&&indexOfMissingTaxId>=0
-         if cMessagesManager.getHandle().DisplayMessage(_48_APP_MSG_FIN_JDT_MISSING_FEDERAL_TAX_ID)!=DIALOG_YES_BTN
-            return -10
-         end
-
-      end
-
-      return 0
-   end
-
-   def ValidateVatReportTransType()
-      trace("ValidateVatReportTransType")
-      sboErr=ooNoErr
-      dagJDT=GetDAG()
-      if IsManualJE(dagJDT)==false
-         Message(GO_OBJ_ERROR_MSGS(JDT),14,nil,OO_ERROR)
-         sboErr=-10
-      end
-
-      return sboErr
-   end
-
-   def ValidateBPLNumberingSeries()
-      env=context
-      if !VF_MultiBranch_EnabledInOADM(env)
-         return 0
-      end
-
-      series=GetSeries()
-      if series<=0
-         GetDAG().GetColLong(series,OJDT_SERIES)
-      end
-
-      dagJDT1=GetArrayDAG(ao_Arr1)
-      dag1Size=dagJDT1.GetRealSize(dbmDataBuffer)
-      dag1Row=0
-      begin
-         bPLId=dagJDT1.GetColStr(JDT1_BPL_ID,dag1Row,coreSystemDefault).strtol()
-         bPLIds.insert(BPLId)
-
-         (dag1Row+=1;dag1Row-2)
-      end while (dag1Row<dag1Size)
-
-
-      begin
-         tmpNum=SBOString(series)+SBOString(SUB_TYPE_NONE)
-         if !cBusinessPlaceObject.isBPLIdAssignedToObject(env,it,NNM,tmpNum)
-            SetArrNum(ao_Main)
-            SetErrorLine(-1)
-            SetErrorField(OJDT_SERIES)
-            OpenDAG(dagOBJ,NNM,ao_Arr1)
-            if dagOBJ
-               dagOBJ.GetByKey(SBOString(series))
-            end
-
-            if dagOBJ&&dagOBJ.GetRealSizedbmDataBuffer>0
-               strObjCode=dagOBJ.GetColStrAndTrim(NNM1_NAME,0,coreSystemDefault)
-            end
-
-            Message(cBusinessPlaceObject::eRROR_STRING_LIST_ID,cBusinessPlaceObject::eRRMSG_BPL_NOT_ASSIGNED_TO_SERIES_STR,strObjCode,OO_ERROR)
-            return ooInvalidObject
-         end
-
-
-         (it+=1;it-2)
-      end while (it!=bPLIds.end())
-
-      return 0
-   end
-
-   def IsBalancedByBPL()
-      env=context
-      if !VF_MultiBranch_EnabledInOADM(env)
-         return 0
-      end
-
-      dagJDT1=GetArrayDAG(ao_Arr1)
-      dag1Size=dagJDT1.GetRealSize(dbmDataBuffer)
-      rec=0
-      begin
-         bPLId=-1
-         dagJDT1.GetColLong(BPLId,JDT1_BPL_ID,rec)
-         if debits.find(BPLId)==debits.end()
-            debits[BPLId]=CAllCurrencySums()
-         end
-
-         if credits.find(BPLId)==credits.end()
-            credits[BPLId]=CAllCurrencySums()
-         end
-
-         amount.FromDAG(dagJDT1,rec,JDT1_DEBIT,JDT1_FC_DEBIT,JDT1_SYS_DEBIT)
-         debits[BPLId]+=amount
-         amount.FromDAG(dagJDT1,rec,JDT1_CREDIT,JDT1_FC_CREDIT,JDT1_SYS_CREDIT)
-         credits[BPLId]+=amount
-
-         (rec+=1;rec-2)
-      end while (rec<dag1Size)
-
-
-      begin
-         if itCred==credits.end()
-            cMessagesManager.getHandle().Message(_132_APP_MSG_FIN_UNBALANCED_TRANS_FOR_BRANCH,EMPTY_STR,self)
-            return ooInvalidObject
-         end
-
-         if itCred.second!=itDeb.second
-            cMessagesManager.getHandle().Message(_132_APP_MSG_FIN_UNBALANCED_TRANS_FOR_BRANCH,EMPTY_STR,self)
-            return ooInvalidObject
-         end
-
-
-         (itDeb+=1;itDeb-2)
-      end while (itDeb!=debits.end())
-
-      return 0
-   end
-
-   def UpgradeOJDTCreatedByForWOR()
-      trace("UpgradeOJDTCreatedByForWOR")
-      sboErr=0
-      bizEnv=context
-
-      dagJDT = GetDAG()
-      dagQuery = GetDAG(CRD)
-      dagQuery.GetDBDParams().Clear()
-      resStruct[0].tableIndex=0
-      resStruct[0].colNum=OWOR_NUM
-      resStruct[0].group_by=true
-      resStruct[1].tableIndex=0
-      resStruct[1].colNum=OWOR_ABS_ENTRY
-      resStruct[1].agreg_type=DBD_MAX
-      tables=dagQuery.GetDBDParams().GetCondTables()
-      tablePtr=tables.AddTable()
-      tablePtr.tableCode=bizEnv.ObjectToTable(WOR)
-      tablePtr=tables.AddTable()
-      tablePtr.tableCode=bizEnv.ObjectToTable(JDT)
-      tablePtr.doJoin=true
-      tablePtr.joinedToTable=0
-      tablePtr.numOfConds=2
-      tablePtr.joinConds=join
-      join[0].compareCols=true
-      join[0].compColNum=OWOR_NUM
-      join[0].compTableIndex=0
-      join[0].colNum=OJDT_CREATED_BY
-      join[0].tableIndex=1
-      join[0].operation=DBD_EQ
-      join[0].relationship=DBD_AND
-      join[1].compareCols=false
-      join[1].colNum=OJDT_TRANS_TYPE
-      join[1].tableIndex=1
-      join[1].operation=DBD_EQ
-      join[1].condVal=WOR
-      join[1].relationship=0
-      DBD_SetDAGRes(dagQuery,resStruct,2)
-      sortStruct[0].colNum=OWOR_NUM
-      DBD_SetDAGSort(dagQuery,sortStruct,1)
-      sboErr=DBD_GetInNewFormat(dagQuery,dagRes)
-      if sboErr
-         return (sboErr==-2028) ? ooNoErr : sboErr
-      end
-
-      conds=dagJDT.GetDBDParams().GetConditions()
-      cond=conds.AddCondition()
-      cond.colNum=OJDT_TRANS_TYPE
-      cond.operation=DBD_EQ
-      cond.condVal=WOR
-      cond.relationship=0
-      sboErr=dagJDT.GetFirstChunk(50000)
-      if sboErr
-         return sboErr
-      end
-
-      while (sboErr==0)
-
-         numOfDoc1Recs = dagJDT.GetRecordCount()
-         rec=0
-         begin
-            dagJDT.GetColLong(oldBaseNum,OJDT_CREATED_BY,rec)
-            newBaseNum=GetBaseEntry(dagRes,oldBaseNum)
-            if newBaseNum<0
-               next
-
-            end
-
-            dagJDT.SetColLong(newBaseNum,OJDT_CREATED_BY,rec)
-
-            (rec+=1;rec-2)
-         end while (rec<numOfDoc1Recs)
-
-         sboErr=dagJDT.UpdateAll()
-         if sboErr
-            break
-         end
-
-         sboErr=dagJDT.GetNextChunk(50000)
-      end
-
-      if sboErr==-2028
-         sboErr=0
-      end
-
-      return sboErr
-   end
-
-   def UpgradeOJDTUpdateDocType()
-      sboErr=ooNoErr
-      bizEnv=context
-      dagJDT=bizEnv.OpenDAG(JDT)
-      srcStr=bizEnv.GetDefaultJEType()
-      srcStr.Trim()
-      condStruct[0].colNum=OJDT_DOC_TYPE
-      condStruct[0].operation=DBD_IS_NULL
-      condStruct[0].relationship=DBD_OR
-      condStruct[1].colNum=OJDT_DOC_TYPE
-      condStruct[1].operation=DBD_EQ
-      _STR_strcpy(condStruct[1].condVal,_T(""))
-      condStruct[1].relationship=0
-      sboErr=DBD_SetDAGCond(dagJDT,condStruct,2)
-      if sboErr
-         dagJDT.Close()
-         return sboErr
-      end
-
-      updStruct[0].colNum=OJDT_DOC_TYPE
-      _STR_strcpy(updStruct[0].updateVal,srcStr)
-      sboErr=DBD_SetDAGUpd(dagJDT,updStruct,1)
-      if sboErr
-         dagJDT.Close()
-         return sboErr
-      end
-
-      sboErr=DBD_UpdateCols(dagJDT)
-      dagJDT.Close()
-      return sboErr
-   end
-
-   def GetBaseEntry(dagRes,docNum)
-      trace("GetBaseEntry")
-      start=0
-      DAG_GetCount(dagRes,numOfRecs)
-      if !numOfRecs
-         return -1
-      end
-
-      _translated_end=numOfRecs-1
-      begin
-         mid=(start+_translated_end+1)/2
-         dagRes.GetColLong(dagDocNum,0,mid)
-         if docNum==dagDocNum
-            dagRes.GetColLong(result,1,mid)
-            return result
-         else
-            if docNum>dagDocNum
-               start=mid+1
-            else
-               _translated_end=mid-1
-            end
-
-         end
-
-      end while (start<=_translated_end)
-
-      return -1
-   end
-
-   def UpgradeOJDTWithFolio()
-      trace("UpgradeOJDTWithFolio")
-      dagJDT=nil
-      dagJDT1 = nil
-
-      ooErr=0
-      bizEnv=context
-      dagJDT1=GetArrayDAG(ao_Arr1)
-      dagJDT=GetDAG()
-      ooErr=dagJDT.GetFirstChunk(10000)
-      while (ooErr==0)
-         numOfRecs=dagJDT.GetRealSize(dbmDataBuffer)
-         rec=0
-         begin
-            dagJDT.GetColLong(curTransId,OJDT_JDT_NUM,rec)
-            dagJDT.GetColLong(curTransType,OJDT_TRANS_TYPE,rec)
-            dagJDT.GetColLong(curCreatedBy,OJDT_CREATED_BY,rec)
-            case curTransType
-
-            when DLN
-            when RDN
-            when INV
-            when RIN
-            when DPI
-            when DPO
-            when PDN
-            when RPD
-            when PCH
-            when RPC
-            when IGN
-            when IGE
-            when WTR
-               prefCol=OINV_FOLIO_PREFIX
-               folioCol=OINV_FOLIO_NUMBER
-               break
-            when BOE
-               prefCol=OBOE_FOLIO_PREFIX
-               folioCol=OBOE_FOLIO_NUMBER
-               break
-            else
-               next
-
-            end
-
-            folioResStruct[0].tableIndex=0
-            folioResStruct[0].colNum=prefCol
-            folioResStruct[1].tableIndex=0
-            folioResStruct[1].colNum=folioCol
-            tables=dagJDT1.GetDBDParams().GetCondTables()
-            tables.Clear()
-            table=tables.AddTable()
-            table.tableCode=bizEnv.ObjectToTable(curTransType)
-            conditions=dagJDT1.GetDBDParams().GetConditions()
-            conditions.Clear()
-            cond=conditions.AddCondition()
-            cond.colNum=OINV_ABS_ENTRY
-            cond.tableIndex=0
-            cond.operation=DBD_EQ
-            cond.condVal=curCreatedBy
-            DBD_SetDAGRes(dagJDT1,folioResStruct,2)
-            ooErr=DBD_GetInNewFormat(dagJDT1,dagFolioRes)
-            if ooErr
-               if ooErr==-2028
-                  ooErr=0
-                  next
-
-               end
-
-               return ooErr
-            end
-
-            dagFolioRes.GetColStr(curPrefix,0)
-            dagFolioRes.GetColStr(curFolioNum,1)
-            dagJDT.SetColStr(curPrefix,OJDT_FOLIO_PREFIX,rec)
-            dagJDT.SetColStr(curFolioNum,OJDT_FOLIO_NUMBER,rec)
-
-            (rec+=1;rec-2)
-         end while (rec<numOfRecs)
-
-         ooErr=dagJDT.UpdateAll()
-         if ooErr
-            return ooErr
-         end
-
-         ooErr=dagJDT.GetNextChunk(10000)
-      end
-
-      if ooErr==-2028
-         ooErr=0
-      end
-
-      return ooErr
-   end
-
-   def UpgradeJDTCreateDate()
-      trace("UpgradeJDTCreateDate")
-      dagJDT=GetDAG()
-      resStruct[0].colNum=OJDT_JDT_NUM
-      resStruct[0].agreg_type=0
-      DBD_SetDAGRes(dagJDT,resStruct,1)
-      conditions=dagJDT.GetDBDParams().GetConditions()
-      cond=conditions.AddCondition()
-      cond.colNum=OJDT_CREATE_DATE
-      cond.operation=DBD_IS_NULL
-      cond.relationship=DBD_AND
-      cond=conditions.AddCondition()
-      cond.bracketOpen=2
-      cond.colNum=OJDT_TRANS_TYPE
-      cond.operation=DBD_EQ
-      cond.condVal=PDN
-      cond.relationship=DBD_AND
-      cond=conditions.AddCondition()
-      UpgradeCreateDateSubQuery(subParamsPDN,subResStructPDN,subTableStructPDN,subCondPDN,PDN)
-      cond.SetSubQueryParams(subParamsPDN)
-      cond.tableIndex=DBD_NO_TABLE
-      cond.operation=DBD_NOT_EXISTS
-      cond.bracketClose=1
-      cond.relationship=DBD_OR
-      cond=conditions.AddCondition()
-      cond.bracketOpen=1
-      cond.colNum=OJDT_TRANS_TYPE
-      cond.operation=DBD_EQ
-      cond.condVal=RPD
-      cond.relationship=DBD_AND
-      cond=conditions.AddCondition()
-      UpgradeCreateDateSubQuery(subParamsRPD,subResStructRPD,subTableStructRPD,subCondRPD,RPD)
-      cond.SetSubQueryParams(subParamsRPD)
-      cond.tableIndex=DBD_NO_TABLE
-      cond.operation=DBD_NOT_EXISTS
-      cond.bracketClose=2
-      cond.relationship=0
-      sort[0].colNum=OJDT_JDT_NUM
-      DBD_SetDAGSort(dagJDT,sort,1)
-      ooErr=DBD_GetInNewFormat(dagJDT,dagRES1)
-      if ooErr
-         if ooErr==-2028
-            ooErr=0
-         end
-
-         return ooErr
-      end
-
-      dagRES1.Detach()
-      resStruct[0].colNum=OJDT_JDT_NUM
-      resStruct[0].agreg_type=DBD_MAX
-      resStruct[1].colNum=OJDT_CREATE_DATE
-      resStruct[1].group_by=true
-      DBD_SetDAGRes(dagJDT,resStruct,2)
-      conditions=dagJDT.GetDBDParams().GetConditions()
-      cond=conditions.AddCondition()
-      cond.colNum=OJDT_CREATE_DATE
-      cond.operation=DBD_NOT_NULL
-      cond.relationship=0
-      ooErr=DBD_GetInNewFormat(dagJDT,dagRES2)
-      if ooErr
-         dagRES1.Close()
-         if ooErr==-2028
-            ooErr=0
-         end
-
-         return ooErr
-      end
-
-      cols=""
-      oreder=""
-      dagRES2.SortByCols(cols,oreder,1,false,false)
-
-      jj = 0
-      updStruct[0].colNum=OJDT_CREATE_DATE
-      numOfRecsRES1=dagRES1.GetRecordCount()
-      numOfRecsRES2=dagRES2.GetRecordCount()
-      ii=0
-      begin
-         dagRES1.GetColLong(updateTransNum,0,ii)
-         while (jj<numOfRecsRES2)
-            dagRES2.GetColLong(transOfNewDateInRES2,0,jj)
-            if updateTransNum<transOfNewDateInRES2
-               conditions=dagJDT.GetDBDParams().GetConditions()
-               cond=conditions.AddCondition()
-               cond.colNum=OJDT_JDT_NUM
-               cond.operation=DBD_EQ
-               cond.condVal=SBOString(updateTransNum)
-               cond.relationship=0
-               dagRES2.GetColStr(updStruct[0].updateVal,1,jj)
-               DBD_SetDAGUpd(dagJDT,updStruct,1)
-               ooErr=DBD_UpdateCols(dagJDT)
-               if ooErr
-                  dagRES1.Close()
-                  return ooErr
-               end
-
-               break
-            end
-
-            (jj+=1;jj-2)
-         end
-
-
-         (ii+=1;ii-2)
-      end while (ii<numOfRecsRES1)
-
-      dagRES1.Close()
-      return 0
-   end
-
-   def UpgradeCreateDateSubQuery(subParams,subResStruct,subTableStruct,subCond,objectID)
-      trace("UpgradeCreateDateSubQuery")
-      bizEnv=context
-      isPDN=(objectID==PDN)
-      _STR_strcpy(subTableStruct[0].tableCode,bizEnv.ObjectToTable(isPDN ? PDN : RPD))
-      subResStruct[0].colNum=isPDN ? OPDN_ABS_ENTRY : ORPD_ABS_ENTRY
-      subResStruct[0].tableIndex=0
-      subCond[0].compareCols=true
-      subCond[0].tableIndex=0
-      subCond[0].colNum=OJDT_JDT_NUM
-      subCond[0].compColNum=isPDN ? OPDN_TRANS_NUM : ORPD_TRANS_NUM
-      subCond[0].operation=DBD_EQ
-      subCond[0].origTableIndex=0
-      subCond[0].origTableLevel=1
-      subCond[0].relationship=0
-      DBD_SetParamTablesList(subParams,subTableStruct,1)
-      DBD_SetCond(subParams,subCond,1)
-      DBD_SetRes(subParams,subResStruct,1)
-   end
-
-   def UpgradeJDTCanceledDeposit()
-      trace("UpgradeJDTCanceledDeposit")
-      dagJDT=GetDAG()
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      resStruct[0].colNum=OJDT_JDT_NUM
-      resStruct[1].colNum=OJDT_NUMBER
-      DBD_SetDAGRes(dagJDT,resStruct,2)
-      conditions=dagJDT.GetDBDParams().GetConditions()
-      cond=conditions.AddCondition()
-      cond.colNum=OJDT_TRANS_TYPE
-      cond.operation=DBD_EQ
-      cond.condVal=SBOString(DPS)
-      cond.relationship=DBD_AND
-      _STR_strcpy(subTableStruct[0].tableCode,context.ObjectToTable(DPS))
-      subResStruct[0].colNum=ODPS_ABS_ENT
-      subResStruct[0].tableIndex=0
-      subCond[0].compareCols=true
-      subCond[0].tableIndex=0
-      subCond[0].colNum=OJDT_JDT_NUM
-      subCond[0].compColNum=ODPS_TRANS_ABS
-      subCond[0].operation=DBD_EQ
-      subCond[0].origTableIndex=0
-      subCond[0].origTableLevel=1
-      subCond[0].relationship=0
-      DBD_SetParamTablesList(subParams,subTableStruct,1)
-      DBD_SetCond(subParams,subCond,1)
-      DBD_SetRes(subParams,subResStruct,1)
-      cond=conditions.AddCondition()
-      cond.SetSubQueryParams(subParams)
-      cond.tableIndex=DBD_NO_TABLE
-      cond.operation=DBD_NOT_EXISTS
-      cond.relationship=0
-      ooErr=DBD_GetInNewFormat(dagJDT,dagRES)
-      if ooErr
-         if ooErr==-2028
-            ooErr=0
-         end
-
-         return ooErr
-      end
-
-      updStructJDT[0].colNum=OJDT_TRANS_TYPE
-      updStructJDT[1].colNum=OJDT_CREATED_BY
-      updStructJDT[2].colNum=OJDT_BASE_REF
-      updStructJDT1[0].colNum=JDT1_TRANS_TYPE
-      updStructJDT1[1].colNum=JDT1_CREATED_BY
-      updStructJDT1[2].colNum=JDT1_BASE_REF
-      updStructJDT[0].updateVal=SBOString(JDT)
-      updStructJDT1[0].updateVal=SBOString(JDT)
-      numOfRecs=dagRES.GetRecordCount()
-      ii=0
-      begin
-         conditions=dagJDT.GetDBDParams().GetConditions()
-         cond=conditions.AddCondition()
-         cond.colNum=OJDT_JDT_NUM
-         cond.operation=DBD_EQ
-         dagRES.GetColStr(cond.condVal,0,ii)
-         cond.relationship=0
-         dagRES.GetColStr(updStructJDT[1].updateVal,0,ii)
-         dagRES.GetColStr(updStructJDT[2].updateVal,1,ii)
-         DBD_SetDAGUpd(dagJDT,updStructJDT,3)
-         ooErr=DBD_UpdateCols(dagJDT)
-         if ooErr
-            return ooErr
-         end
-
-         conditions=dagJDT1.GetDBDParams().GetConditions()
-         cond=conditions.AddCondition()
-         cond.colNum=JDT1_TRANS_ABS
-         cond.operation=DBD_EQ
-         dagRES.GetColStr(cond.condVal,0,ii)
-         cond.relationship=0
-         dagRES.GetColStr(updStructJDT1[1].updateVal,0,ii)
-         dagRES.GetColStr(updStructJDT1[2].updateVal,1,ii)
-         DBD_SetDAGUpd(dagJDT1,updStructJDT1,3)
-         ooErr=DBD_UpdateCols(dagJDT1)
-         if ooErr
-            return ooErr
-         end
-
-
-         (ii+=1;ii-2)
-      end while (ii<numOfRecs)
-
-      return 0
-   end
-
-   def UpgradeJDT1VatLineToNo()
-      sboErr=0
-      bizEnv=context
-      queryDag=GetDAG()
-      _STR_strcpy(subQueryTableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Main))
-      DBD_SetParamTablesList(subQueryParams,subQueryTableStruct,1)
-      subQueryRES[0].tableIndex=0
-      subQueryRES[0].colNum=OJDT_JDT_NUM
-      DBD_SetRes(subQueryParams,subQueryRES,1)
-      subConds[0].compareCols=true
-      subConds[0].origTableLevel=1
-      subConds[0].origTableIndex=0
-      subConds[0].colNum=JDT1_TRANS_ABS
-      subConds[0].operation=DBD_EQ
-      subConds[0].compTableIndex=0
-      subConds[0].compColNum=OJDT_JDT_NUM
-      subConds[0].relationship=DBD_AND
-      subConds[1].colNum=OJDT_AUTO_VAT
-      subConds[1].operation=DBD_EQ
-      subConds[1].condVal=VAL_NO
-      subConds[1].relationship=DBD_AND
-      subConds[2].bracketOpen=1
-      subConds[2].colNum=OJDT_TRANS_TYPE
-      subConds[2].operation=DBD_EQ
-      subConds[2].condVal=MANUAL_BANK_TRANS_TYPE
-      subConds[2].relationship=DBD_OR
-      subConds[3].colNum=OJDT_TRANS_TYPE
-      subConds[3].operation=DBD_EQ
-      subConds[3].condVal=JDT
-      subConds[3].bracketClose=1
-      subConds[3].relationship=0
-      DBD_SetCond(subQueryParams,subConds,4)
-      updStruct[0].colNum=JDT1_VAT_LINE
-      updStruct[0].updateVal=VAL_NO
-      DBD_SetDAGUpd(queryDag,updStruct,1)
-      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
-      DBD_SetTablesList(queryDag,tableStruct,1)
-      mainConds[0].colNum=JDT1_VAT_LINE
-      mainConds[0].operation=DBD_EQ
-      mainConds[0].condVal=VAL_YES
-      mainConds[0].relationship=DBD_AND
-      mainConds[1].bracketOpen=1
-      mainConds[1].colNum=JDT1_VAT_GROUP
-      mainConds[1].operation=DBD_IS_NULL
-      mainConds[1].relationship=DBD_OR
-      mainConds[2].colNum=JDT1_VAT_GROUP
-      mainConds[2].operation=DBD_EQ
-      mainConds[2].condVal=EMPTY_STR
-      mainConds[2].bracketClose=1
-      mainConds[2].relationship=DBD_AND
-      mainConds[3].tableIndex=-1
-      mainConds[3].operation=DBD_EXISTS
-      mainConds[3].SetSubQueryParams(subQueryParams)
-      mainConds[3].relationship=0
-      DBD_SetDAGCond(queryDag,mainConds,4)
-      sboErr=DBD_UpdateCols(queryDag)
-      if sboErr&&sboErr!=-2028
-         return sboErr
-      end
-
-      return 0
-   end
-
-   def UpgradeYearTransfer()
-      dagJDT=GetDAG()
-      conditions=dagJDT.GetDBDParams().GetConditions()
-      cond=conditions.AddCondition()
-      cond.colNum=OJDT_TRANS_TYPE
-      cond.operation=DBD_EQ
-      cond.condVal=OPEN_BLNC_TYPE
-      cond.relationship=DBD_AND
-      cond=conditions.AddCondition()
-      cond.colNum=OJDT_BATCH_NUM
-      cond.operation=DBD_NOT_NULL
-      cond.relationship=DBD_AND
-      cond=conditions.AddCondition()
-      cond.colNum=OJDT_BATCH_NUM
-      cond.operation=DBD_NE
-      cond.condVal=STR_0
-      cond.relationship=DBD_AND
-      cond=conditions.AddCondition()
-      cond.colNum=OJDT_DATA_SOURCE
-      cond.operation=DBD_EQ
-      cond.condVal=VAL_UNKNOWN_SOURCE
-      cond.relationship=0
-      updStructJDT[0].colNum=OJDT_DATA_SOURCE
-      updStructJDT[0].updateVal=VAL_YEAR_TRANSFER_SOURCE
-      DBD_SetDAGUpd(dagJDT,updStructJDT,1)
-      return DBD_UpdateCols(dagJDT)
-   end
-
-   def RepairTaxTable()
-      sboErr=0
-      bizEnv=context
-      queryDag=GetDAG(TAX,ao_Main)
-      if !bizEnv.IsVatPerLine()
-         return 0
-      end
-
-      _STR_strcpy(subQueryTableStruct[0].tableCode,bizEnv.ObjectToTable(TAX,ao_Arr1))
-      _STR_strcpy(subQueryTableStruct[1].tableCode,bizEnv.ObjectToTable(TAX,ao_Main))
-      _STR_strcpy(subQueryTableStruct[2].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
-      subQueryTableStruct[1].doJoin=true
-      subQueryTableStruct[1].joinedToTable=0
-      subQueryTableStruct[1].numOfConds=1
-      subQueryTableStruct[1].joinConds=joinToTAX1
-      subQueryTableStruct[2].doJoin=true
-      subQueryTableStruct[2].joinedToTable=1
-      subQueryTableStruct[2].numOfConds=3
-      subQueryTableStruct[2].joinConds=joinToOTAX
-      joinToTAX1[0].compareCols=true
-      joinToTAX1[0].compColNum=TAX1_ABS_ENTRY
-      joinToTAX1[0].compTableIndex=1
-      joinToTAX1[0].colNum=OTAX_ABS_ENTRY
-      joinToTAX1[0].tableIndex=0
-      joinToTAX1[0].operation=DBD_EQ
-      joinToOTAX[0].compareCols=true
-      joinToOTAX[0].compColNum=OTAX_SOURCE_OBJ_ABS_ENTRY
-      joinToOTAX[0].compTableIndex=1
-      joinToOTAX[0].colNum=JDT1_TRANS_ABS
-      joinToOTAX[0].tableIndex=2
-      joinToOTAX[0].operation=DBD_EQ
-      joinToOTAX[0].relationship=DBD_AND
-      joinToOTAX[1].compareCols=true
-      joinToOTAX[1].compColNum=TAX1_SRC_LINE_NUM
-      joinToOTAX[1].compTableIndex=0
-      joinToOTAX[1].colNum=JDT1_LINE_ID
-      joinToOTAX[1].tableIndex=2
-      joinToOTAX[1].operation=DBD_EQ
-      joinToOTAX[1].relationship=DBD_AND
-      joinToOTAX[2].colNum=OTAX_SOURCE_OBJ_TYPE
-      joinToOTAX[2].tableIndex=1
-      joinToOTAX[2].operation=DBD_EQ
-      joinToOTAX[2].condVal=JDT
-      DBD_SetParamTablesList(subQueryParams,subQueryTableStruct,3)
-      subQueryRES[0].tableIndex=0
-      subQueryRES[0].colNum=TAX1_ABS_ENTRY
-      DBD_SetRes(subQueryParams,subQueryRES,1)
-      subConds[0].tableIndex=2
-      subConds[0].colNum=JDT1_VAT_GROUP
-      subConds[0].operation=DBD_IS_NULL
-      subConds[0].relationship=DBD_OR
-      subConds[1].tableIndex=2
-      subConds[1].colNum=JDT1_VAT_GROUP
-      subConds[1].operation=DBD_EQ
-      subConds[1].condVal=EMPTY_STR
-      DBD_SetCond(subQueryParams,subConds,2)
-      mainConds[0].colNum=OTAX_ABS_ENTRY
-      mainConds[0].operation=DBD_IN
-      mainConds[0].SetSubQueryParams(subQueryParams)
-      mainConds[0].relationship=0
-      DBD_SetDAGCond(queryDag,mainConds,1)
-      DBD_RemoveRecords(queryDag)
-      _STR_strcpy(subQuery2TableStruct[0].tableCode,bizEnv.ObjectToTable(TAX,ao_Main))
-      DBD_SetParamTablesList(subQuery2Params,subQuery2TableStruct,1)
-      subQueryRES[0].colNum=OTAX_ABS_ENTRY
-      DBD_SetRes(subQuery2Params,subQueryRES,1)
-      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(TAX,ao_Arr1))
-      DBD_SetTablesList(queryDag,tableStruct,1)
-      _MEM_Clear(mainConds,1)
-      mainConds[0].colNum=TAX1_ABS_ENTRY
-      mainConds[0].operation=DBD_NOT_IN
-      mainConds[0].SetSubQueryParams(subQuery2Params)
-      mainConds[0].relationship=0
-      DBD_SetDAGCond(queryDag,mainConds,1)
-      DBD_RemoveRecords(queryDag)
-      return 0
-   end
-
-   def UpgradeJDTCEEPerioEndReconcilations()
-      trace("UpgradeJDTCEEPerioEndReconcilations")
-      sboErr=0
-      bizEnv=context
-      dagJDT1=GetDAG()
-      dagJDT1.ClearQueryParams()
-      tables[0].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
-      tables[1].tableCode=bizEnv.ObjectToTable(JDT,ao_Main)
-      tables[2].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
-      tables[3].tableCode=bizEnv.ObjectToTable(ITR,ao_Main)
-      tables[1].doJoin=true
-      tables[1].joinedToTable=0
-      tables[1].numOfConds=1
-      tables[1].joinConds=join1
-      join1[0].compareCols=true
-      join1[0].compColNum=JDT1_TRANS_ABS
-      join1[0].compTableIndex=0
-      join1[0].colNum=OJDT_JDT_NUM
-      join1[0].tableIndex=1
-      join1[0].operation=DBD_EQ
-      tables[2].doJoin=true
-      tables[2].joinedToTable=0
-      tables[2].numOfConds=1
-      tables[2].joinConds=join2
-      join2[0].compareCols=true
-      join2[0].compColNum=JDT1_TRANS_ABS
-      join2[0].compTableIndex=0
-      join2[0].colNum=ITR1_TRANS_ID
-      join2[0].tableIndex=2
-      join2[0].operation=DBD_EQ
-      tables[3].doJoin=true
-      tables[3].joinedToTable=2
-      tables[3].numOfConds=1
-      tables[3].joinConds=join3
-      join3[0].compareCols=true
-      join3[0].compColNum=ITR1_RECON_NUM
-      join3[0].compTableIndex=2
-      join3[0].colNum=OITR_RECON_NUM
-      join3[0].tableIndex=3
-      join3[0].operation=DBD_EQ
-      DBD_SetTablesList(dagJDT1,tables,4)
-      resStruct[0].tableIndex=2
-      resStruct[0].colNum=ITR1_RECON_NUM
-      resStruct[1].tableIndex=2
-      resStruct[1].colNum=ITR1_LINE_SEQUENCE
-      resStruct[2].tableIndex=2
-      resStruct[2].colNum=ITR1_TRANS_ID
-      resStruct[3].tableIndex=2
-      resStruct[3].colNum=ITR1_TRANS_LINE_ID
-      resStruct[4].tableIndex=2
-      resStruct[4].colNum=ITR1_SRC_OBJ_TYPE
-      DBD_SetDAGRes(dagJDT1,resStruct,5)
-      conditions=dagJDT1.GetDBDParams().GetConditions()
-      cond=conditions.AddCondition()
-      cond.bracketOpen=true
-      cond.colNum=JDT1_BALANCE_DUE_DEBIT
-      cond.condVal=_T("0.00")
-      cond.operation=DBD_NE
-      cond.relationship=DBD_OR
-      cond=conditions.AddCondition()
-      cond.colNum=JDT1_BALANCE_DUE_CREDIT
-      cond.condVal=_T("0.00")
-      cond.operation=DBD_NE
-      cond.relationship=DBD_OR
-      cond=conditions.AddCondition()
-      cond.colNum=JDT1_BALANCE_DUE_FC_DEB
-      cond.condVal=_T("0.00")
-      cond.operation=DBD_NE
-      cond.relationship=DBD_OR
-      cond=conditions.AddCondition()
-      cond.colNum=JDT1_BALANCE_DUE_FC_CRED
-      cond.condVal=_T("0.00")
-      cond.operation=DBD_NE
-      cond.relationship=DBD_OR
-      cond=conditions.AddCondition()
-      cond.colNum=JDT1_BALANCE_DUE_SC_DEB
-      cond.condVal=_T("0.00")
-      cond.operation=DBD_NE
-      cond.relationship=DBD_OR
-      cond=conditions.AddCondition()
-      cond.colNum=JDT1_BALANCE_DUE_SC_CRED
-      cond.condVal=_T("0.00")
-      cond.operation=DBD_NE
-      cond.bracketClose=true
-      cond.relationship=DBD_AND
-      cond=conditions.AddCondition()
-      cond.bracketOpen=true
-      cond.tableIndex=1
-      cond.colNum=OJDT_TRANS_TYPE
-      cond.condVal=SBOString(OPEN_BLNC_TYPE)
-      cond.operation=DBD_EQ
-      cond.relationship=DBD_OR
-      cond=conditions.AddCondition()
-      cond.tableIndex=1
-      cond.colNum=OJDT_TRANS_TYPE
-      cond.condVal=SBOString(CLOSE_BLNC_TYPE)
-      cond.operation=DBD_EQ
-      cond.bracketClose=true
-      cond.relationship=DBD_AND
-      cond=conditions.AddCondition()
-      cond.bracketOpen=true
-      cond.tableIndex=2
-      cond.colNum=ITR1_SRC_OBJ_TYPE
-      cond.condVal=SBOString(OPEN_BLNC_TYPE)
-      cond.operation=DBD_EQ
-      cond.relationship=DBD_OR
-      cond=conditions.AddCondition()
-      cond.tableIndex=2
-      cond.colNum=ITR1_SRC_OBJ_TYPE
-      cond.condVal=SBOString(CLOSE_BLNC_TYPE)
-      cond.operation=DBD_EQ
-      cond.bracketClose=true
-      cond.relationship=DBD_AND
-      cond=conditions.AddCondition()
-      cond.tableIndex=3
-      cond.condVal=JDT
-      cond.colNum=OITR_INIT_OBJ_TYPE
-      cond.operation=DBD_EQ
-      sboErr=DBD_GetInNewFormat(dagJDT1,dagRes)
-      if sboErr
-         if sboErr==-2028
-            sboErr=0
-         end
-
-         return sboErr
-      end
-
-      numOfRecon=dagRes.GetRecordCount()
-      dagUpdate=OpenDAG(JDT,ao_Arr1)
-      i=0
-      begin
-         tables[0].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
-         DBD_SetTablesList(dagUpdate,tables,1)
-         updStruct[0].Clear()
-         updStruct[0].colNum=JDT1_BALANCE_DUE_DEBIT
-         updStruct[0].srcColNum=JDT1_DEBIT
-         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
-         updStruct[1].Clear()
-         updStruct[1].colNum=JDT1_BALANCE_DUE_FC_DEB
-         updStruct[1].srcColNum=JDT1_FC_DEBIT
-         updStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
-         updStruct[2].Clear()
-         updStruct[2].colNum=JDT1_BALANCE_DUE_SC_DEB
-         updStruct[2].srcColNum=JDT1_SYS_DEBIT
-         updStruct[2].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
-         updStruct[3].Clear()
-         updStruct[3].colNum=JDT1_BALANCE_DUE_CREDIT
-         updStruct[3].srcColNum=JDT1_CREDIT
-         updStruct[3].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
-         updStruct[4].Clear()
-         updStruct[4].colNum=JDT1_BALANCE_DUE_FC_CRED
-         updStruct[4].srcColNum=JDT1_FC_CREDIT
-         updStruct[4].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
-         updStruct[5].Clear()
-         updStruct[5].colNum=JDT1_BALANCE_DUE_SC_CRED
-         updStruct[5].srcColNum=JDT1_SYS_CREDIT
-         updStruct[5].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
-         DBD_SetDAGUpd(dagUpdate,updStruct,6)
-         condStruct[0].Clear()
-         condStruct[0].tableIndex=0
-         condStruct[0].colNum=JDT1_TRANS_ABS
-         dagRes.GetColStr(condStruct[0].condVal,2,i)
-         condStruct[0].operation=DBD_EQ
-         condStruct[0].relationship=DBD_AND
-         condStruct[1].Clear()
-         condStruct[1].tableIndex=0
-         condStruct[1].colNum=JDT1_LINE_ID
-         dagRes.GetColStr(condStruct[1].condVal,3,i)
-         condStruct[1].operation=DBD_EQ
-         DBD_SetDAGCond(dagUpdate,condStruct,2)
-         sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
-            return sboErr
-         end
-
-         dagUpdate.ClearQueryParams()
-
-         (i+=1;i-2)
-      end while (i<numOfRecon)
-
-      i=0
-      begin
-         dagRes.GetColLong(srcObjTyp,4,i)
-         if srcObjTyp==CLOSE_BLNC_TYPE
-            tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
-            tables[1].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
-            tables[1].doJoin=false
-            DBD_SetTablesList(dagUpdate,tables,2)
-            updStruct[0].Clear()
-            updStruct[0].colNum=ITR1_TRANS_LINE_ID
-            updStruct[0].updateVal=0
-            updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_Orig)
-            updStruct[1].Clear()
-            updStruct[1].colNum=ITR1_IS_CREDIT
-            updStruct[1].srcColNum=JDT1_DEBIT_CREDIT
-            updStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-            pResCol=updStruct[1].GetResObject().AddResCol()
-            pResCol.SetTableIndex(1)
-            pResCol.SetColNum(JDT1_DEBIT_CREDIT)
-            updStruct[2].Clear()
-            updStruct[2].colNum=ITR1_SHORT_NAME
-            updStruct[2].srcColNum=JDT1_SHORT_NAME
-            updStruct[2].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-            pResCol=updStruct[2].GetResObject().AddResCol()
-            pResCol.SetTableIndex(1)
-            pResCol.SetColNum(JDT1_SHORT_NAME)
-            updStruct[3].Clear()
-            updStruct[3].colNum=ITR1_ACCT_NUM
-            updStruct[3].srcColNum=JDT1_ACCT_NUM
-            updStruct[3].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-            pResCol=updStruct[3].GetResObject().AddResCol()
-            pResCol.SetTableIndex(1)
-            pResCol.SetColNum(JDT1_ACCT_NUM)
-            DBD_SetDAGUpd(dagUpdate,updStruct,4)
-            condStruct[0].Clear()
-            condStruct[0].tableIndex=1
-            condStruct[0].colNum=JDT1_TRANS_ABS
-            dagRes.GetColStr(condStruct[0].condVal,2,i)
-            condStruct[0].operation=DBD_EQ
-            condStruct[0].relationship=DBD_AND
-            condStruct[1].Clear()
-            condStruct[1].tableIndex=1
-            condStruct[1].colNum=JDT1_LINE_ID
-            condStruct[1].condVal=0
-            condStruct[1].operation=DBD_EQ
-            condStruct[1].relationship=DBD_AND
-            condStruct[2].Clear()
-            condStruct[2].tableIndex=0
-            condStruct[2].colNum=ITR1_RECON_NUM
-            dagRes.GetColStr(condStruct[2].condVal,0,i)
-            condStruct[2].operation=DBD_EQ
-            condStruct[2].relationship=DBD_AND
-            condStruct[3].Clear()
-            condStruct[3].tableIndex=0
-            condStruct[3].colNum=ITR1_LINE_SEQUENCE
-            dagRes.GetColStr(condStruct[3].condVal,1,i)
-            condStruct[3].operation=DBD_EQ
-            DBD_SetDAGCond(dagUpdate,condStruct,4)
-            sboErr=DBD_UpdateCols(dagUpdate)
-            if sboErr&&sboErr!=-2028
-               return sboErr
-            end
-
-            dagUpdate.ClearQueryParams()
-         end
-
-
-         (i+=1;i-2)
-      end while (i<numOfRecon)
-
-      i=0
-      begin
-         dagRes.GetColLong(srcObjTyp,4,i)
-         if srcObjTyp==OPEN_BLNC_TYPE
-            tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
-            tables[1].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
-            tables[1].doJoin=false
-            DBD_SetTablesList(dagUpdate,tables,2)
-            updStruct[0].Clear()
-            updStruct[0].colNum=ITR1_TRANS_LINE_ID
-            updStruct[0].updateVal=1
-            updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_Orig)
-            updStruct[1].Clear()
-            updStruct[1].colNum=ITR1_IS_CREDIT
-            updStruct[1].srcColNum=JDT1_DEBIT_CREDIT
-            updStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-            pResCol=updStruct[1].GetResObject().AddResCol()
-            pResCol.SetTableIndex(1)
-            pResCol.SetColNum(JDT1_DEBIT_CREDIT)
-            updStruct[2].Clear()
-            updStruct[2].colNum=ITR1_SHORT_NAME
-            updStruct[2].srcColNum=JDT1_SHORT_NAME
-            updStruct[2].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-            pResCol=updStruct[2].GetResObject().AddResCol()
-            pResCol.SetTableIndex(1)
-            pResCol.SetColNum(JDT1_SHORT_NAME)
-            updStruct[3].Clear()
-            updStruct[3].colNum=ITR1_ACCT_NUM
-            updStruct[3].srcColNum=JDT1_ACCT_NUM
-            updStruct[3].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-            pResCol=updStruct[3].GetResObject().AddResCol()
-            pResCol.SetTableIndex(1)
-            pResCol.SetColNum(JDT1_ACCT_NUM)
-            DBD_SetDAGUpd(dagUpdate,updStruct,4)
-            condStruct[0].Clear()
-            condStruct[0].tableIndex=1
-            condStruct[0].colNum=JDT1_TRANS_ABS
-            dagRes.GetColStr(condStruct[0].condVal,2,i)
-            condStruct[0].operation=DBD_EQ
-            condStruct[0].relationship=DBD_AND
-            condStruct[1].Clear()
-            condStruct[1].tableIndex=1
-            condStruct[1].colNum=JDT1_LINE_ID
-            condStruct[1].condVal=1
-            condStruct[1].operation=DBD_EQ
-            condStruct[1].relationship=DBD_AND
-            condStruct[2].Clear()
-            condStruct[2].tableIndex=0
-            condStruct[2].colNum=ITR1_RECON_NUM
-            dagRes.GetColStr(condStruct[2].condVal,0,i)
-            condStruct[2].operation=DBD_EQ
-            condStruct[2].relationship=DBD_AND
-            condStruct[3].Clear()
-            condStruct[3].tableIndex=0
-            condStruct[3].colNum=ITR1_LINE_SEQUENCE
-            dagRes.GetColStr(condStruct[3].condVal,1,i)
-            condStruct[3].operation=DBD_EQ
-            DBD_SetDAGCond(dagUpdate,condStruct,4)
-            sboErr=DBD_UpdateCols(dagUpdate)
-            if sboErr&&sboErr!=-2028
-               return sboErr
-            end
-
-            dagUpdate.ClearQueryParams()
-         end
-
-
-         (i+=1;i-2)
-      end while (i<numOfRecon)
-
-      i=0
-      begin
-         tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Main)
-         tables[1].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
-         tables[1].doJoin=false
-         tables[2].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
-         tables[2].doJoin=false
-         DBD_SetTablesList(dagUpdate,tables,3)
-         updStruct[0].Clear()
-         updStruct[0].colNum=OITR_IS_CARD
-         updStruct[0].updateVal=VAL_CARD
-         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_Orig)
-         DBD_SetDAGUpd(dagUpdate,updStruct,1)
-         condStruct[0].Clear()
-         condStruct[0].tableIndex=0
-         condStruct[0].colNum=OITR_RECON_NUM
-         dagRes.GetColStr(condStruct[0].condVal,0,i)
-         condStruct[0].operation=DBD_EQ
-         condStruct[0].relationship=DBD_AND
-         condStruct[1].Clear()
-         condStruct[1].tableIndex=0
-         condStruct[1].colNum=OITR_RECON_NUM
-         condStruct[1].compareCols=true
-         condStruct[1].compTableIndex=1
-         condStruct[1].compColNum=ITR1_RECON_NUM
-         condStruct[1].operation=DBD_EQ
-         condStruct[1].relationship=DBD_AND
-         condStruct[2].Clear()
-         condStruct[2].tableIndex=1
-         condStruct[2].colNum=ITR1_LINE_SEQUENCE
-         condStruct[2].condVal=0
-         condStruct[2].operation=DBD_EQ
-         condStruct[2].relationship=DBD_AND
-         condStruct[3].Clear()
-         condStruct[3].tableIndex=1
-         condStruct[3].colNum=ITR1_TRANS_ID
-         condStruct[3].compareCols=true
-         condStruct[3].compTableIndex=2
-         condStruct[3].compColNum=JDT1_TRANS_ABS
-         condStruct[3].operation=DBD_EQ
-         condStruct[3].relationship=DBD_AND
-         condStruct[4].Clear()
-         condStruct[4].tableIndex=1
-         condStruct[4].colNum=ITR1_TRANS_LINE_ID
-         condStruct[4].compareCols=true
-         condStruct[4].compTableIndex=2
-         condStruct[4].compColNum=JDT1_LINE_ID
-         condStruct[4].operation=DBD_EQ
-         condStruct[4].relationship=DBD_AND
-         condStruct[5].Clear()
-         condStruct[5].tableIndex=2
-         condStruct[5].colNum=JDT1_SHORT_NAME
-         condStruct[5].compareCols=true
-         condStruct[5].compTableIndex=2
-         condStruct[5].compColNum=JDT1_ACCT_NUM
-         condStruct[5].operation=DBD_NE
-         DBD_SetDAGCond(dagUpdate,condStruct,6)
-         sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
-            return sboErr
-         end
-
-         dagUpdate.ClearQueryParams()
-
-         (i+=1;i-2)
-      end while (i<numOfRecon)
-
-      i=0
-      begin
-         tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Main)
-         tables[1].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
-         tables[1].doJoin=false
-         DBD_SetTablesList(dagUpdate,tables,2)
-         updStruct[0].Clear()
-         updStruct[0].colNum=OITR_RECON_CURRENCY
-         updStruct[0].srcColNum=ITR1_FRGN_CURRENCY
-         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-         pResCol=updStruct[0].GetResObject().AddResCol()
-         pResCol.SetTableIndex(1)
-         pResCol.SetColNum(ITR1_FRGN_CURRENCY)
-         updStruct[1].Clear()
-         updStruct[1].colNum=OITR_TOTAL
-         updStruct[1].srcColNum=ITR1_RECON_SUM_FC
-         updStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-         pResCol=updStruct[1].GetResObject().AddResCol()
-         pResCol.SetTableIndex(1)
-         pResCol.SetColNum(ITR1_RECON_SUM_FC)
-         DBD_SetDAGUpd(dagUpdate,updStruct,2)
-         condStruct[0].Clear()
-         condStruct[0].tableIndex=0
-         condStruct[0].colNum=OITR_RECON_NUM
-         dagRes.GetColStr(condStruct[0].condVal,0,i)
-         condStruct[0].operation=DBD_EQ
-         condStruct[0].relationship=DBD_AND
-         condStruct[1].Clear()
-         condStruct[1].tableIndex=0
-         condStruct[1].colNum=OITR_RECON_NUM
-         condStruct[1].compareCols=true
-         condStruct[1].compTableIndex=1
-         condStruct[1].compColNum=ITR1_RECON_NUM
-         condStruct[1].operation=DBD_EQ
-         condStruct[1].relationship=DBD_AND
-         condStruct[2].Clear()
-         condStruct[2].tableIndex=1
-         condStruct[2].colNum=ITR1_LINE_SEQUENCE
-         condStruct[2].condVal=0
-         condStruct[2].operation=DBD_EQ
-         condStruct[2].relationship=DBD_AND
-         condStruct[3].Clear()
-         condStruct[3].tableIndex=1
-         condStruct[3].colNum=ITR1_FRGN_CURRENCY
-         condStruct[3].operation=DBD_NOT_NULL
-         condStruct[3].relationship=DBD_AND
-         condStruct[4].Clear()
-         condStruct[4].tableIndex=1
-         condStruct[4].colNum=ITR1_FRGN_CURRENCY
-         condStruct[4].condVal=EMPTY_STR
-         condStruct[4].operation=DBD_NE
-         DBD_SetDAGCond(dagUpdate,condStruct,5)
-         sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
-            return sboErr
-         end
-
-         dagUpdate.ClearQueryParams()
-
-         (i+=1;i-2)
-      end while (i<numOfRecon)
-
-      i=0
-      begin
-         tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
-         DBD_SetTablesList(dagUpdate,tables,1)
-         updStruct[0].Clear()
-         updStruct[0].colNum=ITR1_SUM_IN_MATCH_CURR
-         updStruct[0].srcColNum=ITR1_RECON_SUM_FC
-         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
-         DBD_SetDAGUpd(dagUpdate,updStruct,1)
-         condStruct[0].Clear()
-         condStruct[0].tableIndex=0
-         condStruct[0].colNum=ITR1_RECON_NUM
-         dagRes.GetColStr(condStruct[0].condVal,0,i)
-         condStruct[0].operation=DBD_EQ
-         condStruct[0].relationship=DBD_AND
-         condStruct[1].Clear()
-         condStruct[1].tableIndex=0
-         condStruct[1].colNum=ITR1_FRGN_CURRENCY
-         condStruct[1].operation=DBD_NOT_NULL
-         condStruct[1].relationship=DBD_AND
-         condStruct[2].Clear()
-         condStruct[2].tableIndex=0
-         condStruct[2].colNum=ITR1_FRGN_CURRENCY
-         condStruct[2].condVal=EMPTY_STR
-         condStruct[2].operation=DBD_NE
-         DBD_SetDAGCond(dagUpdate,condStruct,3)
-         sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
-            return sboErr
-         end
-
-         dagUpdate.ClearQueryParams()
-
-         (i+=1;i-2)
-      end while (i<numOfRecon)
-
-      i=0
-      begin
-         tables[0].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
-         tables[1].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
-         tables[1].doJoin=false
-         DBD_SetTablesList(dagUpdate,tables,2)
-         updStruct[0].Clear()
-         updStruct[0].colNum=JDT1_BALANCE_DUE_DEBIT
-         updStruct[0].updateVal=0
-         updStruct[1].Clear()
-         updStruct[1].colNum=JDT1_BALANCE_DUE_FC_DEB
-         updStruct[1].updateVal=0
-         updStruct[2].Clear()
-         updStruct[2].colNum=JDT1_BALANCE_DUE_SC_DEB
-         updStruct[2].updateVal=0
-         updStruct[3].Clear()
-         updStruct[3].colNum=JDT1_BALANCE_DUE_CREDIT
-         updStruct[3].updateVal=0
-         updStruct[4].Clear()
-         updStruct[4].colNum=JDT1_BALANCE_DUE_FC_CRED
-         updStruct[4].updateVal=0
-         updStruct[5].Clear()
-         updStruct[5].colNum=JDT1_BALANCE_DUE_SC_CRED
-         updStruct[5].updateVal=0
-         DBD_SetDAGUpd(dagUpdate,updStruct,6)
-         condStruct[0].Clear()
-         condStruct[0].tableIndex=1
-         condStruct[0].colNum=ITR1_RECON_NUM
-         dagRes.GetColStr(condStruct[0].condVal,0,i)
-         condStruct[0].operation=DBD_EQ
-         condStruct[0].relationship=DBD_AND
-         condStruct[1].Clear()
-         condStruct[1].tableIndex=0
-         condStruct[1].colNum=JDT1_TRANS_ABS
-         condStruct[1].compareCols=true
-         condStruct[1].compTableIndex=1
-         condStruct[1].compColNum=ITR1_TRANS_ID
-         condStruct[1].operation=DBD_EQ
-         condStruct[1].relationship=DBD_AND
-         condStruct[2].Clear()
-         condStruct[2].tableIndex=0
-         condStruct[2].colNum=JDT1_LINE_ID
-         condStruct[2].compareCols=true
-         condStruct[2].compTableIndex=1
-         condStruct[2].compColNum=ITR1_TRANS_LINE_ID
-         condStruct[2].operation=DBD_EQ
-         DBD_SetDAGCond(dagUpdate,condStruct,3)
-         sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
-            return sboErr
-         end
-
-         dagUpdate.ClearQueryParams()
-
-         (i+=1;i-2)
-      end while (i<numOfRecon)
-
-      return 0
-   end
-
-   def IsBlockDunningLetterUpdateable()
-      transType=GetID()
-      return (transType==JDT||transType==NOB||transType==OPEN_BLNC_TYPE||transType==CLOSE_BLNC_TYPE)
-   end
-
-   def UpgradeJDTIndianAutoVat()
-      trace("UpgradeJDTIndianAutoVat")
-      sboErr=0
-      bizEnv=context
-      dagJDT=GetDAG()
-      dagJDT.ClearQueryParams()
-      tables[0].tableCode=bizEnv.ObjectToTable(JDT,ao_Main)
-      tables[1].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
-      tables[1].doJoin=true
-      tables[1].joinedToTable=0
-      tables[1].numOfConds=1
-      tables[1].joinConds=join[0]
-      join[0].compareCols=true
-      join[0].compTableIndex=1
-      join[0].compColNum=JDT1_TRANS_ABS
-      join[0].operation=DBD_EQ
-      join[0].tableIndex=0
-      join[0].colNum=OJDT_JDT_NUM
-      condition[0].tableIndex=0
-      condition[0].colNum=OJDT_AUTO_VAT
-      condition[0].operation=DBD_EQ
-      condition[0].condVal=VAL_YES
-      condition[0].relationship=DBD_AND
-      condition[1].tableIndex=1
-      condition[1].colNum=JDT1_VAT_LINE
-      condition[1].operation=DBD_EQ
-      condition[1].condVal=VAL_YES
-      condition[1].relationship=DBD_AND
-      condition[2].tableIndex=1
-      condition[2].colNum=JDT1_VAT_GROUP
-      condition[2].operation=DBD_NOT_NULL
-      condition[2].relationship=0
-      resStruct[0].tableIndex=0
-      resStruct[0].colNum=OJDT_JDT_NUM
-      resStruct[0].group_by=true
-      DBD_SetTablesList(dagJDT,tables,2)
-      DBD_SetDAGCond(dagJDT,condition,3)
-      DBD_SetDAGRes(dagJDT,resStruct,1)
-      sboErr=DBD_GetInNewFormat(dagJDT,dagRes)
-      if sboErr
-         if sboErr==-2028
-            sboErr=0
-         end
-
-         return sboErr
-      end
-
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      sortStruct[0].colNum=JDT1_TRANS_ABS
-      sortStruct[1].colNum=JDT1_LINE_ID
-      numOfTrans=dagRes.GetRecordCount()
-      workLoad=1000
-      step=numOfTrans/workLoad
-      i=0
-      begin
-         if i<step
-            _translated_begin=i*workLoad
-            _translated_end=(i+1)*workLoad
-         else
-            _translated_begin=i*workLoad
-            _translated_end=numOfTrans
-            if _translated_begin>=_translated_end
-               break
-            end
-
-         end
-
-         transValues.Clear()
-         j=_translated_begin
-         begin
-            dagRes.GetColLong(transID,0,j)
-            transValues.Add(transID)
-
-            (j+=1)
-         end while (j<_translated_end)
-
-         dagJDT1.ClearQueryParams()
-         conditions=dagJDT1.GetDBDParams().GetConditions()
-         cond=conditions.AddCondition()
-         cond.colNum=JDT1_TRANS_ABS
-         cond.operation=DBD_IN
-         cond.SetValuesArray(transValues)
-         DBD_SetDAGSort(dagJDT1,sortStruct,2)
-         DBD_Get(dagJDT1)
-         sboErr=UpgradeJDTIndianAutoVatInt(dagJDT1)
-         if sboErr
-            return sboErr
-         end
-
-
-         (i+=1)
-      end while (i<=step)
-
-      return sboErr
-   end
-
-   def UpgradeJDTIndianAutoVatInt(dagJDT1)
-      isVatLine=false
-      currentTransID=-1
-      currentTaxType=0
-      totalLines=dagJDT1.GetRecordCount()
-      i=0
-      begin
-         dagJDT1.GetColStr(tmpStr,JDT1_DEBIT_CREDIT,i)
-         if tmpStr.Compare(VAL_DEBIT)
-            dagJDT1.SetColStr(_T("P"),JDT1_TAX_POSTING_ACCOUNT,i)
-         else
-            dagJDT1.SetColStr(_T("R"),JDT1_TAX_POSTING_ACCOUNT,i)
-         end
-
-         dagJDT1.GetColStr(tmpStr,JDT1_VAT_GROUP,i)
-         dagJDT1.NullifyCol(JDT1_VAT_GROUP,i)
-         dagJDT1.SetColStr(tmpStr,JDT1_TAX_CODE,i)
-         dagJDT1.SetColStr(VAL_YES,JDT1_IS_NET,i)
-         dagJDT1.GetColLong(tmpL,JDT1_TRANS_ABS,i)
-         if tmpL!=currentTransID
-            currentTransID=tmpL
-            currentTaxType=0
-            isVatLine=false
-            next
-
-         end
-
-         dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,i)
-         if tmpStr.Compare(VAL_YES)
-            currentTaxType=0
-            isVatLine=false
-            next
-
-         else
-            if !isVatLine
-               currentTaxType=0
-               isVatLine=true
-            else
-               (currentTaxType+=1)
-            end
-
-         end
-
-         dagJDT1.SetColLong(currentTaxType,JDT1_TAX_TYPE,i)
-
-         (i+=1)
-      end while (i<totalLines)
-
-      return dagJDT1.UpdateAll()
-   end
-
-   def CheckColChanged(dag,col,rec)
-      if !_DBM_DataAccessGate.isValid(dag)
-         return false
-      end
-
-      ooErr=dag.GetChangesList(rec,colList)
-      IF_ERROR_RETURN_VALUE(ooErr,false)
-      colCount=colList.GetSize()
-      colIndex=0
-      begin
-         currCol=colList[colIndex].GetColNum()
-         if currCol==col
-            return true
-         end
-
-
-         (colIndex+=1)
-      end while (colIndex<colCount)
-
-      return false
-   end
-
-   def UpdateWTInfo()
-      ooErr=ooNoErr
-      bizEnv=context
-      dagJDT=GetDAG(JDT)
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      recCountJDT1=dagJDT1.GetRecordCount()
-      GetWTCredDebt(wtSide)
-      mainCurr=bizEnv.GetMainCurrency()
-      sysCurr=bizEnv.GetSystemCurrency()
-      dagJDT.GetColStr(fcCurr,OJDT_TRANS_CURR)
-      rec=0
-      begin
-         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
-         shortName.Trim()
-         dagJDT1.GetColStr(account,JDT1_ACCT_NUM,rec)
-         account.Trim()
-         isCard=shortName!=account
-         if isCard
-            cardRec.Add(rec)
-            dagJDT1.GetColMoney(debit,JDT1_DEBIT,rec)
-            dagJDT1.GetColMoney(credit,JDT1_CREDIT,rec)
-            bpLineWt=debit==0 ? credit : debit
-            if credit==0
-               cardSide.Add(VAL_DEBIT)
-            else
-               cardSide.Add(VAL_CREDIT)
-            end
-
-            cardSum.Add(bpLineWt)
-            sum+=(debit-credit)
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<recCountJDT1)
-
-      sum.Abs()
-      dagJDT.GetColMoney(wtSum,OJDT_WT_SUM)
-      dagJDT.GetColMoney(wtSumSC,OJDT_WT_SUM_SC)
-      dagJDT.GetColMoney(wtSumFC,OJDT_WT_SUM_FC)
-      numBP=cardRec.GetSize()
-      if numBP<=0
-         return ooErr
-      end
-
-      i=0
-
-      begin
-         rec=cardRec[i]
-         precent=cardSum[i].MulAndDiv(100,sum)
-         bpLineWt=wtSum.MulAndDiv(precent,100)
-         bpLineWt.Round(RC_SUM,mainCurr,bizEnv)
-         dagJDT1.SetColMoney(bpLineWt,JDT1_WT_SUM,rec)
-         if cardSide[i]==VAL_DEBIT
-            sumTmpD+=bpLineWt
-         else
-            sumTmpC+=bpLineWt
-         end
-
-         bpLineWt=wtSumSC.MulAndDiv(precent,100)
-         bpLineWt.Round(RC_SUM,sysCurr,bizEnv)
-         dagJDT1.SetColMoney(bpLineWt,JDT1_WT_SUM_SC,rec)
-         if cardSide[i]==VAL_DEBIT
-            sumTmpSCD+=bpLineWt
-         else
-            sumTmpSCC+=bpLineWt
-         end
-
-         bpLineWt=wtSumFC.MulAndDiv(precent,100)
-         bpLineWt.Round(RC_SUM,fcCurr,bizEnv)
-         dagJDT1.SetColMoney(bpLineWt,JDT1_WT_SUM_FC,rec)
-         if cardSide[i]==VAL_DEBIT
-            sumTmpFCD+=bpLineWt
-         else
-            sumTmpFCC+=bpLineWt
-         end
-
-
-         (i+=1;i-2)
-      end while (i<numBP-1)
-
-      if wtSide==VAL_DEBIT
-         bpLineWt=wtSum-(sumTmpD-sumTmpC)
-         bpLineWtSC=wtSumSC-(sumTmpSCD-sumTmpSCC)
-         bpLineWtFC=wtSumFC-(sumTmpFCD-sumTmpFCC)
-      else
-         bpLineWt=wtSum+(sumTmpD-sumTmpC)
-         bpLineWtSC=wtSumSC+(sumTmpSCD-sumTmpSCC)
-         bpLineWtFC=wtSumFC+(sumTmpFCD-sumTmpFCC)
-      end
-
-      if wtSide!=cardSide[i]
-         bpLineWt*=-1
-         bpLineWtSC*=-1
-         bpLineWtFC*=-1
-      end
-
-      dagJDT1.SetColMoney(bpLineWt,JDT1_WT_SUM,cardRec[i])
-      dagJDT1.SetColMoney(bpLineWtSC,JDT1_WT_SUM_SC,cardRec[i])
-      dagJDT1.SetColMoney(bpLineWtFC,JDT1_WT_SUM_FC,cardRec[i])
-      return ooErr
-   end
-
-   def UpdateWTOnRecon(yourMatchData)
-      ooErr=ooNoErr
-      env=context
-      withholdingCodeSet=GetWithHoldingTax(true)
-      if withholdingCodeSet.size()==0
-         return ooNoErr
-      end
-
-      dagJDT2=GetArrayDAG(ao_Arr2)
-      numOfRecsJDT2=dagJDT2.GetRealSize(dbmDataBuffer)
-      if (numOfRecsJDT2>1&&!VF_AllowMixedWHTCategoriesenv)||(withholdingCodeSet.size()>1)
-         _MEM_MYRPT0(_T("CDocumentObject::UpdateWTOnRecon - \
-         JDT2 should contain 1 rec at the most for reconciliation!"))
-         BOOM
-         return ooInvalidAction
-      end
-
-      dagJDT1=GetArrayDAG(ao_Arr1)
-      offset=yourMatchData.transRowId
-      dagJDT=GetDAG()
-      status=GetJDTReconStatus()
-      paymCtgWhtRec=0
-      if VF_AllowMixedWHTCategories(env)
-         paymCtgWhtRec=0
-         begin
-            dagJDT2.GetColStr(whtCategory,JDT2_CATEGORY,paymCtgWhtRec)
-            whtCategory.Trim()
-            if whtCategory==VAL_CATEGORY_PAYMENT
-               break
-            end
-
-
-            (paymCtgWhtRec+=1;paymCtgWhtRec-2)
-         end while (paymCtgWhtRec<numOfRecsJDT2)
-
-      end
-
-      if status==VAL_CLOSE
-         dagJDT2.GetColMoney(paidWT,INV5_WT_AMOUNT,paymCtgWhtRec)
-         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
-         dagJDT2.SetColMoney(paidWT,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
-         paidWT-=tmpApplied
-         dagJDT2.GetColMoney(paidFrgnWT,INV5_WT_AMOUNT_FC,paymCtgWhtRec)
-         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
-         dagJDT2.SetColMoney(paidFrgnWT,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
-         paidFrgnWT-=tmpApplied
-         dagJDT2.GetColMoney(paidSysWT,INV5_WT_AMOUNT_SC,paymCtgWhtRec)
-         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
-         dagJDT2.SetColMoney(paidSysWT,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
-         paidSysWT-=tmpApplied
-         dagJDT1.CopyColumn(dagJDT1,JDT1_WT_APPLIED,offset,JDT1_WT_SUM,offset)
-         dagJDT1.CopyColumn(dagJDT1,JDT1_WT_APPLIED_FC,offset,JDT1_WT_SUM_FC,offset)
-         dagJDT1.CopyColumn(dagJDT1,JDT1_WT_APPLIED_SC,offset,JDT1_WT_APPLIED_SC,offset)
-         dagJDT.CopyColumn(dagJDT,OJDT_WT_APPLIED,0,OJDT_WT_SUM,0)
-         dagJDT.CopyColumn(dagJDT,OJDT_WT_SUM_SC,0,OJDT_WT_SUM_SC,0)
-         dagJDT.CopyColumn(dagJDT,OJDT_WT_SUM_FC,0,OJDT_WT_SUM_FC,0)
-      else
-         _STR_strcpy(mainCurrency,env.GetMainCurrency())
-         _STR_strcpy(sysCurrency,env.GetSystemCurrency())
-         dagJDT.GetColStr(docCurrency,OJDT_TRANS_CURR)
-         if _STR_IsSpacesStr(docCurrency)
-            _STR_strcpy(docCurrency,mainCurrency)
-         end
-
-         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
-         paidWT=yourMatchData.WTSum
-         tmpApplied+=paidWT
-         dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
-         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
-         paidFrgnWT=yourMatchData.WTSumFC
-         tmpApplied+=paidFrgnWT
-         dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
-         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
-         paidSysWT=yourMatchData.WTSumSC
-         tmpApplied+=paidSysWT
-         dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
-         dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED,offset)
-         tmpApplied+=paidWT
-         dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED,offset)
-         dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED_FC,offset)
-         tmpApplied+=paidFrgnWT
-         dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED_FC,offset)
-         dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED_SC,offset)
-         tmpApplied+=paidSysWT
-         dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED_SC,offset)
-         dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED,offset)
-         tmpApplied+=paidWT
-         dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED,offset)
-         dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED_FC,offset)
-         tmpApplied+=paidFrgnWT
-         dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED_FC,offset)
-         dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED_SC,offset)
-         tmpApplied+=paidSysWT
-         dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED_SC,offset)
-      end
-
-      ooErr=dagJDT1.Update()
-      if ooErr
-         return ooErr
-      end
-
-      ooErr=dagJDT1.Update(offset)
-      if ooErr
-         return ooErr
-      end
-
-      ooErr=dagJDT2.Update(paymCtgWhtRec)
-      if ooErr
-         return ooErr
-      end
-
-      return ooNoErr
-   end
-
-   def UpdateWTOnCancelRecon(yourMatchData)
-      trace("UpdateWTOnCancelRecon")
-      withholdingCodeSet=GetWithHoldingTax(true)
-      if withholdingCodeSet.size()==0
-         return ooNoErr
-      end
-
-      dagJDT2=GetArrayDAG(ao_Arr2)
-      numOfRecsJDT2=dagJDT2.GetRealSize(dbmDataBuffer)
-      if (numOfRecsJDT2>1&&!VF_AllowMixedWHTCategories(context))||(withholdingCodeSet.size()>1)
-         _MEM_MYRPT0(_T("CDocumentObject::UpdateWTOnCancelRecon \
-         - DOC5 should contain 1 rec at the most for reconciliation!"))
-         BOOM
-         return ooInvalidAction
-      end
-
-      paymCtgWhtRec=0
-      if VF_AllowMixedWHTCategories(context)
-         paymCtgWhtRec=0
-         begin
-            dagJDT2.GetColStr(whtCategory,JDT2_CATEGORY,paymCtgWhtRec)
-            whtCategory.Trim()
-            if whtCategory==VAL_CATEGORY_PAYMENT
-               break
-            end
-
-
-            (paymCtgWhtRec+=1;paymCtgWhtRec-2)
-         end while (paymCtgWhtRec<numOfRecsJDT2)
-
-      end
-
-      wtApplied = CAllCurrencySums.new(yourMatchData.WTSum,yourMatchData.WTSumFC,yourMatchData.WTSumSC)
-      dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
-      tmpApplied+=wtApplied.m_SumLc
-      dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
-      dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
-      tmpApplied+=wtApplied.m_SumFc
-      dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
-      dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
-      tmpApplied+=wtApplied.m_SumSc
-      dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
-      dagJDT1=GetArrayDAG(ao_Arr1)
-      offset=yourMatchData.transRowId
-      dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED,offset)
-      tmpApplied+=wtApplied.m_SumLc
-      dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED,offset)
-      dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED_FC,offset)
-      tmpApplied+=wtApplied.m_SumFc
-      dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED_FC,offset)
-      dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED_SC,offset)
-      tmpApplied+=wtApplied.m_SumSc
-      dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED_SC,offset)
-      dagJDT=GetDAG()
-      dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED,offset)
-      tmpApplied+=wtApplied.m_SumLc
-      dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED,offset)
-      dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED_FC,offset)
-      tmpApplied+=wtApplied.m_SumFc
-      dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED_FC,offset)
-      dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED_SC,offset)
-      tmpApplied+=wtApplied.m_SumSc
-      dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED_SC,offset)
-      ooErr=dagJDT.Update()
-      if ooErr
-         return ooErr
-      end
-
-      ooErr=dagJDT1.Update(offset)
-      if ooErr
-         return ooErr
-      end
-
-      ooErr=dagJDT2.Update(paymCtgWhtRec)
-      if ooErr
-         return ooErr
-      end
-
-      return ooNoErr
-   end
-
-   def GetJDTReconStatus()
-      dagJDT1=GetArrayDAG(ao_Arr1)
-      numRec=dagJDT1.GetRecordCount()
-      creditSide=false
-      rec=0
-      begin
-         dagJDT1.GetColStr(acctCode,JDT1_ACCT_NUM,rec)
-         dagJDT1.GetColStr(shrtName,JDT1_SHORT_NAME,rec)
-         if acctCode==shrtName
-            next
-
-         end
-
-         dagJDT1.GetColMoney(mny,JDT1_DEBIT,rec)
-         if mny.IsZero()
-            creditSide=true
-         end
-
-         balDueCol=creditSide ? JDT1_BALANCE_DUE_CREDIT : JDT1_BALANCE_DUE_DEBIT
-         dagJDT1.GetColMoney(mny,balDueCol,rec)
-         if !mny.IsZero()
-            return VAL_OPEN
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<numRec)
-
-      return VAL_CLOSE
-   end
-
-   def CalcPaidRatioOfOpenDoc(paidSum,paidSumInLocal,transRowId,calcFromTotal)
-      dagJDT=GetDAG()
-      dagJDT1=GetArrayDAG(ao_Arr1)
-      local=true
-      dagJDT.GetColStr(docCurrency,OINV_DOC_CURRENCY)
-      mainCurrency=context.GetMainCurrency()
-      tmpDocCur = CCurrency.new(docCurrency)
-      tmpMainCur = CCurrency.new(mainCurrency)
-      calcFromLocal=iWithHoldingAble.isInLocalCurrency(paidSumInLocal,tmpDocCur,tmpMainCur)
-      if calcFromTotal
-         total.FromDAG(dagJDT1,transRowId,JDT1_DEBIT,JDT1_FC_DEBIT,JDT1_SYS_DEBIT)
-         tmpMny.FromDAG(dagJDT1,transRowId,JDT1_CREDIT,JDT1_FC_CREDIT,JDT1_SYS_CREDIT)
-         total-=tmpMny
-         total.Abs()
-      else
-         total.FromDAG(dagJDT1,transRowId,JDT1_BALANCE_DUE_DEBIT,JDT1_BALANCE_DUE_FC_DEB,JDT1_BALANCE_DUE_SC_DEB)
-         tmpMny.FromDAG(dagJDT1,transRowId,JDT1_BALANCE_DUE_CREDIT,JDT1_BALANCE_DUE_FC_CRED,JDT1_BALANCE_DUE_SC_CRED)
-         total-=tmpMny
-         total.Abs()
-      end
-
-      return iWithHoldingAble.calcPaidRatioOfOpenDocInt(paidSum,paidSumInLocal,total,calcFromLocal)
-   end
-
-   def OnCanJDT2Update()
-      ooErr=ooNoErr
-      oopp=GetOnUpdateParams()
-      return ooNoErr
-      i=0
-      begin
-         case oopp.colsList[i].GetColNum()
-
-         when INV5_WT_APPLIED_AMOUNT
-         when INV5_WT_APPLIED_AMOUNT_SC
-         when INV5_WT_APPLIED_AMOUNT_FC
-            return ooNoErr
-         else
-            SetErrorField(oopp.colsList[i].GetColNum())
-            SetErrorLine(-1)
-            return -1029
-         end
-
-
-         (i+=1;i-2)
-      end while (i<oopp.colsList.GetSize())
-
-      return ooNoErr
-   end
-
-   def CheckWTValid()
-      trace("CheckWTValid")
-      ooErr=ooNoErr
-      dagJDT=GetDAG(JDT)
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      dagJDT2=GetDAG(JDT,ao_Arr2)
-
-      hasBPline = false
-      hasLiableline = false
-      dagJDT.GetColStr(tmpStr,OJDT_AUTO_WT)
-      if tmpStr[0]==VAL_NO[0]
-         return ooNoErr
-      end
-
-      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
-      rec=0
-      begin
-         dagJDT1.GetColStr(acctNum,JDT1_ACCT_NUM,rec)
-         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
-         if acctNum.Trim()!=shortName.Trim()
-            hasBPline=true
-            dagJDT1.GetColMoney(tmpMny,JDT1_DEBIT,rec)
-            mnyBPDebit+=tmpMny
-            dagJDT1.GetColMoney(tmpMny,JDT1_CREDIT,rec)
-            mnyBPCred+=tmpMny
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<recCount)
-
-      if mnyBPCred>=mnyBPDebit
-         isBpCredit=true
-         bpDebCre=VAL_CREDIT
-      else
-         isBpCredit=false
-         bpDebCre=VAL_DEBIT
-      end
-
-      GetWTCredDebt(wtDebCre)
-      dagJDT.GetColMoney(baseAmt,OJDT_WT_BASE_AMOUNT)
-      numJdt2Rec=dagJDT2.GetRecordCount()
-      if hasBPline&&(!baseAmt.IsZero())&&(bpDebCre!=wtDebCre)&&numJdt2Rec>0
-         return -1
-      end
-
-      return ooErr
-   end
-
-   def CheckMultiBP()
-      trace("CheckMultiBP")
-      dagJDT=GetDAG(JDT)
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      dagJDT.GetColStr(autoWT,OJDT_AUTO_WT)
-      if autoWT==VAL_YES
-         recJDT1=dagJDT1.GetRealSize(dbmDataBuffer)
-         rec=0
-         begin
-            dagJDT1.GetColStr(acct,JDT1_ACCT_NUM,rec)
-            dagJDT1.GetColStr(shortname,JDT1_SHORT_NAME,rec)
-            acct.Trim()
-            shortname.Trim()
-            if acct!=shortname
-               if !firstBP.IsEmpty()
-                  if firstBP!=shortname
-                     return ooInvalidObject
-                  end
-
-               else
-                  firstBP=shortname
-               end
-
-            end
-
-
-            (rec+=1;rec-2)
-         end while (rec<recJDT1)
-
-      end
-
-      return ooNoErr
-   end
-
-   def GetDfltWTCodes(wtInfo)
-      return cDocumentObject.oDOCLoadWTPrefsFromCard(self,wtInfo.cardWTLiable,wtInfo.wtDefaultCode,wtInfo.VATwtDefaultCode,wtInfo.ITwtDefaultCode,wtInfo.wtBaseType,wtInfo.wtCategory)
-   end
-
-   def PrePareDataForWT(wtAllCurBaseCalcParamsPtr,currSource,dagDOC,wtInfo)
-      ooErr=ooNoErr
-      dagJDT=GetDAG(JDT)
-      baseCalcParam=wtAllCurBaseCalcParamsPtr.GetWtBaseCalcParams(currSource)
-      GetCRDDag()
-      GetDfltWTCodes(wtInfo)
-      if !dagDOC.GetRecordCount()
-         dagDOC.SetSize(1,dbmDropData)
-      end
-
-      dagDOC.SetColStr(GetBPLineCurrency(),OINV_DOC_CURRENCY)
-      dagDOC.CopyColumn(dagJDT,OINV_DATE,0,OJDT_REF_DATE,0)
-      if m_env.IsLocalSettingsFlag(lsf_EnableLA1WHT)
-         dagDOC.SetColMoney(baseCalcParam.m_wtBaseNetAmount,nsDocument.oDOCGetWTBaseNetAmountField(currSource))
-         dagDOC.SetColMoney(baseCalcParam.m_wtBaseVATAmount,nsDocument.oDOCGetWTBaseVatAmountField(currSource))
-      else
-         wtBaseAmount=baseCalcParam.GetWTBaseAmount(wtInfo.wtBaseType)
-         dagDOC.SetColMoney(wtBaseAmount,nsDocument.oDOCGetWTBaseAmountField(currSource))
-      end
-
-      SetCurrRateForDOC(dagDOC)
-      SetCurrForAutoCompleteDOC5()
-      ooErr=@m_WithholdingTaxMng.ODOCAutoCompleteDOC5(self,cplPara)
-      if ooErr
-         Message(cplPara.errNode.strId,cplPara.errNode.index,nil,OO_ERROR)
-         return ooErr
-      end
-
-      return ooErr
-   end
-
-   def JDTCalcWTTable(wtInfo,currSource,dagDOC,wtAllCurBaseCalcParamsPtr)
-      ooErr=ooNoErr
-      wtCurBaseCalcParamsPtr=wtAllCurBaseCalcParamsPtr.GetWtBaseCalcParams(currSource)
-      wtInParamTableChangeListPtr=nil
-      if m_env.IsLocalSettingsFlag(lsf_EnableLA1WHT)
-         wtTableDefaultCodes.SetVATWtDefaultcode(wtInfo.VATwtDefaultCode)
-         wtTableDefaultCodes.SetITWtDefaultcode(wtInfo.ITwtDefaultCode)
-      else
-         wtTableDefaultCodes.SetWtDefaultcode(wtInfo.wtDefaultCode)
-      end
-
-      @m_WithholdingTaxMng.ODOCCalcWTTable(self,wtCurBaseCalcParamsPtr,wtInParamTableChangeListPtr,wtTableDefaultCodes,currSource,wtTotalAmountM,-1,dagDOC)
-      return ooErr
-   end
-
-   def GetJDT1MoneyCol(currSource,isDebit)
-      cols=""
-      return cols[currSource-1][isDebit ? 0 : 1]
-   end
-
-   def GetVATMoneyCol(currSource)
-      cols=""
-      return cols[currSource-1]
-   end
-
-   def GetWTBaseAmount(currSource,baseParam)
-      trace("GetWTBaseAmount")
-      ooErr=ooNoErr
-      dagJDT=GetDAG(JDT)
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
-      bizEnv=context
-      rec=0
-      begin
-         dagJDT1.GetColStr(wtLiable,JDT1_WT_LIABLE,rec)
-         if wtLiable.Trim()==VAL_YES
-            isDebit=false
-            dagJDT1.GetColMoney(mnyTmp,GetJDT1MoneyCol(currSource,true),rec)
-            if !mnyTmp.IsZero()
-               isDebit=true
-            end
-
-            sum+=mnyTmp
-            dagJDT1.GetColMoney(mnyTmp,GetJDT1MoneyCol(currSource,false),rec)
-            sum-=mnyTmp
-            if mnyTmp.IsZero()&&(!isDebit)
-               next
-
-            end
-
-            dagJDT1.GetColMoney(mnyTmp,GetVATMoneyCol(currSource),rec)
-            if currSource==INV_CARD_CURRENCY
-               realCurr=WTGetCurrency()
-               realCurr.Trim()
-               dubtCurr.Trim()
-               mainCurr=bizEnv.GetMainCurrency().Trim()
-               frgnCurr=realCurr
-               SBO_ASSERT(dubtCurr.IsEmpty()||dubtCurr==mainCurr)
-               SBO_ASSERT(dubtCurr!=frgnCurr)
-               frgnAmnt=1
-               dagJDT.GetColStr(dateStr,OJDT_REF_DATE)
-               dateStr.Trim()
-               GNLocalToForeignRate(mnyTmp,frgnCurr.GetBuffer(),dateStr.GetBuffer(),0.0,frgnAmnt,bizEnv)
-               mnyTmp=frgnAmnt
-               mnyTmp.Round(RC_SUM,frgnCurr,bizEnv)
-            end
-
-            if isDebit
-               sumVAT+=mnyTmp
-            else
-               sumVAT-=mnyTmp
-            end
-
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<recCount)
-
-      if !baseParam.GetIsBaseAmountsReady()
-         baseParam.Init()
-      end
-
-      mnySumTmp=sum+sumVAT
-      baseParam.m_wtBaseNetAmount=sum.AbsVal()
-      baseParam.m_wtBaseVATAmount=sumVAT.AbsVal()
-      baseParam.m_wtBaseAmount=mnySumTmp.AbsVal()
-      return ooErr
-   end
-
-   def GetWTCredDebt(debCre)
-      trace("GETWTCredDebt")
-      ooErr=ooNoErr
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      dagJDT2=GetDAG(JDT,ao_Arr2)
-      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
-      if !dAG.isValid(dagJDT1)
-         return ooErrNoMsg
-      end
-
-      rec=0
-      begin
-         dagJDT1.GetColStr(wtLiable,JDT1_WT_LIABLE,rec)
-         if wtLiable.Trim()==VAL_YES
-            dagJDT1.GetColMoney(tmpDebAmt,JDT1_DEBIT,rec)
-            debitSumNet+=tmpDebAmt
-            dagJDT1.GetColMoney(tmpCreAmt,JDT1_CREDIT,rec)
-            creditSumNet+=tmpCreAmt
-            dagJDT1.GetColMoney(tmpVatAmt,JDT1_TOTAL_TAX,rec)
-            if !tmpDebAmt.IsZero()
-               debitSumVat+=tmpVatAmt
-            else
-               if !tmpCreAmt.IsZero()
-                  creditSumVat+=tmpVatAmt
-               end
-
-            end
-
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<recCount)
-
-      if dagJDT2.GetRecordCount()>0
-         dagJDT2.GetColStr(wtBaseType,INV5_BASE_TYPE)
-         if VAL_BASETYPE_NET==wtBaseType
-            debitSum=debitSumNet
-            creditSum=creditSumNet
-         else
-            if VAL_BASETYPE_VAT==wtBaseType
-               debitSum=debitSumVat
-               creditSum=creditSumVat
-            else
-               if VAL_BASETYPE_GROSS==wtBaseType
-                  debitSum=debitSumNet+debitSumVat
-                  creditSum=creditSumNet+creditSumVat
-               end
-
-            end
-
-         end
-
-      end
-
-      if debitSum>=creditSum
-         debCre=VAL_CREDIT
-      else
-         debCre=VAL_DEBIT
-      end
-
-      return 0
-   end
-
-   def GetBPLineCurrency()
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
-      currency=m_env.GetMainCurrency()
-      rec=0
-      begin
-         dagJDT1.GetColStr(acctCode,JDT1_ACCT_NUM,rec)
-         acctCode.Trim()
-         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
-         shortName.Trim()
-         if shortName!=acctCode
-            dagJDT1.GetColStr(bpCurr,JDT1_FC_CURRENCY,rec)
-            if bpCurr.Trim()!=EMPTY_STR
-               currency=bpCurr
-               break
-            end
-
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<recCount)
-
-      return currency
-   end
-
-   def GetCRDDag()
-      trace("GetCRDDag")
-      ooErr=ooNoErr
-      dagCRD=GetDAG(CRD)
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
-      rec=0
-      begin
-         dagJDT1.GetColStr(acctCode,JDT1_ACCT_NUM,rec)
-         acctCode.Trim()
-         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
-         shortName.Trim()
-         if shortName!=acctCode
-            cond[0].colNum=OCRD_CARD_CODE
-            cond[0].operation=DBD_EQ
-            cond[0].condVal=shortName
-            DBD_SetDAGCond(dagCRD,cond,1)
-            ooErr=DBD_Get(dagCRD)
-            break
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<recCount)
-
-      return ooErr
-   end
-
-   def UpdateWTAmounts(wtAllCurBaseCalcParamsPtr)
-      ooErr=ooNoErr
-      dagJDT2=GetDAG(JDT,ao_Arr2)
-      dagJDT=GetDAG(JDT)
-      recCount=dagJDT2.GetRecordCount()
-      currency=""
-      rec=0
-      begin
-         i=0
-         begin
-            dagJDT2.GetColMoney(mnyTmp,@m_WithholdingTaxMng.ODOC5GetWTTaxAmountField(currency[i]),rec)
-            wtSums[i]+=mnyTmp
-
-            (i+=1;i-2)
-         end while (currency[i])
-
-
-         (rec+=1;rec-2)
-      end while (rec<recCount)
-
-      dagJDT2.GetColStr(strRecBaseType,INV5_BASE_TYPE,0)
-      i=0
-      begin
-         wtCurBaseCalcParamsPtr=wtAllCurBaseCalcParamsPtr.GetWtBaseCalcParams(currency[i])
-         if m_env.IsLocalSettingsFlag(lsf_EnableLA1WHT)
-            dagJDT.SetColMoney(wtCurBaseCalcParamsPtr.m_wtBaseNetAmount,cTransactionJournalObject.getWTBaseNetAmountField(currency[i]))
-            dagJDT.SetColMoney(wtCurBaseCalcParamsPtr.m_wtBaseVATAmount,cTransactionJournalObject.getWTBaseVATAmountField(currency[i]))
-         else
-            if VAL_BASETYPE_NET==strRecBaseType
-               dagJDT.SetColMoney(wtCurBaseCalcParamsPtr.m_wtBaseNetAmount,cTransactionJournalObject.getWTBaseNetAmountField(currency[i]))
-            else
-               dagJDT.SetColMoney(wtCurBaseCalcParamsPtr.m_wtBaseAmount,cTransactionJournalObject.getWTBaseNetAmountField(currency[i]))
-            end
-
-         end
-
-         dagJDT.SetColMoney(wtSums[i],cTransactionJournalObject.getWtSumField(currency[i]))
-
-         (i+=1;i-2)
-      end while (currency[i])
-
-      return ooErr
-   end
-
-   def WTGetCurrSource()
-      trace("WTGetCurrSource")
-      bizEnv=context
-      mainCurr=bizEnv.GetMainCurrency()
-      sysCurr=bizEnv.GetSystemCurrency()
-      currency=GetBPLineCurrency()
-      currency.Trim()
-      if (EMPTY_STR==currency)||(currency==mainCurr)||(GNCoinCmp(currency,BAD_CURRENCY_STR)==0)
-         return INV_LOCAL_CURRENCY
-      end
-
-      if currency==sysCurr
-         return INV_SYSTEM_CURRENCY
-      end
-
-      return INV_CARD_CURRENCY
-   end
-
-   def WtAutoAddJDT1Line(dagJDT1,jdt1RecSize,dagJDT2,jdt2CurRec,isDebit,wtSide)
-      trace("WtAutoAddJDT1Line")
-      ooErr=0
-      toJDT1fields=""
-      fromJDTfields=""
-      dagJDT1.SetSize(jdt1RecSize+1,dbmKeepData)
-      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT,jdt2CurRec)
-      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_LOCAL_CURRENCY,isDebit),jdt1RecSize)
-      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT_SC,jdt2CurRec)
-      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_SYSTEM_CURRENCY,isDebit),jdt1RecSize)
-      if WTGetCurrSource()==INV_CARD_CURRENCY
-         dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT_FC,jdt2CurRec)
-         dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_CARD_CURRENCY,isDebit),jdt1RecSize)
-      end
-
-      dagJDT1.SetColStr(VAL_YES,JDT1_WT_Line,jdt1RecSize)
-      dagJDT1.SetColStr(wtSide,JDT1_DEBIT_CREDIT,jdt1RecSize)
-      dagJDT1.CopyColumn(dagJDT2,JDT1_ACCT_NUM,jdt1RecSize,INV5_ACCOUNT,jdt2CurRec)
-      dagJDT1.CopyColumn(dagJDT2,JDT1_SHORT_NAME,jdt1RecSize,INV5_ACCOUNT,jdt2CurRec)
-      dagJDT1.SetColLong(JDT,JDT1_TRANS_TYPE,jdt1RecSize)
-      ii=0
-      begin
-         dagJDT1.GetColStr(tmpStr,toJDT1fields[ii],jdt1RecSize)
-         tmpStr.Trim()
-         if tmpStr==EMPTY_STR
-            dagJDT1.GetColStr(tmpStr,toJDT1fields[ii],jdt1RecSize,fromJDTfields[ii],0)
-         end
-
-
-         (ii+=1;ii-2)
-      end while (toJDT1fields[ii]>=0)
-
-      if WTGetCurrSource()==INV_CARD_CURRENCY
-         dagJDT1.SetColStr(GetBPLineCurrency(),JDT1_FC_CURRENCY,jdt1RecSize)
-      end
-
-      return ooErr
-   end
-
-   def WtUpdJDT1LineAmt(dagJDT1,jdt1CurRow,dagJDT2,jdt2CurRow,isDebit,wtAcctCode,wtSide)
-      ooErr=ooNoErr
-      dagJDT1.GetColMoney(oldWT,GetJDT1MoneyCol(INV_LOCAL_CURRENCY,isDebit),jdt1CurRow)
-      dagJDT1.GetColMoney(oldWTSC,GetJDT1MoneyCol(INV_SYSTEM_CURRENCY,isDebit),jdt1CurRow)
-      dagJDT1.GetColMoney(oldWTFC,GetJDT1MoneyCol(INV_CARD_CURRENCY,isDebit),jdt1CurRow)
-      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT,jdt2CurRow)
-      mnyAmt+=oldWT
-      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_LOCAL_CURRENCY,isDebit),jdt1CurRow)
-      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT_SC,jdt2CurRow)
-      mnyAmt+=oldWTSC
-      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_SYSTEM_CURRENCY,isDebit),jdt1CurRow)
-      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT_FC,jdt2CurRow)
-      mnyAmt+=oldWTFC
-      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_CARD_CURRENCY,isDebit),jdt1CurRow)
-      return ooErr
-   end
-
-   def SetCurrForAutoCompleteDOC5()
-      case WTGetCurrSource()
-
-      when INV_LOCAL_CURRENCY
-         @m_WithholdingTaxMng.m_curSourceForAutoComplete[0]=INV_LOCAL_CURRENCY
-         @m_WithholdingTaxMng.m_curSourceForAutoComplete[1]=INV_SYSTEM_CURRENCY
-         @m_WithholdingTaxMng.m_curSourceForAutoComplete[2]=INV_CARD_CURRENCY
-      when INV_SYSTEM_CURRENCY
-         @m_WithholdingTaxMng.m_curSourceForAutoComplete[0]=INV_SYSTEM_CURRENCY
-         @m_WithholdingTaxMng.m_curSourceForAutoComplete[1]=INV_CARD_CURRENCY
-         @m_WithholdingTaxMng.m_curSourceForAutoComplete[2]=INV_LOCAL_CURRENCY
-      when INV_CARD_CURRENCY
-         @m_WithholdingTaxMng.m_curSourceForAutoComplete[0]=INV_CARD_CURRENCY
-         @m_WithholdingTaxMng.m_curSourceForAutoComplete[1]=INV_LOCAL_CURRENCY
-         @m_WithholdingTaxMng.m_curSourceForAutoComplete[2]=INV_SYSTEM_CURRENCY
-      end
-
-      return ooNoErr
-   end
-
-   def CalcBpCurrRateForDocRate(rate)
-      ooErr=ooNoErr
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      env=context
-      recJDT1=dagJDT1.GetRealSize(dbmDataBuffer)
-      flag=false
-      rec=0
-      begin
-         dagJDT1.GetColStr(acct,JDT1_ACCT_NUM,rec)
-         dagJDT1.GetColStr(shortname,JDT1_SHORT_NAME,rec)
-         acct.Trim()
-         shortname.Trim()
-         if acct!=shortname
-            dagJDT1.GetColMoney(mLocal,JDT1_CREDIT,rec)
-            dagJDT1.GetColMoney(mFrgn,JDT1_FC_CREDIT,rec)
-            if mLocal.IsPositive()&&mFrgn.IsPositive()
-               flag=true
-            else
-               dagJDT1.GetColMoney(mLocal,JDT1_DEBIT,rec)
-               dagJDT1.GetColMoney(mFrgn,JDT1_FC_DEBIT,rec)
-               if mLocal.IsPositive()&&mFrgn.IsPositive()
-                  flag=true
-               end
-
-            end
-
-            break
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<recJDT1)
-
-      if flag
-         if env.IsDirectRate()
-            rate=mLocal.MulAndDiv(1,mFrgn,env,false)
-         else
-            rate=mFrgn.MulAndDiv(1,mLocal,env,false)
-         end
-
-      else
-         rate.FromDouble(MONEY_PERCISION_MUL)
-         ooErr=-10
-      end
-
-      return ooErr
-   end
-
-   def UpgradeERDBaseTrans()
-      ooErr=ooNoErr
-      ooErr=UpgradeERDBaseTransFromBackup()
-      if ooErr
-         if ooErr==-2004
-            ooErr=0
-         else
-            return ooErr
-         end
-
-      end
-
-      ooErr=UpgradeERDBaseTransFromRef3()
-      return ooErr
-   end
-
-   def UpgradeERDBaseTransUpdateOne(transId,erdBaseTrans)
-      ooErr=ooNoErr
-      bizEnv=context
-      dagJDT=bizEnv.OpenDAG(JDT,ao_Main)
-      conditions=(dagJDT.GetDBDParams().GetConditions())
-      conditions.Clear()
-      condPtr=conditions.AddCondition()
-      condPtr.colNum=OJDT_JDT_NUM
-      condPtr.operation=DBD_EQ
-      condPtr.condVal=transId
-      condPtr.relationship=0
-      updStruct[0].colNum=OJDT_BASE_TRANS_ID
-      updStruct[0].updateVal=erdBaseTrans
-      ooErr=DBD_SetDAGUpd(dagJDT,updStruct,1)
-      if ooErr
-         dagJDT.Close()
-         return ooErr
-      end
-
-      ooErr=DBD_UpdateCols(dagJDT)
-      dagJDT.Close()
-      return ooErr
-   end
-
-   def UpgradeERDBaseTransFromRef3()
-      ooErr=ooNoErr
-      bizEnv=context
-      UpgradeERDBaseTransPopulateAbbrevMap(abbrevMap)
-      queryParams.Clear()
-      tablePtr=(queryParams.GetCondTables().AddTable())
-      tablePtr.tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
-      tablePtr=(queryParams.GetCondTables().AddTable())
-      tablePtr.tableCode=bizEnv.ObjectToTable(JDT,ao_Main)
-      tablePtr.doJoin=true
-      tablePtr.joinedToTable=0
-      tablePtr.numOfConds=1
-      tablePtr.joinConds=joinCondsOJDT
-      condNum=0
-      joinCondsOJDT[condNum].compareCols=true
-      joinCondsOJDT[condNum].tableIndex=1
-      joinCondsOJDT[condNum].colNum=OJDT_JDT_NUM
-      joinCondsOJDT[condNum].compTableIndex=0
-      joinCondsOJDT[condNum].compColNum=JDT1_TRANS_ABS
-      joinCondsOJDT[condNum].operation=DBD_EQ
-      joinCondsOJDT[(condNum+=1;condNum-2)].relationship=0
-      resStruct[0].tableIndex=1
-      resStruct[0].colNum=OJDT_JDT_NUM
-      resStruct[1].tableIndex=0
-      resStruct[1].colNum=JDT1_LINE_ID
-      resStruct[2].tableIndex=0
-      resStruct[2].colNum=JDT1_ACCT_NUM
-      resStruct[3].tableIndex=0
-      resStruct[3].colNum=JDT1_SHORT_NAME
-      resStruct[4].tableIndex=0
-      resStruct[4].colNum=JDT1_REF3_LINE
-      queryParams.dbdResPtr=resStruct
-      queryParams.numOfResCols=5
-      condPtr=(queryParams.GetConditions().AddCondition())
-      condPtr.tableIndex=1
-      condPtr.colNum=OJDT_TRANS_TYPE
-      condPtr.operation=DBD_EQ
-      condPtr.condVal=JDT
-      condPtr.relationship=DBD_AND
-      condPtr=(queryParams.GetConditions().AddCondition())
-      condPtr.tableIndex=0
-      condPtr.colNum=JDT1_FC_CREDIT
-      condPtr.operation=DBD_EQ
-      condPtr.condVal=0
-      condPtr.relationship=DBD_AND
-      condPtr=(queryParams.GetConditions().AddCondition())
-      condPtr.tableIndex=0
-      condPtr.colNum=JDT1_FC_DEBIT
-      condPtr.operation=DBD_EQ
-      condPtr.condVal=0
-      condPtr.relationship=DBD_AND
-      condPtr=(queryParams.GetConditions().AddCondition())
-      condPtr.tableIndex=0
-      condPtr.colNum=JDT1_FC_CURRENCY
-      condPtr.operation=DBD_NOT_NULL
-      condPtr.relationship=DBD_AND
-      condPtr=(queryParams.GetConditions().AddCondition())
-      condPtr.tableIndex=1
-      condPtr.colNum=OJDT_BASE_TRANS_ID
-      condPtr.operation=DBD_IS_NULL
-      condPtr.relationship=DBD_AND
-      condPtr=(queryParams.GetConditions().AddCondition())
-      condPtr.tableIndex=0
-      condPtr.colNum=JDT1_REF3_LINE
-      condPtr.operation=DBD_PATTERN
-      condPtr.condVal=_T("*/*/*")
-      condPtr.relationship=0
-      key.SetSegmentsCount(2)
-      key.SetSegmentColumn(0,0)
-      key.SetSegmentColumn(1,1)
-      dagRes=nil
-      dagQuery=bizEnv.OpenDAG(BOT,ao_Arr1)
-      dagQuery.SetDBDParms(queryParams)
-      ooErr=dagQuery.GetFirstChunk(10000,key,dagRes)
-      if ooErr&&(ooErr!=-2028)
-         dagQuery.Close()
-         return ooErr
-      end
-
-      while (ooErr!=-2028)
-         numOfRecs=dagRes.GetRecordCount()
-         rec=0
-         begin
-            dagRes.GetColLong(transId,0,rec)
-            dagRes.GetColStr(account,2,rec)
-            dagRes.GetColStr(shortName,3,rec)
-            dagRes.GetColStr(ref3Line,4,rec)
-            baseTransCandidate=0
-            ooErr=UpgradeERDBaseTransFindBaseTrans(abbrevMap,account,shortName,ref3Line,baseTransCandidate)
-            if ooErr
-               if ooErr!=-2028
-                  dagQuery.Close()
-                  return ooErr
-               end
-
-            else
-               if baseTransCandidate
-                  ooErr=UpgradeERDBaseTransUpdateOne(transId,baseTransCandidate)
-                  if ooErr
-                     dagQuery.Close()
-                     return ooErr
-                  end
-
-               end
-
-            end
-
-
-            (rec+=1)
-         end while (rec<numOfRecs)
-
-         ooErr=dagQuery.GetNextChunk(10000,key,dagRes)
-         if ooErr&&(ooErr!=-2028)
-            dagQuery.Close()
-            return ooErr
-         end
-
-      end
-
-      dagQuery.Close()
-      return ooNoErr
-   end
-
-   def UpgradeERDBaseTransFindBaseTrans(objectMap,inAccount,inShortName,inRef3Line,outBaseTransCandidate)
-      ooErr=ooNoErr
-      bizEnv=context
-      numOfCandidates=0
-      sep1Pos=inRef3Line.Find(_T('/'))
-      periodCode=inRef3Line.Left(sep1Pos)
-      sep2Pos=inRef3Line.Find(_T('/'),sep1Pos+1)
-      docTypeCode=inRef3Line.Mid(sep1Pos+1,sep2Pos-sep1Pos-1)
-      docNum=inRef3Line.Mid(sep2Pos+1)
-      omIt=objectMap.begin()
-      begin
-         if omIt.second.find(docTypeCode)!=omIt.second.end()
-            objectId=omIt.first
-            queryParams.Clear()
-            tablePtr=(queryParams.GetCondTables().AddTable())
-            tablePtr.tableCode=bizEnv.ObjectToTable(objectId,ao_Main)
-            tablePtr=(queryParams.GetCondTables().AddTable())
-            tablePtr.tableCode=bizEnv.ObjectToTable(FPR,ao_Main)
-            tablePtr.doJoin=true
-            tablePtr.joinedToTable=0
-            tablePtr.numOfConds=1
-            tablePtr.joinConds=joinCondsOFPR
-            condNum=0
-            joinCondsOFPR[condNum].compareCols=true
-            joinCondsOFPR[condNum].tableIndex=1
-            joinCondsOFPR[condNum].colNum=OFPR_ABS_ENTRY
-            joinCondsOFPR[condNum].compTableIndex=0
-            joinCondsOFPR[condNum].compColNum=UpgradeERDBaseTransGetFPRCol(objectId)
-            joinCondsOFPR[condNum].operation=DBD_EQ
-            joinCondsOFPR[(condNum+=1;condNum-2)].relationship=0
-            resStruct[0].tableIndex=0
-            resStruct[0].colNum=UpgradeERDBaseTransGetTransIdCol(objectId)
-            queryParams.dbdResPtr=resStruct
-            queryParams.numOfResCols=1
-            UpgradeERDBaseTransAddDocNumConds(objectId,docNum,queryParams.GetConditions())
-            condPtr=(queryParams.GetConditions().AddCondition())
-            condPtr.tableIndex=1
-            condPtr.colNum=OFPR_CODE
-            condPtr.operation=DBD_EQ
-            condPtr.condVal=periodCode
-            condPtr.relationship=DBD_AND
-            condPtr=(queryParams.GetConditions().AddCondition())
-            condPtr.SetUseSubQuery(true)
-            subQueryParams.GetCondTables().Clear()
-            tablePtr=(subQueryParams.GetCondTables().AddTable())
-            tablePtr.tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
-            subResStruct[0].agreg_type=DBD_COUNT
-            subResStruct[0].tableIndex=0
-            subResStruct[0].colNum=JDT1_TRANS_ABS
-            subQueryParams.dbdResPtr=subResStruct
-            subQueryParams.numOfResCols=1
-            subQueryParams.GetConditions().Clear()
-            subCondPtr=(subQueryParams.GetConditions().AddCondition())
-            subCondPtr.origTableLevel=1
-            subCondPtr.origTableIndex=0
-            subCondPtr.compareCols=true
-            subCondPtr.colNum=UpgradeERDBaseTransGetTransIdCol(objectId)
-            subCondPtr.operation=DBD_EQ
-            subCondPtr.compTableIndex=0
-            subCondPtr.compColNum=JDT1_TRANS_ABS
-            subCondPtr.relationship=DBD_AND
-            subCondPtr=(subQueryParams.GetConditions().AddCondition())
-            subCondPtr.tableIndex=0
-            subCondPtr.colNum=JDT1_ACCT_NUM
-            subCondPtr.operation=DBD_EQ
-            subCondPtr.condVal=inAccount
-            subCondPtr.relationship=DBD_AND
-            subCondPtr=(subQueryParams.GetConditions().AddCondition())
-            subCondPtr.tableIndex=0
-            subCondPtr.colNum=JDT1_SHORT_NAME
-            subCondPtr.operation=DBD_EQ
-            subCondPtr.condVal=inShortName
-            subCondPtr.relationship=DBD_AND
-            subCondPtr=(subQueryParams.GetConditions().AddCondition())
-            subCondPtr.tableIndex=0
-            subCondPtr.colNum=JDT1_FC_CURRENCY
-            subCondPtr.operation=DBD_NE
-            subCondPtr.condVal=bizEnv.GetMainCurrency()
-            subCondPtr.relationship=DBD_AND
-            subCondPtr=(subQueryParams.GetConditions().AddCondition())
-            subCondPtr.tableIndex=0
-            subCondPtr.colNum=JDT1_FC_CURRENCY
-            subCondPtr.operation=DBD_NOT_NULL
-            subCondPtr.relationship=0
-            condPtr.SetSubQueryParams(subQueryParams)
-            condPtr.tableIndex=DBD_NO_TABLE
-            condPtr.operation=DBD_GT
-            condPtr.condVal=0
-            condPtr.relationship=0
-            dagRes=nil
-            dagQuery=bizEnv.OpenDAG(BOT,ao_Arr1)
-            dagQuery.SetDBDParms(queryParams)
-            ooErr=DBD_GetInNewFormat(dagQuery,dagRes)
-            if ooErr
-               if ooErr==-2028
-                  dagRes.SetSize(0,dbmDropData)
-                  ooErr=ooNoErr
-               else
-                  dagQuery.Close()
-                  return ooErr
-               end
-
-            end
-
-            if dagRes.GetRecordCount()>0
-               numOfCandidates+=dagRes.GetRecordCount()
-               dagRes.GetColLong(outBaseTransCandidate,0,0)
-            end
-
-            dagQuery.Close()
-         end
-
-
-         (omIt+=1)
-      end while (omIt!=objectMap.end())
-
-      if numOfCandidates==1
-         ooErr=ooNoErr
-      else
-         ooErr=-2028
-      end
-
-      return ooErr
-   end
-
-   def UpgradeERDBaseTransGetFPRCol(objectId)
-      if objectId==JDT
-         return OJDT_FINANCE_PERIOD
-      else
-         if objectId==RCT||objectId==VPM
-            return ORCT_FINANCE_PERIOD
-         else
-            return OINV_FINANCE_PERIOD
-         end
-
-      end
-
-   end
-
-   def UpgradeERDBaseTransGetTransIdCol(objectId)
-      if objectId==JDT
-         return OJDT_JDT_NUM
-      else
-         if objectId==RCT||objectId==VPM
-            return ORCT_TRANS_NUM
-         else
-            return OINV_TRANS_NUM
-         end
-
-      end
-
-   end
-
-   def UpgradeERDBaseTransAddDocNumConds(objectId,docNum,conds)
-      if objectId==JDT
-         condPtr=(conds.AddCondition())
-         condPtr.bracketOpen=1
-         condPtr.tableIndex=0
-         condPtr.colNum=OJDT_NUMBER
-         condPtr.operation=DBD_EQ
-         condPtr.condVal=docNum
-         condPtr.relationship=DBD_OR
-         condPtr=(conds.AddCondition())
-         condPtr.tableIndex=0
-         condPtr.colNum=OJDT_JDT_NUM
-         condPtr.operation=DBD_EQ
-         condPtr.condVal=docNum
-         condPtr.bracketClose=1
-      else
-         if objectId==RCT||objectId==VPM
-            condPtr=(conds.AddCondition())
-            condPtr.tableIndex=0
-            condPtr.colNum=ORCT_NUM
-            condPtr.operation=DBD_EQ
-            condPtr.condVal=docNum
-            condPtr.relationship=DBD_AND
-            condPtr=(conds.AddCondition())
-            condPtr.tableIndex=0
-            condPtr.colNum=ORCT_CANCELED
-            condPtr.operation=DBD_NE
-            condPtr.condVal=VAL_YES
-         else
-            condPtr=(conds.AddCondition())
-            condPtr.tableIndex=0
-            condPtr.colNum=OINV_NUM
-            condPtr.operation=DBD_EQ
-            condPtr.condVal=docNum
-         end
-
-      end
-
-      condPtr.relationship=DBD_AND
-   end
-
-   def UpgradeERDBaseTransPopulateAbbrevMap(abbrevMap)
-      docAbbrevs.insert(_T("IN"))
-      docAbbrevs.insert(_T("FP"))
-      docAbbrevs.insert(_T("VS"))
-      docAbbrevs.insert(_T("PF"))
-      docAbbrevs.insert(_T("FA"))
-      abbrevMap[INV]=docAbbrevs
-      docAbbrevs.clear()
-      docAbbrevs.insert(_T("CN"))
-      docAbbrevs.insert(_T("DP"))
-      docAbbrevs.insert(_T("KI"))
-      docAbbrevs.insert(_T("ZP"))
-      docAbbrevs.insert(_T("KR"))
-      docAbbrevs.insert(_T("OD"))
-      abbrevMap[RIN]=docAbbrevs
-      docAbbrevs.clear()
-      docAbbrevs.insert(_T("PU"))
-      docAbbrevs.insert(_T("FN"))
-      docAbbrevs.insert(_T("SS"))
-      docAbbrevs.insert(_T("FZ"))
-      docAbbrevs.insert(_T("FV"))
-      docAbbrevs.insert(_T("DF"))
-      abbrevMap[PCH]=docAbbrevs
-      docAbbrevs.clear()
-      docAbbrevs.insert(_T("PC"))
-      docAbbrevs.insert(_T("DN"))
-      docAbbrevs.insert(_T("SJ"))
-      docAbbrevs.insert(_T("ZK"))
-      docAbbrevs.insert(_T("KM"))
-      docAbbrevs.insert(_T("DN"))
-      abbrevMap[RPC]=docAbbrevs
-      docAbbrevs.clear()
-      docAbbrevs.insert(_T("CV"))
-      docAbbrevs.insert(_T("CU"))
-      docAbbrevs.insert(_T("OF"))
-      docAbbrevs.insert(_T("BH"))
-      docAbbrevs.insert(_T("SV"))
-      docAbbrevs.insert(_T("SZ"))
-      docAbbrevs.insert(_T("CN"))
-      abbrevMap[CPI]=docAbbrevs
-      docAbbrevs.clear()
-      docAbbrevs.insert(_T("CS"))
-      docAbbrevs.insert(_T("OF"))
-      docAbbrevs.insert(_T("KH"))
-      docAbbrevs.insert(_T("VV"))
-      docAbbrevs.insert(_T("SK"))
-      docAbbrevs.insert(_T("CP"))
-      docAbbrevs.insert(_T("CE"))
-      abbrevMap[CSI]=docAbbrevs
-      docAbbrevs.clear()
-      docAbbrevs.insert(_T("RC"))
-      docAbbrevs.insert(_T("BP"))
-      docAbbrevs.insert(_T("FB"))
-      docAbbrevs.insert(_T("KP"))
-      docAbbrevs.insert(_T("DP"))
-      abbrevMap[RCT]=docAbbrevs
-      docAbbrevs.clear()
-      docAbbrevs.insert(_T("PS"))
-      docAbbrevs.insert(_T("BV"))
-      docAbbrevs.insert(_T("FK"))
-      docAbbrevs.insert(_T("FZ"))
-      docAbbrevs.insert(_T("ZD"))
-      docAbbrevs.insert(_T("PD"))
-      abbrevMap[VPM]=docAbbrevs
-      docAbbrevs.clear()
-      docAbbrevs.insert(_T("JE"))
-      docAbbrevs.insert(_T("ZD"))
-      docAbbrevs.insert(_T("NB"))
-      docAbbrevs.insert(_T("KS"))
-      docAbbrevs.insert(_T("UZ"))
-      abbrevMap[JDT]=docAbbrevs
-   end
-
-   def AmountChangedSinceMDRAssigned_APA(mdrObj,dagJDT1,rec,changedDim)
-      changed=false
-      dagJDT1.GetColMoney(amount,JDT1_FC_DEBIT,rec)
-      if amount.IsZero()
-         dagJDT1.GetColMoney(amount,JDT1_FC_CREDIT,rec)
-         if amount.IsZero()
-            dagJDT1.GetColMoney(amount,JDT1_DEBIT,rec)
-            if amount.IsZero()
-               dagJDT1.GetColMoney(amount,JDT1_CREDIT,rec)
-            end
-
-         end
-
-      end
-
-      dim = SBOString.new(DIM)
-      dimObj=context.CreateBusinessObject(dim)
-      dimObj.DIMGetAllDimensionsInfo(dimInfo)
-      flds=""
-      dimIdx=0
-      begin
-         if dimInfo[dimIdx].DimActive
-            dagJDT1.GetColStr(ocrCode,flds[dimIdx],rec)
-            _STR_LRTrim(ocrCode)
-            if mdrObj.RuleIsManual(ocrCode)
-               mdrObj.AmountIsChangedForManualRule(ocrCode,amount,changed)
-               if changed
-                  _STR_GetStringResource(formatStr,80304,16,coreSystemDefault,context)
-                  tmpStr.Format(formatStr,rec+1,dimIdx+1)
-                  Message(80304,15,tmpStr,OO_ERROR)
-                  changedDim=dimIdx+1
-                  break
-               end
-
-            end
-
-         end
-
-
-         (dimIdx+=1;dimIdx-2)
-      end while (dimIdx<DIMENSION_MAX)
-
-      dimObj.Destroy()
-      return changed
-   end
-
-   def isValidMatType(mat_type)
-      if (mat_type!=0)&&(mat_type!=-1)
-         return true
-      else
-         return false
-      end
-
-   end
-
-   def UpgradeDOC6VatPaidForFullyBasedCreditMemos(objID)
-      ooErr=0
-      env=context
-      updStmt = DBQUpdateStatement.new(env)
-      begin
-         tDoc6=updStmt.Update(env.ObjectToTable(objID,ao_Arr6))
-         tOdoc=updStmt.Update(env.ObjectToTable(objID,ao_Main))
-         updStmt.Set(INV6_VAT_APPLIED).Col(tDoc6,INV6_VAT_SUM)
-         updStmt.Set(INV6_VAT_APPLIED_SYS).Col(tDoc6,INV6_VAT_SYS)
-         updStmt.Set(INV6_VAT_APPLIED_FRGN).Col(tDoc6,INV6_VAT_FRGN)
-         updStmt.Where().Col(tDoc6,INV6_ABS_ENTRY).EQ().Col(tOdoc,OINV_ABS_ENTRY).And().Col(tDoc6,INV6_STATUS).EQ().Val(VAL_CLOSE).And().Col(tOdoc,OINV_STATUS).EQ().Val(VAL_CLOSE).And().Col(tDoc6,INV6_VAT_APPLIED).EQ().Val(0)
-         updStmt.Execute()
-      rescue DBMException=>e
-         ooErr=e.GetCode()
-         return ooErr
-      end
-
-      return ooErr
-   end
-
-   def UpgradeODOCVatPaidForFullyBasedCreditMemos(objID)
-      ooErr=0
-      env=context
-      updStmt = DBQUpdateStatement.new(env)
-      begin
-         tOdoc=updStmt.Update(env.ObjectToTable(objID,ao_Main))
-         updStmt.Set(OINV_VAT_APPLIED).Col(tOdoc,OINV_VAT_SUM)
-         updStmt.Set(OINV_VAT_APPLIED_SYS).Col(tOdoc,OINV_VAT_SYS)
-         updStmt.Set(OINV_VAT_APPLIED_FRGN).Col(tOdoc,OINV_VAT_FRGN)
-         updStmt.Where().Col(tOdoc,OINV_VAT_APPLIED).EQ().Val(0).And().Col(tOdoc,OINV_STATUS).EQ().Val(VAL_CLOSE)
-         updStmt.Execute()
-      rescue DBMException=>e
-         ooErr=e.GetCode()
-         return ooErr
-      end
-
-      return ooErr
-   end
-
-   def RepairEquVatRateOfJDT1()
-      ooErr=ooNoErr
-      objectId=""
-      i=0
-      begin
-         ooErr=RepairEquVatRateOfJDT1ForOneObject(objectId[i])
-         if ooErr
-            return ooErr
-         end
-
-
-         (i+=1;i-2)
-      end while (objectId[i]!=NOB)
-
-      return ooErr
-   end
-
-   def RepairEquVatRateOfJDT1ForOneObject(objectId)
-      ooErr=ooNoErr
-      bq = SMU_BQ_Context.new(context)
-      bq.AddTable(TAX,ao_Arr1,tableTAX1)
-      bq.AddJoin(TAX,ao_Main,tableOTAX,tableTAX1,SMU_BQ_INNER_JOIN)
-      bq.ConditionContext_SetToJoin(tableOTAX)
-      bq.AddConditions().Col(tableOTAX,OTAX_ABS_ENTRY).EQ().Col(tableTAX1,TAX1_ABS_ENTRY)
-      bq.AddJoin(JDT,ao_Main,tableOJDT,tableOTAX,SMU_BQ_INNER_JOIN)
-      bq.ConditionContext_SetToJoin(tableOJDT)
-      bq.AddConditions().Col(tableOJDT,OJDT_TRANS_TYPE).EQ().Col(tableOTAX,OTAX_SOURCE_OBJ_TYPE).AND().Col(tableOJDT,OJDT_BASE_REF).EQ().Col(tableOTAX,OTAX_SOURCE_OBJ_ABS_ENTRY)
-      bq.AddJoin(JDT,ao_Arr1,tableJDT1,tableOJDT,SMU_BQ_INNER_JOIN)
-      bq.ConditionContext_SetToJoin(tableJDT1)
-      bq.AddConditions().Col(tableJDT1,JDT1_TRANS_ABS).EQ().Col(tableOJDT,OJDT_JDT_NUM).AND().Col(tableJDT1,JDT1_VAT_LINE).EQ().Val(VAL_YES).AND().Col(tableJDT1,JDT1_VAT_GROUP).EQ().Col(tableTAX1,TAX1_TAX_CODE)
-      bq.AddJoin(objectId,ao_Main,tableOINV,tableOTAX,SMU_BQ_INNER_JOIN)
-      bq.ConditionContext_SetToJoin(tableOINV)
-      bq.AddConditions().Col(tableOINV,INV1_ABS_ENTRY).EQ().Col(tableOTAX,OTAX_SOURCE_OBJ_ABS_ENTRY)
-      bq.ConditionContext_SetToWherePart()
-      bq.AddConditions().Col(tableTAX1,TAX1_EQ_PERCENT).NE().Val(STR_0).AND().Col(tableOTAX,OTAX_SOURCE_OBJ_TYPE).EQ().Val(objectId)
-      bq.AddCondition_AND()
-      bq.AddCondition_BracketOpen()
-      version=VERSION_2007_226
-      begin
-         versionStr = SBOString.new(version)
-
-         major=versionStr.Left(1)
-         minor=versionStr.Mid(1,2)
-         build=versionStr.Right(3)
-         versionStr=major+_T(".")+minor+_T(".")+build+_T(".*")
-         bq.AddCondition_CompareColumnWithString(tableOINV,(objectId==RCT||objectId==VPM) ? ORCT_VERSION_NUM : OINV_VERSION_NUM,DBD_PATTERN,versionStr)
-         if version!=VERSION_2007_227
-            bq.AddCondition_OR()
-         end
-
-
-         (version+=1;version-2)
-      end while (version<=VERSION_2007_227)
-
-      bq.AddCondition_BracketClose()
-      bq.AddResultColumn(resTax1AbsEntry,tableTAX1,TAX1_ABS_ENTRY)
-      bq.AddResultColumn(resTax1TaxCode,tableTAX1,TAX1_TAX_CODE)
-      bq.AddResultColumn(resTax1EqPercent,tableTAX1,TAX1_EQ_PERCENT)
-      bq.AddResultColumn(resJdt1TransId,tableJDT1,JDT1_TRANS_ABS)
-      bq.AddResultColumn(resJdt1Line_ID,tableJDT1,JDT1_LINE_ID)
-      bq.AddSortParam(tableJDT1,JDT1_TRANS_ABS,false)
-      bq.AddSortParam(tableJDT1,JDT1_LINE_ID,false)
-      bq.SetFlag(DBD_FLAG_DISTINCT_DAG,true)
-      key.SetSegmentsCount(2)
-      key.SetSegmentColumn(0,resJdt1TransId)
-      key.SetSegmentColumn(1,resJdt1Line_ID)
-      dagRes=nil
-      dagQuery=context.OpenDAG(JDT,ao_Arr1)
-      bq.AssignToDAG(dagQuery)
-      ooErr=dagQuery.GetFirstChunk(10000,key,dagRes)
-      if ooErr&&ooErr!=-2028
-         dagQuery.Close()
-         return ooErr
-      end
-
-      while (ooErr==ooNoErr)
-         ooErr=UpdateIncorrectEquVatRate(dagRes)
-         if ooErr
-            dagQuery.Close()
-            return ooErr
-         end
-
-         ooErr=dagQuery.GetNextChunk(10000,key,dagRes)
-      end
-
-      if ooErr==-2028
-         ooErr=ooNoErr
-      end
-
-      dagQuery.Close()
-      return ooErr
-   end
-
-   def UpdateIncorrectEquVatRate(dagRes)
-      ooErr=ooNoErr
-      rec=dagRes.GetRecordCount()-1
-
-      begin
-         ooErr=UpdateIncorrectEquVatRateOneRec(dagRes,rec)
-         if ooErr
-            return ooErr
-         end
-
-         dagRes.GetColLong(absEntry,resTax1AbsEntry,rec)
-         dagRes.GetColStr(vatGroup,resTax1TaxCode,rec)
-         vatGroup.Trim()
-         if rec-1>=0
-            dagRes.GetColLong(nextAbsEntry,resTax1AbsEntry,rec-1)
-            dagRes.GetColStr(nextVatGroup,resTax1TaxCode,rec-1)
-            nextVatGroup.Trim()
-         else
-            break
-         end
-
-         if absEntry==nextAbsEntry&&vatGroup==nextVatGroup
-            (rec-=1;rec+2)
-         end
-
-
-         (rec-=1;rec+2)
-      end while (rec>=0)
-
-      return ooErr
-   end
-
-   def UpdateIncorrectEquVatRateOneRec(dagRes,rec)
-      ooErr=ooNoErr
-      dagRes.GetColLong(transId,resJdt1TransId,rec)
-      dagRes.GetColLong(lineId,resJdt1Line_ID,rec)
-      dagRes.GetColMoney(equVatRate,resTax1EqPercent,rec)
-      conds[0].colNum=JDT1_TRANS_ABS
-      conds[0].operation=DBD_EQ
-      conds[0].condVal=transId
-      conds[0].relationship=DBD_AND
-      conds[1].colNum=JDT1_LINE_ID
-      conds[1].operation=DBD_EQ
-      conds[1].condVal=lineId
-      conds[1].relationship=0
-      updateStruct[0].colNum=JDT1_EQU_VAT_PERCENT
-      equVatRate.ToSBOString(updateStruct[0].updateVal)
-      dagJDT1=context.OpenDAG(JDT,ao_Arr1)
-      DBD_SetDAGCond(dagJDT1,conds,2)
-      DBD_SetDAGUpd(dagJDT1,updateStruct,1)
-      ooErr=DBD_UpdateCols(dagJDT1)
-      dagJDT1.Close()
-      return ooErr
-   end
-
-   def InitDataReport340(dagJDT)
-      trace("InitDataReport340")
-      sboErr=ooNoErr
-      bizEnv=context
-      if GetDataSource()==VAL_OBSERVER_SOURCE
-         dagJDT.NullifyCol(OJDT_RESIDENCE_NUM,0)
-      end
-
-      return sboErr
-   end
-
-   def CompleteReport340(dagJDT,dagJDT1)
-      trace("CompleteReport340")
-      sboErr=ooNoErr
-      bizEnv=context
-      dagCRD=GetDAG(CRD)
-      if GetDataSource()==VAL_OBSERVER_SOURCE
-         dagJDT.GetColStr(residenNum,OJDT_RESIDENCE_NUM,0)
-         if residenNum.GetLength()<=0
-            atLeasOneBPFound=false
-            if IsManualJE(dagJDT)==true
-               numOfRecs=dagJDT1.GetRealSize(dbmDataBuffer)
-               if numOfRecs>0
-                  rec=0
-                  begin
-                     dagJDT1.GetColStr(account,JDT1_ACCT_NUM,rec)
-                     dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
-                     if account.CompareNoCase(shortName)!=0
-                        if bizEnv.GetByOneKey(dagCRD,OCRD_KEYNUM_PRIMARY,shortName,true)==ooNoErr
-                           dagCRD.GetColStr(residenNum,OCRD_RESIDENCE_NUM,0)
-                           dagJDT.SetColStr(residenNum,OJDT_RESIDENCE_NUM,0)
-                           dagJDT.SetColStr(residenNum,OJDT_RESIDENCE_NUM,0,true,true)
-                           atLeasOneBPFound=true
-                           break
-                        end
-
-                     end
-
-
-                     (rec+=1;rec-2)
-                  end while (rec<numOfRecs)
-
-               end
-
-            end
-
-            if atLeasOneBPFound==false
-               dagJDT.GetDefaultValue(OJDT_RESIDENCE_NUM,residenNum)
-               dagJDT.SetColStr(residenNum,OJDT_RESIDENCE_NUM,0)
-               dagJDT.SetColStr(residenNum,OJDT_RESIDENCE_NUM,0,true,true)
-            end
-
-         end
-
-      end
-
-      return sboErr
-   end
-
-   def ValidateReport340()
-      trace("ValidateReport340")
-      sboErr=ooNoErr
-      bizEnv=context
-      dagJDT=GetDAG()
-      if GetCurrentBusinessFlow()==bf_Create
-         return sboErr
-      end
-
-      dagJDT.GetColStr(residenNumOrig,OJDT_RESIDENCE_NUM,0,true,true)
-      dagJDT.GetColStr(residenNumNew,OJDT_RESIDENCE_NUM,0)
-      if residenNumOrig.GetLength()>0&&residenNumOrig.Compare(residenNumNew)!=0&&IsManualJE(dagJDT)==false
-         SetErrorField(OJDT_RESIDENCE_NUM)
-         Message(GO_OBJ_ERROR_MSGS(JDT),22,nil,OO_ERROR)
-         return ooInvalidObject
-      end
-
-      dagJDT.GetColStr(operatCodeOrig,OJDT_OPERATION_CODE,0,true,true)
-      dagJDT.GetColStr(operatCodeNew,OJDT_OPERATION_CODE,0)
-      if operatCodeOrig.GetLength()>0&&operatCodeOrig.Compare(operatCodeNew)!=0&&IsManualJE(dagJDT)==false
-         SetErrorField(OJDT_OPERATION_CODE)
-         Message(GO_OBJ_ERROR_MSGS(JDT),23,nil,OO_ERROR)
-         return ooInvalidObject
-      end
-
-      return sboErr
-   end
-
-   def HandleFCExchangeRounding(dagJDT1,currencyMap)
-
-      lastNonZeroFCLine = long.new(-1)
-      size=dagJDT1.GetRecordCount()
-      idx=0
-      begin
-         debit.FromDAG(dagJDT1,idx,JDT1_DEBIT,JDT1_FC_DEBIT,JDT1_SYS_DEBIT)
-         credit.FromDAG(dagJDT1,idx,JDT1_CREDIT,JDT1_FC_CREDIT,JDT1_SYS_CREDIT)
-         dagJDT1.GetColStr(currency,JDT1_FC_CURRENCY,idx)
-         dagJDT1.GetColStr(vatLine,JDT1_VAT_LINE,idx)
-         vatLine.Trim()
-         currency.Trim()
-         if !currency.IsEmpty()&&(debit.GetFcSum()!=0||credit.GetFcSum()!=0)
-            currencyMap.Lookup(currency,roundingStruct)
-            if vatLine!=VAL_YES
-               roundingStruct.lastNonZeroFCLine=idx
-            end
-
-            roundingStruct.totalDebitMinusCredit+=(debit-credit)
-            currencyMap[currency]=roundingStruct
-         end
-
-         totalDebitMinusCredit+=(debit-credit)
-
-         (idx+=1;idx-2)
-      end while (idx<size)
-
-      if totalDebitMinusCredit.GetLcSum()==0&&totalDebitMinusCredit.GetScSum()==0
-         return ooNoErr
-      end
-
-
-      begin
-         roundingStruct=itr.second
-         if roundingStruct.needRounding&&roundingStruct.totalDebitMinusCredit.GetFcSum()==0&&(roundingStruct.totalDebitMinusCredit.GetLcSum()!=0||roundingStruct.totalDebitMinusCredit.GetScSum()!=0)&&roundingStruct.lastNonZeroFCLine!=-1
-            dagJDT1.GetColMoney(amount,JDT1_FC_DEBIT,roundingStruct.lastNonZeroFCLine)
-            if amount!=0
-               dagJDT1.GetColMoney(amount,JDT1_DEBIT,roundingStruct.lastNonZeroFCLine)
-               amount-=roundingStruct.totalDebitMinusCredit.GetLcSum()
-               dagJDT1.SetColMoney(amount,JDT1_DEBIT,roundingStruct.lastNonZeroFCLine)
-               dagJDT1.GetColMoney(amount,JDT1_SYS_DEBIT,roundingStruct.lastNonZeroFCLine)
-               amount-=roundingStruct.totalDebitMinusCredit.GetScSum()
-               dagJDT1.SetColMoney(amount,JDT1_SYS_DEBIT,roundingStruct.lastNonZeroFCLine)
-            else
-               dagJDT1.GetColMoney(amount,JDT1_CREDIT,roundingStruct.lastNonZeroFCLine)
-               amount+=roundingStruct.totalDebitMinusCredit.GetLcSum()
-               dagJDT1.SetColMoney(amount,JDT1_CREDIT,roundingStruct.lastNonZeroFCLine)
-               dagJDT1.GetColMoney(amount,JDT1_SYS_CREDIT,roundingStruct.lastNonZeroFCLine)
-               amount+=roundingStruct.totalDebitMinusCredit.GetScSum()
-               dagJDT1.SetColMoney(amount,JDT1_SYS_CREDIT,roundingStruct.lastNonZeroFCLine)
-            end
-
-         end
-
-
-         (itr+=1)
-      end while (itr!=currencyMap.end())
-
-      return ooNoErr
-   end
-
-   def UpgradeFederalTaxIdOnJERow()
-      bizEnv=context
-      stmt = DBQRetrieveStatement.new(bizEnv)
-      begin
-         tJDT1=stmt.From(bizEnv.ObjectToTable(JDT,ao_Arr1))
-         tOCRD=stmt.Join(bizEnv.ObjectToTable(CRD,ao_Main),tJDT1,DBQ_JT_INNER_JOIN)
-         stmt.On(tOCRD).Col(tJDT1,JDT1_SHORT_NAME).EQ().Col(tOCRD,OCRD_CARD_CODE)
-         tCRD1=stmt.Join(bizEnv.ObjectToTable(CRD,ao_Arr1),tOCRD,DBQ_JT_LEFT_OUTER_JOIN)
-         stmt.On(tCRD1).Col(tOCRD,OCRD_CARD_CODE).EQ().Col(tCRD1,CRD1_CARD_CODE).And().Col(tOCRD,OCRD_SHIP_TO_DEFAULT).EQ().Col(tCRD1,CRD1_ADDRESS_NAME)
-         stmt.Select().Col(tOCRD,OCRD_CARD_CODE)
-         stmt.Select().Col(tOCRD,OCRD_CARD_TYPE)
-         stmt.Select().Col(tOCRD,OCRD_TAX_ID_NUMBER).As(_T("OCRDLicTradNum"))
-         stmt.Select().Col(tCRD1,CRD1_TAX_ID_NUMBER).As(_T("CRD1LicTradNum"))
-         stmt.Distinct()
-         stmt.Where().Col(tJDT1,JDT1_ACCT_NUM).NE().Col(tJDT1,JDT1_SHORT_NAME).And().Col(tJDT1,JDT1_TRANS_TYPE).EQ().Val(JDT).And().OpenBracket().Col(tOCRD,OCRD_TAX_ID_NUMBER).IsNotNull().Or().Col(tCRD1,CRD1_TAX_ID_NUMBER).IsNotNull().CloseBracket()
-         countRes=stmt.Execute(dagRes)
-      rescue DBMException=>e
-         return e.GetCode()
-      end
-
-      ii=0
-      begin
-         crdTaxID=EMPTY_STR
-         dagRes.GetColStr(cardCode,dagRes.GetColumnByAlias(OCRD_CARD_CODE_ALIAS),ii)
-         dagRes.GetColStr(cardType,dagRes.GetColumnByAlias(OCRD_CARD_TYPE_ALIAS),ii)
-         cardCode.Trim()
-         cardType.Trim()
-         if cardType==VAL_CUSTOMER&&!context.IsLatinAmericaTaxSystem()
-            dagRes.GetColStr(crdTaxID,dagRes.GetColumnByAlias(_T("CRD1LicTradNum")),ii)
-         end
-
-         if crdTaxID.IsSpacesStr()
-            dagRes.GetColStr(crdTaxID,dagRes.GetColumnByAlias(_T("OCRDLicTradNum")),ii)
-         end
-
-         crdTaxID.Trim()
-         ustmt = DBQUpdateStatement.new(bizEnv)
-         begin
-            tJDT1=ustmt.Update(bizEnv.ObjectToTable(JDT,ao_Arr1))
-            ustmt.Set(JDT1_TAX_ID_NUMBER).Val(crdTaxID)
-            ustmt.Where().Col(tJDT1,JDT1_ACCT_NUM).NE().Col(tJDT1,JDT1_SHORT_NAME).And().Col(tJDT1,JDT1_SHORT_NAME).EQ().Val(cardCode).And().Col(tJDT1,JDT1_TRANS_TYPE).EQ().Val(JDT)
-            ustmt.Execute()
-         rescue DBMException=>e
-            return e.GetCode()
-         end
-
-
-         (ii+=1;ii-2)
-      end while (ii<countRes)
-
-      objArray=""
-      objNum=0
-      begin
-         ustmt = DBQUpdateStatement.new(bizEnv)
-         begin
-            tJDT1=ustmt.Update(bizEnv.ObjectToTable(JDT,ao_Arr1))
-            tOINV=ustmt.Update(bizEnv.ObjectToTable(objArray[objNum],ao_Main))
-            ustmt.Set(JDT1_TAX_ID_NUMBER).Col(tOINV,OINV_TAX_ID_NUMBER)
-            ustmt.Where().Col(tOINV,OINV_TRANS_NUM).EQ().Col(tJDT1,JDT1_TRANS_ABS).And().Col(tJDT1,JDT1_ACCT_NUM).NE().Col(tJDT1,JDT1_SHORT_NAME).And().Col(tOINV,OINV_CARD_CODE).EQ().Col(tJDT1,JDT1_SHORT_NAME)
-            ustmt.Execute()
-         rescue DBMException=>e
-            return e.GetCode()
-         end
-
-
-         (objNum+=1;objNum-2)
-      end while (objArray[objNum]!=NOB)
-
-      return 0
-   end
-
-   def UpgradeDprId(isSalesObject,introVersion1_Including,introVersion2)
-      sboErr=ooNoErr
-      env=context
-      paymentObjType=isSalesObject ? RCT : VPM
-      dpmObjType=isSalesObject ? DPI : DPO
-      countRes=0
-      begin
-         stmt = DBQRetrieveStatement.new(env)
-         tORCT=stmt.From(env.ObjectToTable(paymentObjType,ao_Main))
-         tRCT2=stmt.Join(env.ObjectToTable(paymentObjType,ao_Arr2),tORCT)
-         stmt.On(tRCT2).Col(tRCT2,RCT2_DOC_KEY).EQ().Col(tORCT,ORCT_ABS_ENTRY).And().Col(tORCT,ORCT_CANCELED).NE().Val(VAL_YES)
-         stmt.Select().Col(tORCT,ORCT_VERSION_NUM)
-         stmt.Select().Col(tORCT,ORCT_OBJECT)
-         stmt.Select().Col(tRCT2,RCT2_DOC_KEY)
-         stmt.Select().Col(tRCT2,RCT2_LINE_ID)
-         stmt.Select().Col(tRCT2,RCT2_INVOICE_KEY)
-         i=0
-         version = introVersion1_Including
-         begin
-            versionStr = SBOString.new(version)
-
-            major=versionStr.Left(1)
-            minor=versionStr.Mid(1,2)
-            build=versionStr.Right(3)
-            versionStr=major+_T(".")+minor+_T(".")+build
-            versionNums.Add(versionStr)
-
-            (i+=1;i-2);(version+=1;version-2)
-         end while (i<15&&version<introVersion2)
-
-         stmt.Where().Col(tRCT2,RCT2_INVOICE_TYPE).EQ().Val(dpmObjType).And().Col(tRCT2,RCT2_PAID_DPM).EQ().Val(VAL_NO)
-         stmt.Where().And().OpenBracket()
-         j=0
-         begin
-            stmt.Where().Col(tORCT,ORCT_VERSION_NUM).StartsWith().Val(versionNums[j])
-            if j!=versionNums.GetSize()-1
-               stmt.Where().Or()
-            end
-
-
-            (j+=1;j-2)
-         end while (j<versionNums.GetSize())
-
-         stmt.Where().CloseBracket()
-         countRes=stmt.Execute(dagRES)
-         if countRes<1
-            return sboErr
-         end
-
-      rescue DBMException=>e
-         return e.GetCode()
-      end
-
-      sboErr=UpdateDprIdOnJERow(paymentObjType,dagRES)
-      return sboErr
-   end
-
-   def UpgradeDprIdForOneDprPayment(isSalesObject,introVersion)
-      sboErr=ooNoErr
-      env=context
-      paymentObjType=isSalesObject ? RCT : VPM
-      dpmObjType=isSalesObject ? DPI : DPO
-      countRes=0
-      begin
-         stmt = DBQRetrieveStatement.new(env)
-         tORCT=stmt.From(env.ObjectToTable(paymentObjType,ao_Main))
-         tRCT2=stmt.Join(env.ObjectToTable(paymentObjType,ao_Arr2),tORCT)
-         stmt.On(tRCT2).Col(tRCT2,RCT2_DOC_KEY).EQ().Col(tORCT,ORCT_ABS_ENTRY).And().Col(tORCT,ORCT_CANCELED).NE().Val(VAL_YES)
-         stmt.Select().Min().Col(tORCT,ORCT_VERSION_NUM).As(ORCT_VERSION_NUM_ALIAS)
-         stmt.Select().Min().Col(tORCT,ORCT_OBJECT).As(ORCT_OBJECT_ALIAS)
-         stmt.Select().Col(tRCT2,RCT2_DOC_KEY).As(RCT2_DOC_KEY_ALIAS)
-         stmt.Select().Min().Col(tRCT2,RCT2_LINE_ID).As(RCT2_LINE_ID_ALIAS)
-         stmt.Select().Min().Col(tRCT2,RCT2_INVOICE_KEY).As(RCT2_INVOICE_KEY_ALIAS)
-         versionStr = SBOString.new(introVersion)
-
-         major=versionStr.Left(1)
-         minor=versionStr.Mid(1,2)
-         build=versionStr.Right(3)
-         versionStr=major+_T(".")+minor+_T(".")+build
-         stmt.Where().Col(tRCT2,RCT2_INVOICE_TYPE).EQ().Val(dpmObjType).And().Col(tRCT2,RCT2_PAID_DPM).EQ().Val(VAL_NO).And().Col(tORCT,ORCT_VERSION_NUM).LT().Val(versionStr)
-         stmt.GroupBy(tRCT2,RCT2_DOC_KEY)
-         stmt.Having().Count().Col(tRCT2,RCT2_DOC_KEY).EQ().Val(1)
-         countRes=stmt.Execute(dagRES)
-         if countRes<1
-            return sboErr
-         end
-
-      rescue DBMException=>e
-         return e.GetCode()
-      end
-
-      sboErr=UpdateDprIdOnJERow(paymentObjType,dagRES)
-      return sboErr
-   end
-
-   def UpdateDprIdOnJERow(paymentObjType,dagRES)
-      sboErr=ooNoErr
-      env=context
-      countRes=dagRES.GetRealSize(dbmDataBuffer)
-      rec=0
-      begin
-         dagRES.GetColLong(paymentDocEntry,dagRES.GetColumnByAlias(RCT2_DOC_KEY_ALIAS),rec)
-         dagRES.GetColLong(paymentLineId,dagRES.GetColumnByAlias(RCT2_LINE_ID_ALIAS),rec)
-         dagRES.GetColLong(dprDocEntry,dagRES.GetColumnByAlias(RCT2_INVOICE_KEY_ALIAS),rec)
-         begin
-            ustmt = DBQUpdateStatement.new(env)
-            tJDT1=ustmt.Update(env.ObjectToTable(JDT,ao_Arr1))
-            ustmt.Set(JDT1_DPR_ABS_ID).Val(dprDocEntry)
-            ustmt.Where().Col(tJDT1,JDT1_TRANS_TYPE).EQ().Val(paymentObjType).And().Col(tJDT1,JDT1_CREATED_BY).EQ().Val(paymentDocEntry).And().Col(tJDT1,JDT1_LINE_TYPE).EQ().Val(ooCtrlAct_DPRequestType).And().Col(tJDT1,JDT1_DPR_ABS_ID).IsNull().And().OpenBracket().Col(tJDT1,JDT1_SRC_LINE).IsNull().Or().Col(tJDT1,JDT1_SRC_LINE).EQ().Val(paymentLineId).Or().Col(tJDT1,JDT1_SRC_LINE).LT().Val(0).CloseBracket()
-            ustmt.Execute()
-         rescue DBMException=>e
-            return e.GetCode()
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<countRes)
-
-      return sboErr
-   end
-
-   def UpgradeWorkOrderStep1()
-      ooErr=ooNoErr
-      dagJDT=GetDAG()
-      tables[0].tableCode=self.context.ObjectToTable(JDT)
-      tables[1].tableCode=self.context.ObjectToTable(WKO)
-      join[0].colNum=OJDT_REF1
-      join[0].tableIndex=0
-      join[0].compareCols=true
-      join[0].compColNum=OWKO_SERIAL_NUM
-      join[0].compTableIndex=1
-      join[0].operation=DBD_EQ
-      join[0].relationship=DBD_AND
-      join[1].colNum=OJDT_TRANS_TYPE
-      join[1].tableIndex=0
-      join[1].compareCols=false
-      join[1].condVal=68
-      join[1].operation=DBD_EQ
-      join[1].relationship=0
-      tables[1].joinConds=join[0]
-      tables[1].doJoin=true
-      tables[1].joinedToTable=0
-      tables[1].numOfConds=2
-      tables[1].outerJoin=false
-      updateStruct[0].colNum=OJDT_CREATED_BY
-      updateStruct[0].srcColNum=OWKO_ORDER_NUM
-      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-      pResCol=updateStruct[0].GetResObject().AddResCol()
-      pResCol.SetTableIndex(1)
-      pResCol.SetColNum(OWKO_ORDER_NUM)
-      updateStruct[1].colNum=OJDT_BASE_REF
-      updateStruct[1].srcColNum=OWKO_SERIAL_NUM
-      updateStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-      pResCol=updateStruct[1].GetResObject().AddResCol()
-      pResCol.SetTableIndex(1)
-      pResCol.SetColNum(OWKO_SERIAL_NUM)
-      cond[0].colNum=OJDT_CREATED_BY
-      cond[0].tableIndex=0
-      cond[0].compareCols=true
-      cond[0].operation=DBD_NE
-      cond[0].compColNum=OWKO_ORDER_NUM
-      cond[0].compTableIndex=1
-      cond[0].relationship=DBD_AND
-      cond[1].bracketOpen=1
-      cond[1].SetSubQueryParams(subQueryParams)
-      cond[1].tableIndex=DBD_NO_TABLE
-      cond[1].operation=DBD_EQ
-      _STR_strcpy(cond[1].condVal,STR_1)
-      cond[1].bracketClose=1
-      cond[1].relationship=DBD_AND
-      cond[2].bracketOpen=1
-      cond[2].SetSubQueryParams(subQueryParams2)
-      cond[2].tableIndex=DBD_NO_TABLE
-      cond[2].operation=DBD_EQ
-      _STR_strcpy(cond[2].condVal,STR_1)
-      cond[2].bracketClose=1
-      cond[2].relationship=0
-      subtables1[0].tableCode=self.context.ObjectToTable(WKO)
-      subres1[0].colNum=OWKO_SERIAL_NUM
-      subres1[0].tableIndex=0
-      subres1[0].agreg_type=DBD_COUNT
-      subcond1[0].colNum=OWKO_SERIAL_NUM
-      subcond1[0].tableIndex=0
-      subcond1[0].compareCols=true
-      subcond1[0].operation=DBD_EQ
-      subcond1[0].compColNum=OWKO_SERIAL_NUM
-      subcond1[0].origTableIndex=1
-      subcond1[0].origTableLevel=1
-      subcond1[0].relationship=0
-      DBD_SetCond(subQueryParams,subcond1,1)
-      DBD_SetRes(subQueryParams,subres1,1)
-      DBD_SetParamTablesList(subQueryParams,subtables1,1)
-      subtables2[0].tableCode=self.context.ObjectToTable(JDT)
-      subres2[0].colNum=OJDT_TRANS_TYPE
-      subres2[0].tableIndex=0
-      subres2[0].agreg_type=DBD_COUNT
-      subcond2[0].colNum=OJDT_REF1
-      subcond2[0].tableIndex=0
-      subcond2[0].compareCols=true
-      subcond2[0].operation=DBD_EQ
-      subcond2[0].compColNum=OJDT_REF1
-      subcond2[0].origTableIndex=0
-      subcond2[0].origTableLevel=1
-      subcond2[0].relationship=DBD_AND
-      subcond2[1].colNum=OJDT_TRANS_TYPE
-      subcond2[1].tableIndex=0
-      subcond2[1].compareCols=false
-      subcond2[1].operation=DBD_EQ
-      subcond2[1].condVal=68
-      subcond2[1].relationship=0
-      DBD_SetCond(subQueryParams2,subcond2,2)
-      DBD_SetRes(subQueryParams2,subres2,1)
-      DBD_SetParamTablesList(subQueryParams2,subtables2,1)
-      DBD_SetDAGCond(dagJDT,cond,3)
-      DBD_SetDAGUpd(dagJDT,updateStruct,2)
-      DBD_SetTablesList(dagJDT,tables,2)
-      ooErr=DBD_UpdateCols(dagJDT)
-      return ooErr
-   end
-
-   def UpgradeWorkOrderStep2()
-      ooErr=ooNoErr
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      tables[0].tableCode=self.context.ObjectToTable(JDT,ao_Arr1)
-      tables[1].tableCode=self.context.ObjectToTable(JDT)
-      join[0].colNum=JDT1_TRANS_ABS
-      join[0].tableIndex=0
-      join[0].compareCols=true
-      join[0].compColNum=OJDT_JDT_NUM
-      join[0].compTableIndex=1
-      join[0].operation=DBD_EQ
-      join[0].relationship=0
-      tables[1].joinConds=join[0]
-      tables[1].doJoin=true
-      tables[1].joinedToTable=0
-      tables[1].numOfConds=1
-      tables[1].outerJoin=false
-      updateStruct[0].colNum=JDT1_CREATED_BY
-      updateStruct[0].srcColNum=OJDT_CREATED_BY
-      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-      pResCol=updateStruct[0].GetResObject().AddResCol()
-      pResCol.SetTableIndex(1)
-      pResCol.SetColNum(OJDT_CREATED_BY)
-      cond[0].colNum=OJDT_CREATED_BY
-      cond[0].tableIndex=1
-      cond[0].compareCols=true
-      cond[0].operation=DBD_NE
-      cond[0].compColNum=JDT1_CREATED_BY
-      cond[0].compTableIndex=0
-      cond[0].relationship=DBD_AND
-      cond[1].colNum=OJDT_TRANS_TYPE
-      cond[1].tableIndex=1
-      cond[1].compareCols=false
-      cond[1].operation=DBD_EQ
-      cond[1].condVal=68
-      cond[1].relationship=0
-      DBD_SetDAGCond(dagJDT1,cond,2)
-      DBD_SetDAGUpd(dagJDT1,updateStruct,1)
-      DBD_SetTablesList(dagJDT1,tables,2)
-      ooErr=DBD_UpdateCols(dagJDT1)
-      return ooErr
-   end
-
-   def UpgradeWorkOrderStep3()
-      ooErr=ooNoErr
-      dagJDT=GetDAG()
-      tables[0].tableCode=self.context.ObjectToTable(JDT)
-      tables[1].tableCode=self.context.ObjectToTable(INM)
-      join[0].colNum=OJDT_CREATED_BY
-      join[0].tableIndex=0
-      join[0].compareCols=true
-      join[0].compColNum=OINM_CREATED_BY
-      join[0].compTableIndex=1
-      join[0].operation=DBD_EQ
-      join[0].relationship=DBD_AND
-      join[1].colNum=OJDT_TRANS_TYPE
-      join[1].tableIndex=0
-      join[1].compareCols=false
-      join[1].condVal=68
-      join[1].operation=DBD_EQ
-      join[1].relationship=DBD_AND
-      join[2].colNum=OINM_TYPE
-      join[2].tableIndex=1
-      join[2].compareCols=false
-      join[2].condVal=68
-      join[2].operation=DBD_EQ
-      join[2].relationship=0
-      tables[1].joinConds=join[0]
-      tables[1].doJoin=true
-      tables[1].joinedToTable=0
-      tables[1].numOfConds=3
-      tables[1].outerJoin=false
-      updateStruct[0].colNum=OJDT_CREATE_DATE
-      updateStruct[0].srcColNum=OINM_CREATE_DATE
-      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-      pResCol=updateStruct[0].GetResObject().AddResCol()
-      pResCol.SetTableIndex(1)
-      pResCol.SetColNum(OINM_CREATE_DATE)
-      cond[0].colNum=OJDT_CREATE_DATE
-      cond[0].tableIndex=0
-      cond[0].compareCols=false
-      cond[0].operation=DBD_IS_NULL
-      cond[0].relationship=DBD_AND
-      cond[1].bracketOpen=1
-      cond[1].SetSubQueryParams(subQueryParams)
-      cond[1].tableIndex=DBD_NO_TABLE
-      cond[1].operation=DBD_EQ
-      cond[1].compareCols=true
-      cond[1].compColNum=OINM_TRANS_SEQUENCE
-      cond[1].compTableIndex=1
-      cond[1].bracketClose=1
-      cond[1].relationship=0
-      subtables1[0].tableCode=self.context.ObjectToTable(INM)
-      subres1[0].colNum=OINM_TRANS_SEQUENCE
-      subres1[0].tableIndex=0
-      subres1[0].agreg_type=DBD_MIN
-      subcond1[0].colNum=OINM_TYPE
-      subcond1[0].tableIndex=0
-      subcond1[0].compareCols=true
-      subcond1[0].operation=DBD_EQ
-      subcond1[0].compColNum=OINM_TYPE
-      subcond1[0].origTableIndex=1
-      subcond1[0].origTableLevel=1
-      subcond1[0].relationship=DBD_AND
-      subcond1[1].colNum=OINM_CREATED_BY
-      subcond1[1].tableIndex=0
-      subcond1[1].compareCols=true
-      subcond1[1].operation=DBD_EQ
-      subcond1[1].compColNum=OINM_CREATED_BY
-      subcond1[1].origTableIndex=1
-      subcond1[1].origTableLevel=1
-      subcond1[1].relationship=0
-      DBD_SetCond(subQueryParams,subcond1,2)
-      DBD_SetRes(subQueryParams,subres1,1)
-      DBD_SetParamTablesList(subQueryParams,subtables1,1)
-      DBD_SetDAGCond(dagJDT,cond,2)
-      DBD_SetDAGUpd(dagJDT,updateStruct,1)
-      DBD_SetTablesList(dagJDT,tables,2)
-      ooErr=DBD_UpdateCols(dagJDT)
-      return ooErr
-   end
-
-   def UpgradeWorkOrderStep4()
-      ooErr=ooNoErr
-      dagINM=GetDAG(INM)
-      tables[0].tableCode=self.context.ObjectToTable(INM)
-      tables[1].tableCode=self.context.ObjectToTable(JDT)
-      join[0].colNum=OINM_CREATED_BY
-      join[0].tableIndex=0
-      join[0].compareCols=true
-      join[0].compColNum=OJDT_CREATED_BY
-      join[0].compTableIndex=1
-      join[0].operation=DBD_EQ
-      join[0].relationship=DBD_AND
-      join[1].colNum=OJDT_TRANS_TYPE
-      join[1].tableIndex=1
-      join[1].compareCols=false
-      join[1].condVal=68
-      join[1].operation=DBD_EQ
-      join[1].relationship=DBD_AND
-      join[2].colNum=OINM_TYPE
-      join[2].tableIndex=0
-      join[2].compareCols=false
-      join[2].condVal=68
-      join[2].operation=DBD_EQ
-      join[2].relationship=0
-      tables[1].joinConds=join[0]
-      tables[1].doJoin=true
-      tables[1].joinedToTable=0
-      tables[1].numOfConds=3
-      tables[1].outerJoin=false
-      updateStruct[0].colNum=OINM_CREATE_DATE
-      updateStruct[0].srcColNum=OJDT_CREATE_DATE
-      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
-      pResCol=updateStruct[0].GetResObject().AddResCol()
-      pResCol.SetTableIndex(1)
-      pResCol.SetColNum(OJDT_CREATE_DATE)
-      cond[0].colNum=OINM_CREATE_DATE
-      cond[0].tableIndex=0
-      cond[0].compareCols=false
-      cond[0].operation=DBD_IS_NULL
-      cond[0].relationship=0
-      DBD_SetDAGCond(dagINM,cond,1)
-      DBD_SetDAGUpd(dagINM,updateStruct,1)
-      DBD_SetTablesList(dagINM,tables,2)
-      ooErr=DBD_UpdateCols(dagINM)
-      return ooErr
-   end
-
-   def UpgradeLandedCosErr()
-      ooErr=ooNoErr
-      dagJDT=GetDAG()
-      tables[0].tableCode=self.context.ObjectToTable(INM)
-      tables[1].tableCode=self.context.ObjectToTable(IPF)
-      tables[2].tableCode=self.context.ObjectToTable(JDT)
-      joinCondition1[0].colNum=OINM_TYPE
-      joinCondition1[0].tableIndex=0
-      joinCondition1[0].compareCols=false
-      joinCondition1[0].condVal=69
-      joinCondition1[0].operation=DBD_EQ
-      joinCondition1[0].relationship=DBD_AND
-      joinCondition1[1].colNum=OINM_CREATED_BY
-      joinCondition1[1].tableIndex=0
-      joinCondition1[1].compareCols=true
-      joinCondition1[1].compColNum=OIPF_ABS_ENTRY
-      joinCondition1[1].compTableIndex=1
-      joinCondition1[1].operation=DBD_EQ
-      joinCondition1[1].relationship=0
-      tables[1].joinConds=joinCondition1
-      tables[1].doJoin=true
-      tables[1].joinedToTable=0
-      tables[1].numOfConds=2
-      tables[1].outerJoin=false
-      joinCondition2[0].colNum=OJDT_TRANS_TYPE
-      joinCondition2[0].tableIndex=2
-      joinCondition2[0].compareCols=false
-      joinCondition2[0].condVal=69
-      joinCondition2[0].operation=DBD_EQ
-      joinCondition2[0].relationship=DBD_AND
-      joinCondition2[1].colNum=OINM_CREATED_BY
-      joinCondition2[1].tableIndex=0
-      joinCondition2[1].compareCols=true
-      joinCondition2[1].compColNum=OJDT_CREATED_BY
-      joinCondition2[1].compTableIndex=2
-      joinCondition2[1].operation=DBD_EQ
-      joinCondition2[1].relationship=DBD_AND
-      joinCondition2[2].colNum=OJDT_JDT_NUM
-      joinCondition2[2].tableIndex=2
-      joinCondition2[2].compareCols=true
-      joinCondition2[2].compColNum=OIPF_JDT_NUM
-      joinCondition2[2].compTableIndex=1
-      joinCondition2[2].operation=DBD_EQ
-      joinCondition2[2].relationship=0
-      tables[2].joinConds=joinCondition2
-      tables[2].doJoin=true
-      tables[2].joinedToTable=0
-      tables[2].numOfConds=3
-      tables[2].outerJoin=false
-      res[0].colNum=OJDT_CREATE_DATE
-      res[0].tableIndex=2
-      res[1].colNum=OINM_CREATE_DATE
-      res[1].tableIndex=0
-      res[2].colNum=OJDT_JDT_NUM
-      res[2].tableIndex=2
-      res[3].colNum=OINM_NUM
-      res[3].tableIndex=0
-      cond[0].colNum=OJDT_CREATE_DATE
-      cond[0].tableIndex=2
-      cond[0].compareCols=false
-      cond[0].operation=DBD_IS_NULL
-      cond[0].relationship=0
-      DBD_SetDAGCond(dagJDT,cond,1)
-      DBD_SetDAGRes(dagJDT,res,4)
-      DBD_SetTablesList(dagJDT,tables,3)
-      ooErr=DBD_GetInNewFormat(dagJDT,dagRes)
-      if ooErr
-         if ooErr==-2028
-            return ooNoErr
-         else
-            return ooErr
-         end
-
-      end
-
-      numOfRecords=dagRes.GetRecordCount()
-      tables2[0].tableCode=self.context.ObjectToTable(JDT)
-      i=0
-      begin
-         updateStruct[0].colNum=OJDT_CREATE_DATE
-         dagRes.GetColStr(updateStruct[0].updateVal,1,i)
-         cond2[0].colNum=OJDT_JDT_NUM
-         cond2[0].tableIndex=0
-         cond2[0].compareCols=false
-         cond2[0].operation=DBD_EQ
-         dagRes.GetColStr(cond2[0].condVal,2,i)
-         cond2[0].relationship=0
-         DBD_SetDAGUpd(dagJDT,updateStruct,1)
-         DBD_SetTablesList(dagJDT,tables2,1)
-         DBD_SetDAGCond(dagJDT,cond2,1)
-         ooErr=DBD_UpdateCols(dagJDT)
-         if ooErr
-            return ooErr
-         end
-
-
-         (i+=1;i-2)
-      end while (i<numOfRecords)
-
-      return ooNoErr
-   end
-
-   def UpgradeWorkOrderErr()
-      ooErr=ooNoErr
-      ooErr=UpgradeWorkOrderStep1()
-      if ooErr
-         return ooErr
-      end
-
-      ooErr=UpgradeWorkOrderStep2()
-      if ooErr
-         return ooErr
-      end
-
-      ooErr=UpgradeWorkOrderStep3()
-      if ooErr
-         return ooErr
-      end
-
-      ooErr=UpgradeWorkOrderStep4()
-      if ooErr
-         return ooErr
-      end
-
-      return ooErr
-   end
-
-   def isValidCENVAT(cenvat)
-      if (cenvat!=0)&&(cenvat!=-1)
-         return true
-      else
-         return false
-      end
-
-   end
-
-   def ValidateHeaderLocation()
-      trace("ValidateHeaderLocation")
-      dagJDT=GetDAG()
-      dagJDT.GetColStr(autoVat,OJDT_AUTO_VAT)
-      dagJDT.GetColStr(regNo,OJDT_GEN_REG_NO)
-      if autoVat==VAL_YES||regNo==VAL_YES
-         dagJDT.GetColLong(location,OJDT_LOCATION)
-         if !location
-            SetErrorField(OJDT_LOCATION)
-            Message(GO_OBJ_ERROR_MSGS(JDT),17,nil,OO_ERROR)
-            return ooInvalidObject
-         end
-
-      end
-
-      return ooNoErr
-   end
-
-   def ValidateRowLocation(rec)
-      trace("ValidateRowLocation")
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      dagJDT1.GetColStr(vatLine,JDT1_VAT_LINE,rec)
-      if vatLine==VAL_YES
-         dagJDT1.GetColStr(taxCode,JDT1_TAX_CODE,rec)
-         if !taxCode.IsEmpty()
-            dagJDT1.GetColLong(location,JDT1_LOCATION,rec)
-            if !location
-               SetArrNum(ao_Arr1)
-               SetErrorField(OJDT_LOCATION)
-               SetErrorLine(rec+1)
-               Message(GO_OBJ_ERROR_MSGS(JDT),17,nil,OO_ERROR)
-               return ooInvalidObject
-            end
-
-         end
-
-      end
-
-      dagJDT=GetDAG(JDT,ao_Main)
-      dagJDT.GetColLong(objType,OJDT_TRANS_TYPE)
-      if objType==JDT||objType==-1
-         dagJDT1.GetColLong(maType,JDT1_MATERIAL_TYPE,rec)
-         dagJDT1.GetColLong(cenvatCon,JDT1_CENVAT_COM,rec)
-         if isValidCENVAT(cenvatCon)||isValidMatType(maType)
-            dagJDT1.GetColLong(location,JDT1_LOCATION,rec)
-            if !location
-               SetArrNum(ao_Arr1)
-               SetErrorField(OJDT_LOCATION)
-               SetErrorLine(rec+1)
-               Message(GO_OBJ_ERROR_MSGS(JDT),17,nil,OO_ERROR)
-               return ooInvalidObject
-            end
-
-         end
-
-      end
-
-      return ooNoErr
-   end
-
-   def CompleteLocations()
-      dagJDT=GetDAG()
-      dagJDT1=GetDAG(ao_Arr1)
-      dagJDT.GetColStr(autoVat,OJDT_AUTO_VAT)
-      dagJDT.GetColStr(regNo,OJDT_GEN_REG_NO)
-      if autoVat==VAL_YES||regNo==VAL_YES
-         location=0
-         dagJDT.GetColLong(location,OJDT_LOCATION)
-         if !location
-            seq=0
-            dagJDT.GetColLong(seq,OJDT_SEQ_CODE)
-            if seq
-               location=context.GetSequenceManager().GetLocation(self,seq)
-               dagJDT.SetColLong(location,OJDT_LOCATION)
-            end
-
-         end
-
-         dagJDT.GetColLong(location,OJDT_LOCATION)
-         if location
-            recCount=dagJDT1.GetRecordCount()
-            rec=0
-            begin
-               dagJDT1.GetColStr(taxCode,JDT1_TAX_CODE,rec)
-               if !taxCode.IsEmpty()
-                  dagJDT1.GetColLong(location,JDT1_LOCATION,rec)
-                  if !location
-                     dagJDT1.CopyColumn(dagJDT,JDT1_LOCATION,rec,OJDT_LOCATION,0)
-                  end
-
-               end
-
-
-               (rec+=1;rec-2)
-            end while (rec<recCount)
-
-         end
-
-      end
-
-      return ooNoErr
-   end
-
-   def SetReconAcct(isInCancellingAcctRecon,acct)
-      @m_isInCancellingAcctRecon=isInCancellingAcctRecon
-      if @m_reconAcctSet.find(acct)==@m_reconAcctSet.end()
-         @m_reconAcctSet.insert(acct)
-      end
-
-      return
-   end
-
-   def LogBPAccountBalance(bpBalanceLogDataArray,keyNum)
-      size=bpBalanceLogDataArray.size()
-      dagCRD=GetDAG(CRD)
-      ooErr=0
-      i=0
-      begin
-         bpBalanceChangeLogData=bpBalanceLogDataArray[i]
-         ooErr=context.GetByOneKey(dagCRD,GO_PRIMARY_KEY_NUM,bpBalanceChangeLogData.GetCode(),true)
-         if ooErr
-            return
-         end
-
-         dagCRD.GetColMoney(tempMoney,OCRD_CURRENT_BALANCE)
-         bpBalanceChangeLogData.SetNewAcctBalanceLC(tempMoney)
-         dagCRD.GetColMoney(tempMoney,OCRD_F_BALANCE)
-         bpBalanceChangeLogData.SetNewAcctBalanceFC(tempMoney)
-         bpBalanceChangeLogData.SetKeyNum(keyNum)
-         bpBalanceChangeLogData.Log()
-
-         (i+=1;i-2)
-      end while (i<size)
-
-   end
-
-   def SetZeroBalanceDueForCentralizedPayment(set = true)
-      @m_bZeroBalanceDue=set
-   end
-
-   def IsZeroBalanceDueForCentralizedPayment()
-      return @m_bZeroBalanceDue
-   end
-
-   def initialize(context)
-       @m_digitalSignature = env
-       trace("CSystemBusinessObject")
-       @m_isVatJournalEntry=false
-       @m_taxAdaptor=nil
-       @m_stornoExtraInfoCreator=nil
-       @m_reconcileBPLines=true
-       @m_pSequenceParameter=nil
-       @m_isInCancellingAcctRecon=false
-       @m_isPostingPreviewMode=false
-       @m_isPostingTemplate=false
-   end
-   
-   # def initialize(id,env)
-   #    super(id,env)
-   #    @m_digitalSignature = env
-   #    trace("CSystemBusinessObject")
-   #    @m_isVatJournalEntry=false
-   #    @m_taxAdaptor=nil
-   #    @m_stornoExtraInfoCreator=nil
-   #    @m_reconcileBPLines=true
-   #    @m_pSequenceParameter=nil
-   #    @m_isInCancellingAcctRecon=false
-   #    @m_isPostingPreviewMode=false
-   #    @m_isPostingTemplate=false
-   # end
-
-   def uninitialize()
-      trace("~CTransactionJournalObject")
-      if @m_taxAdaptor
-         (@m_taxAdaptor).__delete
-      end
-
-      if @m_pSequenceParameter
-         m_pSequenceParameter=nil
-      end
-
-      @m_reconAcctSet.clear()
-   end
-
-   def CompleteKeys()
-      dbErr=ooNoErr
-      dbErr=cSystemBusinessObject.completeKeys()
-      if dbErr
-         return dbErr
-      end
-
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      if dagJDT1.GetDBDMgrPtr().isConnectionCaseSensitive()==true
-         return ooNoErr
-      end
-
-      dagCRD=GetDAG(CRD)
-      dagACT=GetDAG(ACT)
-      jeLinesCount=dagJDT1.GetRealSize(dbmDataBuffer)
-      rec=0
-      begin
-         shortName=dagJDT1.GetColStr(JDT1_SHORT_NAME,rec,-1)
-         if shortName.IsSpacesStr()
-            next
-
-         end
-
-         dbErr=context.GetByOneKey(dagCRD,OCRD_KEYNUM_PRIMARY,shortName)
-         if dbErr==ooNoErr
-            dagJDT1.CopyColumn(dagCRD,JDT1_SHORT_NAME,rec,OCRD_CARD_CODE,0)
-         else
-            if dbErr==-2028
-               dbErr=context.GetByOneKey(dagACT,OACT_KEYNUM_PRIMARY,shortName)
-               if dbErr==0
-                  dagJDT1.CopyColumn(dagACT,JDT1_SHORT_NAME,rec,OACT_ACCOUNT_CODE,0)
-               else
-                  SetErrorField(JDT1_SHORT_NAME)
-                  SetErrorLine(rec+1)
-                  SetArrNum(ao_Arr1)
-                  if dbErr==-2028
-                     Message(OBJ_MGR_ERROR_MSG,GO_CRD_NAME_MISSING,shortName,OO_ERROR)
-                     return ooInvalidObject
-                  end
-
-                  return dbErr
-               end
-
-            else
-               SetErrorField(JDT1_SHORT_NAME)
-               SetErrorLine(rec+1)
-               SetArrNum(ao_Arr1)
-               return dbErr
-            end
-
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<jeLinesCount)
-
-      return ooNoErr
-   end
-
-   def OnCreate()
-      trace("OnCreate")
-      ooErr=0
-      blockLevel=0
-      typeBlockLevel = 0
-      recCount=0
-      ii = 0
-      retVal=0
-      lastContraRec=0
-      contraCredLines = 0
-      contraDebLines = 0
-      monSymbol=""
-      sp_Name=""
-      mainCurr=""
-      frnCurr = ""
-      tmpStr=""
-      msgStr1=""
-      msgStr2 = ""
-      moneyStr=""
-      moneyMonthStr = ""
-      moneyYearStr = ""
-      acctCode=""
-      balanced=false
-      budgetAllYes=false
-
-      fromImport=false
-      bizEnv=context
-      qc=false
-      dagJDT=GetDAG()
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      dagJDT2=GetDAG(JDT,ao_Arr2)
-      if !dagJDT2.GetRealSize(dbmDataBuffer)
-         dagJDT2.SetSize(0,dbmDropData)
-      end
-
-      dagCRD=GetDAG(CRD)
-      if GetDataSource()==VAL_OBSERVER_SOURCE&&bizEnv.IsVatPerLine()
-         DAG_GetCount(dagJDT1,numOfRecs)
-         rec=0
-         begin
-            dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,rec)
-            if tmpStr[0]==VAL_YES[0]
-               dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
-               dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
-               if debAmount.IsZero()&&credAmount.IsZero()
-                  dagJDT1.GetColStr(tmpStr,JDT1_DEBIT_CREDIT,rec)
-                  if tmpStr[0]==VAL_DEBIT[0]
-                     dagJDT1.NullifyCol(JDT1_CREDIT,rec)
-                  else
-                     if tmpStr[0]==VAL_CREDIT[0]
-                        dagJDT1.NullifyCol(JDT1_DEBIT,rec)
-                     end
-
-                  end
-
-               end
-
-            end
-
-
-            (rec+=1;rec-2)
-         end while (rec<numOfRecs)
-
-      end
-
-      SetDebitCreditField()
-      contraCredKey[0]='\0'
-      contraDebKey[0]='\0'
-      transTotal.SetToZero()
-      transTotalChk.SetToZero()
-      fTransTotal.SetToZero()
-      sTransTotal.SetToZero()
-      _STR_strcpy(mainCurr,bizEnv.GetMainCurrency())
-      _STR_LRTrim(mainCurr)
-      dagJDT.GetColMoney(rateMoney,OJDT_TRANS_RATE,0,DBM_NOT_ARRAY)
-      dagJDT.GetColStr(tempStr,OJDT_ORIGN_CURRENCY,0)
-      _STR_LRTrim(tempStr)
-      if GNCoinCmp(tempStr,mainCurr)==0||rateMoney.IsZero()
-         tempStr[0]=0
-      end
-
-      DAG_GetCount(dagJDT1,numOfRecs)
-      if VF_RmvZeroLineFromJE(bizEnv)&&!bizEnv.IsZeroLineAllowed()
-         rec=0
-         begin
-            dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,rec)
-            dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,rec)
-            dagJDT1.GetColMoney(fDebAmount,JDT1_FC_DEBIT,rec)
-            dagJDT1.GetColMoney(fCredAmount,JDT1_FC_CREDIT,rec)
-            dagJDT1.GetColMoney(sDebAmount,JDT1_SYS_DEBIT,rec)
-            dagJDT1.GetColMoney(sCredAmount,JDT1_SYS_CREDIT,rec)
-            dagJDT1.GetColMoney(debBalanceDue,JDT1_BALANCE_DUE_DEBIT,rec)
-            dagJDT1.GetColMoney(credBalanceDue,JDT1_BALANCE_DUE_CREDIT,rec)
-            dagJDT1.GetColMoney(fDebBalanceDue,JDT1_BALANCE_DUE_FC_DEB,rec)
-            dagJDT1.GetColMoney(fCredBalanceDue,JDT1_BALANCE_DUE_FC_CRED,rec)
-            dagJDT1.GetColMoney(sDebBalanceDue,JDT1_BALANCE_DUE_SC_DEB,rec)
-            dagJDT1.GetColMoney(sCredBalanceDue,JDT1_BALANCE_DUE_SC_CRED,rec)
-            if debAmount.IsZero()&&credAmount.IsZero()&&fDebAmount.IsZero()&&fCredAmount.IsZero()&&sDebAmount.IsZero()&&sCredAmount.IsZero()&&debBalanceDue.IsZero()&&credBalanceDue.IsZero()&&fDebBalanceDue.IsZero()&&fCredBalanceDue.IsZero()&&sDebBalanceDue.IsZero()&&sCredBalanceDue.IsZero()
-               dagJDT1.RemoveRecord(rec)
-               (rec-=1;rec+2)
-               (numOfRecs-=1;numOfRecs+2)
-            end
-
-
-            (rec+=1;rec-2)
-         end while (rec<numOfRecs)
-
-      end
-
-      dagJDT.GetColLong(transType,OJDT_TRANS_TYPE)
-      if transType==-1
-         dagJDT.SetColLong(JDT,OJDT_TRANS_TYPE)
-         transType=JDT
-      end
-
-      dagJDT.GetColStr(deferredTax,OJDT_DEFERRED_TAX)
-      deferredTax.Trim()
-      isDeferredTax=(deferredTax==VAL_YES)
-      rec=0
-      begin
-         dagJDT1.GetColStr(acctKey,JDT1_ACCT_NUM,rec)
-         dagJDT1.GetColStr(cardKey,JDT1_SHORT_NAME,rec)
-         itsCard=(_STR_stricmp(acctKey,cardKey)!=0)&&(!_STR_IsSpacesStrcardKey)
-         if itsCard
-            bpBalanceChangeLogData = CBPBalanceChangeLogData.new(bizEnv)
-            bpBalanceChangeLogData.SetCode(cardKey)
-            bpBalanceChangeLogData.SetControlAcct(acctKey)
-            bpBalanceChangeLogData.SetDocType(JDT)
-            ooErr=bizEnv.GetByOneKey(dagCRD,GO_PRIMARY_KEY_NUM,cardKey,true)
-            if ooErr!=0
-               if ooErr==-2028
-                  Message(OBJ_MGR_ERROR_MSG,GO_CARD_NOT_FOUND_MSG,cardKey,OO_ERROR)
-                  return ooErrNoMsg
-               else
-                  return ooErr
-               end
-
-            end
-
-            dagCRD.GetColMoney(tempMoney,OCRD_CURRENT_BALANCE)
-            bpBalanceChangeLogData.SetOldAcctBalanceLC(tempMoney)
-            dagCRD.GetColMoney(tempMoney,OCRD_F_BALANCE)
-            bpBalanceChangeLogData.SetOldAcctBalanceFC(tempMoney)
-            bpBalanceLogDataArray.Add(bpBalanceChangeLogData)
-         end
-
-         if _STR_IsSpacesStr(acctKey)
-            dagJDT1.CopyColumn(GetDAG(CRD),JDT1_ACCT_NUM,rec,OCRD_DEB_PAY_ACCOUNT,0)
-            dagJDT1.GetColStr(acctKey,JDT1_ACCT_NUM,rec)
-         end
-
-         ooErr=bizEnv.GetByOneKey(GetDAG(ACT),GO_PRIMARY_KEY_NUM,acctKey,true)
-         if ooErr!=0
-            if ooErr==-2028
-               Message(OBJ_MGR_ERROR_MSG,GO_ACT_MISSING,acctKey,OO_ERROR)
-               return ooErrNoMsg
-            else
-               return ooErr
-            end
-
-         end
-
-         jdtOcrCols=""
-         actOcrCols=""
-         dimentionLen=VF_CostAcctingEnh(context) ? DIMENSION_MAX : 1
-         dagAct=GetDAG(ACT)
-         dim=0
-         begin
-            if dagJDT1.IsNullCol(jdtOcrCols[dim],rec)
-               dagAct.GetColStr(ocrCode,actOcrCols[dim],0)
-               if !ocrCode.Trim().IsEmpty()
-                  dagJDT1.SetColStr(ocrCode,jdtOcrCols[dim],rec)
-               end
-
-            end
-
-
-            (dim+=1;dim-2)
-         end while (dim<dimentionLen)
-
-         dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,rec)
-         dagJDT1.GetColStr(postDate,JDT1_REF_DATE,rec)
-         ooErr=cOverheadCostRateObject.getValidFrom(bizEnv,ocrCode,postDate,validFrom)
-         if ooErr
-            SetErrorField(JDT1_VALID_FROM)
-            SetErrorLine(rec+1)
-            return ooErr
-         end
-
-         dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,rec)
-         dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
-         dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
-         dagJDT1.GetColMoney(fDebAmount,JDT1_FC_DEBIT,rec,DBM_NOT_ARRAY)
-         dagJDT1.GetColMoney(fCredAmount,JDT1_FC_CREDIT,rec,DBM_NOT_ARRAY)
-         dagJDT1.GetColMoney(sDebAmount,JDT1_SYS_DEBIT,rec,DBM_NOT_ARRAY)
-         dagJDT1.GetColMoney(sCredAmount,JDT1_SYS_CREDIT,rec,DBM_NOT_ARRAY)
-         MONEY_Add(transTotal,debAmount)
-         MONEY_Add(transTotalChk,credAmount)
-         MONEY_Add(fTransTotal,fDebAmount)
-         MONEY_Add(sTransTotal,sDebAmount)
-         balanced=false
-         if VF_EnableCorrAct(bizEnv)
-            transTotalDebChk+=debAmount
-            transTotalCredChk+=credAmount
-            fTransTotalDebChk+=fDebAmount
-            fTransTotalCredChk+=fCredAmount
-            sTransTotalDebChk+=sDebAmount
-            sTransTotalCredChk+=sCredAmount
-            if transTotalDebChk==transTotalCredChk&&fTransTotalDebChk==fTransTotalCredChk&&sTransTotalDebChk==sTransTotalCredChk
-               balanced=true
-            end
-
-         else
-            if !MONEY_Cmp(transTotal,transTotalChk)
-               balanced=true
-            end
-
-         end
-
-         if !IsExDtCommand(ooDoAsUpgrade)&&transType!=DAR
-            if _STR_strlen(contraDebKey)==0
-               if debAmount.IsPositive()||fDebAmount.IsPositive()||sDebAmount.IsPositive()||credAmount.IsNegative()||fCredAmount.IsNegative()||sCredAmount.IsNegative()
-                  _STR_strcpy(contraDebKey,cardKey)
-               end
-
-            end
-
-            if _STR_strlen(contraCredKey)==0
-               if credAmount.IsPositive()||fCredAmount.IsPositive()||sCredAmount.IsPositive()||debAmount.IsNegative()||fDebAmount.IsNegative()||sDebAmount.IsNegative()
-                  _STR_strcpy(contraCredKey,cardKey)
-               end
-
-            end
-
-            if VF_EnableCorrAct(bizEnv)
-               if debAmount.IsPositive()||fDebAmount.IsPositive()||sDebAmount.IsPositive()||credAmount.IsNegative()||fCredAmount.IsNegative()||sCredAmount.IsNegative()
-                  (contraDebLines+=1;contraDebLines-2)
-               end
-
-               if credAmount.IsPositive()||fCredAmount.IsPositive()||sCredAmount.IsPositive()||debAmount.IsNegative()||fDebAmount.IsNegative()||sDebAmount.IsNegative()
-                  (contraCredLines+=1;contraCredLines-2)
-               end
-
-            end
-
-            if balanced&&contraDebKey[0]&&contraCredKey[0]
-               SetContraAccounts(dagJDT1,lastContraRec,rec+1,contraDebKey,contraCredKey,contraDebLines,contraCredLines)
-               contraDebKey[0]=contraCredKey[0]=0
-               if VF_EnableCorrAct(bizEnv)
-                  contraDebLines=contraCredLines=0
-                  lastContraRec=rec+1
-                  transTotalDebChk=transTotalCredChk=fTransTotalDebChk=fTransTotalCredChk=sTransTotalDebChk=sTransTotalCredChk=0
-               end
-
-            end
-
-         end
-
-         if transType!=DAR
-            dagJDT1.GetColMoney(creditBalDue,JDT1_CREDIT,rec)
-            dagJDT1.GetColMoney(debitBalDue,JDT1_DEBIT,rec)
-            dagJDT1.GetColMoney(fCreditBalDue,JDT1_FC_CREDIT,rec)
-            dagJDT1.GetColMoney(fDebitBalDue,JDT1_FC_DEBIT,rec)
-            dagJDT1.GetColMoney(sCreditBalDue,JDT1_SYS_CREDIT,rec)
-            dagJDT1.GetColMoney(sDebitBalDue,JDT1_SYS_DEBIT,rec)
-            zeroBalanceDue=false
-            if IsZeroBalanceDueForCentralizedPayment()&&dagJDT1.GetColStrAndTrim(JDT1_ACCT_NUM,rec,coreSystemDefault)!=dagJDT1.GetColStrAndTrim(JDT1_SHORT_NAME,rec,coreSystemDefault)
-               zeroBalanceDue=true
-            end
-
-            if (!creditBalDue.IsZero()||!debitBalDue.IsZero()||!fCreditBalDue.IsZero()||!fDebitBalDue.IsZero()||!sCreditBalDue.IsZero()||!sDebitBalDue.IsZero())&&!zeroBalanceDue
-               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_DEBIT,rec,JDT1_DEBIT,rec)
-               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_CREDIT,rec,JDT1_CREDIT,rec)
-               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_SC_DEB,rec,JDT1_SYS_DEBIT,rec)
-               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_SC_CRED,rec,JDT1_SYS_CREDIT,rec)
-               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_FC_DEB,rec,JDT1_FC_DEBIT,rec)
-               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_FC_CRED,rec,JDT1_FC_CREDIT,rec)
-            end
-
-         end
-
-         dagJDT1.GetColStr(vatLine,JDT1_VAT_LINE,rec)
-         vatLine.Trim()
-         isVatLine=(vatLine==VAL_YES)
-         if isVatLine&&isDeferredTax
-            dagJDT1.SetColLong(IAT_DeferTaxInterim_Type,JDT1_INTERIM_ACCT_TYPE,rec)
-         end
-
-
-         (rec+=1;rec-2)
-      end while (rec<numOfRecs)
-
-      if IsExCommand(ooDontUpdateBudget)
-         SetExCommand(ooDontUpdateBudget,fa_Clear)
-      end
-
-      if MONEY_Cmp(transTotal,transTotalChk)!=0
-         dagJDT.GetColLong(transAbs,OJDT_JDT_NUM,0)
-         _STR_sprintf(tempStr,LONG_FORMAT,transAbs)
-         Message(ERROR_MESSAGES_STR,OO_TRANSACTION_NOT_BALANCED,tempStr,OO_ERROR)
-         return nil
-      end
-
-      dagJDT.SetColMoney(transTotal,OJDT_LOC_TOTAL,0,DBM_NOT_ARRAY)
-      dagJDT.SetColMoney(fTransTotal,OJDT_FC_TOTAL,0,DBM_NOT_ARRAY)
-      dagJDT.SetColMoney(sTransTotal,OJDT_SYS_TOTAL,0,DBM_NOT_ARRAY)
-      if !IsExDtCommand(ooDoAsUpgrade)&&transType!=DAR
-         if contraDebKey[0]&&contraCredKey[0]
-            SetContraAccounts(dagJDT1,lastContraRec,numOfRecs,contraDebKey,contraCredKey,contraDebLines,contraCredLines)
-         end
-
-         if VF_EnableCorrAct(bizEnv)&&balanced==false
-            SetErrorField(JDT1_CONTRA_ACT)
-            SetErrorLine(1)
-            Message(OBJ_MGR_ERROR_MSG,GO_CONTRA_ACNT_MISSING,nil,OO_WARNING)
-         end
-
-      end
-
-      if VF_ExciseInvoice(bizEnv)
-         dagJDT.GetColStr(genRegNumFlag,OJDT_GEN_REG_NO,0)
-         genRegNumFlag.Trim()
-         if genRegNumFlag==VAL_YES
-            dagJDT.GetColLong(matType,OJDT_MAT_TYPE,0)
-            dagJDT.GetColLong(location,OJDT_LOCATION,0)
-            if matType==1||matType==3
-               regNo=bizEnv.GetNextRegNum(location,RG23APart2,true)
-               dagJDT.SetColLong(regNo,OJDT_RG23A_PART2,0)
-               dagJDT.NullifyCol(OJDT_RG23C_PART2,0)
-            else
-               if matType==2
-                  regNo=bizEnv.GetNextRegNum(location,RG23CPart2,true)
-                  dagJDT.SetColLong(regNo,OJDT_RG23C_PART2,0)
-                  dagJDT.NullifyCol(OJDT_RG23A_PART2,0)
-               end
-
-            end
-
-         else
-            if genRegNumFlag[0]==VAL_NO[0]
-               dagJDT.NullifyCol(OJDT_MAT_TYPE,0)
-               dagJDT.NullifyCol(OJDT_RG23A_PART2,0)
-               dagJDT.NullifyCol(OJDT_RG23C_PART2,0)
-            end
-
-         end
-
-      end
-
-      isNeedToFree=SetDAG(nil,false,JDT,ao_Arr1)
-      isNeedToFree2=SetDAG(nil,false,JDT,ao_Arr2)
-      if VF_RmvZeroLineFromJE(context)&&!(context).IsZeroLineAllowed()
-         if dagJDT1.GetRecordCount()==0
-            dagJDT.Clear()
-            return ooErr
-         end
-
-         if dagJDT1.GetRecordCount()==1
-            dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,0)
-            dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,0)
-            dagJDT1.GetColMoney(fDebAmount,JDT1_FC_DEBIT,0)
-            dagJDT1.GetColMoney(fCredAmount,JDT1_FC_CREDIT,0)
-            dagJDT1.GetColMoney(sDebAmount,JDT1_SYS_DEBIT,0)
-            dagJDT1.GetColMoney(sCredAmount,JDT1_SYS_CREDIT,0)
-            dagJDT1.GetColMoney(debBalanceDue,JDT1_BALANCE_DUE_DEBIT,0)
-            dagJDT1.GetColMoney(credBalanceDue,JDT1_BALANCE_DUE_CREDIT,0)
-            dagJDT1.GetColMoney(fDebBalanceDue,JDT1_BALANCE_DUE_FC_DEB,0)
-            dagJDT1.GetColMoney(fCredBalanceDue,JDT1_BALANCE_DUE_FC_CRED,0)
-            dagJDT1.GetColMoney(sDebBalanceDue,JDT1_BALANCE_DUE_SC_DEB,0)
-            dagJDT1.GetColMoney(sCredBalanceDue,JDT1_BALANCE_DUE_SC_CRED,0)
-            if debAmount.IsZero()&&credAmount.IsZero()&&fDebAmount.IsZero()&&fCredAmount.IsZero()&&sDebAmount.IsZero()&&sCredAmount.IsZero()&&debBalanceDue.IsZero()&&credBalanceDue.IsZero()&&fDebBalanceDue.IsZero()&&fCredBalanceDue.IsZero()&&sDebBalanceDue.IsZero()&&sCredBalanceDue.IsZero()
-               dagJDT.Clear()
-               return ooErr
-            end
-
-         end
-
-      end
-
-      dagJDT.GetColStr(dataSource,OJDT_DATA_SOURCE)
-      dataSource.Trim()
-      if dataSource.Compare(VAL_YEAR_TRANSFER_SOURCE)==0
-         SetDataSource(VAL_YEAR_TRANSFER_SOURCE)
-      end
-
-      if VF_MultipleRegistrationNumber(context)
-         seqManager=bizEnv.GetSequenceManager()
-         ooErr=seqManager.HandleSerial(self)
-         if ooErr
-            return ooErr
-         end
-
-      end
-
-      if VF_SupplCode(context)
-         pManager=bizEnv.GetSupplCodeManager()
-         dagJDT.GetColStr(postDate,OJDT_REF_DATE)
-         ooErr=pManager.CodeChange(self,postDate)
-         if ooErr
-            return ooErr
-         end
-
-         ooErr=pManager.CheckCode(self)
-         if ooErr
-            cMessagesManager.getHandle().Message(_54_APP_MSG_CORE_SUPPL_CODE_CODE_EXIST,EMPTY_STR,self)
-            return ooErrNoMsg
-         end
-
-      else
-         if bizEnv.IsCurrentLocalSettings(CHINA_SETTINGS)
-            if !dagJDT.IsNullCol(OJDT_SUPPL_CODE,0)
-               dagJDT.NullifyCol(OJDT_SUPPL_CODE,0)
-            end
-
-         end
-
-      end
-
-      if VF_MultiBranch_EnabledInOADM(bizEnv)
-         if !cBusinessPlaceObject.isValidBPLId(GetBPLId())&&dagJDT1.GetRealSize(dbmDataBuffer)>0
-            dagJDT1.GetColLong(bplId,JDT1_BPL_ID,0)
-            SetBPLId(bplId)
-         end
-
-      end
-
-      ooErr=GORecordHistProc(self,dagJDT)
-      SetDAG(dagJDT1,isNeedToFree,JDT,ao_Arr1)
-      SetDAG(dagJDT2,isNeedToFree2,JDT,ao_Arr2)
-      if ooErr!=ooNoErr
-         return ooErr
-      end
-
-      if VF_CashflowReport(bizEnv)
-         dagJDT.GetColLong(transType,OJDT_TRANS_TYPE)
-         if transType!=RCT&&transType!=VPM
-            objCFTId = SBOString.new(CFT)
-            dagCFT=GetDAGNoOpen(objCFTId)
-            if dagCFT
-               dagJDT.GetColLong(transAbs,OJDT_JDT_NUM,0)
-               bo=CreateBusinessObject(CFT)
-               bo.SetDataSource(GetDataSource())
-               ooErr=bo.OCFTCreateByJDT(GetDAG(CFT),transAbs,dagJDT1)
-               bo.Destroy()
-               if ooErr!=ooNoErr
-                  return ooErr
-               end
-
-            end
-
-         end
-
-      end
-
-      ooErr=PutSignature(dagJDT1)
-      if ooErr
-         return ooErr
-      end
-
-      if VF_ExciseInvoice(bizEnv)&&self.m_isVatJournalEntry
-         dagJDT.GetColLong(wtrKey,OJDT_CREATED_BY)
-         dagJDT.GetColLong(vatJournalKey,OJDT_JDT_NUM)
-         if wtrKey<=0||vatJournalKey<=0
-            return ooErrNoMsg
-         end
-
-         dagJDT.SetColLong(0,OJDT_STORNO_TO_TRANS)
-         ooErr=cWarehouseTransferObject.linkVatJournalEntry2WTR(bizEnv,wtrKey,vatJournalKey)
-         if ooErr
-            return ooErr
-         end
-
-      end
-
-      dagJDT.GetColLong(createdBy,OJDT_CREATED_BY,0)
-      dagJDT.GetColLong(transAbs,OJDT_JDT_NUM,0)
-      rec=0
-      begin
-         dagJDT1.SetColLong(rec,JDT1_LINE_ID,rec)
-         dagJDT1.SetColLong(transAbs,JDT1_TRANS_ABS,rec)
-         dagJDT1.SetColLong(transType,JDT1_TRANS_TYPE,rec)
-         dagJDT.GetColStr(tempStr,OJDT_BASE_REF,0)
-         dagJDT1.SetColStr(tempStr,JDT1_BASE_REF,rec)
-         dagJDT.GetColStr(tempStr,OJDT_TRANS_CODE,0)
-         dagJDT1.SetColStr(tempStr,JDT1_TRANS_CODE,rec)
-         dagJDT1.SetColLong(createdBy,JDT1_CREATED_BY,rec)
-
-         (rec+=1;rec-2)
-      end while (rec<numOfRecs)
-
-      if VF_JEWHT(bizEnv)&&_DBM_DataAccessGate.isValid(dagJDT2)
-         numOfJDT2=dagJDT2.GetRecordCount()
-         rec2=0
-         begin
-            dagJDT2.SetColLong(transAbs,INV5_ABS_ENTRY,rec2)
-            dagJDT2.SetColLong(rec2,INV5_LINE_NUM,rec2)
-
-            (rec2+=1;rec2-2)
-         end while (rec2<numOfJDT2)
-
-         UpdateWTInfo()
-      end
-
-      if (GetDataSource()==VAL_OBSERVER_SOURCE)&&(GetID().strtol()==JDT)&&_DBM_DataAccessGate.isValid(dagJDT2)
-         bizFlow=GetCurrentBusinessFlow()
-         dagJDT.GetColStr(wt,OJDT_AUTO_WT)
-         useNegativeAmount=bizEnv.GetUseNegativeAmount()
-         if bizFlow==bf_Cancel&&wt==VAL_YES
-            if VF_JEWHT(bizEnv)&&useNegativeAmount
-               cMessagesManager.getHandle().Message(_1_APP_MSG_FIN_JDT_NOT_REVERSE_NEG_WT,EMPTY_STR,self)
-               return ooInvalidObject
-            end
-
-            numOfJDT2=dagJDT2.GetRecordCount()
-            idx=0
-            begin
-               dagJDT2.SetRecordFetchStatus(idx,false)
-
-               (idx+=1;idx-2)
-            end while (idx<numOfJDT2)
-
-         end
-
-      end
-
-      fetched=dagJDT1.GetRecordFetchStatus(0)
-      if true==fetched
-         dagJDT1.SetBackupSize(numOfRecs,dbmDropData)
-         ii=0
-         begin
-            dagJDT1.MarkRecAsNew(ii)
-
-            (ii+=1;ii-2)
-         end while (ii<numOfRecs)
-
-      end
-
-      ooErr=cSystemBusinessObject.onUpdate()
-      if ooErr
-         return ooErr
-      end
-
-      if VF_TaxPayment(bizEnv)
-         rec=0
-         begin
-            ooErr=updateCenvatByJdt1Line(self,dagJDT1,rec)
-            if ooErr&&ooErr!=-2028
-               return ooErr
-            end
-
-
-            (rec+=1;rec-2)
-         end while (rec<dagJDT1.GetRecordCount())
-
-      end
-
-      _STR_strcpy(sp_Name,_T("TmSp_SetBalanceByJdt"))
-      dagJDT.GetColStr(tempStr,OJDT_JDT_NUM,0)
-      _STR_LRTrim(tempStr)
-      upd[0].colNum=dbmInteger
-      _STR_strcpy(upd[0].updateVal,tempStr)
-      DBD_SetDAGUpd(dagJDT,upd,1)
-      retVal=0
-      ooErr=DBD_SpExec(dagJDT,sp_Name,retVal)
-      tmpstr = SBOString.new(tempStr)
-      LogBPAccountBalance(bpBalanceLogDataArray,tmpstr)
-      bizEnv.InvalidateCache(bizEnv.ObjectToTable(CRD))
-      bizEnv.InvalidateCache(bizEnv.ObjectToTable(ACT))
-      if retVal
-         return retVal
-      end
-
-      if ooErr
-         return ooErr
-      end
-
-      dagJDT.GetColLong(canceledTrans,OJDT_STORNO_TO_TRANS,0)
-      if canceledTrans>0
-         ordered=false
-         ooErr=cTransactionJournalObject.isPaymentOrdered(bizEnv,canceledTrans,ordered)
-         if ooErr
-            return ooErr
-         end
-
-         if ordered
-            bizEnv.SetErrorTable(dagJDT1.GetTableName())
-            return -2039
-         end
-
-      end
-
-      if (canceledTrans>0)&&(@m_reconcileBPLines)
-         ooErr=ReconcileCertainLines()
-         if ooErr
-            return ooErr
-         end
-
-         if !@m_isInCancellingAcctRecon
-            ooErr=ReconcileDeferredTaxAcctLines()
-            if ooErr
-               return ooErr
-            end
-
-         end
-
-      end
-
-      ooErr=CreateTax()
-      if ooErr
-         return ooErr
-      end
-
-      if VF_EnableDeductAtSrc(context)
-         dagJDT.GetColLong(transID,OJDT_JDT_NUM,0)
-         ooErr=nsDeductHierarchy.updateDeductionPercent(bizEnv,transID)
-         if ooErr
-            return ooErr
-         end
-
-      end
-
-      if transType==JDT
-         ooErr=@m_digitalSignature.CreateSignature(self)
-         if ooErr
-            return ooErr
-         end
-
-      end
-
-      ooErr=ValidateBPLNumberingSeries()
-      if ooErr
-         return ooErr
-      end
-
-      ooErr=IsBalancedByBPL()
-      if ooErr
-         return ooErr
-      end
-
-      if bizEnv.IsComputeBudget()==false||bizEnv.IsDuringUpgradeProcess()||transType==DAR
-         return ooErr
-      end
-
-      _STR_strcpy(sp_Name,_T("TmSp_SetBgtAccumulators_ByJdt"))
-      res[0].colNum=JDT1_ACCT_NUM
-      res[1].colNum=JDT1_FC_CURRENCY
-      res[2].colNum=JDT1_FC_CURRENCY
-      res[3].colNum=JDT1_DEBIT
-      res[4].colNum=JDT1_DEBIT
-      DBD_SetDAGRes(dagJDT1,res,5)
-      dagJDT.GetColStr(tempStr,OJDT_JDT_NUM,0)
-      _STR_LRTrim(tempStr)
-      upd[0].colNum=dbmInteger
-      _STR_strcpy(upd[0].updateVal,tempStr)
-      upd[1].colNum=dbmAlphaNumeric
-      _STR_strcpy(upd[1].updateVal,_T("Y"))
-      upd[2].colNum=dbmAlphaNumeric
-      _STR_strcpy(upd[2].updateVal,bizEnv.GetCompanyPeriodCategory())
-      DBD_SetDAGUpd(dagJDT1,upd,3)
-      ooErr=DBD_SpToDAG(dagJDT1,dagRES,sp_Name)
-      if ooErr==-2028
-         return ooNoErr
-      end
-
-      if ooErr
-         return ooErr
-      end
-
-      blockLevel=RetBlockLevel(bizEnv)
-      typeBlockLevel=RettypeBlockLevel(bizEnv,GetID().strtol())
-      if blockLevel>=3&&typeBlockLevel==5&&(OOIsSaleObjecttransType||OOIsPurchaseObjecttransType)
-         blockLevel=1
-      end
-
-      if blockLevel>=3&&typeBlockLevel!=5&&transType==30
-         blockLevel=1
-      end
-
-      _STR_strcpy(monSymbol,bizEnv.GetMainCurrency())
-      DAG_GetCount(dagRES,recCount)
-      ii=0
-      begin
-         dagRES.GetColStr(acctCode,0,ii)
-         dagRES.GetColStr(tmpStr,1,ii)
-         doAlert=tmpStr[0]
-         dagRES.GetColStr(tmpStr,2,ii)
-         alrType=tmpStr[0]
-         dagRES.GetColMoney(bgtMonthOver,3,ii,DBM_NOT_ARRAY)
-         dagRES.GetColMoney(bgtYearOver,4,ii,DBM_NOT_ARRAY)
-         if doAlert==VAL_YES
-            transTotal.SetToZero()
-            rec=0
-            begin
-               dagJDT1.GetColStr(acctKey,JDT1_ACCT_NUM,rec)
-               if _STR_stricmp(acctKey,acctCode)==0
-                  dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
-                  dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
-                  MONEY_Add(transTotal,debAmount)
-                  MONEY_Sub(transTotal,credAmount)
-               end
-
-
-               (rec+=1;rec-2)
-            end while (rec<numOfRecs)
-
-            if bizEnv.GetBudgetWarningFrequency()==VAL_MONTHLY[0]
-               if (bgtMonthOver.IsPositive()&&transTotal.IsPositive())||(bgtMonthOver.IsNegative()&&transTotal.IsNegative())
-                  bgtDebitSize=true
-               else
-                  bgtDebitSize=false
-               end
-
-            else
-               if (bgtYearOver.IsPositive()&&transTotal.IsPositive())||(bgtYearOver.IsNegative()&&transTotal.IsNegative())
-                  bgtDebitSize=true
-               else
-                  bgtDebitSize=false
-               end
-
-            end
-
-         else
-            bgtDebitSize=false
-         end
-
-         if blockLevel>1&&bgtDebitSize
-            budgetAllYes=IsExCommand(ooDontUpdateBudget)
-            fromImport=IsExCommand(ooImportData)
-            MONEY_ToText(bgtMonthOver,moneyMonthStr,RC_SUM,monSymbol,bizEnv)
-            MONEY_ToText(bgtYearOver,moneyYearStr,RC_SUM,monSymbol,bizEnv)
-            if bizEnv.GetBudgetWarningFrequency()==VAL_MONTHLY[0]
-               GetBudgBlockErrorMessage(moneyMonthStr,moneyYearStr,acctCode,2,msgStr1)
-            else
-               GetBudgBlockErrorMessage(moneyMonthStr,moneyYearStr,acctCode,3,msgStr1)
-            end
-
-            case blockLevel
-
-            when 2
-               if typeBlockLevel==5
-                  if bizEnv.GetBudgetWarningFrequency()==VAL_MONTHLY[0]
-                     GetBudgBlockErrorMessage(moneyMonthStr,moneyYearStr,acctCode,1,msgStr1)
-                     _STR_strcat(msgStr1,_T(" , "))
-                     _STR_strcat(msgStr1,EMPTY_STR)
-                     Message(-1,-1,msgStr1,OO_ERROR)
-                  else
-                     cMessagesManager.getHandle().Message(_1_APP_MSG_FIN_BGT0_CHECK_YEAR_TOTAL_STR,EMPTY_STR,self,acctCode,moneyYearStr)
-                  end
-
-                  return ooInvalidObject
-               end
-
-               break
-            when 3
-               if fromImport||GetDataSource()==VAL_OBSERVER_SOURCE
-                  _STR_strcat(msgStr1,_T(" , "))
-                  _STR_strcat(msgStr1,EMPTY_STR)
-                  Message(-1,-1,msgStr1,OO_ERROR)
-               end
-
-               if budgetAllYes==false
-                  _STR_GetStringResource(ContinueStr,BGT0_FORM_NUM,BGT0_CONTINUE_STR)
-                  retBtn=FORM_GEN_Message(msgStr1,ContinueStr,CANCEL_STR(OOGetEnv(nil)),YES_TO_ALL_STR(OOGetEnv(nil)),2)
-                  case retBtn
-
-                  when 1
-                  when 3
-                     budgetAllYes=(retBtn==3 ? true : false)
-                     if budgetAllYes
-                        SetExCommand(ooDontUpdateBudget,fa_Set)
-                     end
-
-                     if context.GetPermission(PRM_ID_BUDGET_BLOCK)!=OO_PRM_FULL
-                        DisplayError(fuNoPermission)
-                        return ooErrNoMsg
-                     end
-
-                     break
-                  when 2
-                     return ooErrNoMsg
-                     break
-                  end
-
-               end
-
-               break
-            end
-
-         end
-
-
-         (ii+=1;ii-2)
-      end while (ii<recCount)
-
-      if transType==JDT&&bizEnv.IsComputeBudget()
-         systemAlertsParams.m_fromUser=bizEnv.GetUserSignature()
-         systemAlertsParams.m_object=JDT
-         systemAlertsParams.m_params=self
-         systemAlertsParams.m_primaryKey.Format(_T("%d"),transAbs)
-         systemAlertsParams.m_secondaryKey=systemAlertsParams.m_primaryKey
-         systemAlertsParams.m_alertID=ALR_BUDGET_ALERT
-         systemAlertsParams.m_flags=0
-         ALRSendSystemAlert(systemAlertsParams,alertSent)
-      end
-
-      return ooErr
-   end
-
-   def OnInitData()
-      trace("OnInitData")
-      dagJDT=GetDAG()
-      ooErr=cSystemBusinessObject.onInitData()
-      if ooErr
-         return ooErr
-      end
-
-      DBM_DATE_Get(dateString,self.context)
-      GetDAG().SetColStr(dateString,OJDT_REF_DATE,0)
-      ooErr=InitDataReport340(dagJDT)
-      if ooErr
-         return ooErr
-      end
-
-      return ooErr
-   end
-
    def OnIsValid()
       trace("OnIsValid")
 
@@ -11754,12 +6210,12 @@ class CTransactionJournalObject < BObject
       fromEoy = false
       msgStr=""
       formatStr=""
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT1=GetDAG(JDT,ao_Arr1)
       dagJDT2=GetDAG(JDT,ao_Arr2)
       DAG_GetCount(dagJDT1,numOfRecs)
       nonZero=allowFcNotBalanced=allowFcMulty=multyFcDetected=false
-      _STR_GetStringResource(formatStr,HASH_FORM_NUM,HASH_TRANS_NUM_STR,context)
+      _STR_GetStringResource(formatStr,HASH_FORM_NUM,HASH_TRANS_NUM_STR,GetEnv())
       if IsExCommand(ooExInternalAutoMode)&&GetExDtCommand()==ooDoNotCheckDates
          fromEoy=true
       end
@@ -11870,7 +6326,7 @@ class CTransactionJournalObject < BObject
          return ooErr
       end
 
-      if VF_SupplCode(context)&&GetCurrentBusinessFlow()==bf_None&&(IsExCommandooExCloseBatch||IsExCommandooExAddBatchClose)
+      if VF_SupplCode(GetEnv())&&GetCurrentBusinessFlow()==bf_None&&(IsExCommandooExCloseBatch||IsExCommandooExAddBatchClose)
          dagJDT=GetDAG(JDT,ao_Main)
          dagJDT.GetColStr(strBatchNum,OJDT_BATCH_NUM)
          if !strBatchNum.IsNull()&&!strBatchNum.IsEmpty()
@@ -12010,7 +6466,7 @@ class CTransactionJournalObject < BObject
       dag.GetColLong(transType,OJDT_TRANS_TYPE,0)
       if bizEnv.IsBlockRefDateEdit()&&((transType>OPEN_BLNC_TYPE)||(MANUAL_BANK_TRANS_TYPE==transType))
          rec=0
-         begin
+         while (rec<numOfRecs) do
             dagJDT1.GetColStr(dateStr,JDT1_REF_DATE,rec)
             DBM_DATE_ToLong(tmpNum,dateStr)
             if dateNum!=tmpNum
@@ -12020,7 +6476,7 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
       end
 
@@ -12097,7 +6553,7 @@ class CTransactionJournalObject < BObject
       dag.GetColStr(autoVat,OJDT_AUTO_VAT,0)
       _STR_strcpy(mainCurr,bizEnv.GetMainCurrency())
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.GetColLong(transNum,JDT1_TRANS_ABS,rec)
          if transNum<0
             transNum=0
@@ -12339,7 +6795,7 @@ class CTransactionJournalObject < BObject
 
          if bizEnv.IsLocalSettingsFlag(lsf_EnableSegmentAcct)
             dagACT.GetColStr(code,OACT_FORMAT_CODE,0)
-            context.AddSegmentSeperator(code)
+            GetEnv().AddSegmentSeperator(code)
          else
             dagACT.GetColStr(code,OACT_ACCOUNT_CODE,0)
          end
@@ -12493,7 +6949,7 @@ class CTransactionJournalObject < BObject
          if lineCurr[0]&&GNCoinCmp(actCurr,BAD_CURRENCY_STR)!=0&&GNCoinCmp(lineCurr,actCurr)!=0&&GNCoinCmp(actCurr,mainCurr)!=0
             SetErrorLine(rec+1)
             if fromImport
-               _STR_GetStringResource(msgStr,OBJ_MGR_ERROR_MSG,GO_HASH_TRANSACTION_NOT_BALANCED,context)
+               _STR_GetStringResource(msgStr,OBJ_MGR_ERROR_MSG,GO_HASH_TRANSACTION_NOT_BALANCED,GetEnv())
                _STR_sprintf(tmpStr,msgStr,transNum,GetErrorLine())
                _STR_sprintf(tmpStr,_T("%s , %s"),tmpStr,shortName)
                Message(OBJ_MGR_ERROR_MSG,GO_ACT_COIN_DIFFERS,tmpStr,OO_ERROR)
@@ -12509,7 +6965,7 @@ class CTransactionJournalObject < BObject
                SetErrorLine(rec+1)
                if fromImport&&!msgHandled
                   msgHandled=true
-                  _STR_GetStringResource(msgStr,OBJ_MGR_ERROR_MSG,GO_HASH_TRANSACTION_NOT_BALANCED,context)
+                  _STR_GetStringResource(msgStr,OBJ_MGR_ERROR_MSG,GO_HASH_TRANSACTION_NOT_BALANCED,GetEnv())
                   _STR_sprintf(tmpStr,msgStr,transNum,GetErrorLine())
                   Message(OBJ_MGR_ERROR_MSG,GO_DIFFERENT_COIN,tmpStr,OO_ERROR)
                else
@@ -12534,16 +6990,16 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.GetColStr(tmpStr,JDT1_CONTRA_ACT,rec)
          _STR_LRTrim(tmpStr)
          if tmpStr[0]
             exist=false
             i=0
-            begin
+            while (i<numOfRecs) do
                dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,i)
                _STR_LRTrim(shortName)
                if _STR_stricmp(tmpStr,shortName)==0
@@ -12553,7 +7009,7 @@ class CTransactionJournalObject < BObject
 
 
                (i+=1;i-2)
-            end while (i<numOfRecs)
+            end
 
             if !exist
                dag.GetColLong(transType,OJDT_TRANS_TYPE,0)
@@ -12573,7 +7029,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       ooErr=ValidateCostAccountingStatus()
       if ooErr
@@ -12594,7 +7050,7 @@ class CTransactionJournalObject < BObject
 
             isAllCashRelevant=true
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColStr(actNum,JDT1_SHORT_NAME,rec)
                boCOA=CreateBusinessObject(ACT)
                boCOA.IsCFWRelevant(actNum,isCashFlowRelevant)
@@ -12606,10 +7062,10 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColStr(actNum,JDT1_SHORT_NAME,rec)
                boCOA=CreateBusinessObject(ACT)
                boCOA.IsCFWRelevant(actNum,isCashFlowRelevant)
@@ -12628,7 +7084,7 @@ class CTransactionJournalObject < BObject
 
                   bo.OCFTLineExistInDag(dagCFT,tmpTransNum,rec,existCFT)
                   if existCFT==false
-                     if context.IsCFWAssignMandatory()==true&&!isAllCashRelevant
+                     if GetEnv().IsCFWAssignMandatory()==true&&!isAllCashRelevant
                         bo.Destroy()
                         OOMessage(self,GO_OBJ_ERROR_MSGS(CFT),CFT_MANDATORY_ERROR,nil,OO_ERROR)
                         return ooErrNoMsg
@@ -12664,7 +7120,7 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             bo.Destroy()
          end
@@ -12777,8 +7233,8 @@ class CTransactionJournalObject < BObject
       end
 
       if nonZero==false
-         if transType!=IPF&&!(transType==IQR&&context.IsContInventory())
-            dag.SetErrorTable(context.ObjectToTable(JDT))
+         if transType!=IPF&&!(transType==IQR&&GetEnv().IsContInventory())
+            dag.SetErrorTable(GetEnv().ObjectToTable(JDT))
             Message(ERROR_MESSAGES_STR,OO_ZERO_TRANSACTION,nil,OO_ERROR)
             return ooErrNoMsg
          end
@@ -12792,7 +7248,7 @@ class CTransactionJournalObject < BObject
          dag.GetColStr(strFlag,OJDT_GEN_REG_NO,0)
          strFlag.Trim()
          rec=0
-         begin
+         while (rec<numOfRec) do
             dagJDT1.GetColStr(tgtAct,JDT1_ACCT_NUM,rec)
             tgtAct.TrimRight()
             if tgtAct==plaAct
@@ -12826,7 +7282,7 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRec)
+         end
 
       end
 
@@ -12860,14 +7316,14 @@ class CTransactionJournalObject < BObject
          cigId.Trim()
          cupId.Trim()
          if cCigObject.getDescription(bizEnv,cigId,desc)!=0
-            dag.SetErrorTable(context.ObjectToTable(JDT))
+            dag.SetErrorTable(GetEnv().ObjectToTable(JDT))
             SetErrorField(OJDT_CIG)
             cMessagesManager.getHandle().Message(_54_APP_MSG_FIN_CIG_DOES_NOT_EXIST,EMPTY_STR,self)
             return -10
          end
 
          if cCupObject.getDescription(bizEnv,cupId,desc)!=0
-            dag.SetErrorTable(context.ObjectToTable(JDT))
+            dag.SetErrorTable(GetEnv().ObjectToTable(JDT))
             SetErrorField(OJDT_CUP)
             cMessagesManager.getHandle().Message(_54_APP_MSG_FIN_CUP_DOES_NOT_EXIST,EMPTY_STR,self)
             return -10
@@ -12875,7 +7331,7 @@ class CTransactionJournalObject < BObject
 
          numOfRec=dagJDT1.GetRecordCount()
          rec=0
-         begin
+         while (rec<numOfRec) do
             dagJDT1.GetColStr(cigId,JDT1_CIG,rec)
             dagJDT1.GetColStr(cupId,JDT1_CUP,rec)
             if cCigObject.getDescription(bizEnv,cigId,desc)!=0
@@ -12896,7 +7352,7 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRec)
+         end
 
       end
 
@@ -12919,9 +7375,817 @@ class CTransactionJournalObject < BObject
       return ooNoErr
    end
 
+   def OnCreate()
+      trace("OnCreate")
+      ooErr=0
+      blockLevel=0
+      typeBlockLevel = 0
+      recCount=0
+      ii = 0
+      retVal=0
+      lastContraRec=0
+      contraCredLines = 0
+      contraDebLines = 0
+      monSymbol=""
+      sp_Name=""
+      mainCurr=""
+      frnCurr = ""
+      tmpStr=""
+      msgStr1=""
+      msgStr2 = ""
+      moneyStr=""
+      moneyMonthStr = ""
+      moneyYearStr = ""
+      acctCode=""
+      balanced=false
+      budgetAllYes=false
+
+      fromImport=false
+      bizEnv=GetEnv()
+      qc=false
+      dagJDT=GetDAG()
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      dagJDT2=GetDAG(JDT,ao_Arr2)
+      if !dagJDT2.GetRealSize(dbmDataBuffer)
+         dagJDT2.SetSize(0,dbmDropData)
+      end
+
+      dagCRD=GetDAG(CRD)
+      if GetDataSource()==VAL_OBSERVER_SOURCE&&bizEnv.IsVatPerLine()
+         DAG_GetCount(dagJDT1,numOfRecs)
+         rec=0
+         while (rec<numOfRecs) do
+            dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,rec)
+            if tmpStr[0]==VAL_YES[0]
+               dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
+               dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
+               if debAmount.IsZero()&&credAmount.IsZero()
+                  dagJDT1.GetColStr(tmpStr,JDT1_DEBIT_CREDIT,rec)
+                  if tmpStr[0]==VAL_DEBIT[0]
+                     dagJDT1.NullifyCol(JDT1_CREDIT,rec)
+                  else
+                     if tmpStr[0]==VAL_CREDIT[0]
+                        dagJDT1.NullifyCol(JDT1_DEBIT,rec)
+                     end
+
+                  end
+
+               end
+
+            end
+
+
+            (rec+=1;rec-2)
+         end
+
+      end
+
+      SetDebitCreditField()
+      contraCredKey[0]='\0'
+      contraDebKey[0]='\0'
+      transTotal.SetToZero()
+      transTotalChk.SetToZero()
+      fTransTotal.SetToZero()
+      sTransTotal.SetToZero()
+      _STR_strcpy(mainCurr,bizEnv.GetMainCurrency())
+      _STR_LRTrim(mainCurr)
+      dagJDT.GetColMoney(rateMoney,OJDT_TRANS_RATE,0,DBM_NOT_ARRAY)
+      dagJDT.GetColStr(tempStr,OJDT_ORIGN_CURRENCY,0)
+      _STR_LRTrim(tempStr)
+      if GNCoinCmp(tempStr,mainCurr)==0||rateMoney.IsZero()
+         tempStr[0]=0
+      end
+
+      DAG_GetCount(dagJDT1,numOfRecs)
+      if VF_RmvZeroLineFromJE(bizEnv)&&!bizEnv.IsZeroLineAllowed()
+         rec=0
+         while (rec<numOfRecs) do
+            dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,rec)
+            dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,rec)
+            dagJDT1.GetColMoney(fDebAmount,JDT1_FC_DEBIT,rec)
+            dagJDT1.GetColMoney(fCredAmount,JDT1_FC_CREDIT,rec)
+            dagJDT1.GetColMoney(sDebAmount,JDT1_SYS_DEBIT,rec)
+            dagJDT1.GetColMoney(sCredAmount,JDT1_SYS_CREDIT,rec)
+            dagJDT1.GetColMoney(debBalanceDue,JDT1_BALANCE_DUE_DEBIT,rec)
+            dagJDT1.GetColMoney(credBalanceDue,JDT1_BALANCE_DUE_CREDIT,rec)
+            dagJDT1.GetColMoney(fDebBalanceDue,JDT1_BALANCE_DUE_FC_DEB,rec)
+            dagJDT1.GetColMoney(fCredBalanceDue,JDT1_BALANCE_DUE_FC_CRED,rec)
+            dagJDT1.GetColMoney(sDebBalanceDue,JDT1_BALANCE_DUE_SC_DEB,rec)
+            dagJDT1.GetColMoney(sCredBalanceDue,JDT1_BALANCE_DUE_SC_CRED,rec)
+            if debAmount.IsZero()&&credAmount.IsZero()&&fDebAmount.IsZero()&&fCredAmount.IsZero()&&sDebAmount.IsZero()&&sCredAmount.IsZero()&&debBalanceDue.IsZero()&&credBalanceDue.IsZero()&&fDebBalanceDue.IsZero()&&fCredBalanceDue.IsZero()&&sDebBalanceDue.IsZero()&&sCredBalanceDue.IsZero()
+               dagJDT1.RemoveRecord(rec)
+               (rec-=1;rec+2)
+               (numOfRecs-=1;numOfRecs+2)
+            end
+
+
+            (rec+=1;rec-2)
+         end
+
+      end
+
+      dagJDT.GetColLong(transType,OJDT_TRANS_TYPE)
+      if transType==-1
+         dagJDT.SetColLong(JDT,OJDT_TRANS_TYPE)
+         transType=JDT
+      end
+
+      dagJDT.GetColStr(deferredTax,OJDT_DEFERRED_TAX)
+      deferredTax.Trim()
+      isDeferredTax=(deferredTax==VAL_YES)
+      rec=0
+      while (rec<numOfRecs) do
+         dagJDT1.GetColStr(acctKey,JDT1_ACCT_NUM,rec)
+         dagJDT1.GetColStr(cardKey,JDT1_SHORT_NAME,rec)
+         itsCard=(_STR_stricmp(acctKey,cardKey)!=0)&&(!_STR_IsSpacesStrcardKey)
+         if itsCard
+            bpBalanceChangeLogData = CBPBalanceChangeLogData.new(bizEnv)
+            bpBalanceChangeLogData.SetCode(cardKey)
+            bpBalanceChangeLogData.SetControlAcct(acctKey)
+            bpBalanceChangeLogData.SetDocType(JDT)
+            ooErr=bizEnv.GetByOneKey(dagCRD,GO_PRIMARY_KEY_NUM,cardKey,true)
+            if ooErr!=0
+               if ooErr==-2028
+                  Message(OBJ_MGR_ERROR_MSG,GO_CARD_NOT_FOUND_MSG,cardKey,OO_ERROR)
+                  return ooErrNoMsg
+               else
+                  return ooErr
+               end
+
+            end
+
+            dagCRD.GetColMoney(tempMoney,OCRD_CURRENT_BALANCE)
+            bpBalanceChangeLogData.SetOldAcctBalanceLC(tempMoney)
+            dagCRD.GetColMoney(tempMoney,OCRD_F_BALANCE)
+            bpBalanceChangeLogData.SetOldAcctBalanceFC(tempMoney)
+            bpBalanceLogDataArray.Add(bpBalanceChangeLogData)
+         end
+
+         if _STR_IsSpacesStr(acctKey)
+            dagJDT1.CopyColumn(GetDAG(CRD),JDT1_ACCT_NUM,rec,OCRD_DEB_PAY_ACCOUNT,0)
+            dagJDT1.GetColStr(acctKey,JDT1_ACCT_NUM,rec)
+         end
+
+         ooErr=bizEnv.GetByOneKey(GetDAG(ACT),GO_PRIMARY_KEY_NUM,acctKey,true)
+         if ooErr!=0
+            if ooErr==-2028
+               Message(OBJ_MGR_ERROR_MSG,GO_ACT_MISSING,acctKey,OO_ERROR)
+               return ooErrNoMsg
+            else
+               return ooErr
+            end
+
+         end
+
+         jdtOcrCols=""
+         actOcrCols=""
+         dimentionLen=VF_CostAcctingEnh(GetEnv()) ? DIMENSION_MAX : 1
+         dagAct=GetDAG(ACT)
+         dim=0
+         while (dim<dimentionLen) do
+            if dagJDT1.IsNullCol(jdtOcrCols[dim],rec)
+               dagAct.GetColStr(ocrCode,actOcrCols[dim],0)
+               if !ocrCode.Trim().IsEmpty()
+                  dagJDT1.SetColStr(ocrCode,jdtOcrCols[dim],rec)
+               end
+
+            end
+
+
+            (dim+=1;dim-2)
+         end
+
+         dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,rec)
+         dagJDT1.GetColStr(postDate,JDT1_REF_DATE,rec)
+         ooErr=cOverheadCostRateObject.getValidFrom(bizEnv,ocrCode,postDate,validFrom)
+         if ooErr
+            SetErrorField(JDT1_VALID_FROM)
+            SetErrorLine(rec+1)
+            return ooErr
+         end
+
+         dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,rec)
+         dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
+         dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
+         dagJDT1.GetColMoney(fDebAmount,JDT1_FC_DEBIT,rec,DBM_NOT_ARRAY)
+         dagJDT1.GetColMoney(fCredAmount,JDT1_FC_CREDIT,rec,DBM_NOT_ARRAY)
+         dagJDT1.GetColMoney(sDebAmount,JDT1_SYS_DEBIT,rec,DBM_NOT_ARRAY)
+         dagJDT1.GetColMoney(sCredAmount,JDT1_SYS_CREDIT,rec,DBM_NOT_ARRAY)
+         MONEY_Add(transTotal,debAmount)
+         MONEY_Add(transTotalChk,credAmount)
+         MONEY_Add(fTransTotal,fDebAmount)
+         MONEY_Add(sTransTotal,sDebAmount)
+         balanced=false
+         if VF_EnableCorrAct(bizEnv)
+            transTotalDebChk+=debAmount
+            transTotalCredChk+=credAmount
+            fTransTotalDebChk+=fDebAmount
+            fTransTotalCredChk+=fCredAmount
+            sTransTotalDebChk+=sDebAmount
+            sTransTotalCredChk+=sCredAmount
+            if transTotalDebChk==transTotalCredChk&&fTransTotalDebChk==fTransTotalCredChk&&sTransTotalDebChk==sTransTotalCredChk
+               balanced=true
+            end
+
+         else
+            if !MONEY_Cmp(transTotal,transTotalChk)
+               balanced=true
+            end
+
+         end
+
+         if !IsExDtCommand(ooDoAsUpgrade)&&transType!=DAR
+            if _STR_strlen(contraDebKey)==0
+               if debAmount.IsPositive()||fDebAmount.IsPositive()||sDebAmount.IsPositive()||credAmount.IsNegative()||fCredAmount.IsNegative()||sCredAmount.IsNegative()
+                  _STR_strcpy(contraDebKey,cardKey)
+               end
+
+            end
+
+            if _STR_strlen(contraCredKey)==0
+               if credAmount.IsPositive()||fCredAmount.IsPositive()||sCredAmount.IsPositive()||debAmount.IsNegative()||fDebAmount.IsNegative()||sDebAmount.IsNegative()
+                  _STR_strcpy(contraCredKey,cardKey)
+               end
+
+            end
+
+            if VF_EnableCorrAct(bizEnv)
+               if debAmount.IsPositive()||fDebAmount.IsPositive()||sDebAmount.IsPositive()||credAmount.IsNegative()||fCredAmount.IsNegative()||sCredAmount.IsNegative()
+                  (contraDebLines+=1;contraDebLines-2)
+               end
+
+               if credAmount.IsPositive()||fCredAmount.IsPositive()||sCredAmount.IsPositive()||debAmount.IsNegative()||fDebAmount.IsNegative()||sDebAmount.IsNegative()
+                  (contraCredLines+=1;contraCredLines-2)
+               end
+
+            end
+
+            if balanced&&contraDebKey[0]&&contraCredKey[0]
+               SetContraAccounts(dagJDT1,lastContraRec,rec+1,contraDebKey,contraCredKey,contraDebLines,contraCredLines)
+               contraDebKey[0]=contraCredKey[0]=0
+               if VF_EnableCorrAct(bizEnv)
+                  contraDebLines=contraCredLines=0
+                  lastContraRec=rec+1
+                  transTotalDebChk=transTotalCredChk=fTransTotalDebChk=fTransTotalCredChk=sTransTotalDebChk=sTransTotalCredChk=0
+               end
+
+            end
+
+         end
+
+         if transType!=DAR
+            dagJDT1.GetColMoney(creditBalDue,JDT1_CREDIT,rec)
+            dagJDT1.GetColMoney(debitBalDue,JDT1_DEBIT,rec)
+            dagJDT1.GetColMoney(fCreditBalDue,JDT1_FC_CREDIT,rec)
+            dagJDT1.GetColMoney(fDebitBalDue,JDT1_FC_DEBIT,rec)
+            dagJDT1.GetColMoney(sCreditBalDue,JDT1_SYS_CREDIT,rec)
+            dagJDT1.GetColMoney(sDebitBalDue,JDT1_SYS_DEBIT,rec)
+            zeroBalanceDue=false
+            if IsZeroBalanceDueForCentralizedPayment()&&dagJDT1.GetColStrAndTrim(JDT1_ACCT_NUM,rec,coreSystemDefault)!=dagJDT1.GetColStrAndTrim(JDT1_SHORT_NAME,rec,coreSystemDefault)
+               zeroBalanceDue=true
+            end
+
+            if (!creditBalDue.IsZero()||!debitBalDue.IsZero()||!fCreditBalDue.IsZero()||!fDebitBalDue.IsZero()||!sCreditBalDue.IsZero()||!sDebitBalDue.IsZero())&&!zeroBalanceDue
+               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_DEBIT,rec,JDT1_DEBIT,rec)
+               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_CREDIT,rec,JDT1_CREDIT,rec)
+               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_SC_DEB,rec,JDT1_SYS_DEBIT,rec)
+               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_SC_CRED,rec,JDT1_SYS_CREDIT,rec)
+               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_FC_DEB,rec,JDT1_FC_DEBIT,rec)
+               dagJDT1.CopyColumn(dagJDT1,JDT1_BALANCE_DUE_FC_CRED,rec,JDT1_FC_CREDIT,rec)
+            end
+
+         end
+
+         dagJDT1.GetColStr(vatLine,JDT1_VAT_LINE,rec)
+         vatLine.Trim()
+         isVatLine=(vatLine==VAL_YES)
+         if isVatLine&&isDeferredTax
+            dagJDT1.SetColLong(IAT_DeferTaxInterim_Type,JDT1_INTERIM_ACCT_TYPE,rec)
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      if IsExCommand(ooDontUpdateBudget)
+         SetExCommand(ooDontUpdateBudget,fa_Clear)
+      end
+
+      if MONEY_Cmp(transTotal,transTotalChk)!=0
+         dagJDT.GetColLong(transAbs,OJDT_JDT_NUM,0)
+         _STR_sprintf(tempStr,LONG_FORMAT,transAbs)
+         Message(ERROR_MESSAGES_STR,OO_TRANSACTION_NOT_BALANCED,tempStr,OO_ERROR)
+         return nil
+      end
+
+      dagJDT.SetColMoney(transTotal,OJDT_LOC_TOTAL,0,DBM_NOT_ARRAY)
+      dagJDT.SetColMoney(fTransTotal,OJDT_FC_TOTAL,0,DBM_NOT_ARRAY)
+      dagJDT.SetColMoney(sTransTotal,OJDT_SYS_TOTAL,0,DBM_NOT_ARRAY)
+      if !IsExDtCommand(ooDoAsUpgrade)&&transType!=DAR
+         if contraDebKey[0]&&contraCredKey[0]
+            SetContraAccounts(dagJDT1,lastContraRec,numOfRecs,contraDebKey,contraCredKey,contraDebLines,contraCredLines)
+         end
+
+         if VF_EnableCorrAct(bizEnv)&&balanced==false
+            SetErrorField(JDT1_CONTRA_ACT)
+            SetErrorLine(1)
+            Message(OBJ_MGR_ERROR_MSG,GO_CONTRA_ACNT_MISSING,nil,OO_WARNING)
+         end
+
+      end
+
+      if VF_ExciseInvoice(bizEnv)
+         dagJDT.GetColStr(genRegNumFlag,OJDT_GEN_REG_NO,0)
+         genRegNumFlag.Trim()
+         if genRegNumFlag==VAL_YES
+            dagJDT.GetColLong(matType,OJDT_MAT_TYPE,0)
+            dagJDT.GetColLong(location,OJDT_LOCATION,0)
+            if matType==1||matType==3
+               regNo=bizEnv.GetNextRegNum(location,RG23APart2,true)
+               dagJDT.SetColLong(regNo,OJDT_RG23A_PART2,0)
+               dagJDT.NullifyCol(OJDT_RG23C_PART2,0)
+            else
+               if matType==2
+                  regNo=bizEnv.GetNextRegNum(location,RG23CPart2,true)
+                  dagJDT.SetColLong(regNo,OJDT_RG23C_PART2,0)
+                  dagJDT.NullifyCol(OJDT_RG23A_PART2,0)
+               end
+
+            end
+
+         else
+            if genRegNumFlag[0]==VAL_NO[0]
+               dagJDT.NullifyCol(OJDT_MAT_TYPE,0)
+               dagJDT.NullifyCol(OJDT_RG23A_PART2,0)
+               dagJDT.NullifyCol(OJDT_RG23C_PART2,0)
+            end
+
+         end
+
+      end
+
+      isNeedToFree=SetDAG(nil,false,JDT,ao_Arr1)
+      isNeedToFree2=SetDAG(nil,false,JDT,ao_Arr2)
+      if VF_RmvZeroLineFromJE(GetEnv())&&!(GetEnv()).IsZeroLineAllowed()
+         if dagJDT1.GetRecordCount()==0
+            dagJDT.Clear()
+            return ooErr
+         end
+
+         if dagJDT1.GetRecordCount()==1
+            dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,0)
+            dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,0)
+            dagJDT1.GetColMoney(fDebAmount,JDT1_FC_DEBIT,0)
+            dagJDT1.GetColMoney(fCredAmount,JDT1_FC_CREDIT,0)
+            dagJDT1.GetColMoney(sDebAmount,JDT1_SYS_DEBIT,0)
+            dagJDT1.GetColMoney(sCredAmount,JDT1_SYS_CREDIT,0)
+            dagJDT1.GetColMoney(debBalanceDue,JDT1_BALANCE_DUE_DEBIT,0)
+            dagJDT1.GetColMoney(credBalanceDue,JDT1_BALANCE_DUE_CREDIT,0)
+            dagJDT1.GetColMoney(fDebBalanceDue,JDT1_BALANCE_DUE_FC_DEB,0)
+            dagJDT1.GetColMoney(fCredBalanceDue,JDT1_BALANCE_DUE_FC_CRED,0)
+            dagJDT1.GetColMoney(sDebBalanceDue,JDT1_BALANCE_DUE_SC_DEB,0)
+            dagJDT1.GetColMoney(sCredBalanceDue,JDT1_BALANCE_DUE_SC_CRED,0)
+            if debAmount.IsZero()&&credAmount.IsZero()&&fDebAmount.IsZero()&&fCredAmount.IsZero()&&sDebAmount.IsZero()&&sCredAmount.IsZero()&&debBalanceDue.IsZero()&&credBalanceDue.IsZero()&&fDebBalanceDue.IsZero()&&fCredBalanceDue.IsZero()&&sDebBalanceDue.IsZero()&&sCredBalanceDue.IsZero()
+               dagJDT.Clear()
+               return ooErr
+            end
+
+         end
+
+      end
+
+      dagJDT.GetColStr(dataSource,OJDT_DATA_SOURCE)
+      dataSource.Trim()
+      if dataSource.Compare(VAL_YEAR_TRANSFER_SOURCE)==0
+         SetDataSource(VAL_YEAR_TRANSFER_SOURCE)
+      end
+
+      if VF_MultipleRegistrationNumber(GetEnv())
+         seqManager=bizEnv.GetSequenceManager()
+         ooErr=seqManager.HandleSerial(self)
+         if ooErr
+            return ooErr
+         end
+
+      end
+
+      if VF_SupplCode(GetEnv())
+         pManager=bizEnv.GetSupplCodeManager()
+         dagJDT.GetColStr(postDate,OJDT_REF_DATE)
+         ooErr=pManager.CodeChange(self,postDate)
+         if ooErr
+            return ooErr
+         end
+
+         ooErr=pManager.CheckCode(self)
+         if ooErr
+            cMessagesManager.getHandle().Message(_54_APP_MSG_CORE_SUPPL_CODE_CODE_EXIST,EMPTY_STR,self)
+            return ooErrNoMsg
+         end
+
+      else
+         if bizEnv.IsCurrentLocalSettings(CHINA_SETTINGS)
+            if !dagJDT.IsNullCol(OJDT_SUPPL_CODE,0)
+               dagJDT.NullifyCol(OJDT_SUPPL_CODE,0)
+            end
+
+         end
+
+      end
+
+      if VF_MultiBranch_EnabledInOADM(bizEnv)
+         if !cBusinessPlaceObject.isValidBPLId(GetBPLId())&&dagJDT1.GetRealSize(dbmDataBuffer)>0
+            dagJDT1.GetColLong(bplId,JDT1_BPL_ID,0)
+            SetBPLId(bplId)
+         end
+
+      end
+
+      ooErr=GORecordHistProc(self,dagJDT)
+      SetDAG(dagJDT1,isNeedToFree,JDT,ao_Arr1)
+      SetDAG(dagJDT2,isNeedToFree2,JDT,ao_Arr2)
+      if ooErr!=ooNoErr
+         return ooErr
+      end
+
+      if VF_CashflowReport(bizEnv)
+         dagJDT.GetColLong(transType,OJDT_TRANS_TYPE)
+         if transType!=RCT&&transType!=VPM
+            objCFTId = SBOString.new(CFT)
+            dagCFT=GetDAGNoOpen(objCFTId)
+            if dagCFT
+               dagJDT.GetColLong(transAbs,OJDT_JDT_NUM,0)
+               bo=CreateBusinessObject(CFT)
+               bo.SetDataSource(GetDataSource())
+               ooErr=bo.OCFTCreateByJDT(GetDAG(CFT),transAbs,dagJDT1)
+               bo.Destroy()
+               if ooErr!=ooNoErr
+                  return ooErr
+               end
+
+            end
+
+         end
+
+      end
+
+      ooErr=PutSignature(dagJDT1)
+      if ooErr
+         return ooErr
+      end
+
+      if VF_ExciseInvoice(bizEnv)&&self.m_isVatJournalEntry
+         dagJDT.GetColLong(wtrKey,OJDT_CREATED_BY)
+         dagJDT.GetColLong(vatJournalKey,OJDT_JDT_NUM)
+         if wtrKey<=0||vatJournalKey<=0
+            return ooErrNoMsg
+         end
+
+         dagJDT.SetColLong(0,OJDT_STORNO_TO_TRANS)
+         ooErr=cWarehouseTransferObject.linkVatJournalEntry2WTR(bizEnv,wtrKey,vatJournalKey)
+         if ooErr
+            return ooErr
+         end
+
+      end
+
+      dagJDT.GetColLong(createdBy,OJDT_CREATED_BY,0)
+      dagJDT.GetColLong(transAbs,OJDT_JDT_NUM,0)
+      rec=0
+      while (rec<numOfRecs) do
+         dagJDT1.SetColLong(rec,JDT1_LINE_ID,rec)
+         dagJDT1.SetColLong(transAbs,JDT1_TRANS_ABS,rec)
+         dagJDT1.SetColLong(transType,JDT1_TRANS_TYPE,rec)
+         dagJDT.GetColStr(tempStr,OJDT_BASE_REF,0)
+         dagJDT1.SetColStr(tempStr,JDT1_BASE_REF,rec)
+         dagJDT.GetColStr(tempStr,OJDT_TRANS_CODE,0)
+         dagJDT1.SetColStr(tempStr,JDT1_TRANS_CODE,rec)
+         dagJDT1.SetColLong(createdBy,JDT1_CREATED_BY,rec)
+
+         (rec+=1;rec-2)
+      end
+
+      if VF_JEWHT(bizEnv)&&_DBM_DataAccessGate.isValid(dagJDT2)
+         numOfJDT2=dagJDT2.GetRecordCount()
+         rec2=0
+         while (rec2<numOfJDT2) do
+            dagJDT2.SetColLong(transAbs,INV5_ABS_ENTRY,rec2)
+            dagJDT2.SetColLong(rec2,INV5_LINE_NUM,rec2)
+
+            (rec2+=1;rec2-2)
+         end
+
+         UpdateWTInfo()
+      end
+
+      if (GetDataSource()==VAL_OBSERVER_SOURCE)&&(GetID().strtol()==JDT)&&_DBM_DataAccessGate.isValid(dagJDT2)
+         bizFlow=GetCurrentBusinessFlow()
+         dagJDT.GetColStr(wt,OJDT_AUTO_WT)
+         useNegativeAmount=bizEnv.GetUseNegativeAmount()
+         if bizFlow==bf_Cancel&&wt==VAL_YES
+            if VF_JEWHT(bizEnv)&&useNegativeAmount
+               cMessagesManager.getHandle().Message(_1_APP_MSG_FIN_JDT_NOT_REVERSE_NEG_WT,EMPTY_STR,self)
+               return ooInvalidObject
+            end
+
+            numOfJDT2=dagJDT2.GetRecordCount()
+            idx=0
+            while (idx<numOfJDT2) do
+               dagJDT2.SetRecordFetchStatus(idx,false)
+
+               (idx+=1;idx-2)
+            end
+
+         end
+
+      end
+
+      fetched=dagJDT1.GetRecordFetchStatus(0)
+      if true==fetched
+         dagJDT1.SetBackupSize(numOfRecs,dbmDropData)
+         ii=0
+         while (ii<numOfRecs) do
+            dagJDT1.MarkRecAsNew(ii)
+
+            (ii+=1;ii-2)
+         end
+
+      end
+
+      ooErr=cSystemBusinessObject.onUpdate()
+      if ooErr
+         return ooErr
+      end
+
+      if VF_TaxPayment(bizEnv)
+         rec=0
+         while (rec<dagJDT1.GetRecordCount()) do
+            ooErr=updateCenvatByJdt1Line(self,dagJDT1,rec)
+            if ooErr&&ooErr!=-2028
+               return ooErr
+            end
+
+
+            (rec+=1;rec-2)
+         end
+
+      end
+
+      _STR_strcpy(sp_Name,_T("TmSp_SetBalanceByJdt"))
+      dagJDT.GetColStr(tempStr,OJDT_JDT_NUM,0)
+      _STR_LRTrim(tempStr)
+      upd[0].colNum=dbmInteger
+      _STR_strcpy(upd[0].updateVal,tempStr)
+      DBD_SetDAGUpd(dagJDT,upd,1)
+      retVal=0
+      ooErr=DBD_SpExec(dagJDT,sp_Name,retVal)
+      tmpstr = SBOString.new(tempStr)
+      LogBPAccountBalance(bpBalanceLogDataArray,tmpstr)
+      bizEnv.InvalidateCache(bizEnv.ObjectToTable(CRD))
+      bizEnv.InvalidateCache(bizEnv.ObjectToTable(ACT))
+      if retVal
+         return retVal
+      end
+
+      if ooErr
+         return ooErr
+      end
+
+      dagJDT.GetColLong(canceledTrans,OJDT_STORNO_TO_TRANS,0)
+      if canceledTrans>0
+         ordered=false
+         ooErr=cTransactionJournalObject.isPaymentOrdered(bizEnv,canceledTrans,ordered)
+         if ooErr
+            return ooErr
+         end
+
+         if ordered
+            bizEnv.SetErrorTable(dagJDT1.GetTableName())
+            return -2039
+         end
+
+      end
+
+      if (canceledTrans>0)&&(@m_reconcileBPLines)
+         ooErr=ReconcileCertainLines()
+         if ooErr
+            return ooErr
+         end
+
+         if !@m_isInCancellingAcctRecon
+            ooErr=ReconcileDeferredTaxAcctLines()
+            if ooErr
+               return ooErr
+            end
+
+         end
+
+      end
+
+      ooErr=CreateTax()
+      if ooErr
+         return ooErr
+      end
+
+      if VF_EnableDeductAtSrc(GetEnv())
+         dagJDT.GetColLong(transID,OJDT_JDT_NUM,0)
+         ooErr=nsDeductHierarchy.updateDeductionPercent(bizEnv,transID)
+         if ooErr
+            return ooErr
+         end
+
+      end
+
+      if transType==JDT
+         ooErr=@m_digitalSignature.CreateSignature(self)
+         if ooErr
+            return ooErr
+         end
+
+      end
+
+      ooErr=ValidateBPLNumberingSeries()
+      if ooErr
+         return ooErr
+      end
+
+      ooErr=IsBalancedByBPL()
+      if ooErr
+         return ooErr
+      end
+
+      if bizEnv.IsComputeBudget()==false||bizEnv.IsDuringUpgradeProcess()||transType==DAR
+         return ooErr
+      end
+
+      _STR_strcpy(sp_Name,_T("TmSp_SetBgtAccumulators_ByJdt"))
+      res[0].colNum=JDT1_ACCT_NUM
+      res[1].colNum=JDT1_FC_CURRENCY
+      res[2].colNum=JDT1_FC_CURRENCY
+      res[3].colNum=JDT1_DEBIT
+      res[4].colNum=JDT1_DEBIT
+      DBD_SetDAGRes(dagJDT1,res,5)
+      dagJDT.GetColStr(tempStr,OJDT_JDT_NUM,0)
+      _STR_LRTrim(tempStr)
+      upd[0].colNum=dbmInteger
+      _STR_strcpy(upd[0].updateVal,tempStr)
+      upd[1].colNum=dbmAlphaNumeric
+      _STR_strcpy(upd[1].updateVal,_T("Y"))
+      upd[2].colNum=dbmAlphaNumeric
+      _STR_strcpy(upd[2].updateVal,bizEnv.GetCompanyPeriodCategory())
+      DBD_SetDAGUpd(dagJDT1,upd,3)
+      ooErr=DBD_SpToDAG(dagJDT1,dagRES,sp_Name)
+      if ooErr==-2028
+         return ooNoErr
+      end
+
+      if ooErr
+         return ooErr
+      end
+
+      blockLevel=RetBlockLevel(bizEnv)
+      typeBlockLevel=RettypeBlockLevel(bizEnv,GetID().strtol())
+      if blockLevel>=3&&typeBlockLevel==5&&(OOIsSaleObjecttransType||OOIsPurchaseObjecttransType)
+         blockLevel=1
+      end
+
+      if blockLevel>=3&&typeBlockLevel!=5&&transType==30
+         blockLevel=1
+      end
+
+      _STR_strcpy(monSymbol,bizEnv.GetMainCurrency())
+      DAG_GetCount(dagRES,recCount)
+      ii=0
+      while (ii<recCount) do
+         dagRES.GetColStr(acctCode,0,ii)
+         dagRES.GetColStr(tmpStr,1,ii)
+         doAlert=tmpStr[0]
+         dagRES.GetColStr(tmpStr,2,ii)
+         alrType=tmpStr[0]
+         dagRES.GetColMoney(bgtMonthOver,3,ii,DBM_NOT_ARRAY)
+         dagRES.GetColMoney(bgtYearOver,4,ii,DBM_NOT_ARRAY)
+         if doAlert==VAL_YES
+            transTotal.SetToZero()
+            rec=0
+            while (rec<numOfRecs) do
+               dagJDT1.GetColStr(acctKey,JDT1_ACCT_NUM,rec)
+               if _STR_stricmp(acctKey,acctCode)==0
+                  dagJDT1.GetColMoney(debAmount,JDT1_DEBIT,rec,DBM_NOT_ARRAY)
+                  dagJDT1.GetColMoney(credAmount,JDT1_CREDIT,rec,DBM_NOT_ARRAY)
+                  MONEY_Add(transTotal,debAmount)
+                  MONEY_Sub(transTotal,credAmount)
+               end
+
+
+               (rec+=1;rec-2)
+            end
+
+            if bizEnv.GetBudgetWarningFrequency()==VAL_MONTHLY[0]
+               if (bgtMonthOver.IsPositive()&&transTotal.IsPositive())||(bgtMonthOver.IsNegative()&&transTotal.IsNegative())
+                  bgtDebitSize=true
+               else
+                  bgtDebitSize=false
+               end
+
+            else
+               if (bgtYearOver.IsPositive()&&transTotal.IsPositive())||(bgtYearOver.IsNegative()&&transTotal.IsNegative())
+                  bgtDebitSize=true
+               else
+                  bgtDebitSize=false
+               end
+
+            end
+
+         else
+            bgtDebitSize=false
+         end
+
+         if blockLevel>1&&bgtDebitSize
+            budgetAllYes=IsExCommand(ooDontUpdateBudget)
+            fromImport=IsExCommand(ooImportData)
+            MONEY_ToText(bgtMonthOver,moneyMonthStr,RC_SUM,monSymbol,bizEnv)
+            MONEY_ToText(bgtYearOver,moneyYearStr,RC_SUM,monSymbol,bizEnv)
+            if bizEnv.GetBudgetWarningFrequency()==VAL_MONTHLY[0]
+               GetBudgBlockErrorMessage(moneyMonthStr,moneyYearStr,acctCode,2,msgStr1)
+            else
+               GetBudgBlockErrorMessage(moneyMonthStr,moneyYearStr,acctCode,3,msgStr1)
+            end
+
+            case blockLevel
+
+            when 2
+               if typeBlockLevel==5
+                  if bizEnv.GetBudgetWarningFrequency()==VAL_MONTHLY[0]
+                     GetBudgBlockErrorMessage(moneyMonthStr,moneyYearStr,acctCode,1,msgStr1)
+                     _STR_strcat(msgStr1,_T(" , "))
+                     _STR_strcat(msgStr1,EMPTY_STR)
+                     Message(-1,-1,msgStr1,OO_ERROR)
+                  else
+                     cMessagesManager.getHandle().Message(_1_APP_MSG_FIN_BGT0_CHECK_YEAR_TOTAL_STR,EMPTY_STR,self,acctCode,moneyYearStr)
+                  end
+
+                  return ooInvalidObject
+               end
+
+               break
+            when 3
+               if fromImport||GetDataSource()==VAL_OBSERVER_SOURCE
+                  _STR_strcat(msgStr1,_T(" , "))
+                  _STR_strcat(msgStr1,EMPTY_STR)
+                  Message(-1,-1,msgStr1,OO_ERROR)
+               end
+
+               if budgetAllYes==false
+                  _STR_GetStringResource(ContinueStr,BGT0_FORM_NUM,BGT0_CONTINUE_STR)
+                  retBtn=FORM_GEN_Message(msgStr1,ContinueStr,CANCEL_STR(OOGetEnv(nil)),YES_TO_ALL_STR(OOGetEnv(nil)),2)
+                  case retBtn
+
+                  when 1
+                  when 3
+                     budgetAllYes=(retBtn==3 ? true : false)
+                     if budgetAllYes
+                        SetExCommand(ooDontUpdateBudget,fa_Set)
+                     end
+
+                     if GetEnv().GetPermission(PRM_ID_BUDGET_BLOCK)!=OO_PRM_FULL
+                        DisplayError(fuNoPermission)
+                        return ooErrNoMsg
+                     end
+
+                     break
+                  when 2
+                     return ooErrNoMsg
+                     break
+                  end
+
+               end
+
+               break
+            end
+
+         end
+
+
+         (ii+=1;ii-2)
+      end
+
+      if transType==JDT&&bizEnv.IsComputeBudget()
+         systemAlertsParams.m_fromUser=bizEnv.GetUserSignature()
+         systemAlertsParams.m_object=JDT
+         systemAlertsParams.m_params=self
+         systemAlertsParams.m_primaryKey.Format(_T("%d"),transAbs)
+         systemAlertsParams.m_secondaryKey=systemAlertsParams.m_primaryKey
+         systemAlertsParams.m_alertID=ALR_BUDGET_ALERT
+         systemAlertsParams.m_flags=0
+         ALRSendSystemAlert(systemAlertsParams,alertSent)
+      end
+
+      return ooErr
+   end
+
    def OnUpdate()
       trace("OnUpdate")
-      bizEnv=context
+      bizEnv=GetEnv()
       periodMode=bizEnv.GetPeriodMode()
       if periodMode==ooPeriodLockedMode
          return ooLockedPeriodErr
@@ -12949,7 +8213,7 @@ class CTransactionJournalObject < BObject
       dagJDT2=GetDAG(JDT,ao_Arr2)
       DAG_GetCount(dagJDT1,numOfRecs)
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.CopyColumn(dagJDT,JDT1_TRANS_CODE,rec,OJDT_TRANS_CODE,0)
          dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,rec)
          dagJDT1.GetColStr(postDate,JDT1_REF_DATE,rec)
@@ -12961,7 +8225,7 @@ class CTransactionJournalObject < BObject
          dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,rec)
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       isOrdered=self.IsPaymentOrdered()
       transId=-1
@@ -13005,7 +8269,7 @@ class CTransactionJournalObject < BObject
       end
 
       i=0
-      begin
+      while (i<dagJDT1.GetRealSize(dbmDataBuffer)) do
          dagOLD1.GetColStr(oldFederalTaxId,JDT1_TAX_ID_NUMBER,i)
          dagJDT1.GetColStr(newFederalTaxId,JDT1_TAX_ID_NUMBER,i)
          if oldFederalTaxId.Trim()!=newFederalTaxId.Trim()
@@ -13039,7 +8303,7 @@ class CTransactionJournalObject < BObject
 
 
          (i+=1;i-2)
-      end while (i<dagJDT1.GetRealSize(dbmDataBuffer))
+      end
 
       isScAdj=false
       ooErr=IsScAdjustment(isScAdj)
@@ -13080,7 +8344,7 @@ class CTransactionJournalObject < BObject
       dagJDT1 = nil
       dagACT = nil
       dagCRD = nil
-      bizEnv=context
+      bizEnv=GetEnv()
       dagJDT=GetDAG(JDT)
       dagJDT1=GetDAG(JDT,ao_Arr1)
       dagACT=GetDAG(ACT)
@@ -13118,17 +8382,17 @@ class CTransactionJournalObject < BObject
       ooErr=CompleteJdtLine()
       if GetDataSource()==VAL_OBSERVER_SOURCE&&!IsExDtCommand(ooOBServerUpdate)
          rec=0
-         begin
+         while (rec<numOfRecs) do
             dagJDT1.SetColStr(VAL_NO,JDT1_VAT_LINE,rec)
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
          if bizEnv.IsVatPerLine()||bizEnv.IsVatPerCard()
             dagJDT.GetColStr(tmpStr,OJDT_AUTO_VAT,0)
             if tmpStr[0]==VAL_NO[0]
                rec=0
-               begin
+               while (rec<numOfRecs) do
                   dagJDT1.GetColStr(tmpStr,bizEnv.IsVatPerLine() ? JDT1_VAT_GROUP : JDT1_TAX_CODE,rec)
                   if !_STR_IsSpacesStr(tmpStr)
                      dagJDT1.SetColStr(VAL_YES,JDT1_VAT_LINE,rec)
@@ -13136,7 +8400,7 @@ class CTransactionJournalObject < BObject
 
 
                   (rec+=1;rec-2)
-               end while (rec<numOfRecs)
+               end
 
             end
 
@@ -13149,7 +8413,7 @@ class CTransactionJournalObject < BObject
       _STR_strcpy(tempCurr,lineCurr)
       if !tempCurr[0]
          rec=0
-         begin
+         while (rec<numOfRecs) do
             dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
             _STR_LRTrim(lineCurr)
             if lineCurr[0]
@@ -13158,7 +8422,7 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
          dagJDT.SetColStr(lineCurr,OJDT_TRANS_CURR,0)
       end
@@ -13172,7 +8436,7 @@ class CTransactionJournalObject < BObject
       dagJDT.SetColStr(tmpStr,OJDT_MEMO,0)
       if IsExDtCommand(ooOBServerUpdate)&&!IsExCommand(ooExAddBatchNoClose)
          rec=0
-         begin
+         while (rec<numOfRecs) do
             dagJDT1.GetColStr(tmpStr,JDT1_LINE_MEMO,rec)
             _STR_CleanExtendedEditMarks(tmpStr,' ')
             _STR_LRTrim(tmpStr)
@@ -13181,14 +8445,14 @@ class CTransactionJournalObject < BObject
             dagJDT1.SetColStr(indicator,JDT1_INDICATOR,rec)
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
          return ooErr
       end
 
       dagJDT.GetColStr(stampTax,OJDT_STAMP_TAX,0)
       rec=0
-      begin
+      while (rec<numOfRecs) do
          dagJDT1.GetColStr(tmpStr,JDT1_PAYMENT_BLOCK,rec)
          if VAL_YES[0]==tmpStr[0]
             dagJDT1.GetColStr(tmpStr,JDT1_PAYMENT_BLOCK_REF,rec)
@@ -13276,7 +8540,7 @@ class CTransactionJournalObject < BObject
                         if GNCoinCmp(lineCurr,BAD_CURRENCY_STR)==0
                            lineCurr[0]=0
                            i=rec-1
-                           begin
+                           while (i>0) do
                               dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,i)
                               if !_STR_SpacesString(lineCurr,_STR_strlen(lineCurr))
                                  dagJDT1.SetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
@@ -13285,7 +8549,7 @@ class CTransactionJournalObject < BObject
 
 
                               (i-=1;i+2)
-                           end while (i>0)
+                           end
 
                         else
                            lineCurr[0]=0
@@ -13305,7 +8569,7 @@ class CTransactionJournalObject < BObject
                         if GNCoinCmp(lineCurr,BAD_CURRENCY_STR)==0
                            lineCurr[0]=0
                            i=rec-1
-                           begin
+                           while (i>0) do
                               dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,i)
                               if !_STR_SpacesString(lineCurr,_STR_strlen(lineCurr))
                                  dagJDT1.SetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
@@ -13314,7 +8578,7 @@ class CTransactionJournalObject < BObject
 
 
                               (i-=1;i+2)
-                           end while (i>0)
+                           end
 
                         else
                            lineCurr[0]=0
@@ -13330,7 +8594,7 @@ class CTransactionJournalObject < BObject
 
             if !debMoneyFC.IsZero()
                if dagJDT1.IsNullCol(JDT1_DEBIT,rec)
-                  ooErr=GNForeignToLocalRate(debMoneyFC,lineCurr,dateStr,0.0,money,context)
+                  ooErr=GNForeignToLocalRate(debMoneyFC,lineCurr,dateStr,0.0,money,GetEnv())
                   if ooErr
                      if IsExCommand(ooExAutoMode)
                         if ooErr==ooUndefinedCurrency
@@ -13355,7 +8619,7 @@ class CTransactionJournalObject < BObject
 
             if !credMoneyFC.IsZero()
                if dagJDT1.IsNullCol(JDT1_CREDIT,rec)
-                  ooErr=GNForeignToLocalRate(credMoneyFC,lineCurr,dateStr,0.0,money,context)
+                  ooErr=GNForeignToLocalRate(credMoneyFC,lineCurr,dateStr,0.0,money,GetEnv())
                   if ooErr
                      if IsExCommand(ooExAutoMode)
                         if ooErr==ooUndefinedCurrency
@@ -13379,7 +8643,7 @@ class CTransactionJournalObject < BObject
             end
 
             if !tmpM.IsZero()&&dagJDT1.IsNullCol(JDT1_GROSS_VALUE,rec)
-               ooErr=GNForeignToLocalRate(tmpM,lineCurr,dateStr,0.0,money,context)
+               ooErr=GNForeignToLocalRate(tmpM,lineCurr,dateStr,0.0,money,GetEnv())
                if ooErr
                   if ooErr==ooUndefinedCurrency
                      Message(ERROR_MESSAGES_STR,OO_UNDEFINED_CURRENCY,nil,OO_ERROR)
@@ -13396,9 +8660,9 @@ class CTransactionJournalObject < BObject
 
             if needBaseSum
                if !debMoneyFC.IsZero()
-                  ooErr=GNForeignToLocalRate(debMoneyFC,lineCurr,dateStr,0.0,baseSum,context)
+                  ooErr=GNForeignToLocalRate(debMoneyFC,lineCurr,dateStr,0.0,baseSum,GetEnv())
                else
-                  ooErr=GNForeignToLocalRate(credMoneyFC,lineCurr,dateStr,0.0,baseSum,context)
+                  ooErr=GNForeignToLocalRate(credMoneyFC,lineCurr,dateStr,0.0,baseSum,GetEnv())
                end
 
                if ooErr
@@ -13439,7 +8703,7 @@ class CTransactionJournalObject < BObject
 
 
          (rec+=1;rec-2)
-      end while (rec<numOfRecs)
+      end
 
       dagJDT.GetColLong(transType,OJDT_TRANS_TYPE,0)
       if GetDataSource()!=VAL_OBSERVER_SOURCE&&transType==JDT
@@ -13541,7 +8805,7 @@ class CTransactionJournalObject < BObject
       trace("OnCanUpdate")
       oopp=GetOnUpdateParams()
       dag=oopp.pDag
-      bizEnv=context
+      bizEnv=GetEnv()
       editableInUpdate=Boolean(bizEnv.GetPermission(PRM_ID_UPDATE_POSTING)==OO_PRM_FULL)
       fCodePtr=DAG_GetAlias(dag)
       isHeader=_STR_stricmp(fCodePtr,bizEnv.ObjectToTable(JDT))==0
@@ -13555,7 +8819,7 @@ class CTransactionJournalObject < BObject
 
       if isHeader
          i=0
-         begin
+         while (i<oopp.colsList.GetSize()) do
             case oopp.colsList[i].GetColNum()
 
             when OJDT_REF_DATE
@@ -13637,11 +8901,11 @@ class CTransactionJournalObject < BObject
 
 
             (i+=1;i-2)
-         end while (i<oopp.colsList.GetSize())
+         end
 
       else
          i=0
-         begin
+         while (i<oopp.colsList.GetSize()) do
             case oopp.colsList[i].GetColNum()
 
             when JDT1_SHORT_NAME
@@ -13717,17 +8981,35 @@ class CTransactionJournalObject < BObject
 
 
             (i+=1;i-2)
-         end while (i<oopp.colsList.GetSize())
+         end
 
       end
 
       return ooNoErr
    end
 
+   def OnInitData()
+      trace("OnInitData")
+      dagJDT=GetDAG()
+      ooErr=cSystemBusinessObject.onInitData()
+      if ooErr
+         return ooErr
+      end
+
+      DBM_DATE_Get(dateString,self.GetEnv())
+      GetDAG().SetColStr(dateString,OJDT_REF_DATE,0)
+      ooErr=InitDataReport340(dagJDT)
+      if ooErr
+         return ooErr
+      end
+
+      return ooErr
+   end
+
    def OnUpgrade()
       trace("OnUpgrade")
       ooErr=ooNoErr
-      bizEnv=context
+      bizEnv=GetEnv()
       if UpgradeVersionCheck(VERSION_64_23)
          upgradeBlock = ObjectUpgradeErrorLogger.new(_T("Due Date"))
          dagJDT=OpenDAG(JDT,ao_Main)
@@ -13760,7 +9042,7 @@ class CTransactionJournalObject < BObject
          if !ooErr
             DAG_GetCount(dagRES,numOfRecs)
             rec=0
-            begin
+            while (rec<numOfRecs) do
                updStruct[0].colNum=OJDT_DUE_DATE
                dagRES.GetColStr(updStruct[0].updateVal,1,rec)
                condStruct[0].colNum=OJDT_JDT_NUM
@@ -13772,7 +9054,7 @@ class CTransactionJournalObject < BObject
                ooErr=DBD_UpdateCols(dagJDT)
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
          end
 
@@ -13868,7 +9150,7 @@ class CTransactionJournalObject < BObject
          updStruct[0].colNum=JDT1_SYS_BASE_SUM
          updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
          updStruct[0].GetResObject().agreg_type=DBD_ROUND
-         updStruct[0].GetResObject().colConstVal=OO_SUM_DECIMALS(context)
+         updStruct[0].GetResObject().colConstVal=OO_SUM_DECIMALS(GetEnv())
          pResCol=updStruct[0].GetResObject().AddResCol()
          pResCol.SetTableIndex(0)
          pResCol.SetColNum(JDT1_BASE_SUM)
@@ -13889,7 +9171,7 @@ class CTransactionJournalObject < BObject
          DBD_SetDAGCond(dagJDT1,condStruct,3)
          updStruct[0].GetResObject().Clear()
          updStruct[0].GetResObject().agreg_type=DBD_ROUND
-         updStruct[0].GetResObject().colConstVal=OO_SUM_DECIMALS(context)
+         updStruct[0].GetResObject().colConstVal=OO_SUM_DECIMALS(GetEnv())
          pResCol=updStruct[0].GetResObject().AddResCol()
          pResCol.SetTableIndex(0)
          pResCol.SetColNum(JDT1_BASE_SUM)
@@ -14026,7 +9308,7 @@ class CTransactionJournalObject < BObject
             resStruct[3].colNum=JDT1_SYS_CREDIT
             DAG_GetCount(dagJDT1,numOfRecs)
             rec=0
-            begin
+            while (rec<numOfRecs) do
                dagJDT1.GetColLong(jdtNum,JDT1_TRANS_ABS,rec)
                dagJDT1.GetColLong(lineId,JDT1_LINE_ID,rec)
                _MEM_Clear(condStruct,2)
@@ -14112,7 +9394,7 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
          end
 
@@ -14191,7 +9473,7 @@ class CTransactionJournalObject < BObject
             dagJDT1=OpenDAG(JDT,ao_Arr1)
             DAG_GetCount(dagRES,numOfRecs)
             rec=0
-            begin
+            while (rec<numOfRecs) do
                updStruct[0].colNum=JDT1_BASE_REF
                dagRES.GetColStr(updStruct[0].updateVal,1,rec)
                condStruct[0].colNum=JDT1_TRANS_ABS
@@ -14209,7 +9491,7 @@ class CTransactionJournalObject < BObject
 
 
                (rec+=1;rec-2)
-            end while (rec<numOfRecs)
+            end
 
             dagJDT1.Close()
             condStruct[0].colNum=OJDT_TRANS_TYPE
@@ -14305,7 +9587,7 @@ class CTransactionJournalObject < BObject
          dagTMP=OpenDAG(JDT)
          DAG_GetCount(dagRES,numOfRecs)
          rec=0
-         begin
+         while (rec<numOfRecs) do
             dagRES.GetColLong(transType,0,rec)
             if transType<0||transType==JDT||!bizEnv.IsSerieObject(SBOString(transType))
                _MEM_Clear(condStruct,1)
@@ -14396,7 +9678,7 @@ class CTransactionJournalObject < BObject
                      _MEM_Clear(updStruct,1)
                      updStruct[0].colNum=OJDT_DOC_SERIES
                      i=0
-                     begin
+                     while (i<numOfSeries) do
                         dagSeries.GetColLong(series,0,i)
                         condStruct[1].condVal=series
                         updStruct[0].updateVal=series
@@ -14413,7 +9695,7 @@ class CTransactionJournalObject < BObject
 
 
                         (i+=1;i-2)
-                     end while (i<numOfSeries)
+                     end
 
                   else
                      _MEM_Clear(condStruct,2)
@@ -14431,7 +9713,7 @@ class CTransactionJournalObject < BObject
                      _MEM_Clear(updStruct,1)
                      updStruct[0].colNum=OJDT_DOC_SERIES
                      i=0
-                     begin
+                     while (i<numOfSeries) do
                         dagSeries.GetColLong(series,0,i)
                         condStruct[1].condVal=series
                         updStruct[0].updateVal=series
@@ -14446,7 +9728,7 @@ class CTransactionJournalObject < BObject
 
                         DAG_GetCount(dagTransList,listNum)
                         j=0
-                        begin
+                        while (j<listNum) do
                            dagTransList.GetColLong(transNum,0,j)
                            condStruct1[0].colNum=OJDT_JDT_NUM
                            condStruct1[0].operation=DBD_EQ
@@ -14463,11 +9745,11 @@ class CTransactionJournalObject < BObject
 
 
                            (j+=1;j-2)
-                        end while (j<listNum)
+                        end
 
 
                         (i+=1;i-2)
-                     end while (i<numOfSeries)
+                     end
 
                   end
 
@@ -14477,7 +9759,7 @@ class CTransactionJournalObject < BObject
 
 
             (rec+=1;rec-2)
-         end while (rec<numOfRecs)
+         end
 
          dagJDT.Close()
          dagRES.Close()
@@ -14495,13 +9777,13 @@ class CTransactionJournalObject < BObject
          condStruct[0].operation=DBD_EQ
          condStruct[0].relationship=0
          i=0
-         begin
+         while (formNum[i]>0) do
             condStruct[0].condVal=formNum[i]
             DBD_SetDAGCond(dagCPRF,condStruct,1)
             DBD_RemoveRecords(dagCPRF)
 
             (i+=1;i-2)
-         end while (formNum[i]>0)
+         end
 
          DAG_Close(dagCPRF)
          upgradeBlock.MarkSuccess()
@@ -14750,7 +10032,7 @@ class CTransactionJournalObject < BObject
          upgradeBlock = ObjectUpgradeErrorLogger.new(_T("Upgrade Documents VatPaid For Fully Based Credit Memos"))
          objIDs=""
          i=0
-         begin
+         while (objIDs[i]>=0) do
             ooErr=UpgradeODOCVatPaidForFullyBasedCreditMemos(objIDs[i])
             if ooErr
                return ooErr
@@ -14763,7 +10045,7 @@ class CTransactionJournalObject < BObject
 
 
             (i+=1;i-2)
-         end while (objIDs[i]>=0)
+         end
 
          upgradeBlock.MarkSuccess()
       end
@@ -14980,7 +10262,7 @@ class CTransactionJournalObject < BObject
          upgradeBlock.MarkSuccess()
       end
 
-      if VF_ERDPostingPerDoc(context)&&UpgradeVersionCheck(VERSION_2007_79)
+      if VF_ERDPostingPerDoc(GetEnv())&&UpgradeVersionCheck(VERSION_2007_79)
          upgradeBlock = ObjectUpgradeErrorLogger.new(_T("Upgrade ERD Base Trans"))
          ooErr=UpgradeERDBaseTrans()
          if ooErr
@@ -15044,7 +10326,7 @@ class CTransactionJournalObject < BObject
          cols=""
          dagJDT1=OpenDAG(JDT,ao_Arr1)
          i=0
-         begin
+         while (i<12) do
             _MEM_Clear(condStruct,1)
             condStruct[0].colNum=cols[i]
             condStruct[0].operation=DBD_IS_NULL
@@ -15062,7 +10344,7 @@ class CTransactionJournalObject < BObject
 
 
             (i+=1;i-2)
-         end while (i<12)
+         end
 
          dagJDT1.Close()
          upgradeBlock.MarkSuccess()
@@ -15111,6 +10393,85 @@ class CTransactionJournalObject < BObject
       return ooNoErr
    end
 
+   def OnCancel()
+      trace("OnCancel")
+      bizEnv=GetEnv()
+      dagJDT=GetDAG()
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      if !OnCanCancel()
+         Message(JTE_JDT_FORM_NUM,27,nil,OO_ERROR)
+         return ooErrNoMsg
+      end
+
+      dagJDT.GetColLong(sourceDoc,OJDT_TRANS_TYPE,0)
+      dagJDT.GetColStr(dateStr,OJDT_REF_DATE,0)
+      dagJDT.GetColLong(canceledTrans,OJDT_JDT_NUM)
+      condStruct[0].colNum=OJDT_JDT_NUM
+      condStruct[0].condVal=canceledTrans
+      condStruct[0].operation=DBD_EQ
+      condStruct[0].relationship=DBD_AND
+      condStruct[1].colNum=OJDT_REF_DATE
+      _STR_strcpy(condStruct[1].condVal,dateStr)
+      condStruct[1].operation=DBD_GT
+      DBD_SetDAGCond(dagJDT,condStruct,2)
+      if DBD_Count(dagJDT,true)>0
+         Message(GO_OBJ_ERROR_MSGS(JDT),6,nil,OO_ERROR)
+         return ooErrNoMsg
+      end
+
+      condStruct[1].colNum=OJDT_AUTO_STORNO
+      _STR_strcpy(condStruct[1].condVal,VAL_YES)
+      condStruct[1].operation=DBD_EQ
+      DBD_SetDAGCond(dagJDT,condStruct,2)
+      if DBD_Count(dagJDT,true)>0
+         Message(JTE_JDT_FORM_NUM,27,nil,OO_ERROR)
+         return ooErrNoMsg
+      end
+
+      condStruct[0].colNum=OJDT_JDT_NUM
+      condStruct[0].condVal=canceledTrans
+      condStruct[0].operation=DBD_EQ
+      condStruct[0].relationship=DBD_AND
+      condStruct[1].colNum=OJDT_STORNO_TO_TRANS
+      _STR_strcpy(condStruct[1].condVal,STR_0)
+      condStruct[1].operation=DBD_GT
+      DBD_SetDAGCond(dagJDT,condStruct,2)
+      if DBD_Count(dagJDT,true)>0
+         Message(GO_OBJ_ERROR_MSGS(JDT),3,nil,OO_ERROR)
+         return ooErrNoMsg
+      end
+
+      condStruct[0].colNum=OJDT_STORNO_TO_TRANS
+      condStruct[0].condVal=canceledTrans
+      condStruct[0].operation=DBD_EQ
+      condStruct[0].relationship=0
+      DBD_SetDAGCond(dagJDT,condStruct,1)
+      if DBD_Count(dagJDT,true)>0
+         _STR_GetStringResource(msgStr,GO_OBJ_ERROR_MSGS(JDT),2,GetEnv())
+         _STR_sprintf(tmpStr,msgStr,canceledTrans)
+         Message(-1,-1,tmpStr,OO_ERROR)
+         return ooErrNoMsg
+      end
+
+      if sourceDoc!=OPEN_BLNC_TYPE&&sourceDoc!=CLOSE_BLNC_TYPE&&sourceDoc!=MANUAL_BANK_TRANS_TYPE&&!(sourceDoc==WTR&&VF_ExciseInvoicebizEnv&&self.m_isVatJournalEntry)
+         dagJDT.SetColLong(JDT,OJDT_TRANS_TYPE,0)
+      end
+
+      sboErr=DBD_GetKeyGroup(dagJDT1,JDT1_KEYNUM_PRIMARY,SBOString(canceledTrans),true)
+      if sboErr
+         return sboErr
+      end
+
+      series=GetEnv().GetDefaultSeries(SBOString(JDT))
+      dagJDT.SetColLong(series,OJDT_SERIES)
+      sboErr=DoSingleStorno()
+      if sboErr
+         return sboErr
+      end
+
+      return ooNoErr
+   end
+
    def OnCheckIntegrityOnCreate()
       trace("OnCheckIntegrityOnCreate")
       ooErr=OJDTCheckIntegrityOfJournalEntry(self,false)
@@ -15131,20 +10492,156 @@ class CTransactionJournalObject < BObject
       return 0
    end
 
-   def CopyNoType(other)
-      trace("CopyNoType")
-      cSystemBusinessObject.copyNoType(other)
-      if other.GetID()==JDT
-         bizObject=other
-         @m_jrnlKeys=bizObject.GetJournalKeys()
-         @m_stornoExtraInfoCreator=other.m_stornoExtraInfoCreator
-         @m_isPostingPreviewMode=bizObject.m_isPostingPreviewMode
+   def OnInitFlow()
+      trace("OnInitFlow")
+      bizEnv=GetEnv()
+      bizEnv.AddCache(ACT)
+      bizEnv.AddCache(CRD)
+      return ooNoErr
+   end
+
+   def OnCommand(command)
+      SetExCommand(ooExAutoMode,fa_SetSolo)
+      SetExDtCommand(ooOBServerDT,fa_SetSolo)
+      odHelper = CJdtODHelper.new(self)
+      case command
+
+      when JournalEntryDocumentTypeService_CmdCode_RefDateChange
+         return odHelper.ODRefDateChange()
+      when JournalEntryDocumentTypeService_CmdCode_MemoChange
+         return odHelper.ODMemoChange()
+      else
+         return cSystemBusinessObject.onCommand(command)
       end
 
+      return 0
+   end
+
+   def OnSetDynamicMetaData(commandCode)
+      ooErr=0
+      if commandCode==BusinessService_CmdCode_GetByParams||commandCode==BusinessService_CmdCode_Add
+         headerFields=""
+         i=0
+         while (headerFields[i]>0) do
+            ooErr=SetDynamicMetaData(ao_Main,headerFields[i],false)
+
+            (i+=1)
+         end
+
+         SetDynamicMetaData(ao_Arr1,JDT1_LINE_MEMO,true,-1)
+         cols=""
+         i=0
+         while (cols[i]>0) do
+            ooErr=SetDynamicMetaData(ao_Arr1,cols[i],false,-1)
+
+            (i+=1)
+         end
+
+      end
+
+      SetBOActionMetaData(BusinessService_CmdCode_Cancel,OnCanCancel())
+      return ooErr
+   end
+
+   def OnGetByKey()
+      ooErr=ooNoErr
+      dagJDT=nil
+      dagJDT1 = nil
+      dagCFT = nil
+      bizEnv=GetEnv()
+      ooErr=cSystemBusinessObject.onGetByKey()
+      if ooErr&&ooErr!=-1025
+         return ooErr
+      end
+
+      dagJDT=GetDAG()
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      dagJDT.GetColStr(transID,OJDT_JDT_NUM,0)
+      res=0
+      begin
+         if VF_CashflowReport(bizEnv)
+            objID = SBOString.new(CFT)
+            dagCFT=GetDAG(objID)
+            stmtCFT = DBQRetrieveStatement.new(bizEnv)
+            tOCFT=stmtCFT.From(bizEnv.ObjectToTable(CFT))
+            stmtCFT.Where().Col(tOCFT,OCFT_JDT_ID).EQ().Val(transID).And().Col(tOCFT,OCFT_STATUS).NE().Val(CFT_STATUS_CREDSUM)
+            res=stmtCFT.Execute(dagRes)
+            dagCFT.Copy(dagRes,dbmBothBuffers)
+         end
+
+      rescue DBMException=>e
+         return e.GetCode()
+      end
+
+      ooErr=LoadTax()
+      if ooErr
+         return ooErr
+      end
+
+      return ooErr
+   end
+
+   def CompleteKeys()
+      dbErr=ooNoErr
+      dbErr=cSystemBusinessObject.completeKeys()
+      if dbErr
+         return dbErr
+      end
+
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      if dagJDT1.GetDBDMgrPtr().isConnectionCaseSensitive()==true
+         return ooNoErr
+      end
+
+      dagCRD=GetDAG(CRD)
+      dagACT=GetDAG(ACT)
+      jeLinesCount=dagJDT1.GetRealSize(dbmDataBuffer)
+      rec=0
+      while (rec<jeLinesCount) do
+         shortName=dagJDT1.GetColStr(JDT1_SHORT_NAME,rec,-1)
+         if shortName.IsSpacesStr()
+            next
+
+         end
+
+         dbErr=GetEnv().GetByOneKey(dagCRD,OCRD_KEYNUM_PRIMARY,shortName)
+         if dbErr==ooNoErr
+            dagJDT1.CopyColumn(dagCRD,JDT1_SHORT_NAME,rec,OCRD_CARD_CODE,0)
+         else
+            if dbErr==-2028
+               dbErr=GetEnv().GetByOneKey(dagACT,OACT_KEYNUM_PRIMARY,shortName)
+               if dbErr==0
+                  dagJDT1.CopyColumn(dagACT,JDT1_SHORT_NAME,rec,OACT_ACCOUNT_CODE,0)
+               else
+                  SetErrorField(JDT1_SHORT_NAME)
+                  SetErrorLine(rec+1)
+                  SetArrNum(ao_Arr1)
+                  if dbErr==-2028
+                     Message(OBJ_MGR_ERROR_MSG,GO_CRD_NAME_MISSING,shortName,OO_ERROR)
+                     return ooInvalidObject
+                  end
+
+                  return dbErr
+               end
+
+            else
+               SetErrorField(JDT1_SHORT_NAME)
+               SetErrorLine(rec+1)
+               SetArrNum(ao_Arr1)
+               return dbErr
+            end
+
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      return ooNoErr
    end
 
    def OnCanCancel()
-      bizEnv=context
+      bizEnv=GetEnv()
       ooErr=0
       canCancelJE=false
       if IsPaymentOrdered()
@@ -15207,328 +10704,6 @@ class CTransactionJournalObject < BObject
       return canCancelJE
    end
 
-   def OnCancel()
-      trace("OnCancel")
-      bizEnv=context
-      dagJDT=GetDAG()
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      if !OnCanCancel()
-         Message(JTE_JDT_FORM_NUM,27,nil,OO_ERROR)
-         return ooErrNoMsg
-      end
-
-      dagJDT.GetColLong(sourceDoc,OJDT_TRANS_TYPE,0)
-      dagJDT.GetColStr(dateStr,OJDT_REF_DATE,0)
-      dagJDT.GetColLong(canceledTrans,OJDT_JDT_NUM)
-      condStruct[0].colNum=OJDT_JDT_NUM
-      condStruct[0].condVal=canceledTrans
-      condStruct[0].operation=DBD_EQ
-      condStruct[0].relationship=DBD_AND
-      condStruct[1].colNum=OJDT_REF_DATE
-      _STR_strcpy(condStruct[1].condVal,dateStr)
-      condStruct[1].operation=DBD_GT
-      DBD_SetDAGCond(dagJDT,condStruct,2)
-      if DBD_Count(dagJDT,true)>0
-         Message(GO_OBJ_ERROR_MSGS(JDT),6,nil,OO_ERROR)
-         return ooErrNoMsg
-      end
-
-      condStruct[1].colNum=OJDT_AUTO_STORNO
-      _STR_strcpy(condStruct[1].condVal,VAL_YES)
-      condStruct[1].operation=DBD_EQ
-      DBD_SetDAGCond(dagJDT,condStruct,2)
-      if DBD_Count(dagJDT,true)>0
-         Message(JTE_JDT_FORM_NUM,27,nil,OO_ERROR)
-         return ooErrNoMsg
-      end
-
-      condStruct[0].colNum=OJDT_JDT_NUM
-      condStruct[0].condVal=canceledTrans
-      condStruct[0].operation=DBD_EQ
-      condStruct[0].relationship=DBD_AND
-      condStruct[1].colNum=OJDT_STORNO_TO_TRANS
-      _STR_strcpy(condStruct[1].condVal,STR_0)
-      condStruct[1].operation=DBD_GT
-      DBD_SetDAGCond(dagJDT,condStruct,2)
-      if DBD_Count(dagJDT,true)>0
-         Message(GO_OBJ_ERROR_MSGS(JDT),3,nil,OO_ERROR)
-         return ooErrNoMsg
-      end
-
-      condStruct[0].colNum=OJDT_STORNO_TO_TRANS
-      condStruct[0].condVal=canceledTrans
-      condStruct[0].operation=DBD_EQ
-      condStruct[0].relationship=0
-      DBD_SetDAGCond(dagJDT,condStruct,1)
-      if DBD_Count(dagJDT,true)>0
-         _STR_GetStringResource(msgStr,GO_OBJ_ERROR_MSGS(JDT),2,context)
-         _STR_sprintf(tmpStr,msgStr,canceledTrans)
-         Message(-1,-1,tmpStr,OO_ERROR)
-         return ooErrNoMsg
-      end
-
-      if sourceDoc!=OPEN_BLNC_TYPE&&sourceDoc!=CLOSE_BLNC_TYPE&&sourceDoc!=MANUAL_BANK_TRANS_TYPE&&!(sourceDoc==WTR&&VF_ExciseInvoicebizEnv&&self.m_isVatJournalEntry)
-         dagJDT.SetColLong(JDT,OJDT_TRANS_TYPE,0)
-      end
-
-      sboErr=DBD_GetKeyGroup(dagJDT1,JDT1_KEYNUM_PRIMARY,SBOString(canceledTrans),true)
-      if sboErr
-         return sboErr
-      end
-
-      series=context.GetDefaultSeries(SBOString(JDT))
-      dagJDT.SetColLong(series,OJDT_SERIES)
-      sboErr=DoSingleStorno()
-      if sboErr
-         return sboErr
-      end
-
-      return ooNoErr
-   end
-
-   def IsPeriodIndicCondNeeded()
-      trace("IsPeriodIndicCondNeeded")
-      return context.IsLocalSettingsFlag(lsf_IsDocNumMethod)
-   end
-
-   def OnGetTaxAdaptor()
-      trace("OnGetTaxAdaptor")
-      if !@m_taxAdaptor
-         @m_taxAdaptor=CTaxAdaptorJournalEntry.newself
-      end
-
-      return @m_taxAdaptor
-   end
-
-   def CreateTax()
-      trace("CreateTax")
-      taxAdaptor=OnGetTaxAdaptor()
-      if !taxAdaptor
-         return ooNoErr
-      end
-
-      ooErr=ooNoErr
-      if VF_DeferredTaxInJE(context)
-         ooErr=taxAdaptor.SetJEDeferredTax()
-         if ooErr
-            return ooErr
-         end
-
-      end
-
-      dagJDT=GetDAG()
-      dagJDT.GetColLong(transId,OJDT_JDT_NUM)
-      return taxAdaptor.Create(transId)
-   end
-
-   def UpdateTax()
-      trace("UpdateTax")
-      taxAdaptor=OnGetTaxAdaptor()
-      if !taxAdaptor
-         return ooNoErr
-      end
-
-      dagJDT=GetDAG()
-      dagJDT.GetColLong(transId,OJDT_JDT_NUM)
-      return taxAdaptor.Update(transId)
-   end
-
-   def LoadTax()
-      trace("LoadTax")
-      taxAdaptor=OnGetTaxAdaptor()
-      if !taxAdaptor
-         return ooNoErr
-      end
-
-      dagJDT=GetDAG()
-      dagJDT.GetColLong(transId,OJDT_JDT_NUM)
-      ooErr=taxAdaptor.Load(transId)
-      if ooErr==-2028
-         ooErr=ooNoErr
-      end
-
-      return ooErr
-   end
-
-   def OnInitFlow()
-      trace("OnInitFlow")
-      bizEnv=context
-      bizEnv.AddCache(ACT)
-      bizEnv.AddCache(CRD)
-      return ooNoErr
-   end
-
-   def AddRowByParent(pParentDAG,lParentRow,pChildDAG)
-      lDagSize=pChildDAG.GetSize(dbmDataBuffer)
-      sboErr=pChildDAG.SetSize(lDagSize+1,dbmKeepData)
-      if sboErr!=0
-         return sboErr
-      end
-
-      if pChildDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr1)&&nil!=pParentDAG
-         pChildDAG.CopyColumn(pParentDAG,JDT1_TRANS_ABS,lDagSize,OJDT_JDT_NUM,lParentRow)
-         pChildDAG.SetColLong(lDagSize,JDT1_LINE_ID,lDagSize)
-      end
-
-      if pChildDAG.GetTableName()==m_env.ObjectToTable(CFT,ao_Main)&&nil!=pParentDAG
-         pChildDAG.CopyColumn(pParentDAG,OCFT_JDT_ID,lDagSize,JDT1_TRANS_ABS,lParentRow)
-         pChildDAG.CopyColumn(pParentDAG,OCFT_JDT_LINE_ID,lDagSize,JDT1_LINE_ID,lParentRow)
-      end
-
-      return 0
-   end
-
-   def GetFirstRowByParent(pParentDAG,lParentRow,pChildDAG)
-      if pChildDAG.GetTableName()==m_env.ObjectToTable(CFT,ao_Main)&&nil!=pParentDAG
-         lDagSize=pChildDAG.GetSize(dbmDataBuffer)
-         if lDagSize==0
-            return -1
-         end
-
-         pParentDAG.GetColLong(transId,JDT1_TRANS_ABS,lParentRow)
-         pParentDAG.GetColLong(lineId,JDT1_LINE_ID,lParentRow)
-         ii=0
-         begin
-            pChildDAG.GetColLong(jeAbsID,OCFT_JDT_ID,ii)
-            pChildDAG.GetColLong(jeLineId,OCFT_JDT_LINE_ID,ii)
-            if jeAbsID==transId&&jeLineId==lineId
-               return ii
-            end
-
-
-            (ii+=1;ii-2)
-         end while (ii<lDagSize)
-
-      end
-
-      if pChildDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr1)
-         lDagSize=pChildDAG.GetSize(dbmDataBuffer)
-         if lDagSize==0
-            return -1
-         end
-
-         pParentDAG.GetColLong(transId,OJDT_JDT_NUM,lParentRow)
-         ii=0
-         begin
-            pChildDAG.GetColLong(transAbs,JDT1_TRANS_ABS,ii)
-            if transAbs==transId
-               return ii
-            end
-
-
-            (ii+=1;ii-2)
-         end while (ii<lDagSize)
-
-      else
-         if VF_JEWHT(m_env)&&pChildDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr2)
-            lDagSize=pChildDAG.GetSize(dbmDataBuffer)
-            if lDagSize==0
-               return -1
-            end
-
-            pParentDAG.GetColLong(transId,OJDT_JDT_NUM,lParentRow)
-            ii=0
-            begin
-               pChildDAG.GetColLong(transAbs,JDT2_ABS_ENTRY,ii)
-               if transAbs==transId
-                  return ii
-               end
-
-
-               (ii+=1;ii-2)
-            end while (ii<lDagSize)
-
-         else
-            return cSystemBusinessObject.getFirstRowByParent(pParentDAG,lParentRow,pChildDAG)
-         end
-
-      end
-
-      return -1
-   end
-
-   def GetNextRow(pParentDAG,pDAG,lRow,bNext)
-      if pDAG.GetTableName()==m_env.ObjectToTable(CFT,ao_Main)&&nil!=pParentDAG
-         lDagSize=pDAG.GetSize(dbmDataBuffer)
-         if lRow<0||lRow>=lDagSize
-            return -1
-         end
-
-         delta=bNext ? 1 : -1
-         pDAG.GetColLong(transAbs,OCFT_JDT_ID,lRow)
-         pDAG.GetColLong(lineID,OCFT_JDT_LINE_ID,lRow)
-         rec=lRow+delta
-         begin
-            pDAG.GetColLong(tmpAbs,OCFT_JDT_ID,rec)
-            pDAG.GetColLong(tmpLineId,OCFT_JDT_LINE_ID,rec)
-            if tmpAbs==transAbs&&tmpLineId==lineID
-               return rec
-            end
-
-
-            rec+=delta
-         end while (bNext ? rec<lDagSize : rec>=0)
-
-      end
-
-      if pDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr1)
-         lDagSize=pDAG.GetSize(dbmDataBuffer)
-         if lRow<0||lRow>=lDagSize
-            return -1
-         end
-
-         delta=bNext ? 1 : -1
-         pDAG.GetColLong(transAbs,JDT1_TRANS_ABS,lRow)
-         rec=lRow+delta
-         begin
-            pDAG.GetColLong(tmpAbs,JDT1_TRANS_ABS,rec)
-            if tmpAbs==transAbs
-               return rec
-            end
-
-
-            rec+=delta
-         end while (bNext ? rec<lDagSize : rec>=0)
-
-      else
-         if VF_JEWHT(m_env)&&pDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr2)
-            lDagSize=pDAG.GetSize(dbmDataBuffer)
-            if lRow<0||lRow>=lDagSize
-               return -1
-            end
-
-            delta=bNext ? 1 : -1
-            pDAG.GetColLong(transAbs,JDT2_ABS_ENTRY,lRow)
-            rec=lRow+delta
-            begin
-               pDAG.GetColLong(tmpAbs,JDT2_ABS_ENTRY,rec)
-               if tmpAbs==transAbs
-                  return rec
-               end
-
-
-               rec+=delta
-            end while (bNext ? rec<lDagSize : rec>=0)
-
-         else
-            return cSystemBusinessObject.getNextRow(pParentDAG,pDAG,lRow,bNext)
-         end
-
-      end
-
-      return -1
-   end
-
-   def GetLogicRowCount(pParentDAG,lParentRow,pDAG)
-      trace("GetLogicRowCount")
-      if pDAG.GetTableName()==m_env.ObjectToTable(JDT,ao_Arr1)
-         return pDAG.GetRealSize(dbmDataBuffer)
-      else
-         return cBusinessService.getLogicRowCount(pParentDAG,lParentRow,pDAG)
-      end
-
-   end
-
    def CanArchiveAddWhere(bizEnv,canArchiveStmt,archiveDate,tObjectTable)
       subQ_unReconciledBPlines=canArchiveStmt.CreateSubquery()
       tJDT1=subQ_unReconciledBPlines.From("JDT1")
@@ -15564,7 +10739,7 @@ class CTransactionJournalObject < BObject
          return sboErr
       end
 
-      bizEnv=context
+      bizEnv=GetEnv()
       selectedBPTempTbl=GetArchiveSelectedBPTblName()
       if !selectedBPTempTbl.IsEmpty()&&bizEnv.GetCompanyConnection().DBisTableExists(selectedBPTempTbl,bizEnv)
          dagTMP_ARC=GetDAG(TMP)
@@ -15616,185 +10791,16 @@ class CTransactionJournalObject < BObject
       return 0
    end
 
-   def BeforeDeleteArchivedObject(arcDelPref)
-      sboErr=0
-      dagDAR=GetDAG(DAR)
-      dagDAR.GetColLong(jEPref.arc_entry,ODAR_ABS_ENTRY)
-      dagDAR.GetColStr(tempStr,ODAR_JE_BY_PROJ)
-      jEPref.byProject=tempStr[0]==VAL_YES[0]
-      dagDAR.GetColStr(tempStr,ODAR_JE_BY_PROF)
-      jEPref.byProfitCenter=tempStr[0]==VAL_YES[0]
-      dagDAR.GetColStr(tempStr,ODAR_JE_BY_DIM2)
-      jEPref.byDimension2=(tempStr==VAL_YES)
-      dagDAR.GetColStr(tempStr,ODAR_JE_BY_DIM3)
-      jEPref.byDimension3=(tempStr==VAL_YES)
-      dagDAR.GetColStr(tempStr,ODAR_JE_BY_DIM4)
-      jEPref.byDimension4=(tempStr==VAL_YES)
-      dagDAR.GetColStr(tempStr,ODAR_JE_BY_DIM5)
-      jEPref.byDimension5=(tempStr==VAL_YES)
-      dagDAR.GetColStr(tempStr,ODAR_JE_BY_CURR)
-      jEPref.byCurrency=tempStr[0]==VAL_YES[0]
-      dagDAR.GetColStr(jEPref.periodLen,ODAR_JE_PERIOD_LEN)
-      dagDAR.GetColStr(jEPref.ref1,ODAR_JE_REF1)
-      dagDAR.GetColStr(jEPref.ref2,ODAR_JE_REF2)
-      dagDAR.GetColStr(jEPref.memo,ODAR_JE_MEMO)
-      dagDAR.GetColStr(jEPref.toDate,ODAR_PERIOD_DATE)
-      begin
-         jEComp = CJECompression.new(context,jEPref)
-         sboErr=jEComp.execute()
-         if sboErr
-            return sboErr
-         end
-
-      rescue nsDataArchive::CDataArchiveException=>e
-         return e.GetSBOErr()
-      end
-
-      return sboErr
-   end
-
-   def AfterDeleteArchivedObject(arcDelPref)
-      sboErr=0
-      begin
-         dagACT=nil
-         dagCRD=nil
-         sboErr=GLFillActListDAG(dagACT,context)
-         if sboErr
-            return sboErr
-         end
-
-         stmt = DBQRetrieveStatement.new(context)
-         tCRD=stmt.From(context.ObjectToTable(CRD))
-         stmt.Select().Col(tCRD,OCRD_CARD_CODE)
-         stmt.Select().Col(tCRD,OCRD_CARD_NAME)
-         stmt.Select().Col(tCRD,OCRD_CARD_TYPE)
-         numOfReturnedRecs=stmt.Execute(dagCRD)
-         sboErr=RBARebuildAccountsAndCardsInternal(dagACT,dagCRD,false)
-         DAG_Close(dagCRD)
-         DAG_Close(dagACT)
-         if sboErr
-            return sboErr
-         end
-
-      rescue DBMException=>e
-         return e.GetCode()
-      end
-
-      return sboErr
-   end
-
-   def LoadObjInfoFromDags(objInfo,dagObj,dagWTaxs,dagObjRows)
-      sboErr=0
-      deb.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_DEBIT,JDT1_FC_DEBIT,JDT1_SYS_DEBIT)
-      cred.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_CREDIT,JDT1_FC_CREDIT,JDT1_SYS_CREDIT)
-      objInfo.m_DocTotal=deb-cred
-      objInfo.m_DocTotal.Abs()
-      tmpWTTaxSet=cDocumentObject.getWTTaxSet(dagWTaxs,objInfo.m_DocTotal,true)
-      objInfo.SetDocWTaxArray(tmpWTTaxSet)
-      deb.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_BALANCE_DUE_DEBIT,JDT1_BALANCE_DUE_FC_DEB,JDT1_BALANCE_DUE_SC_DEB)
-      cred.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_BALANCE_DUE_CREDIT,JDT1_BALANCE_DUE_FC_CRED,JDT1_BALANCE_DUE_SC_CRED)
-      deb-=cred
-      objInfo.m_DocApplied=objInfo.m_DocTotal-deb.AbsVal()
-      dagObj.GetColStr(objInfo.m_DocCurrency,OJDT_TRANS_CURR)
-      if objInfo.m_DocCurrency.IsEmpty()
-         objInfo.m_DocCurrency=objInfo.m_bizEnv.GetMainCurrency()
-      end
-
-      return sboErr
-   end
-
-   def GetWTaxReconDags(dagOBJ,dagObjWTax,dagObjRows)
-      dagOBJ=GetDAG()
-      dagObjWTax=GetArrayDAG(ao_Arr2)
-      dagObjRows=GetArrayDAG(ao_Arr1)
-      return 0
-   end
-
-   def CreateDocInfoQry(docInfoQry)
-      bizEnv=context
-      objType=GetID().strtol()
-      tableObj=docInfoQry.From(bizEnv.ObjectToTable(objType,ao_Main))
-      tableObjRow=docInfoQry.Join(bizEnv.ObjectToTable(objType,ao_Arr1),tableObj)
-      docInfoQry.On(tableObjRow).Col(tableObj,OJDT_JDT_NUM).EQ().Col(tableObjRow,JDT1_TRANS_ABS)
-      tableObjWtax=docInfoQry.Join(bizEnv.ObjectToTable(objType,ao_Arr2),tableObj)
-      docInfoQry.On(tableObjWtax).Col(tableObj,OJDT_JDT_NUM).EQ().Col(tableObjWtax,JDT2_ABS_ENTRY).And().Col(tableObjWtax,JDT2_CATEGORY).EQ().Val(VAL_CATEGORY_PAYMENT)
-      docInfoQry.Select().Col(tableObjRow,JDT1_TRANS_ABS)
-      docInfoQry.Select().Col(tableObjRow,JDT1_LINE_ID)
-      docInfoQry.Select().Max().Col(tableObj,OJDT_TRANS_CURR).As(OJDT_TRANS_CURR_ALIAS)
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_CREDIT).Sub().Max().Col(tableObjRow,JDT1_DEBIT).As("Credit")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_FC_CREDIT).Sub().Max().Col(tableObjRow,JDT1_FC_DEBIT).As("FCCredit")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_SYS_CREDIT).Sub().Max().Col(tableObjRow,JDT1_SYS_DEBIT).As("SYSCred")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_CREDIT).Sub().Max().Col(tableObjRow,JDT1_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_CREDIT).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_DEBIT).As("BalDueCred")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_FC_CREDIT).Sub().Max().Col(tableObjRow,JDT1_FC_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_FC_CRED).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_FC_DEB).As("BalFcCred")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_SYS_CREDIT).Sub().Max().Col(tableObjRow,JDT1_SYS_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_SC_CRED).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_SC_DEB).As("BalScCred")
-      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_AMOUNT).As(JDT2_WT_AMOUNT_ALIAS)
-      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_AMOUNT_FC).As(JDT2_WT_AMOUNT_FC_ALIAS)
-      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_AMOUNT_SC).As(JDT2_WT_AMOUNT_SC_ALIAS)
-      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_APPLIED_AMOUNT).As(JDT2_WT_APPLIED_AMOUNT_ALIAS)
-      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_APPLIED_AMOUNT_FC).As(JDT2_WT_APPLIED_AMOUNT_FC_ALIAS)
-      docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_APPLIED_AMOUNT_SC).As(JDT2_WT_APPLIED_AMOUNT_SC_ALIAS)
-      docInfoQry.Select(tableObj,OJDT_LOC_TOTAL).Val(0).As(_T("DummyCol2"))
-      docInfoQry.Select(tableObj,OJDT_FC_TOTAL).Val(0).As(_T("DummyCol3"))
-      docInfoQry.Select(tableObj,OJDT_SYS_TOTAL).Val(0).As(_T("DummyCol4"))
-      docInfoQry.GroupBy(tableObjRow,JDT1_TRANS_ABS)
-      docInfoQry.GroupBy(tableObjRow,JDT1_LINE_ID)
-      return 0
-   end
-
-   def YouHaveBeenReconciled(yourMatchData)
-      ooErr=ooNoErr
-      if VF_JEWHT(context)
-         ooErr=UpdateWTOnRecon(yourMatchData)
-      end
-
-      return ooErr
-   end
-
-   def YouHaveBeenUnReconciled(yourMatchData)
-      ooErr=ooNoErr
-      if VF_JEWHT(context)
-         ooErr=UpdateWTOnCancelRecon(yourMatchData)
-      end
-
-      return ooErr
-   end
-
-   def OnGetByKey()
-      ooErr=ooNoErr
-      dagJDT=nil
-      dagJDT1 = nil
-      dagCFT = nil
-      bizEnv=context
-      ooErr=cSystemBusinessObject.onGetByKey()
-      if ooErr&&ooErr!=-1025
-         return ooErr
+   def UpdateTax()
+      trace("UpdateTax")
+      taxAdaptor=OnGetTaxAdaptor()
+      if !taxAdaptor
+         return ooNoErr
       end
 
       dagJDT=GetDAG()
-      dagJDT1=GetDAG(JDT,ao_Arr1)
-      dagJDT.GetColStr(transID,OJDT_JDT_NUM,0)
-      res=0
-      begin
-         if VF_CashflowReport(bizEnv)
-            objID = SBOString.new(CFT)
-            dagCFT=GetDAG(objID)
-            stmtCFT = DBQRetrieveStatement.new(bizEnv)
-            tOCFT=stmtCFT.From(bizEnv.ObjectToTable(CFT))
-            stmtCFT.Where().Col(tOCFT,OCFT_JDT_ID).EQ().Val(transID).And().Col(tOCFT,OCFT_STATUS).NE().Val(CFT_STATUS_CREDSUM)
-            res=stmtCFT.Execute(dagRes)
-            dagCFT.Copy(dagRes,dbmBothBuffers)
-         end
-
-      rescue DBMException=>e
-         return e.GetCode()
-      end
-
-      ooErr=LoadTax()
-      if ooErr
-         return ooErr
-      end
-
-      return ooErr
+      dagJDT.GetColLong(transId,OJDT_JDT_NUM)
+      return taxAdaptor.Update(transId)
    end
 
    def OnGetCostAccountingFields(costAccountingFieldMap)
@@ -15811,29 +10817,2837 @@ class CTransactionJournalObject < BObject
       costAccountingFieldMap[ao_Arr1]=costAccountingFields
    end
 
-   def GetLinkMapMetaData(el)
-      ooErr=cBusinessObjectBase.getLinkMapMetaData(el)
+   def initialize(other)
+      super(other)
+      @m_digitalSignature = other.GetEnv()
+
+   end
+
+   def OJDTFillJDT1FromAccounts(accountsArrayFrom,accountsArrayRes,srcObject)
+      trace("OJDTFillJDT1FromAccounts")
+
+      linesAdded = false
+      dagJDT1=GetArrayDAG(ao_Arr1)
+      dagJDT=GetDAG()
+      bizEnv=GetEnv()
+      if !DAG_IsValid(dagJDT1)
+         return (-2007)
+      end
+
+      numOfAccts=accountsArrayFrom.GetSize()
+      if numOfAccts<=0
+         return ooNoErr
+      end
+
+      ii=0
+      while (ii<numOfAccts) do
+         if !accountsArrayFrom[ii].allowZeros
+            if accountsArrayFrom[ii].sum==0&&accountsArrayFrom[ii].sysSum==0&&accountsArrayFrom[ii].frgnSum==0
+               next
+
+            end
+
+         end
+
+         linesAdded=true
+         accountsArrayRes.Add((accountsArrayFrom[ii].Clone()))
+         jdtLine=accountsArrayRes.GetSize()-1
+         if jdtLine==0
+            DAG_SetSize(dagJDT1,1,dbmDropData)
+            dagJDT1.SetBackupSize(1,dbmDropData)
+         else
+            DAG_SetSize(dagJDT1,jdtLine+1,dbmKeepData)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].actCode)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].actCode,JDT1_ACCT_NUM,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].shortName)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].shortName,JDT1_SHORT_NAME,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].contraAct)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].contraAct,JDT1_CONTRA_ACT,jdtLine)
+         end
+
+         nDimCount=1
+         if VF_CostAcctingEnh(GetEnv())
+            nDimCount=DIMENSION_MAX
+         end
+
+         dagJDT1.GetColStr(postDate,JDT1_REF_DATE,jdtLine)
+         dim=0
+         while (dim<nDimCount) do
+            if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].ocrCode[dim])
+               dagJDT1.SetColStr(accountsArrayRes[jdtLine].ocrCode[dim],GetOcrCodeCol(dim),jdtLine)
+               cOverheadCostRateObject.getValidFrom(bizEnv,accountsArrayRes[jdtLine].ocrCode[dim],postDate,validFrom)
+               dagJDT1.SetColStr(validFrom,GetValidFromCol(dim),jdtLine)
+            end
+
+
+            (dim+=1;dim-2)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].prjCode)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].prjCode,JDT1_PROJECT,jdtLine)
+         end
+
+         if VF_PaymentTraceability(bizEnv)
+            if accountsArrayRes[jdtLine].cig!=0
+               dagJDT1.SetColLong(accountsArrayRes[jdtLine].cig,JDT1_CIG,jdtLine)
+            end
+
+            if accountsArrayRes[jdtLine].cup!=0
+               dagJDT1.SetColLong(accountsArrayRes[jdtLine].cup,JDT1_CUP,jdtLine)
+            end
+
+         end
+
+         isNegative=accountsArrayRes[jdtLine].sum.IsNegative()||accountsArrayRes[jdtLine].sysSum.IsNegative()||accountsArrayRes[jdtLine].frgnSum.IsNegative()
+         useNegativeAmount=bizEnv.GetUseNegativeAmount()
+         dagJDT.GetColLong(transType,OJDT_TRANS_TYPE)
+         if transType==RCT||transType==VPM
+            useNegativeAmount=true
+         end
+
+         if isNegative&&!useNegativeAmount
+            accountsArrayRes[jdtLine].sum*=-1
+            accountsArrayRes[jdtLine].sysSum*=-1
+            accountsArrayRes[jdtLine].frgnSum*=-1
+            if accountsArrayRes[jdtLine].debCred==DEBIT
+               accountsArrayRes[jdtLine].debCred=CREDIT
+            else
+               accountsArrayRes[jdtLine].debCred=DEBIT
+            end
+
+         end
+
+         if accountsArrayRes[jdtLine].debCred==DEBIT
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].sum,JDT1_DEBIT,jdtLine)
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].sysSum,JDT1_SYS_DEBIT,jdtLine)
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].frgnSum,JDT1_FC_DEBIT,jdtLine)
+            if accountsArrayRes[jdtLine].nullifyOppsSumCols
+               dagJDT1.NullifyCol(JDT1_CREDIT,jdtLine)
+               dagJDT1.NullifyCol(JDT1_SYS_CREDIT,jdtLine)
+               dagJDT1.NullifyCol(JDT1_FC_CREDIT,jdtLine)
+            else
+               dagJDT1.SetColMoney(zeroSum,JDT1_CREDIT,jdtLine)
+               dagJDT1.SetColMoney(zeroSum,JDT1_SYS_CREDIT,jdtLine)
+               dagJDT1.SetColMoney(zeroSum,JDT1_FC_CREDIT,jdtLine)
+            end
+
+         else
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].sum,JDT1_CREDIT,jdtLine)
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].sysSum,JDT1_SYS_CREDIT,jdtLine)
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].frgnSum,JDT1_FC_CREDIT,jdtLine)
+            if accountsArrayRes[jdtLine].nullifyOppsSumCols
+               dagJDT1.NullifyCol(JDT1_DEBIT,jdtLine)
+               dagJDT1.NullifyCol(JDT1_SYS_DEBIT,jdtLine)
+               dagJDT1.NullifyCol(JDT1_FC_DEBIT,jdtLine)
+            else
+               dagJDT1.SetColMoney(zeroSum,JDT1_DEBIT,jdtLine)
+               dagJDT1.SetColMoney(zeroSum,JDT1_SYS_DEBIT,jdtLine)
+               dagJDT1.SetColMoney(zeroSum,JDT1_FC_DEBIT,jdtLine)
+            end
+
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].vatGroup)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].vatGroup,JDT1_VAT_GROUP,jdtLine)
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].vatPrcnt,JDT1_VAT_PERCENT,jdtLine)
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].equVatPrcnt,JDT1_EQU_VAT_PERCENT,jdtLine)
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].vatBaseSum,JDT1_BASE_SUM,jdtLine)
+            dagJDT1.SetColMoney(accountsArrayRes[jdtLine].vatBaseSC,JDT1_SYS_BASE_SUM,jdtLine)
+            dagJDT1.SetColStr(VAL_YES,JDT1_VAT_LINE,jdtLine)
+         end
+
+         dagJDT1.SetColLong(accountsArrayRes[jdtLine].lineType,JDT1_LINE_TYPE,jdtLine)
+         if !accountsArrayRes[jdtLine].frgnSum.IsZero()&&!_STR_IsSpacesStr(accountsArrayRes[jdtLine].curCurrency)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].curCurrency,JDT1_FC_CURRENCY,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].dueDate)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].dueDate,JDT1_DUE_DATE,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].taxDate)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].taxDate,JDT1_TAX_DATE,jdtLine)
+         end
+
+         if accountsArrayRes[jdtLine].debCred==DEBIT
+            dagJDT1.SetColStr(VAL_DEBIT,JDT1_DEBIT_CREDIT,jdtLine)
+         else
+            dagJDT1.SetColStr(VAL_CREDIT,JDT1_DEBIT_CREDIT,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].refDate)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].refDate,JDT1_REF_DATE,jdtLine)
+            dagJDT1.GetColStr(ocrCode,JDT1_OCR_CODE,jdtLine)
+            cOverheadCostRateObject.getValidFrom(bizEnv,ocrCode,accountsArrayRes[jdtLine].refDate.GetString(),validFrom)
+            dagJDT1.SetColStr(validFrom,JDT1_VALID_FROM,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].vatDate)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].vatDate,JDT1_VAT_DATE,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].ref1)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].ref1,JDT1_REF1,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].ref2)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].ref2,JDT1_REF2,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].refLine)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].refLine,JDT1_REF3_LINE,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].indicator)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].indicator,JDT1_INDICATOR,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].paymentRef)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].paymentRef,JDT1_PAYMENT_REF,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].srcAbsId)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].srcAbsId,JDT1_SRC_ABS_ID,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].srcLine)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].srcLine,JDT1_SRC_LINE,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].checkAbs)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].checkAbs,JDT1_CHECK_ABS,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].relType)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].relType,JDT1_REL_TYPE,jdtLine)
+         end
+
+         if !_STR_IsSpacesStr(accountsArrayRes[jdtLine].lineMemo)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].lineMemo,JDT1_LINE_MEMO,jdtLine)
+         end
+
+         if VF_TaxPayment(bizEnv)
+            dagJDT1.SetColLong(accountsArrayRes[jdtLine].com_vat,JDT1_CENVAT_COM,jdtLine)
+            dagJDT1.SetColLong(accountsArrayRes[jdtLine].mat_type,JDT1_MATERIAL_TYPE,jdtLine)
+         end
+
+         if VF_MultipleRegistrationNumber(bizEnv)&&accountsArrayRes[jdtLine].location!=0
+            dagJDT1.SetColLong(accountsArrayRes[jdtLine].location,JDT1_LOCATION,jdtLine)
+         end
+
+         if VF_WTaxAccumulateControl(bizEnv)&&!_STR_IsSpacesStr(accountsArrayRes[jdtLine].m_WTCode)
+            dagJDT1.SetColStr(accountsArrayRes[jdtLine].m_WTCode,JDT1_WTAX_CODE,jdtLine)
+         end
+
+         if nil!=srcObject
+            referenceLinksBPtarget=((_STR_strcmp(accountsArrayRes[jdtLine].actCode,accountsArrayRes[jdtLine].shortName)!=0)&&(!_STR_IsSpacesStr(accountsArrayRes[jdtLine].shortName)))
+            ooErr=cRefLinksDef.executeRefLinks(srcObject,self,referenceLinksBPtarget ? RLD_TYPE_BP_LINE_VAL : RLD_TYPE_LINE_VAL,jdtLine)
+            if ooErr
+               return ooErr
+            end
+
+         end
+
+         dprAbsId=accountsArrayRes[jdtLine].dprAbsId
+         if -1!=dprAbsId
+            dagJDT1.SetColLong(dprAbsId,JDT1_DPR_ABS_ID,jdtLine)
+         end
+
+         dagJDT1.SetColLong(accountsArrayRes[jdtLine].interimAcctType,JDT1_INTERIM_ACCT_TYPE,jdtLine)
+         if VF_MultiBranch_EnabledInOADM(bizEnv)&&(cBusinessPlaceObject.isValidBPLId(accountsArrayRes[jdtLine].m_BPLId)||cBusinessPlaceObject.isValidBPLId(GetBPLId()))
+            bPLId=cBusinessPlaceObject.isValidBPLId(accountsArrayRes[jdtLine].m_BPLId) ? accountsArrayRes[jdtLine].m_BPLId : GetBPLId()
+            ooErr=cBusinessPlaceObject.getBPLInfo(bizEnv,BPLId,bplInfo)
+            if ooErr
+               return ooErr
+            end
+
+            dagJDT1.SetColLong(bplInfo.GetBPLId(),JDT1_BPL_ID,jdtLine)
+            dagJDT1.SetColStr(bplInfo.GetBPLName(),JDT1_BPL_NAME,jdtLine)
+            dagJDT1.SetColStr(bplInfo.GetVatRegNum(),JDT1_VAT_REG_NUM,jdtLine)
+         else
+            dagJDT1.NullifyCol(JDT1_BPL_ID,jdtLine)
+            dagJDT1.NullifyCol(JDT1_BPL_NAME,jdtLine)
+            dagJDT1.NullifyCol(JDT1_VAT_REG_NUM,jdtLine)
+         end
+
+
+         (ii+=1)
+      end
+
+      if bizEnv.IsCurrentLocalSettings(FRANCE_SETTINGS)
+         cJournalManager.getDefaultTransCode(self,dagJDT,dagJDT1,glAcct,transCode1,jdtLine)
+         if jdtLine>=0&&!glAcct.IsEmpty()&&!transCode1.IsEmpty()
+            dagJDT.GetColStr(transCode2,OJDT_TRANS_CODE,0)
+            if transCode2.IsEmpty()
+               dagJDT.SetColStr(transCode1,OJDT_TRANS_CODE,0)
+               numOfRecs=dagJDT1.GetRecordCount()
+               rec=0
+               while (rec<=numOfRecs) do
+                  dagJDT1.SetColStr(transCode1,JDT1_TRANS_CODE,rec)
+
+                  (rec+=1;rec-2)
+               end
+
+            else
+               dagJDT1.SetColStr(transCode2,JDT1_TRANS_CODE,jdtLine)
+            end
+
+         end
+
+      end
+
+      if !linesAdded
+         return -2028
+      end
+
+      return ooNoErr
+   end
+
+   def UpgradeBoeActs()
+      trace("UpgradeBoeActs")
+
+      dagRES = nil
+      dagRES2 = nil
+      dagAnswer = nil
+
+      numOfCardConds = 0
+      numOfActsConds = 0
+      numOfConds = 0
+
+
+      firstErr = false
+
+      columns = ""
+      orders=""
+      bizEnv=GetEnv()
+      iterationType=""
+      totalNumOfIterations=0
+      numOfIterations = 0
+      numOfTables = 0
+      if !bizEnv.IsLocalSettingsFlag(lsf_EnableBOE)
+         return ooNoErr
+      end
+
+      if UpgradeVersionCheck(VERSION_65_77)
+         ooErr=FixVendorsAndSpainBoeBalance()
+         if ooErr
+            return ooErr
+         end
+
+      end
+
+      if VF_BOEAsInSpain(bizEnv)
+         return ooNoErr
+      end
+
+      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
+      dagJDT1=OpenDAG(JDT,ao_Arr1)
+      if bizEnv.IsCurrentLocalSettings(FRANCE_SETTINGS)||VF_OpenFRBoE(bizEnv)
+         totalNumOfIterations=3
+      else
+         totalNumOfIterations=2
+      end
+
+      ii=0
+      while (ii<3) do
+         if !(bizEnv.IsCurrentLocalSettingsFRANCE_SETTINGS||VF_OpenFRBoEbizEnv)&&iterationType[ii]==1
+            next
+
+         end
+
+         _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
+         numOfTables=1
+         BuildRelatedBoeQuery(tableStruct,numOfConds,iterationType[ii],numOfTables,condStruct,joinCondStructForOtherObj,joinCondStructBoe)
+         _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(CRD,ao_Arr3))
+         tableStruct[numOfTables-1].doJoin=true
+         tableStruct[numOfTables-1].joinedToTable=0
+         tableStruct[numOfTables-1].numOfConds=1
+         tableStruct[numOfTables-1].joinConds=joinCondStruct
+         joinCondStruct[0].compareCols=true
+         joinCondStruct[0].compTableIndex=0
+         joinCondStruct[0].compColNum=JDT1_ACCT_NUM
+         joinCondStruct[0].tableIndex=numOfTables-1
+         joinCondStruct[0].colNum=CRD3_ACCOUNT_CODE
+         joinCondStruct[0].operation=DBD_EQ
+         condStruct[numOfConds].compareCols=true
+         condStruct[numOfConds].colNum=JDT1_SHORT_NAME
+         condStruct[numOfConds].operation=DBD_NE
+         condStruct[numOfConds].compColNum=JDT1_ACCT_NUM
+         condStruct[numOfConds].tableIndex=0
+         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+         condStruct[numOfConds].compareCols=true
+         condStruct[numOfConds].colNum=JDT1_SHORT_NAME
+         condStruct[numOfConds].operation=DBD_EQ
+         condStruct[numOfConds].compColNum=CRD3_CARD_CODE
+         condStruct[numOfConds].tableIndex=0
+         condStruct[numOfConds].compTableIndex=numOfTables-1
+         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+         if bizEnv.IsCurrentLocalSettings(ITALY_SETTINGS)
+            condStruct[numOfConds].tableIndex=numOfTables-1
+            condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
+            _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_PRESENTATION)
+            condStruct[numOfConds].operation=DBD_EQ
+            condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
+         else
+            if bizEnv.IsCurrentLocalSettings(FRANCE_SETTINGS)||VF_OpenFRBoE(bizEnv)
+               condStruct[numOfConds].bracketOpen=1
+               condStruct[numOfConds].tableIndex=numOfTables-1
+               condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
+               _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_ON_COLLECTION)
+               condStruct[numOfConds].operation=DBD_EQ
+               condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
+               condStruct[numOfConds].tableIndex=numOfTables-1
+               condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
+               _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_DISCOUNTED)
+               condStruct[numOfConds].operation=DBD_EQ
+               condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
+               condStruct[numOfConds].tableIndex=numOfTables-1
+               condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
+               _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_UNPAID_BoE)
+               condStruct[numOfConds].operation=DBD_EQ
+               condStruct[numOfConds].bracketClose=1
+               condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
+            else
+               if bizEnv.IsCurrentLocalSettings(PORTUGAL_SETTINGS)||VF_Boleto(bizEnv)
+                  condStruct[numOfConds].bracketOpen=1
+                  condStruct[numOfConds].tableIndex=numOfTables-1
+                  condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
+                  _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_PRESENTATION)
+                  condStruct[numOfConds].operation=DBD_EQ
+                  condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
+                  condStruct[numOfConds].tableIndex=numOfTables-1
+                  condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
+                  _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_DISCOUNTED)
+                  condStruct[numOfConds].operation=DBD_EQ
+                  condStruct[numOfConds].bracketClose=1
+                  condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
+               end
+
+            end
+
+         end
+
+         condStruct[numOfConds-1].relationship=0
+         resStruct[0].colNum=JDT1_TRANS_ABS
+         resStruct[0].tableIndex=0
+         resStruct[1].colNum=JDT1_LINE_ID
+         resStruct[1].tableIndex=0
+         resStruct[2].colNum=JDT1_ACCT_NUM
+         resStruct[2].tableIndex=0
+         resStruct[3].colNum=JDT1_INTR_MATCH
+         resStruct[3].tableIndex=0
+         resStruct[4].colNum=JDT1_SHORT_NAME
+         resStruct[4].tableIndex=0
+         DBD_SetDAGCond(dagJDT1,condStruct,numOfConds)
+         DBD_SetDAGRes(dagJDT1,resStruct,5)
+         DBD_SetTablesList(dagJDT1,tableStruct,numOfTables)
+         ooErr=DBD_GetInNewFormat(dagJDT1,dagAnswer)
+         dagAnswer.Detach()
+         if !ooErr&&numOfConds>1
+            if nil!=dagRES
+               dagRES.Concat(dagAnswer,dbmDataBuffer)
+            else
+               dagAnswer.Duplicate(dagRES,dbmKeepData)
+            end
+
+            DAG_Close(dagAnswer)
+            dagAnswer=nil
+         else
+            if ooErr==-2028
+               (numOfIterations+=1;numOfIterations-2)
+               if numOfIterations==totalNumOfIterations
+                  dagAnswer.Duplicate(dagRES,dbmKeepData)
+                  DAG_SetSize(dagRES,0,dbmDropData)
+               end
+
+               DAG_Close(dagAnswer)
+               dagAnswer=nil
+            else
+               if ooErr
+                  DAG_Close(dagAnswer)
+                  if dagRES
+                     DAG_Close(dagRES)
+                  end
+
+                  DAG_Close(dagJDT1)
+                  return ooErr
+               end
+
+            end
+
+         end
+
+         _MEM_Clear(condStruct,numOfConds)
+         _MEM_Clear(tableStruct,numOfTables)
+         numOfConds=0
+         numOfTables=0
+
+         (ii+=1;ii-2)
+      end
+
+      ii=0
+      while (ii<3) do
+         if !(bizEnv.IsCurrentLocalSettingsFRANCE_SETTINGS||VF_OpenFRBoEbizEnv)&&iterationType[ii]==1
+            next
+
+         end
+
+         _MEM_Clear(condStruct,numOfConds)
+         _MEM_Clear(tableStruct,numOfTables)
+         numOfConds=0
+         numOfTables=0
+         _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
+         condStruct[numOfConds].compareCols=true
+         condStruct[numOfConds].colNum=JDT1_SHORT_NAME
+         condStruct[numOfConds].operation=DBD_NE
+         condStruct[numOfConds].compColNum=JDT1_ACCT_NUM
+         condStruct[numOfConds].tableIndex=0
+         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+         BuildRelatedBoeQuery(tableStruct,numOfConds,iterationType[ii],numOfTables,condStruct,joinCondStructForOtherObj,joinCondStructBoe)
+         if bizEnv.IsCurrentLocalSettings(ITALY_SETTINGS)
+            ooErr=ARP_GetAccountByType(GetEnv(),nil,ARP_TYPE_BoE_PRESENTATION,tmpStr,true,VAL_CUSTOMER)
+            if !ooErr&&!_STR_IsSpacesStr(tmpStr)
+               _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
+               condStruct[numOfConds].tableIndex=0
+               condStruct[numOfConds].colNum=JDT1_ACCT_NUM
+               condStruct[numOfConds].operation=DBD_EQ
+               condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
+            end
+
+         else
+            if bizEnv.IsCurrentLocalSettings(FRANCE_SETTINGS)||VF_OpenFRBoE(bizEnv)
+               cmpNumOfConds=0
+               cmpNumOfConds=numOfConds
+               condStruct[numOfConds].bracketOpen=1
+               ooErr=ARP_GetAccountByType(GetEnv(),nil,ARP_TYPE_BoE_ON_COLLECTION,tmpStr,true,VAL_CUSTOMER)
+               if !ooErr&&!_STR_IsSpacesStr(tmpStr)
+                  _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
+                  condStruct[numOfConds].tableIndex=0
+                  condStruct[numOfConds].colNum=JDT1_ACCT_NUM
+                  condStruct[numOfConds].operation=DBD_EQ
+                  condStruct[numOfConds].relationship=DBD_OR
+                  (numOfConds+=1;numOfConds-2)
+               end
+
+               ooErr=ARP_GetAccountByType(GetEnv(),nil,ARP_TYPE_UNPAID_BoE,tmpStr,true,VAL_CUSTOMER)
+               if !ooErr&&!_STR_IsSpacesStr(tmpStr)
+                  _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
+                  condStruct[numOfConds].tableIndex=0
+                  condStruct[numOfConds].colNum=JDT1_ACCT_NUM
+                  condStruct[numOfConds].operation=DBD_EQ
+                  condStruct[numOfConds].relationship=DBD_OR
+                  (numOfConds+=1;numOfConds-2)
+               end
+
+               ooErr=ARP_GetAccountByType(GetEnv(),nil,ARP_TYPE_BoE_DISCOUNTED,tmpStr,true,VAL_CUSTOMER)
+               if !ooErr&&!_STR_IsSpacesStr(tmpStr)
+                  _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
+                  condStruct[numOfConds].tableIndex=0
+                  condStruct[numOfConds].colNum=JDT1_ACCT_NUM
+                  condStruct[numOfConds].operation=DBD_EQ
+                  condStruct[numOfConds].relationship=0
+                  (numOfConds+=1;numOfConds-2)
+               end
+
+               if cmpNumOfConds<numOfConds
+                  condStruct[numOfConds-1].bracketClose=1
+               else
+                  condStruct[cmpNumOfConds].bracketClose=1
+               end
+
+            else
+               if bizEnv.IsCurrentLocalSettings(PORTUGAL_SETTINGS)||VF_Boleto(bizEnv)
+                  condStruct[numOfConds].bracketOpen=1
+                  ooErr=ARP_GetAccountByType(GetEnv(),nil,ARP_TYPE_BoE_PRESENTATION,tmpStr,true,VAL_CUSTOMER)
+                  if !ooErr&&!_STR_IsSpacesStr(tmpStr)
+                     _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
+                     condStruct[numOfConds].tableIndex=0
+                     condStruct[numOfConds].colNum=JDT1_ACCT_NUM
+                     condStruct[numOfConds].operation=DBD_EQ
+                     condStruct[numOfConds].relationship=DBD_OR
+                     (numOfConds+=1;numOfConds-2)
+                  end
+
+                  ooErr=ARP_GetAccountByType(GetEnv(),nil,ARP_TYPE_BoE_DISCOUNTED,tmpStr,true,VAL_CUSTOMER)
+                  if !ooErr&&!_STR_IsSpacesStr(tmpStr)
+                     _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
+                     condStruct[numOfConds].tableIndex=0
+                     condStruct[numOfConds].colNum=JDT1_ACCT_NUM
+                     condStruct[numOfConds].operation=DBD_EQ
+                     condStruct[numOfConds].relationship=0
+                     (numOfConds+=1;numOfConds-2)
+                  end
+
+                  condStruct[numOfConds-1].bracketClose=1
+               end
+
+            end
+
+         end
+
+         if numOfConds>1
+            condStruct[numOfConds].bracketClose=1
+            condStruct[numOfConds-1].relationship=0
+            DBD_SetDAGCond(dagJDT1,condStruct,numOfConds)
+            DBD_SetDAGRes(dagJDT1,resStruct,5)
+            DBD_SetTablesList(dagJDT1,tableStruct,numOfTables)
+            ooErr=DBD_GetInNewFormat(dagJDT1,dagAnswer)
+            dagAnswer.Detach()
+         end
+
+         if !ooErr&&numOfConds>1
+            dagRES.Concat(dagAnswer,dbmDataBuffer)
+            DAG_Close(dagAnswer)
+            dagAnswer=nil
+         else
+            if ooErr==-2028
+               DAG_Close(dagAnswer)
+               dagAnswer=nil
+            else
+               if ooErr
+                  DAG_Close(dagAnswer)
+                  DAG_Close(dagRES)
+                  DAG_Close(dagJDT1)
+                  return ooErr
+               end
+
+            end
+
+         end
+
+
+         (ii+=1;ii-2)
+      end
+
+      DAG_GetCount(dagRES,numOfRecs)
+      if !numOfRecs
+         DAG_Close(dagJDT1)
+         DAG_Close(dagRES)
+         return ooNoErr
+      end
+
+      dagRES.SortByCols(columns,orders,3,false,false)
+      _MEM_Clear(condStruct,numOfConds)
+      cond=DBD_CondStruct.new[2*numOfRecs]
+      updateActBalanceCond=DBD_CondStruct.new[numOfRecs]
+      updateCardBalanceCond=DBD_CondStruct.new[numOfRecs]
+      rec=0
+      while (rec<numOfRecs) do
+         dagRES.GetColStr(tmpStr,4,rec)
+         if !IsCardAlreadyThere(updateCardBalanceCond,tmpStr,0,numOfCardConds)
+            updateCardBalanceCond[numOfCardConds].colNum=OCRD_CARD_CODE
+            updateCardBalanceCond[numOfCardConds].operation=DBD_EQ
+            _STR_strcpy(updateCardBalanceCond[numOfCardConds].condVal,tmpStr)
+            updateCardBalanceCond[(numOfCardConds+=1;numOfCardConds-2)].relationship=DBD_OR
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      updateCardBalanceCond[numOfCardConds-1].relationship=0
+      rec=0
+      numOfConds=0
+      firstAct=true
+      while (rec<numOfRecs)
+         dagRES.GetColStr(savedAcc,2,rec)
+         _STR_LRTrim(savedAcc)
+         dagRES.GetColLong(intrnMatch,3,rec)
+         dagRES.GetColStr(savedShortName,4,rec)
+         while (rec<numOfRecs)
+            dagRES.GetColStr(tmpStr,2,rec)
+            _STR_LRTrim(tmpStr)
+            dagRES.GetColLong(tmpL,3,rec)
+            dagRES.GetColStr(shortName,4,rec)
+            if _STR_strcmp(tmpStr,savedAcc)||tmpL!=intrnMatch||_STR_strcmp(shortName,savedShortName)
+               break
+            end
+
+            cond[numOfConds].bracketOpen=1
+            cond[numOfConds].colNum=JDT1_TRANS_ABS
+            cond[numOfConds].operation=DBD_EQ
+            dagRES.GetColStr(tmpStr,0,rec)
+            _STR_strcpy(cond[numOfConds].condVal,tmpStr)
+            cond[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+            cond[numOfConds].colNum=JDT1_LINE_ID
+            cond[numOfConds].operation=DBD_EQ
+            dagRES.GetColStr(tmpStr,1,rec)
+            _STR_strcpy(cond[numOfConds].condVal,tmpStr)
+            cond[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
+            cond[numOfConds-1].bracketClose=1
+            (rec+=1;rec-2)
+         end
+
+         cond[numOfConds-1].relationship=0
+         if intrnMatch<0
+            GOGetNextSystemMatch(GetEnv(),savedAcc,matchNum,false)
+            intrnMatch=matchNum
+         end
+
+         updStruct[0].colNum=JDT1_SHORT_NAME
+         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
+         updStruct[0].srcColNum=JDT1_ACCT_NUM
+         updStruct[1].colNum=JDT1_INTR_MATCH
+         _STR_sprintf(tmpStr,LONG_FORMAT,intrnMatch)
+         _STR_strcpy(updStruct[1].updateVal,tmpStr)
+         DBD_SetDAGCond(dagJDT1,cond,numOfConds)
+         DBD_SetDAGUpd(dagJDT1,updStruct,2)
+         ooErr=DBD_UpdateCols(dagJDT1)
+         if ooErr
+            cond.__delete
+            updateCardBalanceCond.__delete
+            updateActBalanceCond.__delete
+            DAG_Close(dagJDT1)
+            DAG_Close(dagRES)
+            return ooErr
+         end
+
+         if _STR_strcmp(tmpStr,savedAcc)||firstAct
+            updateActBalanceCond[numOfActsConds].colNum=OACT_ACCOUNT_CODE
+            updateActBalanceCond[numOfActsConds].operation=DBD_EQ
+            _STR_strcpy(updateActBalanceCond[numOfActsConds].condVal,savedAcc)
+            updateActBalanceCond[(numOfActsConds+=1;numOfActsConds-2)].relationship=DBD_OR
+         end
+
+         firstAct=false
+         if rec>=numOfRecs
+            break
+         end
+
+         numOfConds=0
+      end
+
+      DAG_Close(dagRES)
+      DAG_Close(dagJDT1)
+      updateActBalanceCond[numOfActsConds-1].relationship=0
+      dagACT=OpenDAG(ACT,ao_Main)
+      DBD_SetDAGCond(dagACT,updateActBalanceCond,numOfActsConds)
+      ooErr=DBD_Get(dagACT)
       if ooErr
+         cond.__delete
+         updateCardBalanceCond.__delete
+         updateActBalanceCond.__delete
+         DAG_Close(dagACT)
          return ooErr
+      end
+
+      dagCRD=OpenDAG(CRD,ao_Main)
+      DBD_SetDAGCond(dagCRD,updateCardBalanceCond,numOfCardConds)
+      ooErr=DBD_Get(dagCRD)
+      if ooErr
+         cond.__delete
+         updateCardBalanceCond.__delete
+         updateActBalanceCond.__delete
+         DAG_Close(dagCRD)
+         DAG_Close(dagACT)
+         return ooErr
+      end
+
+      RBARebuildAccountsAndCardsInternal(dagACT,dagCRD,false)
+      cond.__delete
+      updateCardBalanceCond.__delete
+      updateActBalanceCond.__delete
+      DAG_Close(dagCRD)
+      DAG_Close(dagACT)
+      return ooNoErr
+   end
+
+   def IsCardAlreadyThere(updateCardBalanceCond,cardCode,startingRec,numOfCardConds)
+      trace("IsCardAlreadyThere")
+      ii=startingRec
+      while (ii<numOfCardConds) do
+         if !_STR_strcmp(updateCardBalanceCond[ii].condVal,cardCode)
+            return true
+         end
+
+
+         (ii+=1;ii-2)
+      end
+
+      return false
+   end
+
+   def FixVendorsAndSpainBoeBalance()
+      trace("FixVendorsAndSpainBoeBalance")
+      numOfCardConds=0
+      numOfActsConds = 0
+      numOfConds = 0
+
+      firstErr=false
+      bizEnv=GetEnv()
+      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
+      dagJDT1=OpenDAG(JDT,ao_Arr1)
+      _STR_strcpy(tableStruct[1].tableCode,bizEnv.ObjectToTable(CRD,ao_Arr3))
+      tableStruct[1].doJoin=true
+      tableStruct[1].joinedToTable=0
+      tableStruct[1].numOfConds=1
+      tableStruct[1].joinConds=joinCondStruct
+      joinCondStruct[0].compareCols=true
+      joinCondStruct[0].compTableIndex=0
+      joinCondStruct[0].compColNum=JDT1_ACCT_NUM
+      joinCondStruct[0].tableIndex=1
+      joinCondStruct[0].colNum=CRD3_ACCOUNT_CODE
+      joinCondStruct[0].operation=DBD_EQ
+      condStruct[numOfConds].compareCols=true
+      condStruct[numOfConds].colNum=JDT1_SHORT_NAME
+      condStruct[numOfConds].operation=DBD_EQ
+      condStruct[numOfConds].compColNum=CRD3_CARD_CODE
+      condStruct[numOfConds].tableIndex=0
+      condStruct[numOfConds].compTableIndex=1
+      condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+      if VF_BOEAsInSpain(bizEnv)
+         condStruct[numOfConds].bracketOpen=1
+         condStruct[numOfConds].tableIndex=1
+         condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
+         _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_RECEIVABLE)
+         condStruct[numOfConds].operation=DBD_EQ
+         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
+      end
+
+      condStruct[numOfConds].tableIndex=1
+      condStruct[numOfConds].colNum=CRD3_ACCOUNT_TYPE
+      _STR_strcpy(condStruct[numOfConds].condVal,ARP_TYPE_BoE_PAYABLE)
+      condStruct[numOfConds].operation=DBD_EQ
+      condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
+      if VF_BOEAsInSpain(bizEnv)
+         condStruct[numOfConds-1].bracketClose=1
+      end
+
+      resStruct[0].colNum=JDT1_SHORT_NAME
+      resStruct[0].tableIndex=0
+      resStruct[0].group_by=true
+      DBD_SetDAGCond(dagJDT1,condStruct,numOfConds)
+      DBD_SetDAGRes(dagJDT1,resStruct,1)
+      DBD_SetTablesList(dagJDT1,tableStruct,2)
+      ooErr=DBD_GetInNewFormat(dagJDT1,dagRES)
+      if ooErr&&ooErr!=-2028
+         DAG_Close(dagJDT1)
+         return ooErr
+      else
+         if ooErr
+            firstErr=true
+            DAG_SetSize(dagRES,0,dbmDropData)
+         end
+
+      end
+
+      dagRES.Detach()
+      _MEM_Clear(condStruct,numOfConds)
+      _MEM_Clear(tableStruct,2)
+      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
+      numOfConds=0
+      if VF_BOEAsInSpain(bizEnv)
+         ooErr=ARP_GetAccountByType(GetEnv(),nil,ARP_TYPE_BoE_RECEIVABLE,tmpStr,true,VAL_CUSTOMER)
+         if !ooErr&&!_STR_IsSpacesStr(tmpStr)
+            _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
+            condStruct[numOfConds].tableIndex=0
+            condStruct[numOfConds].colNum=JDT1_ACCT_NUM
+            condStruct[numOfConds].operation=DBD_EQ
+            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
+         end
+
+      end
+
+      ooErr=ARP_GetAccountByType(GetEnv(),nil,ARP_TYPE_BoE_PAYABLE,tmpStr,true,VAL_VENDOR)
+      if !ooErr&&!_STR_IsSpacesStr(tmpStr)
+         _STR_strcpy(condStruct[numOfConds].condVal,tmpStr)
+         condStruct[numOfConds].tableIndex=0
+         condStruct[numOfConds].colNum=JDT1_ACCT_NUM
+         condStruct[numOfConds].operation=DBD_EQ
+         condStruct[(numOfConds+=1;numOfConds-2)].relationship=0
+      end
+
+      if numOfConds
+         DBD_SetDAGCond(dagJDT1,condStruct,numOfConds)
+         DBD_SetDAGRes(dagJDT1,resStruct,1)
+         DBD_SetTablesList(dagJDT1,tableStruct,1)
+         ooErr=DBD_GetInNewFormat(dagJDT1,dagRES2)
+         dagRES2.Detach()
+      end
+
+      if !ooErr&&numOfConds
+         dagRES.Concat(dagRES2,dbmDataBuffer)
+         DAG_Close(dagRES2)
+      else
+         if ooErr==-2028
+            DAG_Close(dagRES2)
+            if firstErr
+               DAG_Close(dagRES)
+               DAG_Close(dagJDT1)
+               return ooNoErr
+            end
+
+         else
+            if ooErr
+               DAG_Close(dagRES2)
+               DAG_Close(dagRES)
+               DAG_Close(dagJDT1)
+               return ooErr
+            end
+
+         end
+
+      end
+
+      DAG_GetCount(dagRES,numOfRecs)
+      if !numOfRecs
+         DAG_Close(dagRES)
+         return ooNoErr
+      end
+
+      updateCardBalanceCond=DBD_CondStruct.new[numOfRecs]
+      rec=0
+      while (rec<numOfRecs) do
+         updateCardBalanceCond[numOfCardConds].colNum=OCRD_CARD_CODE
+         updateCardBalanceCond[numOfCardConds].operation=DBD_EQ
+         dagRES.GetColStr(tmpStr,0,rec)
+         _STR_strcpy(updateCardBalanceCond[numOfCardConds].condVal,tmpStr)
+         updateCardBalanceCond[(numOfCardConds+=1;numOfCardConds-2)].relationship=DBD_OR
+
+         (rec+=1;rec-2)
+      end
+
+      updateCardBalanceCond[numOfCardConds-1].relationship=0
+      dagCRD=OpenDAG(CRD,ao_Main)
+      DBD_SetDAGCond(dagCRD,updateCardBalanceCond,numOfCardConds)
+      ooErr=DBD_Get(dagCRD)
+      if ooErr
+         updateCardBalanceCond.__delete
+         DAG_Close(dagCRD)
+         return ooNoErr
+      end
+
+      RBARebuildAccountsAndCardsInternal(nil,dagCRD,false)
+      updateCardBalanceCond.__delete
+      DAG_Close(dagCRD)
+      return ooNoErr
+   end
+
+   def UpgradePeriodIndic()
+      trace("UpgradePeriodIndic")
+      sboErr=ooNoErr
+      dagJDT1=OpenDAG(JDT,ao_Arr1)
+      condStruct[0].colNum=JDT1_TRANS_TYPE
+      condStruct[0].operation=DBD_EQ
+      condStruct[0].condVal=RCT
+      condStruct[0].relationship=DBD_OR
+      condStruct[1].colNum=JDT1_TRANS_TYPE
+      condStruct[1].operation=DBD_EQ
+      condStruct[1].condVal=VPM
+      DBD_SetDAGCond(dagJDT1,condStruct,2)
+      updateStruct[0].colNum=JDT1_SRC_ABS_ID
+      updateStruct[0].srcColNum=JDT1_CREATED_BY
+      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
+      DBD_SetDAGUpd(dagJDT1,updateStruct,1)
+      sboErr=DBD_UpdateCols(dagJDT1)
+      DAG_Close(dagJDT1)
+      return sboErr
+   end
+
+   def BuildRelatedBoeQuery(tableStruct,numOfConds,iterationType,numOfTables,condStruct,joinCondStructForOtherObj,joinCondStructBoe)
+      trace("BuildRelatedBoeQuery")
+      bizEnv=GetEnv()
+      if iterationType==0
+         _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(BOT,ao_Main))
+         absJoinField=OBOT_ABS_ENTRY
+         jdt1JoinField=JDT1_SRC_ABS_ID
+         objJoinField=BOT
+      else
+         if iterationType==1
+            _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(RCT,ao_Main))
+            absJoinField=ORCT_NUM
+            _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(BOE,ao_Main))
+            objJoinField=RCT
+            jdt1JoinField=JDT1_CREATED_BY
+         else
+            _STR_strcpy(tableStruct[(numOfTables+=1;numOfTables-2)].tableCode,bizEnv.ObjectToTable(DPS,ao_Main))
+            absJoinField=ODPS_ABS_ENT
+            objJoinField=DPS
+            jdt1JoinField=JDT1_SRC_ABS_ID
+         end
+
+      end
+
+      tableStruct[1].doJoin=true
+      tableStruct[1].joinedToTable=0
+      tableStruct[1].numOfConds=2
+      tableStruct[1].joinConds=joinCondStructForOtherObj
+      joinCondStructForOtherObj[0].compareCols=true
+      joinCondStructForOtherObj[0].compTableIndex=0
+      joinCondStructForOtherObj[0].compColNum=jdt1JoinField
+      joinCondStructForOtherObj[0].tableIndex=1
+      joinCondStructForOtherObj[0].colNum=absJoinField
+      joinCondStructForOtherObj[0].operation=DBD_EQ
+      joinCondStructForOtherObj[0].relationship=DBD_AND
+      joinCondStructForOtherObj[1].tableIndex=0
+      joinCondStructForOtherObj[1].colNum=JDT1_TRANS_TYPE
+      joinCondStructForOtherObj[1].condVal=objJoinField
+      joinCondStructForOtherObj[1].operation=DBD_EQ
+      if iterationType==0
+         condStruct[numOfConds].bracketOpen=1
+         condStruct[numOfConds].colNum=OBOT_STATUS_FROM
+         condStruct[numOfConds].operation=DBD_EQ
+         condStruct[numOfConds].tableIndex=1
+         _STR_strcpy(condStruct[numOfConds].condVal,VAL_BOE_DEPOSITED)
+         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+         condStruct[numOfConds].colNum=JDT1_LINE_ID
+         condStruct[numOfConds].operation=DBD_EQ
+         condStruct[numOfConds].tableIndex=0
+         condStruct[numOfConds].condVal=1
+         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_OR
+         condStruct[numOfConds].colNum=OBOT_STATUS_FROM
+         condStruct[numOfConds].operation=DBD_EQ
+         condStruct[numOfConds].tableIndex=1
+         _STR_strcpy(condStruct[numOfConds].condVal,VAL_BOE_PAID)
+         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+         condStruct[numOfConds].colNum=JDT1_LINE_ID
+         condStruct[numOfConds].operation=DBD_EQ
+         condStruct[numOfConds].tableIndex=0
+         condStruct[numOfConds].condVal=0
+         condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+         condStruct[numOfConds-1].bracketClose=1
+      else
+         if iterationType==1
+            tableStruct[2].doJoin=true
+            tableStruct[2].joinedToTable=2
+            tableStruct[2].numOfConds=2
+            tableStruct[2].joinConds=joinCondStructBoe
+            joinCondStructBoe[0].compareCols=true
+            joinCondStructBoe[0].compTableIndex=1
+            joinCondStructBoe[0].compColNum=ORCT_BOE_NUM
+            joinCondStructBoe[0].tableIndex=2
+            joinCondStructBoe[0].colNum=OBOE_BOE_NUM
+            joinCondStructBoe[0].operation=DBD_EQ
+            joinCondStructBoe[0].relationship=DBD_AND
+            joinCondStructBoe[1].tableIndex=2
+            joinCondStructBoe[1].colNum=OBOE_TYPE
+            _STR_strcpy(joinCondStructBoe[1].condVal,VAL_INPUT)
+            joinCondStructBoe[1].operation=DBD_EQ
+            condStruct[numOfConds].colNum=ORCT_CANCELED
+            condStruct[numOfConds].operation=DBD_EQ
+            condStruct[numOfConds].tableIndex=1
+            _STR_strcpy(condStruct[numOfConds].condVal,VAL_YES)
+            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+            condStruct[numOfConds].colNum=OBOE_STATUS
+            condStruct[numOfConds].operation=DBD_EQ
+            condStruct[numOfConds].tableIndex=2
+            _STR_strcpy(condStruct[numOfConds].condVal,VAL_BOE_FAILED)
+            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+            condStruct[numOfConds].colNum=JDT1_SRC_LINE
+            condStruct[numOfConds].operation=DBD_EQ
+            condStruct[numOfConds].tableIndex=0
+            condStruct[numOfConds].condVal=PMN_VAL_BOE
+            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+            condStruct[numOfConds].colNum=JDT1_DEBIT
+            condStruct[numOfConds].operation=DBD_LE
+            condStruct[numOfConds].tableIndex=0
+            condStruct[numOfConds].condVal=0
+            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+         else
+            condStruct[numOfConds].colNum=ODPS_DEPOS_TYPE
+            condStruct[numOfConds].operation=DBD_EQ
+            condStruct[numOfConds].tableIndex=1
+            _STR_strcpy(condStruct[numOfConds].condVal,VAL_BOE)
+            condStruct[(numOfConds+=1;numOfConds-2)].relationship=DBD_AND
+         end
+
+      end
+
+   end
+
+   def ValidateReportEU()
+      trace("ValidateReportEU")
+      bizEnv=GetEnv()
+      if !bizEnv.IsLocalSettingsFlag(lsf_IsEC)
+         return ooNoErr
       end
 
       dagJDT=GetDAG()
-      ooErr=AddLinkMapIconMetaData(el,dagJDT,OJDT_PRINTED,VAL_YES,linkMap::iLMVertex::imdPrinted,LINKMAP_ICONSTR_PRINTED)
+      sboErr=ooNoErr
+      dagJDT.GetColStr(reportEUStr,OJDT_REPORT_EU)
+      if reportEUStr.Compare(VAL_YES)
+         return ooNoErr
+      end
+
+      sboErr=ValidateVatReportTransType()
+      if sboErr==0
+         numOfBPfound=0
+         validateFedTaxId=bizEnv.IsVatPerLine()
+         sboErr=GetNumOfBPRecords(numOfBPfound,validateFedTaxId)
+         if sboErr
+            return sboErr
+         end
+
+         if numOfBPfound!=1
+            Message(GO_OBJ_ERROR_MSGS(JDT),12,nil,OO_ERROR)
+            sboErr=-10
+         end
+
+      end
+
+      if sboErr!=0
+         SetErrorField(-1)
+         SetErrorField(OJDT_REPORT_EU)
+      end
+
+      return sboErr
+   end
+
+   def ValidateReport347()
+      trace("ValidateReport347")
+      bizEnv=GetEnv()
+      if !bizEnv.IsCurrentLocalSettings(SPAIN_SETTINGS)
+         return ooNoErr
+      end
+
+      dagJDT=GetDAG()
+      sboErr=ooNoErr
+      dagJDT.GetColStr(report347Str,OJDT_REPORT_347)
+      if report347Str.Compare(VAL_YES)
+         return ooNoErr
+      end
+
+      sboErr=ValidateVatReportTransType()
+      if sboErr==0
+         numOfBPfound=0
+         sboErr=GetNumOfBPRecords(numOfBPfound,false)
+         if sboErr
+            return sboErr
+         end
+
+         if numOfBPfound!=1
+            Message(GO_OBJ_ERROR_MSGS(JDT),13,nil,OO_ERROR)
+            sboErr=-10
+         end
+
+      end
+
+      if sboErr!=0
+         SetErrorField(-1)
+         SetErrorField(OJDT_REPORT_347)
+      end
+
+      return sboErr
+   end
+
+   def GetNumOfBPRecords(numOfBPfound,validateFedTaxId)
+      trace("GetNumOfBPRecords")
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      recCount=dagJDT1.GetRecordCount()
+      indexOfMissingTaxId=-1
+      foundECTax=false
+      bizEnv=GetEnv()
+      numOfBPfound=0
+      ii=0
+      while (ii<recCount) do
+         dagJDT1.GetColStr(actCode,JDT1_ACCT_NUM,ii)
+         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,ii)
+         if actCode.Compare(shortName)!=0
+            (numOfBPfound+=1;numOfBPfound-2)
+            if validateFedTaxId&&indexOfMissingTaxId<0
+               dagJDT1.GetColStr(fedTaxId,JDT1_TAX_ID_NUMBER,ii)
+               if fedTaxId.IsSpacesStr()
+                  indexOfMissingTaxId=ii
+               end
+
+            end
+
+         end
+
+         if validateFedTaxId&&!foundECTax
+            dagJDT1.GetColStr(taxGroup,JDT1_VAT_GROUP,ii)
+            taxGroup.Trim()
+            if !taxGroup.IsSpacesStr()&&bizEnv.GetTaxGroupCache().IsEC(bizEnv,taxGroup)
+               foundECTax=true
+            end
+
+         end
+
+
+         (ii+=1;ii-2)
+      end
+
+      if validateFedTaxId&&foundECTax&&indexOfMissingTaxId>=0
+         if cMessagesManager.getHandle().DisplayMessage(_48_APP_MSG_FIN_JDT_MISSING_FEDERAL_TAX_ID)!=DIALOG_YES_BTN
+            return -10
+         end
+
+      end
+
+      return 0
+   end
+
+   def ValidateVatReportTransType()
+      trace("ValidateVatReportTransType")
+      sboErr=ooNoErr
+      dagJDT=GetDAG()
+      if IsManualJE(dagJDT)==false
+         Message(GO_OBJ_ERROR_MSGS(JDT),14,nil,OO_ERROR)
+         sboErr=-10
+      end
+
+      return sboErr
+   end
+
+   def ValidateBPLNumberingSeries()
+      env=GetEnv()
+      if !VF_MultiBranch_EnabledInOADM(env)
+         return 0
+      end
+
+      series=GetSeries()
+      if series<=0
+         GetDAG().GetColLong(series,OJDT_SERIES)
+      end
+
+      dagJDT1=GetArrayDAG(ao_Arr1)
+      dag1Size=dagJDT1.GetRealSize(dbmDataBuffer)
+      dag1Row=0
+      while (dag1Row<dag1Size) do
+         bPLId=dagJDT1.GetColStr(JDT1_BPL_ID,dag1Row,coreSystemDefault).strtol()
+         bPLIds.insert(BPLId)
+
+         (dag1Row+=1;dag1Row-2)
+      end
+
+
+      while (it!=bPLIds.end()) do
+         tmpNum=SBOString(series)+SBOString(SUB_TYPE_NONE)
+         if !cBusinessPlaceObject.isBPLIdAssignedToObject(env,it,NNM,tmpNum)
+            SetArrNum(ao_Main)
+            SetErrorLine(-1)
+            SetErrorField(OJDT_SERIES)
+            OpenDAG(dagOBJ,NNM,ao_Arr1)
+            if dagOBJ
+               dagOBJ.GetByKey(SBOString(series))
+            end
+
+            if dagOBJ&&dagOBJ.GetRealSizedbmDataBuffer>0
+               strObjCode=dagOBJ.GetColStrAndTrim(NNM1_NAME,0,coreSystemDefault)
+            end
+
+            Message(cBusinessPlaceObject::eRROR_STRING_LIST_ID,cBusinessPlaceObject::eRRMSG_BPL_NOT_ASSIGNED_TO_SERIES_STR,strObjCode,OO_ERROR)
+            return ooInvalidObject
+         end
+
+
+         (it+=1;it-2)
+      end
+
+      return 0
+   end
+
+   def IsBalancedByBPL()
+      env=GetEnv()
+      if !VF_MultiBranch_EnabledInOADM(env)
+         return 0
+      end
+
+      dagJDT1=GetArrayDAG(ao_Arr1)
+      dag1Size=dagJDT1.GetRealSize(dbmDataBuffer)
+      rec=0
+      while (rec<dag1Size) do
+         bPLId=-1
+         dagJDT1.GetColLong(BPLId,JDT1_BPL_ID,rec)
+         if debits.find(BPLId)==debits.end()
+            debits[BPLId]=CAllCurrencySums()
+         end
+
+         if credits.find(BPLId)==credits.end()
+            credits[BPLId]=CAllCurrencySums()
+         end
+
+         amount.FromDAG(dagJDT1,rec,JDT1_DEBIT,JDT1_FC_DEBIT,JDT1_SYS_DEBIT)
+         debits[BPLId]+=amount
+         amount.FromDAG(dagJDT1,rec,JDT1_CREDIT,JDT1_FC_CREDIT,JDT1_SYS_CREDIT)
+         credits[BPLId]+=amount
+
+         (rec+=1;rec-2)
+      end
+
+
+      while (itDeb!=debits.end()) do
+         if itCred==credits.end()
+            cMessagesManager.getHandle().Message(_132_APP_MSG_FIN_UNBALANCED_TRANS_FOR_BRANCH,EMPTY_STR,self)
+            return ooInvalidObject
+         end
+
+         if itCred.second!=itDeb.second
+            cMessagesManager.getHandle().Message(_132_APP_MSG_FIN_UNBALANCED_TRANS_FOR_BRANCH,EMPTY_STR,self)
+            return ooInvalidObject
+         end
+
+
+         (itDeb+=1;itDeb-2)
+      end
+
+      return 0
+   end
+
+   def UpgradeOJDTCreatedByForWOR()
+      trace("UpgradeOJDTCreatedByForWOR")
+      sboErr=0
+      bizEnv=GetEnv()
+
+      dagJDT = GetDAG()
+      dagQuery = GetDAG(CRD)
+      dagQuery.GetDBDParams().Clear()
+      resStruct[0].tableIndex=0
+      resStruct[0].colNum=OWOR_NUM
+      resStruct[0].group_by=true
+      resStruct[1].tableIndex=0
+      resStruct[1].colNum=OWOR_ABS_ENTRY
+      resStruct[1].agreg_type=DBD_MAX
+      tables=dagQuery.GetDBDParams().GetCondTables()
+      tablePtr=tables.AddTable()
+      tablePtr.tableCode=bizEnv.ObjectToTable(WOR)
+      tablePtr=tables.AddTable()
+      tablePtr.tableCode=bizEnv.ObjectToTable(JDT)
+      tablePtr.doJoin=true
+      tablePtr.joinedToTable=0
+      tablePtr.numOfConds=2
+      tablePtr.joinConds=join
+      join[0].compareCols=true
+      join[0].compColNum=OWOR_NUM
+      join[0].compTableIndex=0
+      join[0].colNum=OJDT_CREATED_BY
+      join[0].tableIndex=1
+      join[0].operation=DBD_EQ
+      join[0].relationship=DBD_AND
+      join[1].compareCols=false
+      join[1].colNum=OJDT_TRANS_TYPE
+      join[1].tableIndex=1
+      join[1].operation=DBD_EQ
+      join[1].condVal=WOR
+      join[1].relationship=0
+      DBD_SetDAGRes(dagQuery,resStruct,2)
+      sortStruct[0].colNum=OWOR_NUM
+      DBD_SetDAGSort(dagQuery,sortStruct,1)
+      sboErr=DBD_GetInNewFormat(dagQuery,dagRes)
+      if sboErr
+         return (sboErr==-2028) ? ooNoErr : sboErr
+      end
+
+      conds=dagJDT.GetDBDParams().GetConditions()
+      cond=conds.AddCondition()
+      cond.colNum=OJDT_TRANS_TYPE
+      cond.operation=DBD_EQ
+      cond.condVal=WOR
+      cond.relationship=0
+      sboErr=dagJDT.GetFirstChunk(50000)
+      if sboErr
+         return sboErr
+      end
+
+      while (sboErr==0)
+
+         numOfDoc1Recs = dagJDT.GetRecordCount()
+         rec=0
+         while (rec<numOfDoc1Recs) do
+            dagJDT.GetColLong(oldBaseNum,OJDT_CREATED_BY,rec)
+            newBaseNum=GetBaseEntry(dagRes,oldBaseNum)
+            if newBaseNum<0
+               next
+
+            end
+
+            dagJDT.SetColLong(newBaseNum,OJDT_CREATED_BY,rec)
+
+            (rec+=1;rec-2)
+         end
+
+         sboErr=dagJDT.UpdateAll()
+         if sboErr
+            break
+         end
+
+         sboErr=dagJDT.GetNextChunk(50000)
+      end
+
+      if sboErr==-2028
+         sboErr=0
+      end
+
+      return sboErr
+   end
+
+   def UpgradeOJDTUpdateDocType()
+      sboErr=ooNoErr
+      bizEnv=GetEnv()
+      dagJDT=bizEnv.OpenDAG(JDT)
+      srcStr=bizEnv.GetDefaultJEType()
+      srcStr.Trim()
+      condStruct[0].colNum=OJDT_DOC_TYPE
+      condStruct[0].operation=DBD_IS_NULL
+      condStruct[0].relationship=DBD_OR
+      condStruct[1].colNum=OJDT_DOC_TYPE
+      condStruct[1].operation=DBD_EQ
+      _STR_strcpy(condStruct[1].condVal,_T(""))
+      condStruct[1].relationship=0
+      sboErr=DBD_SetDAGCond(dagJDT,condStruct,2)
+      if sboErr
+         dagJDT.Close()
+         return sboErr
+      end
+
+      updStruct[0].colNum=OJDT_DOC_TYPE
+      _STR_strcpy(updStruct[0].updateVal,srcStr)
+      sboErr=DBD_SetDAGUpd(dagJDT,updStruct,1)
+      if sboErr
+         dagJDT.Close()
+         return sboErr
+      end
+
+      sboErr=DBD_UpdateCols(dagJDT)
+      dagJDT.Close()
+      return sboErr
+   end
+
+   def GetBaseEntry(dagRes,docNum)
+      trace("GetBaseEntry")
+      start=0
+      DAG_GetCount(dagRes,numOfRecs)
+      if !numOfRecs
+         return -1
+      end
+
+      _translated_end=numOfRecs-1
+      begin
+         mid=(start+_translated_end+1)/2
+         dagRes.GetColLong(dagDocNum,0,mid)
+         if docNum==dagDocNum
+            dagRes.GetColLong(result,1,mid)
+            return result
+         else
+            if docNum>dagDocNum
+               start=mid+1
+            else
+               _translated_end=mid-1
+            end
+
+         end
+
+      end while (start<=_translated_end)
+
+      return -1
+   end
+
+   def UpgradeOJDTWithFolio()
+      trace("UpgradeOJDTWithFolio")
+      dagJDT=nil
+      dagJDT1 = nil
+
+      ooErr=0
+      bizEnv=GetEnv()
+      dagJDT1=GetArrayDAG(ao_Arr1)
+      dagJDT=GetDAG()
+      ooErr=dagJDT.GetFirstChunk(10000)
+      while (ooErr==0)
+         numOfRecs=dagJDT.GetRealSize(dbmDataBuffer)
+         rec=0
+         while (rec<numOfRecs) do
+            dagJDT.GetColLong(curTransId,OJDT_JDT_NUM,rec)
+            dagJDT.GetColLong(curTransType,OJDT_TRANS_TYPE,rec)
+            dagJDT.GetColLong(curCreatedBy,OJDT_CREATED_BY,rec)
+            case curTransType
+
+            when DLN
+            when RDN
+            when INV
+            when RIN
+            when DPI
+            when DPO
+            when PDN
+            when RPD
+            when PCH
+            when RPC
+            when IGN
+            when IGE
+            when WTR
+               prefCol=OINV_FOLIO_PREFIX
+               folioCol=OINV_FOLIO_NUMBER
+               break
+            when BOE
+               prefCol=OBOE_FOLIO_PREFIX
+               folioCol=OBOE_FOLIO_NUMBER
+               break
+            else
+               next
+
+            end
+
+            folioResStruct[0].tableIndex=0
+            folioResStruct[0].colNum=prefCol
+            folioResStruct[1].tableIndex=0
+            folioResStruct[1].colNum=folioCol
+            tables=dagJDT1.GetDBDParams().GetCondTables()
+            tables.Clear()
+            table=tables.AddTable()
+            table.tableCode=bizEnv.ObjectToTable(curTransType)
+            conditions=dagJDT1.GetDBDParams().GetConditions()
+            conditions.Clear()
+            cond=conditions.AddCondition()
+            cond.colNum=OINV_ABS_ENTRY
+            cond.tableIndex=0
+            cond.operation=DBD_EQ
+            cond.condVal=curCreatedBy
+            DBD_SetDAGRes(dagJDT1,folioResStruct,2)
+            ooErr=DBD_GetInNewFormat(dagJDT1,dagFolioRes)
+            if ooErr
+               if ooErr==-2028
+                  ooErr=0
+                  next
+
+               end
+
+               return ooErr
+            end
+
+            dagFolioRes.GetColStr(curPrefix,0)
+            dagFolioRes.GetColStr(curFolioNum,1)
+            dagJDT.SetColStr(curPrefix,OJDT_FOLIO_PREFIX,rec)
+            dagJDT.SetColStr(curFolioNum,OJDT_FOLIO_NUMBER,rec)
+
+            (rec+=1;rec-2)
+         end
+
+         ooErr=dagJDT.UpdateAll()
+         if ooErr
+            return ooErr
+         end
+
+         ooErr=dagJDT.GetNextChunk(10000)
+      end
+
+      if ooErr==-2028
+         ooErr=0
+      end
+
+      return ooErr
+   end
+
+   def UpgradeJDTCreateDate()
+      trace("UpgradeJDTCreateDate")
+      dagJDT=GetDAG()
+      resStruct[0].colNum=OJDT_JDT_NUM
+      resStruct[0].agreg_type=0
+      DBD_SetDAGRes(dagJDT,resStruct,1)
+      conditions=dagJDT.GetDBDParams().GetConditions()
+      cond=conditions.AddCondition()
+      cond.colNum=OJDT_CREATE_DATE
+      cond.operation=DBD_IS_NULL
+      cond.relationship=DBD_AND
+      cond=conditions.AddCondition()
+      cond.bracketOpen=2
+      cond.colNum=OJDT_TRANS_TYPE
+      cond.operation=DBD_EQ
+      cond.condVal=PDN
+      cond.relationship=DBD_AND
+      cond=conditions.AddCondition()
+      UpgradeCreateDateSubQuery(subParamsPDN,subResStructPDN,subTableStructPDN,subCondPDN,PDN)
+      cond.SetSubQueryParams(subParamsPDN)
+      cond.tableIndex=DBD_NO_TABLE
+      cond.operation=DBD_NOT_EXISTS
+      cond.bracketClose=1
+      cond.relationship=DBD_OR
+      cond=conditions.AddCondition()
+      cond.bracketOpen=1
+      cond.colNum=OJDT_TRANS_TYPE
+      cond.operation=DBD_EQ
+      cond.condVal=RPD
+      cond.relationship=DBD_AND
+      cond=conditions.AddCondition()
+      UpgradeCreateDateSubQuery(subParamsRPD,subResStructRPD,subTableStructRPD,subCondRPD,RPD)
+      cond.SetSubQueryParams(subParamsRPD)
+      cond.tableIndex=DBD_NO_TABLE
+      cond.operation=DBD_NOT_EXISTS
+      cond.bracketClose=2
+      cond.relationship=0
+      sort[0].colNum=OJDT_JDT_NUM
+      DBD_SetDAGSort(dagJDT,sort,1)
+      ooErr=DBD_GetInNewFormat(dagJDT,dagRES1)
+      if ooErr
+         if ooErr==-2028
+            ooErr=0
+         end
+
+         return ooErr
+      end
+
+      dagRES1.Detach()
+      resStruct[0].colNum=OJDT_JDT_NUM
+      resStruct[0].agreg_type=DBD_MAX
+      resStruct[1].colNum=OJDT_CREATE_DATE
+      resStruct[1].group_by=true
+      DBD_SetDAGRes(dagJDT,resStruct,2)
+      conditions=dagJDT.GetDBDParams().GetConditions()
+      cond=conditions.AddCondition()
+      cond.colNum=OJDT_CREATE_DATE
+      cond.operation=DBD_NOT_NULL
+      cond.relationship=0
+      ooErr=DBD_GetInNewFormat(dagJDT,dagRES2)
+      if ooErr
+         dagRES1.Close()
+         if ooErr==-2028
+            ooErr=0
+         end
+
+         return ooErr
+      end
+
+      cols=""
+      oreder=""
+      dagRES2.SortByCols(cols,oreder,1,false,false)
+
+      jj = 0
+      updStruct[0].colNum=OJDT_CREATE_DATE
+      numOfRecsRES1=dagRES1.GetRecordCount()
+      numOfRecsRES2=dagRES2.GetRecordCount()
+      ii=0
+      while (ii<numOfRecsRES1) do
+         dagRES1.GetColLong(updateTransNum,0,ii)
+         while (jj<numOfRecsRES2)
+            dagRES2.GetColLong(transOfNewDateInRES2,0,jj)
+            if updateTransNum<transOfNewDateInRES2
+               conditions=dagJDT.GetDBDParams().GetConditions()
+               cond=conditions.AddCondition()
+               cond.colNum=OJDT_JDT_NUM
+               cond.operation=DBD_EQ
+               cond.condVal=SBOString(updateTransNum)
+               cond.relationship=0
+               dagRES2.GetColStr(updStruct[0].updateVal,1,jj)
+               DBD_SetDAGUpd(dagJDT,updStruct,1)
+               ooErr=DBD_UpdateCols(dagJDT)
+               if ooErr
+                  dagRES1.Close()
+                  return ooErr
+               end
+
+               break
+            end
+
+            (jj+=1;jj-2)
+         end
+
+
+         (ii+=1;ii-2)
+      end
+
+      dagRES1.Close()
+      return 0
+   end
+
+   def UpgradeCreateDateSubQuery(subParams,subResStruct,subTableStruct,subCond,objectID)
+      trace("UpgradeCreateDateSubQuery")
+      bizEnv=GetEnv()
+      isPDN=(objectID==PDN)
+      _STR_strcpy(subTableStruct[0].tableCode,bizEnv.ObjectToTable(isPDN ? PDN : RPD))
+      subResStruct[0].colNum=isPDN ? OPDN_ABS_ENTRY : ORPD_ABS_ENTRY
+      subResStruct[0].tableIndex=0
+      subCond[0].compareCols=true
+      subCond[0].tableIndex=0
+      subCond[0].colNum=OJDT_JDT_NUM
+      subCond[0].compColNum=isPDN ? OPDN_TRANS_NUM : ORPD_TRANS_NUM
+      subCond[0].operation=DBD_EQ
+      subCond[0].origTableIndex=0
+      subCond[0].origTableLevel=1
+      subCond[0].relationship=0
+      DBD_SetParamTablesList(subParams,subTableStruct,1)
+      DBD_SetCond(subParams,subCond,1)
+      DBD_SetRes(subParams,subResStruct,1)
+   end
+
+   def UpgradeJDTCanceledDeposit()
+      trace("UpgradeJDTCanceledDeposit")
+      dagJDT=GetDAG()
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      resStruct[0].colNum=OJDT_JDT_NUM
+      resStruct[1].colNum=OJDT_NUMBER
+      DBD_SetDAGRes(dagJDT,resStruct,2)
+      conditions=dagJDT.GetDBDParams().GetConditions()
+      cond=conditions.AddCondition()
+      cond.colNum=OJDT_TRANS_TYPE
+      cond.operation=DBD_EQ
+      cond.condVal=SBOString(DPS)
+      cond.relationship=DBD_AND
+      _STR_strcpy(subTableStruct[0].tableCode,GetEnv().ObjectToTable(DPS))
+      subResStruct[0].colNum=ODPS_ABS_ENT
+      subResStruct[0].tableIndex=0
+      subCond[0].compareCols=true
+      subCond[0].tableIndex=0
+      subCond[0].colNum=OJDT_JDT_NUM
+      subCond[0].compColNum=ODPS_TRANS_ABS
+      subCond[0].operation=DBD_EQ
+      subCond[0].origTableIndex=0
+      subCond[0].origTableLevel=1
+      subCond[0].relationship=0
+      DBD_SetParamTablesList(subParams,subTableStruct,1)
+      DBD_SetCond(subParams,subCond,1)
+      DBD_SetRes(subParams,subResStruct,1)
+      cond=conditions.AddCondition()
+      cond.SetSubQueryParams(subParams)
+      cond.tableIndex=DBD_NO_TABLE
+      cond.operation=DBD_NOT_EXISTS
+      cond.relationship=0
+      ooErr=DBD_GetInNewFormat(dagJDT,dagRES)
+      if ooErr
+         if ooErr==-2028
+            ooErr=0
+         end
+
+         return ooErr
+      end
+
+      updStructJDT[0].colNum=OJDT_TRANS_TYPE
+      updStructJDT[1].colNum=OJDT_CREATED_BY
+      updStructJDT[2].colNum=OJDT_BASE_REF
+      updStructJDT1[0].colNum=JDT1_TRANS_TYPE
+      updStructJDT1[1].colNum=JDT1_CREATED_BY
+      updStructJDT1[2].colNum=JDT1_BASE_REF
+      updStructJDT[0].updateVal=SBOString(JDT)
+      updStructJDT1[0].updateVal=SBOString(JDT)
+      numOfRecs=dagRES.GetRecordCount()
+      ii=0
+      while (ii<numOfRecs) do
+         conditions=dagJDT.GetDBDParams().GetConditions()
+         cond=conditions.AddCondition()
+         cond.colNum=OJDT_JDT_NUM
+         cond.operation=DBD_EQ
+         dagRES.GetColStr(cond.condVal,0,ii)
+         cond.relationship=0
+         dagRES.GetColStr(updStructJDT[1].updateVal,0,ii)
+         dagRES.GetColStr(updStructJDT[2].updateVal,1,ii)
+         DBD_SetDAGUpd(dagJDT,updStructJDT,3)
+         ooErr=DBD_UpdateCols(dagJDT)
+         if ooErr
+            return ooErr
+         end
+
+         conditions=dagJDT1.GetDBDParams().GetConditions()
+         cond=conditions.AddCondition()
+         cond.colNum=JDT1_TRANS_ABS
+         cond.operation=DBD_EQ
+         dagRES.GetColStr(cond.condVal,0,ii)
+         cond.relationship=0
+         dagRES.GetColStr(updStructJDT1[1].updateVal,0,ii)
+         dagRES.GetColStr(updStructJDT1[2].updateVal,1,ii)
+         DBD_SetDAGUpd(dagJDT1,updStructJDT1,3)
+         ooErr=DBD_UpdateCols(dagJDT1)
+         if ooErr
+            return ooErr
+         end
+
+
+         (ii+=1;ii-2)
+      end
+
+      return 0
+   end
+
+   def UpgradeJDT1VatLineToNo()
+      sboErr=0
+      bizEnv=GetEnv()
+      queryDag=GetDAG()
+      _STR_strcpy(subQueryTableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Main))
+      DBD_SetParamTablesList(subQueryParams,subQueryTableStruct,1)
+      subQueryRES[0].tableIndex=0
+      subQueryRES[0].colNum=OJDT_JDT_NUM
+      DBD_SetRes(subQueryParams,subQueryRES,1)
+      subConds[0].compareCols=true
+      subConds[0].origTableLevel=1
+      subConds[0].origTableIndex=0
+      subConds[0].colNum=JDT1_TRANS_ABS
+      subConds[0].operation=DBD_EQ
+      subConds[0].compTableIndex=0
+      subConds[0].compColNum=OJDT_JDT_NUM
+      subConds[0].relationship=DBD_AND
+      subConds[1].colNum=OJDT_AUTO_VAT
+      subConds[1].operation=DBD_EQ
+      subConds[1].condVal=VAL_NO
+      subConds[1].relationship=DBD_AND
+      subConds[2].bracketOpen=1
+      subConds[2].colNum=OJDT_TRANS_TYPE
+      subConds[2].operation=DBD_EQ
+      subConds[2].condVal=MANUAL_BANK_TRANS_TYPE
+      subConds[2].relationship=DBD_OR
+      subConds[3].colNum=OJDT_TRANS_TYPE
+      subConds[3].operation=DBD_EQ
+      subConds[3].condVal=JDT
+      subConds[3].bracketClose=1
+      subConds[3].relationship=0
+      DBD_SetCond(subQueryParams,subConds,4)
+      updStruct[0].colNum=JDT1_VAT_LINE
+      updStruct[0].updateVal=VAL_NO
+      DBD_SetDAGUpd(queryDag,updStruct,1)
+      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
+      DBD_SetTablesList(queryDag,tableStruct,1)
+      mainConds[0].colNum=JDT1_VAT_LINE
+      mainConds[0].operation=DBD_EQ
+      mainConds[0].condVal=VAL_YES
+      mainConds[0].relationship=DBD_AND
+      mainConds[1].bracketOpen=1
+      mainConds[1].colNum=JDT1_VAT_GROUP
+      mainConds[1].operation=DBD_IS_NULL
+      mainConds[1].relationship=DBD_OR
+      mainConds[2].colNum=JDT1_VAT_GROUP
+      mainConds[2].operation=DBD_EQ
+      mainConds[2].condVal=EMPTY_STR
+      mainConds[2].bracketClose=1
+      mainConds[2].relationship=DBD_AND
+      mainConds[3].tableIndex=-1
+      mainConds[3].operation=DBD_EXISTS
+      mainConds[3].SetSubQueryParams(subQueryParams)
+      mainConds[3].relationship=0
+      DBD_SetDAGCond(queryDag,mainConds,4)
+      sboErr=DBD_UpdateCols(queryDag)
+      if sboErr&&sboErr!=-2028
+         return sboErr
+      end
+
+      return 0
+   end
+
+   def UpgradeYearTransfer()
+      dagJDT=GetDAG()
+      conditions=dagJDT.GetDBDParams().GetConditions()
+      cond=conditions.AddCondition()
+      cond.colNum=OJDT_TRANS_TYPE
+      cond.operation=DBD_EQ
+      cond.condVal=OPEN_BLNC_TYPE
+      cond.relationship=DBD_AND
+      cond=conditions.AddCondition()
+      cond.colNum=OJDT_BATCH_NUM
+      cond.operation=DBD_NOT_NULL
+      cond.relationship=DBD_AND
+      cond=conditions.AddCondition()
+      cond.colNum=OJDT_BATCH_NUM
+      cond.operation=DBD_NE
+      cond.condVal=STR_0
+      cond.relationship=DBD_AND
+      cond=conditions.AddCondition()
+      cond.colNum=OJDT_DATA_SOURCE
+      cond.operation=DBD_EQ
+      cond.condVal=VAL_UNKNOWN_SOURCE
+      cond.relationship=0
+      updStructJDT[0].colNum=OJDT_DATA_SOURCE
+      updStructJDT[0].updateVal=VAL_YEAR_TRANSFER_SOURCE
+      DBD_SetDAGUpd(dagJDT,updStructJDT,1)
+      return DBD_UpdateCols(dagJDT)
+   end
+
+   def RepairTaxTable()
+      sboErr=0
+      bizEnv=GetEnv()
+      queryDag=GetDAG(TAX,ao_Main)
+      if !bizEnv.IsVatPerLine()
+         return 0
+      end
+
+      _STR_strcpy(subQueryTableStruct[0].tableCode,bizEnv.ObjectToTable(TAX,ao_Arr1))
+      _STR_strcpy(subQueryTableStruct[1].tableCode,bizEnv.ObjectToTable(TAX,ao_Main))
+      _STR_strcpy(subQueryTableStruct[2].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
+      subQueryTableStruct[1].doJoin=true
+      subQueryTableStruct[1].joinedToTable=0
+      subQueryTableStruct[1].numOfConds=1
+      subQueryTableStruct[1].joinConds=joinToTAX1
+      subQueryTableStruct[2].doJoin=true
+      subQueryTableStruct[2].joinedToTable=1
+      subQueryTableStruct[2].numOfConds=3
+      subQueryTableStruct[2].joinConds=joinToOTAX
+      joinToTAX1[0].compareCols=true
+      joinToTAX1[0].compColNum=TAX1_ABS_ENTRY
+      joinToTAX1[0].compTableIndex=1
+      joinToTAX1[0].colNum=OTAX_ABS_ENTRY
+      joinToTAX1[0].tableIndex=0
+      joinToTAX1[0].operation=DBD_EQ
+      joinToOTAX[0].compareCols=true
+      joinToOTAX[0].compColNum=OTAX_SOURCE_OBJ_ABS_ENTRY
+      joinToOTAX[0].compTableIndex=1
+      joinToOTAX[0].colNum=JDT1_TRANS_ABS
+      joinToOTAX[0].tableIndex=2
+      joinToOTAX[0].operation=DBD_EQ
+      joinToOTAX[0].relationship=DBD_AND
+      joinToOTAX[1].compareCols=true
+      joinToOTAX[1].compColNum=TAX1_SRC_LINE_NUM
+      joinToOTAX[1].compTableIndex=0
+      joinToOTAX[1].colNum=JDT1_LINE_ID
+      joinToOTAX[1].tableIndex=2
+      joinToOTAX[1].operation=DBD_EQ
+      joinToOTAX[1].relationship=DBD_AND
+      joinToOTAX[2].colNum=OTAX_SOURCE_OBJ_TYPE
+      joinToOTAX[2].tableIndex=1
+      joinToOTAX[2].operation=DBD_EQ
+      joinToOTAX[2].condVal=JDT
+      DBD_SetParamTablesList(subQueryParams,subQueryTableStruct,3)
+      subQueryRES[0].tableIndex=0
+      subQueryRES[0].colNum=TAX1_ABS_ENTRY
+      DBD_SetRes(subQueryParams,subQueryRES,1)
+      subConds[0].tableIndex=2
+      subConds[0].colNum=JDT1_VAT_GROUP
+      subConds[0].operation=DBD_IS_NULL
+      subConds[0].relationship=DBD_OR
+      subConds[1].tableIndex=2
+      subConds[1].colNum=JDT1_VAT_GROUP
+      subConds[1].operation=DBD_EQ
+      subConds[1].condVal=EMPTY_STR
+      DBD_SetCond(subQueryParams,subConds,2)
+      mainConds[0].colNum=OTAX_ABS_ENTRY
+      mainConds[0].operation=DBD_IN
+      mainConds[0].SetSubQueryParams(subQueryParams)
+      mainConds[0].relationship=0
+      DBD_SetDAGCond(queryDag,mainConds,1)
+      DBD_RemoveRecords(queryDag)
+      _STR_strcpy(subQuery2TableStruct[0].tableCode,bizEnv.ObjectToTable(TAX,ao_Main))
+      DBD_SetParamTablesList(subQuery2Params,subQuery2TableStruct,1)
+      subQueryRES[0].colNum=OTAX_ABS_ENTRY
+      DBD_SetRes(subQuery2Params,subQueryRES,1)
+      _STR_strcpy(tableStruct[0].tableCode,bizEnv.ObjectToTable(TAX,ao_Arr1))
+      DBD_SetTablesList(queryDag,tableStruct,1)
+      _MEM_Clear(mainConds,1)
+      mainConds[0].colNum=TAX1_ABS_ENTRY
+      mainConds[0].operation=DBD_NOT_IN
+      mainConds[0].SetSubQueryParams(subQuery2Params)
+      mainConds[0].relationship=0
+      DBD_SetDAGCond(queryDag,mainConds,1)
+      DBD_RemoveRecords(queryDag)
+      return 0
+   end
+
+   def UpgradeJDTCEEPerioEndReconcilations()
+      trace("UpgradeJDTCEEPerioEndReconcilations")
+      sboErr=0
+      bizEnv=GetEnv()
+      dagJDT1=GetDAG()
+      dagJDT1.ClearQueryParams()
+      tables[0].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
+      tables[1].tableCode=bizEnv.ObjectToTable(JDT,ao_Main)
+      tables[2].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
+      tables[3].tableCode=bizEnv.ObjectToTable(ITR,ao_Main)
+      tables[1].doJoin=true
+      tables[1].joinedToTable=0
+      tables[1].numOfConds=1
+      tables[1].joinConds=join1
+      join1[0].compareCols=true
+      join1[0].compColNum=JDT1_TRANS_ABS
+      join1[0].compTableIndex=0
+      join1[0].colNum=OJDT_JDT_NUM
+      join1[0].tableIndex=1
+      join1[0].operation=DBD_EQ
+      tables[2].doJoin=true
+      tables[2].joinedToTable=0
+      tables[2].numOfConds=1
+      tables[2].joinConds=join2
+      join2[0].compareCols=true
+      join2[0].compColNum=JDT1_TRANS_ABS
+      join2[0].compTableIndex=0
+      join2[0].colNum=ITR1_TRANS_ID
+      join2[0].tableIndex=2
+      join2[0].operation=DBD_EQ
+      tables[3].doJoin=true
+      tables[3].joinedToTable=2
+      tables[3].numOfConds=1
+      tables[3].joinConds=join3
+      join3[0].compareCols=true
+      join3[0].compColNum=ITR1_RECON_NUM
+      join3[0].compTableIndex=2
+      join3[0].colNum=OITR_RECON_NUM
+      join3[0].tableIndex=3
+      join3[0].operation=DBD_EQ
+      DBD_SetTablesList(dagJDT1,tables,4)
+      resStruct[0].tableIndex=2
+      resStruct[0].colNum=ITR1_RECON_NUM
+      resStruct[1].tableIndex=2
+      resStruct[1].colNum=ITR1_LINE_SEQUENCE
+      resStruct[2].tableIndex=2
+      resStruct[2].colNum=ITR1_TRANS_ID
+      resStruct[3].tableIndex=2
+      resStruct[3].colNum=ITR1_TRANS_LINE_ID
+      resStruct[4].tableIndex=2
+      resStruct[4].colNum=ITR1_SRC_OBJ_TYPE
+      DBD_SetDAGRes(dagJDT1,resStruct,5)
+      conditions=dagJDT1.GetDBDParams().GetConditions()
+      cond=conditions.AddCondition()
+      cond.bracketOpen=true
+      cond.colNum=JDT1_BALANCE_DUE_DEBIT
+      cond.condVal=_T("0.00")
+      cond.operation=DBD_NE
+      cond.relationship=DBD_OR
+      cond=conditions.AddCondition()
+      cond.colNum=JDT1_BALANCE_DUE_CREDIT
+      cond.condVal=_T("0.00")
+      cond.operation=DBD_NE
+      cond.relationship=DBD_OR
+      cond=conditions.AddCondition()
+      cond.colNum=JDT1_BALANCE_DUE_FC_DEB
+      cond.condVal=_T("0.00")
+      cond.operation=DBD_NE
+      cond.relationship=DBD_OR
+      cond=conditions.AddCondition()
+      cond.colNum=JDT1_BALANCE_DUE_FC_CRED
+      cond.condVal=_T("0.00")
+      cond.operation=DBD_NE
+      cond.relationship=DBD_OR
+      cond=conditions.AddCondition()
+      cond.colNum=JDT1_BALANCE_DUE_SC_DEB
+      cond.condVal=_T("0.00")
+      cond.operation=DBD_NE
+      cond.relationship=DBD_OR
+      cond=conditions.AddCondition()
+      cond.colNum=JDT1_BALANCE_DUE_SC_CRED
+      cond.condVal=_T("0.00")
+      cond.operation=DBD_NE
+      cond.bracketClose=true
+      cond.relationship=DBD_AND
+      cond=conditions.AddCondition()
+      cond.bracketOpen=true
+      cond.tableIndex=1
+      cond.colNum=OJDT_TRANS_TYPE
+      cond.condVal=SBOString(OPEN_BLNC_TYPE)
+      cond.operation=DBD_EQ
+      cond.relationship=DBD_OR
+      cond=conditions.AddCondition()
+      cond.tableIndex=1
+      cond.colNum=OJDT_TRANS_TYPE
+      cond.condVal=SBOString(CLOSE_BLNC_TYPE)
+      cond.operation=DBD_EQ
+      cond.bracketClose=true
+      cond.relationship=DBD_AND
+      cond=conditions.AddCondition()
+      cond.bracketOpen=true
+      cond.tableIndex=2
+      cond.colNum=ITR1_SRC_OBJ_TYPE
+      cond.condVal=SBOString(OPEN_BLNC_TYPE)
+      cond.operation=DBD_EQ
+      cond.relationship=DBD_OR
+      cond=conditions.AddCondition()
+      cond.tableIndex=2
+      cond.colNum=ITR1_SRC_OBJ_TYPE
+      cond.condVal=SBOString(CLOSE_BLNC_TYPE)
+      cond.operation=DBD_EQ
+      cond.bracketClose=true
+      cond.relationship=DBD_AND
+      cond=conditions.AddCondition()
+      cond.tableIndex=3
+      cond.condVal=JDT
+      cond.colNum=OITR_INIT_OBJ_TYPE
+      cond.operation=DBD_EQ
+      sboErr=DBD_GetInNewFormat(dagJDT1,dagRes)
+      if sboErr
+         if sboErr==-2028
+            sboErr=0
+         end
+
+         return sboErr
+      end
+
+      numOfRecon=dagRes.GetRecordCount()
+      dagUpdate=OpenDAG(JDT,ao_Arr1)
+      i=0
+      while (i<numOfRecon) do
+         tables[0].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
+         DBD_SetTablesList(dagUpdate,tables,1)
+         updStruct[0].Clear()
+         updStruct[0].colNum=JDT1_BALANCE_DUE_DEBIT
+         updStruct[0].srcColNum=JDT1_DEBIT
+         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
+         updStruct[1].Clear()
+         updStruct[1].colNum=JDT1_BALANCE_DUE_FC_DEB
+         updStruct[1].srcColNum=JDT1_FC_DEBIT
+         updStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
+         updStruct[2].Clear()
+         updStruct[2].colNum=JDT1_BALANCE_DUE_SC_DEB
+         updStruct[2].srcColNum=JDT1_SYS_DEBIT
+         updStruct[2].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
+         updStruct[3].Clear()
+         updStruct[3].colNum=JDT1_BALANCE_DUE_CREDIT
+         updStruct[3].srcColNum=JDT1_CREDIT
+         updStruct[3].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
+         updStruct[4].Clear()
+         updStruct[4].colNum=JDT1_BALANCE_DUE_FC_CRED
+         updStruct[4].srcColNum=JDT1_FC_CREDIT
+         updStruct[4].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
+         updStruct[5].Clear()
+         updStruct[5].colNum=JDT1_BALANCE_DUE_SC_CRED
+         updStruct[5].srcColNum=JDT1_SYS_CREDIT
+         updStruct[5].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
+         DBD_SetDAGUpd(dagUpdate,updStruct,6)
+         condStruct[0].Clear()
+         condStruct[0].tableIndex=0
+         condStruct[0].colNum=JDT1_TRANS_ABS
+         dagRes.GetColStr(condStruct[0].condVal,2,i)
+         condStruct[0].operation=DBD_EQ
+         condStruct[0].relationship=DBD_AND
+         condStruct[1].Clear()
+         condStruct[1].tableIndex=0
+         condStruct[1].colNum=JDT1_LINE_ID
+         dagRes.GetColStr(condStruct[1].condVal,3,i)
+         condStruct[1].operation=DBD_EQ
+         DBD_SetDAGCond(dagUpdate,condStruct,2)
+         sboErr=DBD_UpdateCols(dagUpdate)
+         if sboErr&&sboErr!=-2028
+            return sboErr
+         end
+
+         dagUpdate.ClearQueryParams()
+
+         (i+=1;i-2)
+      end
+
+      i=0
+      while (i<numOfRecon) do
+         dagRes.GetColLong(srcObjTyp,4,i)
+         if srcObjTyp==CLOSE_BLNC_TYPE
+            tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
+            tables[1].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
+            tables[1].doJoin=false
+            DBD_SetTablesList(dagUpdate,tables,2)
+            updStruct[0].Clear()
+            updStruct[0].colNum=ITR1_TRANS_LINE_ID
+            updStruct[0].updateVal=0
+            updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_Orig)
+            updStruct[1].Clear()
+            updStruct[1].colNum=ITR1_IS_CREDIT
+            updStruct[1].srcColNum=JDT1_DEBIT_CREDIT
+            updStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+            pResCol=updStruct[1].GetResObject().AddResCol()
+            pResCol.SetTableIndex(1)
+            pResCol.SetColNum(JDT1_DEBIT_CREDIT)
+            updStruct[2].Clear()
+            updStruct[2].colNum=ITR1_SHORT_NAME
+            updStruct[2].srcColNum=JDT1_SHORT_NAME
+            updStruct[2].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+            pResCol=updStruct[2].GetResObject().AddResCol()
+            pResCol.SetTableIndex(1)
+            pResCol.SetColNum(JDT1_SHORT_NAME)
+            updStruct[3].Clear()
+            updStruct[3].colNum=ITR1_ACCT_NUM
+            updStruct[3].srcColNum=JDT1_ACCT_NUM
+            updStruct[3].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+            pResCol=updStruct[3].GetResObject().AddResCol()
+            pResCol.SetTableIndex(1)
+            pResCol.SetColNum(JDT1_ACCT_NUM)
+            DBD_SetDAGUpd(dagUpdate,updStruct,4)
+            condStruct[0].Clear()
+            condStruct[0].tableIndex=1
+            condStruct[0].colNum=JDT1_TRANS_ABS
+            dagRes.GetColStr(condStruct[0].condVal,2,i)
+            condStruct[0].operation=DBD_EQ
+            condStruct[0].relationship=DBD_AND
+            condStruct[1].Clear()
+            condStruct[1].tableIndex=1
+            condStruct[1].colNum=JDT1_LINE_ID
+            condStruct[1].condVal=0
+            condStruct[1].operation=DBD_EQ
+            condStruct[1].relationship=DBD_AND
+            condStruct[2].Clear()
+            condStruct[2].tableIndex=0
+            condStruct[2].colNum=ITR1_RECON_NUM
+            dagRes.GetColStr(condStruct[2].condVal,0,i)
+            condStruct[2].operation=DBD_EQ
+            condStruct[2].relationship=DBD_AND
+            condStruct[3].Clear()
+            condStruct[3].tableIndex=0
+            condStruct[3].colNum=ITR1_LINE_SEQUENCE
+            dagRes.GetColStr(condStruct[3].condVal,1,i)
+            condStruct[3].operation=DBD_EQ
+            DBD_SetDAGCond(dagUpdate,condStruct,4)
+            sboErr=DBD_UpdateCols(dagUpdate)
+            if sboErr&&sboErr!=-2028
+               return sboErr
+            end
+
+            dagUpdate.ClearQueryParams()
+         end
+
+
+         (i+=1;i-2)
+      end
+
+      i=0
+      while (i<numOfRecon) do
+         dagRes.GetColLong(srcObjTyp,4,i)
+         if srcObjTyp==OPEN_BLNC_TYPE
+            tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
+            tables[1].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
+            tables[1].doJoin=false
+            DBD_SetTablesList(dagUpdate,tables,2)
+            updStruct[0].Clear()
+            updStruct[0].colNum=ITR1_TRANS_LINE_ID
+            updStruct[0].updateVal=1
+            updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_Orig)
+            updStruct[1].Clear()
+            updStruct[1].colNum=ITR1_IS_CREDIT
+            updStruct[1].srcColNum=JDT1_DEBIT_CREDIT
+            updStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+            pResCol=updStruct[1].GetResObject().AddResCol()
+            pResCol.SetTableIndex(1)
+            pResCol.SetColNum(JDT1_DEBIT_CREDIT)
+            updStruct[2].Clear()
+            updStruct[2].colNum=ITR1_SHORT_NAME
+            updStruct[2].srcColNum=JDT1_SHORT_NAME
+            updStruct[2].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+            pResCol=updStruct[2].GetResObject().AddResCol()
+            pResCol.SetTableIndex(1)
+            pResCol.SetColNum(JDT1_SHORT_NAME)
+            updStruct[3].Clear()
+            updStruct[3].colNum=ITR1_ACCT_NUM
+            updStruct[3].srcColNum=JDT1_ACCT_NUM
+            updStruct[3].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+            pResCol=updStruct[3].GetResObject().AddResCol()
+            pResCol.SetTableIndex(1)
+            pResCol.SetColNum(JDT1_ACCT_NUM)
+            DBD_SetDAGUpd(dagUpdate,updStruct,4)
+            condStruct[0].Clear()
+            condStruct[0].tableIndex=1
+            condStruct[0].colNum=JDT1_TRANS_ABS
+            dagRes.GetColStr(condStruct[0].condVal,2,i)
+            condStruct[0].operation=DBD_EQ
+            condStruct[0].relationship=DBD_AND
+            condStruct[1].Clear()
+            condStruct[1].tableIndex=1
+            condStruct[1].colNum=JDT1_LINE_ID
+            condStruct[1].condVal=1
+            condStruct[1].operation=DBD_EQ
+            condStruct[1].relationship=DBD_AND
+            condStruct[2].Clear()
+            condStruct[2].tableIndex=0
+            condStruct[2].colNum=ITR1_RECON_NUM
+            dagRes.GetColStr(condStruct[2].condVal,0,i)
+            condStruct[2].operation=DBD_EQ
+            condStruct[2].relationship=DBD_AND
+            condStruct[3].Clear()
+            condStruct[3].tableIndex=0
+            condStruct[3].colNum=ITR1_LINE_SEQUENCE
+            dagRes.GetColStr(condStruct[3].condVal,1,i)
+            condStruct[3].operation=DBD_EQ
+            DBD_SetDAGCond(dagUpdate,condStruct,4)
+            sboErr=DBD_UpdateCols(dagUpdate)
+            if sboErr&&sboErr!=-2028
+               return sboErr
+            end
+
+            dagUpdate.ClearQueryParams()
+         end
+
+
+         (i+=1;i-2)
+      end
+
+      i=0
+      while (i<numOfRecon) do
+         tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Main)
+         tables[1].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
+         tables[1].doJoin=false
+         tables[2].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
+         tables[2].doJoin=false
+         DBD_SetTablesList(dagUpdate,tables,3)
+         updStruct[0].Clear()
+         updStruct[0].colNum=OITR_IS_CARD
+         updStruct[0].updateVal=VAL_CARD
+         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_Orig)
+         DBD_SetDAGUpd(dagUpdate,updStruct,1)
+         condStruct[0].Clear()
+         condStruct[0].tableIndex=0
+         condStruct[0].colNum=OITR_RECON_NUM
+         dagRes.GetColStr(condStruct[0].condVal,0,i)
+         condStruct[0].operation=DBD_EQ
+         condStruct[0].relationship=DBD_AND
+         condStruct[1].Clear()
+         condStruct[1].tableIndex=0
+         condStruct[1].colNum=OITR_RECON_NUM
+         condStruct[1].compareCols=true
+         condStruct[1].compTableIndex=1
+         condStruct[1].compColNum=ITR1_RECON_NUM
+         condStruct[1].operation=DBD_EQ
+         condStruct[1].relationship=DBD_AND
+         condStruct[2].Clear()
+         condStruct[2].tableIndex=1
+         condStruct[2].colNum=ITR1_LINE_SEQUENCE
+         condStruct[2].condVal=0
+         condStruct[2].operation=DBD_EQ
+         condStruct[2].relationship=DBD_AND
+         condStruct[3].Clear()
+         condStruct[3].tableIndex=1
+         condStruct[3].colNum=ITR1_TRANS_ID
+         condStruct[3].compareCols=true
+         condStruct[3].compTableIndex=2
+         condStruct[3].compColNum=JDT1_TRANS_ABS
+         condStruct[3].operation=DBD_EQ
+         condStruct[3].relationship=DBD_AND
+         condStruct[4].Clear()
+         condStruct[4].tableIndex=1
+         condStruct[4].colNum=ITR1_TRANS_LINE_ID
+         condStruct[4].compareCols=true
+         condStruct[4].compTableIndex=2
+         condStruct[4].compColNum=JDT1_LINE_ID
+         condStruct[4].operation=DBD_EQ
+         condStruct[4].relationship=DBD_AND
+         condStruct[5].Clear()
+         condStruct[5].tableIndex=2
+         condStruct[5].colNum=JDT1_SHORT_NAME
+         condStruct[5].compareCols=true
+         condStruct[5].compTableIndex=2
+         condStruct[5].compColNum=JDT1_ACCT_NUM
+         condStruct[5].operation=DBD_NE
+         DBD_SetDAGCond(dagUpdate,condStruct,6)
+         sboErr=DBD_UpdateCols(dagUpdate)
+         if sboErr&&sboErr!=-2028
+            return sboErr
+         end
+
+         dagUpdate.ClearQueryParams()
+
+         (i+=1;i-2)
+      end
+
+      i=0
+      while (i<numOfRecon) do
+         tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Main)
+         tables[1].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
+         tables[1].doJoin=false
+         DBD_SetTablesList(dagUpdate,tables,2)
+         updStruct[0].Clear()
+         updStruct[0].colNum=OITR_RECON_CURRENCY
+         updStruct[0].srcColNum=ITR1_FRGN_CURRENCY
+         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+         pResCol=updStruct[0].GetResObject().AddResCol()
+         pResCol.SetTableIndex(1)
+         pResCol.SetColNum(ITR1_FRGN_CURRENCY)
+         updStruct[1].Clear()
+         updStruct[1].colNum=OITR_TOTAL
+         updStruct[1].srcColNum=ITR1_RECON_SUM_FC
+         updStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+         pResCol=updStruct[1].GetResObject().AddResCol()
+         pResCol.SetTableIndex(1)
+         pResCol.SetColNum(ITR1_RECON_SUM_FC)
+         DBD_SetDAGUpd(dagUpdate,updStruct,2)
+         condStruct[0].Clear()
+         condStruct[0].tableIndex=0
+         condStruct[0].colNum=OITR_RECON_NUM
+         dagRes.GetColStr(condStruct[0].condVal,0,i)
+         condStruct[0].operation=DBD_EQ
+         condStruct[0].relationship=DBD_AND
+         condStruct[1].Clear()
+         condStruct[1].tableIndex=0
+         condStruct[1].colNum=OITR_RECON_NUM
+         condStruct[1].compareCols=true
+         condStruct[1].compTableIndex=1
+         condStruct[1].compColNum=ITR1_RECON_NUM
+         condStruct[1].operation=DBD_EQ
+         condStruct[1].relationship=DBD_AND
+         condStruct[2].Clear()
+         condStruct[2].tableIndex=1
+         condStruct[2].colNum=ITR1_LINE_SEQUENCE
+         condStruct[2].condVal=0
+         condStruct[2].operation=DBD_EQ
+         condStruct[2].relationship=DBD_AND
+         condStruct[3].Clear()
+         condStruct[3].tableIndex=1
+         condStruct[3].colNum=ITR1_FRGN_CURRENCY
+         condStruct[3].operation=DBD_NOT_NULL
+         condStruct[3].relationship=DBD_AND
+         condStruct[4].Clear()
+         condStruct[4].tableIndex=1
+         condStruct[4].colNum=ITR1_FRGN_CURRENCY
+         condStruct[4].condVal=EMPTY_STR
+         condStruct[4].operation=DBD_NE
+         DBD_SetDAGCond(dagUpdate,condStruct,5)
+         sboErr=DBD_UpdateCols(dagUpdate)
+         if sboErr&&sboErr!=-2028
+            return sboErr
+         end
+
+         dagUpdate.ClearQueryParams()
+
+         (i+=1;i-2)
+      end
+
+      i=0
+      while (i<numOfRecon) do
+         tables[0].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
+         DBD_SetTablesList(dagUpdate,tables,1)
+         updStruct[0].Clear()
+         updStruct[0].colNum=ITR1_SUM_IN_MATCH_CURR
+         updStruct[0].srcColNum=ITR1_RECON_SUM_FC
+         updStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_SrcCol)
+         DBD_SetDAGUpd(dagUpdate,updStruct,1)
+         condStruct[0].Clear()
+         condStruct[0].tableIndex=0
+         condStruct[0].colNum=ITR1_RECON_NUM
+         dagRes.GetColStr(condStruct[0].condVal,0,i)
+         condStruct[0].operation=DBD_EQ
+         condStruct[0].relationship=DBD_AND
+         condStruct[1].Clear()
+         condStruct[1].tableIndex=0
+         condStruct[1].colNum=ITR1_FRGN_CURRENCY
+         condStruct[1].operation=DBD_NOT_NULL
+         condStruct[1].relationship=DBD_AND
+         condStruct[2].Clear()
+         condStruct[2].tableIndex=0
+         condStruct[2].colNum=ITR1_FRGN_CURRENCY
+         condStruct[2].condVal=EMPTY_STR
+         condStruct[2].operation=DBD_NE
+         DBD_SetDAGCond(dagUpdate,condStruct,3)
+         sboErr=DBD_UpdateCols(dagUpdate)
+         if sboErr&&sboErr!=-2028
+            return sboErr
+         end
+
+         dagUpdate.ClearQueryParams()
+
+         (i+=1;i-2)
+      end
+
+      i=0
+      while (i<numOfRecon) do
+         tables[0].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
+         tables[1].tableCode=bizEnv.ObjectToTable(ITR,ao_Arr1)
+         tables[1].doJoin=false
+         DBD_SetTablesList(dagUpdate,tables,2)
+         updStruct[0].Clear()
+         updStruct[0].colNum=JDT1_BALANCE_DUE_DEBIT
+         updStruct[0].updateVal=0
+         updStruct[1].Clear()
+         updStruct[1].colNum=JDT1_BALANCE_DUE_FC_DEB
+         updStruct[1].updateVal=0
+         updStruct[2].Clear()
+         updStruct[2].colNum=JDT1_BALANCE_DUE_SC_DEB
+         updStruct[2].updateVal=0
+         updStruct[3].Clear()
+         updStruct[3].colNum=JDT1_BALANCE_DUE_CREDIT
+         updStruct[3].updateVal=0
+         updStruct[4].Clear()
+         updStruct[4].colNum=JDT1_BALANCE_DUE_FC_CRED
+         updStruct[4].updateVal=0
+         updStruct[5].Clear()
+         updStruct[5].colNum=JDT1_BALANCE_DUE_SC_CRED
+         updStruct[5].updateVal=0
+         DBD_SetDAGUpd(dagUpdate,updStruct,6)
+         condStruct[0].Clear()
+         condStruct[0].tableIndex=1
+         condStruct[0].colNum=ITR1_RECON_NUM
+         dagRes.GetColStr(condStruct[0].condVal,0,i)
+         condStruct[0].operation=DBD_EQ
+         condStruct[0].relationship=DBD_AND
+         condStruct[1].Clear()
+         condStruct[1].tableIndex=0
+         condStruct[1].colNum=JDT1_TRANS_ABS
+         condStruct[1].compareCols=true
+         condStruct[1].compTableIndex=1
+         condStruct[1].compColNum=ITR1_TRANS_ID
+         condStruct[1].operation=DBD_EQ
+         condStruct[1].relationship=DBD_AND
+         condStruct[2].Clear()
+         condStruct[2].tableIndex=0
+         condStruct[2].colNum=JDT1_LINE_ID
+         condStruct[2].compareCols=true
+         condStruct[2].compTableIndex=1
+         condStruct[2].compColNum=ITR1_TRANS_LINE_ID
+         condStruct[2].operation=DBD_EQ
+         DBD_SetDAGCond(dagUpdate,condStruct,3)
+         sboErr=DBD_UpdateCols(dagUpdate)
+         if sboErr&&sboErr!=-2028
+            return sboErr
+         end
+
+         dagUpdate.ClearQueryParams()
+
+         (i+=1;i-2)
+      end
+
+      return 0
+   end
+
+   def IsBlockDunningLetterUpdateable()
+      transType=GetID()
+      return (transType==JDT||transType==NOB||transType==OPEN_BLNC_TYPE||transType==CLOSE_BLNC_TYPE)
+   end
+
+   def UpgradeJDTIndianAutoVat()
+      trace("UpgradeJDTIndianAutoVat")
+      sboErr=0
+      bizEnv=GetEnv()
+      dagJDT=GetDAG()
+      dagJDT.ClearQueryParams()
+      tables[0].tableCode=bizEnv.ObjectToTable(JDT,ao_Main)
+      tables[1].tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
+      tables[1].doJoin=true
+      tables[1].joinedToTable=0
+      tables[1].numOfConds=1
+      tables[1].joinConds=join[0]
+      join[0].compareCols=true
+      join[0].compTableIndex=1
+      join[0].compColNum=JDT1_TRANS_ABS
+      join[0].operation=DBD_EQ
+      join[0].tableIndex=0
+      join[0].colNum=OJDT_JDT_NUM
+      condition[0].tableIndex=0
+      condition[0].colNum=OJDT_AUTO_VAT
+      condition[0].operation=DBD_EQ
+      condition[0].condVal=VAL_YES
+      condition[0].relationship=DBD_AND
+      condition[1].tableIndex=1
+      condition[1].colNum=JDT1_VAT_LINE
+      condition[1].operation=DBD_EQ
+      condition[1].condVal=VAL_YES
+      condition[1].relationship=DBD_AND
+      condition[2].tableIndex=1
+      condition[2].colNum=JDT1_VAT_GROUP
+      condition[2].operation=DBD_NOT_NULL
+      condition[2].relationship=0
+      resStruct[0].tableIndex=0
+      resStruct[0].colNum=OJDT_JDT_NUM
+      resStruct[0].group_by=true
+      DBD_SetTablesList(dagJDT,tables,2)
+      DBD_SetDAGCond(dagJDT,condition,3)
+      DBD_SetDAGRes(dagJDT,resStruct,1)
+      sboErr=DBD_GetInNewFormat(dagJDT,dagRes)
+      if sboErr
+         if sboErr==-2028
+            sboErr=0
+         end
+
+         return sboErr
+      end
+
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      sortStruct[0].colNum=JDT1_TRANS_ABS
+      sortStruct[1].colNum=JDT1_LINE_ID
+      numOfTrans=dagRes.GetRecordCount()
+      workLoad=1000
+      step=numOfTrans/workLoad
+      i=0
+      while (i<=step) do
+         if i<step
+            _translated_begin=i*workLoad
+            _translated_end=(i+1)*workLoad
+         else
+            _translated_begin=i*workLoad
+            _translated_end=numOfTrans
+            if _translated_begin>=_translated_end
+               break
+            end
+
+         end
+
+         transValues.Clear()
+         j=_translated_begin
+         while (j<_translated_end) do
+            dagRes.GetColLong(transID,0,j)
+            transValues.Add(transID)
+
+            (j+=1)
+         end
+
+         dagJDT1.ClearQueryParams()
+         conditions=dagJDT1.GetDBDParams().GetConditions()
+         cond=conditions.AddCondition()
+         cond.colNum=JDT1_TRANS_ABS
+         cond.operation=DBD_IN
+         cond.SetValuesArray(transValues)
+         DBD_SetDAGSort(dagJDT1,sortStruct,2)
+         DBD_Get(dagJDT1)
+         sboErr=UpgradeJDTIndianAutoVatInt(dagJDT1)
+         if sboErr
+            return sboErr
+         end
+
+
+         (i+=1)
+      end
+
+      return sboErr
+   end
+
+   def UpgradeJDTIndianAutoVatInt(dagJDT1)
+      isVatLine=false
+      currentTransID=-1
+      currentTaxType=0
+      totalLines=dagJDT1.GetRecordCount()
+      i=0
+      while (i<totalLines) do
+         dagJDT1.GetColStr(tmpStr,JDT1_DEBIT_CREDIT,i)
+         if tmpStr.Compare(VAL_DEBIT)
+            dagJDT1.SetColStr(_T("P"),JDT1_TAX_POSTING_ACCOUNT,i)
+         else
+            dagJDT1.SetColStr(_T("R"),JDT1_TAX_POSTING_ACCOUNT,i)
+         end
+
+         dagJDT1.GetColStr(tmpStr,JDT1_VAT_GROUP,i)
+         dagJDT1.NullifyCol(JDT1_VAT_GROUP,i)
+         dagJDT1.SetColStr(tmpStr,JDT1_TAX_CODE,i)
+         dagJDT1.SetColStr(VAL_YES,JDT1_IS_NET,i)
+         dagJDT1.GetColLong(tmpL,JDT1_TRANS_ABS,i)
+         if tmpL!=currentTransID
+            currentTransID=tmpL
+            currentTaxType=0
+            isVatLine=false
+            next
+
+         end
+
+         dagJDT1.GetColStr(tmpStr,JDT1_VAT_LINE,i)
+         if tmpStr.Compare(VAL_YES)
+            currentTaxType=0
+            isVatLine=false
+            next
+
+         else
+            if !isVatLine
+               currentTaxType=0
+               isVatLine=true
+            else
+               (currentTaxType+=1)
+            end
+
+         end
+
+         dagJDT1.SetColLong(currentTaxType,JDT1_TAX_TYPE,i)
+
+         (i+=1)
+      end
+
+      return dagJDT1.UpdateAll()
+   end
+
+   def CheckColChanged(dag,col,rec)
+      if !_DBM_DataAccessGate.isValid(dag)
+         return false
+      end
+
+      ooErr=dag.GetChangesList(rec,colList)
+      IF_ERROR_RETURN_VALUE(ooErr,false)
+      colCount=colList.GetSize()
+      colIndex=0
+      while (colIndex<colCount) do
+         currCol=colList[colIndex].GetColNum()
+         if currCol==col
+            return true
+         end
+
+
+         (colIndex+=1)
+      end
+
+      return false
+   end
+
+   def UpdateWTInfo()
+      ooErr=ooNoErr
+      bizEnv=GetEnv()
+      dagJDT=GetDAG(JDT)
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      recCountJDT1=dagJDT1.GetRecordCount()
+      GetWTCredDebt(wtSide)
+      mainCurr=bizEnv.GetMainCurrency()
+      sysCurr=bizEnv.GetSystemCurrency()
+      dagJDT.GetColStr(fcCurr,OJDT_TRANS_CURR)
+      rec=0
+      while (rec<recCountJDT1) do
+         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
+         shortName.Trim()
+         dagJDT1.GetColStr(account,JDT1_ACCT_NUM,rec)
+         account.Trim()
+         isCard=shortName!=account
+         if isCard
+            cardRec.Add(rec)
+            dagJDT1.GetColMoney(debit,JDT1_DEBIT,rec)
+            dagJDT1.GetColMoney(credit,JDT1_CREDIT,rec)
+            bpLineWt=debit==0 ? credit : debit
+            if credit==0
+               cardSide.Add(VAL_DEBIT)
+            else
+               cardSide.Add(VAL_CREDIT)
+            end
+
+            cardSum.Add(bpLineWt)
+            sum+=(debit-credit)
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      sum.Abs()
+      dagJDT.GetColMoney(wtSum,OJDT_WT_SUM)
+      dagJDT.GetColMoney(wtSumSC,OJDT_WT_SUM_SC)
+      dagJDT.GetColMoney(wtSumFC,OJDT_WT_SUM_FC)
+      numBP=cardRec.GetSize()
+      if numBP<=0
+         return ooErr
+      end
+
+      i=0
+
+      while (i<numBP-1) do
+         rec=cardRec[i]
+         precent=cardSum[i].MulAndDiv(100,sum)
+         bpLineWt=wtSum.MulAndDiv(precent,100)
+         bpLineWt.Round(RC_SUM,mainCurr,bizEnv)
+         dagJDT1.SetColMoney(bpLineWt,JDT1_WT_SUM,rec)
+         if cardSide[i]==VAL_DEBIT
+            sumTmpD+=bpLineWt
+         else
+            sumTmpC+=bpLineWt
+         end
+
+         bpLineWt=wtSumSC.MulAndDiv(precent,100)
+         bpLineWt.Round(RC_SUM,sysCurr,bizEnv)
+         dagJDT1.SetColMoney(bpLineWt,JDT1_WT_SUM_SC,rec)
+         if cardSide[i]==VAL_DEBIT
+            sumTmpSCD+=bpLineWt
+         else
+            sumTmpSCC+=bpLineWt
+         end
+
+         bpLineWt=wtSumFC.MulAndDiv(precent,100)
+         bpLineWt.Round(RC_SUM,fcCurr,bizEnv)
+         dagJDT1.SetColMoney(bpLineWt,JDT1_WT_SUM_FC,rec)
+         if cardSide[i]==VAL_DEBIT
+            sumTmpFCD+=bpLineWt
+         else
+            sumTmpFCC+=bpLineWt
+         end
+
+
+         (i+=1;i-2)
+      end
+
+      if wtSide==VAL_DEBIT
+         bpLineWt=wtSum-(sumTmpD-sumTmpC)
+         bpLineWtSC=wtSumSC-(sumTmpSCD-sumTmpSCC)
+         bpLineWtFC=wtSumFC-(sumTmpFCD-sumTmpFCC)
+      else
+         bpLineWt=wtSum+(sumTmpD-sumTmpC)
+         bpLineWtSC=wtSumSC+(sumTmpSCD-sumTmpSCC)
+         bpLineWtFC=wtSumFC+(sumTmpFCD-sumTmpFCC)
+      end
+
+      if wtSide!=cardSide[i]
+         bpLineWt*=-1
+         bpLineWtSC*=-1
+         bpLineWtFC*=-1
+      end
+
+      dagJDT1.SetColMoney(bpLineWt,JDT1_WT_SUM,cardRec[i])
+      dagJDT1.SetColMoney(bpLineWtSC,JDT1_WT_SUM_SC,cardRec[i])
+      dagJDT1.SetColMoney(bpLineWtFC,JDT1_WT_SUM_FC,cardRec[i])
+      return ooErr
+   end
+
+   def UpdateWTOnRecon(yourMatchData)
+      ooErr=ooNoErr
+      env=GetEnv()
+      withholdingCodeSet=GetWithHoldingTax(true)
+      if withholdingCodeSet.size()==0
+         return ooNoErr
+      end
+
+      dagJDT2=GetArrayDAG(ao_Arr2)
+      numOfRecsJDT2=dagJDT2.GetRealSize(dbmDataBuffer)
+      if (numOfRecsJDT2>1&&!VF_AllowMixedWHTCategoriesenv)||(withholdingCodeSet.size()>1)
+         _MEM_MYRPT0(_T("CDocumentObject::UpdateWTOnRecon - \
+         JDT2 should contain 1 rec at the most for reconciliation!"))
+         BOOM
+         return ooInvalidAction
+      end
+
+      dagJDT1=GetArrayDAG(ao_Arr1)
+      offset=yourMatchData.transRowId
+      dagJDT=GetDAG()
+      status=GetJDTReconStatus()
+      paymCtgWhtRec=0
+      if VF_AllowMixedWHTCategories(env)
+         paymCtgWhtRec=0
+         while (paymCtgWhtRec<numOfRecsJDT2) do
+            dagJDT2.GetColStr(whtCategory,JDT2_CATEGORY,paymCtgWhtRec)
+            whtCategory.Trim()
+            if whtCategory==VAL_CATEGORY_PAYMENT
+               break
+            end
+
+
+            (paymCtgWhtRec+=1;paymCtgWhtRec-2)
+         end
+
+      end
+
+      if status==VAL_CLOSE
+         dagJDT2.GetColMoney(paidWT,INV5_WT_AMOUNT,paymCtgWhtRec)
+         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
+         dagJDT2.SetColMoney(paidWT,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
+         paidWT-=tmpApplied
+         dagJDT2.GetColMoney(paidFrgnWT,INV5_WT_AMOUNT_FC,paymCtgWhtRec)
+         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
+         dagJDT2.SetColMoney(paidFrgnWT,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
+         paidFrgnWT-=tmpApplied
+         dagJDT2.GetColMoney(paidSysWT,INV5_WT_AMOUNT_SC,paymCtgWhtRec)
+         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
+         dagJDT2.SetColMoney(paidSysWT,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
+         paidSysWT-=tmpApplied
+         dagJDT1.CopyColumn(dagJDT1,JDT1_WT_APPLIED,offset,JDT1_WT_SUM,offset)
+         dagJDT1.CopyColumn(dagJDT1,JDT1_WT_APPLIED_FC,offset,JDT1_WT_SUM_FC,offset)
+         dagJDT1.CopyColumn(dagJDT1,JDT1_WT_APPLIED_SC,offset,JDT1_WT_APPLIED_SC,offset)
+         dagJDT.CopyColumn(dagJDT,OJDT_WT_APPLIED,0,OJDT_WT_SUM,0)
+         dagJDT.CopyColumn(dagJDT,OJDT_WT_SUM_SC,0,OJDT_WT_SUM_SC,0)
+         dagJDT.CopyColumn(dagJDT,OJDT_WT_SUM_FC,0,OJDT_WT_SUM_FC,0)
+      else
+         _STR_strcpy(mainCurrency,env.GetMainCurrency())
+         _STR_strcpy(sysCurrency,env.GetSystemCurrency())
+         dagJDT.GetColStr(docCurrency,OJDT_TRANS_CURR)
+         if _STR_IsSpacesStr(docCurrency)
+            _STR_strcpy(docCurrency,mainCurrency)
+         end
+
+         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
+         paidWT=yourMatchData.WTSum
+         tmpApplied+=paidWT
+         dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
+         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
+         paidFrgnWT=yourMatchData.WTSumFC
+         tmpApplied+=paidFrgnWT
+         dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
+         dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
+         paidSysWT=yourMatchData.WTSumSC
+         tmpApplied+=paidSysWT
+         dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
+         dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED,offset)
+         tmpApplied+=paidWT
+         dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED,offset)
+         dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED_FC,offset)
+         tmpApplied+=paidFrgnWT
+         dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED_FC,offset)
+         dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED_SC,offset)
+         tmpApplied+=paidSysWT
+         dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED_SC,offset)
+         dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED,offset)
+         tmpApplied+=paidWT
+         dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED,offset)
+         dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED_FC,offset)
+         tmpApplied+=paidFrgnWT
+         dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED_FC,offset)
+         dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED_SC,offset)
+         tmpApplied+=paidSysWT
+         dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED_SC,offset)
+      end
+
+      ooErr=dagJDT1.Update()
       if ooErr
          return ooErr
       end
 
-      ooErr=AddLinkMapStringMetaData(el,dagJDT,OJDT_NUMBER)
+      ooErr=dagJDT1.Update(offset)
       if ooErr
          return ooErr
       end
 
-      ooErr=AddLinkMapStringMetaData(el,dagJDT,OJDT_REF_DATE)
-      if ooErr
-         return ooErr
-      end
-
-      ooErr=AddLinkMapStringMetaData(el,dagJDT,OJDT_MEMO)
+      ooErr=dagJDT2.Update(paymCtgWhtRec)
       if ooErr
          return ooErr
       end
@@ -15841,47 +13655,2237 @@ class CTransactionJournalObject < BObject
       return ooNoErr
    end
 
-   def OnCommand(command)
-      SetExCommand(ooExAutoMode,fa_SetSolo)
-      SetExDtCommand(ooOBServerDT,fa_SetSolo)
-      odHelper = CJdtODHelper.new(self)
-      case command
+   def UpdateWTOnCancelRecon(yourMatchData)
+      trace("UpdateWTOnCancelRecon")
+      withholdingCodeSet=GetWithHoldingTax(true)
+      if withholdingCodeSet.size()==0
+         return ooNoErr
+      end
 
-      when JournalEntryDocumentTypeService_CmdCode_RefDateChange
-         return odHelper.ODRefDateChange()
-      when JournalEntryDocumentTypeService_CmdCode_MemoChange
-         return odHelper.ODMemoChange()
+      dagJDT2=GetArrayDAG(ao_Arr2)
+      numOfRecsJDT2=dagJDT2.GetRealSize(dbmDataBuffer)
+      if (numOfRecsJDT2>1&&!VF_AllowMixedWHTCategories(GetEnv()))||(withholdingCodeSet.size()>1)
+         _MEM_MYRPT0(_T("CDocumentObject::UpdateWTOnCancelRecon \
+         - DOC5 should contain 1 rec at the most for reconciliation!"))
+         BOOM
+         return ooInvalidAction
+      end
+
+      paymCtgWhtRec=0
+      if VF_AllowMixedWHTCategories(GetEnv())
+         paymCtgWhtRec=0
+         while (paymCtgWhtRec<numOfRecsJDT2) do
+            dagJDT2.GetColStr(whtCategory,JDT2_CATEGORY,paymCtgWhtRec)
+            whtCategory.Trim()
+            if whtCategory==VAL_CATEGORY_PAYMENT
+               break
+            end
+
+
+            (paymCtgWhtRec+=1;paymCtgWhtRec-2)
+         end
+
+      end
+
+      wtApplied = CAllCurrencySums.new(yourMatchData.WTSum,yourMatchData.WTSumFC,yourMatchData.WTSumSC)
+      dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
+      tmpApplied+=wtApplied.m_SumLc
+      dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT,paymCtgWhtRec)
+      dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
+      tmpApplied+=wtApplied.m_SumFc
+      dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_FC,paymCtgWhtRec)
+      dagJDT2.GetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
+      tmpApplied+=wtApplied.m_SumSc
+      dagJDT2.SetColMoney(tmpApplied,INV5_WT_APPLIED_AMOUNT_SC,paymCtgWhtRec)
+      dagJDT1=GetArrayDAG(ao_Arr1)
+      offset=yourMatchData.transRowId
+      dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED,offset)
+      tmpApplied+=wtApplied.m_SumLc
+      dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED,offset)
+      dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED_FC,offset)
+      tmpApplied+=wtApplied.m_SumFc
+      dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED_FC,offset)
+      dagJDT1.GetColMoney(tmpApplied,JDT1_WT_APPLIED_SC,offset)
+      tmpApplied+=wtApplied.m_SumSc
+      dagJDT1.SetColMoney(tmpApplied,JDT1_WT_APPLIED_SC,offset)
+      dagJDT=GetDAG()
+      dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED,offset)
+      tmpApplied+=wtApplied.m_SumLc
+      dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED,offset)
+      dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED_FC,offset)
+      tmpApplied+=wtApplied.m_SumFc
+      dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED_FC,offset)
+      dagJDT.GetColMoney(tmpApplied,OJDT_WT_APPLIED_SC,offset)
+      tmpApplied+=wtApplied.m_SumSc
+      dagJDT.SetColMoney(tmpApplied,OJDT_WT_APPLIED_SC,offset)
+      ooErr=dagJDT.Update()
+      if ooErr
+         return ooErr
+      end
+
+      ooErr=dagJDT1.Update(offset)
+      if ooErr
+         return ooErr
+      end
+
+      ooErr=dagJDT2.Update(paymCtgWhtRec)
+      if ooErr
+         return ooErr
+      end
+
+      return ooNoErr
+   end
+
+   def GetJDTReconStatus()
+      dagJDT1=GetArrayDAG(ao_Arr1)
+      numRec=dagJDT1.GetRecordCount()
+      creditSide=false
+      rec=0
+      while (rec<numRec) do
+         dagJDT1.GetColStr(acctCode,JDT1_ACCT_NUM,rec)
+         dagJDT1.GetColStr(shrtName,JDT1_SHORT_NAME,rec)
+         if acctCode==shrtName
+            next
+
+         end
+
+         dagJDT1.GetColMoney(mny,JDT1_DEBIT,rec)
+         if mny.IsZero()
+            creditSide=true
+         end
+
+         balDueCol=creditSide ? JDT1_BALANCE_DUE_CREDIT : JDT1_BALANCE_DUE_DEBIT
+         dagJDT1.GetColMoney(mny,balDueCol,rec)
+         if !mny.IsZero()
+            return VAL_OPEN
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      return VAL_CLOSE
+   end
+
+   def CalcPaidRatioOfOpenDoc(paidSum,paidSumInLocal,transRowId,calcFromTotal)
+      dagJDT=GetDAG()
+      dagJDT1=GetArrayDAG(ao_Arr1)
+      local=true
+      dagJDT.GetColStr(docCurrency,OINV_DOC_CURRENCY)
+      mainCurrency=GetEnv().GetMainCurrency()
+      tmpDocCur = CCurrency.new(docCurrency)
+      tmpMainCur = CCurrency.new(mainCurrency)
+      calcFromLocal=iWithHoldingAble.isInLocalCurrency(paidSumInLocal,tmpDocCur,tmpMainCur)
+      if calcFromTotal
+         total.FromDAG(dagJDT1,transRowId,JDT1_DEBIT,JDT1_FC_DEBIT,JDT1_SYS_DEBIT)
+         tmpMny.FromDAG(dagJDT1,transRowId,JDT1_CREDIT,JDT1_FC_CREDIT,JDT1_SYS_CREDIT)
+         total-=tmpMny
+         total.Abs()
       else
-         return cSystemBusinessObject.onCommand(command)
+         total.FromDAG(dagJDT1,transRowId,JDT1_BALANCE_DUE_DEBIT,JDT1_BALANCE_DUE_FC_DEB,JDT1_BALANCE_DUE_SC_DEB)
+         tmpMny.FromDAG(dagJDT1,transRowId,JDT1_BALANCE_DUE_CREDIT,JDT1_BALANCE_DUE_FC_CRED,JDT1_BALANCE_DUE_SC_CRED)
+         total-=tmpMny
+         total.Abs()
+      end
+
+      return iWithHoldingAble.calcPaidRatioOfOpenDocInt(paidSum,paidSumInLocal,total,calcFromLocal)
+   end
+
+   def OnCanJDT2Update()
+      ooErr=ooNoErr
+      oopp=GetOnUpdateParams()
+      return ooNoErr
+      i=0
+      while (i<oopp.colsList.GetSize()) do
+         case oopp.colsList[i].GetColNum()
+
+         when INV5_WT_APPLIED_AMOUNT
+         when INV5_WT_APPLIED_AMOUNT_SC
+         when INV5_WT_APPLIED_AMOUNT_FC
+            return ooNoErr
+         else
+            SetErrorField(oopp.colsList[i].GetColNum())
+            SetErrorLine(-1)
+            return -1029
+         end
+
+
+         (i+=1;i-2)
+      end
+
+      return ooNoErr
+   end
+
+   def CheckWTValid()
+      trace("CheckWTValid")
+      ooErr=ooNoErr
+      dagJDT=GetDAG(JDT)
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      dagJDT2=GetDAG(JDT,ao_Arr2)
+
+      hasBPline = false
+      hasLiableline = false
+      dagJDT.GetColStr(tmpStr,OJDT_AUTO_WT)
+      if tmpStr[0]==VAL_NO[0]
+         return ooNoErr
+      end
+
+      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
+      rec=0
+      while (rec<recCount) do
+         dagJDT1.GetColStr(acctNum,JDT1_ACCT_NUM,rec)
+         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
+         if acctNum.Trim()!=shortName.Trim()
+            hasBPline=true
+            dagJDT1.GetColMoney(tmpMny,JDT1_DEBIT,rec)
+            mnyBPDebit+=tmpMny
+            dagJDT1.GetColMoney(tmpMny,JDT1_CREDIT,rec)
+            mnyBPCred+=tmpMny
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      if mnyBPCred>=mnyBPDebit
+         isBpCredit=true
+         bpDebCre=VAL_CREDIT
+      else
+         isBpCredit=false
+         bpDebCre=VAL_DEBIT
+      end
+
+      GetWTCredDebt(wtDebCre)
+      dagJDT.GetColMoney(baseAmt,OJDT_WT_BASE_AMOUNT)
+      numJdt2Rec=dagJDT2.GetRecordCount()
+      if hasBPline&&(!baseAmt.IsZero())&&(bpDebCre!=wtDebCre)&&numJdt2Rec>0
+         return -1
+      end
+
+      return ooErr
+   end
+
+   def CheckMultiBP()
+      trace("CheckMultiBP")
+      dagJDT=GetDAG(JDT)
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      dagJDT.GetColStr(autoWT,OJDT_AUTO_WT)
+      if autoWT==VAL_YES
+         recJDT1=dagJDT1.GetRealSize(dbmDataBuffer)
+         rec=0
+         while (rec<recJDT1) do
+            dagJDT1.GetColStr(acct,JDT1_ACCT_NUM,rec)
+            dagJDT1.GetColStr(shortname,JDT1_SHORT_NAME,rec)
+            acct.Trim()
+            shortname.Trim()
+            if acct!=shortname
+               if !firstBP.IsEmpty()
+                  if firstBP!=shortname
+                     return ooInvalidObject
+                  end
+
+               else
+                  firstBP=shortname
+               end
+
+            end
+
+
+            (rec+=1;rec-2)
+         end
+
+      end
+
+      return ooNoErr
+   end
+
+   def GetDfltWTCodes(wtInfo)
+      return cDocumentObject.oDOCLoadWTPrefsFromCard(self,wtInfo.cardWTLiable,wtInfo.wtDefaultCode,wtInfo.VATwtDefaultCode,wtInfo.ITwtDefaultCode,wtInfo.wtBaseType,wtInfo.wtCategory)
+   end
+
+   def PrePareDataForWT(wtAllCurBaseCalcParamsPtr,currSource,dagDOC,wtInfo)
+      ooErr=ooNoErr
+      dagJDT=GetDAG(JDT)
+      baseCalcParam=wtAllCurBaseCalcParamsPtr.GetWtBaseCalcParams(currSource)
+      GetCRDDag()
+      GetDfltWTCodes(wtInfo)
+      if !dagDOC.GetRecordCount()
+         dagDOC.SetSize(1,dbmDropData)
+      end
+
+      dagDOC.SetColStr(GetBPLineCurrency(),OINV_DOC_CURRENCY)
+      dagDOC.CopyColumn(dagJDT,OINV_DATE,0,OJDT_REF_DATE,0)
+      if m_env.IsLocalSettingsFlag(lsf_EnableLA1WHT)
+         dagDOC.SetColMoney(baseCalcParam.m_wtBaseNetAmount,nsDocument.oDOCGetWTBaseNetAmountField(currSource))
+         dagDOC.SetColMoney(baseCalcParam.m_wtBaseVATAmount,nsDocument.oDOCGetWTBaseVatAmountField(currSource))
+      else
+         wtBaseAmount=baseCalcParam.GetWTBaseAmount(wtInfo.wtBaseType)
+         dagDOC.SetColMoney(wtBaseAmount,nsDocument.oDOCGetWTBaseAmountField(currSource))
+      end
+
+      SetCurrRateForDOC(dagDOC)
+      SetCurrForAutoCompleteDOC5()
+      ooErr=@m_WithholdingTaxMng.ODOCAutoCompleteDOC5(self,cplPara)
+      if ooErr
+         Message(cplPara.errNode.strId,cplPara.errNode.index,nil,OO_ERROR)
+         return ooErr
+      end
+
+      return ooErr
+   end
+
+   def JDTCalcWTTable(wtInfo,currSource,dagDOC,wtAllCurBaseCalcParamsPtr)
+      ooErr=ooNoErr
+      wtCurBaseCalcParamsPtr=wtAllCurBaseCalcParamsPtr.GetWtBaseCalcParams(currSource)
+      wtInParamTableChangeListPtr=nil
+      if m_env.IsLocalSettingsFlag(lsf_EnableLA1WHT)
+         wtTableDefaultCodes.SetVATWtDefaultcode(wtInfo.VATwtDefaultCode)
+         wtTableDefaultCodes.SetITWtDefaultcode(wtInfo.ITwtDefaultCode)
+      else
+         wtTableDefaultCodes.SetWtDefaultcode(wtInfo.wtDefaultCode)
+      end
+
+      @m_WithholdingTaxMng.ODOCCalcWTTable(self,wtCurBaseCalcParamsPtr,wtInParamTableChangeListPtr,wtTableDefaultCodes,currSource,wtTotalAmountM,-1,dagDOC)
+      return ooErr
+   end
+
+   def GetJDT1MoneyCol(currSource,isDebit)
+      cols=""
+      return cols[currSource-1][isDebit ? 0 : 1]
+   end
+
+   def GetVATMoneyCol(currSource)
+      cols=""
+      return cols[currSource-1]
+   end
+
+   def GetWTBaseAmount(currSource,baseParam)
+      trace("GetWTBaseAmount")
+      ooErr=ooNoErr
+      dagJDT=GetDAG(JDT)
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
+      bizEnv=GetEnv()
+      rec=0
+      while (rec<recCount) do
+         dagJDT1.GetColStr(wtLiable,JDT1_WT_LIABLE,rec)
+         if wtLiable.Trim()==VAL_YES
+            isDebit=false
+            dagJDT1.GetColMoney(mnyTmp,GetJDT1MoneyCol(currSource,true),rec)
+            if !mnyTmp.IsZero()
+               isDebit=true
+            end
+
+            sum+=mnyTmp
+            dagJDT1.GetColMoney(mnyTmp,GetJDT1MoneyCol(currSource,false),rec)
+            sum-=mnyTmp
+            if mnyTmp.IsZero()&&(!isDebit)
+               next
+
+            end
+
+            dagJDT1.GetColMoney(mnyTmp,GetVATMoneyCol(currSource),rec)
+            if currSource==INV_CARD_CURRENCY
+               realCurr=WTGetCurrency()
+               realCurr.Trim()
+               dubtCurr.Trim()
+               mainCurr=bizEnv.GetMainCurrency().Trim()
+               frgnCurr=realCurr
+               SBO_ASSERT(dubtCurr.IsEmpty()||dubtCurr==mainCurr)
+               SBO_ASSERT(dubtCurr!=frgnCurr)
+               frgnAmnt=1
+               dagJDT.GetColStr(dateStr,OJDT_REF_DATE)
+               dateStr.Trim()
+               GNLocalToForeignRate(mnyTmp,frgnCurr.GetBuffer(),dateStr.GetBuffer(),0.0,frgnAmnt,bizEnv)
+               mnyTmp=frgnAmnt
+               mnyTmp.Round(RC_SUM,frgnCurr,bizEnv)
+            end
+
+            if isDebit
+               sumVAT+=mnyTmp
+            else
+               sumVAT-=mnyTmp
+            end
+
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      if !baseParam.GetIsBaseAmountsReady()
+         baseParam.Init()
+      end
+
+      mnySumTmp=sum+sumVAT
+      baseParam.m_wtBaseNetAmount=sum.AbsVal()
+      baseParam.m_wtBaseVATAmount=sumVAT.AbsVal()
+      baseParam.m_wtBaseAmount=mnySumTmp.AbsVal()
+      return ooErr
+   end
+
+   def GetWTCredDebt(debCre)
+      trace("GETWTCredDebt")
+      ooErr=ooNoErr
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      dagJDT2=GetDAG(JDT,ao_Arr2)
+      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
+      if !dAG.isValid(dagJDT1)
+         return ooErrNoMsg
+      end
+
+      rec=0
+      while (rec<recCount) do
+         dagJDT1.GetColStr(wtLiable,JDT1_WT_LIABLE,rec)
+         if wtLiable.Trim()==VAL_YES
+            dagJDT1.GetColMoney(tmpDebAmt,JDT1_DEBIT,rec)
+            debitSumNet+=tmpDebAmt
+            dagJDT1.GetColMoney(tmpCreAmt,JDT1_CREDIT,rec)
+            creditSumNet+=tmpCreAmt
+            dagJDT1.GetColMoney(tmpVatAmt,JDT1_TOTAL_TAX,rec)
+            if !tmpDebAmt.IsZero()
+               debitSumVat+=tmpVatAmt
+            else
+               if !tmpCreAmt.IsZero()
+                  creditSumVat+=tmpVatAmt
+               end
+
+            end
+
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      if dagJDT2.GetRecordCount()>0
+         dagJDT2.GetColStr(wtBaseType,INV5_BASE_TYPE)
+         if VAL_BASETYPE_NET==wtBaseType
+            debitSum=debitSumNet
+            creditSum=creditSumNet
+         else
+            if VAL_BASETYPE_VAT==wtBaseType
+               debitSum=debitSumVat
+               creditSum=creditSumVat
+            else
+               if VAL_BASETYPE_GROSS==wtBaseType
+                  debitSum=debitSumNet+debitSumVat
+                  creditSum=creditSumNet+creditSumVat
+               end
+
+            end
+
+         end
+
+      end
+
+      if debitSum>=creditSum
+         debCre=VAL_CREDIT
+      else
+         debCre=VAL_DEBIT
       end
 
       return 0
    end
 
-   def OnSetDynamicMetaData(commandCode)
+   def GetBPLineCurrency()
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
+      currency=m_env.GetMainCurrency()
+      rec=0
+      while (rec<recCount) do
+         dagJDT1.GetColStr(acctCode,JDT1_ACCT_NUM,rec)
+         acctCode.Trim()
+         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
+         shortName.Trim()
+         if shortName!=acctCode
+            dagJDT1.GetColStr(bpCurr,JDT1_FC_CURRENCY,rec)
+            if bpCurr.Trim()!=EMPTY_STR
+               currency=bpCurr
+               break
+            end
+
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      return currency
+   end
+
+   def GetCRDDag()
+      trace("GetCRDDag")
+      ooErr=ooNoErr
+      dagCRD=GetDAG(CRD)
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      recCount=dagJDT1.GetRealSize(dbmDataBuffer)
+      rec=0
+      while (rec<recCount) do
+         dagJDT1.GetColStr(acctCode,JDT1_ACCT_NUM,rec)
+         acctCode.Trim()
+         dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
+         shortName.Trim()
+         if shortName!=acctCode
+            cond[0].colNum=OCRD_CARD_CODE
+            cond[0].operation=DBD_EQ
+            cond[0].condVal=shortName
+            DBD_SetDAGCond(dagCRD,cond,1)
+            ooErr=DBD_Get(dagCRD)
+            break
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      return ooErr
+   end
+
+   def UpdateWTAmounts(wtAllCurBaseCalcParamsPtr)
+      ooErr=ooNoErr
+      dagJDT2=GetDAG(JDT,ao_Arr2)
+      dagJDT=GetDAG(JDT)
+      recCount=dagJDT2.GetRecordCount()
+      currency=""
+      rec=0
+      while (rec<recCount) do
+         i=0
+         while (currency[i]) do
+            dagJDT2.GetColMoney(mnyTmp,@m_WithholdingTaxMng.ODOC5GetWTTaxAmountField(currency[i]),rec)
+            wtSums[i]+=mnyTmp
+
+            (i+=1;i-2)
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      dagJDT2.GetColStr(strRecBaseType,INV5_BASE_TYPE,0)
+      i=0
+      while (currency[i]) do
+         wtCurBaseCalcParamsPtr=wtAllCurBaseCalcParamsPtr.GetWtBaseCalcParams(currency[i])
+         if m_env.IsLocalSettingsFlag(lsf_EnableLA1WHT)
+            dagJDT.SetColMoney(wtCurBaseCalcParamsPtr.m_wtBaseNetAmount,cTransactionJournalObject.getWTBaseNetAmountField(currency[i]))
+            dagJDT.SetColMoney(wtCurBaseCalcParamsPtr.m_wtBaseVATAmount,cTransactionJournalObject.getWTBaseVATAmountField(currency[i]))
+         else
+            if VAL_BASETYPE_NET==strRecBaseType
+               dagJDT.SetColMoney(wtCurBaseCalcParamsPtr.m_wtBaseNetAmount,cTransactionJournalObject.getWTBaseNetAmountField(currency[i]))
+            else
+               dagJDT.SetColMoney(wtCurBaseCalcParamsPtr.m_wtBaseAmount,cTransactionJournalObject.getWTBaseNetAmountField(currency[i]))
+            end
+
+         end
+
+         dagJDT.SetColMoney(wtSums[i],cTransactionJournalObject.getWtSumField(currency[i]))
+
+         (i+=1;i-2)
+      end
+
+      return ooErr
+   end
+
+   def WTGetCurrSource()
+      trace("WTGetCurrSource")
+      bizEnv=GetEnv()
+      mainCurr=bizEnv.GetMainCurrency()
+      sysCurr=bizEnv.GetSystemCurrency()
+      currency=GetBPLineCurrency()
+      currency.Trim()
+      if (EMPTY_STR==currency)||(currency==mainCurr)||(GNCoinCmp(currency,BAD_CURRENCY_STR)==0)
+         return INV_LOCAL_CURRENCY
+      end
+
+      if currency==sysCurr
+         return INV_SYSTEM_CURRENCY
+      end
+
+      return INV_CARD_CURRENCY
+   end
+
+   def WtAutoAddJDT1Line(dagJDT1,jdt1RecSize,dagJDT2,jdt2CurRec,isDebit,wtSide)
+      trace("WtAutoAddJDT1Line")
       ooErr=0
-      if commandCode==BusinessService_CmdCode_GetByParams||commandCode==BusinessService_CmdCode_Add
-         headerFields=""
-         i=0
-         begin
-            ooErr=SetDynamicMetaData(ao_Main,headerFields[i],false)
+      toJDT1fields=""
+      fromJDTfields=""
+      dagJDT1.SetSize(jdt1RecSize+1,dbmKeepData)
+      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT,jdt2CurRec)
+      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_LOCAL_CURRENCY,isDebit),jdt1RecSize)
+      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT_SC,jdt2CurRec)
+      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_SYSTEM_CURRENCY,isDebit),jdt1RecSize)
+      if WTGetCurrSource()==INV_CARD_CURRENCY
+         dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT_FC,jdt2CurRec)
+         dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_CARD_CURRENCY,isDebit),jdt1RecSize)
+      end
 
-            (i+=1)
-         end while (headerFields[i]>0)
+      dagJDT1.SetColStr(VAL_YES,JDT1_WT_Line,jdt1RecSize)
+      dagJDT1.SetColStr(wtSide,JDT1_DEBIT_CREDIT,jdt1RecSize)
+      dagJDT1.CopyColumn(dagJDT2,JDT1_ACCT_NUM,jdt1RecSize,INV5_ACCOUNT,jdt2CurRec)
+      dagJDT1.CopyColumn(dagJDT2,JDT1_SHORT_NAME,jdt1RecSize,INV5_ACCOUNT,jdt2CurRec)
+      dagJDT1.SetColLong(JDT,JDT1_TRANS_TYPE,jdt1RecSize)
+      ii=0
+      while (toJDT1fields[ii]>=0) do
+         dagJDT1.GetColStr(tmpStr,toJDT1fields[ii],jdt1RecSize)
+         tmpStr.Trim()
+         if tmpStr==EMPTY_STR
+            dagJDT1.GetColStr(tmpStr,toJDT1fields[ii],jdt1RecSize,fromJDTfields[ii],0)
+         end
 
-         SetDynamicMetaData(ao_Arr1,JDT1_LINE_MEMO,true,-1)
-         cols=""
-         i=0
-         begin
-            ooErr=SetDynamicMetaData(ao_Arr1,cols[i],false,-1)
 
-            (i+=1)
-         end while (cols[i]>0)
+         (ii+=1;ii-2)
+      end
+
+      if WTGetCurrSource()==INV_CARD_CURRENCY
+         dagJDT1.SetColStr(GetBPLineCurrency(),JDT1_FC_CURRENCY,jdt1RecSize)
+      end
+
+      return ooErr
+   end
+
+   def WtUpdJDT1LineAmt(dagJDT1,jdt1CurRow,dagJDT2,jdt2CurRow,isDebit,wtAcctCode,wtSide)
+      ooErr=ooNoErr
+      dagJDT1.GetColMoney(oldWT,GetJDT1MoneyCol(INV_LOCAL_CURRENCY,isDebit),jdt1CurRow)
+      dagJDT1.GetColMoney(oldWTSC,GetJDT1MoneyCol(INV_SYSTEM_CURRENCY,isDebit),jdt1CurRow)
+      dagJDT1.GetColMoney(oldWTFC,GetJDT1MoneyCol(INV_CARD_CURRENCY,isDebit),jdt1CurRow)
+      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT,jdt2CurRow)
+      mnyAmt+=oldWT
+      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_LOCAL_CURRENCY,isDebit),jdt1CurRow)
+      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT_SC,jdt2CurRow)
+      mnyAmt+=oldWTSC
+      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_SYSTEM_CURRENCY,isDebit),jdt1CurRow)
+      dagJDT2.GetColMoney(mnyAmt,INV5_WT_AMOUNT_FC,jdt2CurRow)
+      mnyAmt+=oldWTFC
+      dagJDT1.SetColMoney(mnyAmt,GetJDT1MoneyCol(INV_CARD_CURRENCY,isDebit),jdt1CurRow)
+      return ooErr
+   end
+
+   def SetCurrForAutoCompleteDOC5()
+      case WTGetCurrSource()
+
+      when INV_LOCAL_CURRENCY
+         @m_WithholdingTaxMng.m_curSourceForAutoComplete[0]=INV_LOCAL_CURRENCY
+         @m_WithholdingTaxMng.m_curSourceForAutoComplete[1]=INV_SYSTEM_CURRENCY
+         @m_WithholdingTaxMng.m_curSourceForAutoComplete[2]=INV_CARD_CURRENCY
+      when INV_SYSTEM_CURRENCY
+         @m_WithholdingTaxMng.m_curSourceForAutoComplete[0]=INV_SYSTEM_CURRENCY
+         @m_WithholdingTaxMng.m_curSourceForAutoComplete[1]=INV_CARD_CURRENCY
+         @m_WithholdingTaxMng.m_curSourceForAutoComplete[2]=INV_LOCAL_CURRENCY
+      when INV_CARD_CURRENCY
+         @m_WithholdingTaxMng.m_curSourceForAutoComplete[0]=INV_CARD_CURRENCY
+         @m_WithholdingTaxMng.m_curSourceForAutoComplete[1]=INV_LOCAL_CURRENCY
+         @m_WithholdingTaxMng.m_curSourceForAutoComplete[2]=INV_SYSTEM_CURRENCY
+      end
+
+      return ooNoErr
+   end
+
+   def CalcBpCurrRateForDocRate(rate)
+      ooErr=ooNoErr
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      env=GetEnv()
+      recJDT1=dagJDT1.GetRealSize(dbmDataBuffer)
+      flag=false
+      rec=0
+      while (rec<recJDT1) do
+         dagJDT1.GetColStr(acct,JDT1_ACCT_NUM,rec)
+         dagJDT1.GetColStr(shortname,JDT1_SHORT_NAME,rec)
+         acct.Trim()
+         shortname.Trim()
+         if acct!=shortname
+            dagJDT1.GetColMoney(mLocal,JDT1_CREDIT,rec)
+            dagJDT1.GetColMoney(mFrgn,JDT1_FC_CREDIT,rec)
+            if mLocal.IsPositive()&&mFrgn.IsPositive()
+               flag=true
+            else
+               dagJDT1.GetColMoney(mLocal,JDT1_DEBIT,rec)
+               dagJDT1.GetColMoney(mFrgn,JDT1_FC_DEBIT,rec)
+               if mLocal.IsPositive()&&mFrgn.IsPositive()
+                  flag=true
+               end
+
+            end
+
+            break
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      if flag
+         if env.IsDirectRate()
+            rate=mLocal.MulAndDiv(1,mFrgn,env,false)
+         else
+            rate=mFrgn.MulAndDiv(1,mLocal,env,false)
+         end
+
+      else
+         rate.FromDouble(MONEY_PERCISION_MUL)
+         ooErr=-10
+      end
+
+      return ooErr
+   end
+
+   def UpgradeERDBaseTrans()
+      ooErr=ooNoErr
+      ooErr=UpgradeERDBaseTransFromBackup()
+      if ooErr
+         if ooErr==-2004
+            ooErr=0
+         else
+            return ooErr
+         end
 
       end
 
-      SetBOActionMetaData(BusinessService_CmdCode_Cancel,OnCanCancel())
+      ooErr=UpgradeERDBaseTransFromRef3()
       return ooErr
+   end
+
+   def UpgradeERDBaseTransUpdateOne(transId,erdBaseTrans)
+      ooErr=ooNoErr
+      bizEnv=GetEnv()
+      dagJDT=bizEnv.OpenDAG(JDT,ao_Main)
+      conditions=(dagJDT.GetDBDParams().GetConditions())
+      conditions.Clear()
+      condPtr=conditions.AddCondition()
+      condPtr.colNum=OJDT_JDT_NUM
+      condPtr.operation=DBD_EQ
+      condPtr.condVal=transId
+      condPtr.relationship=0
+      updStruct[0].colNum=OJDT_BASE_TRANS_ID
+      updStruct[0].updateVal=erdBaseTrans
+      ooErr=DBD_SetDAGUpd(dagJDT,updStruct,1)
+      if ooErr
+         dagJDT.Close()
+         return ooErr
+      end
+
+      ooErr=DBD_UpdateCols(dagJDT)
+      dagJDT.Close()
+      return ooErr
+   end
+
+   def UpgradeERDBaseTransFromRef3()
+      ooErr=ooNoErr
+      bizEnv=GetEnv()
+      UpgradeERDBaseTransPopulateAbbrevMap(abbrevMap)
+      queryParams.Clear()
+      tablePtr=(queryParams.GetCondTables().AddTable())
+      tablePtr.tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
+      tablePtr=(queryParams.GetCondTables().AddTable())
+      tablePtr.tableCode=bizEnv.ObjectToTable(JDT,ao_Main)
+      tablePtr.doJoin=true
+      tablePtr.joinedToTable=0
+      tablePtr.numOfConds=1
+      tablePtr.joinConds=joinCondsOJDT
+      condNum=0
+      joinCondsOJDT[condNum].compareCols=true
+      joinCondsOJDT[condNum].tableIndex=1
+      joinCondsOJDT[condNum].colNum=OJDT_JDT_NUM
+      joinCondsOJDT[condNum].compTableIndex=0
+      joinCondsOJDT[condNum].compColNum=JDT1_TRANS_ABS
+      joinCondsOJDT[condNum].operation=DBD_EQ
+      joinCondsOJDT[(condNum+=1;condNum-2)].relationship=0
+      resStruct[0].tableIndex=1
+      resStruct[0].colNum=OJDT_JDT_NUM
+      resStruct[1].tableIndex=0
+      resStruct[1].colNum=JDT1_LINE_ID
+      resStruct[2].tableIndex=0
+      resStruct[2].colNum=JDT1_ACCT_NUM
+      resStruct[3].tableIndex=0
+      resStruct[3].colNum=JDT1_SHORT_NAME
+      resStruct[4].tableIndex=0
+      resStruct[4].colNum=JDT1_REF3_LINE
+      queryParams.dbdResPtr=resStruct
+      queryParams.numOfResCols=5
+      condPtr=(queryParams.GetConditions().AddCondition())
+      condPtr.tableIndex=1
+      condPtr.colNum=OJDT_TRANS_TYPE
+      condPtr.operation=DBD_EQ
+      condPtr.condVal=JDT
+      condPtr.relationship=DBD_AND
+      condPtr=(queryParams.GetConditions().AddCondition())
+      condPtr.tableIndex=0
+      condPtr.colNum=JDT1_FC_CREDIT
+      condPtr.operation=DBD_EQ
+      condPtr.condVal=0
+      condPtr.relationship=DBD_AND
+      condPtr=(queryParams.GetConditions().AddCondition())
+      condPtr.tableIndex=0
+      condPtr.colNum=JDT1_FC_DEBIT
+      condPtr.operation=DBD_EQ
+      condPtr.condVal=0
+      condPtr.relationship=DBD_AND
+      condPtr=(queryParams.GetConditions().AddCondition())
+      condPtr.tableIndex=0
+      condPtr.colNum=JDT1_FC_CURRENCY
+      condPtr.operation=DBD_NOT_NULL
+      condPtr.relationship=DBD_AND
+      condPtr=(queryParams.GetConditions().AddCondition())
+      condPtr.tableIndex=1
+      condPtr.colNum=OJDT_BASE_TRANS_ID
+      condPtr.operation=DBD_IS_NULL
+      condPtr.relationship=DBD_AND
+      condPtr=(queryParams.GetConditions().AddCondition())
+      condPtr.tableIndex=0
+      condPtr.colNum=JDT1_REF3_LINE
+      condPtr.operation=DBD_PATTERN
+      condPtr.condVal=_T("*/*/*")
+      condPtr.relationship=0
+      key.SetSegmentsCount(2)
+      key.SetSegmentColumn(0,0)
+      key.SetSegmentColumn(1,1)
+      dagRes=nil
+      dagQuery=bizEnv.OpenDAG(BOT,ao_Arr1)
+      dagQuery.SetDBDParms(queryParams)
+      ooErr=dagQuery.GetFirstChunk(10000,key,dagRes)
+      if ooErr&&(ooErr!=-2028)
+         dagQuery.Close()
+         return ooErr
+      end
+
+      while (ooErr!=-2028)
+         numOfRecs=dagRes.GetRecordCount()
+         rec=0
+         while (rec<numOfRecs) do
+            dagRes.GetColLong(transId,0,rec)
+            dagRes.GetColStr(account,2,rec)
+            dagRes.GetColStr(shortName,3,rec)
+            dagRes.GetColStr(ref3Line,4,rec)
+            baseTransCandidate=0
+            ooErr=UpgradeERDBaseTransFindBaseTrans(abbrevMap,account,shortName,ref3Line,baseTransCandidate)
+            if ooErr
+               if ooErr!=-2028
+                  dagQuery.Close()
+                  return ooErr
+               end
+
+            else
+               if baseTransCandidate
+                  ooErr=UpgradeERDBaseTransUpdateOne(transId,baseTransCandidate)
+                  if ooErr
+                     dagQuery.Close()
+                     return ooErr
+                  end
+
+               end
+
+            end
+
+
+            (rec+=1)
+         end
+
+         ooErr=dagQuery.GetNextChunk(10000,key,dagRes)
+         if ooErr&&(ooErr!=-2028)
+            dagQuery.Close()
+            return ooErr
+         end
+
+      end
+
+      dagQuery.Close()
+      return ooNoErr
+   end
+
+   def UpgradeERDBaseTransFindBaseTrans(objectMap,inAccount,inShortName,inRef3Line,outBaseTransCandidate)
+      ooErr=ooNoErr
+      bizEnv=GetEnv()
+      numOfCandidates=0
+      sep1Pos=inRef3Line.Find(_T('/'))
+      periodCode=inRef3Line.Left(sep1Pos)
+      sep2Pos=inRef3Line.Find(_T('/'),sep1Pos+1)
+      docTypeCode=inRef3Line.Mid(sep1Pos+1,sep2Pos-sep1Pos-1)
+      docNum=inRef3Line.Mid(sep2Pos+1)
+      omIt=objectMap.begin()
+      while (omIt!=objectMap.end()) do
+         if omIt.second.find(docTypeCode)!=omIt.second.end()
+            objectId=omIt.first
+            queryParams.Clear()
+            tablePtr=(queryParams.GetCondTables().AddTable())
+            tablePtr.tableCode=bizEnv.ObjectToTable(objectId,ao_Main)
+            tablePtr=(queryParams.GetCondTables().AddTable())
+            tablePtr.tableCode=bizEnv.ObjectToTable(FPR,ao_Main)
+            tablePtr.doJoin=true
+            tablePtr.joinedToTable=0
+            tablePtr.numOfConds=1
+            tablePtr.joinConds=joinCondsOFPR
+            condNum=0
+            joinCondsOFPR[condNum].compareCols=true
+            joinCondsOFPR[condNum].tableIndex=1
+            joinCondsOFPR[condNum].colNum=OFPR_ABS_ENTRY
+            joinCondsOFPR[condNum].compTableIndex=0
+            joinCondsOFPR[condNum].compColNum=UpgradeERDBaseTransGetFPRCol(objectId)
+            joinCondsOFPR[condNum].operation=DBD_EQ
+            joinCondsOFPR[(condNum+=1;condNum-2)].relationship=0
+            resStruct[0].tableIndex=0
+            resStruct[0].colNum=UpgradeERDBaseTransGetTransIdCol(objectId)
+            queryParams.dbdResPtr=resStruct
+            queryParams.numOfResCols=1
+            UpgradeERDBaseTransAddDocNumConds(objectId,docNum,queryParams.GetConditions())
+            condPtr=(queryParams.GetConditions().AddCondition())
+            condPtr.tableIndex=1
+            condPtr.colNum=OFPR_CODE
+            condPtr.operation=DBD_EQ
+            condPtr.condVal=periodCode
+            condPtr.relationship=DBD_AND
+            condPtr=(queryParams.GetConditions().AddCondition())
+            condPtr.SetUseSubQuery(true)
+            subQueryParams.GetCondTables().Clear()
+            tablePtr=(subQueryParams.GetCondTables().AddTable())
+            tablePtr.tableCode=bizEnv.ObjectToTable(JDT,ao_Arr1)
+            subResStruct[0].agreg_type=DBD_COUNT
+            subResStruct[0].tableIndex=0
+            subResStruct[0].colNum=JDT1_TRANS_ABS
+            subQueryParams.dbdResPtr=subResStruct
+            subQueryParams.numOfResCols=1
+            subQueryParams.GetConditions().Clear()
+            subCondPtr=(subQueryParams.GetConditions().AddCondition())
+            subCondPtr.origTableLevel=1
+            subCondPtr.origTableIndex=0
+            subCondPtr.compareCols=true
+            subCondPtr.colNum=UpgradeERDBaseTransGetTransIdCol(objectId)
+            subCondPtr.operation=DBD_EQ
+            subCondPtr.compTableIndex=0
+            subCondPtr.compColNum=JDT1_TRANS_ABS
+            subCondPtr.relationship=DBD_AND
+            subCondPtr=(subQueryParams.GetConditions().AddCondition())
+            subCondPtr.tableIndex=0
+            subCondPtr.colNum=JDT1_ACCT_NUM
+            subCondPtr.operation=DBD_EQ
+            subCondPtr.condVal=inAccount
+            subCondPtr.relationship=DBD_AND
+            subCondPtr=(subQueryParams.GetConditions().AddCondition())
+            subCondPtr.tableIndex=0
+            subCondPtr.colNum=JDT1_SHORT_NAME
+            subCondPtr.operation=DBD_EQ
+            subCondPtr.condVal=inShortName
+            subCondPtr.relationship=DBD_AND
+            subCondPtr=(subQueryParams.GetConditions().AddCondition())
+            subCondPtr.tableIndex=0
+            subCondPtr.colNum=JDT1_FC_CURRENCY
+            subCondPtr.operation=DBD_NE
+            subCondPtr.condVal=bizEnv.GetMainCurrency()
+            subCondPtr.relationship=DBD_AND
+            subCondPtr=(subQueryParams.GetConditions().AddCondition())
+            subCondPtr.tableIndex=0
+            subCondPtr.colNum=JDT1_FC_CURRENCY
+            subCondPtr.operation=DBD_NOT_NULL
+            subCondPtr.relationship=0
+            condPtr.SetSubQueryParams(subQueryParams)
+            condPtr.tableIndex=DBD_NO_TABLE
+            condPtr.operation=DBD_GT
+            condPtr.condVal=0
+            condPtr.relationship=0
+            dagRes=nil
+            dagQuery=bizEnv.OpenDAG(BOT,ao_Arr1)
+            dagQuery.SetDBDParms(queryParams)
+            ooErr=DBD_GetInNewFormat(dagQuery,dagRes)
+            if ooErr
+               if ooErr==-2028
+                  dagRes.SetSize(0,dbmDropData)
+                  ooErr=ooNoErr
+               else
+                  dagQuery.Close()
+                  return ooErr
+               end
+
+            end
+
+            if dagRes.GetRecordCount()>0
+               numOfCandidates+=dagRes.GetRecordCount()
+               dagRes.GetColLong(outBaseTransCandidate,0,0)
+            end
+
+            dagQuery.Close()
+         end
+
+
+         (omIt+=1)
+      end
+
+      if numOfCandidates==1
+         ooErr=ooNoErr
+      else
+         ooErr=-2028
+      end
+
+      return ooErr
+   end
+
+   def UpgradeERDBaseTransGetFPRCol(objectId)
+      if objectId==JDT
+         return OJDT_FINANCE_PERIOD
+      else
+         if objectId==RCT||objectId==VPM
+            return ORCT_FINANCE_PERIOD
+         else
+            return OINV_FINANCE_PERIOD
+         end
+
+      end
+
+   end
+
+   def UpgradeERDBaseTransGetTransIdCol(objectId)
+      if objectId==JDT
+         return OJDT_JDT_NUM
+      else
+         if objectId==RCT||objectId==VPM
+            return ORCT_TRANS_NUM
+         else
+            return OINV_TRANS_NUM
+         end
+
+      end
+
+   end
+
+   def UpgradeERDBaseTransAddDocNumConds(objectId,docNum,conds)
+      if objectId==JDT
+         condPtr=(conds.AddCondition())
+         condPtr.bracketOpen=1
+         condPtr.tableIndex=0
+         condPtr.colNum=OJDT_NUMBER
+         condPtr.operation=DBD_EQ
+         condPtr.condVal=docNum
+         condPtr.relationship=DBD_OR
+         condPtr=(conds.AddCondition())
+         condPtr.tableIndex=0
+         condPtr.colNum=OJDT_JDT_NUM
+         condPtr.operation=DBD_EQ
+         condPtr.condVal=docNum
+         condPtr.bracketClose=1
+      else
+         if objectId==RCT||objectId==VPM
+            condPtr=(conds.AddCondition())
+            condPtr.tableIndex=0
+            condPtr.colNum=ORCT_NUM
+            condPtr.operation=DBD_EQ
+            condPtr.condVal=docNum
+            condPtr.relationship=DBD_AND
+            condPtr=(conds.AddCondition())
+            condPtr.tableIndex=0
+            condPtr.colNum=ORCT_CANCELED
+            condPtr.operation=DBD_NE
+            condPtr.condVal=VAL_YES
+         else
+            condPtr=(conds.AddCondition())
+            condPtr.tableIndex=0
+            condPtr.colNum=OINV_NUM
+            condPtr.operation=DBD_EQ
+            condPtr.condVal=docNum
+         end
+
+      end
+
+      condPtr.relationship=DBD_AND
+   end
+
+   def UpgradeERDBaseTransPopulateAbbrevMap(abbrevMap)
+      docAbbrevs.insert(_T("IN"))
+      docAbbrevs.insert(_T("FP"))
+      docAbbrevs.insert(_T("VS"))
+      docAbbrevs.insert(_T("PF"))
+      docAbbrevs.insert(_T("FA"))
+      abbrevMap[INV]=docAbbrevs
+      docAbbrevs.clear()
+      docAbbrevs.insert(_T("CN"))
+      docAbbrevs.insert(_T("DP"))
+      docAbbrevs.insert(_T("KI"))
+      docAbbrevs.insert(_T("ZP"))
+      docAbbrevs.insert(_T("KR"))
+      docAbbrevs.insert(_T("OD"))
+      abbrevMap[RIN]=docAbbrevs
+      docAbbrevs.clear()
+      docAbbrevs.insert(_T("PU"))
+      docAbbrevs.insert(_T("FN"))
+      docAbbrevs.insert(_T("SS"))
+      docAbbrevs.insert(_T("FZ"))
+      docAbbrevs.insert(_T("FV"))
+      docAbbrevs.insert(_T("DF"))
+      abbrevMap[PCH]=docAbbrevs
+      docAbbrevs.clear()
+      docAbbrevs.insert(_T("PC"))
+      docAbbrevs.insert(_T("DN"))
+      docAbbrevs.insert(_T("SJ"))
+      docAbbrevs.insert(_T("ZK"))
+      docAbbrevs.insert(_T("KM"))
+      docAbbrevs.insert(_T("DN"))
+      abbrevMap[RPC]=docAbbrevs
+      docAbbrevs.clear()
+      docAbbrevs.insert(_T("CV"))
+      docAbbrevs.insert(_T("CU"))
+      docAbbrevs.insert(_T("OF"))
+      docAbbrevs.insert(_T("BH"))
+      docAbbrevs.insert(_T("SV"))
+      docAbbrevs.insert(_T("SZ"))
+      docAbbrevs.insert(_T("CN"))
+      abbrevMap[CPI]=docAbbrevs
+      docAbbrevs.clear()
+      docAbbrevs.insert(_T("CS"))
+      docAbbrevs.insert(_T("OF"))
+      docAbbrevs.insert(_T("KH"))
+      docAbbrevs.insert(_T("VV"))
+      docAbbrevs.insert(_T("SK"))
+      docAbbrevs.insert(_T("CP"))
+      docAbbrevs.insert(_T("CE"))
+      abbrevMap[CSI]=docAbbrevs
+      docAbbrevs.clear()
+      docAbbrevs.insert(_T("RC"))
+      docAbbrevs.insert(_T("BP"))
+      docAbbrevs.insert(_T("FB"))
+      docAbbrevs.insert(_T("KP"))
+      docAbbrevs.insert(_T("DP"))
+      abbrevMap[RCT]=docAbbrevs
+      docAbbrevs.clear()
+      docAbbrevs.insert(_T("PS"))
+      docAbbrevs.insert(_T("BV"))
+      docAbbrevs.insert(_T("FK"))
+      docAbbrevs.insert(_T("FZ"))
+      docAbbrevs.insert(_T("ZD"))
+      docAbbrevs.insert(_T("PD"))
+      abbrevMap[VPM]=docAbbrevs
+      docAbbrevs.clear()
+      docAbbrevs.insert(_T("JE"))
+      docAbbrevs.insert(_T("ZD"))
+      docAbbrevs.insert(_T("NB"))
+      docAbbrevs.insert(_T("KS"))
+      docAbbrevs.insert(_T("UZ"))
+      abbrevMap[JDT]=docAbbrevs
+   end
+
+   def AmountChangedSinceMDRAssigned_APA(mdrObj,dagJDT1,rec,changedDim)
+      changed=false
+      dagJDT1.GetColMoney(amount,JDT1_FC_DEBIT,rec)
+      if amount.IsZero()
+         dagJDT1.GetColMoney(amount,JDT1_FC_CREDIT,rec)
+         if amount.IsZero()
+            dagJDT1.GetColMoney(amount,JDT1_DEBIT,rec)
+            if amount.IsZero()
+               dagJDT1.GetColMoney(amount,JDT1_CREDIT,rec)
+            end
+
+         end
+
+      end
+
+      dim = SBOString.new(DIM)
+      dimObj=GetEnv().CreateBusinessObject(dim)
+      dimObj.DIMGetAllDimensionsInfo(dimInfo)
+      flds=""
+      dimIdx=0
+      while (dimIdx<DIMENSION_MAX) do
+         if dimInfo[dimIdx].DimActive
+            dagJDT1.GetColStr(ocrCode,flds[dimIdx],rec)
+            _STR_LRTrim(ocrCode)
+            if mdrObj.RuleIsManual(ocrCode)
+               mdrObj.AmountIsChangedForManualRule(ocrCode,amount,changed)
+               if changed
+                  _STR_GetStringResource(formatStr,80304,16,coreSystemDefault,GetEnv())
+                  tmpStr.Format(formatStr,rec+1,dimIdx+1)
+                  Message(80304,15,tmpStr,OO_ERROR)
+                  changedDim=dimIdx+1
+                  break
+               end
+
+            end
+
+         end
+
+
+         (dimIdx+=1;dimIdx-2)
+      end
+
+      dimObj.Destroy()
+      return changed
+   end
+
+   def isValidMatType(mat_type)
+      if (mat_type!=0)&&(mat_type!=-1)
+         return true
+      else
+         return false
+      end
+
+   end
+
+   def UpgradeDOC6VatPaidForFullyBasedCreditMemos(objID)
+      ooErr=0
+      env=GetEnv()
+      updStmt = DBQUpdateStatement.new(env)
+      begin
+         tDoc6=updStmt.Update(env.ObjectToTable(objID,ao_Arr6))
+         tOdoc=updStmt.Update(env.ObjectToTable(objID,ao_Main))
+         updStmt.Set(INV6_VAT_APPLIED).Col(tDoc6,INV6_VAT_SUM)
+         updStmt.Set(INV6_VAT_APPLIED_SYS).Col(tDoc6,INV6_VAT_SYS)
+         updStmt.Set(INV6_VAT_APPLIED_FRGN).Col(tDoc6,INV6_VAT_FRGN)
+         updStmt.Where().Col(tDoc6,INV6_ABS_ENTRY).EQ().Col(tOdoc,OINV_ABS_ENTRY).And().Col(tDoc6,INV6_STATUS).EQ().Val(VAL_CLOSE).And().Col(tOdoc,OINV_STATUS).EQ().Val(VAL_CLOSE).And().Col(tDoc6,INV6_VAT_APPLIED).EQ().Val(0)
+         updStmt.Execute()
+      rescue DBMException=>e
+         ooErr=e.GetCode()
+         return ooErr
+      end
+
+      return ooErr
+   end
+
+   def UpgradeODOCVatPaidForFullyBasedCreditMemos(objID)
+      ooErr=0
+      env=GetEnv()
+      updStmt = DBQUpdateStatement.new(env)
+      begin
+         tOdoc=updStmt.Update(env.ObjectToTable(objID,ao_Main))
+         updStmt.Set(OINV_VAT_APPLIED).Col(tOdoc,OINV_VAT_SUM)
+         updStmt.Set(OINV_VAT_APPLIED_SYS).Col(tOdoc,OINV_VAT_SYS)
+         updStmt.Set(OINV_VAT_APPLIED_FRGN).Col(tOdoc,OINV_VAT_FRGN)
+         updStmt.Where().Col(tOdoc,OINV_VAT_APPLIED).EQ().Val(0).And().Col(tOdoc,OINV_STATUS).EQ().Val(VAL_CLOSE)
+         updStmt.Execute()
+      rescue DBMException=>e
+         ooErr=e.GetCode()
+         return ooErr
+      end
+
+      return ooErr
+   end
+
+   def RepairEquVatRateOfJDT1()
+      ooErr=ooNoErr
+      objectId=""
+      i=0
+      while (objectId[i]!=NOB) do
+         ooErr=RepairEquVatRateOfJDT1ForOneObject(objectId[i])
+         if ooErr
+            return ooErr
+         end
+
+
+         (i+=1;i-2)
+      end
+
+      return ooErr
+   end
+
+   def RepairEquVatRateOfJDT1ForOneObject(objectId)
+      ooErr=ooNoErr
+      bq = SMU_BQ_Context.new(GetEnv())
+      bq.AddTable(TAX,ao_Arr1,tableTAX1)
+      bq.AddJoin(TAX,ao_Main,tableOTAX,tableTAX1,SMU_BQ_INNER_JOIN)
+      bq.ConditionContext_SetToJoin(tableOTAX)
+      bq.AddConditions().Col(tableOTAX,OTAX_ABS_ENTRY).EQ().Col(tableTAX1,TAX1_ABS_ENTRY)
+      bq.AddJoin(JDT,ao_Main,tableOJDT,tableOTAX,SMU_BQ_INNER_JOIN)
+      bq.ConditionContext_SetToJoin(tableOJDT)
+      bq.AddConditions().Col(tableOJDT,OJDT_TRANS_TYPE).EQ().Col(tableOTAX,OTAX_SOURCE_OBJ_TYPE).AND().Col(tableOJDT,OJDT_BASE_REF).EQ().Col(tableOTAX,OTAX_SOURCE_OBJ_ABS_ENTRY)
+      bq.AddJoin(JDT,ao_Arr1,tableJDT1,tableOJDT,SMU_BQ_INNER_JOIN)
+      bq.ConditionContext_SetToJoin(tableJDT1)
+      bq.AddConditions().Col(tableJDT1,JDT1_TRANS_ABS).EQ().Col(tableOJDT,OJDT_JDT_NUM).AND().Col(tableJDT1,JDT1_VAT_LINE).EQ().Val(VAL_YES).AND().Col(tableJDT1,JDT1_VAT_GROUP).EQ().Col(tableTAX1,TAX1_TAX_CODE)
+      bq.AddJoin(objectId,ao_Main,tableOINV,tableOTAX,SMU_BQ_INNER_JOIN)
+      bq.ConditionContext_SetToJoin(tableOINV)
+      bq.AddConditions().Col(tableOINV,INV1_ABS_ENTRY).EQ().Col(tableOTAX,OTAX_SOURCE_OBJ_ABS_ENTRY)
+      bq.ConditionContext_SetToWherePart()
+      bq.AddConditions().Col(tableTAX1,TAX1_EQ_PERCENT).NE().Val(STR_0).AND().Col(tableOTAX,OTAX_SOURCE_OBJ_TYPE).EQ().Val(objectId)
+      bq.AddCondition_AND()
+      bq.AddCondition_BracketOpen()
+      version=VERSION_2007_226
+      while (version<=VERSION_2007_227) do
+         versionStr = SBOString.new(version)
+
+         major=versionStr.Left(1)
+         minor=versionStr.Mid(1,2)
+         build=versionStr.Right(3)
+         versionStr=major+_T(".")+minor+_T(".")+build+_T(".*")
+         bq.AddCondition_CompareColumnWithString(tableOINV,(objectId==RCT||objectId==VPM) ? ORCT_VERSION_NUM : OINV_VERSION_NUM,DBD_PATTERN,versionStr)
+         if version!=VERSION_2007_227
+            bq.AddCondition_OR()
+         end
+
+
+         (version+=1;version-2)
+      end
+
+      bq.AddCondition_BracketClose()
+      bq.AddResultColumn(resTax1AbsEntry,tableTAX1,TAX1_ABS_ENTRY)
+      bq.AddResultColumn(resTax1TaxCode,tableTAX1,TAX1_TAX_CODE)
+      bq.AddResultColumn(resTax1EqPercent,tableTAX1,TAX1_EQ_PERCENT)
+      bq.AddResultColumn(resJdt1TransId,tableJDT1,JDT1_TRANS_ABS)
+      bq.AddResultColumn(resJdt1Line_ID,tableJDT1,JDT1_LINE_ID)
+      bq.AddSortParam(tableJDT1,JDT1_TRANS_ABS,false)
+      bq.AddSortParam(tableJDT1,JDT1_LINE_ID,false)
+      bq.SetFlag(DBD_FLAG_DISTINCT_DAG,true)
+      key.SetSegmentsCount(2)
+      key.SetSegmentColumn(0,resJdt1TransId)
+      key.SetSegmentColumn(1,resJdt1Line_ID)
+      dagRes=nil
+      dagQuery=GetEnv().OpenDAG(JDT,ao_Arr1)
+      bq.AssignToDAG(dagQuery)
+      ooErr=dagQuery.GetFirstChunk(10000,key,dagRes)
+      if ooErr&&ooErr!=-2028
+         dagQuery.Close()
+         return ooErr
+      end
+
+      while (ooErr==ooNoErr)
+         ooErr=UpdateIncorrectEquVatRate(dagRes)
+         if ooErr
+            dagQuery.Close()
+            return ooErr
+         end
+
+         ooErr=dagQuery.GetNextChunk(10000,key,dagRes)
+      end
+
+      if ooErr==-2028
+         ooErr=ooNoErr
+      end
+
+      dagQuery.Close()
+      return ooErr
+   end
+
+   def UpdateIncorrectEquVatRate(dagRes)
+      ooErr=ooNoErr
+      rec=dagRes.GetRecordCount()-1
+
+      while (rec>=0) do
+         ooErr=UpdateIncorrectEquVatRateOneRec(dagRes,rec)
+         if ooErr
+            return ooErr
+         end
+
+         dagRes.GetColLong(absEntry,resTax1AbsEntry,rec)
+         dagRes.GetColStr(vatGroup,resTax1TaxCode,rec)
+         vatGroup.Trim()
+         if rec-1>=0
+            dagRes.GetColLong(nextAbsEntry,resTax1AbsEntry,rec-1)
+            dagRes.GetColStr(nextVatGroup,resTax1TaxCode,rec-1)
+            nextVatGroup.Trim()
+         else
+            break
+         end
+
+         if absEntry==nextAbsEntry&&vatGroup==nextVatGroup
+            (rec-=1;rec+2)
+         end
+
+
+         (rec-=1;rec+2)
+      end
+
+      return ooErr
+   end
+
+   def UpdateIncorrectEquVatRateOneRec(dagRes,rec)
+      ooErr=ooNoErr
+      dagRes.GetColLong(transId,resJdt1TransId,rec)
+      dagRes.GetColLong(lineId,resJdt1Line_ID,rec)
+      dagRes.GetColMoney(equVatRate,resTax1EqPercent,rec)
+      conds[0].colNum=JDT1_TRANS_ABS
+      conds[0].operation=DBD_EQ
+      conds[0].condVal=transId
+      conds[0].relationship=DBD_AND
+      conds[1].colNum=JDT1_LINE_ID
+      conds[1].operation=DBD_EQ
+      conds[1].condVal=lineId
+      conds[1].relationship=0
+      updateStruct[0].colNum=JDT1_EQU_VAT_PERCENT
+      equVatRate.ToSBOString(updateStruct[0].updateVal)
+      dagJDT1=GetEnv().OpenDAG(JDT,ao_Arr1)
+      DBD_SetDAGCond(dagJDT1,conds,2)
+      DBD_SetDAGUpd(dagJDT1,updateStruct,1)
+      ooErr=DBD_UpdateCols(dagJDT1)
+      dagJDT1.Close()
+      return ooErr
+   end
+
+   def InitDataReport340(dagJDT)
+      trace("InitDataReport340")
+      sboErr=ooNoErr
+      bizEnv=GetEnv()
+      if GetDataSource()==VAL_OBSERVER_SOURCE
+         dagJDT.NullifyCol(OJDT_RESIDENCE_NUM,0)
+      end
+
+      return sboErr
+   end
+
+   def CompleteReport340(dagJDT,dagJDT1)
+      trace("CompleteReport340")
+      sboErr=ooNoErr
+      bizEnv=GetEnv()
+      dagCRD=GetDAG(CRD)
+      if GetDataSource()==VAL_OBSERVER_SOURCE
+         dagJDT.GetColStr(residenNum,OJDT_RESIDENCE_NUM,0)
+         if residenNum.GetLength()<=0
+            atLeasOneBPFound=false
+            if IsManualJE(dagJDT)==true
+               numOfRecs=dagJDT1.GetRealSize(dbmDataBuffer)
+               if numOfRecs>0
+                  rec=0
+                  while (rec<numOfRecs) do
+                     dagJDT1.GetColStr(account,JDT1_ACCT_NUM,rec)
+                     dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
+                     if account.CompareNoCase(shortName)!=0
+                        if bizEnv.GetByOneKey(dagCRD,OCRD_KEYNUM_PRIMARY,shortName,true)==ooNoErr
+                           dagCRD.GetColStr(residenNum,OCRD_RESIDENCE_NUM,0)
+                           dagJDT.SetColStr(residenNum,OJDT_RESIDENCE_NUM,0)
+                           dagJDT.SetColStr(residenNum,OJDT_RESIDENCE_NUM,0,true,true)
+                           atLeasOneBPFound=true
+                           break
+                        end
+
+                     end
+
+
+                     (rec+=1;rec-2)
+                  end
+
+               end
+
+            end
+
+            if atLeasOneBPFound==false
+               dagJDT.GetDefaultValue(OJDT_RESIDENCE_NUM,residenNum)
+               dagJDT.SetColStr(residenNum,OJDT_RESIDENCE_NUM,0)
+               dagJDT.SetColStr(residenNum,OJDT_RESIDENCE_NUM,0,true,true)
+            end
+
+         end
+
+      end
+
+      return sboErr
+   end
+
+   def ValidateReport340()
+      trace("ValidateReport340")
+      sboErr=ooNoErr
+      bizEnv=GetEnv()
+      dagJDT=GetDAG()
+      if GetCurrentBusinessFlow()==bf_Create
+         return sboErr
+      end
+
+      dagJDT.GetColStr(residenNumOrig,OJDT_RESIDENCE_NUM,0,true,true)
+      dagJDT.GetColStr(residenNumNew,OJDT_RESIDENCE_NUM,0)
+      if residenNumOrig.GetLength()>0&&residenNumOrig.Compare(residenNumNew)!=0&&IsManualJE(dagJDT)==false
+         SetErrorField(OJDT_RESIDENCE_NUM)
+         Message(GO_OBJ_ERROR_MSGS(JDT),22,nil,OO_ERROR)
+         return ooInvalidObject
+      end
+
+      dagJDT.GetColStr(operatCodeOrig,OJDT_OPERATION_CODE,0,true,true)
+      dagJDT.GetColStr(operatCodeNew,OJDT_OPERATION_CODE,0)
+      if operatCodeOrig.GetLength()>0&&operatCodeOrig.Compare(operatCodeNew)!=0&&IsManualJE(dagJDT)==false
+         SetErrorField(OJDT_OPERATION_CODE)
+         Message(GO_OBJ_ERROR_MSGS(JDT),23,nil,OO_ERROR)
+         return ooInvalidObject
+      end
+
+      return sboErr
+   end
+
+   def HandleFCExchangeRounding(dagJDT1,currencyMap)
+
+      lastNonZeroFCLine = long.new(-1)
+      size=dagJDT1.GetRecordCount()
+      idx=0
+      while (idx<size) do
+         debit.FromDAG(dagJDT1,idx,JDT1_DEBIT,JDT1_FC_DEBIT,JDT1_SYS_DEBIT)
+         credit.FromDAG(dagJDT1,idx,JDT1_CREDIT,JDT1_FC_CREDIT,JDT1_SYS_CREDIT)
+         dagJDT1.GetColStr(currency,JDT1_FC_CURRENCY,idx)
+         dagJDT1.GetColStr(vatLine,JDT1_VAT_LINE,idx)
+         vatLine.Trim()
+         currency.Trim()
+         if !currency.IsEmpty()&&(debit.GetFcSum()!=0||credit.GetFcSum()!=0)
+            currencyMap.Lookup(currency,roundingStruct)
+            if vatLine!=VAL_YES
+               roundingStruct.lastNonZeroFCLine=idx
+            end
+
+            roundingStruct.totalDebitMinusCredit+=(debit-credit)
+            currencyMap[currency]=roundingStruct
+         end
+
+         totalDebitMinusCredit+=(debit-credit)
+
+         (idx+=1;idx-2)
+      end
+
+      if totalDebitMinusCredit.GetLcSum()==0&&totalDebitMinusCredit.GetScSum()==0
+         return ooNoErr
+      end
+
+
+      while (itr!=currencyMap.end()) do
+         roundingStruct=itr.second
+         if roundingStruct.needRounding&&roundingStruct.totalDebitMinusCredit.GetFcSum()==0&&(roundingStruct.totalDebitMinusCredit.GetLcSum()!=0||roundingStruct.totalDebitMinusCredit.GetScSum()!=0)&&roundingStruct.lastNonZeroFCLine!=-1
+            dagJDT1.GetColMoney(amount,JDT1_FC_DEBIT,roundingStruct.lastNonZeroFCLine)
+            if amount!=0
+               dagJDT1.GetColMoney(amount,JDT1_DEBIT,roundingStruct.lastNonZeroFCLine)
+               amount-=roundingStruct.totalDebitMinusCredit.GetLcSum()
+               dagJDT1.SetColMoney(amount,JDT1_DEBIT,roundingStruct.lastNonZeroFCLine)
+               dagJDT1.GetColMoney(amount,JDT1_SYS_DEBIT,roundingStruct.lastNonZeroFCLine)
+               amount-=roundingStruct.totalDebitMinusCredit.GetScSum()
+               dagJDT1.SetColMoney(amount,JDT1_SYS_DEBIT,roundingStruct.lastNonZeroFCLine)
+            else
+               dagJDT1.GetColMoney(amount,JDT1_CREDIT,roundingStruct.lastNonZeroFCLine)
+               amount+=roundingStruct.totalDebitMinusCredit.GetLcSum()
+               dagJDT1.SetColMoney(amount,JDT1_CREDIT,roundingStruct.lastNonZeroFCLine)
+               dagJDT1.GetColMoney(amount,JDT1_SYS_CREDIT,roundingStruct.lastNonZeroFCLine)
+               amount+=roundingStruct.totalDebitMinusCredit.GetScSum()
+               dagJDT1.SetColMoney(amount,JDT1_SYS_CREDIT,roundingStruct.lastNonZeroFCLine)
+            end
+
+         end
+
+
+         (itr+=1)
+      end
+
+      return ooNoErr
+   end
+
+   def UpgradeFederalTaxIdOnJERow()
+      bizEnv=GetEnv()
+      stmt = DBQRetrieveStatement.new(bizEnv)
+      begin
+         tJDT1=stmt.From(bizEnv.ObjectToTable(JDT,ao_Arr1))
+         tOCRD=stmt.Join(bizEnv.ObjectToTable(CRD,ao_Main),tJDT1,DBQ_JT_INNER_JOIN)
+         stmt.On(tOCRD).Col(tJDT1,JDT1_SHORT_NAME).EQ().Col(tOCRD,OCRD_CARD_CODE)
+         tCRD1=stmt.Join(bizEnv.ObjectToTable(CRD,ao_Arr1),tOCRD,DBQ_JT_LEFT_OUTER_JOIN)
+         stmt.On(tCRD1).Col(tOCRD,OCRD_CARD_CODE).EQ().Col(tCRD1,CRD1_CARD_CODE).And().Col(tOCRD,OCRD_SHIP_TO_DEFAULT).EQ().Col(tCRD1,CRD1_ADDRESS_NAME)
+         stmt.Select().Col(tOCRD,OCRD_CARD_CODE)
+         stmt.Select().Col(tOCRD,OCRD_CARD_TYPE)
+         stmt.Select().Col(tOCRD,OCRD_TAX_ID_NUMBER).As(_T("OCRDLicTradNum"))
+         stmt.Select().Col(tCRD1,CRD1_TAX_ID_NUMBER).As(_T("CRD1LicTradNum"))
+         stmt.Distinct()
+         stmt.Where().Col(tJDT1,JDT1_ACCT_NUM).NE().Col(tJDT1,JDT1_SHORT_NAME).And().Col(tJDT1,JDT1_TRANS_TYPE).EQ().Val(JDT).And().OpenBracket().Col(tOCRD,OCRD_TAX_ID_NUMBER).IsNotNull().Or().Col(tCRD1,CRD1_TAX_ID_NUMBER).IsNotNull().CloseBracket()
+         countRes=stmt.Execute(dagRes)
+      rescue DBMException=>e
+         return e.GetCode()
+      end
+
+      ii=0
+      while (ii<countRes) do
+         crdTaxID=EMPTY_STR
+         dagRes.GetColStr(cardCode,dagRes.GetColumnByAlias(OCRD_CARD_CODE_ALIAS),ii)
+         dagRes.GetColStr(cardType,dagRes.GetColumnByAlias(OCRD_CARD_TYPE_ALIAS),ii)
+         cardCode.Trim()
+         cardType.Trim()
+         if cardType==VAL_CUSTOMER&&!GetEnv().IsLatinAmericaTaxSystem()
+            dagRes.GetColStr(crdTaxID,dagRes.GetColumnByAlias(_T("CRD1LicTradNum")),ii)
+         end
+
+         if crdTaxID.IsSpacesStr()
+            dagRes.GetColStr(crdTaxID,dagRes.GetColumnByAlias(_T("OCRDLicTradNum")),ii)
+         end
+
+         crdTaxID.Trim()
+         ustmt = DBQUpdateStatement.new(bizEnv)
+         begin
+            tJDT1=ustmt.Update(bizEnv.ObjectToTable(JDT,ao_Arr1))
+            ustmt.Set(JDT1_TAX_ID_NUMBER).Val(crdTaxID)
+            ustmt.Where().Col(tJDT1,JDT1_ACCT_NUM).NE().Col(tJDT1,JDT1_SHORT_NAME).And().Col(tJDT1,JDT1_SHORT_NAME).EQ().Val(cardCode).And().Col(tJDT1,JDT1_TRANS_TYPE).EQ().Val(JDT)
+            ustmt.Execute()
+         rescue DBMException=>e
+            return e.GetCode()
+         end
+
+
+         (ii+=1;ii-2)
+      end
+
+      objArray=""
+      objNum=0
+      while (objArray[objNum]!=NOB) do
+         ustmt = DBQUpdateStatement.new(bizEnv)
+         begin
+            tJDT1=ustmt.Update(bizEnv.ObjectToTable(JDT,ao_Arr1))
+            tOINV=ustmt.Update(bizEnv.ObjectToTable(objArray[objNum],ao_Main))
+            ustmt.Set(JDT1_TAX_ID_NUMBER).Col(tOINV,OINV_TAX_ID_NUMBER)
+            ustmt.Where().Col(tOINV,OINV_TRANS_NUM).EQ().Col(tJDT1,JDT1_TRANS_ABS).And().Col(tJDT1,JDT1_ACCT_NUM).NE().Col(tJDT1,JDT1_SHORT_NAME).And().Col(tOINV,OINV_CARD_CODE).EQ().Col(tJDT1,JDT1_SHORT_NAME)
+            ustmt.Execute()
+         rescue DBMException=>e
+            return e.GetCode()
+         end
+
+
+         (objNum+=1;objNum-2)
+      end
+
+      return 0
+   end
+
+   def UpgradeDprId(isSalesObject,introVersion1_Including,introVersion2)
+      sboErr=ooNoErr
+      env=GetEnv()
+      paymentObjType=isSalesObject ? RCT : VPM
+      dpmObjType=isSalesObject ? DPI : DPO
+      countRes=0
+      begin
+         stmt = DBQRetrieveStatement.new(env)
+         tORCT=stmt.From(env.ObjectToTable(paymentObjType,ao_Main))
+         tRCT2=stmt.Join(env.ObjectToTable(paymentObjType,ao_Arr2),tORCT)
+         stmt.On(tRCT2).Col(tRCT2,RCT2_DOC_KEY).EQ().Col(tORCT,ORCT_ABS_ENTRY).And().Col(tORCT,ORCT_CANCELED).NE().Val(VAL_YES)
+         stmt.Select().Col(tORCT,ORCT_VERSION_NUM)
+         stmt.Select().Col(tORCT,ORCT_OBJECT)
+         stmt.Select().Col(tRCT2,RCT2_DOC_KEY)
+         stmt.Select().Col(tRCT2,RCT2_LINE_ID)
+         stmt.Select().Col(tRCT2,RCT2_INVOICE_KEY)
+         i=0
+         version = introVersion1_Including
+         while (i<15&&version<introVersion2) do
+            versionStr = SBOString.new(version)
+
+            major=versionStr.Left(1)
+            minor=versionStr.Mid(1,2)
+            build=versionStr.Right(3)
+            versionStr=major+_T(".")+minor+_T(".")+build
+            versionNums.Add(versionStr)
+
+            (i+=1;i-2);(version+=1;version-2)
+         end
+
+         stmt.Where().Col(tRCT2,RCT2_INVOICE_TYPE).EQ().Val(dpmObjType).And().Col(tRCT2,RCT2_PAID_DPM).EQ().Val(VAL_NO)
+         stmt.Where().And().OpenBracket()
+         j=0
+         while (j<versionNums.GetSize()) do
+            stmt.Where().Col(tORCT,ORCT_VERSION_NUM).StartsWith().Val(versionNums[j])
+            if j!=versionNums.GetSize()-1
+               stmt.Where().Or()
+            end
+
+
+            (j+=1;j-2)
+         end
+
+         stmt.Where().CloseBracket()
+         countRes=stmt.Execute(dagRES)
+         if countRes<1
+            return sboErr
+         end
+
+      rescue DBMException=>e
+         return e.GetCode()
+      end
+
+      sboErr=UpdateDprIdOnJERow(paymentObjType,dagRES)
+      return sboErr
+   end
+
+   def UpgradeDprIdForOneDprPayment(isSalesObject,introVersion)
+      sboErr=ooNoErr
+      env=GetEnv()
+      paymentObjType=isSalesObject ? RCT : VPM
+      dpmObjType=isSalesObject ? DPI : DPO
+      countRes=0
+      begin
+         stmt = DBQRetrieveStatement.new(env)
+         tORCT=stmt.From(env.ObjectToTable(paymentObjType,ao_Main))
+         tRCT2=stmt.Join(env.ObjectToTable(paymentObjType,ao_Arr2),tORCT)
+         stmt.On(tRCT2).Col(tRCT2,RCT2_DOC_KEY).EQ().Col(tORCT,ORCT_ABS_ENTRY).And().Col(tORCT,ORCT_CANCELED).NE().Val(VAL_YES)
+         stmt.Select().Min().Col(tORCT,ORCT_VERSION_NUM).As(ORCT_VERSION_NUM_ALIAS)
+         stmt.Select().Min().Col(tORCT,ORCT_OBJECT).As(ORCT_OBJECT_ALIAS)
+         stmt.Select().Col(tRCT2,RCT2_DOC_KEY).As(RCT2_DOC_KEY_ALIAS)
+         stmt.Select().Min().Col(tRCT2,RCT2_LINE_ID).As(RCT2_LINE_ID_ALIAS)
+         stmt.Select().Min().Col(tRCT2,RCT2_INVOICE_KEY).As(RCT2_INVOICE_KEY_ALIAS)
+         versionStr = SBOString.new(introVersion)
+
+         major=versionStr.Left(1)
+         minor=versionStr.Mid(1,2)
+         build=versionStr.Right(3)
+         versionStr=major+_T(".")+minor+_T(".")+build
+         stmt.Where().Col(tRCT2,RCT2_INVOICE_TYPE).EQ().Val(dpmObjType).And().Col(tRCT2,RCT2_PAID_DPM).EQ().Val(VAL_NO).And().Col(tORCT,ORCT_VERSION_NUM).LT().Val(versionStr)
+         stmt.GroupBy(tRCT2,RCT2_DOC_KEY)
+         stmt.Having().Count().Col(tRCT2,RCT2_DOC_KEY).EQ().Val(1)
+         countRes=stmt.Execute(dagRES)
+         if countRes<1
+            return sboErr
+         end
+
+      rescue DBMException=>e
+         return e.GetCode()
+      end
+
+      sboErr=UpdateDprIdOnJERow(paymentObjType,dagRES)
+      return sboErr
+   end
+
+   def UpdateDprIdOnJERow(paymentObjType,dagRES)
+      sboErr=ooNoErr
+      env=GetEnv()
+      countRes=dagRES.GetRealSize(dbmDataBuffer)
+      rec=0
+      while (rec<countRes) do
+         dagRES.GetColLong(paymentDocEntry,dagRES.GetColumnByAlias(RCT2_DOC_KEY_ALIAS),rec)
+         dagRES.GetColLong(paymentLineId,dagRES.GetColumnByAlias(RCT2_LINE_ID_ALIAS),rec)
+         dagRES.GetColLong(dprDocEntry,dagRES.GetColumnByAlias(RCT2_INVOICE_KEY_ALIAS),rec)
+         begin
+            ustmt = DBQUpdateStatement.new(env)
+            tJDT1=ustmt.Update(env.ObjectToTable(JDT,ao_Arr1))
+            ustmt.Set(JDT1_DPR_ABS_ID).Val(dprDocEntry)
+            ustmt.Where().Col(tJDT1,JDT1_TRANS_TYPE).EQ().Val(paymentObjType).And().Col(tJDT1,JDT1_CREATED_BY).EQ().Val(paymentDocEntry).And().Col(tJDT1,JDT1_LINE_TYPE).EQ().Val(ooCtrlAct_DPRequestType).And().Col(tJDT1,JDT1_DPR_ABS_ID).IsNull().And().OpenBracket().Col(tJDT1,JDT1_SRC_LINE).IsNull().Or().Col(tJDT1,JDT1_SRC_LINE).EQ().Val(paymentLineId).Or().Col(tJDT1,JDT1_SRC_LINE).LT().Val(0).CloseBracket()
+            ustmt.Execute()
+         rescue DBMException=>e
+            return e.GetCode()
+         end
+
+
+         (rec+=1;rec-2)
+      end
+
+      return sboErr
+   end
+
+   def UpgradeWorkOrderStep1()
+      ooErr=ooNoErr
+      dagJDT=GetDAG()
+      tables[0].tableCode=self.GetEnv().ObjectToTable(JDT)
+      tables[1].tableCode=self.GetEnv().ObjectToTable(WKO)
+      join[0].colNum=OJDT_REF1
+      join[0].tableIndex=0
+      join[0].compareCols=true
+      join[0].compColNum=OWKO_SERIAL_NUM
+      join[0].compTableIndex=1
+      join[0].operation=DBD_EQ
+      join[0].relationship=DBD_AND
+      join[1].colNum=OJDT_TRANS_TYPE
+      join[1].tableIndex=0
+      join[1].compareCols=false
+      join[1].condVal=68
+      join[1].operation=DBD_EQ
+      join[1].relationship=0
+      tables[1].joinConds=join[0]
+      tables[1].doJoin=true
+      tables[1].joinedToTable=0
+      tables[1].numOfConds=2
+      tables[1].outerJoin=false
+      updateStruct[0].colNum=OJDT_CREATED_BY
+      updateStruct[0].srcColNum=OWKO_ORDER_NUM
+      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+      pResCol=updateStruct[0].GetResObject().AddResCol()
+      pResCol.SetTableIndex(1)
+      pResCol.SetColNum(OWKO_ORDER_NUM)
+      updateStruct[1].colNum=OJDT_BASE_REF
+      updateStruct[1].srcColNum=OWKO_SERIAL_NUM
+      updateStruct[1].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+      pResCol=updateStruct[1].GetResObject().AddResCol()
+      pResCol.SetTableIndex(1)
+      pResCol.SetColNum(OWKO_SERIAL_NUM)
+      cond[0].colNum=OJDT_CREATED_BY
+      cond[0].tableIndex=0
+      cond[0].compareCols=true
+      cond[0].operation=DBD_NE
+      cond[0].compColNum=OWKO_ORDER_NUM
+      cond[0].compTableIndex=1
+      cond[0].relationship=DBD_AND
+      cond[1].bracketOpen=1
+      cond[1].SetSubQueryParams(subQueryParams)
+      cond[1].tableIndex=DBD_NO_TABLE
+      cond[1].operation=DBD_EQ
+      _STR_strcpy(cond[1].condVal,STR_1)
+      cond[1].bracketClose=1
+      cond[1].relationship=DBD_AND
+      cond[2].bracketOpen=1
+      cond[2].SetSubQueryParams(subQueryParams2)
+      cond[2].tableIndex=DBD_NO_TABLE
+      cond[2].operation=DBD_EQ
+      _STR_strcpy(cond[2].condVal,STR_1)
+      cond[2].bracketClose=1
+      cond[2].relationship=0
+      subtables1[0].tableCode=self.GetEnv().ObjectToTable(WKO)
+      subres1[0].colNum=OWKO_SERIAL_NUM
+      subres1[0].tableIndex=0
+      subres1[0].agreg_type=DBD_COUNT
+      subcond1[0].colNum=OWKO_SERIAL_NUM
+      subcond1[0].tableIndex=0
+      subcond1[0].compareCols=true
+      subcond1[0].operation=DBD_EQ
+      subcond1[0].compColNum=OWKO_SERIAL_NUM
+      subcond1[0].origTableIndex=1
+      subcond1[0].origTableLevel=1
+      subcond1[0].relationship=0
+      DBD_SetCond(subQueryParams,subcond1,1)
+      DBD_SetRes(subQueryParams,subres1,1)
+      DBD_SetParamTablesList(subQueryParams,subtables1,1)
+      subtables2[0].tableCode=self.GetEnv().ObjectToTable(JDT)
+      subres2[0].colNum=OJDT_TRANS_TYPE
+      subres2[0].tableIndex=0
+      subres2[0].agreg_type=DBD_COUNT
+      subcond2[0].colNum=OJDT_REF1
+      subcond2[0].tableIndex=0
+      subcond2[0].compareCols=true
+      subcond2[0].operation=DBD_EQ
+      subcond2[0].compColNum=OJDT_REF1
+      subcond2[0].origTableIndex=0
+      subcond2[0].origTableLevel=1
+      subcond2[0].relationship=DBD_AND
+      subcond2[1].colNum=OJDT_TRANS_TYPE
+      subcond2[1].tableIndex=0
+      subcond2[1].compareCols=false
+      subcond2[1].operation=DBD_EQ
+      subcond2[1].condVal=68
+      subcond2[1].relationship=0
+      DBD_SetCond(subQueryParams2,subcond2,2)
+      DBD_SetRes(subQueryParams2,subres2,1)
+      DBD_SetParamTablesList(subQueryParams2,subtables2,1)
+      DBD_SetDAGCond(dagJDT,cond,3)
+      DBD_SetDAGUpd(dagJDT,updateStruct,2)
+      DBD_SetTablesList(dagJDT,tables,2)
+      ooErr=DBD_UpdateCols(dagJDT)
+      return ooErr
+   end
+
+   def UpgradeWorkOrderStep2()
+      ooErr=ooNoErr
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      tables[0].tableCode=self.GetEnv().ObjectToTable(JDT,ao_Arr1)
+      tables[1].tableCode=self.GetEnv().ObjectToTable(JDT)
+      join[0].colNum=JDT1_TRANS_ABS
+      join[0].tableIndex=0
+      join[0].compareCols=true
+      join[0].compColNum=OJDT_JDT_NUM
+      join[0].compTableIndex=1
+      join[0].operation=DBD_EQ
+      join[0].relationship=0
+      tables[1].joinConds=join[0]
+      tables[1].doJoin=true
+      tables[1].joinedToTable=0
+      tables[1].numOfConds=1
+      tables[1].outerJoin=false
+      updateStruct[0].colNum=JDT1_CREATED_BY
+      updateStruct[0].srcColNum=OJDT_CREATED_BY
+      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+      pResCol=updateStruct[0].GetResObject().AddResCol()
+      pResCol.SetTableIndex(1)
+      pResCol.SetColNum(OJDT_CREATED_BY)
+      cond[0].colNum=OJDT_CREATED_BY
+      cond[0].tableIndex=1
+      cond[0].compareCols=true
+      cond[0].operation=DBD_NE
+      cond[0].compColNum=JDT1_CREATED_BY
+      cond[0].compTableIndex=0
+      cond[0].relationship=DBD_AND
+      cond[1].colNum=OJDT_TRANS_TYPE
+      cond[1].tableIndex=1
+      cond[1].compareCols=false
+      cond[1].operation=DBD_EQ
+      cond[1].condVal=68
+      cond[1].relationship=0
+      DBD_SetDAGCond(dagJDT1,cond,2)
+      DBD_SetDAGUpd(dagJDT1,updateStruct,1)
+      DBD_SetTablesList(dagJDT1,tables,2)
+      ooErr=DBD_UpdateCols(dagJDT1)
+      return ooErr
+   end
+
+   def UpgradeWorkOrderStep3()
+      ooErr=ooNoErr
+      dagJDT=GetDAG()
+      tables[0].tableCode=self.GetEnv().ObjectToTable(JDT)
+      tables[1].tableCode=self.GetEnv().ObjectToTable(INM)
+      join[0].colNum=OJDT_CREATED_BY
+      join[0].tableIndex=0
+      join[0].compareCols=true
+      join[0].compColNum=OINM_CREATED_BY
+      join[0].compTableIndex=1
+      join[0].operation=DBD_EQ
+      join[0].relationship=DBD_AND
+      join[1].colNum=OJDT_TRANS_TYPE
+      join[1].tableIndex=0
+      join[1].compareCols=false
+      join[1].condVal=68
+      join[1].operation=DBD_EQ
+      join[1].relationship=DBD_AND
+      join[2].colNum=OINM_TYPE
+      join[2].tableIndex=1
+      join[2].compareCols=false
+      join[2].condVal=68
+      join[2].operation=DBD_EQ
+      join[2].relationship=0
+      tables[1].joinConds=join[0]
+      tables[1].doJoin=true
+      tables[1].joinedToTable=0
+      tables[1].numOfConds=3
+      tables[1].outerJoin=false
+      updateStruct[0].colNum=OJDT_CREATE_DATE
+      updateStruct[0].srcColNum=OINM_CREATE_DATE
+      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+      pResCol=updateStruct[0].GetResObject().AddResCol()
+      pResCol.SetTableIndex(1)
+      pResCol.SetColNum(OINM_CREATE_DATE)
+      cond[0].colNum=OJDT_CREATE_DATE
+      cond[0].tableIndex=0
+      cond[0].compareCols=false
+      cond[0].operation=DBD_IS_NULL
+      cond[0].relationship=DBD_AND
+      cond[1].bracketOpen=1
+      cond[1].SetSubQueryParams(subQueryParams)
+      cond[1].tableIndex=DBD_NO_TABLE
+      cond[1].operation=DBD_EQ
+      cond[1].compareCols=true
+      cond[1].compColNum=OINM_TRANS_SEQUENCE
+      cond[1].compTableIndex=1
+      cond[1].bracketClose=1
+      cond[1].relationship=0
+      subtables1[0].tableCode=self.GetEnv().ObjectToTable(INM)
+      subres1[0].colNum=OINM_TRANS_SEQUENCE
+      subres1[0].tableIndex=0
+      subres1[0].agreg_type=DBD_MIN
+      subcond1[0].colNum=OINM_TYPE
+      subcond1[0].tableIndex=0
+      subcond1[0].compareCols=true
+      subcond1[0].operation=DBD_EQ
+      subcond1[0].compColNum=OINM_TYPE
+      subcond1[0].origTableIndex=1
+      subcond1[0].origTableLevel=1
+      subcond1[0].relationship=DBD_AND
+      subcond1[1].colNum=OINM_CREATED_BY
+      subcond1[1].tableIndex=0
+      subcond1[1].compareCols=true
+      subcond1[1].operation=DBD_EQ
+      subcond1[1].compColNum=OINM_CREATED_BY
+      subcond1[1].origTableIndex=1
+      subcond1[1].origTableLevel=1
+      subcond1[1].relationship=0
+      DBD_SetCond(subQueryParams,subcond1,2)
+      DBD_SetRes(subQueryParams,subres1,1)
+      DBD_SetParamTablesList(subQueryParams,subtables1,1)
+      DBD_SetDAGCond(dagJDT,cond,2)
+      DBD_SetDAGUpd(dagJDT,updateStruct,1)
+      DBD_SetTablesList(dagJDT,tables,2)
+      ooErr=DBD_UpdateCols(dagJDT)
+      return ooErr
+   end
+
+   def UpgradeWorkOrderStep4()
+      ooErr=ooNoErr
+      dagINM=GetDAG(INM)
+      tables[0].tableCode=self.GetEnv().ObjectToTable(INM)
+      tables[1].tableCode=self.GetEnv().ObjectToTable(JDT)
+      join[0].colNum=OINM_CREATED_BY
+      join[0].tableIndex=0
+      join[0].compareCols=true
+      join[0].compColNum=OJDT_CREATED_BY
+      join[0].compTableIndex=1
+      join[0].operation=DBD_EQ
+      join[0].relationship=DBD_AND
+      join[1].colNum=OJDT_TRANS_TYPE
+      join[1].tableIndex=1
+      join[1].compareCols=false
+      join[1].condVal=68
+      join[1].operation=DBD_EQ
+      join[1].relationship=DBD_AND
+      join[2].colNum=OINM_TYPE
+      join[2].tableIndex=0
+      join[2].compareCols=false
+      join[2].condVal=68
+      join[2].operation=DBD_EQ
+      join[2].relationship=0
+      tables[1].joinConds=join[0]
+      tables[1].doJoin=true
+      tables[1].joinedToTable=0
+      tables[1].numOfConds=3
+      tables[1].outerJoin=false
+      updateStruct[0].colNum=OINM_CREATE_DATE
+      updateStruct[0].srcColNum=OJDT_CREATE_DATE
+      updateStruct[0].SetUpdateColSource(dBD_UpdStruct::ucs_UseRes)
+      pResCol=updateStruct[0].GetResObject().AddResCol()
+      pResCol.SetTableIndex(1)
+      pResCol.SetColNum(OJDT_CREATE_DATE)
+      cond[0].colNum=OINM_CREATE_DATE
+      cond[0].tableIndex=0
+      cond[0].compareCols=false
+      cond[0].operation=DBD_IS_NULL
+      cond[0].relationship=0
+      DBD_SetDAGCond(dagINM,cond,1)
+      DBD_SetDAGUpd(dagINM,updateStruct,1)
+      DBD_SetTablesList(dagINM,tables,2)
+      ooErr=DBD_UpdateCols(dagINM)
+      return ooErr
+   end
+
+   def UpgradeLandedCosErr()
+      ooErr=ooNoErr
+      dagJDT=GetDAG()
+      tables[0].tableCode=self.GetEnv().ObjectToTable(INM)
+      tables[1].tableCode=self.GetEnv().ObjectToTable(IPF)
+      tables[2].tableCode=self.GetEnv().ObjectToTable(JDT)
+      joinCondition1[0].colNum=OINM_TYPE
+      joinCondition1[0].tableIndex=0
+      joinCondition1[0].compareCols=false
+      joinCondition1[0].condVal=69
+      joinCondition1[0].operation=DBD_EQ
+      joinCondition1[0].relationship=DBD_AND
+      joinCondition1[1].colNum=OINM_CREATED_BY
+      joinCondition1[1].tableIndex=0
+      joinCondition1[1].compareCols=true
+      joinCondition1[1].compColNum=OIPF_ABS_ENTRY
+      joinCondition1[1].compTableIndex=1
+      joinCondition1[1].operation=DBD_EQ
+      joinCondition1[1].relationship=0
+      tables[1].joinConds=joinCondition1
+      tables[1].doJoin=true
+      tables[1].joinedToTable=0
+      tables[1].numOfConds=2
+      tables[1].outerJoin=false
+      joinCondition2[0].colNum=OJDT_TRANS_TYPE
+      joinCondition2[0].tableIndex=2
+      joinCondition2[0].compareCols=false
+      joinCondition2[0].condVal=69
+      joinCondition2[0].operation=DBD_EQ
+      joinCondition2[0].relationship=DBD_AND
+      joinCondition2[1].colNum=OINM_CREATED_BY
+      joinCondition2[1].tableIndex=0
+      joinCondition2[1].compareCols=true
+      joinCondition2[1].compColNum=OJDT_CREATED_BY
+      joinCondition2[1].compTableIndex=2
+      joinCondition2[1].operation=DBD_EQ
+      joinCondition2[1].relationship=DBD_AND
+      joinCondition2[2].colNum=OJDT_JDT_NUM
+      joinCondition2[2].tableIndex=2
+      joinCondition2[2].compareCols=true
+      joinCondition2[2].compColNum=OIPF_JDT_NUM
+      joinCondition2[2].compTableIndex=1
+      joinCondition2[2].operation=DBD_EQ
+      joinCondition2[2].relationship=0
+      tables[2].joinConds=joinCondition2
+      tables[2].doJoin=true
+      tables[2].joinedToTable=0
+      tables[2].numOfConds=3
+      tables[2].outerJoin=false
+      res[0].colNum=OJDT_CREATE_DATE
+      res[0].tableIndex=2
+      res[1].colNum=OINM_CREATE_DATE
+      res[1].tableIndex=0
+      res[2].colNum=OJDT_JDT_NUM
+      res[2].tableIndex=2
+      res[3].colNum=OINM_NUM
+      res[3].tableIndex=0
+      cond[0].colNum=OJDT_CREATE_DATE
+      cond[0].tableIndex=2
+      cond[0].compareCols=false
+      cond[0].operation=DBD_IS_NULL
+      cond[0].relationship=0
+      DBD_SetDAGCond(dagJDT,cond,1)
+      DBD_SetDAGRes(dagJDT,res,4)
+      DBD_SetTablesList(dagJDT,tables,3)
+      ooErr=DBD_GetInNewFormat(dagJDT,dagRes)
+      if ooErr
+         if ooErr==-2028
+            return ooNoErr
+         else
+            return ooErr
+         end
+
+      end
+
+      numOfRecords=dagRes.GetRecordCount()
+      tables2[0].tableCode=self.GetEnv().ObjectToTable(JDT)
+      i=0
+      while (i<numOfRecords) do
+         updateStruct[0].colNum=OJDT_CREATE_DATE
+         dagRes.GetColStr(updateStruct[0].updateVal,1,i)
+         cond2[0].colNum=OJDT_JDT_NUM
+         cond2[0].tableIndex=0
+         cond2[0].compareCols=false
+         cond2[0].operation=DBD_EQ
+         dagRes.GetColStr(cond2[0].condVal,2,i)
+         cond2[0].relationship=0
+         DBD_SetDAGUpd(dagJDT,updateStruct,1)
+         DBD_SetTablesList(dagJDT,tables2,1)
+         DBD_SetDAGCond(dagJDT,cond2,1)
+         ooErr=DBD_UpdateCols(dagJDT)
+         if ooErr
+            return ooErr
+         end
+
+
+         (i+=1;i-2)
+      end
+
+      return ooNoErr
+   end
+
+   def UpgradeWorkOrderErr()
+      ooErr=ooNoErr
+      ooErr=UpgradeWorkOrderStep1()
+      if ooErr
+         return ooErr
+      end
+
+      ooErr=UpgradeWorkOrderStep2()
+      if ooErr
+         return ooErr
+      end
+
+      ooErr=UpgradeWorkOrderStep3()
+      if ooErr
+         return ooErr
+      end
+
+      ooErr=UpgradeWorkOrderStep4()
+      if ooErr
+         return ooErr
+      end
+
+      return ooErr
+   end
+
+   def isValidCENVAT(cenvat)
+      if (cenvat!=0)&&(cenvat!=-1)
+         return true
+      else
+         return false
+      end
+
+   end
+
+   def ValidateHeaderLocation()
+      trace("ValidateHeaderLocation")
+      dagJDT=GetDAG()
+      dagJDT.GetColStr(autoVat,OJDT_AUTO_VAT)
+      dagJDT.GetColStr(regNo,OJDT_GEN_REG_NO)
+      if autoVat==VAL_YES||regNo==VAL_YES
+         dagJDT.GetColLong(location,OJDT_LOCATION)
+         if !location
+            SetErrorField(OJDT_LOCATION)
+            Message(GO_OBJ_ERROR_MSGS(JDT),17,nil,OO_ERROR)
+            return ooInvalidObject
+         end
+
+      end
+
+      return ooNoErr
+   end
+
+   def ValidateRowLocation(rec)
+      trace("ValidateRowLocation")
+      dagJDT1=GetDAG(JDT,ao_Arr1)
+      dagJDT1.GetColStr(vatLine,JDT1_VAT_LINE,rec)
+      if vatLine==VAL_YES
+         dagJDT1.GetColStr(taxCode,JDT1_TAX_CODE,rec)
+         if !taxCode.IsEmpty()
+            dagJDT1.GetColLong(location,JDT1_LOCATION,rec)
+            if !location
+               SetArrNum(ao_Arr1)
+               SetErrorField(OJDT_LOCATION)
+               SetErrorLine(rec+1)
+               Message(GO_OBJ_ERROR_MSGS(JDT),17,nil,OO_ERROR)
+               return ooInvalidObject
+            end
+
+         end
+
+      end
+
+      dagJDT=GetDAG(JDT,ao_Main)
+      dagJDT.GetColLong(objType,OJDT_TRANS_TYPE)
+      if objType==JDT||objType==-1
+         dagJDT1.GetColLong(maType,JDT1_MATERIAL_TYPE,rec)
+         dagJDT1.GetColLong(cenvatCon,JDT1_CENVAT_COM,rec)
+         if isValidCENVAT(cenvatCon)||isValidMatType(maType)
+            dagJDT1.GetColLong(location,JDT1_LOCATION,rec)
+            if !location
+               SetArrNum(ao_Arr1)
+               SetErrorField(OJDT_LOCATION)
+               SetErrorLine(rec+1)
+               Message(GO_OBJ_ERROR_MSGS(JDT),17,nil,OO_ERROR)
+               return ooInvalidObject
+            end
+
+         end
+
+      end
+
+      return ooNoErr
+   end
+
+   def CompleteLocations()
+      dagJDT=GetDAG()
+      dagJDT1=GetDAG(ao_Arr1)
+      dagJDT.GetColStr(autoVat,OJDT_AUTO_VAT)
+      dagJDT.GetColStr(regNo,OJDT_GEN_REG_NO)
+      if autoVat==VAL_YES||regNo==VAL_YES
+         location=0
+         dagJDT.GetColLong(location,OJDT_LOCATION)
+         if !location
+            seq=0
+            dagJDT.GetColLong(seq,OJDT_SEQ_CODE)
+            if seq
+               location=GetEnv().GetSequenceManager().GetLocation(self,seq)
+               dagJDT.SetColLong(location,OJDT_LOCATION)
+            end
+
+         end
+
+         dagJDT.GetColLong(location,OJDT_LOCATION)
+         if location
+            recCount=dagJDT1.GetRecordCount()
+            rec=0
+            while (rec<recCount) do
+               dagJDT1.GetColStr(taxCode,JDT1_TAX_CODE,rec)
+               if !taxCode.IsEmpty()
+                  dagJDT1.GetColLong(location,JDT1_LOCATION,rec)
+                  if !location
+                     dagJDT1.CopyColumn(dagJDT,JDT1_LOCATION,rec,OJDT_LOCATION,0)
+                  end
+
+               end
+
+
+               (rec+=1;rec-2)
+            end
+
+         end
+
+      end
+
+      return ooNoErr
+   end
+
+   def SetReconAcct(isInCancellingAcctRecon,acct)
+      @m_isInCancellingAcctRecon=isInCancellingAcctRecon
+      if @m_reconAcctSet.find(acct)==@m_reconAcctSet.end()
+         @m_reconAcctSet.insert(acct)
+      end
+
+      return
+   end
+
+   def LogBPAccountBalance(bpBalanceLogDataArray,keyNum)
+      size=bpBalanceLogDataArray.size()
+      dagCRD=GetDAG(CRD)
+      ooErr=0
+      i=0
+      while (i<size) do
+         bpBalanceChangeLogData=bpBalanceLogDataArray[i]
+         ooErr=GetEnv().GetByOneKey(dagCRD,GO_PRIMARY_KEY_NUM,bpBalanceChangeLogData.GetCode(),true)
+         if ooErr
+            return
+         end
+
+         dagCRD.GetColMoney(tempMoney,OCRD_CURRENT_BALANCE)
+         bpBalanceChangeLogData.SetNewAcctBalanceLC(tempMoney)
+         dagCRD.GetColMoney(tempMoney,OCRD_F_BALANCE)
+         bpBalanceChangeLogData.SetNewAcctBalanceFC(tempMoney)
+         bpBalanceChangeLogData.SetKeyNum(keyNum)
+         bpBalanceChangeLogData.Log()
+
+         (i+=1;i-2)
+      end
+
+   end
+
+   def SetZeroBalanceDueForCentralizedPayment(set = true)
+      @m_bZeroBalanceDue=set
+   end
+
+   def IsZeroBalanceDueForCentralizedPayment()
+      return @m_bZeroBalanceDue
    end
 
 

@@ -16,7 +16,7 @@ end
 # parse string
 # preprocess - true: do preprocess first, false: no do preprocess, just parse
 def parse(s, preprocess = true, to_ruby=true)
-    # p "parse #{s}"
+    #p "parse #{s}"
     t_start = Time.now.to_f
     if preprocess
        s = preprocess(s)

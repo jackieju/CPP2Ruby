@@ -475,6 +475,8 @@ def read_file(fname)
                    data = f.read
             }
             return data
+        else
+            p "file #{fname} not exsits"
         end
     rescue Exception=>e
          # logger.error e
@@ -555,6 +557,7 @@ if $*.size >0
     end
     p "mode=#{$mode}"
     p "output dir:#{$output_dir}"
+    p "******* start translate **********"
     nextisarg = false
     for a in $*[0..$*.size-1]
         p a
@@ -570,14 +573,18 @@ if $*.size >0
             next
             
         end
+        
         if $mode == "parse"
+            p "begin to parse file #{a}"
             parse_file(a, false, false)
             # generate_ruby
         elsif $mode == "translate"
+            p "begin to translate file #{a}"
             parse_file(a, true, false)
             
             # generate_ruby    
         elsif $mode == "preprocess"
+            p "begin to preprocess file #{a}"
             preprocess_file(a)
         end
         # translate(a)

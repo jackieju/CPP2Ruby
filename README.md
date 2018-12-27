@@ -1,5 +1,5 @@
 # CPP2Ruby
-Translator from c/c++ to ruby
+A Translator for converting c/c++  code to ruby
 
 Intro
 =====

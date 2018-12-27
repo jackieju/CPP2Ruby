@@ -358,6 +358,8 @@ class CScanner <  CRScanner
     #                    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     #                    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     #                    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+    
+    # the index of the array is the character's acsii code (ch.to_byte), value of array element is the status code.                 
     @@STATE0 =  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                  0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -915,7 +917,7 @@ public
         # end
         
         if c == nil
-           c = "// include file #{fname} failed"
+           c = "// include file #{fname} failed\n"
            ret = false
         else
            c = "// included from file #{fname}\n#{c}\n // end include file #{fname}\n"   
@@ -1163,7 +1165,7 @@ public
               	return C_hexnumberSym
               when 24
                 # p "->111:#{@ch}"
-              	if (@ch == '"') 
+              	if (@ch == '"')  # if meet second ", then it's string
               	    state = 25
                     # p "->1111:#{@ch}"
           	    elsif @ch == "\\"
@@ -1180,7 +1182,8 @@ public
           	        
               	   # same state
               	else
-              	    return C_No_Sym
+                    # temperary solution for Chinese string
+              	    #return C_No_Sym
               	end
               	#break
               when 25

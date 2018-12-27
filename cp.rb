@@ -75,7 +75,7 @@ def add_class(class_name, parent=nil, modules=nil)
     $g_classdefs[class_name] = clsdef
 end
 
-
+$g_classdefs = {} if $g_classdefs == nil
 if $ar_classdefs
     $ar_classdefs.each{|cls|
         add_class(cls)
@@ -733,17 +733,26 @@ class Parser < CRParser
           if  @directive == "\#include"
               p "====>preprocess_directive1"
               Get()
-              finclude = curString()
-              p "@sym=#{@sym}"
-              p "current sym:#{@scanner.currSym.sym}"
-              p "fclude:#{finclude}"
-              if finclude[0]=="\"" || finclude[0] =="\'"
-                    finclude = finclude[1..finclude.size-1]
+              if (@sym == 4) # string
+                  finclude = curString()
+                  p "@sym=#{@sym}"
+                  p "current sym:#{@scanner.currSym.sym}"
+                  p "fclude:#{finclude}"
+                  if finclude[0]=="\"" || finclude[0] =="\'"
+                        finclude = finclude[1..finclude.size-1]
+                  end
+                  if finclude[finclude.size-1]=="\"" || finclude[finclude.size-1] =="\'"
+                        finclude = finclude[0..finclude.size-2]
+                  end
+              else # @sym should be 13 # <
+                   Get()
+                   finclude = curString()
+                   p "@sym=#{@sym}"
+                   p "current sym:#{@scanner.currSym.sym}"
+                   p "fclude:#{finclude}"
+                   Get()
               end
-              if finclude[finclude.size-1]=="\"" || finclude[finclude.size-1] =="\'"
-                    finclude = finclude[0..finclude.size-2]
-              end
-              p "include file #{finclude}"
+              p "-->include file #{finclude}"
               include_file(finclude)  
         elsif @directive == "\#define" 
             p "====>preprocess_directive2"
@@ -1401,7 +1410,7 @@ class Parser < CRParser
             
              
             if _n == C_LessSym # A::B::C<
-                nsym = GetNextSymFromSym(_sym, count+1)
+                nsym = GetNextSymFromSym(sym, count+1)
                 if isTypeStart(nsym) # A::B::C<short>
                     return true
                 else
@@ -1956,7 +1965,12 @@ class Parser < CRParser
             # here parameter in function header cannot be Const (Capital on first char)
             param_name = param_name[0].downcase + param_name[1..param_name.size-1]
             ret += param_name
-            current_scope("FunctionDefinition").add_var(Variable.new(varname, var_type, param_name))
+            cs = current_scope("FunctionDefinition")
+            if (cs)
+                current_scope("FunctionDefinition").add_var(Variable.new(varname, var_type, param_name))
+            else # maybe in stl for parse Template<T>fn(...)
+                
+            end
             Get()
         else # when in function declaration, parameter name is optional
             ret += "dummy#{$formal_p_count}"

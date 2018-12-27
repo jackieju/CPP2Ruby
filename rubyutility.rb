@@ -225,4 +225,4 @@ def test
    s= File.open("ccc1.txt").read
    p s
 end
-test
+#test

@@ -9,7 +9,7 @@ def OJDTWriteErrorMessage(bizObject)
    DAG_GetCount(dagJDT1,records)
    buffer=TCHAR.new[150]
    i=0
-   begin
+   while (colArr[i]!=-1) do
       dagJDT1.GetColAttributes(colArr[i],fldInfo,false)
       _STR_strcpy(tmpStr,fldInfo.alias)
       _STR_LRTrim(tmpStr)
@@ -17,14 +17,14 @@ def OJDTWriteErrorMessage(bizObject)
       _STR_strcat(buffer,_T("\t"))
 
       (i+=1;i-2)
-   end while (colArr[i]!=-1)
+   end
 
    _STR_strcat(buffer,_T("\r\n"))
    _MEM_renew_raw(buffer,TCHAR,_STR_strlen(buffer)+150,150)
    rec=0
-   begin
+   while (rec<records) do
       i=0
-      begin
+      while (colArr[i]!=-1) do
          if i==0
             dagJDT1.GetColStr(tmpStr,colArr[i],rec)
          else
@@ -42,13 +42,13 @@ def OJDTWriteErrorMessage(bizObject)
          _STR_strcat(buffer,_T("\t"))
 
          (i+=1;i-2)
-      end while (colArr[i]!=-1)
+      end
 
       _STR_strcat(buffer,_T("\r\n"))
       _MEM_renew_raw(buffer,TCHAR,_STR_strlen(buffer)+150,_STR_strlen(buffer)+1)
 
       (rec+=1;rec-2)
-   end while (rec<records)
+   end
 
    _STR_LRTrim(buffer)
    _FILE_GetLocalTempPath(_FILE_PATH_MAX,path)

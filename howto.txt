@@ -3,7 +3,7 @@
 # you need install ruby version >= 1.9
 $ ruby translate.rb -d output POJDT.c POJDT1.c
 You don't need involve all files included by POJDT.c (which will leads to a hell), you just
-need to copy those file you really want them logic.
+need to copy those file you really want their logic.
 So here we only copy 3 file POJDT.c POJDT1.c and POJDT.h
 
 Before translation, you need 
