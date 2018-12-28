@@ -115,7 +115,7 @@ class CRScanner < AbsScanner
     end
     
     def initialize(s, ing)
-        p "init CRScanner"
+        p "init CRScanner", 10
         
         super()
         @buffer = s
@@ -172,7 +172,7 @@ class CRScanner < AbsScanner
 
     def EqualStr(s)
         
-        # p "EqualStr: #{s}, #{@buffer[nextSym.pos..@buffer.size-1]}"
+       # p "EqualStr: #{s}, #{@buffer[nextSym.pos..@buffer.size-1]}"
         # raise ("EqualStr")
         # long pos; char c;
          if (nextSym.len != s.size) 
@@ -181,12 +181,16 @@ class CRScanner < AbsScanner
          pos = nextSym.pos
          s.each_char{|cc|
            c = CurrentCh(pos)
+           #p("-->c:#{c}")
            pos+=1
            # if (IgnoreCase) c = Upcase(c);
            if (c != cc)
                return false
            end
          }
+         #if (s== "const")
+        #     p("return true", 10)
+        # end
          return true    
     end
 

@@ -228,11 +228,12 @@ class Parser < CRParser
     end
     def GetNextSym(step =1)
         _scanner = @scanner.clone()
-        # p "==>scanner clone =#{_scanner.inspect}"
+        p "==>scanner clone =#{_scanner.inspect}"
         _sym = nil
         while step > 0
              begin 
                 _sym = _scanner.Get()
+                p "==>scanner clone2 =#{_scanner.inspect}"
             
                 # if $sc_cur != $sc.currSym.sym
                 #     pp("!!!===", 20)
@@ -753,6 +754,8 @@ class Parser < CRParser
                    Get()
               end
               p "-->include file #{finclude}"
+              #p self.inspect
+              #p @scanner.inspect
               include_file(finclude)  
         elsif @directive == "\#define" 
             p "====>preprocess_directive2"
@@ -922,6 +925,7 @@ class Parser < CRParser
     end
     
     def ClassDef
+        p("ClassDef0", 10)
         pdebug("===>ClassDef:#{@sym}, #{curString()}")
         # line 267 "cs.atg"
         	Expect(C_classSym)
@@ -1163,6 +1167,7 @@ class Parser < CRParser
     
     # general statement, can be local definition or statement
     def gStatement()
+        p("gStatement0", 10)
         pdebug("-->gStatement, line #{@scanner.currLine}, sym=#{@sym}, val=#{curString()}")
         rStatement = ""
         if @sym == C_SemicolonSym
@@ -1224,8 +1229,9 @@ class Parser < CRParser
 	                        count +=1
 	                        _nnn = GetNext(count)
                         end
-                        if _nnn == C_LessSym || # template,e.g. A::B::C<D,F> t;
+                        if _nnn == C_LessSym || # using template,e.g. A::B::C<D,F> t;
                             _nnn == C_identifierSym # A::B::C t;
+                            p("using template2, sym=#{@sym}, curString=#{curString()}")
                             LocalDeclaration()
                         else
 	                        rStatement += Statement() # functioncall A::B::C.method();
@@ -1237,7 +1243,7 @@ class Parser < CRParser
 	                if curString() == "~"
 	                    Get()
 	                    Expect(C_identifierSym)
-    	                FunctionDefinition(current_scope.class_name, "uninitialize")
+    	                FunctionDefinition(current_scope.class_name, "uninitialize") #skip it
 	                else
 	                    fn_name = ""
 	                    while GetNext() != C_LparenSym
@@ -1246,11 +1252,11 @@ class Parser < CRParser
                         fn_name = curString()
                         Get()
                         p "virtual function, #{fn_name}"
-     	                FunctionDefinition(current_scope.class_name, fn_name)
+     	                FunctionDefinition(current_scope.class_name, fn_name) # skip it ???
     
                     end
  
-    	        elsif _next == C_LparenSym  && ['class', 'struct'].include?(current_scope.name)# for constructor in class for struct
+    	        elsif _next == C_LparenSym  && ['class', 'struct'].include?(current_scope.name)# for constructor in class or struct
     	            p "--> in class scope"
     	            if current_scope.class_name == cs # constructor
     	                Get()
@@ -1260,13 +1266,47 @@ class Parser < CRParser
                         Expect(C_identifierSym)
 	                    rStatement += FunctionDefinition(current_scope.class_name, "uninitialize")                        
                     end
-    	        elsif _next == C_LessSym # template
-    	           LocalDeclaration() 
+    	        elsif _next == C_LessSym # 
+    	             p("before using template3:sym=#{@sym}, curString=#{curString()}")
+                    if cs == "template" # define tempalte function or template class
+                        # e.g. template <bool isDisassembly, bool isComponent> bool CWorkOrderATPSelectStrategy<isDisassembly, isComponent>::QtyOnOrdered (){}
+                        Get()
+                        Expect(C_LessSym)
+                        FormalParamList()
+                        p("gStatement15:sym=#{@sym},curString=#{curString()}")
+                        
+                        Expect(C_GreaterSym)
+                        p("gStatement16:sym=#{@sym},curString=#{curString()}")
+                        
+                        p("gStatement17:sym=#{@sym},curString=#{curString()}")
+                        if (@sym == C_classSym) 
+                            ClassDef()
+                        else
+                            rStatement +=   LocalDeclaration() 
+                        end
+                    else # using template, e.g. map<SBOString, False> currencyRoundingMap; parse from "map"
+                        # or map<SBOString, False>().a()
+    	               ## LocalDeclaration() # just pass it
+                       #Get() 
+                       #Expect(C_LessSym)
+                       #FormalParamList()
+                       #Expect(C_GreaterSym)
+                       #if @sym == C_LparenSym   # map<SBOString, False>() 
+                       #   rStatement += cs+FunctionCall()
+                       #end
+                       
+                       if isTemplatedFnCall()
+                            rStatement += Statement()
+                       else
+                            rStatement += LocalDeclaration()
+                       end
+                    end
+                        p("after lol:#{@sym}")
         	    elsif  _next == C_identifierSym || _next == C_AndSym || _next == C_StarSym ||
         	        _next == C_TypedefSym || _next == C_staticSym #||
                     # _next == C_ColonColonSym # TODO this will unsupport A::B::C.callmethod()
         	        rStatement += LocalDeclaration()
-                else
+                else #maybe functioncall
                     rStatement += Statement()
                     # p "statement return #{rStatement}"
                 end
@@ -1278,8 +1318,48 @@ class Parser < CRParser
        
         return rStatement
     end
+    def isTemplatedFnCall()# pass <int, bool....>
+        l_count = 1
+        r_count = 0
+        count = 2
+        last_gsym = nil
+        while (true)
+            _s = GetNextSym(count)
+            p("#{count}th=#{_s.sym}")
+            if _s.sym == C_GreaterSym
+                l_count -=1
+                if (l_count == 0)
+                    last_gsym = _s
+                    break
+                end
+            elsif _s.sym == C_LessSym
+                l_count +=1
+            end
+            count +=1
+        end
+        _s = GetNextSym(count+1)
+        p("232424:#{count}th=#{_s.sym}")
+        if _s.sym == C_LparenSym
+            p("GetNextSym221:#{@scanner.nextSym.inspect}, #{curString()}")
+            
+            @scanner.delete_in_line(GetNextSym(1).pos, last_gsym.pos)
+            p("-->220#{@scanner.inspect}")
+            
+            #Get()
+            #p("GetNextSym:#{GetNextSym().inspect}, #{getSymValue(GetNextSym())}")
+           # p("GetNextSym222:#{@scanner.nextSym.inspect}, #{curString()}")
+            p("GetNextSym223:#{@sym}, #{curString()}")
+            
+            return true
+        else
+            @scanner.delete_in_line(GetNextSym(1).pos, last_gsym.pos)
+            
+            return false
+        end
+    end
     # line 711 "cs.atg"
     def Statements()
+     #   p "-->Statements1", 10
         rStatement = ""
     # line 711 "cs.atg"
     	while (@sym >= C_identifierSym && @sym <= C_numberSym ||
@@ -1327,7 +1407,7 @@ class Parser < CRParser
                 end
                 next
             end    		
-            p "sym:#{@sym}"
+            p "sym:#{@sym},curString:#{curString}"
             if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_stringSym ||
     		    @sym == C_TypedefSym ||
     		    (@sym == C_TildeSym && GetNext() == C_identifierSym)
@@ -1378,7 +1458,9 @@ class Parser < CRParser
         if _sym == C_identifierSym
             
             cs = getSymValue(sym)
-            if cs == "const"
+            p "===>isTypeStart1:sym=#{_sym}, val=#{getSymValue(sym)}"
+            
+            if cs == "const" # actually will never go here, because const is ignored by Get()->ignoreSym?()
                 return true
             end
             
@@ -1398,19 +1480,21 @@ class Parser < CRParser
             _sym11 = GetNextSymFromSym(sym, count)
             p "==>#{@scanner.buffer[_sym11.pos]}"
             p "===>isTypeStart2:#{_n}, #{_sym11.sym}, #{getSymValue(_sym11)}, count = #{count}, "
-            if  _n == C_LparenSym  # functioncall
+            if  _n == C_LparenSym  # functioncall 
                 return false
             end
             
-            if _n == C_identifierSym  # A::B::C d; 
+            if _n == C_identifierSym  ||# A::B::C d; 
+                 _n == C_AndSym # A& d;
                
                 return true
             end    
             
             
              
-            if _n == C_LessSym # A::B::C<
+            if _n == C_LessSym #  A::B::C<  parse using of template
                 nsym = GetNextSymFromSym(sym, count+1)
+                p("parse using template")
                 if isTypeStart(nsym) # A::B::C<short>
                     return true
                 else
@@ -1434,6 +1518,7 @@ class Parser < CRParser
     end
     # line 689 "cs.atg"
    def LocalDeclaration()
+       p "---->LocalDeclaration1"
         ret = ""
     # line 690 "cs.atg"
 
@@ -1509,7 +1594,7 @@ class Parser < CRParser
                     _next == C_LessSym # template
                 )
                )
-               p "---->LocalDeclaration3, #{@sym}, #{curString()}, line #{curLine()}, col #{curCol()}"
+               p "---->LocalDeclaration3, @sym=#{@sym}, curString=#{curString()}, line #{curLine()}, col #{curCol()}"
            dump_pos()
            
            if @sym == C_identifierSym && _next == C_ColonColonSym  && type != ""
@@ -1520,18 +1605,29 @@ class Parser < CRParser
               end
              p "-->sym:#{@sym}, next:#{_next}, line #{@scanner.nextSym.line }, v=#{curString()}"
         	if (@sym >= C_staticSym && @sym <= C_functionSym) 
+                p "---->LocalDeclaration11"
         		storageclass += StorageClass()
         	elsif (@sym >= C_varSym && @sym <= C_stringSym)
+                p "---->LocalDeclaration12"
+                
                 type += Type()
             elsif @sym == C_identifierSym
+                p "---->LocalDeclaration13"
+                
                 type = Type()   # replace last one, to remove decorator like __dll_export
             elsif _next == C_ColonColonSym
+                p "---->LocalDeclaration14"
+                
                 type = Type() 
             end
             if type != ""
-                var_type = VarType.new(type)
+                p "---->LocalDeclaration15"
+                
+                var_type = VarType.new(type) # not used, will just skip var type
             end
             if (@sym == C_StarSym || @sym == C_AndSym) 
+                p "---->LocalDeclaration16"
+                
             	while (@sym == C_StarSym || @sym == C_AndSym) 
             	    var_type.ref += 1
                     # line 699 "cs.atg"
@@ -1613,12 +1709,12 @@ class Parser < CRParser
     # line 702 "cs.atg"
 
     # line 706 "cs.atg"
-    p "sym333:#{@sym}, lin #{@scanner.currLine}"
+    p "sym333:#{@sym}, val #{curString()} line #{@scanner.currLine}"
     	if (@sym == C_LparenSym) 
     # line 706 "cs.atg"
             nn  =  GetNext(2)
             _n = GetNext()
-            p "sym331:#{@sym}, #{_n}, #{nn}, curString #{curString}"
+            p "sym331:#{@sym}, #{_n}, #{nn}, curString #{curString()}"
             # if nn != C_RparenSym && nn != C_CommaSym || 
             #     # not following case
             #     # A fn(a)
@@ -1626,9 +1722,22 @@ class Parser < CRParser
             #     _n == C_voidSym # A fn(void)
             #     fd = FunctionDefinition(class_name)
             # if nn != C_RparenSym && isTypeStart(GetNextSym())
-            if _n == C_RparenSym || isTypeStart(GetNextSym())
+            
+            p "---->LocalDeclaration20:#{_n}, #{curString()}"
+
+
+           # Get()
+            #p "---->LocalDeclaration201:#{@sym}, #{curString()}"
+            
+            gns = GetNextSym()
+            p "---->LocalDeclaration210:#{@sym}, #{curString()}"
+            
+            p "---->LocalDeclaration21:#{gns.sym}, #{getSymValue(gns)}"
+           # its = isTypeStart(gns)
+           #  p "---->LocalDeclaration22:#{its}"
+            if _n == C_RparenSym || isTypeStart(gns)
                 # A fn();
-                # A fn(a* b)
+                # A fn(a* b) in which a is type
                 fd = FunctionDefinition(class_name, fname, storageclass)
             else
             	varname = current_scope.add_var(Variable.new(varname, var_type))
@@ -1831,7 +1940,7 @@ class Parser < CRParser
 
             # in_scope(classdef) if classdef
             if @sym == C_ColonSym
-                # initialization list, for constructor of class/struct
+                # member value initialization list, for constructor of class/struct
                 p "# initialization list, for constructor of class/struct:#{classdef}"
                 i_list = ""
                 Get()
@@ -1949,6 +2058,7 @@ class Parser < CRParser
             Get()
         end
     	var_type = Type()
+        p("FormalParameter1:sym=#{@sym}, curString=#{curString()}")
     # line 442 "cs.atg"
     	while (@sym == C_StarSym || @sym == C_AndSym) 
     # line 442 "cs.atg"
@@ -2178,13 +2288,15 @@ class Parser < CRParser
     		        Get()
     		        ret += "::#{curString()}"
     		        Get()
-    		        if @sym == C_LessSym # stl type
+    		        if @sym == C_LessSym # stl type (using template)
+                        p("before parse stl0")
     		            STLType()
     	            end
 		        end
                 # p "sym2:#{@sym}"
-		        if @sym == C_LessSym # stl type
-		            STLType()
+		        if @sym == C_LessSym # stl type (using template)
+                    p("before parse stl1", 10)
+                    STLType()
 	            end
 	            while @sym == C_ColonColonSym
     		        Get()
@@ -2241,9 +2353,24 @@ class Parser < CRParser
             #                 Get()
             #             end
             exptype = FullType()
-            Expect(C_identifierSym)
-            expvar = prevString()
-            Expect(C_RparenSym)
+            
+            #Expect(C_identifierSym)
+            #expvar = prevString()
+            #Expect(C_RparenSym)
+            
+          
+            pdebug("===>TryStatement4, #{@sym}")
+            
+            if @sym == C_identifierSym
+                Get()                
+                expvar = prevString()
+                p("expvar=#{expvar}")
+                Expect(C_RparenSym)
+            else
+               Expect(C_RparenSym)# @sym should already be C_RparenSym
+            end
+            
+            
             catch_stmt = CompoundStatement()
         end
         stmt =<<HERE
@@ -2258,9 +2385,10 @@ HERE
     end
     # line 657 "cs.atg"
     def Statement()
+        p("Statement0", 10)
         stmt = ""
     # line 657 "cs.atg"
-    	pdebug("====>statement:#{@sym},#{curString()}")
+    	pdebug("====>statement:sym=#{@sym},curString=#{curString()}")
     # line 658 "cs.atg"
     	while (@sym == C_caseSym ||
     	       @sym == C_defaultSym) 
@@ -2686,7 +2814,7 @@ HERE
     def Expression
         ret = ""
     # line 966 "cs.atg"
-    	pdebug("===>Expression:#{@sym}")
+    	pdebug("===>Expression:#{@sym}, #{curString()}")
     	
 
     	if @sym == C_LbraceSym  # {a, b, c}
@@ -3235,12 +3363,13 @@ HERE
     # line 1572 "cs.atg"
     def PostFixExp()
         ret = ""
-        pdebug "====>PostFixExp:#{@sym}"
+        pdebug "====>PostFixExp:#{@sym}, #{curString()}"
     # line 1572 "cs.atg"
     # line 1573 "cs.atg"
     	ret += Primary()
+        
         # ret += curString()
-        # p "@sym:#{@sym}"
+         p "====>PostFixExp1:@sym:#{@sym}, #{curString()}"
     # line 1574 "cs.atg"
     	while (@sym == C_LbrackSym ||
     	       @sym == C_LparenSym ||
@@ -3817,7 +3946,7 @@ if (m_pSequenceParameter)
 
 }
 HERE
-s =<<HERE
+s01 =<<HERE
 {
     int* *a = 11;
     _TRACER("UpdateDocBudget");
@@ -3876,13 +4005,13 @@ s =<<HERE
     return 20;
 }   
 HERE
-s = <<HERE
+s02 = <<HERE
 {
 
    a[0]=0;
 }
 HERE
-s=<<HERE
+s03=<<HERE
 //a = 1;
 #include "a.h"
 #fdaaslk
@@ -3925,7 +4054,7 @@ c =3
 #define ROW_DIMENSION_LOCATION					16
 HERE
 
-s=<<HERE
+s04=<<HERE
 #define bbb 1
 #ifdef bbb
 a=12;
@@ -3938,12 +4067,12 @@ d=1;
 HERE
 
 
-s =<<HERE
+s05 =<<HERE
 #dfsfffff
 #adfa
 ff=1;
 HERE
-s =<<HERE
+s06 =<<HERE
 //a = 1;
 //#define bbc
 
@@ -3956,10 +4085,10 @@ s =<<HERE
 //#include "bss.h"
 //b =1;
 HERE
-s=<<HERE
+s07=<<HERE
 #include "a.h"
 HERE
-s=<<HERE
+s08=<<HERE
 
 #define		JDT_WARNING_BLOCK	3
 #ifdef JDT_WARNING_BLOCK1
@@ -3970,10 +4099,10 @@ a = 2
 
 HERE
 
-s=<<HERE
+s09=<<HERE
 B c = A(b);
 HERE
-s=<<HERE
+s10=<<HERE
 class Test{
     int a;
     void test1(){
@@ -3988,16 +4117,16 @@ int Test::test(int a, B* b){
     
 }
 HERE
-s=<<HERE
+s11=<<HERE
 //StdMap<SBOString, FCRoundingStruct, False, False> currencyRoundingMap;
 std::map<SBOString, FCRoundingStruct, False, False> currencyRoundingMap;
 
 HERE
-s=<<HERE
+s12=<<HERE
 a();
 
 HERE
-s=<<HERE
+s13=<<HERE
 long canceledTrans = 0;
 dagJDT->GetColLong (&canceledTrans, OJDT_JDT_NUM, 0);
 try
@@ -4012,10 +4141,10 @@ catch (DBMException &e)
 	ooErr = e.GetCode ();
 }
 HERE
-s=<<HERE
+s14=<<HERE
 virtual bool	IsDeferredAble	() const {return false;}
 HERE
-s=<<HERE
+s15=<<HERE
 // Defines for setting dates in canceled JE for In/Out Payments
 /************************************************************************************
 ************************************************************************************/
@@ -4025,7 +4154,7 @@ s=<<HERE
 //CMessagesManager::GetHandle ()->Message (_132_APP_MSG_AP_AR_USER_NOT_ASSINED_BPL, EMPTY_STR, this, (const TCHAR*)BPLName);
 aaaa((const TCHAR*)BPLName);
 HERE
-s=<<HERE
+s0=<<HERE
 class CJDTStornoExtraInfoCreator{
 CJDTStornoExtraInfoCreator(){
     
@@ -4035,37 +4164,37 @@ CJDTStornoExtraInfoCreator * CJDTStornoExtraInfoCreator::operator=(const CJDTSto
     
 }
 HERE
-s=<<HERE
+s1=<<HERE
 _LOGMSG(logDebugComponent, logNoteSeverity, 
 	_T("In CTransactionJournalObject::BeforeDeleteArchivedObject - starting JEComp.execute()"));
 
 
 HERE
-s=<<HERE
+s2=<<HERE
 try{
     
 }catch (nsDataArchive::CDataArchiveException& e){
     
 }
 HERE
-s=<<HERE
+s3=<<HERE
     _MEM_MYRPT0 (_T("CDocumentObject::UpdateWTOnRecon - \
                  JDT2 should contain 1 rec at the most for reconciliation!"));
 HERE
-s=<<HERE
+s4=<<HERE
 a = 1U;
 HERE
-s=<<HERE
+s5=<<HERE
 fdafa;
 a = 1U;
 b= 1usl;
 HERE
-s=<<HERE
+s6=<<HERE
 
 StdMap<SBOString, FCRoundingStruct, False, False>::const_iterator itr = currencyMap.begin();
-
+a=1;
 HERE
-s=<<HERE
+s7=<<HERE
 void CTransactionJournalObject:: OJDTGetDocCurrency(CBusinessObject* bizObject, TCHAR *docCurrency)
 {
 	PDAG	dagJDT = bizObject->GetDAG ();
@@ -4078,10 +4207,10 @@ void CTransactionJournalObject:: OJDTGetDocCurrency(CBusinessObject* bizObject, 
 	}
 }
 HERE
-s=<<HERE
+s8=<<HERE
     CTransactionJournalObject::IsPaymentOrdered(bizEnv, canceledTrans, ordered);
 HERE
-s=<<HERE
+s9=<<HERE
     class A{
         int a;
     }
@@ -4089,7 +4218,7 @@ s=<<HERE
         a = 1;
     }
 HERE
-s=<<HERE
+s10=<<HERE
     class A{
         int a;
         void test();
@@ -4098,23 +4227,23 @@ s=<<HERE
         a = 1;
     }
 HERE
-s =<<HERE
+s11 =<<HERE
 		//PDAG dagJDT1 = GetDAG (JDT, ao_Arr1);
 		PDAG dagJDT1 = GetDAG (JDT, ao_Arr1), b=1;
 HERE
 
-s=<<HERE
+s12=<<HERE
 //char *a="\\n";
 _STR_strcat (MformatStr, _T("\\n"));
 _MEM_MYRPT0 (_T("CDocumentObject::UpdateWTOnRecon - \\
              JDT2 should contain 1 rec at the most for reconciliation!"));
 HERE
-s=<<HERE
+s13=<<HERE
 class A{
     FOUNDATION_EXPORT static CBusinessObject	*CreateObject (const TCHAR *id, CBizEnv &env);
 }
 HERE
-s=<<HERE
+s14=<<HERE
 
     _MEM_MYRPT0 (_T("CDocumentObject::UpdateWTOnRecon - \\
                  JDT2 should contain 1 rec at the most for reconciliation!"));
@@ -4122,7 +4251,7 @@ s=<<HERE
 
               
 HERE
-s =<<HERE
+s15 =<<HERE
 		 _TRACER("OnCreate");
     	SBOErr	ooErr = noErr;
     	PDAG	dagJDT, dagJDT1, dagCRD=0;
@@ -4172,7 +4301,7 @@ s =<<HERE
         	dagJDT1 = GetDAG(JDT, ao_Arr1);
             PDAG dagJDT2 = GetDAG(JDT, ao_Arr2);
 HERE
-s=<<HERE
+s16=<<HERE
     class A{
         int a;
         virtual SBOErr			OnCreate ();
@@ -4185,26 +4314,26 @@ s=<<HERE
     {
     }
 HERE
-s=<<HERE
+s17=<<HERE
 ++i;
 HERE
-s=<<HERE
+s18=<<HERE
 // formal argument cannot be a constant
 void a(int A){
     
 }
 HERE
-s=<<HERE
+s19=<<HERE
 // formal argument cannot be a constant
 a(&t);
 HERE
-s=<<HERE
+s20=<<HERE
 bizObject=&other;
 HERE
-s=<<HERE
+s21=<<HERE
 bizObject=L"fsdfsd";
 HERE
-s=<<HERE
+s22=<<HERE
 bool CJDTDeferredTaxUtil::IsBPWithEqTax(const SBOString bpCode, CBizEnv& bizEnv)
 {
 	APCompanyDAG dagCRD;	
@@ -4309,7 +4438,7 @@ bool CJDTDeferredTaxUtil::IsValid ()
 	return true;
 }
 HERE
-s=<<HERE
+s22=<<HERE
 // b=(aaaa()+1)?1:2;
 if (!forceBalance)
 {
@@ -4319,7 +4448,7 @@ if (!forceBalance)
 dagJDT->GetColMoney (&tmpMoney, (frgCurr) ? OJDT_FC_TOTAL:OJDT_LOC_TOTAL, 0, DBM_NOT_ARRAY);
 ooErr = GNTranslateToSysAmmount (&tmpMoney, currStr, refDate, &systMoney, bizEnv);
 HERE
-s=<<HERE
+s23=<<HERE
 enum eColumnJDT1
 {
 		// Transaction Key
@@ -4338,7 +4467,7 @@ CTransactionJournalObject::CTransactionJournalObject (const TCHAR *id, CBizEnv &
       
 }
 HERE
-s=<<HERE
+s24=<<HERE
 enum{
  ConnID = 1
 };
@@ -4347,7 +4476,7 @@ void a(){
 DBM_ServerTypes   ServerType = DBMCconnManager::GetHandle()->GetConnectionType (ConnID);
 }
 HERE
-s=<<HERE
+s25=<<HERE
 class A{
     virtual bool	IsDeferredAble	() const {return false;}
 	int b;
@@ -4358,7 +4487,7 @@ void A::a(){
 
 
 HERE
-s=<<HERE
+s26=<<HERE
 class CJDTStornoExtraInfoCreator{
     
 }
@@ -4373,10 +4502,10 @@ CJDTStornoExtraInfoCreator & CJDTStornoExtraInfoCreator::operator=(const CJDTSto
 	return *this;
 }
 HERE
-s=<<HERE
+s27=<<HERE
 a = new A(1,2);
 HERE
-s=<<HERE
+s28=<<HERE
 class CBusinessService;
 class CTransactionJournalObject{
     
@@ -4391,18 +4520,18 @@ void	CTransactionJournalObject::CopyNoType (const CBusinessService& other)
 }
 
 HERE
-s=<<HERE
+s29=<<HERE
 int *b = 1;
 int a = (int *)&b;
 HERE
-s=<<HERE
+s30=<<HERE
 (*currentMoney) += sumRow;
 HERE
-s=<<HERE
+s31=<<HERE
 class A;
 A B(1,2);
 HERE
-s=<<HERE
+s32=<<HERE
 //int a = b & c;
 //int a = &b;
 
@@ -4410,6 +4539,45 @@ s=<<HERE
 delete a;
 
 HERE
+
+s33=<<HERE
+A<true> a;
+b = 1;
+HERE
+s34=<<HERE
+template<int a>class A{int f(){};};
+b = 1;
+HERE
+s35=<<HERE
+template <bool isDisassembly>
+class CWorkOrderATPSelectStrategy
+{
+};
+
+a =1;
+
+HERE
+s36=<<HERE
+struct RECORDQUANTITYARRAY{};
+void fabdfsd(const RECORDQUANTITYARRAY&  a,int b);
+//void PrepareRecordQtyArray(const RECORDQUANTITYARRAY& qtyArr, long recCount, RECORDQUANTITYARRAY& recQtyArray, long startIndex);
+
+HERE
+s37=<<HERE
+ddddd<bool, int>().fn();
+std::ff<bool, int> a;
+HERE
+s38=<<HERE
+//template <bool isDisassembly> a<true,1>::fn(){};
+template <bool isDisassembly> fn(){};
+a =1;
+
+HERE
+s39=<<HERE
+fn<int, bool>().a();
+
+HERE
+s= s39
 p s
 
 scanner = CScanner.new(s, false)
@@ -4433,6 +4601,6 @@ ret = parser.C
 p "parsing result:#{ret}"
 error.PrintListing
 parser.dump_classes_as_ruby
-end
+end # end of test
 #=end
 test

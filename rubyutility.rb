@@ -145,22 +145,30 @@ def append_file(fname, content)
          p e.inspect
      end
 end
-def find_file(fname, dir=nil, recursive=false)
-    if dir == nil
-        dir = File.dirname(__FILE__)
+def find_file(fname, dirs=nil, recursive=false)
+    if dirs == nil
+        dirs = []
+        dirs.push(File.dirname(__FILE__))
     end
     
-    if recursive
-        qs = "#{dir}/**/#{fname}"
-    else
-        qs = "#{dir}/#{fname}"
+    i = 0
+    while i < dirs.size
+            dir = dirs[i]
+        p "find file #{fname} under #{dir}"
+        if recursive
+            qs = "#{dir}/**/#{fname}"
+        else
+            qs = "#{dir}/#{fname}"
+        end
+        p "find file #{fname} using pattern #{qs}"
+        Dir[qs].each { |f|
+            p "found file #{f} under dir"
+            return f
+        }
+        i+=1
     end
-    p "find file #{fname} under #{qs}"
-    Dir[qs].each { |f|
-        p "found file #{f}"
-        return f
-    }
-    p "file #{fname} not found"
+    
+    p "file #{fname} not found under #{dirs.inspect}"
     return nil
 end
 def read_file(fname)

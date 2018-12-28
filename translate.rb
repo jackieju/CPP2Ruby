@@ -536,6 +536,16 @@ HERE
        
 end
 
+def init_env(fname)
+    search_dirs = [File.dirname(__FILE__)]
+    search_dirs.insert(0, File.dirname(fname))
+    
+    $g_options = {
+        :include_dirs=>search_dirs
+    }
+ 
+end
+
 hide_p_in_file("scanner.rb")
 hide_p_in_file("macro.rb")
 p "Hidden_log_files=#{$Hidden_log_files}"
@@ -574,6 +584,7 @@ if $*.size >0
             
         end
         
+        init_env(a)
         if $mode == "parse"
             p "begin to parse file #{a}"
             parse_file(a, false, false)

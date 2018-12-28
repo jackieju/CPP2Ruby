@@ -293,6 +293,8 @@ class CRParser
     end
     
     def dump_pos(pos=@scanner.buffPos)
+        p("start dump pos", 5)
+        p "---- dump position ----"
         p prevline(pos, 2)
        
         pos1 = pos
@@ -313,6 +315,9 @@ class CRParser
             s2 += "~"
         end
         p "......#{s1}^#{s2}......"
+        
+        p "---- end of dump position ----"
+        
     end    
     
     def GenError(errorNo)

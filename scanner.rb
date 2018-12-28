@@ -407,6 +407,10 @@ class CScanner <  CRScanner
           		return C_caseSym if (EqualStr("case")) 
           		return C_continueSym if (EqualStr("continue"))
           		return C_constSym if (EqualStr("const")) 
+          		#if (EqualStr("const")) 
+                #    p("return const", 10)
+                #    return C_constSym
+                #end
           		#break
           	when 'd'
           		return C_doubleSym if (EqualStr("double")) 
@@ -813,6 +817,32 @@ public
             return "#{@buffer[pos]}(#{@buffer[pos].to_byte}@#{pos})"
         end
     end
+    
+    def delete_in_line(from, to)
+        p ("delete:#{from}, #{to}, #{@buffPos}")
+        replace_start = from 
+         replace_end = to +1
+         
+         str1 = ""
+         if replace_start >= 1
+             str1 = @buffer[0..replace_start-1]
+         end
+         old_size = @buffer.size   
+         str = str1+@buffer[replace_end..@buffer.size-1]
+          @buffer=str
+          if @buffPos > replace_start# &&  @buffPos <replace_end
+              if replace_start < 0
+                  @buffPos = -1
+              else
+                  @buffPos = replace_start
+              end
+              Reset(@buffPos, @currLine, @lineStart, @currCol)
+          end
+          
+          @ch = CurrentCh(@buffPos)
+          p "pos after deleteinline:#{@buffPos}"
+          p "buffer  after deleteinline:#{@buffer}"
+    end
     def delete_line(pos=nil)
         pos = @buffPos if pos == nil
         # pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
@@ -906,11 +936,14 @@ public
         # p "pos:#{@buffPos}"
         
     end
-    def include_file(fname)
+    def include_file(fname, dir=nil)
         ret = true
-        path = find_file(fname)
+        $g_search_dirs = $g_options[:include_dirs] if !$g_search_dirs
+        dirs = $g_search_dirs.clone
+        dirs.push(dir) if !dir
+        path = find_file(fname, dirs)
         c = read_file(path) if path
-        # p "read file #{path}, return #{c}"
+        p "read file #{path}, return #{c}"
         # if c == nil #|| c == ""
         #     delete_curline
         #     return false
@@ -1026,7 +1059,7 @@ public
             end
             
             state = @@STATE0[@ch.to_byte]
-             # p "--->111ch:#{@ch}"
+              p "--->111ch:#{@ch[0].ord}"
             while(1) 
                 # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               Scan_NextCh()
@@ -1395,6 +1428,7 @@ public
               	if (@ch == '=') 
               	    state = 80
           	    else
+                    
               	    return C_LessLessSym     
           	    end       
               	#break                         
