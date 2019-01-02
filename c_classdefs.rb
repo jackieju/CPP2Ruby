@@ -7,6 +7,7 @@ $ar_classdefs = [
     "TCHAR",
     "CBizEnv",
     "SBOString",
+    "SBOErr",
     "DBD_Tables",
     "CManualDistributionRuleObject",
     "CWTAllCurBaseCalcParams",

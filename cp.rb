@@ -1435,7 +1435,7 @@ class Parser < CRParser
                 FriendClass()
                 next
             end
-    		if @sym == C_identifierSym && cs == "mutable"#ignore
+    		if @sym == C_identifierSym && ( cs == "mutable" )#ignore
                 Get()
                 next
             end
@@ -2072,8 +2072,8 @@ class Parser < CRParser
     # line 545 "cs.atg"
     	Expect(C_RparenSym)
     # line 546 "cs.atg"
-        
-        if @sym == C_identifierSym && curString() == 'const'
+    _cs = curString()
+        if @sym == C_identifierSym && ( _cs == 'const' || _cs == 'override')
             Get()
             
         end
@@ -4666,7 +4666,7 @@ SBOString   SerializeToXml (SBOXmlParser *pXmlParser, std::vector<long> &fieldsA
 HERE
 s43=<<HERE
 mutable std::unique_ptr<SBOLock>	m_lock=1;
-
+virtual SBOErr Execute () override { return m_dag->UpdateAll (m_checkBackup); }
 HERE
 s= s43
 p s
