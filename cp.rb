@@ -2949,7 +2949,7 @@ HERE
 	    end
 	    
 
-    	pdebug("===>Expression1:#{ret}")
+    	pdebug("===>Expression1:#{ret}, sym=#{@sym}, v=#{curString()}")
     	return ret
     end
     
@@ -3610,7 +3610,8 @@ HERE
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
             # @sym >= newSym && @sym <= C_DollarSym) 
-            @sym == C_newSym) 
+            @sym == C_newSym ||
+            @sym == C_defaultSym) 
             
     # line 1538 "cs.atg"
     		ret += PostFixExp()
@@ -3863,6 +3864,9 @@ HERE
                 # break;
     		when C_QuestionMarkSym
     		    ret += " ? #{Expression} : #{Expression}"
+            when C_defaultSym
+                ret += "default"
+                Get()
     		else 
     		    GenError(112)
     	end # case
@@ -4666,9 +4670,17 @@ SBOString   SerializeToXml (SBOXmlParser *pXmlParser, std::vector<long> &fieldsA
 HERE
 s43=<<HERE
 mutable std::unique_ptr<SBOLock>	m_lock=1;
-virtual SBOErr Execute () override { return m_dag->UpdateAll (m_checkBackup); }
+
 HERE
-s= s43
+s44=<<HERE
+virtual SBOErr Execute () override { return m_dag->UpdateAll (m_checkBackup); }
+
+HERE
+s45=<<HERE
+DagCleaner () = default;
+
+HERE
+s= s45
 p s
 
 scanner = CScanner.new(s, false)
