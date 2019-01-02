@@ -80,6 +80,7 @@ if $ar_classdefs
     $ar_classdefs.each{|cls|
         add_class(cls)
     }
+    p "===>$ar_classdefs:#{$ar_classdefs.inspect}"
 end
 
 def dump_classes_as_ruby(classdefs)
@@ -178,6 +179,9 @@ class Parser < CRParser
     def getSymValue(sym)
         @scanner.GetSymString(sym)
     end
+    def curSym()
+        @scanner.nextSym
+    end
     # def Parse()
     #     @scanner->Reset()
     #     Get()
@@ -228,12 +232,12 @@ class Parser < CRParser
     end
     def GetNextSym(step =1)
         _scanner = @scanner.clone()
-        p "==>scanner clone =#{_scanner.inspect}"
+      #  p "==>scanner clone =#{_scanner.inspect}"
         _sym = nil
         while step > 0
              begin 
                 _sym = _scanner.Get()
-                p "==>scanner clone2 =#{_scanner.inspect}"
+              #  p "==>scanner clone2 =#{_scanner.inspect}"
             
                 # if $sc_cur != $sc.currSym.sym
                 #     pp("!!!===", 20)
@@ -930,6 +934,13 @@ class Parser < CRParser
         # line 267 "cs.atg"
         	Expect(C_classSym)
         # line 267 "cs.atg"
+        
+        # filter out declaration between 'class' and class name
+            p("ClassDef0:#{@sym}, #{curString()}")
+
+            filterSymBefore([C_ColonSym, C_LbraceSym], 1)
+            Get()
+            p("after filterSymBefore: #{@sym}, #{curString()}")
         	_class_name = curString()
         	Expect(C_identifierSym)
         	clsdef = ClassDef.new(_class_name)
@@ -1232,7 +1243,7 @@ class Parser < CRParser
                         if _nnn == C_LessSym || # using template,e.g. A::B::C<D,F> t;
                             _nnn == C_identifierSym # A::B::C t;
                             p("using template2, sym=#{@sym}, curString=#{curString()}")
-                            LocalDeclaration()
+                            rStatement += LocalDeclaration()
                         else
 	                        rStatement += Statement() # functioncall A::B::C.method();
                         end
@@ -1271,14 +1282,16 @@ class Parser < CRParser
                     if cs == "template" # define tempalte function or template class
                         # e.g. template <bool isDisassembly, bool isComponent> bool CWorkOrderATPSelectStrategy<isDisassembly, isComponent>::QtyOnOrdered (){}
                         Get()
-                        Expect(C_LessSym)
-                        FormalParamList()
-                        p("gStatement15:sym=#{@sym},curString=#{curString()}")
+                        #Expect(C_LessSym)
+                        #FormalParamList()
+                        filterTemplate()
+                       # p("gStatement15:sym=#{@sym},curString=#{curString()}")
                         
-                        Expect(C_GreaterSym)
+                      #  Expect(C_GreaterSym)
                         p("gStatement16:sym=#{@sym},curString=#{curString()}")
-                        
+                        Get()
                         p("gStatement17:sym=#{@sym},curString=#{curString()}")
+                    
                         if (@sym == C_classSym) 
                             ClassDef()
                         else
@@ -1295,7 +1308,7 @@ class Parser < CRParser
                        #   rStatement += cs+FunctionCall()
                        #end
                        
-                       if isTemplatedFnCall()
+                       if isTemplatedFnCall(1)
                             rStatement += Statement()
                        else
                             rStatement += LocalDeclaration()
@@ -1318,18 +1331,46 @@ class Parser < CRParser
        
         return rStatement
     end
-    def isTemplatedFnCall()# pass <int, bool....>
-        l_count = 1
-        r_count = 0
-        count = 2
-        last_gsym = nil
+    
+    def filterSymBefore(stopper, skip) 
+        @curSym = curSym
+        ar = [@curSym]
+ 
+        count = 1 
+        
         while (true)
             _s = GetNextSym(count)
-            p("#{count}th=#{_s.sym}")
+           
+            p("#{count}th=#{_s.sym},#{getSymValue(_s)}")
+            if stopper.include?(_s.sym)
+                __s = ar[ar.size() -skip]
+                p("ar:#{ar.inspect}")
+                p("will delete from sym #{curSym().sym}, #{curString()} to #{__s.sym},#{getSymValue(__s)}")
+                @scanner.delete_in_line(curSym().pos, __s.pos)
+                return true
+                
+            end
+            count +=1
+            ar.push(_s)
+        end
+        return false
+  
+    end
+    def filterTemplate(offset=0) # ignore <int, bool....>, offset is offset of < from current sym
+        l_count = 0 # for ingore embbed <>
+        p("filterTemplate0:#{@sym},#{curString()}", 10)
+        count = offset #<> is 2 sym
+        while (true)
+            _s = GetNextSym(count)
+            p("#{count}th=#{_s.sym}, #{getSymValue(_s)}")
             if _s.sym == C_GreaterSym
                 l_count -=1
                 if (l_count == 0)
-                    last_gsym = _s
+                    break
+                end
+            elsif _s.sym == C_GreaterGreaterSym
+                l_count -=2
+                if (l_count == 0)
                     break
                 end
             elsif _s.sym == C_LessSym
@@ -1337,22 +1378,19 @@ class Parser < CRParser
             end
             count +=1
         end
-        _s = GetNextSym(count+1)
-        p("232424:#{count}th=#{_s.sym}")
+        _s = GetNextSym(count+1) 
+        p("filterTemplate1:#{_s.sym}, #{curString}")
+        @scanner.delete_in_line(GetNextSym(offset).pos, _s.pos)
+        return _s
+    end
+    def isTemplatedFnCall(offset)# pass <int, bool....>
+        _s =  filterTemplate(offset)
+
+        
         if _s.sym == C_LparenSym
-            p("GetNextSym221:#{@scanner.nextSym.inspect}, #{curString()}")
-            
-            @scanner.delete_in_line(GetNextSym(1).pos, last_gsym.pos)
-            p("-->220#{@scanner.inspect}")
-            
-            #Get()
-            #p("GetNextSym:#{GetNextSym().inspect}, #{getSymValue(GetNextSym())}")
-           # p("GetNextSym222:#{@scanner.nextSym.inspect}, #{curString()}")
-            p("GetNextSym223:#{@sym}, #{curString()}")
-            
+          
             return true
         else
-            @scanner.delete_in_line(GetNextSym(1).pos, last_gsym.pos)
             
             return false
         end
@@ -1395,6 +1433,10 @@ class Parser < CRParser
     		if @sym == C_identifierSym && cs == "friend"#ignore
                 Get()
                 FriendClass()
+                next
+            end
+    		if @sym == C_identifierSym && cs == "mutable"#ignore
+                Get()
                 next
             end
             if cs == "public" || cs == "private" || cs == "protected"
@@ -1735,7 +1777,7 @@ class Parser < CRParser
             p "---->LocalDeclaration21:#{gns.sym}, #{getSymValue(gns)}"
            # its = isTypeStart(gns)
            #  p "---->LocalDeclaration22:#{its}"
-            if _n == C_RparenSym || isTypeStart(gns)
+            if _n == C_RparenSym || isTypeStart(gns)# || isFunctionFormalParamStart(offset)
                 # A fn();
                 # A fn(a* b) in which a is type
                 fd = FunctionDefinition(class_name, fname, storageclass)
@@ -1794,11 +1836,21 @@ class Parser < CRParser
             #          end
             #      }
             #      ret = ret2
-            p "localdeclaration4:#{ret}, #{ret.size}"
+            p "localdeclaration4:#{ret}, #{ret.size}", 10
             
         end
         return ret
     end
+    
+   #def isFunctionFormalParamStart(offset)
+   #    _s = GetNextSym(offset)
+   #    if _s.sym >= C_shortSym && _s.sym <=C_voidSym
+   #        return true
+   #    elsif _s.sym == C_identifierSym
+   #        _s1= GetNextSym(offset+1)
+   #        
+   #    end
+   #end
     # line 440 "cs.atg"
     def VarList(var_type)
         pdebug("varlist")
@@ -1928,8 +1980,9 @@ class Parser < CRParser
     	    Get()
 	    end
     # line 509 "cs.atg"
-        p "--->FunctionDefinition sym:#{@sym}"
-        if @sym == C_SemicolonSym 
+        p "--->FunctionDefinition sym:#{@sym}, #{curString()}"
+        symValue = curString()
+        if @sym == C_SemicolonSym  ||symValue == "const" || symValue == "override"
             #if just function declaration without body
             # return ""
         elsif @sym == C_EqualSym
@@ -2031,6 +2084,7 @@ class Parser < CRParser
     
     # line 567 "cs.atg"
     def FormalParamList()
+        p("FormalParamList0")
         $formal_p_count = 0
         ret = ""
     # line 567 "cs.atg"
@@ -2060,13 +2114,15 @@ class Parser < CRParser
     	var_type = Type()
         p("FormalParameter1:sym=#{@sym}, curString=#{curString()}")
     # line 442 "cs.atg"
-    	while (@sym == C_StarSym || @sym == C_AndSym) 
+    	while (@sym == C_StarSym || @sym == C_AndSym || @sym == C_AndAndSym) 
     # line 442 "cs.atg"
     # line 442 "cs.atg"
     		Get()
     # line 442 "cs.atg"
             # type->refLevel++;
     	end
+        p("FormalParameter2:sym=#{@sym}, curString=#{curString()}")
+        
     # line 444 "cs.atg"
    
         if @sym == C_identifierSym 
@@ -2152,15 +2208,19 @@ class Parser < CRParser
     	return var_type
     end
     def STLType()
-       
-            Get()
-            FormalParamList()
-            Expect(C_GreaterSym)
+        p("STLType0")
+          #  Get()
+         #  FormalParamList()
+        filterTemplate()
+         p("STLType1,#{@sym}, #{curString()}")
+         Get()
+         
+        #    Expect(C_GreaterSym)
         
     end
     # line 400 "cs.atg"
     def Type()
-        pdebug("---->type:#{@sym}")
+        pdebug("---->type:#{@sym}, #{curString()}")
         ret = ""
         
         
@@ -2282,21 +2342,25 @@ class Parser < CRParser
     		when C_identifierSym
     		    ret += curString()
     		    Get()
-                p "sym1:#{@sym}"
+                p "sym1:#{@sym}, curString()"
 		        
     		    while @sym == C_ColonColonSym
     		        Get()
     		        ret += "::#{curString()}"
     		        Get()
     		        if @sym == C_LessSym # stl type (using template)
-                        p("before parse stl0")
+                        p("type20:before parse stl0")
     		            STLType()
+                        p("type20:after parse stl0, #{@sym} #{curString()}")
+                        
     	            end
 		        end
                 # p "sym2:#{@sym}"
 		        if @sym == C_LessSym # stl type (using template)
-                    p("before parse stl1", 10)
+                    p("type21:before parse stl1", 10)
                     STLType()
+                    p("type21:after parse stl0, #{@sym} #{curString()}")
+                    
 	            end
 	            while @sym == C_ColonColonSym
     		        Get()
@@ -2308,6 +2372,8 @@ class Parser < CRParser
     		else 
     		    GenError(95)
     	end # case
+    	p "type3:#{@sym}, val #{curString()}"
+
     	return ret
     end
     def Label
@@ -4564,8 +4630,8 @@ void fabdfsd(const RECORDQUANTITYARRAY&  a,int b);
 
 HERE
 s37=<<HERE
-ddddd<bool, int>().fn();
-std::ff<bool, int> a;
+abc<bool, int>().fn();
+std::ff<bool, int> a=1;
 HERE
 s38=<<HERE
 //template <bool isDisassembly> a<true,1>::fn(){};
@@ -4577,7 +4643,32 @@ s39=<<HERE
 fn<int, bool>().a();
 
 HERE
-s= s39
+
+s40=<<HERE
+class xxx CName:CParent{
+}
+
+HERE
+s41=<<HERE
+void    SetDBDParms (std::unique_ptr<DBD_Params>&& params) { m_queries[0] = std::move (params); }
+
+
+HERE
+s42=<<HERE
+template<typename EnumT, typename std::enable_if<std::is_enum<EnumT>::value, int>::type = 0>
+EnumT				GetColStrEnum (const long colNum, const long recOffset = 0L) const;
+template<typename EnumT, typename std::enable_if<std::is_enum<EnumT>::value, int>::type = 0>
+EnumT				GetColStrEnum (const long colNum, const long recOffset = 0L) const;
+HERE
+s42=<<HERE
+SBOString   SerializeToXml (SBOXmlParser *pXmlParser, std::vector<long> &fieldsArr, bool includeTableDef = false);
+
+HERE
+s43=<<HERE
+mutable std::unique_ptr<SBOLock>	m_lock=1;
+
+HERE
+s= s43
 p s
 
 scanner = CScanner.new(s, false)

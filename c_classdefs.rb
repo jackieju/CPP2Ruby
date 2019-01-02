@@ -27,5 +27,6 @@ $ar_classdefs = [
     "CostAccountingFieldMap",
     "bool",
     "AccountsArray",
-    "CSystemBusinessObject"
+    "CSystemBusinessObject",
+    "SBOXmlParser"
     ]

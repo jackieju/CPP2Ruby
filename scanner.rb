@@ -818,30 +818,30 @@ public
         end
     end
     
-    def delete_in_line(from, to)
+    def delete_in_line(from, to) # delete content from pos(from) to pos(to)(not include to)
         p ("delete:#{from}, #{to}, #{@buffPos}")
         replace_start = from 
-         replace_end = to +1
+         replace_end = to
          
          str1 = ""
          if replace_start >= 1
              str1 = @buffer[0..replace_start-1]
          end
          old_size = @buffer.size   
-         str = str1+@buffer[replace_end..@buffer.size-1]
+         str = str1+" "+@buffer[replace_end..@buffer.size-1] # insert one space to make it safe
           @buffer=str
           if @buffPos > replace_start# &&  @buffPos <replace_end
               if replace_start < 0
                   @buffPos = -1
               else
-                  @buffPos = replace_start
+                  @buffPos = replace_start-1
               end
               Reset(@buffPos, @currLine, @lineStart, @currCol)
           end
           
           @ch = CurrentCh(@buffPos)
           p "pos after deleteinline:#{@buffPos}"
-          p "buffer  after deleteinline:#{@buffer}"
+          p "buffer  after deleteinline:#{@buffer}", 10
     end
     def delete_line(pos=nil)
         pos = @buffPos if pos == nil
