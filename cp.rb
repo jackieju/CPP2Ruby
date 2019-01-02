@@ -217,8 +217,9 @@ class Parser < CRParser
         }
     end   
     def find_class(varname)
+        p("@classdefs:#{@classdefs.inspect}")
         @classdefs.each{|k,v|
-                 p "classdef #{k}=#{v}"
+                 p "find_class #{k}=#{v}"
         }
          if @classdefs[varname]
              return @classdefs[varname]
@@ -939,7 +940,7 @@ class Parser < CRParser
             p("ClassDef0:#{@sym}, #{curString()}")
 
             filterSymBefore([C_ColonSym, C_LbraceSym], 1)
-            Get()
+          #  Get()
             p("after filterSymBefore: #{@sym}, #{curString()}")
         	_class_name = curString()
         	Expect(C_identifierSym)
@@ -1146,9 +1147,9 @@ class Parser < CRParser
         @included_files = {}
         @macros = {}
         # @classdefs=$g_classdefs if $g_classdefs
-        @classdefs = classdefs
+        @classdefs = $g_classdefs
         @root_class = add_class("::")
-        
+        p("classdefs:#{@classdefs.inspect}")
         p "init end"
         pclass
     end
@@ -1347,6 +1348,7 @@ class Parser < CRParser
                 p("ar:#{ar.inspect}")
                 p("will delete from sym #{curSym().sym}, #{curString()} to #{__s.sym},#{getSymValue(__s)}")
                 @scanner.delete_in_line(curSym().pos, __s.pos)
+                Get()
                 return true
                 
             end
@@ -1358,8 +1360,8 @@ class Parser < CRParser
     end
     def filterTemplate(offset=0) # ignore <int, bool....>, offset is offset of < from current sym
         l_count = 0 # for ingore embbed <>
-        p("filterTemplate0:#{@sym},#{curString()}", 10)
-        count = offset #<> is 2 sym
+        p("filterTemplate0:offset=#{offset}, #{@sym},#{curString()}", 10)
+        count = offset 
         while (true)
             _s = GetNextSym(count)
             p("#{count}th=#{_s.sym}, #{getSymValue(_s)}")
@@ -1379,13 +1381,16 @@ class Parser < CRParser
             count +=1
         end
         _s = GetNextSym(count+1) 
-        p("filterTemplate1:#{_s.sym}, #{curString}")
+        p("filterTemplate1:#{_s.sym}, #{getSymValue(_s)}")
         @scanner.delete_in_line(GetNextSym(offset).pos, _s.pos)
+        if(offset == 0)
+            Get()
+        end
         return _s
     end
     def isTemplatedFnCall(offset)# pass <int, bool....>
         _s =  filterTemplate(offset)
-
+        
         
         if _s.sym == C_LparenSym
           
@@ -1713,15 +1718,33 @@ class Parser < CRParser
     	if fname =="operator"
     	    Get()
     	    fname = curString()
-    	    Get()
+            if (fname == "std")
+                Get()
+    		    while @sym == C_ColonColonSym
+    		        Get()
+    		        fname += "::#{curString()}"
+                    Get()
+		        end
+                 p "sym2:#{@sym}"
+		        if @sym == C_LessSym # stl type (using template)
+                    p("type21:before parse stl11", 10)
+                    filterTemplate()
+                    p("type21:after parse stl00, #{@sym} #{curString()}")
+	            end
+            else 
+                Get()
+            end
+        	p "===>operator:#{fname}"
+            
 	    end
+    	p "===>LocalDeclaration6:#{@sym}, #{curString()}"
 	    
     	if @sym == C_LparenSym
     	    # for constructor with initialization list in classdef or sturctdef
 	    else
         	Expect(C_identifierSym)
     	end
-    	p "===>33:#{varname}"
+    	p "===>33:#{varname}, #{@sym}"
     	if @sym == C_ColonColonSym
     	    # @classdefs.each{|k,v|
     	    #              p "class #{k} = #{v}"
@@ -2213,7 +2236,7 @@ class Parser < CRParser
          #  FormalParamList()
         filterTemplate()
          p("STLType1,#{@sym}, #{curString()}")
-         Get()
+       #  Get()
          
         #    Expect(C_GreaterSym)
         
@@ -3213,12 +3236,14 @@ HERE
         
     # line 1190 "cs.atg"
     	ret += ShiftExp()
+    	pdebug("===>RelationExp1:#{ret}")
+        
     # line 1190 "cs.atg"
     	while (@sym == C_LessSym ||
     	       @sym >= C_GreaterSym && @sym <= C_GreaterEqualSym) 
     # line 1190 "cs.atg"
     		ret += curString()
-            	pdebug("===>RelationExp3")
+            	pdebug("===>RelationExp2:#{ret}")
     		case (@sym) 
     			when C_LessSym
     # line 1190 "cs.atg"
@@ -3245,6 +3270,8 @@ HERE
 			    
     			# break
     		end
+        	pdebug("===>RelationExp3:#{ret}")
+            
     		ret += ShiftExp()
     		
 		end
@@ -3435,7 +3462,7 @@ HERE
     	ret += Primary()
         
         # ret += curString()
-         p "====>PostFixExp1:@sym:#{@sym}, #{curString()}"
+         p "====>PostFixExp1:@sym:#{@sym}, #{curString()}, ret=#{ret}"
     # line 1574 "cs.atg"
     	while (@sym == C_LbrackSym ||
     	       @sym == C_LparenSym ||
@@ -3718,8 +3745,8 @@ HERE
                         	Get();
                         # line 2353 "cs.atg"
                     
-                            ret += "::#{translate_varname(curString())}"
-                        	Expect(C_identifierSym)
+                        ret += "::#{translate_varname(curString())}"
+                        Expect(C_identifierSym)
                 	end
             	else
             	    if varname == "this"
@@ -3755,6 +3782,13 @@ HERE
                     end
     		    	
     		    end
+             p "====>primary3:#{@sym}, #{curString()}"
+                
+                if @sym == C_LessSym
+                    filterTemplate()
+                end
+                p "====>primary4:#{@sym}, #{curString()}"
+                
     # line 2335 "cs.atg"
 
 =begin    	
@@ -3936,7 +3970,7 @@ HERE
     # line 2703 "cs.atg"
 
 	    end
-	    debug "==>ActualParameters1:#{@sym}, line #{curLine}, val #{curString()}"
+	    debug "==>ActualParameters1:#{@sym}, line #{curLine}, val #{curString()}, ret=#{ret}"
     # line 2776 "cs.atg"
         return ret
     end
@@ -4661,8 +4695,8 @@ HERE
 s42=<<HERE
 template<typename EnumT, typename std::enable_if<std::is_enum<EnumT>::value, int>::type = 0>
 EnumT				GetColStrEnum (const long colNum, const long recOffset = 0L) const;
-template<typename EnumT, typename std::enable_if<std::is_enum<EnumT>::value, int>::type = 0>
-EnumT				GetColStrEnum (const long colNum, const long recOffset = 0L) const;
+
+
 HERE
 s42=<<HERE
 SBOString   SerializeToXml (SBOXmlParser *pXmlParser, std::vector<long> &fieldsArr, bool includeTableDef = false);
@@ -4680,7 +4714,17 @@ s45=<<HERE
 DagCleaner () = default;
 
 HERE
-s= s45
+s46=<<HERE
+operator std::default_delete<DAG> () const { return std::default_delete<DAG> (); }
+
+HERE
+s47=<<HERE
+void operator() (DAG* pDag) const
+
+HERE
+
+
+s= s47
 p s
 
 scanner = CScanner.new(s, false)
