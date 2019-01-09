@@ -29,5 +29,10 @@ $ar_classdefs = [
     "bool",
     "AccountsArray",
     "CSystemBusinessObject",
-    "SBOXmlParser"
+    "SBOXmlParser",
+    "CDBMEnv"
     ]
+
+$unusableType =[
+    "export"
+]

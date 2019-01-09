@@ -113,5 +113,6 @@ ERRMSG=["EOF expected",
 "unexpected symbol in Primary",
 "unexpected symbol in HashItem",
 "Error in including file ",
+"unknow type",
 "unknown error "
 ]

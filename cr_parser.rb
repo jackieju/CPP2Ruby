@@ -255,17 +255,17 @@ class CRParser
         # pos = @scanner.buffPos
         buffer = @scanner.buffer
         
-        p "p1:#{pos}"
+     #   p "p1:#{pos}"
         while pos>0 && buffer[pos] && (buffer[pos].to_byte == 10 || buffer[pos].to_byte == 13)
             pos -= 1
         end
-        p "p2:#{pos}"
+      #  p "p2:#{pos}"
         
         while  pos>0 && buffer[pos] && (buffer[pos].to_byte != 10 && buffer[pos].to_byte != 13)
             pos -= 1
         end
         
-        p "p3:#{pos}"
+     #   p "p3:#{pos}"
         while (num>0)
 
             
@@ -273,12 +273,12 @@ class CRParser
             while  pos>0 && buffer[pos] && (buffer[pos].to_byte == 10 || buffer[pos].to_byte == 13)
                 pos -= 1
             end   
-            p "p4:#{pos}"
+           # p "p4:#{pos}"
             
             while  pos>0 && buffer[pos] && (buffer[pos].to_byte != 10 && buffer[pos].to_byte != 13)
                 pos -= 1
             end
-            p "p5:#{pos}"
+         #   p "p5:#{pos}"
             
             if pos == 0
                 pos_start = 0
