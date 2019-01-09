@@ -858,7 +858,7 @@ class Parser < CRParser
     #       Inheritance();
     #   }
     # line 137 "cs.atg"
-    	while (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	while (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	       @sym == C_SemicolonSym ||
     	       @sym >= C_classSym && @sym <= C_LbraceSym ||
@@ -987,7 +987,7 @@ class Parser < CRParser
     	Expect(C_LbraceSym)
     	$class_current_mode = "public"
     # line 322 "cs.atg"
-    	while (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	while (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	       @sym == C_SemicolonSym ||
     	       @sym >= C_classSym && @sym <= C_LbraceSym ||
@@ -1118,7 +1118,7 @@ class Parser < CRParser
 	    #          [ StorageClass ] Type { "*" } identifier
 	    #                                    ( FunctionDefinition | VarList ";" ) 
 	    #                                    | Inheritance .
-    	elsif (@sym >= C_EOF_Sym && @sym <= C_numberSym ||
+    	elsif (@sym >= C_EOF_Sym && @sym <= C_hexnumberSym ||
     	           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	           @sym == C_SemicolonSym ||
     	           @sym >= C_LbraceSym && @sym <= C_stringSym ||
@@ -1416,7 +1416,7 @@ class Parser < CRParser
      #   p "-->Statements1", 10
         rStatement = ""
     # line 711 "cs.atg"
-    	while (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	while (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	       @sym == C_SemicolonSym ||
     	       @sym == C_LbraceSym ||
@@ -1477,7 +1477,7 @@ class Parser < CRParser
     		        rStatement += _retg	
 		        end
                 # p "enter 11,#{rStatement}"
-    		 elsif (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    		 elsif (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     		           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     		           @sym == C_SemicolonSym ||
     		           @sym == C_LbraceSym ||
@@ -2018,7 +2018,7 @@ class Parser < CRParser
     # line 461 "cs.atg"
     		Get();
     # line 461 "cs.atg"
-    		if (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    		if (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     		    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     		    @sym == C_LbraceSym ||
     		    @sym == C_LparenSym ||
@@ -2580,6 +2580,7 @@ HERE
     	case (@sym) 
     		when C_identifierSym   ,
     		C_numberSym       ,
+    		C_hexnumberSym    ,
     		C_stringD1Sym     ,
     		C_charD1Sym       ,
             # C_LbraceSym       ,
@@ -2771,7 +2772,7 @@ HERE
     # line 738 "cs.atg"
 	    exp2 = ""
     # line 739 "cs.atg"
-    	if (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	if (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     	    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
@@ -2801,7 +2802,7 @@ HERE
 	
 	    exp3 = ""
     # line 754 "cs.atg"
-    	if (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	if (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     	    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
@@ -2909,7 +2910,7 @@ HERE2
     # line 860 "cs.atg"
     	Expect(C_returnSym)
     # line 860 "cs.atg"
-    	if (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	if (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     	    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
@@ -3027,7 +3028,7 @@ HERE
                     Get()
                     p("before questionmark:#{ret}")
                     ret += " ? #{Expression()}"
-                    p("before questionmark1:#{ret}")
+                    p("after questionmark1:#{ret}, #{@sym}, #{curString()}")
                     
                     Expect(C_ColonSym)
                     ret += " : #{Expression()}"
@@ -3049,11 +3050,11 @@ HERE
                 
         	end # while
     	end
-    		pdebug("===>Expression002:#{ret}")
+    		pdebug("===>Expression002:#{ret}, #{@sym},#{curString()}, prev=#{@prev_sym}")
         # is type cast e.g. (exp1)exp2, then igore the exp in ()
     	if @sym!= C_EOF_Sym && @sym!= C_LbraceSym && @sym!= C_CommaSym && @sym!= C_RparenSym &&
              @sym!= C_SemicolonSym && @sym!=C_RbrackSym && @sym!=C_RbraceSym && @sym != C_ColonSym &&
-             @sym < C_numberSym && @sym > C_charD1Sym &&
+             #@sym < C_numberSym && @sym > C_charD1Sym &&
     	     @prev_sym == C_RparenSym # (exp)exp
     	    # (exp)exp
     	    #      ^
@@ -3729,7 +3730,7 @@ HERE
         	ret += Expression()
         	Expect(C_RparenSym)
         	
-    	elsif (@sym >= C_identifierSym && @sym <= C_numberSym ||
+    	elsif (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     	    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
@@ -3969,6 +3970,11 @@ HERE
     			Get();
     # line 2573 "cs.atg"
 
+		when C_hexnumberSym  
+		    ret += curString()
+        	
+			Get();
+
     		when C_LparenSym  
     		    # ret += curString()
             	
@@ -4037,7 +4043,7 @@ HERE
     	     pdebug("=====>FunctionCall");
     	  
     # line 2605 "cs.atg"
-    	if (@sym >= C_identifierSym && @sym  <= C_numberSym ||
+    	if (@sym >= C_identifierSym && @sym  <= C_hexnumberSym ||
     	    @sym >= C_stringD1Sym && @sym  <= C_charD1Sym ||
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
@@ -4882,9 +4888,8 @@ void _DBM_DataAccessGate::SetEnvironment (int *env){};
 
 HERE
 s54=<<HERE
-DBM_DAG_Cell_Ptr dataBuffer = recOffset < m_dataCount ? (DBM_DAG_Cell_Ptr) this->GetRecordOffsetPtr (recOffset, false) : nullptr;
-DBM_DAG_Cell_Ptr dataBuffer = recOffset < m_dataCount ? GetRecordOffsetPtr (recOffset) : nullptr;
-bp.flags = 0x00000001;
+//DBM_DAG_Cell_Ptr dataBuffer = recOffset < m_dataCount ? (DBM_DAG_Cell_Ptr) this->GetRecordOffsetPtr (recOffset, false) : nullptr;
+DBM_DAG_Cell_Ptr dataBuffer = recOffset < m_dataCount ? (DBM_DAG_Cell_Ptr)this->GetRecordOffsetPtr (recOffset) : nullptr;
 HERE
 s55=<<HERE
 
@@ -4892,7 +4897,7 @@ bp.flags = 0x00000001;
 HERE
 if !testall
    
-    s = s55
+    s = s54
 else
 
     r = ""
@@ -4907,6 +4912,7 @@ else
         end
     end
     s = r
+    p(" ==== find #{i} testcase")
 end
 
 p s
@@ -4936,5 +4942,5 @@ end # end of test
  
 
 #=end
-test()
+test(true)
 
