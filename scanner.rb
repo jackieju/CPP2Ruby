@@ -845,7 +845,7 @@ public
           
           @ch = CurrentCh(@buffPos)
           p "pos after deleteinline:#{@buffPos}"
-          p "buffer  after deleteinline:#{@buffer}", 10
+         # p "buffer  after deleteinline:#{@buffer}", 10
     end
     def delete_line(pos=nil)
         pos = @buffPos if pos == nil

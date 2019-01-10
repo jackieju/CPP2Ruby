@@ -2672,7 +2672,7 @@ HERE
     # line 679 "cs.atg"
     	pdebug("===>AssignmentStatement:#{@sym}")
     # line 679 "cs.atg"
-    	ret += Expression()
+    	ret += CommaExpression()
     # line 679 "cs.atg"
     	Expect(C_SemicolonSym)
     # line 679 "cs.atg"
@@ -2787,7 +2787,7 @@ HERE
     # line 739 "cs.atg"
     		
     		p "exp22:#{exp2}"
-    		exp2 = Expression()
+    		exp2 = CommaExpression()
     	end
     # line 740 "cs.atg"
 	
@@ -3052,6 +3052,7 @@ HERE
         	end # while
     	end
     		pdebug("===>Expression002:#{ret}, #{@sym},#{curString()}, prev=#{@prev_sym}")
+            
         # is type cast e.g. (exp1)exp2, then igore the exp in ()
     	if @sym!= C_EOF_Sym && @sym!= C_LbraceSym && @sym!= C_CommaSym && @sym!= C_RparenSym &&
              @sym!= C_SemicolonSym && @sym!=C_RbrackSym && @sym!=C_RbraceSym && @sym != C_ColonSym &&
@@ -3836,12 +3837,7 @@ HERE
                 varname = curString()
                 
 		  
-               if varname  == "throw" # throw expression
-                    pdebug "=====>Primary1:#{@sym}, #{curString()}"
 
-                    Get()
-                    ret += "throw #{Expression()}"
-                else
                 	Get()
         # line 2334 "cs.atg"
                     if @sym == C_ColonColonSym
@@ -3888,14 +3884,13 @@ HERE
         	                end
                         end
     		    	
-        		    end
+        		    end # if @sym == C_ColonColonSym
                  p "====>primary3:#{@sym}, #{curString()}"
                 
                     if @sym == C_LessSym
                         filterTemplate()
                     end
-                end # if delete
-                p "====>primary4:#{@sym}, #{curString()}"
+                    p "====>primary4:#{@sym}, #{curString()}"
                 dump_pos()
     # line 2335 "cs.atg"
 
@@ -4879,7 +4874,8 @@ HERE
 
 s50=<<HERE
 
-for (long i = 0; i < b; i++)
+int a =0;
+for (long i = 0, a=1 ; i < b; i++)
 {
 }
 
@@ -4922,9 +4918,16 @@ throw a;
 throw A();
 throw CDagException (coreInvalidPointer, GetTableName (), "_DBM_DataAccessGate::CompareBuffers failed. DataBuffer is nullptr.");
 HERE
+s57=<<HERE
+ i = 0, keyOff = 0;
+for (i = 0, keyOff = 0; i < segmentCount && keyOff < keyLen; i++){}
+
+for (int i = 0, keyOff = 0; i < segmentCount && keyOff < keyLen; i++);
+ 
+HERE
 if !testall
    
-    s = s56
+    s = s57
 else
 
     r = ""
