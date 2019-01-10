@@ -2364,7 +2364,7 @@ class Parser < CRParser
     # line 424 "cs.atg"
     			Get()
     # line 424 "cs.atg"
-    			if (Sym == C_intSym) 
+    			if (@sym == C_intSym) 
     # line 424 "cs.atg"
     				ret += curString()
         		    Get()
@@ -3929,8 +3929,12 @@ HERE
                 p("-->primary2:sizeof")
                  Get()
                  Expect(C_LparenSym)
-                 t = curString()
-                 Get()
+                 if (@sym >=C_shortSym && @sym <= C_voidSym)
+                     t = Type()
+                 else
+                     t = Expression()
+                 end
+                 
                  Expect(C_RparenSym)
                  ret += "c_sizeof(#{t})"
             when C_deleteSym
@@ -4940,7 +4944,8 @@ for (int i = 0, keyOff = 0; i < segmentCount && keyOff < keyLen; i++);
  
 HERE
 s58=<<HERE
- i = sizeof(short);
+i = sizeof(short);
+ i = sizeof(a->b());
 HERE
 if !testall
    
