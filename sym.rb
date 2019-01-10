@@ -179,10 +179,10 @@ C_QuestionMarkSym =             89
 C_CRLF_Sym = 90 
 C_deleteSym = 91 
 C_throwSym = 92 
-
+C_sizeofSym = 93
 #*** insert new sym here ***#
-C_No_Sym =                      93	# not */
-C_PreProcessorSym =             94	# PreProcessor */
+C_No_Sym =                      94	# not */
+C_PreProcessorSym =             95	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
@@ -280,6 +280,7 @@ SYMS=[
 "CRLF",
 "delete",
 "throw",
+"sizeof",
 "not"                          ,
 "PreProcessor"         ,
     ]

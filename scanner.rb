@@ -457,6 +457,7 @@ class CScanner <  CRScanner
           		return C_stringSym if (EqualStr("string")) 
           		return C_switchSym if (EqualStr("switch")) 
           		return C_StructSym if (EqualStr("struct")) 
+          		return C_sizeofSym if (EqualStr("sizeof")) 
           		
           		#break
           	when 't'

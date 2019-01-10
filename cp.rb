@@ -875,7 +875,7 @@ class Parser < CRParser
     	       @sym == C_EnumSym || 
     	       @sym == C_TypedefSym || 
     	       @sym == C_StructSym ||
-               @sym == C_deleteSym || @sym == C_throwSym
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym 
                ) 
     # line 137 "cs.atg"
     		ret += Definition()
@@ -1003,7 +1003,7 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
-               @sym == C_deleteSym || @sym == C_throwSym) 
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ) 
     # line 322 "cs.atg"
                 cs = curString()
                 p "cs:#{cs}"
@@ -1135,7 +1135,7 @@ class Parser < CRParser
     	           @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	           @sym >= C_newSym && @sym <= C_DollarSym ||
     	           @sym >= C_BangSym && @sym <= C_TildeSym ||
-    	           @sym == C_TypedefSym || @sym == C_deleteSym || @sym == C_throwSym
+    	           @sym == C_TypedefSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym 
                    ) 
     # line 219 "cs.atg"
     		ret += Statements()
@@ -1434,7 +1434,7 @@ class Parser < CRParser
     	       @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
                # @sym >= C_newSym && @sym <= C_DollarSym ||
-               @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
+               @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
     	       @sym == C_TypedefSym)  do
     # line 711 "cs.atg"
@@ -1494,7 +1494,7 @@ class Parser < CRParser
     		           @sym >= C_PlusSym && @sym <= C_MinusSym ||
     		           @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
                        # @sym >= C_newSym && @sym <= C_DollarSym ||
-                       @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
+                       @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
     		           @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 711 "cs.atg"
     			_ret_s = Statement()
@@ -2033,7 +2033,7 @@ class Parser < CRParser
     		    @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     		    @sym >= C_newSym && @sym <= C_DollarSym ||
     		    @sym >= C_BangSym && @sym <= C_TildeSym ||
-                @sym == C_deleteSym || @sym == C_throwSym ) 
+                @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym  ) 
     # line 461 "cs.atg"
     			ConstExpression()
     		end
@@ -2600,6 +2600,7 @@ HERE
     		C_newSym          ,
             C_deleteSym,
             C_throwSym,
+            C_sizeofSym,
             # C_DollarSym       ,
     		C_BangSym         ,
     		C_TildeSym  
@@ -2782,7 +2783,7 @@ HERE
     	    @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	    @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
             # @sym >= C_newSym && @sym <= C_DollarSym ||
-            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
+            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
     	    @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 739 "cs.atg"
     		
@@ -2812,7 +2813,7 @@ HERE
     	    @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	    @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
             # @sym >= C_newSym && @sym <= C_DollarSym ||
-            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
+            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
     	    @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 755 "cs.atg"
 		
@@ -2920,7 +2921,7 @@ HERE2
     	    @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	    @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
             # @sym >= C_newSym && @sym <= C_DollarSym ||
-            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
+            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
     	    @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 860 "cs.atg"
     		exp +=Expression()
@@ -3737,7 +3738,7 @@ HERE
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
             # @sym >= newSym && @sym <= C_DollarSym) 
-            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
+            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
             @sym == C_defaultSym) 
             
     # line 1538 "cs.atg"
@@ -3831,6 +3832,8 @@ HERE
     # line 2328 "cs.atg"
 
     # line 2475 "cs.atg"
+    
+        primary_sym = @sym
     	case @sym
     		when C_identifierSym  
                 # varname = translate_varname()
@@ -3921,6 +3924,15 @@ HERE
     			end # while
     # line 2370 "cs.atg"
 =end
+    
+            when C_sizeofSym
+                p("-->primary2:sizeof")
+                 Get()
+                 Expect(C_LparenSym)
+                 t = curString()
+                 Get()
+                 Expect(C_RparenSym)
+                 ret += "c_sizeof(#{t})"
             when C_deleteSym
 	    	    Get()
 			    if @sym == C_LbrackSym # delete [] A
@@ -4039,10 +4051,12 @@ HERE
     		    GenError(112)
     	end # case
     	
-    	if /\([\w\d_]+\)/ =~ ret
-            # (abc) => abc
-    	    ret = ret.gsub(/\(([\w\d_]+)\)/, '\1')
-	    end
+        if primary_sym != C_sizeofSym
+    	    if /\(\s*[\w\d_]+\s*\)/ =~ ret
+                # (abc) => abc
+    	        ret = ret.gsub(/\(\s*([\w\d_]+)\s*\)/, '\1')
+	        end
+        end
     	pdebug "=====>Primary1:#{ret}"
         
         return ret
@@ -4925,9 +4939,12 @@ for (i = 0, keyOff = 0; i < segmentCount && keyOff < keyLen; i++){}
 for (int i = 0, keyOff = 0; i < segmentCount && keyOff < keyLen; i++);
  
 HERE
+s58=<<HERE
+ i = sizeof(short);
+HERE
 if !testall
    
-    s = s57
+    s = s58
 else
 
     r = ""
@@ -4972,5 +4989,5 @@ end # end of test
  
 
 #=end
-test(false)
+test(true)
 
