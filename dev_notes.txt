@@ -47,4 +47,18 @@ http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefiniti
 +------------------------------------------------------------+
 
 compared with db type
-http://overooped.com/post/100354794/ruby-script-generate-scaffold-types
+http://overooped.com/post/100354794/ruby-script-generate-scaffold-types 
+
+when function definition is parsed as functioncall, usually because type if not recognized.
+e.g.
+BOErr _DBM_DataAccessGate::ToBuffer (CORE_BYTE *buffer, long &sizeOfBuffer) const
+you need to add CORE_BYTE to c_classdef.rb->$ar_classdefs
+
+
+** Do Not Support**
+1. do not support c++11 init struct using "struct_name varname{0};"
+e.g.
+struct DBM_DAG_BufferParams{
+...
+};
+DBM_DAG_BufferParams bp{ 0 };

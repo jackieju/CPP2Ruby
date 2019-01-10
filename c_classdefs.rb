@@ -28,9 +28,13 @@ $ar_classdefs = [
     "CostAccountingFieldMap",
     "bool",
     "AccountsArray",
+    # __DMBC_DAG.cpp
     "CSystemBusinessObject",
     "SBOXmlParser",
-    "CDBMEnv"
+    "CDBMEnv",
+    "CORE_BYTE",
+    "DAG_RecordStatusList",
+    "wchar_t"
     ]
 
 $unusableType =[

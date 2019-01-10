@@ -4947,9 +4947,22 @@ s58=<<HERE
 i = sizeof(short);
  i = sizeof(a->b());
 HERE
+
+s59=<<HERE
+//TCHAR tmpStr[256] = { 0 };
+
+//DBM_DAG_BufferParams bp = { 0 };
+//DBM_DAG_BufferParams bp1 = {0  };
+//conds.SetSize (numOfConds);
+
+//DBM_DAG_BufferParams bp{ 0 };
+HERE
+
+
+
 if !testall
    
-    s = s58
+    s = s59
 else
 
     r = ""
@@ -4994,5 +5007,5 @@ end # end of test
  
 
 #=end
-test(true)
+test(false)
 
