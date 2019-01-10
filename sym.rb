@@ -177,9 +177,12 @@ C_StructSym =                   87
 C_TypedefSym =                  88
 C_QuestionMarkSym =             89
 C_CRLF_Sym = 90 
+C_deleteSym = 91 
+C_throwSym = 92 
+
 #*** insert new sym here ***#
-C_No_Sym =                      91	# not */
-C_PreProcessorSym =             92	# PreProcessor */
+C_No_Sym =                      93	# not */
+C_PreProcessorSym =             94	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
@@ -275,6 +278,8 @@ SYMS=[
 "typedef",
 "?",
 "CRLF",
+"delete",
+"throw",
 "not"                          ,
 "PreProcessor"         ,
     ]

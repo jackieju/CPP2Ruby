@@ -416,6 +416,8 @@ class CScanner <  CRScanner
           		return C_doubleSym if (EqualStr("double")) 
           		return C_defaultSym if (EqualStr("default")) 
           		return C_doSym if (EqualStr("do")) 
+          		return C_deleteSym if (EqualStr("delete")) 
+                
           		#break
           	when 'e'
           		return C_elseSym if (EqualStr("else")) 
@@ -459,6 +461,8 @@ class CScanner <  CRScanner
           		#break
           	when 't'
           	    return C_TypedefSym if (EqualStr("typedef")) 
+          		return C_throwSym if (EqualStr("throw")) 
+                
           	when 'u'
           		return C_useSym if (EqualStr("use")) 
           		return C_unsignedSym if (EqualStr("unsigned")) 

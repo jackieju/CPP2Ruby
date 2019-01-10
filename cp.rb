@@ -874,7 +874,9 @@ class Parser < CRParser
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
     	       @sym == C_EnumSym || 
     	       @sym == C_TypedefSym || 
-    	       @sym == C_StructSym) 
+    	       @sym == C_StructSym ||
+               @sym == C_deleteSym || @sym == C_throwSym
+               ) 
     # line 137 "cs.atg"
     		ret += Definition()
     	end
@@ -1000,7 +1002,8 @@ class Parser < CRParser
     	       @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
-    	       @sym >= C_BangSym && @sym <= C_TildeSym) 
+    	       @sym >= C_BangSym && @sym <= C_TildeSym ||
+               @sym == C_deleteSym || @sym == C_throwSym) 
     # line 322 "cs.atg"
                 cs = curString()
                 p "cs:#{cs}"
@@ -1105,6 +1108,7 @@ class Parser < CRParser
         ret = ""
     # line 218 "cs.atg"
     	pdebug("===>Definition:#{@sym}, #{curString()}");
+        name = curString()
     # line 219 "cs.atg"
     	if (@sym == C_classSym) 
     # line 219 "cs.atg"
@@ -1131,7 +1135,8 @@ class Parser < CRParser
     	           @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	           @sym >= C_newSym && @sym <= C_DollarSym ||
     	           @sym >= C_BangSym && @sym <= C_TildeSym ||
-    	           @sym == C_TypedefSym ) 
+    	           @sym == C_TypedefSym || @sym == C_deleteSym || @sym == C_throwSym
+                   ) 
     # line 219 "cs.atg"
     		ret += Statements()
     	else 
@@ -1429,7 +1434,7 @@ class Parser < CRParser
     	       @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
                # @sym >= C_newSym && @sym <= C_DollarSym ||
-               @sym == C_newSym || 
+               @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
     	       @sym == C_TypedefSym)  do
     # line 711 "cs.atg"
@@ -1489,7 +1494,7 @@ class Parser < CRParser
     		           @sym >= C_PlusSym && @sym <= C_MinusSym ||
     		           @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
                        # @sym >= C_newSym && @sym <= C_DollarSym ||
-                       @sym == C_newSym ||
+                       @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
     		           @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 711 "cs.atg"
     			_ret_s = Statement()
@@ -2027,7 +2032,8 @@ class Parser < CRParser
     		    @sym >= C_PlusSym && @sym <= C_MinusSym ||
     		    @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     		    @sym >= C_newSym && @sym <= C_DollarSym ||
-    		    @sym >= C_BangSym && @sym <= C_TildeSym) 
+    		    @sym >= C_BangSym && @sym <= C_TildeSym ||
+                @sym == C_deleteSym || @sym == C_throwSym ) 
     # line 461 "cs.atg"
     			ConstExpression()
     		end
@@ -2592,21 +2598,16 @@ HERE
     		C_PlusPlusSym     ,
     		C_MinusMinusSym   ,
     		C_newSym          ,
+            C_deleteSym,
+            C_throwSym,
             # C_DollarSym       ,
     		C_BangSym         ,
     		C_TildeSym  
     # line 666 "cs.atg"
     			if @sym == C_identifierSym
     			    cs = curString()
-    			    if cs  == 'delete' # delete [] A
-    		    	    Get()
-        			    if @sym == C_LbrackSym
-        			        Get()
-        			        Expect(C_RbrackSym)
-    			        end
-    			        e =  Expression()
-    			        stmt += "#{e}.__delete"
-			        elsif cs == "try" # try catch statment
+    			    
+			        if cs == "try" # try catch statment
 			            stmt += TryStatement()
 	                else
 	                    stmt += AssignmentStatement()
@@ -2781,7 +2782,7 @@ HERE
     	    @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	    @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
             # @sym >= C_newSym && @sym <= C_DollarSym ||
-            @sym == C_newSym ||
+            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
     	    @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 739 "cs.atg"
     		
@@ -2811,7 +2812,7 @@ HERE
     	    @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	    @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
             # @sym >= C_newSym && @sym <= C_DollarSym ||
-            @sym == C_newSym ||
+            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
     	    @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 755 "cs.atg"
 		
@@ -2919,7 +2920,7 @@ HERE2
     	    @sym >= C_PlusSym && @sym <= C_MinusSym ||
     	    @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
             # @sym >= C_newSym && @sym <= C_DollarSym ||
-            @sym == C_newSym ||
+            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
     	    @sym >= C_BangSym && @sym <= C_TildeSym) 
     # line 860 "cs.atg"
     		exp +=Expression()
@@ -3735,7 +3736,7 @@ HERE
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
             # @sym >= newSym && @sym <= C_DollarSym) 
-            @sym == C_newSym ||
+            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym ||
             @sym == C_defaultSym) 
             
     # line 1538 "cs.atg"
@@ -3833,58 +3834,67 @@ HERE
     		when C_identifierSym  
                 # varname = translate_varname()
                 varname = curString()
-            	Get()
-    # line 2334 "cs.atg"
-                if @sym == C_ColonColonSym
-                    ret += translate_varname(varname)
-                    while (@sym == C_ColonColonSym)
-                        p "====>233:#{curString()}"
-                        # line 2353 "cs.atg"
-                        	Get();
-                        # line 2353 "cs.atg"
-                    
-                        ret += "::#{translate_varname(curString())}"
-                        Expect(C_identifierSym)
-                	end
-            	else
-            	    if varname == "this"
-            	        ret += "self"
-        	        else
-        	            
-                         # p "====>2330:#{current_scope.inspect}"
-                	    cs = current_scope("FunctionDefinition")
-    			        if cs && find_var(varname, cs)
-    			             p "====>2331:"
-    			            ret += find_var(varname, cs).newname
-    		            else
-=begin			            
-    		                ccs =  current_class_scope
-    		                 p "====>2332:#{ccs}"
-		                
-                			if ccs && find_var(varname, ccs)
-                                # ret += "@#{varname}"
-                                # ccs.vars.each{|k,v|
-                                #                            p "==>var:#{v.inspect}"
-                                #                        }
-                                ret += "@#{find_var(varname, ccs).newname}"
-            			    else
-            			        # when var is not found, keep it's original name
-            			        # Note that const like enum will not be added as var
-            			         ret += translate_varname(varname, false)
-        			         
-            			    end
-=end		                
-                            ret += translate_varname(varname, false)
-
-    	                end
-                    end
-    		    	
-    		    end
-             p "====>primary3:#{@sym}, #{curString()}"
                 
-                if @sym == C_LessSym
-                    filterTemplate()
-                end
+		  
+               if varname  == "throw" # throw expression
+                    pdebug "=====>Primary1:#{@sym}, #{curString()}"
+
+                    Get()
+                    ret += "throw #{Expression()}"
+                else
+                	Get()
+        # line 2334 "cs.atg"
+                    if @sym == C_ColonColonSym
+                        ret += translate_varname(varname)
+                        while (@sym == C_ColonColonSym)
+                            p "====>233:#{curString()}"
+                            # line 2353 "cs.atg"
+                            	Get();
+                            # line 2353 "cs.atg"
+                    
+                            ret += "::#{translate_varname(curString())}"
+                            Expect(C_identifierSym)
+                    	end
+                	else
+                	    if varname == "this"
+                	        ret += "self"
+            	        else
+        	            
+                             # p "====>2330:#{current_scope.inspect}"
+                    	    cs = current_scope("FunctionDefinition")
+        			        if cs && find_var(varname, cs)
+        			             p "====>2331:"
+        			            ret += find_var(varname, cs).newname
+        		            else
+=begin			            
+        		                ccs =  current_class_scope
+        		                 p "====>2332:#{ccs}"
+		                
+                    			if ccs && find_var(varname, ccs)
+                                    # ret += "@#{varname}"
+                                    # ccs.vars.each{|k,v|
+                                    #                            p "==>var:#{v.inspect}"
+                                    #                        }
+                                    ret += "@#{find_var(varname, ccs).newname}"
+                			    else
+                			        # when var is not found, keep it's original name
+                			        # Note that const like enum will not be added as var
+                			         ret += translate_varname(varname, false)
+        			         
+                			    end
+=end		                
+                                ret += translate_varname(varname, false)
+
+        	                end
+                        end
+    		    	
+        		    end
+                 p "====>primary3:#{@sym}, #{curString()}"
+                
+                    if @sym == C_LessSym
+                        filterTemplate()
+                    end
+                end # if delete
                 p "====>primary4:#{@sym}, #{curString()}"
                 dump_pos()
     # line 2335 "cs.atg"
@@ -3916,8 +3926,19 @@ HERE
     			end # while
     # line 2370 "cs.atg"
 =end
+            when C_deleteSym
+	    	    Get()
+			    if @sym == C_LbrackSym # delete [] A
+			        Get()
+			        Expect(C_RbrackSym)
+		        end
+		        e =  Expression()
+		        ret += "#{e}.__delete"
+            when C_throwSym
+    	        Get()
+                e =  Expression()
+		        ret += "throw #{e}"
 
-    	
     		when C_newSym  
     		    p "--->new:#{curString()}"
                 # ret += curString()
@@ -4888,16 +4909,22 @@ void _DBM_DataAccessGate::SetEnvironment (int *env){};
 
 HERE
 s54=<<HERE
-//DBM_DAG_Cell_Ptr dataBuffer = recOffset < m_dataCount ? (DBM_DAG_Cell_Ptr) this->GetRecordOffsetPtr (recOffset, false) : nullptr;
-DBM_DAG_Cell_Ptr dataBuffer = recOffset < m_dataCount ? (DBM_DAG_Cell_Ptr)this->GetRecordOffsetPtr (recOffset) : nullptr;
+DBM_DAG_Cell_Ptr dataBuffer = recOffset < m_dataCount ? (DBM_DAG_Cell_Ptr) this->GetRecordOffsetPtr (recOffset, false) : nullptr;
+//DBM_DAG_Cell_Ptr dataBuffer = recOffset < m_dataCount ? (DBM_DAG_Cell_Ptr)this->GetRecordOffsetPtr (recOffset) : nullptr;
 HERE
 s55=<<HERE
 
 bp.flags = 0x00000001;
 HERE
+s56=<<HERE
+throw "a";
+throw a;
+throw A();
+throw CDagException (coreInvalidPointer, GetTableName (), "_DBM_DataAccessGate::CompareBuffers failed. DataBuffer is nullptr.");
+HERE
 if !testall
    
-    s = s54
+    s = s56
 else
 
     r = ""
@@ -4942,5 +4969,5 @@ end # end of test
  
 
 #=end
-test(true)
+test(false)
 
