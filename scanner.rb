@@ -716,13 +716,15 @@ public
         
         replace_start = pos1
         replace_end = pos2-1
-        
+        p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+        p "replace_end:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+                
          # to line start
         while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
             replace_start -=1
         end
-        p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-        p "replace_end:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+        p "replace_start1:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+        p "replace_end1:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
         
         if include_last_line
             # to line end
@@ -734,13 +736,13 @@ public
                 replace_end -=1
             end
             p "replace_start2:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-            p "replace_end2:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+            p "replace_end2:#{replace_end}(#{@buffer[replace_end]}) #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
             
             while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r" && @buffer[replace_end] !=nil)
                 replace_end -=1
             end         
             p "replace_start3:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-            p "replace_end4:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+            p "replace_end3:#{replace_end} #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
                
         end
         
@@ -816,10 +818,10 @@ public
     def dump_char(pos=@buffPos)
         if @buffer[pos]  == nil
             return "(nil)"
-        elsif @buffer[pos].to_byte == 10 || @buffer[pos].to_byte == 13
-            return "(#{@buffer[pos].to_byte}@#{pos})"
+        elsif @buffer[pos].to_byte == 10 || @buffer[pos].to_byte == 13 || @buffer[pos].to_byte ==0
+            return "'\\#{@buffer[pos].to_byte}'@#{pos})"
         else
-            return "#{@buffer[pos]}(#{@buffer[pos].to_byte}@#{pos})"
+            return "'#{@buffer[pos]}'(#{@buffer[pos].to_byte}@#{pos})"
         end
     end
     
@@ -850,13 +852,23 @@ public
     end
     def delete_line(pos=nil)
         pos = @buffPos if pos == nil
-        # pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
+        
+        pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
         
         # replace_start is excluded, replace_end is excluded
         replace_start = pos 
         replace_start = 0 if replace_start < 0
         replace_end = pos
-        p "replace_start1:#{dump_char(replace_start)}, #{cch}"
+        #if @buffer[replace_start] == nil
+        #    replace_start -=1
+        #end
+        #if @buffer[replace_end] == nil
+        #    replace_end -=1
+        #end
+      #  p "replace_start1:#{dump_char(replace_start)}, #{cch}"
+      p "replace_start2:#{replace_start}(#{@buffer[replace_start]}) #{dump_char(replace_start-3)}|#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+      p "replace_end2:#{replace_end}(#{@buffer[replace_end]}) #{dump_char(replace_start-3)}|#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+    
         
         # to line start
         if @buffer[replace_start] == "\n" 
@@ -903,8 +915,8 @@ public
         if replace_start >= 0
             str1 = @buffer[0..replace_start]
         end
-        # p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-        # p "replace_end:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+        p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+        p "replace_end:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
         
         # p "delete_line3: replace_start=#{replace_start}, replace_end=#{replace_end}, #{@buffer[replace_start+1..replace_end]}\n=====\n#{@buffer[replace_end+1..replace_end+15]}", 20
         
@@ -932,19 +944,23 @@ public
             end
             Reset(@buffPos, @currLine, @lineStart, @currCol)
         end
-        
+        @ch = CurrentCh(@buffPos)
         # p "new buffer after delete current line(from #{pos} to #{@buffer.size-1}): #{@buffer[pos..@buffer.size-1]}, ||\n#{@buffer}"
         # p "buffer3(size=#{@buffer.size}, pos #{@buffPos}):#{@buffer[0..552]}"
         # p "buffer4(size=#{@buffer.size}):#{@buffer[0..431]}\n=========\n#{@buffer[432..552]}"
         
         # p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
-        # p "pos:#{@buffPos}"
+         p "pos:#{@buffPos}, #{@ch}, buffer:#{@buffer}"
         
     end
     def include_file(fname, dir=nil)
         ret = true
-        $g_search_dirs = $g_options[:include_dirs] if !$g_search_dirs
-        dirs = $g_search_dirs.clone
+        dirs = nil
+        if $g_options
+            $g_search_dirs = $g_options[:include_dirs] if !$g_search_dirs
+            dirs = $g_search_dirs.clone    
+        end
+        dirs = [] if !dirs
         dirs.push(dir) if !dir
         path = find_file(fname, dirs)
         c = read_file(path) if path
@@ -1015,7 +1031,7 @@ public
 
     def Get(ignore_crlf=true)
         # int state, ctx
-    # p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
+     p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
         
         return C_EOF_Sym if @ch == nil
         
@@ -1064,13 +1080,13 @@ public
             end
             
             state = @@STATE0[@ch.to_byte]
-              p "--->111ch:#{@ch[0].ord}"
+              p "--->111ch:#{@ch[0].ord}=#{ch[0]}, #{state}=#{state}", 10
             while(1) 
                 # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               Scan_NextCh()
               # p "ch:#{@ch}, #{@buffer[nextSym.pos+nextSym.len]}, stat #{state}"
               nextSym.len+=1
-              # p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
+              p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               
               case (state) 
            
@@ -1289,7 +1305,11 @@ public
           	    end
               	#break
               when 34
-              	return C_PreProcessorSym
+            	if (@ch >= 'A' && @ch <= 'Z' ||
+            	    @ch >= 'a' && @ch <= 'z') 
+                else
+                    return C_PreProcessorSym
+                end
               when 35
               	if (@ch == 'U') 
                     # state = 5

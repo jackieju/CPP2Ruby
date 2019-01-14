@@ -1,4 +1,5 @@
 load 'cp.rb'
+#load 'preprocessor.rb'
 load 'macro.rb'
 
 def parse_block(s, method="FunctionBody")
@@ -22,6 +23,7 @@ def parse(s, preprocess = true, to_ruby=true)
        s = preprocess(s)
     end
     
+    p ("preprocess line #{s.count("\n")}")
     
     scanner = CScanner.new(s, false)
     error = MyError.new("whaterver", scanner)
@@ -95,9 +97,31 @@ end
 
 # parse file
 # preprocess - true: do preprocess first, false: no do preprocess, just parse
-def parse_file(fname, preprocess = true, to_ruby=true)
+def parse_file(fname, preprocess = "my", to_ruby=true)
     content = read_file(fname)
-    parse(content, preprocess, to_ruby)
+    if preprocess == "gcc"
+        fs = "pre.#{Time.now.to_f}"
+        p "process using gcc -E"
+        p `gcc -E #{fname} > #{fs} `
+        content = read_file(fs)
+        p "content = #{content}"
+        content.gsub!(/^#.*?$\n/, '')
+        p "content1 = #{content}"
+        begin
+           aFile = File.new(fs+".2", "w+")
+           aFile.puts content
+           aFile.close
+           p "Write preprocess result to file #{fname}"
+        rescue Exception=>e
+           p e
+        end
+        parse(content, false, to_ruby)
+    elsif preprocess == "no"
+        parse(content, false, to_ruby)
+    else
+        parse(content, true, to_ruby)
+    end
+   
 end
 
 def test

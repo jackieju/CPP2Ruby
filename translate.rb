@@ -550,48 +550,75 @@ hide_p_in_file("scanner.rb")
 hide_p_in_file("macro.rb")
 p "Hidden_log_files=#{$Hidden_log_files}"
  
+# use gcc preprocess as preprocess
+$preprocessor = "my" 
+def  parse_arg(arg, a)
+    if arg == "-pre"
+        $mode = "preprocess"
+    elsif arg == "-parse"
+        $mode = "parse"
+    elsif arg == "--usegccpre"
+        $preprocessor = "gcc" 
+    elsif arg == "-d"
+        $output_dir = $*[i+1]
+        FileUtils.makedirs($output_dir)
+    end
+end
 p $*.inspect
 $mode = "translate"
 if $*.size >0
-    for i in 0..$*.size-1 
-        a = $*[i]
+    #for i in 0..$*.size-1 
+    #    a = $*[i]
+    #    p a
+    #    if a == "-pre"
+    #        $mode = "preprocess"
+    #    elsif a == "-parse"
+    #        $mode = "parse"
+    #    elsif a == "-d"
+    #        $output_dir = $*[i+1]
+    #        FileUtils.makedirs($output_dir)
+    #    end
+    #end
+    nextisarg = false
+     for a in $*[0..$*.size-1]
         p a
-        if a == "-pre"
-            $mode = "preprocess"
-        elsif a == "-parse"
-            $mode = "parse"
-        elsif a == "-d"
-            $output_dir = $*[i+1]
-            FileUtils.makedirs($output_dir)
+        if nextisarg       
+           parse_arg(arg, a)
+           nextisarg = false
+           next
+        end
+        if a.start_with?("-")
+            arg = a
+            nextisarg = true
+            next
+            
         end
     end
     p "mode=#{$mode}"
     p "output dir:#{$output_dir}"
     p "******* start translate **********"
     nextisarg = false
+    arg = nil
     for a in $*[0..$*.size-1]
         p a
         if nextisarg
            nextisarg = false
-            next
+           next
         end
         if a.start_with?("-")
-            if a == "-d"
-                nextisarg = true
-            end
-            
+            nextisarg = true
             next
             
         end
         
-        init_env(a)
+        init_env(a) # set file path as search dir
         if $mode == "parse"
             p "begin to parse file #{a}"
             parse_file(a, false, false)
             # generate_ruby
         elsif $mode == "translate"
             p "begin to translate file #{a}"
-            parse_file(a, true, false)
+            parse_file(a, $preprocessor, false)
             
             # generate_ruby    
         elsif $mode == "preprocess"

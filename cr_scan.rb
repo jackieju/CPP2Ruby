@@ -389,8 +389,8 @@ class CRScanner < AbsScanner
     # include_current_char: returned string includes current char
     def skip_curline(include_current_char = false, from=nil)
         ret = NextLine(include_current_char, from)
-        # p "after skip current line, pos #{@buffPos}, ch = #{@buffer[@buffPos].to_byte}"
-        # pp "after skip current line:@buffPos=#{@buffPos}, buffer=#{@buffer}, ret=#{ret}", 20
+         p "after skip current line, pos #{@buffPos}, ch = #{@buffer[@buffPos].to_byte}"
+         pp "after skip current line:@buffPos=#{@buffPos}, buffer=#{@buffer}, ret=#{ret}", 20
         return ret
     end
     def cch()

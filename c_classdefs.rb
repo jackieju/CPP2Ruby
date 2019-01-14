@@ -34,7 +34,8 @@ $ar_classdefs = [
     "CDBMEnv",
     "CORE_BYTE",
     "DAG_RecordStatusList",
-    "wchar_t"
+    "wchar_t",
+    "DBM_ChangedColumn"
     ]
 
 $unusableType =[

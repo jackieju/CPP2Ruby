@@ -250,8 +250,8 @@ class CRParser
             GenError(n)
         end
     end
-    def prevline(pos, num=1)
-        ret = ""
+    def prevline(pos, num=1, padding=0)
+        ret = []
         # pos = @scanner.buffPos
         buffer = @scanner.buffer
         
@@ -285,17 +285,28 @@ class CRParser
             else
                 pos_start = pos+1 
             end
-            ret = buffer[pos_start..pos_end]+ret if buffer[pos_start..pos_end]
+            ret.insert(0,buffer[pos_start..pos_end]) if buffer[pos_start..pos_end]
             num -= 1
         end
         
         return ret
     end
     
+    def get_lineno_by_pos(pos) # line number start from 0
+        buf = @scanner.buffer[0..pos]
+        return buf.count("\n")
+    end
     def dump_pos(pos=@scanner.buffPos)
         p("start dump pos", 5)
+        lino = get_lineno_by_pos(pos)+1
+        
         p "---- dump position ----"
-        p prevline(pos, 2)
+        i = 3
+        ls =  prevline(pos, i)
+        ls.each{|l|
+            p "#{"%05d" % (lino-i)}#{l}"
+            i-=1
+        }
        
         pos1 = pos
         while (pos1 > 0 && @scanner.buffer[pos1-1] != "\n" )
@@ -305,7 +316,7 @@ class CRParser
         while (pos2 < @scanner.buffer.size-1 && @scanner.buffer[pos2+1] != "\n" )
             pos2 += 1
         end        
-        p "......#{@scanner.buffer[pos1..pos2].gsub("\t",' ')}......"
+        p "#{"%05d" % (lino)}......#{@scanner.buffer[pos1..pos2].gsub("\t",' ')}......"
         s1 = ""
         for a in 0..pos-pos1-1
             s1 += "~"
@@ -314,7 +325,7 @@ class CRParser
         for a in 0..pos2-pos-1
             s2 += "~"
         end
-        p "......#{s1}^#{s2}......"
+        p "     ......#{s1}^#{s2}......"
         
         p "---- end of dump position ----"
         
