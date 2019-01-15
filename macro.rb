@@ -1338,9 +1338,9 @@ class Preprocessor < Parser
     def pre_ifdef(ifndef=false)
          Get()
          n = curString()
-          p "pre_ifdef before delete:n=#{n}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}", 10
+    #      p "pre_ifdef before delete:n=#{n}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}", 10
          delete_curline  # delele line #ifdef
-         p "pre_ifdef after delete:pos #{@scanner.buffPos}, buffer #{@scanner.buffer}"
+     #    p "pre_ifdef after delete:pos #{@scanner.buffPos}, buffer #{@scanner.buffer}"
          
          idf = ifdefined?(n)
          pp "idf=#{idf}, @sym=#{@sym}",20
@@ -1419,7 +1419,7 @@ class Preprocessor < Parser
                 
             Get()
              pos11 = @scanner.buffPos
-             p "pre_else: sym=#{@sym}, directive=#{@directive}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}, #{@scanner.dump_char}"
+            # p "pre_else: sym=#{@sym}, directive=#{@directive}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}, #{@scanner.dump_char}"
              
              @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
              # p "pre_else: directive=#{@directive}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}, #{@scanner.dump_char}", 20
@@ -1446,10 +1446,10 @@ class Preprocessor < Parser
     end
     def pre_endif(idf)
         if @directive == "\#endif"
-            p "9999:pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}"
+         #   p "9999:pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}"
             # @scanner.delete_prevline
             delete_curline
-            p "99992:pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}", 19
+        #    p "99992:pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}", 19
             
         end
     end
@@ -1500,7 +1500,7 @@ class Preprocessor < Parser
     def _preprocess(until_find = [], process_directive = true)
         while (@sym!=C_EOF_Sym)
             
-             p "_preprocess1:sym2:#{@sym}, d:#{@directive}, #{curString()}"
+          #   p "_preprocess1:sym2:#{@sym}, d:#{@directive}, #{curString()}"
             if @sym == C_PreProcessorSym
                 #_str1 = curString()
                 ## pp "preprocessor: #{@sym}, #{_str1}", 20
@@ -1508,12 +1508,12 @@ class Preprocessor < Parser
                 #_str2 = curString()
                 #@directive = "#{_str1}#{_str2}"
                 @directive = curString()
-                p "_preprocess directive=#{@directive}, until_find=#{until_find.inspect}, process_directive=#{process_directive}"
+              #  p "_preprocess directive=#{@directive}, until_find=#{until_find.inspect}, process_directive=#{process_directive}"
                 if until_find.include?(@directive)
-                    p "--->222", 10
+              #      p "--->222", 10
                     return @directive
             #    elsif process_directive == true
-        else
+            else
                     preprocess_directive()
                     #@directive = preprocess_directive()
                     #next
@@ -2996,6 +2996,19 @@ b=2;
 a=1;
 HERE
 
+s18=<<HERE
+#define _DEBUG 
+#ifndef _DEBUG
+b=1;
+#ifdef _WINDOWS
+b=2;
+#define _DEBUG1 1
+
+#else
+#endif
+#endif
+a=1;
+HERE
 s=<<HERE
 #define DAG_DEF_ELEMENT_SIZE	20480
 #define MAX_COND_SIZE			600
@@ -3032,7 +3045,7 @@ public:
 HERE
 if !testall
    
-    s = s2
+    s = s18
 else
 
     r = ""
@@ -3064,4 +3077,4 @@ end
     parser.show_macros
     error.PrintListing
 end
-#test()
+test()

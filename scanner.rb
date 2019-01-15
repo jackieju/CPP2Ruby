@@ -646,7 +646,7 @@ class CScanner <  CRScanner
     end
 public
     def delete_prevline
-        p "-=-->delete_prevline:pos #{@buffPos}, cur line #{@currLine}, ch #{@buffer[@buffPos].inspect}, buffer size #{@buffer.size}, buffer=#{@buffer}", 10
+      #  p "-=-->delete_prevline:pos #{@buffPos}, cur line #{@currLine}, ch #{@buffer[@buffPos].inspect}, buffer size #{@buffer.size}, buffer=#{@buffer}", 10
         return if @buffPos <=0
         
         pos = @buffPos
@@ -712,19 +712,19 @@ public
     
     # delete lines where from line pos1 located1 to line pos2 located
     def delete_lines(pos1, pos2, include_last_line=true)
-        pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
+        #pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
         
         replace_start = pos1
         replace_end = pos2-1
-        p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-        p "replace_end:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+       # p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+       # p "replace_end:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
                 
          # to line start
         while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
             replace_start -=1
         end
-        p "replace_start1:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-        p "replace_end1:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+       # p "replace_start1:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+       # p "replace_end1:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
         
         if include_last_line
             # to line end
@@ -735,19 +735,19 @@ public
             while (@buffer[replace_end] == "\n" || @buffer[replace_end] == "\r")
                 replace_end -=1
             end
-            p "replace_start2:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-            p "replace_end2:#{replace_end}(#{@buffer[replace_end]}) #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+           # p "replace_start2:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+           # p "replace_end2:#{replace_end}(#{@buffer[replace_end]}) #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
             
             while (@buffer[replace_end] != "\n" && @buffer[replace_end] != "\r" && @buffer[replace_end] !=nil)
                 replace_end -=1
             end         
-            p "replace_start3:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-            p "replace_end3:#{replace_end} #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+           # p "replace_start3:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+           # p "replace_end3:#{replace_end} #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
                
         end
         
 
-        p "replace_start=#{replace_start}, replace_end=#{replace_end}, buffPos=#{@buffPos}"
+       # p "replace_start=#{replace_start}, replace_end=#{replace_end}, buffPos=#{@buffPos}"
         
         if replace_end > replace_start       
         
@@ -853,7 +853,7 @@ public
     def delete_line(pos=nil)
         pos = @buffPos if pos == nil
         
-        pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
+     #   pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
         
         # replace_start is excluded, replace_end is excluded
         replace_start = pos 
@@ -866,8 +866,8 @@ public
         #    replace_end -=1
         #end
       #  p "replace_start1:#{dump_char(replace_start)}, #{cch}"
-      p "replace_start2:#{replace_start}(#{@buffer[replace_start]}) #{dump_char(replace_start-3)}|#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-      p "replace_end2:#{replace_end}(#{@buffer[replace_end]}) #{dump_char(replace_start-3)}|#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+    #  p "replace_start2:#{replace_start}(#{@buffer[replace_start]}) #{dump_char(replace_start-3)}|#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+    #  p "replace_end2:#{replace_end}(#{@buffer[replace_end]}) #{dump_char(replace_start-3)}|#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
     
         
         # to line start
@@ -878,21 +878,21 @@ public
             replace_start -=1
         end
 
-        p "replace_start2:#{dump_char(replace_start)}"
+      #  p "replace_start2:#{dump_char(replace_start)}"
 
         #move replace_start before the first pos which will be replaced
         while (@buffer[replace_start] && @buffer[replace_start] != "\n" && @buffer[replace_start] != "\r" )
             replace_start -=1
-            p "replace_start3:#{dump_char(replace_start)}"
+        #    p "replace_start3:#{dump_char(replace_start)}"
             
         end
-        p "replace_start4:#{dump_char(replace_start)}"
+      #  p "replace_start4:#{dump_char(replace_start)}"
         
         # to line end
         # p "==>replace_end=#{replace_end}, #{@buffer[replace_end]}, #{@buffer[replace_end].to_byte}"
         while (@buffer[replace_end] && @buffer[replace_end] != "\n" && @buffer[replace_end] != "\r" )
             replace_end +=1
-            p "==>replace_end2=#{replace_end}, #{@buffer[replace_end]}"
+       #     p "==>replace_end2=#{replace_end}, #{@buffer[replace_end]}"
             
         end
 
@@ -915,8 +915,8 @@ public
         if replace_start >= 0
             str1 = @buffer[0..replace_start]
         end
-        p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
-        p "replace_end:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
+      #  p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
+       # p "replace_end:#{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
         
         # p "delete_line3: replace_start=#{replace_start}, replace_end=#{replace_end}, #{@buffer[replace_start+1..replace_end]}\n=====\n#{@buffer[replace_end+1..replace_end+15]}", 20
         
@@ -950,7 +950,7 @@ public
         # p "buffer4(size=#{@buffer.size}):#{@buffer[0..431]}\n=========\n#{@buffer[432..552]}"
         
         # p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
-         p "pos:#{@buffPos}, #{@ch}, buffer:#{@buffer}"
+    #     p "pos:#{@buffPos}, #{@ch}, buffer:#{@buffer}"
         
     end
     def include_file(fname, dir=nil)
@@ -964,7 +964,7 @@ public
         dirs.push(dir) if !dir
         path = find_file(fname, dirs)
         c = read_file(path) if path
-        p "read file #{path}, return #{c}"
+      #  p "read file #{path}, return #{c}"
         # if c == nil #|| c == ""
         #     delete_curline
         #     return false
@@ -1080,13 +1080,13 @@ public
             end
             
             state = @@STATE0[@ch.to_byte]
-              p "--->111ch:#{@ch[0].ord}=#{ch[0]}, #{state}=#{state}", 10
+           #   p "--->111ch:#{@ch[0].ord}=#{ch[0]}, #{state}=#{state}", 10
             while(1) 
                 # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               Scan_NextCh()
               # p "ch:#{@ch}, #{@buffer[nextSym.pos+nextSym.len]}, stat #{state}"
               nextSym.len+=1
-              p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
+          #    p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               
               case (state) 
            

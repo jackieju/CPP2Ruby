@@ -28,6 +28,8 @@ $ar_classdefs = [
     "CostAccountingFieldMap",
     "bool",
     "AccountsArray",
+    # pojdt.c
+    "CPaymentDoc",
     # __DMBC_DAG.cpp
     "CSystemBusinessObject",
     "SBOXmlParser",
