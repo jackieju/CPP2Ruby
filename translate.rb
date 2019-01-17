@@ -560,7 +560,7 @@ def  parse_arg(arg, a)
     elsif arg == "--usegccpre"
         $preprocessor = "gcc" 
     elsif arg == "-d"
-        $output_dir = $*[i+1]
+        $output_dir = a #$*[i+1]
         FileUtils.makedirs($output_dir)
     end
 end
@@ -580,11 +580,13 @@ if $*.size >0
     #    end
     #end
     nextisarg = false
+    arg = nil
      for a in $*[0..$*.size-1]
         p a
         if nextisarg       
            parse_arg(arg, a)
            nextisarg = false
+           arg = nil
            next
         end
         if a.start_with?("-")

@@ -3850,7 +3850,8 @@ HERE
     	    @sym >= C_PlusSym && @sym  <= C_MinusSym ||
     	    @sym >= C_PlusPlusSym && @sym  <= C_MinusMinusSym ||
     	    @sym >= C_newSym && @sym  <= C_DollarSym ||
-    	    @sym >= C_BangSym && @sym  <= C_TildeSym) 
+    	    @sym >= C_BangSym && @sym  <= C_TildeSym ||
+            @sym >= C_sizeofSym) 
     # line 2605 "cs.atg"
     		ret += ActualParameters()
     	end
@@ -4735,13 +4736,9 @@ std::wostream& operator << (std::wostream& stream, const _DBM_DataAccessGate& da
 HERE
 
 s62=<<HERE
-#ifdef A
-a = 1;
-#ifdef B
-b = 1;
-#endif
-#endif
+destString.FinishAdoptAsBuffer(sizeof(MONEY));
 HERE
+
 
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
@@ -4803,5 +4800,5 @@ end # end of test
  
 
 #=end
-#test(false)
+test(false)
 
