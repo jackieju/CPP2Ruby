@@ -1,0 +1,2 @@
+load 'cp.rb'
+test()

@@ -1,0 +1,64 @@
+# how to add one keyword sym
+
+1. add it in sym.rb before C_No_Sym, also same position in the arrasy SYMS
+2. add it in CheckLiteral() of scanner.rb
+3. add it in cp.rb where it should be allowed
+e.g.
+ while (@sym >= C_identifierSym && @sym <= C_numberSym ||
+        @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
+        @sym == C_SemicolonSym ||
+        @sym >= C_classSym && @sym <= C_LbraceSym ||
+        @sym >= C_staticSym && @sym <= C_stringSym ||
+        @sym == C_LparenSym ||
+        @sym >= C_StarSym && @sym <= C_caseSym ||
+        @sym >= C_defaultSym && @sym <= C_ifSym ||
+        @sym >= C_returnSym && @sym <= C_switchSym ||
+        @sym == C_AndSym ||
+        @sym >= C_PlusSym && @sym <= C_MinusSym ||
+        @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
+        @sym >= C_newSym && @sym <= C_DollarSym ||
+        @sym >= C_BangSym && @sym <= C_TildeSym ||
+        @sym == C_EnumSym || 
+        @sym == C_TypedefSym || 
++       @sym == C_StructSym
+		) 
+ 
+ 	ret += Definition()
+ end
+
+# how to add one sym, e.g. ? (question mark)
+1. add its symbol name (e.g. C_QuestionMarkSym) in sym.rb before C_No_Sym, also same position in the arrays SYMS
+2. Get it's ascii code. e.g. 63 (question mark), in scanner.rb, set @@STATE0's 63th element to a new state. e.g. 83
+3. still scanner.rb, goto end of switch/case in function Get(), add 
+when 83
+    return C_QuestionMarkSym
+
+
+rails table definition
+http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column 
++------------------------------------------------------------+
+| :limit | Numeric Type  | Column Size |      Max Value      |
+|--------+---------------+-------------+---------------------|
+|    1   |    TINYINT    |   1 byte    | 127                 |
+|    2   |    SMALLINT   |   2 bytes   | 32767               |
+|    3   |    MEDIUMINT  |   3 bytes   | 8388607             |
+|    4   |     INT(11)   |   4 bytes   | 2147483647          |
+|    8   |     BIGINT    |   8 bytes   | 9223372036854775807 |
++------------------------------------------------------------+
+
+compared with db type
+http://overooped.com/post/100354794/ruby-script-generate-scaffold-types 
+
+when function definition is parsed as functioncall, usually because type if not recognized.
+e.g.
+BOErr _DBM_DataAccessGate::ToBuffer (CORE_BYTE *buffer, long &sizeOfBuffer) const
+you need to add CORE_BYTE to c_classdef.rb->$ar_classdefs
+
+
+** Do Not Support**
+1. do not support c++11 init struct using "struct_name varname{0};"
+e.g.
+struct DBM_DAG_BufferParams{
+...
+};
+DBM_DAG_BufferParams bp{ 0 };

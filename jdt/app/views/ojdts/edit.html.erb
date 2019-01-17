@@ -1,0 +1,396 @@
+<h1>Editing ojdt</h1>
+
+<% form_for(@ojdt) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :BatchNum %><br />
+    <%= f.text_field :BatchNum %>
+  </p>
+  <p>
+    <%= f.label :TransId %><br />
+    <%= f.text_field :TransId %>
+  </p>
+  <p>
+    <%= f.label :BtfStatus %><br />
+    <%= f.text_field :BtfStatus %>
+  </p>
+  <p>
+    <%= f.label :TransType %><br />
+    <%= f.text_field :TransType %>
+  </p>
+  <p>
+    <%= f.label :BaseRef %><br />
+    <%= f.text_field :BaseRef %>
+  </p>
+  <p>
+    <%= f.label :RefDate %><br />
+    <%= f.date_select :RefDate %>
+  </p>
+  <p>
+    <%= f.label :Memo %><br />
+    <%= f.text_field :Memo %>
+  </p>
+  <p>
+    <%= f.label :Ref1 %><br />
+    <%= f.text_field :Ref1 %>
+  </p>
+  <p>
+    <%= f.label :Ref2 %><br />
+    <%= f.text_field :Ref2 %>
+  </p>
+  <p>
+    <%= f.label :CreatedBy %><br />
+    <%= f.text_field :CreatedBy %>
+  </p>
+  <p>
+    <%= f.label :LocTotal %><br />
+    <%= f.text_field :LocTotal %>
+  </p>
+  <p>
+    <%= f.label :FcTotal %><br />
+    <%= f.text_field :FcTotal %>
+  </p>
+  <p>
+    <%= f.label :SysTotal %><br />
+    <%= f.text_field :SysTotal %>
+  </p>
+  <p>
+    <%= f.label :TransCode %><br />
+    <%= f.text_field :TransCode %>
+  </p>
+  <p>
+    <%= f.label :OrignCurr %><br />
+    <%= f.text_field :OrignCurr %>
+  </p>
+  <p>
+    <%= f.label :TransRate %><br />
+    <%= f.text_field :TransRate %>
+  </p>
+  <p>
+    <%= f.label :BtfLine %><br />
+    <%= f.text_field :BtfLine %>
+  </p>
+  <p>
+    <%= f.label :TransCurr %><br />
+    <%= f.text_field :TransCurr %>
+  </p>
+  <p>
+    <%= f.label :Project %><br />
+    <%= f.text_field :Project %>
+  </p>
+  <p>
+    <%= f.label :DueDate %><br />
+    <%= f.date_select :DueDate %>
+  </p>
+  <p>
+    <%= f.label :TaxDate %><br />
+    <%= f.date_select :TaxDate %>
+  </p>
+  <p>
+    <%= f.label :PCAddition %><br />
+    <%= f.text_field :PCAddition %>
+  </p>
+  <p>
+    <%= f.label :FinncPriod %><br />
+    <%= f.text_field :FinncPriod %>
+  </p>
+  <p>
+    <%= f.label :DataSource %><br />
+    <%= f.text_field :DataSource %>
+  </p>
+  <p>
+    <%= f.label :UpdateDate %><br />
+    <%= f.date_select :UpdateDate %>
+  </p>
+  <p>
+    <%= f.label :CreateDate %><br />
+    <%= f.date_select :CreateDate %>
+  </p>
+  <p>
+    <%= f.label :UserSign %><br />
+    <%= f.text_field :UserSign %>
+  </p>
+  <p>
+    <%= f.label :UserSign2 %><br />
+    <%= f.text_field :UserSign2 %>
+  </p>
+  <p>
+    <%= f.label :RefndRprt %><br />
+    <%= f.text_field :RefndRprt %>
+  </p>
+  <p>
+    <%= f.label :LogInstanc %><br />
+    <%= f.text_field :LogInstanc %>
+  </p>
+  <p>
+    <%= f.label :ObjType %><br />
+    <%= f.text_field :ObjType %>
+  </p>
+  <p>
+    <%= f.label :Indicator %><br />
+    <%= f.text_field :Indicator %>
+  </p>
+  <p>
+    <%= f.label :AdjTran %><br />
+    <%= f.text_field :AdjTran %>
+  </p>
+  <p>
+    <%= f.label :RevSource %><br />
+    <%= f.text_field :RevSource %>
+  </p>
+  <p>
+    <%= f.label :StornoDate %><br />
+    <%= f.date_select :StornoDate %>
+  </p>
+  <p>
+    <%= f.label :StornoToTr %><br />
+    <%= f.text_field :StornoToTr %>
+  </p>
+  <p>
+    <%= f.label :AutoStorno %><br />
+    <%= f.text_field :AutoStorno %>
+  </p>
+  <p>
+    <%= f.label :Corisptivi %><br />
+    <%= f.text_field :Corisptivi %>
+  </p>
+  <p>
+    <%= f.label :VatDate %><br />
+    <%= f.date_select :VatDate %>
+  </p>
+  <p>
+    <%= f.label :StampTax %><br />
+    <%= f.text_field :StampTax %>
+  </p>
+  <p>
+    <%= f.label :Series %><br />
+    <%= f.text_field :Series %>
+  </p>
+  <p>
+    <%= f.label :Number %><br />
+    <%= f.text_field :Number %>
+  </p>
+  <p>
+    <%= f.label :AutoVAT %><br />
+    <%= f.text_field :AutoVAT %>
+  </p>
+  <p>
+    <%= f.label :DocSeries %><br />
+    <%= f.text_field :DocSeries %>
+  </p>
+  <p>
+    <%= f.label :FolioPref %><br />
+    <%= f.text_field :FolioPref %>
+  </p>
+  <p>
+    <%= f.label :FolioNum %><br />
+    <%= f.text_field :FolioNum %>
+  </p>
+  <p>
+    <%= f.label :CreateTime %><br />
+    <%= f.text_field :CreateTime %>
+  </p>
+  <p>
+    <%= f.label :BlockDunn %><br />
+    <%= f.text_field :BlockDunn %>
+  </p>
+  <p>
+    <%= f.label :ReportEU %><br />
+    <%= f.text_field :ReportEU %>
+  </p>
+  <p>
+    <%= f.label :Report347 %><br />
+    <%= f.text_field :Report347 %>
+  </p>
+  <p>
+    <%= f.label :Printed %><br />
+    <%= f.text_field :Printed %>
+  </p>
+  <p>
+    <%= f.label :DocType %><br />
+    <%= f.text_field :DocType %>
+  </p>
+  <p>
+    <%= f.label :AttNum %><br />
+    <%= f.text_field :AttNum %>
+  </p>
+  <p>
+    <%= f.label :GenRegNo %><br />
+    <%= f.text_field :GenRegNo %>
+  </p>
+  <p>
+    <%= f.label :RG23APart2 %><br />
+    <%= f.text_field :RG23APart2 %>
+  </p>
+  <p>
+    <%= f.label :RG23CPart2 %><br />
+    <%= f.text_field :RG23CPart2 %>
+  </p>
+  <p>
+    <%= f.label :MatType %><br />
+    <%= f.text_field :MatType %>
+  </p>
+  <p>
+    <%= f.label :Creator %><br />
+    <%= f.text_field :Creator %>
+  </p>
+  <p>
+    <%= f.label :Approver %><br />
+    <%= f.text_field :Approver %>
+  </p>
+  <p>
+    <%= f.label :Location %><br />
+    <%= f.text_field :Location %>
+  </p>
+  <p>
+    <%= f.label :SeqCode %><br />
+    <%= f.text_field :SeqCode %>
+  </p>
+  <p>
+    <%= f.label :Serial %><br />
+    <%= f.text_field :Serial %>
+  </p>
+  <p>
+    <%= f.label :SeriesStr %><br />
+    <%= f.text_field :SeriesStr %>
+  </p>
+  <p>
+    <%= f.label :SubStr %><br />
+    <%= f.text_field :SubStr %>
+  </p>
+  <p>
+    <%= f.label :AutoWT %><br />
+    <%= f.text_field :AutoWT %>
+  </p>
+  <p>
+    <%= f.label :WTSum %><br />
+    <%= f.text_field :WTSum %>
+  </p>
+  <p>
+    <%= f.label :WTSumSC %><br />
+    <%= f.text_field :WTSumSC %>
+  </p>
+  <p>
+    <%= f.label :WTSumFC %><br />
+    <%= f.text_field :WTSumFC %>
+  </p>
+  <p>
+    <%= f.label :WTApplied %><br />
+    <%= f.text_field :WTApplied %>
+  </p>
+  <p>
+    <%= f.label :WTAppliedS %><br />
+    <%= f.text_field :WTAppliedS %>
+  </p>
+  <p>
+    <%= f.label :WTAppliedF %><br />
+    <%= f.text_field :WTAppliedF %>
+  </p>
+  <p>
+    <%= f.label :BaseAmnt %><br />
+    <%= f.text_field :BaseAmnt %>
+  </p>
+  <p>
+    <%= f.label :BaseAmntSC %><br />
+    <%= f.text_field :BaseAmntSC %>
+  </p>
+  <p>
+    <%= f.label :BaseAmntFC %><br />
+    <%= f.text_field :BaseAmntFC %>
+  </p>
+  <p>
+    <%= f.label :BaseVtAt %><br />
+    <%= f.text_field :BaseVtAt %>
+  </p>
+  <p>
+    <%= f.label :BaseVtAtSC %><br />
+    <%= f.text_field :BaseVtAtSC %>
+  </p>
+  <p>
+    <%= f.label :BaseVtAtFC %><br />
+    <%= f.text_field :BaseVtAtFC %>
+  </p>
+  <p>
+    <%= f.label :VersionNum %><br />
+    <%= f.text_field :VersionNum %>
+  </p>
+  <p>
+    <%= f.label :BaseTrans %><br />
+    <%= f.text_field :BaseTrans %>
+  </p>
+  <p>
+    <%= f.label :ResidenNum %><br />
+    <%= f.text_field :ResidenNum %>
+  </p>
+  <p>
+    <%= f.label :OperatCode %><br />
+    <%= f.text_field :OperatCode %>
+  </p>
+  <p>
+    <%= f.label :Ref3 %><br />
+    <%= f.text_field :Ref3 %>
+  </p>
+  <p>
+    <%= f.label :SSIExmpt %><br />
+    <%= f.text_field :SSIExmpt %>
+  </p>
+  <p>
+    <%= f.label :SignMsg %><br />
+    <%= f.text_area :SignMsg %>
+  </p>
+  <p>
+    <%= f.label :SignDigest %><br />
+    <%= f.text_area :SignDigest %>
+  </p>
+  <p>
+    <%= f.label :CertifNum %><br />
+    <%= f.text_field :CertifNum %>
+  </p>
+  <p>
+    <%= f.label :KeyVersion %><br />
+    <%= f.text_field :KeyVersion %>
+  </p>
+  <p>
+    <%= f.label :CUP %><br />
+    <%= f.text_field :CUP %>
+  </p>
+  <p>
+    <%= f.label :CIG %><br />
+    <%= f.text_field :CIG %>
+  </p>
+  <p>
+    <%= f.label :SupplCode %><br />
+    <%= f.text_field :SupplCode %>
+  </p>
+  <p>
+    <%= f.label :SPSrcType %><br />
+    <%= f.text_field :SPSrcType %>
+  </p>
+  <p>
+    <%= f.label :SPSrcID %><br />
+    <%= f.text_field :SPSrcID %>
+  </p>
+  <p>
+    <%= f.label :SPSrcDLN %><br />
+    <%= f.text_field :SPSrcDLN %>
+  </p>
+  <p>
+    <%= f.label :DeferedTax %><br />
+    <%= f.text_field :DeferedTax %>
+  </p>
+  <p>
+    <%= f.label :AgrNo %><br />
+    <%= f.text_field :AgrNo %>
+  </p>
+  <p>
+    <%= f.label :SeqNum %><br />
+    <%= f.text_field :SeqNum %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @ojdt %> |
+<%= link_to 'Back', ojdts_path %>
