@@ -1,0 +1,497 @@
+<%= form_with(model: ojdt, local: true) do |form| %>
+  <% if ojdt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ojdt.errors.count, "error") %> prohibited this ojdt from being saved:</h2>
+
+      <ul>
+      <% ojdt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :BatchNum %>
+    <%= form.number_field :BatchNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TransId %>
+    <%= form.number_field :TransId %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BtfStatus %>
+    <%= form.text_field :BtfStatus %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TransType %>
+    <%= form.text_field :TransType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseRef %>
+    <%= form.text_field :BaseRef %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RefDate %>
+    <%= form.date_select :RefDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Memo %>
+    <%= form.text_field :Memo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Ref1 %>
+    <%= form.text_field :Ref1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Ref2 %>
+    <%= form.text_field :Ref2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CreatedBy %>
+    <%= form.number_field :CreatedBy %>
+  </div>
+
+  <div class="field">
+    <%= form.label :LocTotal %>
+    <%= form.text_field :LocTotal %>
+  </div>
+
+  <div class="field">
+    <%= form.label :FcTotal %>
+    <%= form.text_field :FcTotal %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SysTotal %>
+    <%= form.text_field :SysTotal %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TransCode %>
+    <%= form.text_field :TransCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :OrignCurr %>
+    <%= form.text_field :OrignCurr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TransRate %>
+    <%= form.text_field :TransRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BtfLine %>
+    <%= form.number_field :BtfLine %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TransCurr %>
+    <%= form.text_field :TransCurr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Project %>
+    <%= form.text_field :Project %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DueDate %>
+    <%= form.date_select :DueDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TaxDate %>
+    <%= form.date_select :TaxDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :PCAddition %>
+    <%= form.text_field :PCAddition %>
+  </div>
+
+  <div class="field">
+    <%= form.label :FinncPriod %>
+    <%= form.number_field :FinncPriod %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DataSource %>
+    <%= form.text_field :DataSource %>
+  </div>
+
+  <div class="field">
+    <%= form.label :UpdateDate %>
+    <%= form.date_select :UpdateDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CreateDate %>
+    <%= form.date_select :CreateDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :UserSign %>
+    <%= form.number_field :UserSign %>
+  </div>
+
+  <div class="field">
+    <%= form.label :UserSign2 %>
+    <%= form.number_field :UserSign2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RefndRprt %>
+    <%= form.text_field :RefndRprt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :LogInstanc %>
+    <%= form.number_field :LogInstanc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ObjType %>
+    <%= form.text_field :ObjType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Indicator %>
+    <%= form.text_field :Indicator %>
+  </div>
+
+  <div class="field">
+    <%= form.label :AdjTran %>
+    <%= form.text_field :AdjTran %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RevSource %>
+    <%= form.text_field :RevSource %>
+  </div>
+
+  <div class="field">
+    <%= form.label :StornoDate %>
+    <%= form.date_select :StornoDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :StornoToTr %>
+    <%= form.number_field :StornoToTr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :AutoStorno %>
+    <%= form.text_field :AutoStorno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Corisptivi %>
+    <%= form.text_field :Corisptivi %>
+  </div>
+
+  <div class="field">
+    <%= form.label :VatDate %>
+    <%= form.date_select :VatDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :StampTax %>
+    <%= form.text_field :StampTax %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Series %>
+    <%= form.number_field :Series %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Number %>
+    <%= form.number_field :Number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :AutoVAT %>
+    <%= form.text_field :AutoVAT %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DocSeries %>
+    <%= form.number_field :DocSeries %>
+  </div>
+
+  <div class="field">
+    <%= form.label :FolioPref %>
+    <%= form.text_field :FolioPref %>
+  </div>
+
+  <div class="field">
+    <%= form.label :FolioNum %>
+    <%= form.number_field :FolioNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CreateTime %>
+    <%= form.number_field :CreateTime %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BlockDunn %>
+    <%= form.text_field :BlockDunn %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ReportEU %>
+    <%= form.text_field :ReportEU %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Report347 %>
+    <%= form.text_field :Report347 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Printed %>
+    <%= form.text_field :Printed %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DocType %>
+    <%= form.text_field :DocType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :AttNum %>
+    <%= form.number_field :AttNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :GenRegNo %>
+    <%= form.text_field :GenRegNo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RG23APart2 %>
+    <%= form.number_field :RG23APart2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RG23CPart2 %>
+    <%= form.number_field :RG23CPart2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :MatType %>
+    <%= form.number_field :MatType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Creator %>
+    <%= form.text_field :Creator %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Approver %>
+    <%= form.text_field :Approver %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Location %>
+    <%= form.number_field :Location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SeqCode %>
+    <%= form.number_field :SeqCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Serial %>
+    <%= form.number_field :Serial %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SeriesStr %>
+    <%= form.text_field :SeriesStr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SubStr %>
+    <%= form.text_field :SubStr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :AutoWT %>
+    <%= form.text_field :AutoWT %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTSum %>
+    <%= form.text_field :WTSum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTSumSC %>
+    <%= form.text_field :WTSumSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTSumFC %>
+    <%= form.text_field :WTSumFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTApplied %>
+    <%= form.text_field :WTApplied %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTAppliedS %>
+    <%= form.text_field :WTAppliedS %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTAppliedF %>
+    <%= form.text_field :WTAppliedF %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseAmnt %>
+    <%= form.text_field :BaseAmnt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseAmntSC %>
+    <%= form.text_field :BaseAmntSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseAmntFC %>
+    <%= form.text_field :BaseAmntFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseVtAt %>
+    <%= form.text_field :BaseVtAt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseVtAtSC %>
+    <%= form.text_field :BaseVtAtSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseVtAtFC %>
+    <%= form.text_field :BaseVtAtFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :VersionNum %>
+    <%= form.text_field :VersionNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseTrans %>
+    <%= form.number_field :BaseTrans %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ResidenNum %>
+    <%= form.text_field :ResidenNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :OperatCode %>
+    <%= form.text_field :OperatCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Ref3 %>
+    <%= form.text_field :Ref3 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SSIExmpt %>
+    <%= form.text_field :SSIExmpt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SignMsg %>
+    <%= form.text_area :SignMsg %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SignDigest %>
+    <%= form.text_area :SignDigest %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CertifNum %>
+    <%= form.text_field :CertifNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :KeyVersion %>
+    <%= form.number_field :KeyVersion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CUP %>
+    <%= form.number_field :CUP %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CIG %>
+    <%= form.number_field :CIG %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SupplCode %>
+    <%= form.text_field :SupplCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SPSrcType %>
+    <%= form.number_field :SPSrcType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SPSrcID %>
+    <%= form.number_field :SPSrcID %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SPSrcDLN %>
+    <%= form.number_field :SPSrcDLN %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DeferedTax %>
+    <%= form.text_field :DeferedTax %>
+  </div>
+
+  <div class="field">
+    <%= form.label :AgrNo %>
+    <%= form.number_field :AgrNo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SeqNum %>
+    <%= form.number_field :SeqNum %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

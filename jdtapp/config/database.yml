@@ -9,10 +9,28 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
+#development:
+#  <<: *default
+#  database: db/development.sqlite3
+
+development1:
+  adapter: hanaclient
+  server: 10.58.12.175
+  database: jdtapp_dev
+  username: SYSTEM
+  password: Password01
+  
 development:
   <<: *default
-  database: db/development.sqlite3
-
+  adapter: hana
+  pool: 20
+  timeout: 10000
+  database: TEST7
+  dsn: DSN1
+  username: system
+  password: Password01
+#  column_store: true
+#  schema: COMMON1 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
