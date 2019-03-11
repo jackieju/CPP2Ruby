@@ -11,7 +11,15 @@ default: &default
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  adapter: hana
+  pool: 20
+  timeout: 10000
+  database: TEST7
+  dsn: DSN1
+  username: system
+  password: Password01
+#  column_store: true
+#  schema: COMMON1 
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
