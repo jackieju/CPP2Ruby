@@ -5,9 +5,9 @@ class OjdtsController < ApplicationController
   # GET /ojdts.json
   def index
     @ojdts = Ojdt.all
-    p "all:#{@ojdts.class}"
+   # p "all:#{@ojdts.class}"
     posts = @ojdts
-    posts[0].size(0) # Fires "select count(*) from  posts" and returns the count
+    posts.size # Fires "select count(*) from  posts" and returns the count
 #	posts.each {|p| puts p.TransId} # Fires "select * from posts" and loads post objects
 
   end
