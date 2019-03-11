@@ -118,6 +118,11 @@ $ script/generate scafold jdt1 TransId:integer Line_ID:integer Account:string De
       exists    db/migrate
       create    db/migrate/20150512164453_create_jdt1s.rb
 
+# change table name  in model file
+class Jdt1 < ApplicationRecord
+  self.table_name = "JDT1"
+end
+
 # create table ( you need to set your config/database.yml to connect your database)
 $ rake db:migrate
 (in /Users/i027910/Desktop/ju/projects/b1or/postingr/SimpleC2Ruby/jdt)
