@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CDRU</id>
+	<description>Drag &amp; Relate User Settings</description>
+	<string_list>1100010</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>UserID</id>
+		<source_code_name>_USER_</source_code_name>
+		<description sys="Y">User ID</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ObjectId</id>
+		<source_code_name>OBJECT_ID</source_code_name>
+		<description sys="Y">ObjectId</description>
+		<field_type>1</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>PartOf</id>
+		<source_code_name>PARTOF</source_code_name>
+		<description sys="Y">PartOf</description>
+		<field_type>990</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>C</default_value>
+		<valid_value>
+			<value>C</value>
+			<description>Category</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Report</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Table</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Disabled</id>
+		<source_code_name>DISABLED</source_code_name>
+		<description sys="Y">Disabled</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>UserID</column>
+		<column>ObjectId</column>
+		<column>PartOf</column>
+	</key>
+</table>

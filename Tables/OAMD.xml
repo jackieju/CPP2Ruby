@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OAMD</id>
+	<description>Amount Differences Report</description>
+	<string_list>1100767</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DateFrom</id>
+		<source_code_name>DATE_FROM</source_code_name>
+		<description>Date From</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DateTo</id>
+		<source_code_name>DATE_TO</source_code_name>
+		<description>Date To</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>Approved</id>
+		<source_code_name>APPROVED</source_code_name>
+		<description>Confirmed</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AmountDiff</id>
+		<source_code_name>AMOUNT_DIFF</source_code_name>
+		<description>Amount Difference (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxAmtDiff</id>
+		<source_code_name>TAX_AMOUNT_DIFF</source_code_name>
+		<description>Tax Difference (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>RpCurrency</id>
+		<source_code_name>REPORT_CURRENCY</source_code_name>
+		<description>Currency Chosen for the Report</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>VendOffAct</id>
+		<source_code_name>VENDOR_OFFSET_ACCT</source_code_name>
+		<description>Vendor Offset Account</description>
+		<field_type>263</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>RpCurrencyLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>RpCurrency</object_key_column>
+	</association>
+	<association>
+		<id>VendOffActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>VendOffAct</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LineNum</column>
+	</key>
+</table>

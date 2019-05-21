@@ -1,0 +1,860 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>COLM</id>
+	<description sys="Y">COLM resource</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Created</id>
+		<source_code_name>CREATED</source_code_name>
+		<description sys="Y">Creation Date</description>
+		<field_type>1</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Updated</id>
+		<source_code_name>UPDATED</source_code_name>
+		<description sys="Y">Update Date</description>
+		<field_type>2</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">Table Name</description>
+		<field_type>4</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>Num</id>
+		<source_code_name>NUM</source_code_name>
+		<description sys="Y">Column Number</description>
+		<field_type>39</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ItemType</id>
+		<source_code_name>ITEM_TYPE</source_code_name>
+		<description sys="Y">Item Type</description>
+		<field_type>7</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">None</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description sys="Y">Edit text</description>
+		</valid_value>
+		<valid_value>
+			<value>105</value>
+			<description sys="Y">Bar</description>
+		</valid_value>
+		<valid_value>
+			<value>113</value>
+			<description sys="Y">Select popup</description>
+		</valid_value>
+		<valid_value>
+			<value>116</value>
+			<description sys="Y">Link button</description>
+		</valid_value>
+		<valid_value>
+			<value>121</value>
+			<description sys="Y">Check box</description>
+		</valid_value>
+		<valid_value>
+			<value>117</value>
+			<description sys="Y">Picture</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Enabled</id>
+		<source_code_name>ENABLED</source_code_name>
+		<description sys="Y">Enabled</description>
+		<field_type>200</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CellType</id>
+		<source_code_name>CELL_TYPE</source_code_name>
+		<description sys="Y">Cell Type</description>
+		<field_type>131</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>16</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">None</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description sys="Y">Edit text</description>
+		</valid_value>
+		<valid_value>
+			<value>105</value>
+			<description sys="Y">Bar</description>
+		</valid_value>
+		<valid_value>
+			<value>113</value>
+			<description sys="Y">Select popup</description>
+		</valid_value>
+		<valid_value>
+			<value>116</value>
+			<description sys="Y">Link button</description>
+		</valid_value>
+		<valid_value>
+			<value>121</value>
+			<description sys="Y">Check box</description>
+		</valid_value>
+		<valid_value>
+			<value>117</value>
+			<description sys="Y">Picture</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Font</id>
+		<source_code_name>FONT_NUM</source_code_name>
+		<description sys="Y">Font Number</description>
+		<field_type>41</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FontSize</id>
+		<source_code_name>FONT_SIZE</source_code_name>
+		<description sys="Y">Font Size</description>
+		<field_type>130</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Attributes</id>
+		<source_code_name>ATTR_DATA</source_code_name>
+		<description sys="Y">Attributes</description>
+		<field_type>42</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Style</id>
+		<source_code_name>STYLE</source_code_name>
+		<description sys="Y">Style</description>
+		<field_type>43</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Mode</id>
+		<source_code_name>MODE</source_code_name>
+		<description sys="Y">Mode</description>
+		<field_type>44</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TitleType</id>
+		<source_code_name>TTL_TYPE</source_code_name>
+		<description sys="Y">Title Type</description>
+		<field_type>104</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">None</description>
+		</valid_value>
+		<valid_value>
+			<value>117</value>
+			<description sys="Y">Picture</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TitleEnabl</id>
+		<source_code_name>T_ENABLED</source_code_name>
+		<description sys="Y">Title Enabled</description>
+		<field_type>201</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>TitleFont</id>
+		<source_code_name>TTL_FONT</source_code_name>
+		<description sys="Y">Title Font Number</description>
+		<field_type>106</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TFontSize</id>
+		<source_code_name>TTL_FNT_SZ</source_code_name>
+		<description sys="Y">Title Font Size</description>
+		<field_type>132</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TitleAtt</id>
+		<source_code_name>TTL_ATTR</source_code_name>
+		<description sys="Y">Title Attributes</description>
+		<field_type>107</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TitleStyle</id>
+		<source_code_name>TTL_STYLE</source_code_name>
+		<description sys="Y">Title Style</description>
+		<field_type>108</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TitleMode</id>
+		<source_code_name>TTL_MODE</source_code_name>
+		<description sys="Y">Title Mode</description>
+		<field_type>109</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>VarNum</id>
+		<source_code_name>VAR_NUM</source_code_name>
+		<description sys="Y">Variable Number</description>
+		<field_type>45</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LinkVar</id>
+		<source_code_name>LINK_VAR</source_code_name>
+		<description sys="Y">Link Variable</description>
+		<field_type>49</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DragVar</id>
+		<source_code_name>DRAG_VAR</source_code_name>
+		<description sys="Y">Drag Variable</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FileCode</id>
+		<source_code_name>FILE_CODE</source_code_name>
+		<description sys="Y">Table Code</description>
+		<field_type>51</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FieldNum</id>
+		<source_code_name>FLD_NUM</source_code_name>
+		<description sys="Y">Field Alias</description>
+		<field_type>52</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>Editable</id>
+		<source_code_name>EDITABLE</source_code_name>
+		<description sys="Y">Editable</description>
+		<field_type>57</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SuppressZe</id>
+		<source_code_name>SUPP_ZERO</source_code_name>
+		<description sys="Y">Suppress Zeros</description>
+		<field_type>59</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DataRequir</id>
+		<source_code_name>DATA_REQ</source_code_name>
+		<description sys="Y">Data Required</description>
+		<field_type>61</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ForceUpper</id>
+		<source_code_name>UPPER</source_code_name>
+		<description sys="Y">Force Upper</description>
+		<field_type>62</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RightJust</id>
+		<source_code_name>R_JUST</source_code_name>
+		<description sys="Y">Right Justified</description>
+		<field_type>63</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">Language dependant</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserType</id>
+		<source_code_name>USER_TYPE</source_code_name>
+		<description sys="Y">Binding Type</description>
+		<field_type>64</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">Data</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">User Variable</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Sentence</id>
+		<source_code_name>SENTENCE</source_code_name>
+		<description sys="Y">Sentencing</description>
+		<field_type>66</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ShowType</id>
+		<source_code_name>SHOW_TYPE</source_code_name>
+		<description sys="Y">Show Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">Value + Description</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Value only</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">Description only</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DispDecr</id>
+		<source_code_name>DISP_DESC</source_code_name>
+		<description sys="Y">Display Description</description>
+		<field_type>68</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LinkTo</id>
+		<source_code_name>LINK_TO</source_code_name>
+		<description sys="Y">Link To Item</description>
+		<field_type>70</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DragEntity</id>
+		<source_code_name>DRAG_ENT</source_code_name>
+		<description sys="Y">Drag Entity</description>
+		<field_type>71</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Class</id>
+		<source_code_name>CLASS</source_code_name>
+		<description sys="Y">Class</description>
+		<field_type>74</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TitleIndex</id>
+		<source_code_name>TITLE_INDEX</source_code_name>
+		<description sys="Y">Title Index</description>
+		<field_type>5</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>DescIndex</id>
+		<source_code_name>DESC_INDEX</source_code_name>
+		<description sys="Y">Description Index</description>
+		<field_type>75</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>TxtFgRed</id>
+		<source_code_name>TXT_FG_RED</source_code_name>
+		<description sys="Y">Text Foreground Red</description>
+		<field_type>89</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TxtFgGreen</id>
+		<source_code_name>TXT_FG_GREEN</source_code_name>
+		<description sys="Y">Text Foreground Green</description>
+		<field_type>90</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TxtFgBlue</id>
+		<source_code_name>TXT_FG_BLUE</source_code_name>
+		<description sys="Y">Text Foreground Blue</description>
+		<field_type>91</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TxtBgRed</id>
+		<source_code_name>TXT_BG_RED</source_code_name>
+		<description sys="Y">Text Background Red</description>
+		<field_type>92</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TxtBgGreen</id>
+		<source_code_name>TXT_BG_GREEN</source_code_name>
+		<description sys="Y">Text Background Green</description>
+		<field_type>93</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TxtBgBlue</id>
+		<source_code_name>TXT_BG_BLUE</source_code_name>
+		<description sys="Y">Text Background Blue</description>
+		<field_type>94</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TtlFgRed</id>
+		<source_code_name>TTL_FG_RED</source_code_name>
+		<description sys="Y">Title Foreground Red</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TtlFgGreen</id>
+		<source_code_name>TTL_FG_GREEN</source_code_name>
+		<description sys="Y">Title Foreground Green</description>
+		<field_type>111</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TtlFgBlue</id>
+		<source_code_name>TTL_FG_BLUE</source_code_name>
+		<description sys="Y">Title Foreground Blue</description>
+		<field_type>112</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TtlBgRed</id>
+		<source_code_name>TTL_BG_RED</source_code_name>
+		<description sys="Y">Title Background Red</description>
+		<field_type>113</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TtlBgGreen</id>
+		<source_code_name>TTL_BG_GREEN</source_code_name>
+		<description sys="Y">Title Background Green</description>
+		<field_type>114</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TtlBgBlue</id>
+		<source_code_name>TTL_BG_BLUE</source_code_name>
+		<description sys="Y">Title Background Blue</description>
+		<field_type>115</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Width</id>
+		<source_code_name>WIDTH</source_code_name>
+		<description sys="Y">Width</description>
+		<field_type>103</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SuppRepeat</id>
+		<source_code_name>SUPP_REPEAT</source_code_name>
+		<description sys="Y">Suppress Repeating</description>
+		<field_type>119</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AutoGraph</id>
+		<source_code_name>AUTO_GRAPH</source_code_name>
+		<description sys="Y">Auto Graph</description>
+		<field_type>121</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AutoCumm</id>
+		<source_code_name>AUTO_CUM</source_code_name>
+		<description sys="Y">Auto Cummulative</description>
+		<field_type>122</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UniqueID</id>
+		<source_code_name>UNIQUE_ID</source_code_name>
+		<description sys="Y">Unique ID</description>
+		<field_type>300</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>TitleStr</id>
+		<source_code_name>TITLE_STRING</source_code_name>
+		<description sys="Y">Title String</description>
+		<field_type>301</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>ColDesc</id>
+		<source_code_name>COL_DESC</source_code_name>
+		<description sys="Y">Column Description</description>
+		<field_type>302</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>UsrSgnStr</id>
+		<source_code_name>USER_SIGN_STR</source_code_name>
+		<description sys="Y">User Sign For Strings Change</description>
+		<field_type>510</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>UsrSgnAttr</id>
+		<source_code_name>USER_SIGN_ATTR</source_code_name>
+		<description sys="Y">User Sign For Attribs Change</description>
+		<field_type>511</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>TtlFntName</id>
+		<source_code_name>TITLE_FONT_NAME</source_code_name>
+		<description sys="Y">Title Font Name</description>
+		<field_type>315</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>CllFntName</id>
+		<source_code_name>CELL_FONT_NAME</source_code_name>
+		<description sys="Y">Cell Font Name</description>
+		<field_type>314</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>ResCode</id>
+		<source_code_name>RES_CODE</source_code_name>
+		<description sys="Y">Resource Code from RSBD</description>
+		<field_type>1600</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>RevCode</id>
+		<source_code_name>REV_CODE</source_code_name>
+		<description sys="Y">Revision Code</description>
+		<field_type>1601</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BindObjId</id>
+		<source_code_name>BIND_OBJ_ID</source_code_name>
+		<description sys="Y">Bind Object Id</description>
+		<field_type>316</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Name</column>
+		<column>Num</column>
+		<column>ResCode</column>
+		<column>RevCode</column>
+	</key>
+	<key>
+		<id>UNIQUE_ID</id>
+		<unique />
+		<column>Name</column>
+		<column>UniqueID</column>
+	</key>
+</table>

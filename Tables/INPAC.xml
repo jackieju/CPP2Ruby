@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>INPAC</id>
+	<description>INTEGRATION_PAC_MD</description>
+	<string_list>1101740</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>PacID</id>
+		<source_code_name>PAC_ID</source_code_name>
+		<description>Integration Pkg. ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>PacName</id>
+		<source_code_name>PAC_NAME</source_code_name>
+		<description>Integration Pkg. Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>PacNS</id>
+		<source_code_name>PAC_NS</source_code_name>
+		<description>Integration Pkg. NS</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>PacSAP</id>
+		<source_code_name>PAC_SAP</source_code_name>
+		<description>SAP Integration Pkg.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>PacVersion</id>
+		<source_code_name>PAC_VER</source_code_name>
+		<description>Integration Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>PacStatus</id>
+		<source_code_name>PAC_STATUS</source_code_name>
+		<description>Integration Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>PacB1</id>
+		<source_code_name>PAC_B1</source_code_name>
+		<description>Global Tables per System</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>PacProps</id>
+		<source_code_name>PAC_PROPS</source_code_name>
+		<description>Has Global Properties</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>ActiveComp</id>
+		<source_code_name>ACTIVE_FOR_COMP</source_code_name>
+		<description>This Company as Sender</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>PacID</column>
+	</key>
+</table>

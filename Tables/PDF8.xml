@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>PDF8</id>
+	<description>Payment Draft - TDS Entries</description>
+	<string_list>1101243</string_list>
+	<view_type>PaymentLine</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_KEY</source_code_name>
+		<description>Document Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>InvType</id>
+		<source_code_name>INVOICE_TYPE</source_code_name>
+		<description>Invoice Category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description>All Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>A/P Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>A/P Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>10000079</value>
+			<description>TDS Adjustment</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>INVOICE_KEY</source_code_name>
+		<description>Invoice Internal ID</description>
+		<field_type>98</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocLine</id>
+		<source_code_name>INVOICE_LINE</source_code_name>
+		<description>Invoice Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>DocNumLink</id>
+		<target_direct>OPDF</target_direct>
+		<object_key_column>DocNum</object_key_column>
+	</association>
+	<association>
+		<id>ObjectLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjectType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocNum</column>
+		<column>LineNum</column>
+	</key>
+	<key>
+		<id>INVOICE</id>
+		<column>InvType</column>
+		<column>DocEntry</column>
+		<column>DocLine</column>
+	</key>
+</table>

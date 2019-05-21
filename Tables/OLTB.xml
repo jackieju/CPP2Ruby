@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OLTB</id>
+	<description>Location-based Tax Bal Table</description>
+	<string_list>1101176</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsId</id>
+		<source_code_name>ABS_ID</source_code_name>
+		<description>Numerator</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOC_CODE</source_code_name>
+		<description>Location Code</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>STAType</id>
+		<source_code_name>STA_TYPE</source_code_name>
+		<description>Tax Type</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>STACode</id>
+		<source_code_name>STA_CODE</source_code_name>
+		<description>STA Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BalaType</id>
+		<source_code_name>BALA_TYPE</source_code_name>
+		<description>Balance Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>P</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Balance</id>
+		<source_code_name>BALANCE</source_code_name>
+		<description>Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>LocCodeLink</id>
+		<target_direct>OLCT</target_direct>
+		<object_key_column>LocCode</object_key_column>
+	</association>
+	<association>
+		<id>STATypeLink</id>
+		<target_direct>OSTT</target_direct>
+		<object_key_column>STAType</object_key_column>
+	</association>
+	<association>
+		<id>STACodeLink</id>
+		<target_direct>OSTA</target_direct>
+		<object_key_column>STACode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsId</column>
+	</key>
+	<key>
+		<id>index</id>
+		<column>LocCode</column>
+		<column>STAType</column>
+		<column>STACode</column>
+	</key>
+</table>

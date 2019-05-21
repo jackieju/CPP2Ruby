@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>XSSE</id>
+	<description sys="Y">XS Session</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>SID</id>
+		<source_code_name>SID</source_code_name>
+		<description sys="Y">SID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>XKEY</id>
+		<source_code_name>XKEY</source_code_name>
+		<description sys="Y">XKEY</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VALUE</id>
+		<source_code_name>VALUE</source_code_name>
+		<description sys="Y">VALUE</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UPDATETIME</id>
+		<source_code_name>UPDATETIME</source_code_name>
+		<description sys="Y">UPDATETIME</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SID</column>
+		<column>XKEY</column>
+	</key>
+</table>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CHO2</id>
+	<description>Checks for Payment - Print Status</description>
+	<string_list>1100732</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>CHK_ABS</source_code_name>
+		<description>Index</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ChkNum</id>
+		<source_code_name>CHK_NUM</source_code_name>
+		<description>Check Number</description>
+		<field_type>2</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>PAPER_STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Details</description>
+		</valid_value>
+		<valid_value>
+			<value>V</value>
+			<description>Void</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Not Confirmed</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Not Printed</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Overflow</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PrnBy</id>
+		<source_code_name>PRINTED_BY</source_code_name>
+		<description>Printed By</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

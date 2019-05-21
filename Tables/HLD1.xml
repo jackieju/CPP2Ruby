@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>HLD1</id>
+	<description>Holiday Dates</description>
+	<string_list>1100469</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>HumanResources</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>HldCode</id>
+		<source_code_name>HOLIDAY_CODE</source_code_name>
+		<description>Holiday Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>StrDate</id>
+		<source_code_name>START_DATE</source_code_name>
+		<description>Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EndDate</id>
+		<source_code_name>END_DATE</source_code_name>
+		<description>End Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Rmrks</id>
+		<source_code_name>REMARKS</source_code_name>
+		<description>Remarks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<association>
+		<id>HldCodeLink</id>
+		<target_direct>OHLD</target_direct>
+		<object_key_column>HldCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>HldCode</column>
+		<column>StrDate</column>
+		<column>EndDate</column>
+	</key>
+</table>

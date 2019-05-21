@@ -1,0 +1,704 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OADP</id>
+	<description>Print Preferences</description>
+	<string_list>1100052</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>PrintId</id>
+		<source_code_name>PRINT_ID</source_code_name>
+		<description>Print Number</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>ObjList</id>
+		<source_code_name>OBJ_LIST</source_code_name>
+		<description>Object List</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>13</default_value>
+		<valid_value>
+			<value>1470000049</value>
+			<description>Capitalization</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000071</value>
+			<description>Depreciation Run</description>
+		</valid_value>
+		<valid_value>
+			<value>(-0</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>23</value>
+			<description>Sales Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Sales Order</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Delivery</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Returns</description>
+		</valid_value>
+		<valid_value>
+			<value>203</value>
+			<description>A/R Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>165</value>
+			<description>A/R Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>166</value>
+			<description>A/R Correction Invoice Reversal</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>A/R Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>(-1</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000113</value>
+			<description>Purchase Request</description>
+		</valid_value>
+		<valid_value>
+			<value>540000006</value>
+			<description>Purchase Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description>Purchase Order</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Goods Receipt PO</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description>Goods Return</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>A/P Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>163</value>
+			<description>A/P Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>164</value>
+			<description>A/P Correction Invoice Reversal</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>A/P Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>69</value>
+			<description>Landed Costs</description>
+		</valid_value>
+		<valid_value>
+			<value>(-2</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description>Incoming Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>25</value>
+			<description>Deposit</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description>Outgoing Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>76</value>
+			<description>Postdated Deposit</description>
+		</valid_value>
+		<valid_value>
+			<value>57</value>
+			<description>Check for Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>30</value>
+			<description>Journal Entry</description>
+		</valid_value>
+		<valid_value>
+			<value>28</value>
+			<description>Journal Voucher</description>
+		</valid_value>
+		<valid_value>
+			<value>140000010</value>
+			<description>Incoming Excise Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>140000009</value>
+			<description>Outgoing Excise Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>(-3</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>59</value>
+			<description>Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>60</value>
+			<description>Goods Issue</description>
+		</valid_value>
+		<valid_value>
+			<value>1250000001</value>
+			<description>Inventory Transfer Request</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description>Inventory Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>68</value>
+			<description>Work Instructions</description>
+		</valid_value>
+		<valid_value>
+			<value>202</value>
+			<description>Production Order</description>
+		</valid_value>
+		<valid_value>
+			<value>162</value>
+			<description>Inventory Revaluation</description>
+		</valid_value>
+		<valid_value>
+			<value>156</value>
+			<description>Pick List</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000065</value>
+			<description>Inventory Counting</description>
+		</valid_value>
+		<valid_value>
+			<value>10000071</value>
+			<description>Inventory Posting</description>
+		</valid_value>
+		<valid_value>
+			<value>310000001</value>
+			<description>Inventory Opening Balances</description>
+		</valid_value>
+		<valid_value>
+			<value>(-4</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>88</value>
+			<description>Entrada</description>
+		</valid_value>
+		<valid_value>
+			<value>89</value>
+			<description>Salida</description>
+		</valid_value>
+		<valid_value>
+			<value>90</value>
+			<description>Traspaso</description>
+		</valid_value>
+		<valid_value>
+			<value>132</value>
+			<description>Correction Invoice</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MaxLineNum</id>
+		<source_code_name>MAX_LINE_NUM</source_code_name>
+		<description>Max. Rows per Page</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>99</default_value>
+	</column>
+	<column>
+		<id>TopMrgn</id>
+		<source_code_name>TOP_MRGN</source_code_name>
+		<description>Top Margin Width</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>BtmMrgn</id>
+		<source_code_name>BTM_MRGN</source_code_name>
+		<description>Bottom Margin Width</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>LftMrgn</id>
+		<source_code_name>LFT_MRGN</source_code_name>
+		<description>Left Margin Width</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>RgtMrgn</id>
+		<source_code_name>RGT_MRGN</source_code_name>
+		<description>Right Margin Width</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>PrnCompany</id>
+		<source_code_name>PRN_CMP</source_code_name>
+		<description>Print on Company Paper</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MnhlNote</id>
+		<source_code_name>MENAHEL_NOTE</source_code_name>
+		<description>Text Printed by PLD</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MaxWordLin</id>
+		<source_code_name>MAX_WORD_LINE</source_code_name>
+		<description>Max. Rows for Export</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>10</default_value>
+	</column>
+	<column>
+		<id>V_Compress</id>
+		<source_code_name>V_COMPRESS</source_code_name>
+		<description>Compress Vertically</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>100</default_value>
+		<valid_value>
+			<value>50</value>
+			<description>50</description>
+		</valid_value>
+		<valid_value>
+			<value>60</value>
+			<description>60</description>
+		</valid_value>
+		<valid_value>
+			<value>70</value>
+			<description>70</description>
+		</valid_value>
+		<valid_value>
+			<value>80</value>
+			<description>80</description>
+		</valid_value>
+		<valid_value>
+			<value>90</value>
+			<description>90</description>
+		</valid_value>
+		<valid_value>
+			<value>100</value>
+			<description>100</description>
+		</valid_value>
+		<valid_value>
+			<value>110</value>
+			<description>110</description>
+		</valid_value>
+		<valid_value>
+			<value>120</value>
+			<description>120</description>
+		</valid_value>
+		<valid_value>
+			<value>130</value>
+			<description>130</description>
+		</valid_value>
+		<valid_value>
+			<value>140</value>
+			<description>140</description>
+		</valid_value>
+		<valid_value>
+			<value>150</value>
+			<description>150</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>WordPath</id>
+		<source_code_name>WORD_PATH</source_code_name>
+		<description>WORD Template Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>BitmapPath</id>
+		<source_code_name>BITMAP_PATH</source_code_name>
+		<description>Picture Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PrintMeta</id>
+		<source_code_name>PRINT_META</source_code_name>
+		<description>Print as Picture</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PrintRcpt</id>
+		<source_code_name>PRINTRCT</source_code_name>
+		<description>Print Receipt</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Only When Adding</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Always</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ShortRcpt</id>
+		<source_code_name>SHORT_RCPT</source_code_name>
+		<description>Print Payment with Invoice</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExportCode</id>
+		<source_code_name>EXPORT_CODE</source_code_name>
+		<description>Export Material/Account Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AttachPath</id>
+		<source_code_name>ATTACH_PATH</source_code_name>
+		<description>Attachments Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>DraftNote</id>
+		<source_code_name>DRAFT_NOTE</source_code_name>
+		<description>Print Draft Note</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExtPath</id>
+		<source_code_name>EXT_PATH</source_code_name>
+		<description>Extensions Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DmePath</id>
+		<source_code_name>DME_PATH</source_code_name>
+		<description>DME Files Store Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SNType</id>
+		<source_code_name>SN_PRINT_TYPE</source_code_name>
+		<description>Serial Number Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>2</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Mfr Serial No.</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Serial No.</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Lot Number</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>GBIPath</id>
+		<source_code_name>GBI_PATH</source_code_name>
+		<description>GB Data Interface Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogoFile</id>
+		<source_code_name>LOGO_FILE</source_code_name>
+		<description>Logo File</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>LogoImage</id>
+		<source_code_name>LOGO_IMAGE</source_code_name>
+		<description>Logo Image</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>B1Server</id>
+		<source_code_name>B1_SERVER</source_code_name>
+		<description>Business One Server Address</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Link</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsTrustSrv</id>
+		<source_code_name>IS_TRUSTED_SERVER</source_code_name>
+		<description>Always Trust This Server</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Date of Update</description>
+		<invisible />
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UserSign2</id>
+		<source_code_name>USER2_SIGNATURE</source_code_name>
+		<description>Updating User</description>
+		<invisible />
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>SnapShotId</id>
+		<source_code_name>SnapshotId</source_code_name>
+		<description>Snapshot ID</description>
+		<invisible />
+		<field_type>1250</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>DefirExpP</id>
+		<source_code_name>DEFIR_EXPORT_PATH</source_code_name>
+		<description>Export Folder</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DefirDemop</id>
+		<source_code_name>DEFIR_DEMOPT_PATH</source_code_name>
+		<description>DEFIR Database Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrintPDF</id>
+		<source_code_name>PRINT_PDF</source_code_name>
+		<description>Generate PDF When Printing</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PrtCancel</id>
+		<source_code_name>PRINT_CANCEL</source_code_name>
+		<description>Print Watermark on Cancl. Docs</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>UserSign2Link</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign2</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>PrintId</column>
+	</key>
+</table>

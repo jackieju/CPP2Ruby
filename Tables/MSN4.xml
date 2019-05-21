@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>MSN4</id>
+	<description>MRP Scenarios - Items Array</description>
+	<string_list>1101401</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MRP</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Selected</id>
+		<source_code_name>SELECTED</source_code_name>
+		<description>Selected</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TmpForMrp</id>
+		<source_code_name>TMP_ITEM_FOR_MRP</source_code_name>
+		<description>Is Temporary for MRP</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>WorDueDate</id>
+		<source_code_name>WOR_DUE_DATE</source_code_name>
+		<description>Production Order Due Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DsmDueDate</id>
+		<source_code_name>DSM_DUE_DATE</source_code_name>
+		<description>Disassembly Order Due Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NorDueDate</id>
+		<source_code_name>NORMAL_DUE_DATE</source_code_name>
+		<description>Non Prd Order Doc. Due Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Interval</id>
+		<source_code_name>INTERVAL</source_code_name>
+		<description>Order Intervals</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Multiple</id>
+		<source_code_name>MULTIPLE</source_code_name>
+		<description>Order Multiple</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>MinORdrQty</id>
+		<source_code_name>MIN_ORDR_QTY</source_code_name>
+		<description>Minimum Order Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LeadTime</id>
+		<source_code_name>LEAD_TIME</source_code_name>
+		<description>Lead Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>prcrmntMtd</id>
+		<source_code_name>PROCUREMENT_METHOD</source_code_name>
+		<description>Procurement Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Buy</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Make</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ToleranDay</id>
+		<source_code_name>TOLERANCE_DAY</source_code_name>
+		<description>Tolerance Day</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OMSN</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>ItemCode</column>
+	</key>
+	<key>
+		<id>ItemCode</id>
+		<column>ItemCode</column>
+	</key>
+</table>

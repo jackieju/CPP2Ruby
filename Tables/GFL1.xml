@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>GFL1</id>
+	<description>Grid Filter Rules</description>
+	<string_list>1100719</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>FormID</id>
+		<source_code_name>FORM_ID</source_code_name>
+		<description>Form ID</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>GridID</id>
+		<source_code_name>GRID_ID</source_code_name>
+		<description>Grid ID</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserCode</id>
+		<source_code_name>USER_CODE</source_code_name>
+		<description>User Code</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FilterID</id>
+		<source_code_name>FILTER_ID</source_code_name>
+		<description sys="Y">Filter ID</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>GridColumn</id>
+		<source_code_name>GRID_COLUMN</source_code_name>
+		<description sys="Y">Grid Column</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FilterRule</id>
+		<source_code_name>FILTER_RULE</source_code_name>
+		<description sys="Y">FilterRule</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Value</id>
+		<source_code_name>VALUE</source_code_name>
+		<description sys="Y">Value</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ValueTo</id>
+		<source_code_name>VALUE_TO</source_code_name>
+		<description sys="Y">ValueTo</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>FormID</column>
+		<column>GridID</column>
+		<column>UserCode</column>
+		<column>FilterID</column>
+		<column>GridColumn</column>
+	</key>
+</table>

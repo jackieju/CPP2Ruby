@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>GBI9</id>
+	<description>GBI Row 9 - Enterprise's Profit and Loss Statement</description>
+	<string_list>1100938</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>HistoryId</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>History Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RowId</id>
+		<source_code_name>ROW_ID</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepItm</id>
+		<source_code_name>REP_ITM</source_code_name>
+		<description>Report Item</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepItmNo</id>
+		<source_code_name>REP_ITM_NO</source_code_name>
+		<description>Report Item Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PeriodAmt</id>
+		<source_code_name>PERIOD_AMT</source_code_name>
+		<description>Period Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>YearAmt</id>
+		<source_code_name>YEAR_AMT</source_code_name>
+		<description>Year Accumulated Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>HistoryIdLink</id>
+		<target_direct>OGBI</target_direct>
+		<object_key_column>HistoryId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>HistoryId</column>
+		<column>RowId</column>
+	</key>
+</table>

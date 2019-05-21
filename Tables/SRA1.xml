@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SRA1</id>
+	<description>Scheduled Report Parameters</description>
+	<string_list>1101328</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>ActionCode</id>
+		<source_code_name>ACTION_CODE</source_code_name>
+		<description>Action Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ParamCode</id>
+		<source_code_name>PARAM_CODE</source_code_name>
+		<description>Parameter Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KeyString</id>
+		<source_code_name>KEY_STRING</source_code_name>
+		<description>Parameter Key String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>KeyNumber</id>
+		<source_code_name>KEY_NUMBER</source_code_name>
+		<description>Parameter Key Numerator</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ValString</id>
+		<source_code_name>VAL_STRING</source_code_name>
+		<description>Parameter Value String</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ValNumber</id>
+		<source_code_name>VAL_NUMBER</source_code_name>
+		<description>Parameter Value Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ValMoney</id>
+		<source_code_name>VAL_MONEY</source_code_name>
+		<description>Parameter Value Money</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ActionCode</column>
+		<column>ParamCode</column>
+	</key>
+	<key>
+		<id>SECONDARY</id>
+		<unique />
+		<column>ActionCode</column>
+		<column>KeyString</column>
+		<column>KeyNumber</column>
+	</key>
+</table>

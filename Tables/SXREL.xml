@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SXREL</id>
+	<description sys="Y">XLR Event Log</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>EventId</id>
+		<source_code_name>EventId</source_code_name>
+		<description sys="Y">EventId</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>Type</source_code_name>
+		<description sys="Y">Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Text</id>
+		<source_code_name>Text</source_code_name>
+		<description sys="Y">Text</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>500</edit_size>
+	</column>
+	<column>
+		<id>Date</id>
+		<source_code_name>Date</source_code_name>
+		<description sys="Y">Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>EventId</column>
+	</key>
+</table>

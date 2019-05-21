@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CUMI</id>
+	<description>My Menu Items</description>
+	<string_list>1100293</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>Id_</id>
+		<source_code_name>_ID_</source_code_name>
+		<description>Folder Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Name_</id>
+		<source_code_name>_NAME_</source_code_name>
+		<description>Menu Item Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<field_type>65</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>FatherId</id>
+		<source_code_name>FATHER_ID</source_code_name>
+		<description>Parent Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>SortNum</id>
+		<source_code_name>SORT_NUM</source_code_name>
+		<description>Sort Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Type_</id>
+		<source_code_name>_TYPE_</source_code_name>
+		<description>Menu Item Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>-</default_value>
+		<valid_value>
+			<value>F</value>
+			<description>Form</description>
+		</valid_value>
+		<valid_value>
+			<value>Q</value>
+			<description>Query</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Report</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>Link</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Folder</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Key_</id>
+		<source_code_name>_KEY_</source_code_name>
+		<description>Internal ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>FormMenuId</id>
+		<source_code_name>FORM_MENU_ID</source_code_name>
+		<description>Form Menu ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FormNum</id>
+		<source_code_name>FORM_NUM</source_code_name>
+		<description>Form No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RepPath</id>
+		<source_code_name>REP_PATH</source_code_name>
+		<description>Report Path</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>Levels</id>
+		<source_code_name>LEVELS</source_code_name>
+		<description>Item Level</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>UserSign</column>
+		<column>Id_</column>
+	</key>
+	<key>
+		<id>DETAIL</id>
+		<column>UserSign</column>
+		<column>Name_</column>
+		<column>Levels</column>
+		<column>FatherId</column>
+		<column>SortNum</column>
+	</key>
+</table>

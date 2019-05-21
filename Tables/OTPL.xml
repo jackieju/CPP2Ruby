@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OTPL</id>
+	<description>Import Template</description>
+	<string_list>1101672</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>TplNum</id>
+		<source_code_name>TEMPLATE_NUM</source_code_name>
+		<description>Template Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TplName</id>
+		<source_code_name>TEMPLATE_NAME</source_code_name>
+		<description>Template Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TplType</id>
+		<source_code_name>TEMPLATE_TYPE</source_code_name>
+		<description>Template Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>T</value>
+			<description>Target BPs</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>BP</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Items</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Fixed Asset</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TplCode</id>
+		<source_code_name>TEMPLATE_CODE</source_code_name>
+		<description>Template Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TplNum</column>
+	</key>
+	<key>
+		<id>CODE</id>
+		<unique />
+		<column>TplCode</column>
+		<column>TplType</column>
+	</key>
+</table>

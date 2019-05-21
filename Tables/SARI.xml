@@ -1,0 +1,443 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SARI</id>
+	<description sys="Y">add-ons table</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>AddOnId</id>
+		<source_code_name>AddOnID</source_code_name>
+		<description sys="Y">AddOn ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>NameSpace</id>
+		<source_code_name>PartnerNameSpace</source_code_name>
+		<description sys="Y">Partner Name Space</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PName</id>
+		<source_code_name>PartnerName</source_code_name>
+		<description sys="Y">Partner Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>40</edit_size>
+	</column>
+	<column>
+		<id>AName</id>
+		<source_code_name>AddOnName</source_code_name>
+		<description sys="Y">AddOn Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>40</edit_size>
+	</column>
+	<column>
+		<id>EName</id>
+		<source_code_name>AddOnExeName</source_code_name>
+		<description sys="Y">AddOn Exe name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>CData</id>
+		<source_code_name>PartnerContData</source_code_name>
+		<description sys="Y">Partner Contact Data</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>80</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>80</edit_size>
+	</column>
+	<column>
+		<id>AddOnChk</id>
+		<source_code_name>AddOnChkSum</source_code_name>
+		<description sys="Y">AddOn Exe Check Sum</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>InstName</id>
+		<source_code_name>InstallerName</source_code_name>
+		<description sys="Y">AddOn Installer Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>InstChkSum</id>
+		<source_code_name>InstallerChkSum</source_code_name>
+		<description sys="Y">AddOn Installer Check Sum</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>ABinary</id>
+		<source_code_name>AddOnInstaller</source_code_name>
+		<description sys="Y">AddOn Installer Binary</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>InstTime</id>
+		<source_code_name>InstallEstTime</source_code_name>
+		<description sys="Y">Installation estimation time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AddOnVer</id>
+		<source_code_name>AddOnVersion</source_code_name>
+		<description sys="Y">AddOn Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>13</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>13</edit_size>
+	</column>
+	<column>
+		<id>ForceFlag</id>
+		<source_code_name>InstallForceFlag</source_code_name>
+		<description sys="Y">AddOn Install force flag</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UnInstName</id>
+		<source_code_name>UnInstName</source_code_name>
+		<description sys="Y">AddOn Uninstaller Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>UnInstChk</id>
+		<source_code_name>UnInstChkSum</source_code_name>
+		<description sys="Y">AddOn UnInstaller Check Sum</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>UnInstPar</id>
+		<source_code_name>UnInstParams</source_code_name>
+		<description sys="Y">UnInstaller params</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>InstIsUn</id>
+		<source_code_name>InstIsUnInst</source_code_name>
+		<description sys="Y">Is Installer is UnInstaller</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>AGroup</id>
+		<source_code_name>AddOnGroup</source_code_name>
+		<description sys="Y">AddOn Group</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>IParams</id>
+		<source_code_name>InstallParams</source_code_name>
+		<description sys="Y">Installer Params</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>UnInstTime</id>
+		<source_code_name>UnInstallTimeOut</source_code_name>
+		<description sys="Y">Uninstallation estimation time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>AutoAssign</id>
+		<source_code_name>AutoAssign</source_code_name>
+		<description sys="Y">Automatic Company Assignment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>Visible</id>
+		<source_code_name>Visible</source_code_name>
+		<description sys="Y">AddOn is visible in AddOnAdmin</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes, visible</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>SelfUpgrd</id>
+		<source_code_name>SelfUpgrd</source_code_name>
+		<description sys="Y">Don`t install/uninstal</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes, don`t install/uninstall</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No, perform install/uninstall</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InstSil</id>
+		<source_code_name>InstallSilent</source_code_name>
+		<description sys="Y">Use silent mode in install</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Silent mode supported</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">Silent mode not supported</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UnInstSil</id>
+		<source_code_name>UnInstSilent</source_code_name>
+		<description sys="Y">Use silent mode in uninstall</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Silent mode supported</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">Silent mode not supported</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UpgSil</id>
+		<source_code_name>UpgradeSilent</source_code_name>
+		<description sys="Y">Use silent mode in upgrade</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Silent mode supported</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">Silent mode not supported</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InstParF</id>
+		<source_code_name>InstallParamFile</source_code_name>
+		<description sys="Y">Parameter files  in install</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnInstParF</id>
+		<source_code_name>UnInstParamFile</source_code_name>
+		<description sys="Y">Parameter files in uninstall</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpgParF</id>
+		<source_code_name>UpgradeParamFile</source_code_name>
+		<description sys="Y">Parameter files in upgrade</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>InstPFChk</id>
+		<source_code_name>InstParamFileChk</source_code_name>
+		<description sys="Y">Checksum of install param file</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>UnInstPFCh</id>
+		<source_code_name>UninstParamFileChk</source_code_name>
+		<description sys="Y">Checksum of uninstall par file</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>UpgPFChk</id>
+		<source_code_name>UpgParamFileChk</source_code_name>
+		<description sys="Y">Checksum of upgrade param file</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>UpgName</id>
+		<source_code_name>UpgradeName</source_code_name>
+		<description sys="Y">Addon upgrader name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>UpgTime</id>
+		<source_code_name>UpgradeEstTime</source_code_name>
+		<description sys="Y">Estimated upgrade time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UpgParams</id>
+		<source_code_name>UpgradeParams</source_code_name>
+		<description sys="Y">Upgrader params</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>AUpgrader</id>
+		<source_code_name>AddonUpgrader</source_code_name>
+		<description sys="Y">Addon upgrader binary</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpgChkSum</id>
+		<source_code_name>UpgraderChkSum</source_code_name>
+		<description sys="Y">Addon upgrader checksum</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>ABinary64</id>
+		<source_code_name>AddOnInstaller64</source_code_name>
+		<description sys="Y">AddOn Installer Binary (64bit)</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsAdd64</id>
+		<source_code_name>IsAddOn64</source_code_name>
+		<description sys="Y">Is Addon Installer 64bit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>AddPlat</id>
+		<source_code_name>AddonPlatform</source_code_name>
+		<description sys="Y">Platform of addon installer</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">x86</description>
+		</valid_value>
+		<valid_value>
+			<value>X</value>
+			<description sys="Y">x64</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>NameSpace</column>
+		<column>AName</column>
+		<column>AddOnId</column>
+		<column>AddPlat</column>
+	</key>
+</table>

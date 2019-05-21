@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>IGE17</id>
+	<description>Goods Issue - Import Process</description>
+	<string_list>1101496</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>60</default_value>
+	</column>
+	<column>
+		<id>ImpDocType</id>
+		<source_code_name>IMP_DOC_TYPE</source_code_name>
+		<description>Type of Importation Document</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>ImpDocNum</id>
+		<source_code_name>IMP_DOC_NUM</source_code_name>
+		<description>Importation Document Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>DateOfReg</id>
+		<source_code_name>DATE_OF_REG</source_code_name>
+		<description>Date of Registry DI/DSI/DA</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CustClrDat</id>
+		<source_code_name>CUST_CLEAR_DATE</source_code_name>
+		<description>Date of Customs Clearance</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ConcActNum</id>
+		<source_code_name>D_CONC_ACT_NUM</source_code_name>
+		<description>Drawback Concession Acct No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>AdditNum</id>
+		<source_code_name>ADDITIONAL_NUM</source_code_name>
+		<description>Additional Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>AddItmDV</id>
+		<source_code_name>ADD_ITM_DISC_VAL</source_code_name>
+		<description>Additional Item Discount Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>OIGE</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ObjectTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjectType</object_key_column>
+	</association>
+	<association>
+		<id>ImpDocTypeLink</id>
+		<target_direct>OBSI</target_direct>
+		<object_key_column>ImpDocType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

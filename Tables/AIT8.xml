@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AIT8</id>
+	<description>Asset Item Balances - History</description>
+	<string_list>1101539</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PeriodCat</id>
+		<source_code_name>PERIOD_CATEGORY</source_code_name>
+		<description>Period Category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>DprArea</id>
+		<source_code_name>DEPRECIATION_AREA</source_code_name>
+		<description>Depreciation Area</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>APC</id>
+		<source_code_name>ACQUISITION_PRO_COST</source_code_name>
+		<description>APC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>APCHist</id>
+		<source_code_name>APC_HISTORY</source_code_name>
+		<description>Historical APC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>ASSET_QUANTITY</source_code_name>
+		<description>Asset Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OrDpAcc</id>
+		<source_code_name>ORDINARY_DPR_ACC</source_code_name>
+		<description>Accumulated Ordinary Depr.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UnDpAcc</id>
+		<source_code_name>UNPLANNED_DPR_ACC</source_code_name>
+		<description>Accumulated Unplanned Depr.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SpDpKey1</id>
+		<source_code_name>SPECIAL_DPR_KEY1</source_code_name>
+		<description>Special Depreciation 01</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>SpDpAcc1</id>
+		<source_code_name>SPECAIL_DPR_ACC1</source_code_name>
+		<description>Accumulated Special Depr. 01</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SpDpKey2</id>
+		<source_code_name>SPECIAL_DPR_KEY2</source_code_name>
+		<description>Special Depreciation 02</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>SpDpAcc2</id>
+		<source_code_name>SPECAIL_DPR_ACC2</source_code_name>
+		<description>Accumulated Special Depr. 02</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SpDpKey3</id>
+		<source_code_name>SPECIAL_DPR_KEY3</source_code_name>
+		<description>Special Depreciation 03</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>SpDpAcc3</id>
+		<source_code_name>SPECIAL_DPR_ACC3</source_code_name>
+		<description>Accumulated Special Depr. 03</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>Object</source_code_name>
+		<description>Object</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>4</default_value>
+	</column>
+	<column>
+		<id>SalvageVal</id>
+		<source_code_name>SALVAGE_VALUE</source_code_name>
+		<description>Salvage Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrDpAcc1</id>
+		<source_code_name>ORDINARY_DPR_ACC1</source_code_name>
+		<description>Ordinary Depr. Accumulation 01</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WriteUpAcc</id>
+		<source_code_name>WRITE_UP_ACC</source_code_name>
+		<description>Accumulated Write-Up</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>IsMaSalVal</id>
+		<source_code_name>IS_MANUAL_SAL_VALUE</source_code_name>
+		<description>Manually Changed Salvage Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AppreAcc</id>
+		<source_code_name>APPRECIATION_ACC</source_code_name>
+		<description>Accumulated Appreciation</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>DprAreaLink</id>
+		<target_direct>ODPA</target_direct>
+		<object_key_column>DprArea</object_key_column>
+	</association>
+	<association>
+		<id>SpDprKey1Link</id>
+		<target_direct>ODPP</target_direct>
+		<object_key_column>SpDpKey1</object_key_column>
+	</association>
+	<association>
+		<id>SpDprKey2Link</id>
+		<target_direct>ODPP</target_direct>
+		<object_key_column>SpDpKey2</object_key_column>
+	</association>
+	<association>
+		<id>SpDprKey3Link</id>
+		<target_direct>ODPP</target_direct>
+		<object_key_column>SpDpKey3</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ItemCode</column>
+		<column>PeriodCat</column>
+		<column>DprArea</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

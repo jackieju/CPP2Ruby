@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>EXTM</id>
+	<description>Meta-data for ext fields</description>
+	<string_list>1102911</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>ID</id>
+		<source_code_name>ID</source_code_name>
+		<description sys="Y">Ext Field Index</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SYSTABLE</id>
+		<source_code_name>SYSTABLE</source_code_name>
+		<description sys="Y">System Table Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NAME</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">UDF Field Name</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>18</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>18</edit_size>
+	</column>
+	<column>
+		<id>TYPE</id>
+		<source_code_name>TYPE</source_code_name>
+		<description sys="Y">UDF Field Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SIZE</id>
+		<source_code_name>SIZE</source_code_name>
+		<description sys="Y">UDF Field Size</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>EXTABLE</id>
+		<source_code_name>EXTABLE</source_code_name>
+		<description sys="Y">UDF Store Table</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>EXTCOL</id>
+		<source_code_name>EXTCOL</source_code_name>
+		<description sys="Y">UDF Store Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PKFLAG</id>
+		<source_code_name>PKFLAG</source_code_name>
+		<description sys="Y">Is System Table Key</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ISUNIQUE</id>
+		<source_code_name>ISUNIQUE</source_code_name>
+		<description sys="Y">Is Unique</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ID</column>
+	</key>
+	<key>
+		<id>UDFALIAS</id>
+		<unique />
+		<column>SYSTABLE</column>
+		<column>NAME</column>
+	</key>
+</table>

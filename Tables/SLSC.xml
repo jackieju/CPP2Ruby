@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SLSC</id>
+	<description sys="Y">Local Settings Components CABs</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOC_CODE</source_code_name>
+		<description sys="Y">LocalCode</description>
+		<field_type>100</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description sys="Y">Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description sys="Y">Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>C</value>
+			<description sys="Y">Chart of accounts</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description sys="Y">Reports</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description sys="Y">Objects</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description sys="Y">CR Report</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description sys="Y">CR Layout</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DataCab</id>
+		<source_code_name>DATA_CAB</source_code_name>
+		<description sys="Y">Data CAB</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>System</id>
+		<source_code_name>SYSTEM</source_code_name>
+		<description sys="Y">System package</description>
+		<invisible />
+		<field_type>212</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LocCode</column>
+		<column>Code</column>
+	</key>
+</table>

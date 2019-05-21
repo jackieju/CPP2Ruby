@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OBOX</id>
+	<description>Box Definition</description>
+	<string_list>1100683</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>BoxCode</id>
+		<source_code_name>BOX_CODE</source_code_name>
+		<description>Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>BoxName</id>
+		<source_code_name>BOX_NAME</source_code_name>
+		<description>Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>BoxType</id>
+		<source_code_name>BOX_TYPE</source_code_name>
+		<description>Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>V</default_value>
+		<valid_value>
+			<value>V</value>
+			<description>VAT Group</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Box</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Account</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Manual Input</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Manual Text Input</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Formula</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Single Choice</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SummayFld</id>
+		<source_code_name>SUMMARY_FIELD</source_code_name>
+		<description>Summary Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Base Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Tax Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>Q</value>
+			<description>EQ Base Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>EQ Tax Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Non-Deductible Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>DbtCrdt</id>
+		<source_code_name>DEBIT_OR_CREDIT</source_code_name>
+		<description>Debit/Credit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Debit Side</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Credit Side</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Debit Side and Credit Side</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Formula</id>
+		<source_code_name>FORMULA_SYNTAX</source_code_name>
+		<description>Formula Syntax</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>SortOrder</id>
+		<source_code_name>SORT_ORDER</source_code_name>
+		<description>Sort Order</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AbsolutVa</id>
+		<source_code_name>ABSOLUTE_VALUE</source_code_name>
+		<description>Absolute Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ReportType</id>
+		<source_code_name>REPORT_TYPE</source_code_name>
+		<description>Report Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Box Declaration</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>BAS Report</description>
+		</valid_value>
+		<valid_value>
+			<value>X</value>
+			<description>BAS Report - Empty Effective Date Holder</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Inactive</id>
+		<source_code_name>INACTIVE</source_code_name>
+		<description>Inactive</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>EffecDate</id>
+		<source_code_name>EFFECTIVE_DATE</source_code_name>
+		<description>Effective From</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DecLoc</id>
+		<source_code_name>DEC_LOCATION</source_code_name>
+		<description>Declaration Location</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>B</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Continent</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Madeira</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Azores</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>fileFmtCo</id>
+		<source_code_name>FILE_FORMAT_CODE</source_code_name>
+		<description>File Format Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Position</id>
+		<source_code_name>POSITION</source_code_name>
+		<description>Position in Report</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>PostToAct</id>
+		<source_code_name>POST_TO_ACT</source_code_name>
+		<description>Post-To Account</description>
+		<field_type>44</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>PostToOffA</id>
+		<source_code_name>POST_TO_OFFSET_ACT</source_code_name>
+		<description>Post-To Offset Account</description>
+		<field_type>44</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OLLF</target_direct>
+		<object_key_column>fileFmtCo</object_key_column>
+	</association>
+	<association>
+		<id>AccountLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>PostToAct</object_key_column>
+	</association>
+	<association>
+		<id>OffsetActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>PostToOffA</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>BoxCode</column>
+		<column>ReportType</column>
+		<column>EffecDate</column>
+	</key>
+</table>

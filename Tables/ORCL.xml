@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ORCL</id>
+	<description>Recurring Transaction Instances</description>
+	<string_list>1101331</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RcpEntry</id>
+		<source_code_name>TEMPLATE_ENTRY</source_code_name>
+		<description>Template Entry</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Instance</id>
+		<source_code_name>INSTANCE</source_code_name>
+		<description>Recurrence Instance</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>PlanDate</id>
+		<source_code_name>PLAN_DATE</source_code_name>
+		<description>Scheduled Date</description>
+		<field_type>2000</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Recurrence Status</description>
+		<field_type>14</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Not Executed</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Executed</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Removed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocObjType</id>
+		<source_code_name>DOC_OBJECT_TYPE</source_code_name>
+		<description>Document Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<valid_value>
+			<value>13</value>
+			<description>Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>112</value>
+			<description>Draft</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>DOC_ENTRY</source_code_name>
+		<description sys="Y">Created Doc Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>RcpEntryLink</id>
+		<target_direct>ORCP</target_direct>
+		<object_key_column>RcpEntry</object_key_column>
+	</association>
+	<association>
+		<id>DocObjTypeLink</id>
+		<target_indirect_object>DocObjType</target_indirect_object>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

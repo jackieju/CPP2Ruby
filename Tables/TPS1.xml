@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TPS1</id>
+	<description>Tax Parameter Attributes</description>
+	<string_list>1100831</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>TpsId</id>
+		<source_code_name>TPS_ID</source_code_name>
+		<description>Tax Parameter Set</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DispOrder</id>
+		<source_code_name>DISP_ORDER</source_code_name>
+		<description>Display Order</description>
+		<invisible />
+		<field_type>261</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TpaId</id>
+		<source_code_name>TPA_ID</source_code_name>
+		<description>ID of Attributes Mapping</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Mandatory</id>
+		<source_code_name>MANDATORY</source_code_name>
+		<description>Mandatory to Input</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>TpsIdLink</id>
+		<target_direct>OTPS</target_direct>
+		<object_key_column>TpsId</object_key_column>
+	</association>
+	<association>
+		<id>TpaIdLink</id>
+		<target_direct>OTPA</target_direct>
+		<object_key_column>TpaId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TpsId</column>
+		<column>TpaId</column>
+	</key>
+	<key>
+		<id>ORDER</id>
+		<unique />
+		<column>TpsId</column>
+		<column>DispOrder</column>
+	</key>
+</table>

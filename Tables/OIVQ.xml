@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OIVQ</id>
+	<description>FIFO Queue Working Table</description>
+	<string_list>1101072</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>TreeID</id>
+		<source_code_name>TREE_ID</source_code_name>
+		<description>Tree ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ParentID</id>
+		<source_code_name>PARENT_ID</source_code_name>
+		<description>Parent ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>LocType</id>
+		<source_code_name>LOCATION_TYPE</source_code_name>
+		<description>Location Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOCATION_CODE</source_code_name>
+		<description>Location Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TransSeq</id>
+		<source_code_name>TRANS_SEQUENCE</source_code_name>
+		<description>Transaction Sequence No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LayerID</id>
+		<source_code_name>LAYER_ID</source_code_name>
+		<description>Layer ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenQty</id>
+		<source_code_name>OPEN_QTY</source_code_name>
+		<description>Open Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenValue</id>
+		<source_code_name>OPEN_VALUE</source_code_name>
+		<description>Open Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StockActio</id>
+		<source_code_name>STOCK_ACTION_TYPE</source_code_name>
+		<description>Stock Action Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>15</value>
+			<description>Delivery</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Returns</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>A/R Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>132</value>
+			<description>Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>(-0</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description>Goods Return</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>A/P Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>(-1</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>-2</value>
+			<description>Opening Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>58</value>
+			<description>Inventory Update</description>
+		</valid_value>
+		<valid_value>
+			<value>59</value>
+			<description>Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>60</value>
+			<description>Goods Issue</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description>Inventory Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>68</value>
+			<description>Work Instructions</description>
+		</valid_value>
+		<valid_value>
+			<value>(-2</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>-1</value>
+			<description>All Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>162</value>
+			<description>Inventory Revaluation</description>
+		</valid_value>
+		<valid_value>
+			<value>69</value>
+			<description>Landed Costs</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RemMethod</id>
+		<source_code_name>REMOVAL_METHOD</source_code_name>
+		<description>Quantity Removal Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>U</default_value>
+		<valid_value>
+			<value>U</value>
+			<description>Unspecified</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Issue</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Revaluation</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>TransSeqLink</id>
+		<target_direct>OIVL</target_direct>
+		<object_key_column>TransSeq</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>TRANS_SEQ</id>
+		<unique />
+		<column>TransSeq</column>
+		<column>LayerID</column>
+	</key>
+	<key>
+		<id>TreeOpenQt</id>
+		<column>TreeID</column>
+		<column>OpenQty</column>
+	</key>
+</table>

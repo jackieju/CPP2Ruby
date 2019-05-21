@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SEWIC</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>CompanyNam</id>
+		<source_code_name>COMPANY_NAME</source_code_name>
+		<description sys="Y">CompanyName</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>SmpTableId</id>
+		<source_code_name>SMP_TABLE_ID</source_code_name>
+		<description sys="Y">Smp Table ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>EwaSentDat</id>
+		<source_code_name>EWA_SENT_DATE</source_code_name>
+		<description sys="Y">EWA Sent Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>EwaSentTim</id>
+		<source_code_name>EWA_SENT_TIME</source_code_name>
+		<description sys="Y">EWA Sent Time</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CustNumber</id>
+		<source_code_name>CUSTOMER_NUMBER</source_code_name>
+		<description sys="Y">Customer Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>CustName</id>
+		<source_code_name>CUSTOMER_NAME</source_code_name>
+		<description sys="Y">Customer Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>CustConPer</id>
+		<source_code_name>CUSTOMER_CONTACT_PER</source_code_name>
+		<description sys="Y">Customer contact person</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>CustEmail</id>
+		<source_code_name>CUSTOMER_EMAIL</source_code_name>
+		<description sys="Y">Customer Email</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>PartnerNam</id>
+		<source_code_name>PARTNER_NAME</source_code_name>
+		<description sys="Y">Partner Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>PartConPer</id>
+		<source_code_name>PARTNER_CONTACT_PER</source_code_name>
+		<description sys="Y">Partnercontact person</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>PartEmail</id>
+		<source_code_name>PARTNER_EMAIL</source_code_name>
+		<description sys="Y">Partner Email</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>PartEmail2</id>
+		<source_code_name>PARTNER_EMAIL_2</source_code_name>
+		<description sys="Y">Partner Email 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>CompDbName</id>
+		<source_code_name>COMPANY_DB_NAME</source_code_name>
+		<description sys="Y">Company DB Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>CompDbVer</id>
+		<source_code_name>COMPANY_DB_VERSION</source_code_name>
+		<description sys="Y">Compnay DB Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>SentUser</id>
+		<source_code_name>SENT_USER</source_code_name>
+		<description sys="Y">Sent User</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>B1Version</id>
+		<source_code_name>B1_VERSION</source_code_name>
+		<description sys="Y">B1 Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>B1Suppack</id>
+		<source_code_name>B1_SUPPORT_PACK</source_code_name>
+		<description sys="Y">B1 Support Pack</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>B1Patch</id>
+		<source_code_name>B1_PATCH</source_code_name>
+		<description sys="Y">B1 Patch</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>UiApiVer</id>
+		<source_code_name>UI_API_VERSION</source_code_name>
+		<description sys="Y">UI API Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>InstallNum</id>
+		<source_code_name>INSTALLATION_NUMBER</source_code_name>
+		<description sys="Y">Installation Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>SystemNum</id>
+		<source_code_name>STSTEM_NUMBER</source_code_name>
+		<description sys="Y">System Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>LicenseNum</id>
+		<source_code_name>LICENSE_NUMBER</source_code_name>
+		<description sys="Y">License Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>SystemStat</id>
+		<source_code_name>SYSTEM_STATUS</source_code_name>
+		<description sys="Y">System Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>DbType</id>
+		<source_code_name>DB_TYPE</source_code_name>
+		<description sys="Y">DB Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>DbVersion</id>
+		<source_code_name>DB_VERSION</source_code_name>
+		<description sys="Y">DB Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>CommLogPat</id>
+		<source_code_name>COMMON_LOG_PATH</source_code_name>
+		<description sys="Y">SBo-Common Log Path</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>CommLogSiz</id>
+		<source_code_name>COMMON_LOG_SIZE</source_code_name>
+		<description sys="Y">SBO-Common Log Size</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CommRecovM</id>
+		<source_code_name>COMMON_RECOVERY_MODE</source_code_name>
+		<description sys="Y">SBO-Common Recovery Model</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>AOFramewor</id>
+		<source_code_name>ADDON_FRAMEWORK</source_code_name>
+		<description sys="Y">Addon Framwork</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>AODtw</id>
+		<source_code_name>ADDON_DTW</source_code_name>
+		<description sys="Y">Addon DTW</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>AOSupTools</id>
+		<source_code_name>ADDON_SUPPORT_TOOLS</source_code_name>
+		<description sys="Y">Addon Support Tools</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>AODateV</id>
+		<source_code_name>ADDON_DATE_V</source_code_name>
+		<description sys="Y">Addon Date V</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>AOAld</id>
+		<source_code_name>ADDON_ALD</source_code_name>
+		<description sys="Y">Addon Ald</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>AOBcSets</id>
+		<source_code_name>ADDON_BC_SETS</source_code_name>
+		<description sys="Y">Addon BC Sets</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>AOElster</id>
+		<source_code_name>ADDON_ELSTER</source_code_name>
+		<description sys="Y">Addon Elster</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>AOFixAsset</id>
+		<source_code_name>ADDON_FIXEDASSETS</source_code_name>
+		<description sys="Y">Addon Fixed Assets</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>AOIntrStat</id>
+		<source_code_name>ADDON_INTRASTAT</source_code_name>
+		<description sys="Y">Addon Intra Stat</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>AOOutlookI</id>
+		<source_code_name>ADDON_OUTLOOKINTEGRA</source_code_name>
+		<description sys="Y">Addon Outlook integration</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>AOPayEngin</id>
+		<source_code_name>ADDON_PAYMENTENGINE</source_code_name>
+		<description sys="Y">Addon Payment Engine</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>AOStampIt</id>
+		<source_code_name>ADDON_STAMPIT</source_code_name>
+		<description sys="Y">Addon Stamp it</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>CompRecovM</id>
+		<source_code_name>COMPANY_RECOVERY_MOD</source_code_name>
+		<description sys="Y">Company Recover Model</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CompDbName</column>
+	</key>
+</table>

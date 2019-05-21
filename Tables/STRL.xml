@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>STRL</id>
+	<description sys="Y">String List resource</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Created</id>
+		<source_code_name>CREATED</source_code_name>
+		<description sys="Y">Creation date</description>
+		<field_type>1</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Updated</id>
+		<source_code_name>UPDATED</source_code_name>
+		<description sys="Y">Update date</description>
+		<field_type>2</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">STRL name</description>
+		<field_type>4</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>Num</id>
+		<source_code_name>NUM</source_code_name>
+		<description sys="Y">STRL number</description>
+		<field_type>39</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MaxUnique</id>
+		<source_code_name>MAX_UNIQUE</source_code_name>
+		<description sys="Y">Max Unique</description>
+		<field_type>400</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RobjCode</id>
+		<source_code_name>ROBJ_CODE</source_code_name>
+		<description sys="Y">Imp Exp Obj Code</description>
+		<field_type>401</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UsrSgnAttr</id>
+		<source_code_name>USER_SIGN_ATTR</source_code_name>
+		<description sys="Y">User Sign For Attribs Change</description>
+		<field_type>511</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ResCode</id>
+		<source_code_name>RES_CODE</source_code_name>
+		<description sys="Y">Resource Code from RSBD</description>
+		<field_type>600</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>RevCode</id>
+		<source_code_name>REV_CODE</source_code_name>
+		<description sys="Y">Revision Code</description>
+		<field_type>601</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Name</column>
+		<column>ResCode</column>
+		<column>RevCode</column>
+	</key>
+	<key>
+		<id>NUM</id>
+		<unique />
+		<column>Num</column>
+	</key>
+</table>

@@ -1,0 +1,1125 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OVTR</id>
+	<description>Tax Report</description>
+	<string_list>1100413</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description sys="Y">Abs Entry (Numerator)</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ReportName</id>
+		<source_code_name>REPORT_NAME</source_code_name>
+		<description sys="Y">Report Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>RptLayout</id>
+		<source_code_name>REPORT_LAYOUT</source_code_name>
+		<description sys="Y">Report Layout</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>R</default_value>
+		<valid_value>
+			<value>R</value>
+			<description>Tax Register Book</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Tax Declaration</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Black List Country - Tax Declaration</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>VAT Annual List</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Annual Invoice Declaration</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FirstPrint</id>
+		<source_code_name>FIRST_PRINTED_NUM</source_code_name>
+		<description>First Printed No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FromDate</id>
+		<source_code_name>FROM_DATE</source_code_name>
+		<description>Date From</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ToDate</id>
+		<source_code_name>TO_DATE</source_code_name>
+		<description>Date To</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxDate</id>
+		<source_code_name>TAX_DATE</source_code_name>
+		<description>Document Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RoundSum</id>
+		<source_code_name>ROUND_SUM</source_code_name>
+		<description>Round Amounts</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value />
+			<description>.</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Declration</id>
+		<source_code_name>DECLARATION</source_code_name>
+		<description>Declaration Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>O</value>
+			<description>Original</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y">Substitute</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description sys="Y">Complementary</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FilterType</id>
+		<source_code_name>FILTER_TYPE</source_code_name>
+		<description>Selection Criteria Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>V</value>
+			<description>Tax Report</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Withholding Tax Report</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Report 347</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>349 Report</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Reconciliation Report</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Stamp Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Sales Report</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>None</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Box Report</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Appendix O or P Selection</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Annual Sales Report</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>VAT Refund Report</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Input/Output VAT Report</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExcludeWT</id>
+		<source_code_name>EXCLUDE_WT</source_code_name>
+		<description>Exclude Withholding Tax</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CustomerIn</id>
+		<source_code_name>CUSTOMER_IN</source_code_name>
+		<description>Include Customers</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>VendorIn</id>
+		<source_code_name>VENDOR_IN</source_code_name>
+		<description>Include Vendors</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Period</id>
+		<source_code_name>PERIOD</source_code_name>
+		<description>Quarter, Year or Month</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Q</default_value>
+		<valid_value>
+			<value>Q</value>
+			<description>Quarter</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Year</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Month</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>.</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Quarter</id>
+		<source_code_name>QUARTER</source_code_name>
+		<description>Quarter</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Year</id>
+		<source_code_name>YEAR</source_code_name>
+		<description>Year</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>A/P or A/R</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description>Purchasing Documents</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Sales Documents</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CreditMemo</id>
+		<source_code_name>CREDIT_MEMOS</source_code_name>
+		<description>Credit Memos</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocTypeIn</id>
+		<source_code_name>DOC_TYPE_IN</source_code_name>
+		<description>Include Document Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FirstReg</id>
+		<source_code_name>FIRST_REGISTER_NUM</source_code_name>
+		<description>First Register Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AccountIn</id>
+		<source_code_name>ACCOUNT_IN</source_code_name>
+		<description>Include G/L Accounts</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DeferTaxIn</id>
+		<source_code_name>DEFERED_TAX_IN</source_code_name>
+		<description>Show Pmts with Deferred Tax</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ApndxOOrP</id>
+		<source_code_name>APNDX_O_OR_P</source_code_name>
+		<description>Appendix O or P Selection</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DispOBCB</id>
+		<source_code_name>DISPLAY_OB_CB</source_code_name>
+		<description>Opening &amp; Closing Balance</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FromSeries</id>
+		<source_code_name>FROM_SERIES</source_code_name>
+		<description>From Tax Series Group</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToSeries</id>
+		<source_code_name>TO_SERIES</source_code_name>
+		<description>To Tax Series Group</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>canceltn</id>
+		<source_code_name>CANCELLATION</source_code_name>
+		<description>For EU Sales Report</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>HideNTrans</id>
+		<source_code_name>HIDE_TAX_NO_TRANS</source_code_name>
+		<description>Hide Tax Codes with no Trans.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SeriesIn</id>
+		<source_code_name>SERIES_IN</source_code_name>
+		<description>Include Series Filter</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserCode</id>
+		<source_code_name>USER_CODE</source_code_name>
+		<description>User Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FromCardCo</id>
+		<source_code_name>FROM_CARD_CODE</source_code_name>
+		<description>BP Code From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToCardCo</id>
+		<source_code_name>TO_CARD_CODE</source_code_name>
+		<description>BP Code To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SizeOfStru</id>
+		<source_code_name>SIZE_OF_STRUCT</source_code_name>
+		<description>Size of Structure</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PostFrDate</id>
+		<source_code_name>POST_FROM_DATE</source_code_name>
+		<description>Posting Date From</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PostToDate</id>
+		<source_code_name>POST_TO_DATE</source_code_name>
+		<description>Posting Date To</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocFrDate</id>
+		<source_code_name>DOC_FROM_DATE</source_code_name>
+		<description>Document Date From</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocToDate</id>
+		<source_code_name>DOC_TO_DATE</source_code_name>
+		<description>Document Date To</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FromDoc1Nu</id>
+		<source_code_name>FROM_DOC1_NUM</source_code_name>
+		<description>Document 1 - From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToDoc1Nu</id>
+		<source_code_name>TO_DOC1_NUM</source_code_name>
+		<description>Document 1 - To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Serie1</id>
+		<source_code_name>SERIE1</source_code_name>
+		<description>Invoice Numbering Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Serie1CB</id>
+		<source_code_name>SERIE1_CHECKBOX</source_code_name>
+		<description>Inv. Numbering Series Filter</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Doc1Type</id>
+		<source_code_name>DOC1_TYPE</source_code_name>
+		<description>Type of Document 1</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FromDoc2Nu</id>
+		<source_code_name>FROM_DOC2_NUM</source_code_name>
+		<description>Document 2 - From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToDoc2Nu</id>
+		<source_code_name>TO_DOC2_NUM</source_code_name>
+		<description>Document 2 - To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Serie2</id>
+		<source_code_name>SERIE2</source_code_name>
+		<description>Credit Memo Numbering Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Serie2CB</id>
+		<source_code_name>SERIE2_CHECKBOX</source_code_name>
+		<description>Corr. Inv. Rev. No. Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Doc2Type</id>
+		<source_code_name>DOC2_TYPE</source_code_name>
+		<description>Type of Document 2</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FromDoc3Nu</id>
+		<source_code_name>FROM_DOC3_NUM</source_code_name>
+		<description>Document 3 - From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToDoc3Nu</id>
+		<source_code_name>TO_DOC3_NUM</source_code_name>
+		<description>Document 3 - To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Serie3</id>
+		<source_code_name>SERIE3</source_code_name>
+		<description>Corr. Inv. Numbering Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Serie3CB</id>
+		<source_code_name>SERIE3_CHECKBOX</source_code_name>
+		<description>Corr. Inv. Num. Series Filter</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Doc3Type</id>
+		<source_code_name>DOC3_TYPE</source_code_name>
+		<description>Type of Document 3</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FromDoc4Nu</id>
+		<source_code_name>FROM_DOC4_NUM</source_code_name>
+		<description>Document 4 - From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToDoc4Nu</id>
+		<source_code_name>TO_DOC4_NUM</source_code_name>
+		<description>Document 4 - To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Serie4</id>
+		<source_code_name>SERIE4</source_code_name>
+		<description>Corr. Inv. Rev. No. Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Serie4CB</id>
+		<source_code_name>SERIE4_CHECKBOX</source_code_name>
+		<description>Corr. Inv. Reversal No. Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Doc4Type</id>
+		<source_code_name>DOC4_TYPE</source_code_name>
+		<description>Type of Document 4</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FromDoc5Nu</id>
+		<source_code_name>FROM_DOC5_NUM</source_code_name>
+		<description>Document 5 - From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToDoc5Nu</id>
+		<source_code_name>TO_DOC5_NUM</source_code_name>
+		<description>Document 5 - To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Serie5</id>
+		<source_code_name>SERIE5</source_code_name>
+		<description>Down Payment Numbering Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Serie5CB</id>
+		<source_code_name>SERIE5_CHECKBOX</source_code_name>
+		<description>Down Payment Numbering Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Doc5Type</id>
+		<source_code_name>DOC5_TYPE</source_code_name>
+		<description>Type of Document 5</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DateRBtn</id>
+		<source_code_name>DATE_RADIO_BTN</source_code_name>
+		<description>Report Period</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interval</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Date</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MarkDocsIn</id>
+		<source_code_name>MARKETING_DOCS_IN</source_code_name>
+		<description>Include Marketing Documents</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExRate</id>
+		<source_code_name>EXCHANGE_RATE</source_code_name>
+		<description>Exchange Rate</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description>Posting</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>For Reports</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExRateDate</id>
+		<source_code_name>EXCHANGE_RATE_DATE</source_code_name>
+		<description>Exchange Rate Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description>Posting Date</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Document Date</description>
+		</valid_value>
+		<valid_value>
+			<value>V</value>
+			<description>VAT Date</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TrsPerioTp</id>
+		<source_code_name>TRS_PERIOD_TYPE</source_code_name>
+		<description>Report Period Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Year</description>
+		</valid_value>
+		<valid_value>
+			<value>Q</value>
+			<description>Quarter</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Month</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Period</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TrsPerioNu</id>
+		<source_code_name>TRS_PERIOD_NUM</source_code_name>
+		<description>Report Period Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TrsYear</id>
+		<source_code_name>TRS_YEAR</source_code_name>
+		<description>Report Year</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TrsAdjtNum</id>
+		<source_code_name>TRS_ADJUSTMENT_NUM</source_code_name>
+		<description>Report Adjustment Number</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DateType</id>
+		<source_code_name>DATE_TYPE</source_code_name>
+		<description>Date Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description>Posting Date</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Document Date</description>
+		</valid_value>
+		<valid_value>
+			<value>V</value>
+			<description>VAT Date</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IncServDoc</id>
+		<source_code_name>INCLUDE_SERVICE_DOCS</source_code_name>
+		<description>Include Service Documents</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>GrpBySCode</id>
+		<source_code_name>GROUP_BY_SALES_CODES</source_code_name>
+		<description>Group by Sales Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IncUnReDoc</id>
+		<source_code_name>INCLUDE_UNRECON_DOCS</source_code_name>
+		<description>Include Unreconciled Documents</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DoYearSum</id>
+		<source_code_name>DO_YEAR_SUMMARY</source_code_name>
+		<description>Year Summary</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>NAME</id>
+		<unique />
+		<column>ReportName</column>
+		<column>FilterType</column>
+	</key>
+</table>

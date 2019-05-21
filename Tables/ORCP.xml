@@ -1,0 +1,591 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ORCP</id>
+	<description>Recurring Transaction Template</description>
+	<string_list>1101330</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Template Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Dscription</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>IsRemoved</id>
+		<source_code_name>IS_REMOVED</source_code_name>
+		<description>Is Removed</description>
+		<field_type>14</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocObjType</id>
+		<source_code_name>DOC_OBJECT_TYPE</source_code_name>
+		<description>Linked Document Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>23</value>
+			<description>Sales Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Sales Order</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Delivery</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Return</description>
+		</valid_value>
+		<valid_value>
+			<value>203</value>
+			<description>A/R Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>A/R Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>-13</value>
+			<description>A/R Reserve Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>(-0</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000113</value>
+			<description>Purchase Request</description>
+		</valid_value>
+		<valid_value>
+			<value>540000006</value>
+			<description>Purchase Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description>Purchase Order</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Goods Receipt PO</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description>Goods Return</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>A/P Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>A/P Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>-18</value>
+			<description sys="Y">A/P Reserve Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>(-1</value>
+			<description>(-</description>
+		</valid_value>
+		<valid_value>
+			<value>59</value>
+			<description>Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>60</value>
+			<description>Goods Issue</description>
+		</valid_value>
+		<valid_value>
+			<value>1250000001</value>
+			<description>Inventory Transfer Request</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description>Inventory Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DraftEntry</id>
+		<source_code_name>DRAFT_ENTRY</source_code_name>
+		<description>Linked Draft Entry</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Frequency</id>
+		<source_code_name>FREQUENCY</source_code_name>
+		<description>Frequency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Daily</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Weekly</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Monthly</description>
+		</valid_value>
+		<valid_value>
+			<value>Q</value>
+			<description>Quarterly</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Semiannually</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Annually</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>One Time</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Remind</id>
+		<source_code_name>REMIND</source_code_name>
+		<description>Sub-Frequency</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1001</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>On Sunday</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>On Monday</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>On Tuesday</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>On Wednesday</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>On Thursday</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>On Friday</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>On Saturday</description>
+		</valid_value>
+		<valid_value>
+			<value>101</value>
+			<description>Every 1</description>
+		</valid_value>
+		<valid_value>
+			<value>102</value>
+			<description>Every 2</description>
+		</valid_value>
+		<valid_value>
+			<value>103</value>
+			<description>Every 3</description>
+		</valid_value>
+		<valid_value>
+			<value>104</value>
+			<description>Every 4</description>
+		</valid_value>
+		<valid_value>
+			<value>105</value>
+			<description>Every 5</description>
+		</valid_value>
+		<valid_value>
+			<value>106</value>
+			<description>Every 6</description>
+		</valid_value>
+		<valid_value>
+			<value>107</value>
+			<description>Every 7</description>
+		</valid_value>
+		<valid_value>
+			<value>108</value>
+			<description>Every 8</description>
+		</valid_value>
+		<valid_value>
+			<value>109</value>
+			<description>Every 9</description>
+		</valid_value>
+		<valid_value>
+			<value>110</value>
+			<description>Every 10</description>
+		</valid_value>
+		<valid_value>
+			<value>115</value>
+			<description>Every 15</description>
+		</valid_value>
+		<valid_value>
+			<value>130</value>
+			<description>Every 30</description>
+		</valid_value>
+		<valid_value>
+			<value>145</value>
+			<description>Every 45</description>
+		</valid_value>
+		<valid_value>
+			<value>160</value>
+			<description>Every 60</description>
+		</valid_value>
+		<valid_value>
+			<value>1001</value>
+			<description>On 1</description>
+		</valid_value>
+		<valid_value>
+			<value>1002</value>
+			<description>On 2</description>
+		</valid_value>
+		<valid_value>
+			<value>1003</value>
+			<description>On 3</description>
+		</valid_value>
+		<valid_value>
+			<value>1004</value>
+			<description>On 4</description>
+		</valid_value>
+		<valid_value>
+			<value>1005</value>
+			<description>On 5</description>
+		</valid_value>
+		<valid_value>
+			<value>1006</value>
+			<description>On 6</description>
+		</valid_value>
+		<valid_value>
+			<value>1007</value>
+			<description>On 7</description>
+		</valid_value>
+		<valid_value>
+			<value>1008</value>
+			<description>On 8</description>
+		</valid_value>
+		<valid_value>
+			<value>1009</value>
+			<description>On 9</description>
+		</valid_value>
+		<valid_value>
+			<value>1010</value>
+			<description>On 10</description>
+		</valid_value>
+		<valid_value>
+			<value>1011</value>
+			<description>On 11</description>
+		</valid_value>
+		<valid_value>
+			<value>1012</value>
+			<description>On 12</description>
+		</valid_value>
+		<valid_value>
+			<value>1013</value>
+			<description>On 13</description>
+		</valid_value>
+		<valid_value>
+			<value>1014</value>
+			<description>On 14</description>
+		</valid_value>
+		<valid_value>
+			<value>1015</value>
+			<description>On 15</description>
+		</valid_value>
+		<valid_value>
+			<value>1016</value>
+			<description>On 16</description>
+		</valid_value>
+		<valid_value>
+			<value>1017</value>
+			<description>On 17</description>
+		</valid_value>
+		<valid_value>
+			<value>1018</value>
+			<description>On 18</description>
+		</valid_value>
+		<valid_value>
+			<value>1019</value>
+			<description>On 19</description>
+		</valid_value>
+		<valid_value>
+			<value>1020</value>
+			<description>On 20</description>
+		</valid_value>
+		<valid_value>
+			<value>1021</value>
+			<description>On 21</description>
+		</valid_value>
+		<valid_value>
+			<value>1022</value>
+			<description>On 22</description>
+		</valid_value>
+		<valid_value>
+			<value>1023</value>
+			<description>On 23</description>
+		</valid_value>
+		<valid_value>
+			<value>1024</value>
+			<description>On 24</description>
+		</valid_value>
+		<valid_value>
+			<value>1025</value>
+			<description>On 25</description>
+		</valid_value>
+		<valid_value>
+			<value>1026</value>
+			<description>On 26</description>
+		</valid_value>
+		<valid_value>
+			<value>1027</value>
+			<description>On 27</description>
+		</valid_value>
+		<valid_value>
+			<value>1028</value>
+			<description>On 28</description>
+		</valid_value>
+		<valid_value>
+			<value>1029</value>
+			<description>On 29</description>
+		</valid_value>
+		<valid_value>
+			<value>1030</value>
+			<description>On 30</description>
+		</valid_value>
+		<valid_value>
+			<value>1031</value>
+			<description>On 31</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>StartDate</id>
+		<source_code_name>START_DATE</source_code_name>
+		<description>Execution Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EndDate</id>
+		<source_code_name>END_DATE</source_code_name>
+		<description>Execution End Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>CreateUser</id>
+		<source_code_name>CREATE_USER</source_code_name>
+		<description>Created by User</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Creation Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CreateTime</id>
+		<source_code_name>CREATE_TIME</source_code_name>
+		<description>Creation Time</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>UpdateUser</id>
+		<source_code_name>UPDATE_USER</source_code_name>
+		<description>Updated by User</description>
+		<field_type>78</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Update Date</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UpdateTime</id>
+		<source_code_name>UPDATE_TIME</source_code_name>
+		<description>Update Time</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Upgrade</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Auto Summary</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Restore Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>DraftEntryLink</id>
+		<target_direct>ODRF</target_direct>
+		<object_key_column>DraftEntry</object_key_column>
+	</association>
+	<association>
+		<id>CreateUserLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>CreateUser</object_key_column>
+	</association>
+	<association>
+		<id>UpdateUserLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UpdateUser</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

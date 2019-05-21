@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ODUN</id>
+	<description>Dunning Letters</description>
+	<string_list>1100337</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LetrFormat</id>
+		<source_code_name>LETTER_FORMAT</source_code_name>
+		<description>Letter Format</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EffctAftr</id>
+		<source_code_name>EFFECTIVE_AFTER</source_code_name>
+		<description>Effective After (Days)</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>LetterFee</id>
+		<source_code_name>FEE_PER_LETTER</source_code_name>
+		<description>Fee Per Letter</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FeeCurr</id>
+		<source_code_name>FEE_CURR</source_code_name>
+		<description>Fee Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>MinBalance</id>
+		<source_code_name>MINIMUM_BALANCE</source_code_name>
+		<description>Minimum Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>MinBlnCurr</id>
+		<source_code_name>MINIMUM_BALANCE_CURR</source_code_name>
+		<description>Minimum Balance Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>CalcIntert</id>
+		<source_code_name>CALC_INTEREST</source_code_name>
+		<description>Interest</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LineNum</column>
+	</key>
+</table>

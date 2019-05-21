@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>UPT1</id>
+	<description>User Authorization Tree - Extended Permission</description>
+	<string_list>1100657</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>PermId</id>
+		<source_code_name>PERM_ID</source_code_name>
+		<description>Authorization ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FormId</id>
+		<source_code_name>FORM_ID</source_code_name>
+		<description>Form ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VisOrder</id>
+		<source_code_name>VIS_ORDER</source_code_name>
+		<description>Display Order</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>PermIdLink</id>
+		<target_direct>OUPT</target_direct>
+		<object_key_column>PermId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>PermId</column>
+		<column>FormId</column>
+	</key>
+	<key>
+		<id>FORM_ID</id>
+		<column>FormId</column>
+	</key>
+</table>

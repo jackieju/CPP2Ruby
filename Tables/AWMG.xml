@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AWMG</id>
+	<description>Workflow Manager</description>
+	<string_list>1101828</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>ID</id>
+		<source_code_name>ID</source_code_name>
+		<description>Workflow ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TemplateID</id>
+		<source_code_name>TEMPLATE_ID</source_code_name>
+		<description>Template ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TmplateKey</id>
+		<source_code_name>TEMPLATE_KEY</source_code_name>
+		<description>Template Key</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Version</id>
+		<source_code_name>VERSION</source_code_name>
+		<description>Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>13</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MAXIns</id>
+		<source_code_name>MAX_INSTANCE</source_code_name>
+		<description>Maximum Number of Instance</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Inactive</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Active</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Importing</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Imported</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Import failed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>XMLFile</id>
+		<source_code_name>XML_FILE</source_code_name>
+		<description>XML File</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Desc</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Description</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogIns</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance - History</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StartType</id>
+		<source_code_name>START_TYPE</source_code_name>
+		<description>Start Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>M</value>
+			<description>Manual Start</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Timer Start</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Conditional Start</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ID</column>
+		<column>LogIns</column>
+	</key>
+</table>

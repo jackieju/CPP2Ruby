@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>NFN1</id>
+	<description>Not a Fiscal Sequence</description>
+	<string_list>1100798</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>ObjectCode</id>
+		<source_code_name>OBJ_CODE</source_code_name>
+		<description>Document</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SeqCode</id>
+		<source_code_name>SEQ_CODE</source_code_name>
+		<description>Seq. Code</description>
+		<field_type>999</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>SeqName</id>
+		<source_code_name>SEQ_NAME</source_code_name>
+		<description>Seq. Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>InitialNum</id>
+		<source_code_name>INITIAL_NUM</source_code_name>
+		<description>Initial Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>NextNum</id>
+		<source_code_name>NEXT_NUM</source_code_name>
+		<description>Next Number for Use</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>LastNum</id>
+		<source_code_name>LAST_NUM</source_code_name>
+		<description>Last Number Allowed</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SeriesStr</id>
+		<source_code_name>SERIES_STR</source_code_name>
+		<description>Series String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>SubStr</id>
+		<source_code_name>SUB_SERIES_STR</source_code_name>
+		<description>Subseries String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Remark</id>
+		<source_code_name>REMARK</source_code_name>
+		<description>Remarks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>GroupCode</id>
+		<source_code_name>GROUP</source_code_name>
+		<description>Group</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Locked</id>
+		<source_code_name>LOCKED</source_code_name>
+		<description>Locked</description>
+		<field_type>212</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>YearTransf</id>
+		<source_code_name>YEAR_TRANS</source_code_name>
+		<description>Year-End Closing</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Indicator</id>
+		<source_code_name>INDICATOR</source_code_name>
+		<description>Period Indicator</description>
+		<field_type>264</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>' '</default_value>
+		<valid_value>
+			<value>' '</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Template</id>
+		<source_code_name>TEMPLATE</source_code_name>
+		<description>Template</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NumSize</id>
+		<source_code_name>NUMERIC_SIZE</source_code_name>
+		<description>Numeric Size</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Prefix</id>
+		<source_code_name>PREFIX</source_code_name>
+		<description>Prefix</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Suffix</id>
+		<source_code_name>SUFFIX</source_code_name>
+		<description>Suffix</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DocSubType</id>
+		<source_code_name>DOC_SUB_TYPE</source_code_name>
+		<description>Document Sub-Type</description>
+		<field_type>266</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>--</default_value>
+	</column>
+	<column>
+		<id>Model</id>
+		<source_code_name>MODEL</source_code_name>
+		<description>Nota Fiscal Model</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Location</id>
+		<source_code_name>LOC_CODE</source_code_name>
+		<description>Location Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BPLId</id>
+		<source_code_name>BPL_ID</source_code_name>
+		<description>Assigned Branch</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>ObjectCodeLink</id>
+		<target_direct>ONFN</target_direct>
+		<object_key_column>ObjectCode</object_key_column>
+	</association>
+	<association>
+		<id>IndicatorLink</id>
+		<target_direct>OPID</target_direct>
+		<object_key_column>Indicator</object_key_column>
+	</association>
+	<association>
+		<id>ModelLink</id>
+		<target_direct>ONFM</target_direct>
+		<object_key_column>Model</object_key_column>
+	</association>
+	<association>
+		<id>LocationLink</id>
+		<target_direct>OLCT</target_direct>
+		<object_key_column>Location</object_key_column>
+	</association>
+	<association>
+		<id>BPLLink</id>
+		<target_direct>OBPL</target_direct>
+		<object_key_column>BPLId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ObjectCode</column>
+		<column>DocSubType</column>
+		<column>SeqCode</column>
+	</key>
+	<key>
+		<id>S_NAME</id>
+		<unique />
+		<column>ObjectCode</column>
+		<column>DocSubType</column>
+		<column>BPLId</column>
+		<column>SeqName</column>
+	</key>
+</table>

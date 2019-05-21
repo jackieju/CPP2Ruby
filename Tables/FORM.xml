@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>FORM</id>
+	<description sys="Y">FORM resource</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Created</id>
+		<source_code_name>CREATED</source_code_name>
+		<description sys="Y">Creation date</description>
+		<field_type>1</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Updated</id>
+		<source_code_name>UPDATED</source_code_name>
+		<description sys="Y">Update date</description>
+		<field_type>2</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">Form name</description>
+		<field_type>4</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>Num</id>
+		<source_code_name>NUM</source_code_name>
+		<description sys="Y">Form number</description>
+		<field_type>39</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>W_KIND</source_code_name>
+		<description sys="Y">Form type</description>
+		<field_type>7</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">Resize Document</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Dialog Box</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">No Title Document</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y">Fixed Document</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description sys="Y">Resize No Title Document</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description sys="Y">Toolbar</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description sys="Y">Fixed No Minimize</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CloseBox</id>
+		<source_code_name>GO_AWAY</source_code_name>
+		<description sys="Y">Close box</description>
+		<field_type>8</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DfltButton</id>
+		<source_code_name>DEF_BUTTON</source_code_name>
+		<description sys="Y">Default button</description>
+		<field_type>9</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>_Top</id>
+		<source_code_name>TOP</source_code_name>
+		<description sys="Y">Top</description>
+		<field_type>10</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>_Bottom</id>
+		<source_code_name>BOTTOM</source_code_name>
+		<description sys="Y">Bottom</description>
+		<field_type>11</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>_Left</id>
+		<source_code_name>LEFT</source_code_name>
+		<description sys="Y">Left</description>
+		<field_type>12</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>_Right</id>
+		<source_code_name>RIGHT</source_code_name>
+		<description sys="Y">Right</description>
+		<field_type>13</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MaxUnique</id>
+		<source_code_name>MAX_UNIQUE</source_code_name>
+		<description sys="Y">Max Unique</description>
+		<field_type>400</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RobjCode</id>
+		<source_code_name>ROBJ_CODE</source_code_name>
+		<description sys="Y">ImpExp Obj Code</description>
+		<field_type>401</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>HelpCntxt</id>
+		<source_code_name>HELP_CONTEXT</source_code_name>
+		<description sys="Y">Help Context</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UsrSgnAttr</id>
+		<source_code_name>USER_SIGN_ATTR</source_code_name>
+		<description sys="Y">User Sign For Attribs Change</description>
+		<field_type>511</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ResCode</id>
+		<source_code_name>RES_CODE</source_code_name>
+		<description sys="Y">Resource Code from RSBD</description>
+		<field_type>1600</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>RevCode</id>
+		<source_code_name>REV_CODE</source_code_name>
+		<description sys="Y">Revision Code</description>
+		<field_type>1601</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>UseBoBind</id>
+		<source_code_name>USE_BO_BIND</source_code_name>
+		<description sys="Y">Use BO Binding</description>
+		<field_type>405</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Name</column>
+		<column>ResCode</column>
+		<column>RevCode</column>
+	</key>
+	<key>
+		<id>NUM</id>
+		<unique />
+		<column>Num</column>
+	</key>
+</table>

@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OCFW</id>
+	<description>Cash Flow Line Item</description>
+	<string_list>1100659</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>CFWId</id>
+		<source_code_name>CFW_ID</source_code_name>
+		<description>Cash Flow Line Item ID</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CFWName</id>
+		<source_code_name>CFW_NAME</source_code_name>
+		<description>Cash Flow Line Item Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Cash Flow Line No.</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>Postable</id>
+		<source_code_name>POSTABLE</source_code_name>
+		<description>Cash Flow Item [Active/Title]</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Active Item</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Header Item</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FatherNum</id>
+		<source_code_name>FATH_NUM</source_code_name>
+		<description>Parent Item Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Levels</id>
+		<source_code_name>LEVELS</source_code_name>
+		<description>Cash Flow Item Level</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>3</default_value>
+	</column>
+	<column>
+		<id>GroupMask</id>
+		<source_code_name>GROUP_MASK</source_code_name>
+		<description>Group Mask</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>GroupLine</id>
+		<source_code_name>GRP_LINE</source_code_name>
+		<description>Serial No. in Group</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ExtrMatch</id>
+		<source_code_name>EXTR_MATCH</source_code_name>
+		<description>External Reconciliation No.</description>
+		<invisible />
+		<field_type>151</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>IntrMatch</id>
+		<source_code_name>INTR_MATCH</source_code_name>
+		<description>Internal Reconciliation No.</description>
+		<invisible />
+		<field_type>150</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RateDifCFW</id>
+		<source_code_name>RATE_DIF_CFW</source_code_name>
+		<description>Rate Differences CFW</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SRC</source_code_name>
+		<description>Data Source</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Attr</id>
+		<source_code_name>ATTR</source_code_name>
+		<description>Attribute</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Direction</id>
+		<source_code_name>DIRECTION</source_code_name>
+		<description>Direction</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>FatherNumLink</id>
+		<target_direct>OCFW</target_direct>
+		<object_key_column>FatherNum</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CFWId</column>
+	</key>
+	<key>
+		<id>INTER_KEY</id>
+		<column>FatherNum</column>
+	</key>
+	<key>
+		<id>INDEX_KEY</id>
+		<unique />
+		<column>CFWName</column>
+	</key>
+</table>

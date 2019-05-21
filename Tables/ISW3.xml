@@ -1,0 +1,800 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ISW3</id>
+	<description>Declaration Rows</description>
+	<string_list>1101565</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>WizAbsEnt</id>
+		<source_code_name>WIZ_RUN_ABS_ENTRY</source_code_name>
+		<description>Wizard Run Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Line</id>
+		<source_code_name>LINE</source_code_name>
+		<description>Declaration Line</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RowStatus</id>
+		<source_code_name>ROW_STATUS</source_code_name>
+		<description>Row Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>O</default_value>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>Bussiness Partner Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT_TYPE</source_code_name>
+		<description>Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOCUMENT_NUMBER</source_code_name>
+		<description>Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocLineNum</id>
+		<source_code_name>DOC_LINE_NUMBER</source_code_name>
+		<description>Document Line Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RecpType</id>
+		<source_code_name>RECEIPT_TYPE</source_code_name>
+		<description>Receipt Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocBillDt</id>
+		<source_code_name>DOC_BILLING_DATE</source_code_name>
+		<description>Document Billing Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BPCtry</id>
+		<source_code_name>BP_COUNTRY</source_code_name>
+		<description>Sender/Receiver Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaxCodeExt</id>
+		<source_code_name>TAX_CODE_EXTENSION</source_code_name>
+		<description>Tax Code Extension</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NetMassSgn</id>
+		<source_code_name>NET_MASS_SIGN</source_code_name>
+		<description>Net Mass Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>+</default_value>
+		<valid_value>
+			<value>+</value>
+			<description>Positive</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Negative</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>NetMass</id>
+		<source_code_name>NET_MASS</source_code_name>
+		<description>Net Mass</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NetMassUnt</id>
+		<source_code_name>NET_MASS_UNIT</source_code_name>
+		<description>Net Mass Unit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SupMassSgn</id>
+		<source_code_name>SUPPLEM_MASS_SIGN</source_code_name>
+		<description>Supplementary Mass Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>+</default_value>
+		<valid_value>
+			<value>+</value>
+			<description>Positive</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Negative</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SupplMass</id>
+		<source_code_name>SUPPLEMENTARY_MASS</source_code_name>
+		<description>Supplementary Mass</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SupplUnit</id>
+		<source_code_name>SUPPLEMENTARY_UNIT</source_code_name>
+		<description>Supplementary Unit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ValueSgn</id>
+		<source_code_name>VALUE_SIGN</source_code_name>
+		<description>Value Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>+</default_value>
+		<valid_value>
+			<value>+</value>
+			<description>Positive</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Negative</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Value</id>
+		<source_code_name>VALUE</source_code_name>
+		<description>Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ValueFC</id>
+		<source_code_name>VALUE_FC</source_code_name>
+		<description>Value in Foreign Currency</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FCCurrency</id>
+		<source_code_name>FOREIGN_CURRENCY</source_code_name>
+		<description>Foreign Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StatValSgn</id>
+		<source_code_name>STAT_VALUE_SIGN</source_code_name>
+		<description>Statistical Value Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>+</value>
+			<description>Positive</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Negative</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>StatVal</id>
+		<source_code_name>STATISTICAL_VALUE</source_code_name>
+		<description>Statistical Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ReturnID</id>
+		<source_code_name>RETURN_IDENTIFIER</source_code_name>
+		<description>Return Identifier</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Include</id>
+		<source_code_name>INCLUDE</source_code_name>
+		<description>Include Line in Report</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IsChanged</id>
+		<source_code_name>CHANGED_LINE_FLAG</source_code_name>
+		<description>Changed Line Flag</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DstRegCry</id>
+		<source_code_name>DEST_REGION_COUNTRY</source_code_name>
+		<description>Destination Region Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DstRegSta</id>
+		<source_code_name>DEST_REGION_STATE</source_code_name>
+		<description>Destination Region State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OriRegCry</id>
+		<source_code_name>ORIG_REGION_COUNTRY</source_code_name>
+		<description>Origin Region Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OriRegSta</id>
+		<source_code_name>ORIG_REGION_STATE</source_code_name>
+		<description>Origin Region State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BpVATregNo</id>
+		<source_code_name>BP_VAT_REG_NO</source_code_name>
+		<description>VAT Registration No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CtryOrig</id>
+		<source_code_name>COUNTRY_OF_ORIGIN</source_code_name>
+		<description>Country of Origin</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Incoterms</id>
+		<source_code_name>INCOTERMS</source_code_name>
+		<description>Incoterms</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NatOfTrans</id>
+		<source_code_name>NATURE_OF_TRANSACT</source_code_name>
+		<description>Nature of Transaction</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransMode</id>
+		<source_code_name>TRANSACTION_MODE</source_code_name>
+		<description>Transport Mode</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PortEnEx</id>
+		<source_code_name>PORT_OF_ENT_OR_EXIT</source_code_name>
+		<description>Port of Entry or Exit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CustProc</id>
+		<source_code_name>CUSTOM_PROCEDURE</source_code_name>
+		<description>Custom Procedure</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StatProc</id>
+		<source_code_name>STATISTICAL_PROC</source_code_name>
+		<description>Statistical Procedure</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DomFrgID</id>
+		<source_code_name>DOMESTIC_FOREIGN_ID</source_code_name>
+		<description>Domestic/Foreign Identifier</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemType</id>
+		<source_code_name>ITEM_TYPE</source_code_name>
+		<description>Item Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Item</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Service</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Item Not Relevant to Intrastat</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CommCode</id>
+		<source_code_name>COMMODITY_CODE</source_code_name>
+		<description>Commodity Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SerCode</id>
+		<source_code_name>SERVICE_CODE</source_code_name>
+		<description>Service Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SerSupplM</id>
+		<source_code_name>SERVICE_SUPPLY_METH</source_code_name>
+		<description>Service Supply Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Immediate</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>To More Resumptions</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SerPymMeth</id>
+		<source_code_name>SERVICE_PAYM_METHOD</source_code_name>
+		<description>Service Payment Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>A</default_value>
+		<valid_value>
+			<value>A</value>
+			<description>Accredited to Bank Account</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Bank Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>X</value>
+			<description>Other</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CorrDate</id>
+		<source_code_name>CORRECTION_DATE</source_code_name>
+		<description>Correction Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CorrSgn</id>
+		<source_code_name>CORRECTION_SIGN</source_code_name>
+		<description>Correction Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>+</default_value>
+		<valid_value>
+			<value>+</value>
+			<description>Positive</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Negative</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ReferDoc</id>
+		<source_code_name>REFERRED_DOCUMENT</source_code_name>
+		<description>Referenced Document</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ReferDocNo</id>
+		<source_code_name>REFERRED_DOC_NUM</source_code_name>
+		<description>Referenced Document No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ReferItem</id>
+		<source_code_name>REFERRED_ITEM</source_code_name>
+		<description>Referred Item</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RefDocLine</id>
+		<source_code_name>REFERRED_DOC_LINE</source_code_name>
+		<description>Referenced Document Line</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ChgID</id>
+		<source_code_name>CHANGE_ID</source_code_name>
+		<description>Changed Data Record ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ChgUser</id>
+		<source_code_name>CHANGED_BY</source_code_name>
+		<description>Changed By</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ChgTimest</id>
+		<source_code_name>CHANGE_TIMESTAMP</source_code_name>
+		<description>Time Stamp of Change</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Deleted</id>
+		<source_code_name>DELETED</source_code_name>
+		<description>Deleted Indicator</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CstSecRc</id>
+		<source_code_name>CUSTOM_SECTION</source_code_name>
+		<description>Custom Section</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CorrMonth</id>
+		<source_code_name>CORRECTION_MONTH</source_code_name>
+		<description>Ref. Mo. of Summary to Correct</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CorrYear</id>
+		<source_code_name>CORRECTION_YEAR</source_code_name>
+		<description>Ref. Yr of Summary to Correct</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CorrDeclNo</id>
+		<source_code_name>CORRECTION_DECL_NO</source_code_name>
+		<description>No. of Declaration to Correct</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CorRowNo</id>
+		<source_code_name>CORR_ROW_IN_SECT</source_code_name>
+		<description>Row No. Inside Sec. 3 to Corrt</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DeclRowNo</id>
+		<source_code_name>DECL_ROW_NO</source_code_name>
+		<description>Declaration File Row No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CorrType</id>
+		<source_code_name>CORRECTION_DOC_TYPE</source_code_name>
+		<description>Referred Type of Receipt</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CntryPay</id>
+		<source_code_name>COUNTRY_PAY</source_code_name>
+		<description>State Code for Payment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Triangular</id>
+		<source_code_name>TRIANGULAR</source_code_name>
+		<description>Triangular Trade</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CardName</id>
+		<source_code_name>CARD_NAME</source_code_name>
+		<description>Business Partner Name</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StatCode</id>
+		<source_code_name>STATISTICAL_CODE</source_code_name>
+		<description>Statistical Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>DOC_ENTRY</source_code_name>
+		<description>Document Entry</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NetValue</id>
+		<source_code_name>NET_VALUE</source_code_name>
+		<description>Net Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NetValueFC</id>
+		<source_code_name>NET_VALUE_FC</source_code_name>
+		<description>Net Value in FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Freight</id>
+		<source_code_name>FREIGHT_SUM</source_code_name>
+		<description>Freight Sum</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FreighFC</id>
+		<source_code_name>FREIGHT_SUM_FC</source_code_name>
+		<description>Freight Sum in FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>IDEntryLink</id>
+		<target_direct>OISW</target_direct>
+		<object_key_column>WizAbsEnt</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLnk</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>CardCodeLnk</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>RefItemCodeLnk</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ReferItem</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WizAbsEnt</column>
+		<column>Line</column>
+	</key>
+</table>

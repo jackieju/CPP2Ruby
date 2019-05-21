@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SEWHW</id>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>MachineNam</id>
+		<source_code_name>MACHINE_NAME</source_code_name>
+		<description sys="Y">Machine Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>CompDbNam</id>
+		<source_code_name>COMPANY_DB_NAME</source_code_name>
+		<description sys="Y">Company Db Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>SmpTableId</id>
+		<source_code_name>SMP_TABLE_ID</source_code_name>
+		<description sys="Y">Smp Table ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>EwaSentDat</id>
+		<source_code_name>EWA_SENT_DATE</source_code_name>
+		<description sys="Y">EWA Sent Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>CustNumber</id>
+		<source_code_name>CUSTOMER_NUMBER</source_code_name>
+		<description sys="Y">Customer Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>OsType</id>
+		<source_code_name>OS_TYPE</source_code_name>
+		<description sys="Y">OS Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>OsVersion</id>
+		<source_code_name>OS_VERSION</source_code_name>
+		<description sys="Y">OS Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>VendorIden</id>
+		<source_code_name>VENDOR_IDENTITY</source_code_name>
+		<description sys="Y">Vendor Identity</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>CpuType</id>
+		<source_code_name>CPU_TYPE</source_code_name>
+		<description sys="Y">CPU TYPE</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>NumOfCPUs</id>
+		<source_code_name>NUMBER_OF_CPUs</source_code_name>
+		<description sys="Y">Number Of CPUs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PhysMemory</id>
+		<source_code_name>PHYSICAL_MEMORY</source_code_name>
+		<description sys="Y">Physical Memory</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ServerFlag</id>
+		<source_code_name>SERVER_FLAG</source_code_name>
+		<description sys="Y">Server Flag (Is Server?)</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TotDskSpac</id>
+		<source_code_name>TOTAL_DISK_SPACE</source_code_name>
+		<description sys="Y">Total Disk Space</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<column>
+		<id>FreDskSpac</id>
+		<source_code_name>FREE_DISK_SPACE</source_code_name>
+		<description sys="Y">Free Disk Space</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<column>
+		<id>UseDskSpac</id>
+		<source_code_name>USED_DISK_SPACE</source_code_name>
+		<description sys="Y">Used Disk Space</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>MachineNam</column>
+		<column>CompDbNam</column>
+	</key>
+</table>

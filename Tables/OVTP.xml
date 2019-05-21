@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OVTP</id>
+	<description>Vendor Type</description>
+	<string_list>1100955</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<column>
+		<id>ABSEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Primary Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>VendorType</id>
+		<source_code_name>VENDOR_TYPE</source_code_name>
+		<description>Vendor Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>Descript</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>120</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>120</edit_size>
+	</column>
+	<column>
+		<id>Locked</id>
+		<source_code_name>LOCKED</source_code_name>
+		<description>Locked</description>
+		<invisible />
+		<field_type>212</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ABSEntry</column>
+	</key>
+	<key>
+		<id>TYPE</id>
+		<column>VendorType</column>
+	</key>
+</table>

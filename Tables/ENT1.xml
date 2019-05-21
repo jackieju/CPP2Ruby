@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ENT1</id>
+	<description>Entry - Rows</description>
+	<string_list>1100029</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Entry</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BaseEntry</id>
+		<source_code_name>BASE_ABS_ENT</source_code_name>
+		<description>Base Document Internal ID</description>
+		<field_type>26</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PackQty</id>
+		<source_code_name>PACK_QTY</source_code_name>
+		<description>Packing Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PurPackMsr</id>
+		<source_code_name>PACK_MEASURE</source_code_name>
+		<description>Packaging UoM Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+		<default_value>Pack</default_value>
+	</column>
+	<column>
+		<id>ArsnalName</id>
+		<source_code_name>ARSENAL_NAME</source_code_name>
+		<description>Storage Group Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ArsnalCode</id>
+		<source_code_name>ARSENAL_CODE</source_code_name>
+		<description>Storage Group Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>UnitMsr</id>
+		<source_code_name>UNIT_MEASURE</source_code_name>
+		<description>Ref. UoM (Type)</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+		<default_value>Unit</default_value>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Fraction</id>
+		<source_code_name>FRACTION</source_code_name>
+		<description>Remainder</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Weight1</id>
+		<source_code_name>WEIGHT</source_code_name>
+		<description>Weight</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LineTotal</id>
+		<source_code_name>LINE_TOTAL</source_code_name>
+		<description>Row Total</description>
+		<field_type>36</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>OINV</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AKL1</id>
+	<description>Pick List - Rows - History</description>
+	<string_list>1100712</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PickEntry</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrderEntry</id>
+		<source_code_name>RDR_ENTRY</source_code_name>
+		<description>Order Entry</description>
+		<field_type>26</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrderLine</id>
+		<source_code_name>RDR_LINE_ID</source_code_name>
+		<description>Order Row ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PickQtty</id>
+		<source_code_name>PICK_QTTY</source_code_name>
+		<description>Picked Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PickStatus</id>
+		<source_code_name>PICK_STATUS</source_code_name>
+		<description>Pick Status</description>
+		<field_type>29</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>R</default_value>
+		<valid_value>
+			<value>R</value>
+			<description>Released for Picking</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Picked</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Partially Picked</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Partially Delivered</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RelQtty</id>
+		<source_code_name>RELEASED_QTTY</source_code_name>
+		<description>Released Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInsac</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance - History</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrevReleas</id>
+		<source_code_name>PREV_RELEASED</source_code_name>
+		<description>Previously Released Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BaseObject</id>
+		<source_code_name>BASE_OBJECT</source_code_name>
+		<description>Base Object Type</description>
+		<field_type>25</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>17</value>
+			<description>Order</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Reserve Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OPKL</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>BaseObjectLink</id>
+		<target_indirect_object>BaseObject</target_indirect_object>
+		<object_key_column>OrderEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>PickEntry</column>
+		<column>LogInsac</column>
+	</key>
+</table>

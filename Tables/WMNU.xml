@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>WMNU</id>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>ObjCode</id>
+		<source_code_name>OBJ_CODE</source_code_name>
+		<description sys="Y">Object Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjName</id>
+		<source_code_name>OBJ_NAME</source_code_name>
+		<description sys="Y">Object Name</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FatherID</id>
+		<source_code_name>FATHER_ID</source_code_name>
+		<description sys="Y">Father Menu ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BrothetID</id>
+		<source_code_name>OLDER_BROTHER_ID</source_code_name>
+		<description sys="Y">Older Brother Menu ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KeyNum</id>
+		<source_code_name>KEY_NUM</source_code_name>
+		<description sys="Y">m_KeyNum</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExCommand</id>
+		<source_code_name>EX_COMMAND</source_code_name>
+		<description sys="Y">m_exCommand</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Params</id>
+		<source_code_name>PARAMS</source_code_name>
+		<description sys="Y">m_params</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ParamsEx</id>
+		<source_code_name>PARAMS_EX</source_code_name>
+		<description sys="Y">m_paramsEx</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MatchFlag</id>
+		<source_code_name>MATCH_FLAG</source_code_name>
+		<description sys="Y">m_matchFlag</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Dag</id>
+		<source_code_name>DAG</source_code_name>
+		<description sys="Y">m_dag</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Form</id>
+		<source_code_name>FORM</source_code_name>
+		<description sys="Y">m_form</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RetProc</id>
+		<source_code_name>RET_PROC</source_code_name>
+		<description sys="Y">m_paRetProc</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>InitMode</id>
+		<source_code_name>INIT_MODE</source_code_name>
+		<description sys="Y">m_initialMode</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Message</id>
+		<source_code_name>MESSAGE</source_code_name>
+		<description sys="Y">m_message</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KeyStr</id>
+		<source_code_name>KEY_STR</source_code_name>
+		<description sys="Y">m_keyStr</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubType</id>
+		<source_code_name>SUB_TYPE</source_code_name>
+		<description sys="Y">m_subType</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Condition</id>
+		<source_code_name>LOCAL_SETTING_COND</source_code_name>
+		<description sys="Y">local setting condition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FormProc</id>
+		<source_code_name>OPEN_FORM_PROC</source_code_name>
+		<description sys="Y">Draw Form Proc</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StrList</id>
+		<source_code_name>FORM_STRING_LIST</source_code_name>
+		<description sys="Y">StrList Num</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ObjCode</column>
+	</key>
+</table>

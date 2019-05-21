@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RSLM</id>
+	<description sys="Y">SLIM</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>SBOCode</id>
+		<source_code_name>SBO_CODE</source_code_name>
+		<description sys="Y">SBO Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>SlimCode</id>
+		<source_code_name>SLIM_CODE</source_code_name>
+		<description sys="Y">Slim Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SBOCode</column>
+	</key>
+</table>

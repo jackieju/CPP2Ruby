@@ -1,0 +1,436 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RAMI</id>
+	<description sys="Y" />
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>ErrUID</id>
+		<source_code_name>ERR_UID</source_code_name>
+		<description sys="Y">Error Message Unique ID</description>
+		<field_type>4</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>StrlNum</id>
+		<source_code_name>STR_LIST_NUM</source_code_name>
+		<description sys="Y">String List Number</description>
+		<field_type>39</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>StrIdx</id>
+		<source_code_name>STR_IDX</source_code_name>
+		<description sys="Y">String Index</description>
+		<field_type>5</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>GuidStr</id>
+		<source_code_name>GUID_STR</source_code_name>
+		<description sys="Y">GUID String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+		<default_value>3A51AF1A405C41479530D05FF95A3FBA</default_value>
+	</column>
+	<column>
+		<id>MsgDef</id>
+		<source_code_name>MSG_DEFINE</source_code_name>
+		<description sys="Y">Message Define</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>MsgType</id>
+		<source_code_name>MSG_TYPE</source_code_name>
+		<description sys="Y">Message Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>E</default_value>
+		<valid_value>
+			<value>E</value>
+			<description sys="Y">Error</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description sys="Y">Warning</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">Info</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y">Success</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description sys="Y">None</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MsgArea</id>
+		<source_code_name>MSG_AREA</source_code_name>
+		<description sys="Y">Message Area</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>AP_AR</value>
+			<description sys="Y">Sales and Purchurse orders</description>
+		</valid_value>
+		<valid_value>
+			<value>RPT</value>
+			<description sys="Y">Reports</description>
+		</valid_value>
+		<valid_value>
+			<value>PROD</value>
+			<description sys="Y">Production</description>
+		</valid_value>
+		<valid_value>
+			<value>LGST</value>
+			<description sys="Y">ItemMasterData</description>
+		</valid_value>
+		<valid_value>
+			<value>INVT</value>
+			<description sys="Y">Inventory</description>
+		</valid_value>
+		<valid_value>
+			<value>FIN</value>
+			<description sys="Y">Financial</description>
+		</valid_value>
+		<valid_value>
+			<value>BANK</value>
+			<description sys="Y">Banking</description>
+		</valid_value>
+		<valid_value>
+			<value>CARD</value>
+			<description sys="Y">BP Master Data</description>
+		</valid_value>
+		<valid_value>
+			<value>AUTH</value>
+			<description sys="Y">Authorization</description>
+		</valid_value>
+		<valid_value>
+			<value>ADMIN</value>
+			<description sys="Y">Administration</description>
+		</valid_value>
+		<valid_value>
+			<value>SDK</value>
+			<description sys="Y">SDK UI</description>
+		</valid_value>
+		<valid_value>
+			<value>LCNS</value>
+			<description sys="Y">License</description>
+		</valid_value>
+		<valid_value>
+			<value>ADDON</value>
+			<description sys="Y">Add-On manager</description>
+		</valid_value>
+		<valid_value>
+			<value>FORM</value>
+			<description sys="Y">Form Infrastructure</description>
+		</valid_value>
+		<valid_value>
+			<value>DB</value>
+			<description sys="Y">DB Infrastructure</description>
+		</valid_value>
+		<valid_value>
+			<value>CORE</value>
+			<description sys="Y">Core Layer</description>
+		</valid_value>
+		<valid_value>
+			<value>INST</value>
+			<description sys="Y">Installation and Upgrade</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ScnExp</id>
+		<source_code_name>SCN_EXP</source_code_name>
+		<description sys="Y">Scenarion Explanation</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjName</id>
+		<source_code_name>OBJ_NAME</source_code_name>
+		<description sys="Y">Object Name</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SonTable</id>
+		<source_code_name>SON_TABLE</source_code_name>
+		<description sys="Y">Son Table</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Alias</id>
+		<source_code_name>ALIAS</source_code_name>
+		<description sys="Y">Alias</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>FormID</id>
+		<source_code_name>FORM_ID</source_code_name>
+		<description sys="Y">Form ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PaneID</id>
+		<source_code_name>PANE_ID</source_code_name>
+		<description sys="Y">Pane Id</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ItemID</id>
+		<source_code_name>ITEM_ID</source_code_name>
+		<description sys="Y">Item ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATED_DATE</source_code_name>
+		<description sys="Y">Creation date</description>
+		<field_type>1</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CreateTime</id>
+		<source_code_name>CREATED_TIME</source_code_name>
+		<description sys="Y">Creation Time</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATED_DATE</source_code_name>
+		<description sys="Y">Update Date</description>
+		<field_type>2</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UpdateTime</id>
+		<source_code_name>UPDATED_TIME</source_code_name>
+		<description sys="Y">Update Time</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGN</source_code_name>
+		<description sys="Y">User Sign</description>
+		<field_type>511</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SolExp</id>
+		<source_code_name>SOL_EXP</source_code_name>
+		<description sys="Y">Solution Explanation</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CsnId</id>
+		<source_code_name>CSN_ID</source_code_name>
+		<description sys="Y">CSN Note Id</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>DispType</id>
+		<source_code_name>DISP_TYPE</source_code_name>
+		<description sys="Y">Display Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+		<default_value>SBAR</default_value>
+		<valid_value>
+			<value>SBAR</value>
+			<description sys="Y">Sbar</description>
+		</valid_value>
+		<valid_value>
+			<value>NOTE</value>
+			<description sys="Y">Note</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_OKCancelType</value>
+			<description sys="Y">Dialog OK Cancel</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_YesNoCancelType</value>
+			<description sys="Y">Dialog Yes No Cancel</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_YesNoType</value>
+			<description sys="Y">Dialog Yes No</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_YesAllNoAllCancelType</value>
+			<description sys="Y">Dialog Yes All No All Cancel</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_ErrorOkType</value>
+			<description sys="Y">Dialog Error Ok</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_ContinueSaveType</value>
+			<description sys="Y">Dialog Continue Save</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_RemoveCancelType</value>
+			<description sys="Y">Dialog Remove Cancel</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_ContinueCancelType</value>
+			<description sys="Y">Dialog Continue Cancel</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_ContinueCancelNoType</value>
+			<description sys="Y">Dialog Continue Cancel No</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_AddCancelType</value>
+			<description sys="Y">Dialog Add Cancel</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_ContinueStopType</value>
+			<description sys="Y">Dialog Continue Stop</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_YesCancelType</value>
+			<description sys="Y">Dialog Yes Cancel</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_ContinueOpenType</value>
+			<description sys="Y">Dialog Continue Open</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_OpenContinueCancelType</value>
+			<description sys="Y">Dialog Open Continue Cancel</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_YesYesAllNoType</value>
+			<description sys="Y">Dialog Yes Yes All No</description>
+		</valid_value>
+		<valid_value>
+			<value>DIALOG_YesYesAllNoAllType</value>
+			<description sys="Y">Dialog Yes Yes All No All</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ColmID</id>
+		<source_code_name>COLM_ID</source_code_name>
+		<description sys="Y">Column ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>IsDeleted</id>
+		<source_code_name>IS_DELETED</source_code_name>
+		<description sys="Y">Is Deleted</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ErrUID</column>
+	</key>
+	<key>
+		<id>GUID</id>
+		<column>GuidStr</column>
+	</key>
+	<key>
+		<id>CodeDefine</id>
+		<unique />
+		<column>MsgDef</column>
+	</key>
+	<key>
+		<id>String</id>
+		<unique />
+		<column>StrlNum</column>
+		<column>StrIdx</column>
+	</key>
+	<key>
+		<id>ObjectId</id>
+		<column>ObjName</column>
+		<column>SonTable</column>
+		<column>Alias</column>
+	</key>
+</table>

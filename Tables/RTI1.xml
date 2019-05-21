@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RTI1</id>
+	<description>Retirement - Rows</description>
+	<string_list>1101625</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AcctCode</id>
+		<source_code_name>ACCOUNT_CODE</source_code_name>
+		<description>Account Code</description>
+		<field_type>44</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineTotal</id>
+		<source_code_name>TOTAL</source_code_name>
+		<description>Line Total</description>
+		<field_type>36</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TotalFrgn</id>
+		<source_code_name>TOTAL_FRGN</source_code_name>
+		<description>Line Total (FC)</description>
+		<field_type>48</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TotalSys</id>
+		<source_code_name>TOTAL_SYS</source_code_name>
+		<description>Line Total (SC)</description>
+		<field_type>234</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DprArea</id>
+		<source_code_name>DEPRECIATION_AREA</source_code_name>
+		<description>Depreciation Area</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Remarks</id>
+		<source_code_name>REMARKS</source_code_name>
+		<description>Remarks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>NewItemCod</id>
+		<source_code_name>NEW_ITEM_CODE</source_code_name>
+		<description>New Item Code</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Partial</id>
+		<source_code_name>PARTIAL</source_code_name>
+		<description>Partial</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>APC</id>
+		<source_code_name>APC</source_code_name>
+		<description>APC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NewAstCls</id>
+		<source_code_name>NEW_ASSET_CLASS</source_code_name>
+		<description>New Asset Class</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransType</id>
+		<source_code_name>TRANSACTION_TYPE</source_code_name>
+		<description>Transaction Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>110</value>
+			<description>Acquisition</description>
+		</valid_value>
+		<valid_value>
+			<value>115</value>
+			<description>Subacquisition</description>
+		</valid_value>
+		<valid_value>
+			<value>120</value>
+			<description>Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>130</value>
+			<description>APC Write-Up</description>
+		</valid_value>
+		<valid_value>
+			<value>210</value>
+			<description>Full Retirement</description>
+		</valid_value>
+		<valid_value>
+			<value>220</value>
+			<description>Full Scrapping</description>
+		</valid_value>
+		<valid_value>
+			<value>230</value>
+			<description>Partial Retirement</description>
+		</valid_value>
+		<valid_value>
+			<value>240</value>
+			<description>Partial Scrapping</description>
+		</valid_value>
+		<valid_value>
+			<value>310</value>
+			<description>Full Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>320</value>
+			<description>Partial Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>410</value>
+			<description>Manual Ordinary Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>420</value>
+			<description>Manual Unplanned Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>430</value>
+			<description>Manual Special Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>440</value>
+			<description>Appreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>510</value>
+			<description>Change of Depreciation Type</description>
+		</valid_value>
+		<valid_value>
+			<value>520</value>
+			<description>Change of Useful Life</description>
+		</valid_value>
+		<valid_value>
+			<value>530</value>
+			<description>Change of Depreciation Start Date</description>
+		</valid_value>
+		<valid_value>
+			<value>540</value>
+			<description>Change of Salvage Value</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>ORTI</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>AcctCodeLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>AcctCode</object_key_column>
+	</association>
+	<association>
+		<id>DprAreaLink</id>
+		<target_direct>ODPA</target_direct>
+		<object_key_column>DprArea</object_key_column>
+	</association>
+	<association>
+		<id>NewItemCodLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>NewItemCod</object_key_column>
+	</association>
+	<association>
+		<id>NewAstClsLink</id>
+		<target_direct>OACS</target_direct>
+		<object_key_column>NewAstCls</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

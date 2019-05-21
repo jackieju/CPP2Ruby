@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OTPW</id>
+	<description>Tax Payment Wizard</description>
+	<string_list>1100954</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WizNumber</id>
+		<source_code_name>NUMBER</source_code_name>
+		<description>Wizard Number</description>
+		<field_type>2</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WizName</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Wizard Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WizStatus</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Wizard Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>S</value>
+			<description>Saved</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Executed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Wizard Creation Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SaveDate</id>
+		<source_code_name>SAVE_DATE</source_code_name>
+		<description>Wizard Save Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExecDate</id>
+		<source_code_name>EXEC_DATE</source_code_name>
+		<description>Wizard Execution Date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Series</id>
+		<source_code_name>SERIES</source_code_name>
+		<description>Wizard Series</description>
+		<field_type>247</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>JETransId</id>
+		<source_code_name>JDT_NUM</source_code_name>
+		<description>Journal Entry Number</description>
+		<field_type>74</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WizDate</id>
+		<source_code_name>WIZARD_DATE</source_code_name>
+		<description>Wizard Date</description>
+		<field_type>2000</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RG23APart2</id>
+		<source_code_name>RG23A_PART_2</source_code_name>
+		<description>RG23A Part 2</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RG23CPart2</id>
+		<source_code_name>RG23C_PART_2</source_code_name>
+		<description>RG23C Part 2</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SeqCode</id>
+		<source_code_name>SEQ_CODE</source_code_name>
+		<description>Sequence Code</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Serial</id>
+		<source_code_name>SERIAL</source_code_name>
+		<description>Serial Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SeriesStr</id>
+		<source_code_name>SERIES_STR</source_code_name>
+		<description>Series String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubStr</id>
+		<source_code_name>SUB_STR</source_code_name>
+		<description>Subseries String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>JETransIdLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>JETransId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>NAME</id>
+		<unique />
+		<column>WizName</column>
+	</key>
+</table>

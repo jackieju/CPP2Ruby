@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OAT2</id>
+	<description>Blanket Agreement - Details</description>
+	<string_list>1101394</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<column>
+		<id>AgrNo</id>
+		<source_code_name>AGREEMENT_NO</source_code_name>
+		<description>Agreement No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AgrLnNum</id>
+		<source_code_name>AGREEMENT_LINE_NUM</source_code_name>
+		<description>Agreement Item Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AgrEfctNum</id>
+		<source_code_name>AGREEMENT_EFCT_NUM</source_code_name>
+		<description>Agreement Effective Row No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DatePeriod</id>
+		<source_code_name>DATE_PERIOD</source_code_name>
+		<description>Frequency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Daily</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Weekly</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Monthly</description>
+		</valid_value>
+		<valid_value>
+			<value>Q</value>
+			<description>Quarterly</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Semi-Annually</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Annually</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>One Time</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FromDate</id>
+		<source_code_name>FROM_DATE</source_code_name>
+		<description>From Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToDate</id>
+		<source_code_name>TO_DATE</source_code_name>
+		<description>To Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CallUp</id>
+		<source_code_name>CALL_UP</source_code_name>
+		<description>Release Information</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WhsCode</id>
+		<source_code_name>WAREHOUSE</source_code_name>
+		<description>Warehouse Code</description>
+		<field_type>39</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Item Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ConsumeFCT</id>
+		<source_code_name>CONSUME_FORECAST</source_code_name>
+		<description>Consumer Sales Forecast</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FreeTxt</id>
+		<source_code_name>FREE_TEXT</source_code_name>
+		<description>Free Text</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>AmountLC</id>
+		<source_code_name>AMOUNT_LC</source_code_name>
+		<description>Planned Amount (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AmountFC</id>
+		<source_code_name>AMOUNT_FC</source_code_name>
+		<description>Planned Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>AgreementLink</id>
+		<target_direct>OOAT</target_direct>
+		<object_key_column>AgrNo</object_key_column>
+	</association>
+	<association>
+		<id>WarehouseLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhsCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AgrNo</column>
+		<column>AgrLnNum</column>
+		<column>AgrEfctNum</column>
+	</key>
+</table>

@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>IVRU</id>
+	<description>Inventory Valuation Utility</description>
+	<string_list>1100921</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Successive No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SourceDB</id>
+		<source_code_name>SOURCE_DB</source_code_name>
+		<description>Source Database</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UtilityDB</id>
+		<source_code_name>UTILITY_DB</source_code_name>
+		<description>Utility DB</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IVLGEntry</id>
+		<source_code_name>IVLG_ENTRY</source_code_name>
+		<description>IVLG Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpdDate</id>
+		<source_code_name>UPD_DATE</source_code_name>
+		<description>Update Date and Time</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TblHINM</id>
+		<source_code_name>TABLE_HINM</source_code_name>
+		<description>HINM Name</description>
+		<field_type>279</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TblHITM</id>
+		<source_code_name>TABLE_HITM</source_code_name>
+		<description>HITM Name</description>
+		<field_type>279</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TblHITW</id>
+		<source_code_name>TABLE_HITW</source_code_name>
+		<description>HITW Name</description>
+		<field_type>279</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TblFINM</id>
+		<source_code_name>TABLE_FINM</source_code_name>
+		<description>FINM Name</description>
+		<field_type>279</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TblFITM</id>
+		<source_code_name>TABLE_FITM</source_code_name>
+		<description>FITM Name</description>
+		<field_type>279</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TblFITW</id>
+		<source_code_name>TABLE_FITW</source_code_name>
+		<description>FITW Name</description>
+		<field_type>279</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TrSeqHINM</id>
+		<source_code_name>LAST_TR_SEQ_HINM</source_code_name>
+		<description>Last HINM Trans. Seq. No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TrSeqOINM</id>
+		<source_code_name>LAST_TR_SEQ_OINM</source_code_name>
+		<description>Last OINM Trans. Seq. No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TrIdUtil</id>
+		<source_code_name>LAST_TR_ID_OJDT_UTIL</source_code_name>
+		<description>Last OJDT Trans. No. Utility</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TrIdProd</id>
+		<source_code_name>LAST_TR_ID_OJDT_PROD</source_code_name>
+		<description>Last OJDT Trans. No. Productiv</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Comment</id>
+		<source_code_name>COMMENT</source_code_name>
+		<description>Comment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StrFld</id>
+		<source_code_name>STR_FLD</source_code_name>
+		<description>General String Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NumFld</id>
+		<source_code_name>NUM_FLD</source_code_name>
+		<description>General Number Field</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>IVLGEntryLink</id>
+		<target_direct>IVLG</target_direct>
+		<object_key_column>IVLGEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

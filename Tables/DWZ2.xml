@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DWZ2</id>
+	<description sys="Y">Dunning Wizard Array 2-Invoice Filter</description>
+	<string_list>1100517</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>WizardId</id>
+		<source_code_name>WIZARD_ID</source_code_name>
+		<description>Wizard ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Card Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>LetterNum</id>
+		<source_code_name>LETTER_NUM</source_code_name>
+		<description>Letter Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TotalFee</id>
+		<source_code_name>TOTAL_FEE</source_code_name>
+		<description>Total Fee</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FeeCurr</id>
+		<source_code_name>FEE_CURRENCY</source_code_name>
+		<description>Total Fee Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>TtlopnIntr</id>
+		<source_code_name>TOTAL_OPEN_INTEREST</source_code_name>
+		<description>Sum of Open Sum+Interest</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EDunLevel</id>
+		<source_code_name>EDITED_DUNNING_LEVEL</source_code_name>
+		<description>Edited Dunning Level</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>OpnIntrCrr</id>
+		<source_code_name>OPEN_INTEREST_CURR</source_code_name>
+		<description>Total Open + Interest Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>DocAbs</id>
+		<source_code_name>DOC_ABS</source_code_name>
+		<description>Document Internal Number</description>
+		<field_type>2101</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NUM</source_code_name>
+		<description>Doc. No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>InstlmntID</id>
+		<source_code_name>INSTALLMENT_ID</source_code_name>
+		<description>Installment ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>IntrstPC</id>
+		<source_code_name>INTEREST_PERCENT</source_code_name>
+		<description>Interest Percent</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>IntrstAmnt</id>
+		<source_code_name>INTEREST_AMOUNT</source_code_name>
+		<description>Interest Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>IntrstCurr</id>
+		<source_code_name>INTEREST_CURRANCY</source_code_name>
+		<description>Interest Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>ChckLine</id>
+		<source_code_name>CHECKED_LINE</source_code_name>
+		<description>Checked Row</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IntrstDays</id>
+		<source_code_name>INTEREST_DAYS</source_code_name>
+		<description>Interest Days</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Source Table</description>
+		<field_type>2100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>13</value>
+			<description sys="Y">A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>203</value>
+			<description sys="Y">Down Payment Incoming</description>
+		</valid_value>
+		<valid_value>
+			<value>165</value>
+			<description sys="Y">Correction A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description sys="Y">A/R Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description sys="Y">Incoming Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>30</value>
+			<description sys="Y">Journal Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>-2</value>
+			<description sys="Y">Open Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>-3</value>
+			<description sys="Y">Close Balance</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DueDate</id>
+		<source_code_name>DUE_DATE</source_code_name>
+		<description>Due Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LetterLvl</id>
+		<source_code_name>LETTER_LEVEL</source_code_name>
+		<description>Letter Level</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>OpenSum</id>
+		<source_code_name>OPEN_SUM</source_code_name>
+		<description>Open Sum</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenCurr</id>
+		<source_code_name>OPEN_SUM_CURR</source_code_name>
+		<description>Open Sum Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>sumIntrClc</id>
+		<source_code_name>SUM_FOR_INTRST_CLC</source_code_name>
+		<description>Sum for Interest Calculation</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>folioNum</id>
+		<source_code_name>FOLIO_NUM</source_code_name>
+		<description>Folio Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>14</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LvlUpdated</id>
+		<source_code_name>LEVEL_UPDATED</source_code_name>
+		<description>Level Updated Flag</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TotalFeeFC</id>
+		<source_code_name>TOTAL_FEE_FC</source_code_name>
+		<description>Total Fee in Document Currency</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TotalFeeLC</id>
+		<source_code_name>TOTAL_FEE_LC</source_code_name>
+		<description>Total Fee in Local Currency</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TotalFeeSC</id>
+		<source_code_name>TOTAL_FEE_SC</source_code_name>
+		<description>Total Fee in System Currency</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TtlopnInFC</id>
+		<source_code_name>TOTAL_OPEN_INTRST_FC</source_code_name>
+		<description>Sum of Open Sum+Interest FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TtlopnInSC</id>
+		<source_code_name>TOTAL_OPEN_INTRST_SC</source_code_name>
+		<description>Sum of Open Sum+Interest SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>IntrAmtFC</id>
+		<source_code_name>INTEREST_AMOUNT_FC</source_code_name>
+		<description>Interest Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>IntrAmtSC</id>
+		<source_code_name>INTEREST_AMOUNT_SC</source_code_name>
+		<description>Interest Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OpenSumFC</id>
+		<source_code_name>OPEN_SUM_FC</source_code_name>
+		<description>Open Sum (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OpenSumSC</id>
+		<source_code_name>OPEN_SUM_SC</source_code_name>
+		<description>Open Sum (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ExeChkLine</id>
+		<source_code_name>EXECUTED_CHK_LINE</source_code_name>
+		<description>Executed Checked Row</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AutoPost</id>
+		<source_code_name>AUTOMATIC_POSTING</source_code_name>
+		<description>Automatic Posting</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Interest and Fee</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interest Only</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Fee Only</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocRate</id>
+		<source_code_name>DOCUMENT_RATE</source_code_name>
+		<description>Document Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UnpaidBoEV</id>
+		<source_code_name>UNPAID_BOE_VALUE</source_code_name>
+		<description>Unpaid BoE Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BoENumber</id>
+		<source_code_name>BOE_NUMBER</source_code_name>
+		<description>BoE Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BoEStatus</id>
+		<source_code_name>BOE_STATUS</source_code_name>
+		<description>BoE Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>BoEDate</id>
+		<source_code_name>BOE_DATE</source_code_name>
+		<description>BoE Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BoEKey</id>
+		<source_code_name>BOE_KEY</source_code_name>
+		<description>BoE Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>WizardIdLink</id>
+		<target_direct>ODWZ</target_direct>
+		<object_key_column>WizardId</object_key_column>
+	</association>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>FeeCurrLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>FeeCurr</object_key_column>
+	</association>
+	<association>
+		<id>DocTypeLink</id>
+		<target_indirect_object>DocType</target_indirect_object>
+		<object_key_column>DocAbs</object_key_column>
+	</association>
+	<association>
+		<id>IntrstCurrLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>IntrstCurr</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WizardId</column>
+		<column>LetterNum</column>
+		<column>DocAbs</column>
+		<column>InstlmntID</column>
+		<column>DocType</column>
+	</key>
+</table>

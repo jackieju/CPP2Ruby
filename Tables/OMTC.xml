@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OMTC</id>
+	<description>Bank Statement - Matching Criteria</description>
+	<string_list>1100887</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MatchID</id>
+		<source_code_name>MATCH_ID</source_code_name>
+		<description>Form Type Index</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Documents</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">Internal Reconciliation</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">External Reconciliation</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Round</id>
+		<source_code_name>ROUND</source_code_name>
+		<description>Rounding</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Round 1</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">Round 2</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">Round 3</description>
+		</valid_value>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>MtcRule</id>
+		<source_code_name>MATCH_RULE</source_code_name>
+		<description>Matching Rule</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>MtcAlias</id>
+		<source_code_name>MATCH_ALIAS</source_code_name>
+		<description>Matching Alias</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>18</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Differnce</id>
+		<source_code_name>DIFF_INT</source_code_name>
+		<description>Difference</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>DiffAmnt</id>
+		<source_code_name>DIFF_MONEY</source_code_name>
+		<description>Amount Difference</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RuleIndex</id>
+		<source_code_name>RULE_INDEX</source_code_name>
+		<description>Rule Index</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+	</key>
+	<key>
+		<id>MATCH_TYPE</id>
+		<unique />
+		<column>MatchID</column>
+		<column>Round</column>
+		<column>RuleIndex</column>
+	</key>
+</table>

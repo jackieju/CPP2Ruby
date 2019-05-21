@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>EJB2</id>
+	<description>Docs List for ERV-JAb Wizard</description>
+	<string_list>1101246</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>WizardID</id>
+		<source_code_name>WIZARD_ID</source_code_name>
+		<description>Wizard ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocID</id>
+		<source_code_name>DOC_ID</source_code_name>
+		<description>Document ID</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Selected</id>
+		<source_code_name>SELECTED</source_code_name>
+		<description>Selected</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Mandatory</id>
+		<source_code_name>MANDATORY</source_code_name>
+		<description>Mandatory</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>XML</value>
+			<description>XML</description>
+		</valid_value>
+		<valid_value>
+			<value>PDF</value>
+			<description>PDF</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RptSec</id>
+		<source_code_name>RPT_SECTION</source_code_name>
+		<description>Report Section</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>General Information for ERV-JAb</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Names of Signatories:</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Legal Size Classification</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Extract from Balance Sheet (UGB Form 2)</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Balance Sheet</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>P&amp;L Statement</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Annex To Be Published (UGB Form 3)</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>General and Other Explanations</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Annex to Balance Sheet Entry</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Annex to P&amp;L Statement</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Annual Report</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Suggestion for Financial Statement Usage</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Decision About Financial Statement Usage</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Note of Confirmation</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Supervisory Board Report</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>External Auditor Report Acc. to Art. 44 Para. 3 EStG (Income Tax Act)</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Finance-Specific Annex</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>Assets History Sheet</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>Liabilities History Sheet</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FilePath</id>
+		<source_code_name>FILEPATH</source_code_name>
+		<description>File Path</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>FileStorag</id>
+		<source_code_name>FILE_STORAGE</source_code_name>
+		<description>File Storage</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VisOrder</id>
+		<source_code_name>VIS_ORDER</source_code_name>
+		<description>Visual Order</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>WizardIDLink</id>
+		<target_direct>OEJB</target_direct>
+		<object_key_column>WizardID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WizardID</column>
+		<column>DocID</column>
+	</key>
+</table>

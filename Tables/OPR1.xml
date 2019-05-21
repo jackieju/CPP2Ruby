@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OPR1</id>
+	<description>Sales Opportunity - Rows</description>
+	<string_list>1100134</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>SalesOpportunities</info_category>
+	<column>
+		<id>OpprId</id>
+		<source_code_name>OPPR_ID</source_code_name>
+		<description>Sequence No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Line</id>
+		<source_code_name>LINE</source_code_name>
+		<description>Row No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>SlpCode</id>
+		<source_code_name>SLP_CODE</source_code_name>
+		<description>Sales Employee</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CntctCode</id>
+		<source_code_name>CPR_CODE</source_code_name>
+		<description>Contact Person</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OpenDate</id>
+		<source_code_name>OPEN_DATE</source_code_name>
+		<description>Start Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CloseDate</id>
+		<source_code_name>CLOSE_DATE</source_code_name>
+		<description>Closing Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Step_Id</id>
+		<source_code_name>STEP_ABS</source_code_name>
+		<description>Stage Key</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ClosePrcnt</id>
+		<source_code_name>CLOSE_PRCN</source_code_name>
+		<description>Percentage Rate</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>MaxSumLoc</id>
+		<source_code_name>MAX_SUM_L</source_code_name>
+		<description>Max. Local Total</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>MaxSumSys</id>
+		<source_code_name>MAX_SUM_S</source_code_name>
+		<description>Max. System Total</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Memo</id>
+		<source_code_name>MEMO</source_code_name>
+		<description>Remarks</description>
+		<field_type>182</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>DocId</id>
+		<source_code_name>DOC_ID</source_code_name>
+		<description>Object Code</description>
+		<field_type>2101</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJ_TYPE</source_code_name>
+		<description>Object Type</description>
+		<field_type>2100</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>23</value>
+			<description>Quotations</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Sales Orders</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Delivery Notes</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Sales Invoices</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>O</value>
+			<description>Open</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Linked</id>
+		<source_code_name>LINKED</source_code_name>
+		<description>Activity</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>WtSumLoc</id>
+		<source_code_name>WT_SUM_LOC</source_code_name>
+		<description>Weighted Amount (LC) - Rows</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WtSumSys</id>
+		<source_code_name>WT_SUM_SYS</source_code_name>
+		<description>Weighted Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ChnCrdCode</id>
+		<source_code_name>CHANNEL_CARD_CODE</source_code_name>
+		<description>BP Channel Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>ChnCrdName</id>
+		<source_code_name>CHANNEL_CARD_NAME</source_code_name>
+		<description>BP Channel Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>ChnCrdCon</id>
+		<source_code_name>CHANNEL_CARD_CONTACT</source_code_name>
+		<description>BP Channel Contact</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocChkbox</id>
+		<source_code_name>DOC_CHKBOX</source_code_name>
+		<description>Document Checkbox</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Owner</id>
+		<source_code_name>OWNER</source_code_name>
+		<description>Data Ownership Field</description>
+		<field_type>269</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocNumber</id>
+		<source_code_name>DOC_NUMBER</source_code_name>
+		<description>Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>OpprIdLink</id>
+		<target_direct>OOPR</target_direct>
+		<object_key_column>OpprId</object_key_column>
+	</association>
+	<association>
+		<id>SlpCodeLink</id>
+		<target_direct>OSLP</target_direct>
+		<object_key_column>SlpCode</object_key_column>
+	</association>
+	<association>
+		<id>CntctCodeLink</id>
+		<target_direct>OCPR</target_direct>
+		<object_key_column>CntctCode</object_key_column>
+	</association>
+	<association>
+		<id>Step_IdLink</id>
+		<target_direct>OOST</target_direct>
+		<object_key_column>Step_Id</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_indirect_object>ObjType</target_indirect_object>
+		<object_key_column>DocId</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>ChnCrdCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>ChnCrdCode</object_key_column>
+	</association>
+	<association>
+		<id>ChnCrdConLink</id>
+		<target_direct>OCPR</target_direct>
+		<object_key_column>ChnCrdCon</object_key_column>
+	</association>
+	<association>
+		<id>OwnerLink</id>
+		<target_direct>OHEM</target_direct>
+		<object_key_column>Owner</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>OpprId</column>
+		<column>Line</column>
+	</key>
+</table>

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OALD</id>
+	<description>System Alert Documents</description>
+	<string_list>1100845</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>Code</id>
+		<source_code_name>ALERT_CODE</source_code_name>
+		<description>Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Docs</id>
+		<source_code_name>DOCS</source_code_name>
+		<description>Related Documents</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description>NOB</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description sys="Y">Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Revert Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Delivery Notes</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Revert Delivery Notes</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Orders</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>Purchases</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Purchase Delivery Notes</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description>Purchase Orders</description>
+		</valid_value>
+		<valid_value>
+			<value>23</value>
+			<description>Quotations</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description>Receipts</description>
+		</valid_value>
+		<valid_value>
+			<value>30</value>
+			<description>Journal Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description>Payment to Vendor</description>
+		</valid_value>
+		<valid_value>
+			<value>57</value>
+			<description>Outgoing Checks</description>
+		</valid_value>
+		<valid_value>
+			<value>132</value>
+			<description>Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>203</value>
+			<description>Incoming Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>Outgoing Down Payment</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Active</id>
+		<source_code_name>ACTIVE</source_code_name>
+		<description>Indication for Activation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+		<column>Docs</column>
+	</key>
+</table>

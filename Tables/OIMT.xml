@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OIMT</id>
+	<description>Templates for Inventory JE</description>
+	<string_list>1101040</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>ValuatType</id>
+		<source_code_name>DOC_VALUATION_TYPE</source_code_name>
+		<description>Document Valuation Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>A</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">unDefined</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TransType</id>
+		<source_code_name>TRANS_TYPE</source_code_name>
+		<description sys="Y">Transaction type</description>
+		<field_type>67</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BaseType</id>
+		<source_code_name>BASE_TRANS_TYPE</source_code_name>
+		<description sys="Y">Base Transaction Type</description>
+		<field_type>67</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>TemplateId</id>
+		<source_code_name>TEMPLATE_ID</source_code_name>
+		<description>Template ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>LocalizId</id>
+		<source_code_name>LOCALIZATION</source_code_name>
+		<description sys="Y">Localization Identifier</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>XX</default_value>
+		<valid_value>
+			<value>XX</value>
+			<description>All Localizations</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Action</id>
+		<source_code_name>ACTION</source_code_name>
+		<description>Action Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>JEPosting</id>
+		<source_code_name>POSTING_STATUS</source_code_name>
+		<description>Posting Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>None</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Complete</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partial</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LineActTyp</id>
+		<source_code_name>LINE_ACCOUNT_TYPE</source_code_name>
+		<description sys="Y">Line Account Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>2</default_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">LINE_ACCT_TYPE</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TmpType</id>
+		<source_code_name>TEMPLATE_TYPE</source_code_name>
+		<description sys="Y">Template Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Total</id>
+		<source_code_name>TOTAL</source_code_name>
+		<description sys="Y">Total Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>M</value>
+			<description>Total from Message</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Total from Calculator</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Total from Formula</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TemplateId</column>
+	</key>
+	<key>
+		<id>SECONDARY</id>
+		<unique />
+		<column>TransType</column>
+		<column>BaseType</column>
+		<column>ValuatType</column>
+		<column>LocalizId</column>
+		<column>Action</column>
+		<column>TmpType</column>
+	</key>
+</table>

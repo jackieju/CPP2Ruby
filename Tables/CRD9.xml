@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CRD9</id>
+	<description>OCRD Extension</description>
+	<string_list>1101677</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ISTransMod</id>
+		<source_code_name>IS_TRANS_MOD</source_code_name>
+		<description>Intrastat Trasnport Mode</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ISIncoterm</id>
+		<source_code_name>IS_INCOTERMS</source_code_name>
+		<description>Intrastat Incoterms</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ISState</id>
+		<source_code_name>IS_STATE</source_code_name>
+		<description>Intrastat State</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ISNatTrans</id>
+		<source_code_name>IS_NATTRANS</source_code_name>
+		<description>Intrastat Nature of Trans.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ISStatProc</id>
+		<source_code_name>IS_STATPROC</source_code_name>
+		<description>Intrastat Statistical Proc.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ISCustProc</id>
+		<source_code_name>IS_CUSTPROC</source_code_name>
+		<description>Intrastat Customs Proc.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ISCRYOrig</id>
+		<source_code_name>IS_COUNTRY_ORIG</source_code_name>
+		<description>Intrastat Country Origin</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>ISPort</id>
+		<source_code_name>IS_PORT</source_code_name>
+		<description>Intrastat Port of Entry/Exit</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ISDomFrgld</id>
+		<source_code_name>IS_DOMFRGLD</source_code_name>
+		<description>Intrastat Domestic/Foreign ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>ISRelevant</id>
+		<source_code_name>IS_RELEVANT</source_code_name>
+		<description>Intrastat Relevant</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>TransModeLink</id>
+		<target_direct>ODCI</target_direct>
+		<object_key_column>ISTransMod</object_key_column>
+	</association>
+	<association>
+		<id>IncotermsLink</id>
+		<target_direct>ODCI</target_direct>
+		<object_key_column>ISIncoterm</object_key_column>
+	</association>
+	<association>
+		<id>RegionLink</id>
+		<target_direct>ODCI</target_direct>
+		<object_key_column>ISState</object_key_column>
+	</association>
+	<association>
+		<id>NatOfTransLink</id>
+		<target_direct>ODCI</target_direct>
+		<object_key_column>ISNatTrans</object_key_column>
+	</association>
+	<association>
+		<id>StatProcsLink</id>
+		<target_direct>ODCI</target_direct>
+		<object_key_column>ISStatProc</object_key_column>
+	</association>
+	<association>
+		<id>CustProcsLink</id>
+		<target_direct>ODCI</target_direct>
+		<object_key_column>ISCustProc</object_key_column>
+	</association>
+	<association>
+		<id>CountryLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>ISCRYOrig</object_key_column>
+	</association>
+	<association>
+		<id>PortsLink</id>
+		<target_direct>ODCI</target_direct>
+		<object_key_column>ISPort</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CardCode</column>
+	</key>
+</table>

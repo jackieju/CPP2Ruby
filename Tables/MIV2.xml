@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>MIV2</id>
+	<description>A/P Monthly Invoice - Item</description>
+	<string_list>1100962</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>MinvNum</id>
+		<source_code_name>MINV_NUM</source_code_name>
+		<description>Monthly Invoice Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NUM</source_code_name>
+		<description>Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Document Type</description>
+		<field_type>2100</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>A/P Credit Memo</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DOC_DATE</source_code_name>
+		<description>Document Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Line number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ItemName</id>
+		<source_code_name>ITEM_NAME</source_code_name>
+		<description>Item Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>ItemPrice</id>
+		<source_code_name>ITEM_PRICE</source_code_name>
+		<description>Item Price</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ItemCurr</id>
+		<source_code_name>ITEM_CURRENCY</source_code_name>
+		<description>Item Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>ItemRate</id>
+		<source_code_name>ITEM_RATE</source_code_name>
+		<description>Currency Exchange Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ItemQuan</id>
+		<source_code_name>ITEM_QUANTITY</source_code_name>
+		<description>Item Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ItemType</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Item Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Item</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Expense</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Rounding</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Tax Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Service</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Down Payment Paid</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>WTax Amount</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ItemTotal</id>
+		<source_code_name>ITEM_TOTAL</source_code_name>
+		<description>Net Total</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxAmount</id>
+		<source_code_name>TAX_AMOUNT</source_code_name>
+		<description>Tax Amount of Line Level</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LineTotal</id>
+		<source_code_name>LINE_TOTAL</source_code_name>
+		<description>Gross Total</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Entry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Monthly Invoice Entry</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>DOC_ABS_ENTRY</source_code_name>
+		<description>Document Entry</description>
+		<field_type>2101</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>DocTypeLink</id>
+		<target_indirect_object>DocType</target_indirect_object>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>EntryLink</id>
+		<target_direct>OMIV</target_direct>
+		<object_key_column>Entry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Entry</column>
+		<column>DocType</column>
+		<column>AbsEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

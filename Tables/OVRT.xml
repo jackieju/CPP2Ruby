@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OVRT</id>
+	<description>Tax Invoice Report</description>
+	<string_list>1100670</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>TxInvRptNo</id>
+		<source_code_name>TX_INV_RPT_NO</source_code_name>
+		<description>Tax Invoice Rpt Number</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>TxInvRptDt</id>
+		<source_code_name>TX_INV_RPT_DT</source_code_name>
+		<description>Tax Invoice Rpt Create Date</description>
+		<field_type>2000</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SupBPLId</id>
+		<source_code_name>SUP_BPL_ID</source_code_name>
+		<description>Supplier BPL ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>Receipt BP Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>BaseAmt</id>
+		<source_code_name>BASE_AMT</source_code_name>
+		<description>Total Base Amount(LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BlankNo</id>
+		<source_code_name>BLANK_NO</source_code_name>
+		<description>Blank Before Total Base Amount</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TaxAmt</id>
+		<source_code_name>TAX_AMT</source_code_name>
+		<description>Total Tax Amount(LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Total</id>
+		<source_code_name>TOTAL</source_code_name>
+		<description>Total Base + Total Tax</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BPAddress</id>
+		<source_code_name>BP_ADDRESS</source_code_name>
+		<description>Customer Pay to Address</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>version</id>
+		<source_code_name>VERSION</source_code_name>
+		<description>Report Generation Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>ReportType</id>
+		<source_code_name>REPORT_TYPE</source_code_name>
+		<description>VAT: Tax Report Type ID</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NTSApprov</id>
+		<source_code_name>NTS_APPROVED</source_code_name>
+		<description>NTS Approved</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>NTSWebSite</id>
+		<source_code_name>NTS_WEBSITE</source_code_name>
+		<description>E-Tax Web Site</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>NTSeTaxNo</id>
+		<source_code_name>NTS_E_TAX_NUMBER</source_code_name>
+		<description>E-Tax Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>NTSApprNo</id>
+		<source_code_name>NTS_APPROVAL_NUMBER</source_code_name>
+		<description>NTS Approval Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Remarks</id>
+		<source_code_name>REMARKS</source_code_name>
+		<description>Remarks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<association>
+		<id>ReportTypeLink</id>
+		<target_direct>OKRT</target_direct>
+		<object_key_column>ReportType</object_key_column>
+	</association>
+	<association>
+		<id>NTSWebSiteLink</id>
+		<target_direct>OTWS</target_direct>
+		<object_key_column>NTSWebSite</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TxInvRptNo</column>
+	</key>
+</table>

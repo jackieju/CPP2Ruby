@@ -1,0 +1,826 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OISW</id>
+	<description>Intrastat Wizard</description>
+	<string_list>1101553</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DeclDescr</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Description</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>DateFrom</id>
+		<source_code_name>DECLARE_DATE_FROM</source_code_name>
+		<description>Starting Date of Declaration</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DateTo</id>
+		<source_code_name>DECLARE_DATE_TO</source_code_name>
+		<description>Ending Date of Declaration</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>RunDate</id>
+		<source_code_name>DATE_OF_RUN</source_code_name>
+		<description>Date of Run</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ImpExpInd</id>
+		<source_code_name>IMPORT_EXPORT_IND</source_code_name>
+		<description>Import Export Indicator</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Export</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>O</value>
+			<description>Open</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Deleted</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>MsgType</id>
+		<source_code_name>MESSAGE_TYPE</source_code_name>
+		<description>Message Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>New Declaration</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Nil Declaration</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Correction Declaration</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TtlDocVal</id>
+		<source_code_name>TOTAL_DOCUMENT_VALUE</source_code_name>
+		<description>Total document value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocCount</id>
+		<source_code_name>TOTAL_DOCUMENT_COUNT</source_code_name>
+		<description>Total number of documents</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompName</id>
+		<source_code_name>COMPANY_NAME</source_code_name>
+		<description>Company Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompDeclID</id>
+		<source_code_name>COMPANY_DECL_ID</source_code_name>
+		<description>Company Declaration ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>CompStreet</id>
+		<source_code_name>COMPANY_STREET</source_code_name>
+		<description>Company Street</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompCity</id>
+		<source_code_name>COMPANY_CITY</source_code_name>
+		<description>Company City</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompZip</id>
+		<source_code_name>COMPANY_ZIP_CODE</source_code_name>
+		<description>Company Zip Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompCntry</id>
+		<source_code_name>COMPANY_COUNTRY</source_code_name>
+		<description>Company Country</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DeclCntry</id>
+		<source_code_name>DECLARATION_COUNTRY</source_code_name>
+		<description>Declaration Country</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CntPersID</id>
+		<source_code_name>CONTACT_PERSON_ID</source_code_name>
+		<description>Contact Person ID</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CntPerson</id>
+		<source_code_name>CONTACT_PERSON_NAME</source_code_name>
+		<description>Contact Person</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CntEmail</id>
+		<source_code_name>CONTACT_EMAIL</source_code_name>
+		<description>Contact Email</description>
+		<field_type>245</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CntPhone</id>
+		<source_code_name>CONTACT_PHONE</source_code_name>
+		<description>Contact Phone</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CntFax</id>
+		<source_code_name>CONTACT_FAX</source_code_name>
+		<description>Contact Fax</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VATRegNo</id>
+		<source_code_name>VAT_REGISTRATION_NUM</source_code_name>
+		<description>VAT Reg. No. of Trader</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>VATRegEx</id>
+		<source_code_name>VAT_REG_NUM_EXT</source_code_name>
+		<description>VAT Reg. No. Extension</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>DeclNum</id>
+		<source_code_name>DECLARATION_NUMBER</source_code_name>
+		<description>Sequential Declaration Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>14</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DeclNoEx</id>
+		<source_code_name>DECL_PERIOD_NUMBER</source_code_name>
+		<description>No. of Declaration in Period</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HeaderId</id>
+		<source_code_name>HEADER_ID</source_code_name>
+		<description>Header ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DeclStat</id>
+		<source_code_name>DECLARATION_STATUS</source_code_name>
+		<description>Declaration Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>DeclDept</id>
+		<source_code_name>DECLARING_DEPARTMENT</source_code_name>
+		<description>Declaring Department</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>DeclCurr</id>
+		<source_code_name>DECLARATION_CURRENCY</source_code_name>
+		<description>Declaration Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObligLvl</id>
+		<source_code_name>DEGREE_OF_OBLIGATION</source_code_name>
+		<description>Degree of Obligation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>TaxState</id>
+		<source_code_name>TAX_OFFICE_STATE</source_code_name>
+		<description>Federal State of Tax Office</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>CustOffc</id>
+		<source_code_name>CUSTOMS_REG_OFFICE</source_code_name>
+		<description>Customs Registration Office</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CustOffID</id>
+		<source_code_name>CUSTOMS_REG_OFFIC_ID</source_code_name>
+		<description>Customs Registration Office ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DeclSerNo</id>
+		<source_code_name>DECL_SERIAL_NUM</source_code_name>
+		<description>Declaration Sequence Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IntCtrlRef</id>
+		<source_code_name>INTER_CTRL_REFERENCE</source_code_name>
+		<description>Interchange Control Reference</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>99</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Addr1_3p</id>
+		<source_code_name>3RD_PARTY_ADDR_PRT_1</source_code_name>
+		<description>Third Party Address Part 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Addr2_3p</id>
+		<source_code_name>3RD_PARTY_ADDR_PRT_2</source_code_name>
+		<description>Third Party Address Part 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Addr3_3p</id>
+		<source_code_name>3RD_PARTY_ADDR_PRT_3</source_code_name>
+		<description>Third Party Address Part 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Addr4_3p</id>
+		<source_code_name>3RD_PARTY_ADDR_PRT_4</source_code_name>
+		<description>Third Party Address Part 4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CntPers_3p</id>
+		<source_code_name>3RD_PARTY_CNT_PERSON</source_code_name>
+		<description>Third Party Contact Person</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CntPhon_3p</id>
+		<source_code_name>3RD_PARTY_CNT_PHONE</source_code_name>
+		<description>Third Party Contact Phone</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CntFax_3p</id>
+		<source_code_name>3RD_PARTY_CNT_FAX</source_code_name>
+		<description>Third Party Contact Fax</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FreeTxt1</id>
+		<source_code_name>FREE_TEXT_LINE_1</source_code_name>
+		<description>Free Text Line 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>70</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FreeTxt2</id>
+		<source_code_name>FREE_TEXT_LINE_2</source_code_name>
+		<description>Free Text Line 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>70</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FreeTxt3</id>
+		<source_code_name>FREE_TEXT_LINE_3</source_code_name>
+		<description>Free Text Line 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>70</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FreeTxt4</id>
+		<source_code_name>FREE_TEXT_LINE_4</source_code_name>
+		<description>Free Text Line 4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>70</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FreeTxt5</id>
+		<source_code_name>FREE_TEXT_LINE_5</source_code_name>
+		<description>Free Text Line 5</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>70</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ValidKey</id>
+		<source_code_name>VALIDATION_KEY</source_code_name>
+		<description>Validation Key Identification</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>35</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>35</edit_size>
+	</column>
+	<column>
+		<id>ISDeclOffc</id>
+		<source_code_name>IS_DECLARATION_OFFIC</source_code_name>
+		<description>Intrastat Declaration Office</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>ReleaseVer</id>
+		<source_code_name>RELEASE_VER</source_code_name>
+		<description>Release Version</description>
+		<field_type>274</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>Created by User</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PosCredVal</id>
+		<source_code_name>POS_CREDIT_MEMO_VAL</source_code_name>
+		<description>Positive Credit Memo Values</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IncPrevDoc</id>
+		<source_code_name>INCL_PREVIOUS_DOCS</source_code_name>
+		<description>Include Previous Documents</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DeclPeriod</id>
+		<source_code_name>DECLARATION_PERIOD</source_code_name>
+		<description>Declaration Period</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>M</value>
+			<description>Monthly</description>
+		</valid_value>
+		<valid_value>
+			<value>Q</value>
+			<description>Quarterly</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Box1</id>
+		<source_code_name>BOX1_PERIODICITY</source_code_name>
+		<description>Box 1: Periodicity</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>None of the Other Cases</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>First Month of Quarter</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>First and Second Months of Quarter</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Box2</id>
+		<source_code_name>BOX2_COMPANY_ACTIVIT</source_code_name>
+		<description>Box 2: Company Activity</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>None of the Other Cases</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>First Declaration</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Stop Activity/Change of Federal Tax ID</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>First Declaration After Federal Tax ID Change</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>GroupData</id>
+		<source_code_name>GROUP_DATA</source_code_name>
+		<description>Group Display Data</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CstRecSt</id>
+		<source_code_name>CUSTOM_SECTION</source_code_name>
+		<description>Custom Section</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>TaxCodeExt</id>
+		<source_code_name>TAX_CODE_EXT</source_code_name>
+		<description>Tax Code Extension</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>99</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExportPath</id>
+		<source_code_name>EXPORT_PATH</source_code_name>
+		<description>Export Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LLEFMAbs</id>
+		<source_code_name>LL_EFM_TEMPLATE_ID</source_code_name>
+		<description>EFM Template ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SimpProc</id>
+		<source_code_name>SIMPLIFIED_PROC</source_code_name>
+		<description>Simplified Procedure</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DspNMass</id>
+		<source_code_name>DISPLAY_NET_MASS</source_code_name>
+		<description>Require All Data</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExlDocQt</id>
+		<source_code_name>EXCL_DOC_QTY</source_code_name>
+		<description>Exclude Docs W/ Qty Less Than</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocQtLm</id>
+		<source_code_name>EXCL_DOC_QTY_LIMIT</source_code_name>
+		<description>Document Quantity Limit</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExlDocAm</id>
+		<source_code_name>EXCL_DOC_AMNT</source_code_name>
+		<description>Exclude Docs W/ Amt Less Than</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocAmLm</id>
+		<source_code_name>EXCL_DOC_AMNT_LIMIT</source_code_name>
+		<description>Document Amount Limit</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RunTime</id>
+		<source_code_name>TIME_OF_RUN</source_code_name>
+		<description>Time of Run</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AddonRun</id>
+		<source_code_name>ADDON_RUN</source_code_name>
+		<description>Upgraded add-on run</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BaseDecl</id>
+		<source_code_name>BASE_DECLARATION</source_code_name>
+		<description>Base declaration</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>HomeCountryLnk</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>CompCntry</object_key_column>
+	</association>
+	<association>
+		<id>DeclCountryLnk</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>DeclCntry</object_key_column>
+	</association>
+	<association>
+		<id>EmployeeLnk</id>
+		<target_direct>OHEM</target_direct>
+		<object_key_column>CntPersID</object_key_column>
+	</association>
+	<association>
+		<id>BaseLink</id>
+		<target_direct>ODCI</target_direct>
+		<object_key_column>BaseDecl</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

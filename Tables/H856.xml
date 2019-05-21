@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>H856</id>
+	<description>857 Report - Record 70</description>
+	<string_list>1100032</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>DeductNum</id>
+		<source_code_name>DEDUCT_NUM</source_code_name>
+		<description>Deduction File Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>M96</id>
+		<source_code_name>M96</source_code_name>
+		<description sys="Y">96</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>96</default_value>
+	</column>
+	<column>
+		<id>Year</id>
+		<source_code_name>YEAR</source_code_name>
+		<description>Year</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Free1</id>
+		<source_code_name>FREE1</source_code_name>
+		<description sys="Y" />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Manual</id>
+		<source_code_name>MANUAL</source_code_name>
+		<description>Manual Report</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Manual Report Does Not Exist</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Manual Report Exists</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Extra</id>
+		<source_code_name>EXTRA</source_code_name>
+		<description>Extra Report</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Additional Report</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Additional Closing Report</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Additional Automatic Report</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Additional Completing and Mechanized Report</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Payer Legal Status</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Company</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Self-Employed</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Partnership</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Non-Profit Organization</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Authority</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FileNum</id>
+		<source_code_name>FILE_NUM</source_code_name>
+		<description>File Number in Income Tax</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>Free3</id>
+		<source_code_name>FREE3</source_code_name>
+		<description sys="Y" />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>71</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>71</edit_size>
+	</column>
+	<column>
+		<id>Payments</id>
+		<source_code_name>PAYMENTS</source_code_name>
+		<description>Total Payments</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>Deduction</id>
+		<source_code_name>DEDUCTION</source_code_name>
+		<description>Deductions Total</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>VATDeduct</id>
+		<source_code_name>VAT_DEDUCTION</source_code_name>
+		<description>Total Tax Deductions</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>Balance</id>
+		<source_code_name>BALANCE</source_code_name>
+		<description>Card Balance</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>NumOfCard1</id>
+		<source_code_name>NUM_OF_CARD1</source_code_name>
+		<description>Number of Receivers 1</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>NumOfCard2</id>
+		<source_code_name>NUM_OF_CARD2</source_code_name>
+		<description>Number of Receivers 2</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>Free4</id>
+		<source_code_name>FREE4</source_code_name>
+		<description sys="Y" />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>63</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>63</edit_size>
+	</column>
+	<column>
+		<id>M70</id>
+		<source_code_name>M70</source_code_name>
+		<description sys="Y">70</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>70</default_value>
+	</column>
+</table>

@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ORSG</id>
+	<description>Resource Properties</description>
+	<string_list>1101917</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<column>
+		<id>ResTypCod</id>
+		<source_code_name>GROUP_CODE</source_code_name>
+		<description>Number</description>
+		<field_type>66</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ResGrpNam</id>
+		<source_code_name>GROUP_NAME</source_code_name>
+		<description>Property Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ResTypCod</column>
+	</key>
+	<key>
+		<id>GROUP_NAME</id>
+		<unique />
+		<column>ResGrpNam</column>
+	</key>
+</table>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>WST1</id>
+	<description>Confirmation Level - Rows</description>
+	<string_list>1100221</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>WstCode</id>
+		<source_code_name>WST_CODE</source_code_name>
+		<description>Code</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>UserID</id>
+		<source_code_name>USER_ID</source_code_name>
+		<description>User Code</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<association>
+		<id>WstCodeLink</id>
+		<target_direct>OWST</target_direct>
+		<object_key_column>WstCode</object_key_column>
+	</association>
+	<association>
+		<id>UserIDLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WstCode</column>
+		<column>UserID</column>
+	</key>
+</table>

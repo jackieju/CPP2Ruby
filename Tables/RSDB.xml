@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RSDB</id>
+	<description sys="Y">Resource DB List</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>AbsKey</id>
+		<source_code_name>ABS_KEY</source_code_name>
+		<description sys="Y">Abs Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ServerName</id>
+		<source_code_name>SERVER_NAME</source_code_name>
+		<description sys="Y">Server Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>DbName</id>
+		<source_code_name>DB_NAME</source_code_name>
+		<description sys="Y">Resource DB Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>Date</id>
+		<source_code_name>CREATION_DATE</source_code_name>
+		<description sys="Y">Creation date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Time</id>
+		<source_code_name>CREATION_TIME</source_code_name>
+		<description sys="Y">Creation Time</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrigDB</id>
+		<source_code_name>ORIGINAL_DB</source_code_name>
+		<description sys="Y">Original DB</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MBServer</id>
+		<source_code_name>MB_SERVER_NAME</source_code_name>
+		<description sys="Y">Master Base Server Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>MBDbName</id>
+		<source_code_name>MB_DB_NAME</source_code_name>
+		<description sys="Y">Master Base DB Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsKey</column>
+	</key>
+	<key>
+		<id>SERVER_DB</id>
+		<unique />
+		<column>ServerName</column>
+		<column>DbName</column>
+	</key>
+</table>

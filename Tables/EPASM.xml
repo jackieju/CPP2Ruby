@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>EPASM</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>AsmName</id>
+		<source_code_name>ASSEMBLY_NAME</source_code_name>
+		<description sys="Y">plugin assembly name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PkgName</id>
+		<source_code_name>PACKAGE_NAME</source_code_name>
+		<description sys="Y">FK to the EPPKG table</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AsmType</id>
+		<source_code_name>ASSEMBLY_TYPE</source_code_name>
+		<description sys="Y">Ttypes contained in assembly</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>All</default_value>
+		<valid_value>
+			<value>Messages</value>
+			<description sys="Y">Only IMessage contained in the assembly</description>
+		</valid_value>
+		<valid_value>
+			<value>Processors</value>
+			<description sys="Y">Only IMessageProcessor contained in the assembly</description>
+		</valid_value>
+		<valid_value>
+			<value>All</value>
+			<description sys="Y">All types are in the assembly</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AsmName</column>
+	</key>
+</table>

@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>WHT1</id>
+	<description>Withholding Tax Definition</description>
+	<string_list>1100439</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>WTCode</id>
+		<source_code_name>WT_CODE</source_code_name>
+		<description>WTax Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>EffecDate</id>
+		<source_code_name>EFFECTIVE_DATE</source_code_name>
+		<description>Effective From</description>
+		<field_type>244</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Rate</id>
+		<source_code_name>RATE</source_code_name>
+		<description>Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>TdsRate</id>
+		<source_code_name>TDS_RATE</source_code_name>
+		<description>TDS Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SurRate</id>
+		<source_code_name>SUR_RATE</source_code_name>
+		<description>Surcharge Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CessRate</id>
+		<source_code_name>CESS_RATE</source_code_name>
+		<description>Cess Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HscRate</id>
+		<source_code_name>HSC_RATE</source_code_name>
+		<description>HSC Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PmntTerms</id>
+		<source_code_name>PAYMENT_TERMS</source_code_name>
+		<description>Payment Terms</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>WTCodeLink</id>
+		<target_direct>OWHT</target_direct>
+		<object_key_column>WTCode</object_key_column>
+	</association>
+	<association>
+		<id>PmntTermsLink</id>
+		<target_direct>OCTG</target_direct>
+		<object_key_column>PmntTerms</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WTCode</column>
+		<column>LineNum</column>
+	</key>
+</table>

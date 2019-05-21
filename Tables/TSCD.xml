@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TSCD</id>
+	<description sys="Y">Schedules</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>SrvcName</id>
+		<source_code_name>SERVICE_NAME</source_code_name>
+		<description sys="Y">Service application name</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SchedType</id>
+		<source_code_name>SCHED_TYPE</source_code_name>
+		<description sys="Y">Type of schedule</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description sys="Y">Suspended / Paused</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description sys="Y">Once</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y">Every X seconds</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description sys="Y">Every X minutes</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description sys="Y">Daily</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description sys="Y">Weekly</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description sys="Y">Monthly</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SchedDate</id>
+		<source_code_name>SCHED_DATE</source_code_name>
+		<description sys="Y">Scheduled date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SchedDay</id>
+		<source_code_name>SCHED_DAY_OF_WEEK</source_code_name>
+		<description sys="Y">Scheduled day</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>Interval</id>
+		<source_code_name>INTERVAL</source_code_name>
+		<description sys="Y">Interval</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LastExDate</id>
+		<source_code_name>LAST_EXEC_DATE</source_code_name>
+		<description sys="Y">Last execution date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AutoStart</id>
+		<source_code_name>AUTO_START</source_code_name>
+		<description sys="Y">Auto run when OS starts</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">NO</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SrvcName</column>
+	</key>
+	<key>
+		<id>NAME_SCHED</id>
+		<unique />
+		<column>SrvcName</column>
+		<column>LastExDate</column>
+	</key>
+</table>

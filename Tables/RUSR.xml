@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RUSR</id>
+	<description sys="Y">Resource Users</description>
+	<view_type>MasterData</view_type>
+	<domain>System</domain>
+	<column>
+		<id>IUserCode</id>
+		<source_code_name>I_USER_CODE</source_code_name>
+		<description sys="Y">I User Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">User Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserGroup</id>
+		<source_code_name>USER_GROUP</source_code_name>
+		<description sys="Y">User Group</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Password</id>
+		<source_code_name>PASSWORD</source_code_name>
+		<description sys="Y">Password</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGN</source_code_name>
+		<description sys="Y">User Signature</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>UserSign</column>
+	</key>
+	<key>
+		<id>I_USER</id>
+		<unique />
+		<column>IUserCode</column>
+	</key>
+	<key>
+		<id>NAME</id>
+		<unique />
+		<column>Name</column>
+	</key>
+</table>

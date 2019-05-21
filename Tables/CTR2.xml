@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CTR2</id>
+	<description sys="Y">Service Contract - Recurring Transactions</description>
+	<string_list>1101357</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Service</info_category>
+	<column>
+		<id>ContractID</id>
+		<source_code_name>CONTRACT_ID</source_code_name>
+		<description sys="Y">Contract No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RcpEntry</id>
+		<source_code_name>RCP_ENTRY</source_code_name>
+		<description sys="Y">Recurring Template Entry</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>ContractIDLink</id>
+		<target_direct>OCTR</target_direct>
+		<object_key_column>ContractID</object_key_column>
+	</association>
+	<association>
+		<id>RcpEntryLink</id>
+		<target_direct>ORCP</target_direct>
+		<object_key_column>RcpEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ContractID</column>
+		<column>RcpEntry</column>
+	</key>
+</table>

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>IMT1</id>
+	<description>Acct data in selected template</description>
+	<string_list>1101041</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>TemplateId</id>
+		<source_code_name>TEMPLATE_ID</source_code_name>
+		<description sys="Y">Template ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AccountId</id>
+		<source_code_name>ACCOUNT_ID</source_code_name>
+		<description sys="Y">Account ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>DebitCredi</id>
+		<source_code_name>DEBIT_CREDIT</source_code_name>
+		<description sys="Y">Debit or Credit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>U</default_value>
+		<valid_value>
+			<value>U</value>
+			<description sys="Y">Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description sys="Y">DEBIT</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description sys="Y">CREDIT</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description sys="Y">Both</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Total</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OrderCalc</id>
+		<source_code_name>ORDER</source_code_name>
+		<description>Order Calc</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<association>
+		<id>TemplateIdLink</id>
+		<target_direct>OIMT</target_direct>
+		<object_key_column>TemplateId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TemplateId</column>
+		<column>AccountId</column>
+	</key>
+</table>

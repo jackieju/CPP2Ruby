@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OBGT</id>
+	<description>Budget</description>
+	<string_list>1100062</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>AbsId</id>
+		<source_code_name>ABS_ID</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AcctCode</id>
+		<source_code_name>ACCNT_CODE</source_code_name>
+		<description>Account Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>BgdCode</id>
+		<source_code_name>BGD_CODE</source_code_name>
+		<description>Division Code</description>
+		<field_type>112</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FatherCode</id>
+		<source_code_name>FATH_CODE</source_code_name>
+		<description>Parent Account Key</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>FthrPrcnt</id>
+		<source_code_name>FATH_PRCNT</source_code_name>
+		<description>Parent Acct %</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DebLTotal</id>
+		<source_code_name>DEB_TOTAL</source_code_name>
+		<description>Total Annual Budget - Debit (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CredLTotal</id>
+		<source_code_name>CRED_TOTAL</source_code_name>
+		<description>Total Annual Budget - Credit (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DebSTotal</id>
+		<source_code_name>DEB_SYS_TOTAL</source_code_name>
+		<description>Total Annual Budget - Debit (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CredSTotal</id>
+		<source_code_name>CRED_SYS_TOTAL</source_code_name>
+		<description>Total Annual Budget - Credit (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DebRLTotal</id>
+		<source_code_name>DEB_REAL_TOTAL</source_code_name>
+		<description>Budget Balance - Debit (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CrdRLTotal</id>
+		<source_code_name>CRED_REAL_TOTAL</source_code_name>
+		<description>Budget Balance - Credit (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DebRSTotal</id>
+		<source_code_name>DEB_REAL_SYS_TOTAL</source_code_name>
+		<description>Budget Balance - Debit (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CrdRSTotal</id>
+		<source_code_name>CRED_REAL_SYS_TOTAL</source_code_name>
+		<description>Budget Balance - Credit (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FtrIDRLSum</id>
+		<source_code_name>FUTR_IN_D_R_SUM</source_code_name>
+		<description>Future Annual Revenues - Debit (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FtrIDRSSum</id>
+		<source_code_name>FUTR_IN_D_R_SYS_SUM</source_code_name>
+		<description>Future Annual Revenues -  Credit (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FtrICRLSum</id>
+		<source_code_name>FUTR_IN_C_R_SUM</source_code_name>
+		<description>Future Revenues - Debit (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FtrICRSSum</id>
+		<source_code_name>FUTR_IN_C_R_SYS_SUM</source_code_name>
+		<description>Future Revenues - Debit (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FtrODRLSum</id>
+		<source_code_name>FUTR_OUT_D_R_SUM</source_code_name>
+		<description>Future Annual Expenses - Credit (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FtrOCRLSum</id>
+		<source_code_name>FUTR_OUT_C_R_SUM</source_code_name>
+		<description>Future Annual Expenses - Debit (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FtrODRSSum</id>
+		<source_code_name>FUTR_OUT_D_R_SYS_SUM</source_code_name>
+		<description>Future Annual Expenses - Credit (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FtrOCRSSum</id>
+		<source_code_name>FUTR_OUT_C_R_SYS_SUM</source_code_name>
+		<description>Future Annual Expenses - Debit (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FinancYear</id>
+		<source_code_name>FINANCIAL_YEAR</source_code_name>
+		<description>Start of Fiscal Year</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Instance</id>
+		<source_code_name>INSTANCE</source_code_name>
+		<description>Instance</description>
+		<field_type>227</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>SCNCounter</id>
+		<source_code_name>SCN_COUNTER</source_code_name>
+		<description sys="Y">SCN Counter</description>
+		<invisible />
+		<field_type>248</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>BgdCodeLink</id>
+		<target_direct>OBGD</target_direct>
+		<object_key_column>BgdCode</object_key_column>
+	</association>
+	<association>
+		<id>InstanceLink</id>
+		<target_direct>OBGS</target_direct>
+		<object_key_column>Instance</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsId</column>
+	</key>
+	<key>
+		<id>ACCNT_CODE</id>
+		<unique />
+		<column>AcctCode</column>
+		<column>FinancYear</column>
+		<column>Instance</column>
+	</key>
+	<key>
+		<id>INTER_KEY</id>
+		<column>FatherCode</column>
+	</key>
+</table>

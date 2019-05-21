@@ -1,0 +1,632 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ITM13</id>
+	<description>Asset Attributes</description>
+	<string_list>1100020</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt1</id>
+		<source_code_name>ATTRIBUTE_ALPHA_1</source_code_name>
+		<description>Attribute 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt2</id>
+		<source_code_name>ATTRIBUTE_ALPHA_2</source_code_name>
+		<description>Attribute 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt3</id>
+		<source_code_name>ATTRIBUTE_ALPHA_3</source_code_name>
+		<description>Attribute 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt4</id>
+		<source_code_name>ATTRIBUTE_ALPHA_4</source_code_name>
+		<description>Attribute 4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt5</id>
+		<source_code_name>ATTRIBUTE_ALPHA_5</source_code_name>
+		<description>Attribute 5</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt6</id>
+		<source_code_name>ATTRIBUTE_ALPHA_6</source_code_name>
+		<description>Attribute 6</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt7</id>
+		<source_code_name>ATTRIBUTE_ALPHA_7</source_code_name>
+		<description>Attribute 7</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt8</id>
+		<source_code_name>ATTRIBUTE_ALPHA_8</source_code_name>
+		<description>Attribute 8</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt9</id>
+		<source_code_name>ATTRIBUTE_ALPHA_9</source_code_name>
+		<description>Attribute 9</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt10</id>
+		<source_code_name>ATTRIBUTE_ALPHA_10</source_code_name>
+		<description>Attribute 10</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt11</id>
+		<source_code_name>ATTRIBUTE_ALPHA_11</source_code_name>
+		<description>Attribute 11</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt12</id>
+		<source_code_name>ATTRIBUTE_ALPHA_12</source_code_name>
+		<description>Attribute 12</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt13</id>
+		<source_code_name>ATTRIBUTE_ALPHA_13</source_code_name>
+		<description>Attribute 13</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt14</id>
+		<source_code_name>ATTRIBUTE_ALPHA_14</source_code_name>
+		<description>Attribute 14</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt15</id>
+		<source_code_name>ATTRIBUTE_ALPHA_15</source_code_name>
+		<description>Attribute 15</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt16</id>
+		<source_code_name>ATTRIBUTE_ALPHA_16</source_code_name>
+		<description>Attribute 16</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt17</id>
+		<source_code_name>ATTRIBUTE_ALPHA_17</source_code_name>
+		<description>Attribute 17</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt18</id>
+		<source_code_name>ATTRIBUTE_ALPHA_18</source_code_name>
+		<description>Attribute 18</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt19</id>
+		<source_code_name>ATTRIBUTE_ALPHA_19</source_code_name>
+		<description>Attribute 19</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt20</id>
+		<source_code_name>ATTRIBUTE_ALPHA_20</source_code_name>
+		<description>Attribute 20</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt21</id>
+		<source_code_name>ATTRIBUTE_ALPHA_21</source_code_name>
+		<description>Attribute 21</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt22</id>
+		<source_code_name>ATTRIBUTE_ALPHA_22</source_code_name>
+		<description>Attribute 22</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt23</id>
+		<source_code_name>ATTRIBUTE_ALPHA_23</source_code_name>
+		<description>Attribute 23</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt24</id>
+		<source_code_name>ATTRIBUTE_ALPHA_24</source_code_name>
+		<description>Attribute 24</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt25</id>
+		<source_code_name>ATTRIBUTE_ALPHA_25</source_code_name>
+		<description>Attribute 25</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt26</id>
+		<source_code_name>ATTRIBUTE_ALPHA_26</source_code_name>
+		<description>Attribute 26</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt27</id>
+		<source_code_name>ATTRIBUTE_ALPHA_27</source_code_name>
+		<description>Attribute 27</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt28</id>
+		<source_code_name>ATTRIBUTE_ALPHA_28</source_code_name>
+		<description>Attribute 28</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt29</id>
+		<source_code_name>ATTRIBUTE_ALPHA_29</source_code_name>
+		<description>Attribute 29</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt30</id>
+		<source_code_name>ATTRIBUTE_ALPHA_30</source_code_name>
+		<description>Attribute 30</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt31</id>
+		<source_code_name>ATTRIBUTE_ALPHA_31</source_code_name>
+		<description>Attribute 31</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriTxt32</id>
+		<source_code_name>ATTRIBUTE_ALPHA_32</source_code_name>
+		<description>Attribute 32</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AttriInt33</id>
+		<source_code_name>ATTRIBUTE_NUM_33</source_code_name>
+		<description>Attribute 33</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriInt34</id>
+		<source_code_name>ATTRIBUTE_NUM_34</source_code_name>
+		<description>Attribute 34</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriInt35</id>
+		<source_code_name>ATTRIBUTE_NUM_35</source_code_name>
+		<description>Attribute 35</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriInt36</id>
+		<source_code_name>ATTRIBUTE_NUM_36</source_code_name>
+		<description>Attribute 36</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriInt37</id>
+		<source_code_name>ATTRIBUTE_NUM_37</source_code_name>
+		<description>Attribute 37</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriInt38</id>
+		<source_code_name>ATTRIBUTE_NUM_38</source_code_name>
+		<description>Attribute 38</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriInt39</id>
+		<source_code_name>ATTRIBUTE_NUM_39</source_code_name>
+		<description>Attribute 39</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriInt40</id>
+		<source_code_name>ATTRIBUTE_NUM_40</source_code_name>
+		<description>Attribute 40</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriInt41</id>
+		<source_code_name>ATTRIBUTE_NUM_41</source_code_name>
+		<description>Attribute 41</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriInt42</id>
+		<source_code_name>ATTRIBUTE_NUM_42</source_code_name>
+		<description>Attribute 42</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AttriDt43</id>
+		<source_code_name>ATTRIBUTE_DATE_43</source_code_name>
+		<description>Attribute 43</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriDt44</id>
+		<source_code_name>ATTRIBUTE_DATE_44</source_code_name>
+		<description>Attribute 44</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriDt45</id>
+		<source_code_name>ATTRIBUTE_DATE_45</source_code_name>
+		<description>Attribute 45</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriDt46</id>
+		<source_code_name>ATTRIBUTE_DATE_46</source_code_name>
+		<description>Attribute 46</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriDt47</id>
+		<source_code_name>ATTRIBUTE_DATE_47</source_code_name>
+		<description>Attribute 47</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriAm48</id>
+		<source_code_name>ATTRIBUTE_AMOUNT_48</source_code_name>
+		<description>Attribute 48</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriAm49</id>
+		<source_code_name>ATTRIBUTE_AMOUNT_49</source_code_name>
+		<description>Attribute 49</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriAm50</id>
+		<source_code_name>ATTRIBUTE_AMOUNT_50</source_code_name>
+		<description>Attribute 50</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriAm51</id>
+		<source_code_name>ATTRIBUTE_AMOUNT_51</source_code_name>
+		<description>Attribute 51</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriAm52</id>
+		<source_code_name>ATTRIBUTE_AMOUNT_52</source_code_name>
+		<description>Attribute 52</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriAm53</id>
+		<source_code_name>ATTRIBUTE_AMOUNT_53</source_code_name>
+		<description>Attribute 53</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriAm54</id>
+		<source_code_name>ATTRIBUTE_AMOUNT_54</source_code_name>
+		<description>Attribute 54</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriPr55</id>
+		<source_code_name>ATTRIBUTE_PRICE_55</source_code_name>
+		<description>Attribute 55</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriPr56</id>
+		<source_code_name>ATTRIBUTE_PRICE_56</source_code_name>
+		<description>Attribute 56</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriPr57</id>
+		<source_code_name>ATTRIBUTE_PRICE_57</source_code_name>
+		<description>Attribute 57</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriPr58</id>
+		<source_code_name>ATTRIBUTE_PRICE_58</source_code_name>
+		<description>Attribute 58</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriPr59</id>
+		<source_code_name>ATTRIBUTE_PRICE_59</source_code_name>
+		<description>Attribute 59</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriQTY60</id>
+		<source_code_name>ATTRIBUTE_QTY_60</source_code_name>
+		<description>Attribute 60</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriQTY61</id>
+		<source_code_name>ATTRIBUTE_QTY_61</source_code_name>
+		<description>Attribute 61</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriQTY62</id>
+		<source_code_name>ATTRIBUTE_QTY_62</source_code_name>
+		<description>Attribute 62</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriQTY63</id>
+		<source_code_name>ATTRIBUTE_QTY_63</source_code_name>
+		<description>Attribute 63</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AttriQTY64</id>
+		<source_code_name>ATTRIBUTE_QTY_64</source_code_name>
+		<description>Attribute 64</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>4</default_value>
+	</column>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ItemCode</column>
+	</key>
+</table>

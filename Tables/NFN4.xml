@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>NFN4</id>
+	<description>Manual Nota Fiscal Number</description>
+	<string_list>1100801</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>ObjectCode</id>
+		<source_code_name>OBJ_CODE</source_code_name>
+		<description>Document</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SeqCode</id>
+		<source_code_name>SEQ_CODE</source_code_name>
+		<description>Sequence Code</description>
+		<field_type>999</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>SeqName</id>
+		<source_code_name>SEQ_NAME</source_code_name>
+		<description>Seq Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Serial</id>
+		<source_code_name>SERIAL</source_code_name>
+		<description>Serial Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SeriesStr</id>
+		<source_code_name>SERIES_STR</source_code_name>
+		<description>Series String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>SubStr</id>
+		<source_code_name>SUB_SERIES_STR</source_code_name>
+		<description>Subseries String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>DocSubType</id>
+		<source_code_name>DOC_SUB_TYPE</source_code_name>
+		<description>Document Sub-Type</description>
+		<field_type>266</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>--</default_value>
+	</column>
+	<column>
+		<id>Model</id>
+		<source_code_name>MODEL</source_code_name>
+		<description>Nota Fiscal Model</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>Customer/Vendor Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+		<default_value>-</default_value>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>DOC_ABS_ENTRY</source_code_name>
+		<description>Document Abs. Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocNumber</id>
+		<source_code_name>DOC_NUMBER</source_code_name>
+		<description>Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>IsReusable</id>
+		<source_code_name>IS_REUSABLE</source_code_name>
+		<description>Is Reusable</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>ObjectCodeLink</id>
+		<target_direct>ONFN</target_direct>
+		<object_key_column>ObjectCode</object_key_column>
+	</association>
+	<association>
+		<id>ModelLink</id>
+		<target_direct>ONFM</target_direct>
+		<object_key_column>Model</object_key_column>
+	</association>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ObjectCode</column>
+		<column>Serial</column>
+		<column>SeriesStr</column>
+		<column>SubStr</column>
+		<column>Model</column>
+		<column>SeqCode</column>
+		<column>CardCode</column>
+	</key>
+</table>

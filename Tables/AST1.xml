@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AST1</id>
+	<description>Sales Tax Codes - Rows</description>
+	<string_list>1101649</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>STCCode</id>
+		<source_code_name>STC_CODE</source_code_name>
+		<description>STC Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Line_ID</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>STACode</id>
+		<source_code_name>STA_CODE</source_code_name>
+		<description>STA Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>STAType</id>
+		<source_code_name>STA_TYPE</source_code_name>
+		<description>STA Type</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TaxOnTCode</id>
+		<source_code_name>STA_TAX_ON_TAX_CODE</source_code_name>
+		<description>STA Tax on Tax Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxOnTType</id>
+		<source_code_name>STA_TAX_ON_TAX_TYPE</source_code_name>
+		<description>STA Tax On Tax Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EfctivRate</id>
+		<source_code_name>EFFECTIVE_RATE</source_code_name>
+		<description>Effective Rate</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FmlId</id>
+		<source_code_name>FML_ID</source_code_name>
+		<description>Tax Formula ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CstCodeIn</id>
+		<source_code_name>CST_CODE_IN</source_code_name>
+		<description>CST Code Incoming</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CstSuffix</id>
+		<source_code_name>CST_SUFFIX</source_code_name>
+		<description>CST Suffix for ICMS</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>STCCodeLink</id>
+		<target_direct>OSTC</target_direct>
+		<object_key_column>STCCode</object_key_column>
+	</association>
+	<association>
+		<id>STACodeLink</id>
+		<target_direct>OSTA</target_direct>
+		<object_key_column>STACode</object_key_column>
+		<object_key_column>STAType</object_key_column>
+	</association>
+	<association>
+		<id>TaxOnTCodeLink</id>
+		<target_direct>OSTA</target_direct>
+		<object_key_column>TaxOnTCode</object_key_column>
+		<object_key_column>TaxOnTType</object_key_column>
+	</association>
+	<association>
+		<id>FmlIdLink</id>
+		<target_direct>OFML</target_direct>
+		<object_key_column>FmlId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>STCCode</column>
+		<column>Line_ID</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>VPM5</id>
+	<description sys="Y">Outgoing Payments - Vat Adjustment</description>
+	<string_list>1100554</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_KEY</source_code_name>
+		<description>Document Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>SSNum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>InvEntry</id>
+		<source_code_name>INVOICE_KEY</source_code_name>
+		<description>Invoice Key</description>
+		<field_type>98</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>46</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>VatGroup</id>
+		<source_code_name>VAT_GROUP</source_code_name>
+		<description>Tax Group</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>VatPrcnt</id>
+		<source_code_name>VAT_PERCENT</source_code_name>
+		<description>Tax %</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSum</id>
+		<source_code_name>VAT_SUM</source_code_name>
+		<description>Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseSum</id>
+		<source_code_name>BASE_SUM</source_code_name>
+		<description>Base Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NoDedSum</id>
+		<source_code_name>NON_DEDUCT_SUM</source_code_name>
+		<description>Non-Deductible Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseSumFc</id>
+		<source_code_name>BASE_SUM_FC</source_code_name>
+		<description>Base Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSumFc</id>
+		<source_code_name>VAT_SUM_FC</source_code_name>
+		<description>Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NoDedSumFc</id>
+		<source_code_name>NON_DEDUCT_SUM_FC</source_code_name>
+		<description>Non-Deductible Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseSumSc</id>
+		<source_code_name>BASE_SUM_SC</source_code_name>
+		<description>Base Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NoDedSumSc</id>
+		<source_code_name>NON_DEDUCT_SUM_SC</source_code_name>
+		<description>Non-Deductible Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSumSc</id>
+		<source_code_name>VAT_SUM_SC</source_code_name>
+		<description>VAT Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CashDiscAc</id>
+		<source_code_name>CASH_DISC_ACCT</source_code_name>
+		<description>Cash Discount Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>BaseObjArr</id>
+		<source_code_name>BASE_OBJECT_ARR</source_code_name>
+		<description>Base Object Array Number</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>BaseObj</id>
+		<source_code_name>BASE_OBJECT</source_code_name>
+		<description>Base Object</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>18</default_value>
+	</column>
+	<column>
+		<id>InstlmntId</id>
+		<source_code_name>INSTALLMENT_ID</source_code_name>
+		<description>Installment ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>GroupNum</id>
+		<source_code_name>GROUP_NUM</source_code_name>
+		<description>Group Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>LineSeq</id>
+		<source_code_name>LINE_SEQUENCE</source_code_name>
+		<description>Row Sequence</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>EquVatPer</id>
+		<source_code_name>EQU_VAT_PERCENT</source_code_name>
+		<description>Equalization Tax %</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EquVatSum</id>
+		<source_code_name>EQU_VAT_SUM</source_code_name>
+		<description>Total Equalization Tax</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>EquVatSumF</id>
+		<source_code_name>EQU_VAT_SUM_FC</source_code_name>
+		<description>Total Equalization Tax (FC)</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>EquVatSumS</id>
+		<source_code_name>EQU_VAT_SUM_SC</source_code_name>
+		<description>Total Equalization Tax (SC)</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>DocNumLink</id>
+		<target_direct>OVPM</target_direct>
+		<object_key_column>DocNum</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<association>
+		<id>VatGroupLink</id>
+		<target_direct>OVTG</target_direct>
+		<object_key_column>VatGroup</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocNum</column>
+		<column>LineSeq</column>
+	</key>
+</table>

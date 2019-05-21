@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OPKG</id>
+	<description>Package Types</description>
+	<string_list>1100550</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>PkgCode</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>PkgType</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>Length1</id>
+		<source_code_name>LENGTH1</source_code_name>
+		<description>Length 1</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Len1Unit</id>
+		<source_code_name>LEN1_UNIT</source_code_name>
+		<description>Unit of Length 1</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>length2</id>
+		<source_code_name>LENGTH2</source_code_name>
+		<description>Length 2</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Len2Unit</id>
+		<source_code_name>LEN2_UNIT</source_code_name>
+		<description>Unit of Length 2</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Width1</id>
+		<source_code_name>WIDTH1</source_code_name>
+		<description>Width 1</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Wdth1Unit</id>
+		<source_code_name>WIDTH1_UNIT</source_code_name>
+		<description>Unit of Width 1</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Width2</id>
+		<source_code_name>WIDTH2</source_code_name>
+		<description>Width 2</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Wdth2Unit</id>
+		<source_code_name>WIDTH2_UNIT</source_code_name>
+		<description>Unit of Width 2</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Height1</id>
+		<source_code_name>HEIGHT1</source_code_name>
+		<description>Height 1</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Hght1Unit</id>
+		<source_code_name>HGHT1_UNIT</source_code_name>
+		<description>Unit of Height 1</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Height2</id>
+		<source_code_name>HEIGHT2</source_code_name>
+		<description>Height 2</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Hght2Unit</id>
+		<source_code_name>HGHT2_UNIT</source_code_name>
+		<description>Unit of Height 2</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Volume</id>
+		<source_code_name>VOLUME</source_code_name>
+		<description>Volume</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VolUnit</id>
+		<source_code_name>VOL_UNIT</source_code_name>
+		<description>Volume UoM</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Weight1</id>
+		<source_code_name>WEIGHT1</source_code_name>
+		<description>Weight 1</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WghtUnit</id>
+		<source_code_name>WGHT1_UNIT</source_code_name>
+		<description>Weight UoM</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Weight2</id>
+		<source_code_name>WEIGHT2</source_code_name>
+		<description>Weight 2</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Measure</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Wght2Unit</id>
+		<source_code_name>WGHT2_UNIT</source_code_name>
+		<description>Unit of Weight 2</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>PkgCode</column>
+	</key>
+	<key>
+		<id>TYPE</id>
+		<unique />
+		<column>PkgType</column>
+	</key>
+</table>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OHST</id>
+	<description>Employee Status</description>
+	<string_list>1100392</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>HumanResources</info_category>
+	<column>
+		<id>statusID</id>
+		<source_code_name>STATUS_ID</source_code_name>
+		<description>Status ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>descriptio</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Description</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>statusID</column>
+	</key>
+	<key>
+		<id>NAME_KEY</id>
+		<unique />
+		<column>name</column>
+	</key>
+</table>

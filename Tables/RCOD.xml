@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RCOD</id>
+	<description sys="Y" />
+	<view_type>MasterData</view_type>
+	<domain>System</domain>
+	<column>
+		<id>DocCode</id>
+		<source_code_name>BASE_DOC_CODE</source_code_name>
+		<description sys="Y">Base Doc Code</description>
+		<field_type>5001</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TrnsDocCod</id>
+		<source_code_name>TRANS_DOC_CODE</source_code_name>
+		<description sys="Y">Translation Doc Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ClntDocCod</id>
+		<source_code_name>CLIENT_DOC_CODE</source_code_name>
+		<description sys="Y">Client Doc Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LocMask</id>
+		<source_code_name>LOACALIZATION_MASK</source_code_name>
+		<description sys="Y">Localization Mask</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>LangMask</id>
+		<source_code_name>LANGUAGE_MASK</source_code_name>
+		<description sys="Y">Language Mask</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TranRequir</id>
+		<source_code_name>TRANSLATION_REQUIRED</source_code_name>
+		<description sys="Y">Translation Required</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocCode</column>
+	</key>
+</table>

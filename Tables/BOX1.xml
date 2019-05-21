@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>BOX1</id>
+	<description>Box Definition - Rows</description>
+	<string_list>1100676</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>BoxCode</id>
+		<source_code_name>BOX_CODE</source_code_name>
+		<description>Group Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>BoxMember</id>
+		<source_code_name>BOX_MEMBER</source_code_name>
+		<description>Box Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>VATMember</id>
+		<source_code_name>VAT_MEMBER</source_code_name>
+		<description>VAT Group</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SeqNum</id>
+		<source_code_name>SEQUENCE_NUM</source_code_name>
+		<description>Sequence Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FormulSign</id>
+		<source_code_name>FORMULA_SIGN</source_code_name>
+		<description>Formula Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description>+</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>-</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ReportType</id>
+		<source_code_name>REPORT_TYPE</source_code_name>
+		<description>Report Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Box Declaration</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>BAS Reporting</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>EffecDate</id>
+		<source_code_name>EFFECTIVE_DATE</source_code_name>
+		<description>Effective From</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxType</id>
+		<source_code_name>TAX_TYPE</source_code_name>
+		<description>Acquisition / Reverse Tax Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Input Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Output Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Input Tax and Output Tax</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>BoxMemberLink</id>
+		<target_direct>OBOX</target_direct>
+		<object_key_column>BoxMember</object_key_column>
+	</association>
+	<association>
+		<id>VATMemberLink</id>
+		<target_direct>OVTG</target_direct>
+		<object_key_column>VATMember</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>BoxCode</column>
+		<column>ReportType</column>
+		<column>SeqNum</column>
+		<column>EffecDate</column>
+	</key>
+</table>

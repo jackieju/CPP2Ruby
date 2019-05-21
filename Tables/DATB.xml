@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DATB</id>
+	<description>Data Archive Tax Balance</description>
+	<string_list>1101181</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Numerator</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOC_CODE</source_code_name>
+		<description>Location Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NfTaxId</id>
+		<source_code_name>NF_TAX_ID</source_code_name>
+		<description>ID of Nota Fiscal Tax Category</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TaxComId</id>
+		<source_code_name>TAX_COM_ID</source_code_name>
+		<description>Tax Component ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MatType</id>
+		<source_code_name>MAT_TYPE</source_code_name>
+		<description>Material Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ArchBal</id>
+		<source_code_name>ARCH_BAL</source_code_name>
+		<description>Data Archived Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxAcct</id>
+		<source_code_name>TAX_ACCT</source_code_name>
+		<description>Tax Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsPLA</id>
+		<source_code_name>IS_PLA</source_code_name>
+		<description>PLA Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsTaxCred</id>
+		<source_code_name>IS_TAX_CREDIT</source_code_name>
+		<description>Tax Credit Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>LocCodeLink</id>
+		<target_direct>OLCT</target_direct>
+		<object_key_column>LocCode</object_key_column>
+	</association>
+	<association>
+		<id>NfTaxIdLink</id>
+		<target_direct>ONFT</target_direct>
+		<object_key_column>NfTaxId</object_key_column>
+	</association>
+	<association>
+		<id>TaxComIdLink</id>
+		<target_direct>OSTT</target_direct>
+		<object_key_column>TaxComId</object_key_column>
+	</association>
+	<association>
+		<id>TaxAcctLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>TaxAcct</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

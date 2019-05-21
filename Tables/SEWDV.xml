@@ -1,0 +1,543 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SEWDV</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>CompDbNam</id>
+		<source_code_name>COMPANY_DB_NAME</source_code_name>
+		<description sys="Y">Company Db Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>SmpTableId</id>
+		<source_code_name>SMP_TABLE_ID</source_code_name>
+		<description sys="Y">Smp Table ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>EwaSentDat</id>
+		<source_code_name>EWA_SENT_DATE</source_code_name>
+		<description sys="Y">EWA Sent Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>CustNumber</id>
+		<source_code_name>CUSTOMER_NUMBER</source_code_name>
+		<description sys="Y">Customer Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>DocPeriod</id>
+		<source_code_name>DOC_PERIOD</source_code_name>
+		<description sys="Y">Doc Period</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>SalesOrdrs</id>
+		<source_code_name>SALES_ORDERS</source_code_name>
+		<description sys="Y">Sales Orders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SalDlvDocs</id>
+		<source_code_name>SALES_DELIVERY_DOCS</source_code_name>
+		<description sys="Y">Sales Delivery Docs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SalesInvs</id>
+		<source_code_name>SALES_INVOICES</source_code_name>
+		<description sys="Y">Sales Invoices</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PurcOrders</id>
+		<source_code_name>PURCHACE_ORDERS</source_code_name>
+		<description sys="Y">Purchase Orders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>GoodRecpts</id>
+		<source_code_name>GOOD_RECEIPTS</source_code_name>
+		<description sys="Y">Good Receipts</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PurchAPInv</id>
+		<source_code_name>PURCHASE_AP_INVOICES</source_code_name>
+		<description sys="Y">Purchase AP Invoices</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ServicCall</id>
+		<source_code_name>SERVICE_CALLS</source_code_name>
+		<description sys="Y">Service Calls</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MaterBills</id>
+		<source_code_name>MATERIAL_BILLS</source_code_name>
+		<description sys="Y">Meterial Bills</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>WorkOrders</id>
+		<source_code_name>WORK_ORDERS</source_code_name>
+		<description sys="Y">Work Orders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SalesOppor</id>
+		<source_code_name>SALES_OPPORTUNITIES</source_code_name>
+		<description sys="Y">Sales Opportunities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ItmMasterD</id>
+		<source_code_name>ITEM_MASTER_DATA</source_code_name>
+		<description sys="Y">Item Master Data</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CustBPMasD</id>
+		<source_code_name>CUST_BP_MASTER_DATA</source_code_name>
+		<description sys="Y">Customer Bp Master Data</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SuppBPMasD</id>
+		<source_code_name>SUPP_BP_MASTER_DATA</source_code_name>
+		<description sys="Y">Supplier Bp Master Data</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SalOrdMinR</id>
+		<source_code_name>SALES_ORDER_MIN_ROWS</source_code_name>
+		<description sys="Y">Min Rows Of Sales Orders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SlDlvrMinR</id>
+		<source_code_name>SALES_DLVR_MIN_ROWES</source_code_name>
+		<description sys="Y">Min rows Of Sales DElivery</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SlsInvMinR</id>
+		<source_code_name>SALES_INV_MIN_ROWES</source_code_name>
+		<description sys="Y">Min rows Of Invoices</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PrcOrdMinR</id>
+		<source_code_name>PURCHAC_ORD_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of Purchase Orders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>GodRcpMinR</id>
+		<source_code_name>GOOD_RCEIPT_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of Good Receipts</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>WrkOrdMinR</id>
+		<source_code_name>WRK_ORD_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of work orders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>QuotMinR</id>
+		<source_code_name>QUOT_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of QUOT</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RetMinR</id>
+		<source_code_name>RETURN_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of RETURN</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DownMinR</id>
+		<source_code_name>DOWN_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of DOWN</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ARCrdMinR</id>
+		<source_code_name>ARCREDIT_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of ARCREDIT</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>GodRecMinR</id>
+		<source_code_name>GOODREC_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of GOODREC</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>APRetMinR</id>
+		<source_code_name>APRETURN_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of APRETURN</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>APDwnMinR</id>
+		<source_code_name>APDOWN_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of APDOWN</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>APInvMinR</id>
+		<source_code_name>APINVOICE_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of APINVOICE</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>APCrdMinR</id>
+		<source_code_name>APCREDIT_MIN_ROWS</source_code_name>
+		<description sys="Y">Min rows Of APCREDIT</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SalOrdMaxR</id>
+		<source_code_name>SALES_ORDER_MAX_ROWS</source_code_name>
+		<description sys="Y">Max Rows Of Sales Orders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SlDlvrMaxR</id>
+		<source_code_name>SALES_DLVR_MAX_ROWES</source_code_name>
+		<description sys="Y">Max rows Of Sales DElivery</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SlsInvMaxR</id>
+		<source_code_name>SALES_INV_MAX_ROWES</source_code_name>
+		<description sys="Y">Max rows Of Invoices</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PrcOrdMaxR</id>
+		<source_code_name>PURCHAC_ORD_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of Purchase Orders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>GodRcpMaxR</id>
+		<source_code_name>GOOD_RCEIPT_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of Good Receipts</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>WrkOrdMaxR</id>
+		<source_code_name>WRK_ORD_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of work orders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>QuotMaxR</id>
+		<source_code_name>QUOT_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of QUOT</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RetMaxR</id>
+		<source_code_name>RETURN_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of RETURN</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DownMaxR</id>
+		<source_code_name>DOWN_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of DOWN</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ARCrdMaxR</id>
+		<source_code_name>ARCREDIT_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of ARCREDIT</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>GodRecMaxR</id>
+		<source_code_name>GOODREC_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of GOODREC</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>APRetMaxR</id>
+		<source_code_name>APRETURN_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of APRETURN</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>APDwnMaxR</id>
+		<source_code_name>APDOWN_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of APDOWN</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>APInvMaxR</id>
+		<source_code_name>APINVOICE_MAX_ROWS</source_code_name>
+		<description sys="Y">Max rows Of APINVOICE</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>APCrdMaxR</id>
+		<source_code_name>APCREDIT_MAX_ROWS</source_code_name>
+		<description sys="Y">Min rows Of APCREDIT</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NoPickLst</id>
+		<source_code_name>NO_PICK_LIST_IN_SYS</source_code_name>
+		<description sys="Y">No of Picklists in system</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MaxLnPkLst</id>
+		<source_code_name>MAX_LINE_IN_PICK_LST</source_code_name>
+		<description sys="Y">Maximum Lines in Pick List</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MinLnPkLst</id>
+		<source_code_name>MIN_LINE_IN_PICK_LST</source_code_name>
+		<description sys="Y">Minimum Lines in Pick List</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MaxChldBm</id>
+		<source_code_name>MAX_NO_CHILD_BOM</source_code_name>
+		<description sys="Y">Maximum children per BOM</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NoProdOrd</id>
+		<source_code_name>NO_PRODTION_ORD</source_code_name>
+		<description sys="Y">Number of Production order</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NoSrlNum</id>
+		<source_code_name>NO_SERIAL_NUM</source_code_name>
+		<description sys="Y">No of Serial number items</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NoBatchNum</id>
+		<source_code_name>NO_BATCH_NUM</source_code_name>
+		<description sys="Y">No of Batch number items</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>StockTras</id>
+		<source_code_name>NO_STOCK_TRANS</source_code_name>
+		<description sys="Y">Number of Stock Transfers</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MaxRStTrs</id>
+		<source_code_name>MAX_RW_STOCK_TRANS</source_code_name>
+		<description sys="Y">Max num of rows per stock tran</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MinRStTrs</id>
+		<source_code_name>MIN_RW_STOCK_TRANS</source_code_name>
+		<description sys="Y">Min num of rows per stock tran</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NoPriceLst</id>
+		<source_code_name>NO_PRICE_LIST</source_code_name>
+		<description sys="Y">'Number of Price Lists</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CompDbNam</column>
+	</key>
+</table>

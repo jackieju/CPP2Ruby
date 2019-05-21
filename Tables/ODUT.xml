@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ODUT</id>
+	<description>Dunning Terms</description>
+	<string_list>1100513</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>TermCode</id>
+		<source_code_name>TERM_CODE</source_code_name>
+		<description>Dunning Term Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>24</edit_size>
+	</column>
+	<column>
+		<id>TermName</id>
+		<source_code_name>TERM_NAME</source_code_name>
+		<description>Dunning Term Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>GrpMethod</id>
+		<source_code_name>GROUPING_METHOD</source_code_name>
+		<description>Grouping Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>One Letter per Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>One Letter per Dunning Level</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>One Letter per BP</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>YearDays</id>
+		<source_code_name>DAYS_IN_YEAR</source_code_name>
+		<description>Days in Year</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+		<default_value>360</default_value>
+	</column>
+	<column>
+		<id>MonthDays</id>
+		<source_code_name>DAYS_IN_MONTH</source_code_name>
+		<description>Days in Month</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>30</default_value>
+	</column>
+	<column>
+		<id>RemIntrst</id>
+		<source_code_name>INTEREST_REM</source_code_name>
+		<description>Calc. Interest Rem/Orig Sum</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>XchgOrig</id>
+		<source_code_name>XCHNG_RATE_ORIG</source_code_name>
+		<description>Exchange Rate Orig/Current</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>YearlyRate</id>
+		<source_code_name>YEARLY_RATE</source_code_name>
+		<description>Yearly Interest Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>MaxLevel</id>
+		<source_code_name>MAX_LEVEL</source_code_name>
+		<description>Max Dunning Level</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>TotalFee</id>
+		<source_code_name>ALL_TOTA_FEE</source_code_name>
+		<description>All Total Fee</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FeeCurr</id>
+		<source_code_name>ALL_FEE_CURRENCY</source_code_name>
+		<description>All Fee Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MinBalance</id>
+		<source_code_name>ALL_MIN_BALANCE</source_code_name>
+		<description>All Min. Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BalCurr</id>
+		<source_code_name>ALL_BALANCE_CURRENCY</source_code_name>
+		<description>All Balance Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CalcIntr</id>
+		<source_code_name>ALL_CALC_INTEREST</source_code_name>
+		<description>All Calc. Interest</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LetterFrmt</id>
+		<source_code_name>LETTER_FORMAT</source_code_name>
+		<description>All Letter Format</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HiLtrFrmt</id>
+		<source_code_name>HIGHEST_LTR_FORMAT</source_code_name>
+		<description>Apply Highest Letter Template</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DateCalInt</id>
+		<source_code_name>BASE_DATE_CALC_INTR</source_code_name>
+		<description>Base Date for Interest Calc.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>From Due Date</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>From Last Dunning Run</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AutoPost</id>
+		<source_code_name>AUTOMATIC_POSTING</source_code_name>
+		<description>Automatic Posting</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Interest and Fee</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interest Only</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Fee Only</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IntrAcc</id>
+		<source_code_name>INTEREST_ACCOUNT</source_code_name>
+		<description>Interest Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>FeeAcc</id>
+		<source_code_name>FEE_ACCOUNT</source_code_name>
+		<description>Fee Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<association>
+		<id>IntrAccLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>IntrAcc</object_key_column>
+	</association>
+	<association>
+		<id>FeeAccLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>FeeAcc</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TermCode</column>
+	</key>
+</table>

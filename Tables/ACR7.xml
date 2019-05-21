@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ACR7</id>
+	<description>Fiscal IDs for BP Master Data</description>
+	<string_list>1101640</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Address</id>
+		<source_code_name>ADDRESS_NAME</source_code_name>
+		<description>Address</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaxId0</id>
+		<source_code_name>TAX_ID_0</source_code_name>
+		<description>Tax ID 0</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId1</id>
+		<source_code_name>TAX_ID_1</source_code_name>
+		<description>Tax ID 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId2</id>
+		<source_code_name>TAX_ID_2</source_code_name>
+		<description>Tax ID 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId3</id>
+		<source_code_name>TAX_ID_3</source_code_name>
+		<description>Tax ID 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId4</id>
+		<source_code_name>TAX_ID_4</source_code_name>
+		<description>Tax ID 4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId5</id>
+		<source_code_name>TAX_ID_5</source_code_name>
+		<description>Tax ID 5</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId6</id>
+		<source_code_name>TAX_ID_6</source_code_name>
+		<description>Tax ID 6</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId7</id>
+		<source_code_name>TAX_ID_7</source_code_name>
+		<description>Tax ID 7</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId8</id>
+		<source_code_name>TAX_ID_8</source_code_name>
+		<description>Tax ID 8</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId9</id>
+		<source_code_name>TAX_ID_9</source_code_name>
+		<description>Tax ID 9</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>CNAEId</id>
+		<source_code_name>CNAE_ID</source_code_name>
+		<description>Brazilian CNAE Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaxId10</id>
+		<source_code_name>TAX_ID_10</source_code_name>
+		<description>Tax ID 10</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TaxId11</id>
+		<source_code_name>TAX_ID_11</source_code_name>
+		<description>Tax ID 11</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AddrType</id>
+		<source_code_name>ADDRESS_TYPE</source_code_name>
+		<description>Address Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>S</value>
+			<description>Ship To</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Bill to</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ECCNo</id>
+		<source_code_name>ECC_NO</source_code_name>
+		<description>E.C.C. No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>40</edit_size>
+	</column>
+	<column>
+		<id>CERegNo</id>
+		<source_code_name>CE_REG_NO</source_code_name>
+		<description>C.E. Registration No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>40</edit_size>
+	</column>
+	<column>
+		<id>CERange</id>
+		<source_code_name>CE_RANGE</source_code_name>
+		<description>C.E. Range</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>60</edit_size>
+	</column>
+	<column>
+		<id>CEDivis</id>
+		<source_code_name>CE_DIVISION</source_code_name>
+		<description>C.E. Division</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>60</edit_size>
+	</column>
+	<column>
+		<id>CEComRate</id>
+		<source_code_name>CE_COM_RATE</source_code_name>
+		<description>C.E. Commisionerate</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>60</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>CNAEIdLink</id>
+		<target_direct>OCNA</target_direct>
+		<object_key_column>CNAEId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CardCode</column>
+		<column>Address</column>
+		<column>AddrType</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

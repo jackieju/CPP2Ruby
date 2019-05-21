@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RSYS</id>
+	<description sys="Y">System Strings</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Num</id>
+		<source_code_name>NUM</source_code_name>
+		<description sys="Y">String number</description>
+		<field_type>39</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>String</id>
+		<source_code_name>STRING</source_code_name>
+		<description sys="Y">String</description>
+		<field_type>5</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>StringType</id>
+		<source_code_name>STRING_TYPE</source_code_name>
+		<description sys="Y">String Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">Free Text</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Form</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">Table</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">Resource</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RefCounter</id>
+		<source_code_name>REF_COUNTER</source_code_name>
+		<description sys="Y">Reference Counter</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Num</column>
+	</key>
+	<key>
+		<id>STRING</id>
+		<unique />
+		<column>String</column>
+	</key>
+</table>

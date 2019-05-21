@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>QUT9</id>
+	<description>Sales Quotation - Drawn Dpm</description>
+	<string_list>1100581</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BaseAbs</id>
+		<source_code_name>BASE_DOC_ABS</source_code_name>
+		<description>Base Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BaseLine</id>
+		<source_code_name>BASE_DOC_LINE</source_code_name>
+		<description>Base Document Row</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TargetBase</id>
+		<source_code_name>TARGET_OR_BASE</source_code_name>
+		<description>Target or Base Document</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Base</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Target</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>BASE_OBJ_TYPE</source_code_name>
+		<description>Base Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DrawnSum</id>
+		<source_code_name>DRAWN_SUM</source_code_name>
+		<description>Net LC</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DrawnSumFc</id>
+		<source_code_name>DRAWN_SUM_FC</source_code_name>
+		<description>Net FC</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DrawnSumSc</id>
+		<source_code_name>DRAWN_SUM_SC</source_code_name>
+		<description>Net SC</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjCode</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>23</default_value>
+	</column>
+	<column>
+		<id>ApplDrawn</id>
+		<source_code_name>APPLIED_DRAWN_SUM</source_code_name>
+		<description>Applied Net LC</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplDrawnF</id>
+		<source_code_name>APPLIED_DRAWN_SUM_FC</source_code_name>
+		<description>Applied Net FC</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplDrawnS</id>
+		<source_code_name>APPLIED_DRAWN_SUM_SC</source_code_name>
+		<description>Applied Net SC</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseDocNum</id>
+		<source_code_name>BASE_NUM</source_code_name>
+		<description>Base Document Number</description>
+		<field_type>2</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BsDocDate</id>
+		<source_code_name>BASE_DATE</source_code_name>
+		<description>Base Posting Date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BsDueDate</id>
+		<source_code_name>BASE_DUE_DATE</source_code_name>
+		<description>Base Due Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BsCardName</id>
+		<source_code_name>BASE_CARD_NAME</source_code_name>
+		<description>Base BP Name</description>
+		<field_type>19</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>BsComments</id>
+		<source_code_name>BASE_COMMENT</source_code_name>
+		<description>Base Remarks</description>
+		<field_type>152</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>Posted</id>
+		<source_code_name>DPM_POSTED</source_code_name>
+		<description>Base Document Posted</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Vat</id>
+		<source_code_name>VAT</source_code_name>
+		<description>Tax LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatFc</id>
+		<source_code_name>VAT_FC</source_code_name>
+		<description>Tax FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSc</id>
+		<source_code_name>VAT_SC</source_code_name>
+		<description>Tax SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Gross</id>
+		<source_code_name>GROSS</source_code_name>
+		<description>Gross LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>GrossFc</id>
+		<source_code_name>GROSS_FC</source_code_name>
+		<description>Gross FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>GrossSc</id>
+		<source_code_name>GROSS_SC</source_code_name>
+		<description>Gross SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>IsGross</id>
+		<source_code_name>IS_GROSS</source_code_name>
+		<description>Is Gross Line</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Net Line</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Gross Line</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>OQUT</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ObjCodeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

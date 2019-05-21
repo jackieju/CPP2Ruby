@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DGP5</id>
+	<description sys="Y">Sort By List</description>
+	<string_list>1101180</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_Entry</source_code_name>
+		<description sys="Y">Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CondNum</id>
+		<source_code_name>COND_NUM</source_code_name>
+		<description sys="Y">Condition Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SortField</id>
+		<source_code_name>SORT_FLD</source_code_name>
+		<description sys="Y">Sort Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+		<default_value>DocNum</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>DocNum</value>
+			<description>Document Number</description>
+		</valid_value>
+		<valid_value>
+			<value>DocDate</value>
+			<description>Posting Date</description>
+		</valid_value>
+		<valid_value>
+			<value>DocDueDate</value>
+			<description>Due Date</description>
+		</valid_value>
+		<valid_value>
+			<value>NumAtCard</value>
+			<description>BP Reference No.</description>
+		</valid_value>
+		<valid_value>
+			<value>DocTotal</value>
+			<description>Document Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>SlpCode</value>
+			<description>Sales Employee</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SortOrder</id>
+		<source_code_name>SORT_ORDER</source_code_name>
+		<description sys="Y">Sort Order</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>A</default_value>
+		<valid_value>
+			<value>A</value>
+			<description>Ascending</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Descending</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>ODGP</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>CondNum</column>
+	</key>
+</table>

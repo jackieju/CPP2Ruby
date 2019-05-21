@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ITL1</id>
+	<description>Srl &amp; Batch Details in Transac</description>
+	<string_list>1101045</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>LogEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Log Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SysNumber</id>
+		<source_code_name>SYS_NUMBER</source_code_name>
+		<description>System Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AllocQty</id>
+		<source_code_name>ALLOCATED_QTY</source_code_name>
+		<description>Allocated Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MdAbsEntry</id>
+		<source_code_name>MD_ABS_ENTRY</source_code_name>
+		<description sys="Y">MD Abs Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ReleaseQty</id>
+		<source_code_name>RELEASE_QTY</source_code_name>
+		<description>Release Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PickedQty</id>
+		<source_code_name>PICKED_QTY</source_code_name>
+		<description>Picked Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>LogEntryLink</id>
+		<target_direct>OITL</target_direct>
+		<object_key_column>LogEntry</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LogEntry</column>
+		<column>ItemCode</column>
+		<column>SysNumber</column>
+	</key>
+	<key>
+		<id>SNB_SYSID</id>
+		<column>ItemCode</column>
+		<column>SysNumber</column>
+	</key>
+</table>

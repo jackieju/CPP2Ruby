@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SDRQ</id>
+	<description sys="Y">Drag&amp;Relate - Queries</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>ObjTo</id>
+		<source_code_name>OBJ_TO</source_code_name>
+		<description sys="Y">ObjectTo</description>
+		<field_type>1</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>ObjFrom</id>
+		<source_code_name>OBJ_FROM</source_code_name>
+		<description sys="Y">ObjectFrom</description>
+		<field_type>1</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>JoinStr</id>
+		<source_code_name>JOIN_STR</source_code_name>
+		<description sys="Y">Join String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>FilterStr</id>
+		<source_code_name>FILTER_STR</source_code_name>
+		<description sys="Y">Filter String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>ServerType</id>
+		<source_code_name>SERVER_TYPE</source_code_name>
+		<description sys="Y">Server Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ObjTo</column>
+		<column>ObjFrom</column>
+		<column>ServerType</column>
+	</key>
+</table>

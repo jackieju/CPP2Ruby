@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RLNG</id>
+	<description sys="Y">????</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Created</id>
+		<source_code_name>CREATED</source_code_name>
+		<description sys="Y">Creation date</description>
+		<field_type>1</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Updated</id>
+		<source_code_name>UPDATED</source_code_name>
+		<description sys="Y">Update date</description>
+		<field_type>2</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description sys="Y">Language code</description>
+		<field_type>3</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">Language name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>ShortName</id>
+		<source_code_name>SHORT_NAME</source_code_name>
+		<description sys="Y">Short name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Direction</id>
+		<source_code_name>DIRECTION</source_code_name>
+		<description sys="Y">Direction</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">Right to left</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Left to right</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IsBase</id>
+		<source_code_name>IS_BASE</source_code_name>
+		<description sys="Y">Is base</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">No</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Charset</id>
+		<source_code_name>CHARSET</source_code_name>
+		<description sys="Y">Charset</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CodePage</id>
+		<source_code_name>CODEPAGE</source_code_name>
+		<description sys="Y">Codepage</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>KBLayout</id>
+		<source_code_name>KB_LAYOUT</source_code_name>
+		<description sys="Y">Keyboard layout</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LangStr</id>
+		<source_code_name>LANGUAGE_STR</source_code_name>
+		<description sys="Y">Language String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>TransInB5I</id>
+		<source_code_name>TRANS_IN_B5I</source_code_name>
+		<description sys="Y">Translated In B5I System</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>HelpLang</id>
+		<source_code_name>HELP_LANG</source_code_name>
+		<description sys="Y">Online Help Language Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>hasHotKey</id>
+		<source_code_name>HAS_HOTKEY</source_code_name>
+		<description sys="Y">The language has hot key</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Has HotKey</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">Does not have HotKey</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+	</key>
+	<key>
+		<id>BASE</id>
+		<column>IsBase</column>
+	</key>
+	<key>
+		<id>SHORT_NAME</id>
+		<unique />
+		<column>ShortName</column>
+	</key>
+</table>

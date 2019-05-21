@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SXRPD</id>
+	<description sys="Y">XLR Property Definitions</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>propdefid</id>
+		<source_code_name>propdefid</source_code_name>
+		<description sys="Y">propdefid</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>classid</id>
+		<source_code_name>classid</source_code_name>
+		<description sys="Y">classid</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>seqno</id>
+		<source_code_name>seqno</source_code_name>
+		<description sys="Y">seqno</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>name</id>
+		<source_code_name>name</source_code_name>
+		<description sys="Y">name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>category</id>
+		<source_code_name>category</source_code_name>
+		<description sys="Y">category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+		<default_value>'General'</default_value>
+	</column>
+	<column>
+		<id>descriptio</id>
+		<source_code_name>description</source_code_name>
+		<description sys="Y">description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>type</id>
+		<source_code_name>type</source_code_name>
+		<description sys="Y">type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>minoccurs</id>
+		<source_code_name>minoccurs</source_code_name>
+		<description sys="Y">minoccurs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>maxoccurs</id>
+		<source_code_name>maxoccurs</source_code_name>
+		<description sys="Y">maxoccurs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>999999</default_value>
+	</column>
+	<column>
+		<id>classrefid</id>
+		<source_code_name>classrefid</source_code_name>
+		<description sys="Y">classrefid</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>enumid</id>
+		<source_code_name>enumid</source_code_name>
+		<description sys="Y">enumid</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>propdefid</column>
+	</key>
+</table>

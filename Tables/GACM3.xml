@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>GACM3</id>
+	<description>GA Common Document Type</description>
+	<string_list>1101658</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<info_category>Finance</info_category>
+	<column>
+		<id>TypeCode</id>
+		<source_code_name>TYPECODE</source_code_name>
+		<description>Document Type Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>60</edit_size>
+	</column>
+	<column>
+		<id>TypeDesc</id>
+		<source_code_name>TYPEDESC</source_code_name>
+		<description>Document Type Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>60</edit_size>
+	</column>
+	<column>
+		<id>ShortDesc</id>
+		<source_code_name>SHORTDESC</source_code_name>
+		<description>Short Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TypeCode</column>
+	</key>
+</table>

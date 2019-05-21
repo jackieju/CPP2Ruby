@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CCAL</id>
+	<description>Chinese Chart of Account Level Definition</description>
+	<string_list>1100965</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>lvlIAccLe</id>
+		<source_code_name>STD_1_ACCT_LEN</source_code_name>
+		<description>Length First Level Accounts</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>4</default_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>accLvlSet</id>
+		<source_code_name>ACC_LVL_SET</source_code_name>
+		<description>Account Level Set</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>balIndSet</id>
+		<source_code_name>BAL_IND_SET</source_code_name>
+		<description>Balance Dir Indicator Set</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>lvlIAccLe</column>
+	</key>
+</table>

@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OFDV</id>
+	<description>Asset Item Values</description>
+	<string_list>1101535</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PeriodCat</id>
+		<source_code_name>PERIOD_CATEGORY</source_code_name>
+		<description>Period Category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>DprArea</id>
+		<source_code_name>DEPRECIATION_AREA</source_code_name>
+		<description>Depreciation Area</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>VisOder</id>
+		<source_code_name>VISUAL_ORDER</source_code_name>
+		<description>Visual Order</description>
+		<field_type>261</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TransType</id>
+		<source_code_name>TRANSACTION_TYPE</source_code_name>
+		<description>Transaction Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>E</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Beginning of Year</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Acquistion</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Retirement</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Write-Up</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Ordinary Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Unplanned Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Special Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>End of Year</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AcqCost</id>
+		<source_code_name>ACQUISTION_COST</source_code_name>
+		<description>Acquistion Production Cost</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Posted Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DprVal</id>
+		<source_code_name>DEPRECIATION_VALUE</source_code_name>
+		<description>Depreciation Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>NBV</id>
+		<source_code_name>NET_BOOK_VALUE</source_code_name>
+		<description>Net Book Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>4</default_value>
+	</column>
+	<column>
+		<id>OrdDprVal</id>
+		<source_code_name>ORD_DEPRECIATION_VAL</source_code_name>
+		<description>Ordinary Depreciation Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnpDprVal</id>
+		<source_code_name>UNP_DEPRECIATION_VAL</source_code_name>
+		<description>Unplaned Depreciation Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDprVal</id>
+		<source_code_name>SP_DEPRECIATION_VAL</source_code_name>
+		<description>Special Depreciation Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WriteUp</id>
+		<source_code_name>WRITE_UP</source_code_name>
+		<description>Write-Up</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HistOrdDpr</id>
+		<source_code_name>HISTORIC_ORD_DPR_VAL</source_code_name>
+		<description>Historical Ordinary Depr.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Appreciate</id>
+		<source_code_name>APPRECIATION</source_code_name>
+		<description>Appreciation Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>DprAreaLink</id>
+		<target_direct>ODPA</target_direct>
+		<object_key_column>DprArea</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ItemCode</column>
+		<column>PeriodCat</column>
+		<column>DprArea</column>
+	</key>
+</table>

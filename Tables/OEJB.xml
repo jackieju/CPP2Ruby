@@ -1,0 +1,383 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OEJB</id>
+	<description>Wizard Run Details for ERV-JAb</description>
+	<string_list>1101248</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>WizardId</id>
+		<source_code_name>WIZARD_ID</source_code_name>
+		<description>Wizard ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>WizardName</id>
+		<source_code_name>WIZARD_NAME</source_code_name>
+		<description>Wizard Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>FromDate</id>
+		<source_code_name>FROM_DATE</source_code_name>
+		<description>From Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ToDate</id>
+		<source_code_name>TO_DATE</source_code_name>
+		<description>To Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PFromDate</id>
+		<source_code_name>PREV_FROM_DATE</source_code_name>
+		<description>Previous Year From Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PToDate</id>
+		<source_code_name>PREV_TO_DATE</source_code_name>
+		<description>Previous Year To Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DateOfRun</id>
+		<source_code_name>DATE_OF_RUN</source_code_name>
+		<description>Date of Run</description>
+		<field_type>2000</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>O</value>
+			<description>Open</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ActYearCl</id>
+		<source_code_name>ACT_YEAR_CLASSIFY</source_code_name>
+		<description>Classifictn in Actual Yr</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Small</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Medium</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>Large</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FormFinSt</id>
+		<source_code_name>FORM_FIN_STATEMENT</source_code_name>
+		<description>Form of Financial Statement</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Small GmbH (UGB Form 2,3)</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Small GmbH with Balance Sheet</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Medium Large GmbH</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>AG (Eng. PLC)</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>EBSTmpl</id>
+		<source_code_name>E_BALANCE_SHEET_TMPL</source_code_name>
+		<description>E-Balance Sheet Template</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>EPaLTmpl</id>
+		<source_code_name>E_PROF_AND_LOSS_TMPL</source_code_name>
+		<description>E-P&amp;L Template</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OverwrFinS</id>
+		<source_code_name>OVERWRITE_FIN_STATE</source_code_name>
+		<description>Overwrite Financial Statement</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Reference</id>
+		<source_code_name>REFERENCE</source_code_name>
+		<description>Reference</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>25</edit_size>
+	</column>
+	<column>
+		<id>HBCode</id>
+		<source_code_name>HB_CODE</source_code_name>
+		<description>House Bank Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PayRef</id>
+		<source_code_name>PAYMENT_REFERENCE</source_code_name>
+		<description>Payment Reference</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>SndrRole</id>
+		<source_code_name>SENDER_ROLE</source_code_name>
+		<description>Sender Role</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>1 - Sole Company Representative and Signatory</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>2 - Sole Authorized Company Representative</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>3 - One of Authorized Company Representatives</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CRegNumber</id>
+		<source_code_name>C_REG_NUMBER</source_code_name>
+		<description>Commercial Register Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>7</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>7</edit_size>
+	</column>
+	<column>
+		<id>LFBSheetD</id>
+		<source_code_name>LF_B_SHEET_DATE</source_code_name>
+		<description>Legal Form on Actl Bal Sht Dte</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>AG</value>
+			<description>Public Limited Company (AG)</description>
+		</valid_value>
+		<valid_value>
+			<value>SC</value>
+			<description>European Cooperative Society (SCE)</description>
+		</valid_value>
+		<valid_value>
+			<value>SE</value>
+			<description>Company under European Law (SE, Societa Europaea)</description>
+		</valid_value>
+		<valid_value>
+			<value>GEN</value>
+			<description>Industrial Cooperative Society</description>
+		</valid_value>
+		<valid_value>
+			<value>GES</value>
+			<description>Limited Liability Company (GmbH)</description>
+		</valid_value>
+		<valid_value>
+			<value>KG</value>
+			<description>Limited Partnership</description>
+		</valid_value>
+		<valid_value>
+			<value>OG</value>
+			<description>Open Company</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LFBSheetPr</id>
+		<source_code_name>LF_B_SHEET_DATE_PREV</source_code_name>
+		<description>Lgl Form on Bal Sht Dte Prv Yr</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>AG</value>
+			<description>Public Limited Company (AG)</description>
+		</valid_value>
+		<valid_value>
+			<value>SC</value>
+			<description>European Cooperative Society (SCE)</description>
+		</valid_value>
+		<valid_value>
+			<value>SE</value>
+			<description>Company under European Law (SE, Societa Europaea)</description>
+		</valid_value>
+		<valid_value>
+			<value>GEN</value>
+			<description>Industrial Cooperative Society</description>
+		</valid_value>
+		<valid_value>
+			<value>GES</value>
+			<description>Limited Liability Company (GmbH)</description>
+		</valid_value>
+		<valid_value>
+			<value>KG</value>
+			<description>Limited Partnership</description>
+		</valid_value>
+		<valid_value>
+			<value>OG</value>
+			<description>Open Company</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RegNum</id>
+		<source_code_name>REG_NUM_PARTNER</source_code_name>
+		<description>Reg. No. of Partner Company</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>7</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>7</edit_size>
+	</column>
+	<column>
+		<id>CmpanyName</id>
+		<source_code_name>CMPN_NAME</source_code_name>
+		<description>Company Name</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>XMLFile</id>
+		<source_code_name>XML_FILE</source_code_name>
+		<description>XML File Storage</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TimeOfRun</id>
+		<source_code_name>TIME_OF_RUN</source_code_name>
+		<description>Time of Run</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>EBSTmplLink</id>
+		<target_direct>OFRT</target_direct>
+		<object_key_column>EBSTmpl</object_key_column>
+	</association>
+	<association>
+		<id>EPaLTmplLink</id>
+		<target_direct>OFRT</target_direct>
+		<object_key_column>EPaLTmpl</object_key_column>
+	</association>
+	<association>
+		<id>HBCodeLink</id>
+		<target_direct>DSC1</target_direct>
+		<object_key_column>HBCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WizardId</column>
+	</key>
+</table>

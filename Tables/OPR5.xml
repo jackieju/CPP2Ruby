@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OPR5</id>
+	<description>Sales Opportunity - Reasons</description>
+	<string_list>1100635</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>SalesOpportunities</info_category>
+	<column>
+		<id>OpportId</id>
+		<source_code_name>OPR_ID</source_code_name>
+		<description>Sequence No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Line</id>
+		<source_code_name>LINE</source_code_name>
+		<description>Row No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ReasondId</id>
+		<source_code_name>REAS_ID</source_code_name>
+		<description>Reason</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>ReasondIdLink</id>
+		<target_direct>OOFR</target_direct>
+		<object_key_column>ReasondId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>OpportId</column>
+		<column>Line</column>
+	</key>
+</table>

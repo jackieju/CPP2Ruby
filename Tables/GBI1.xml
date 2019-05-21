@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>GBI1</id>
+	<description>GBI Row 1 - Electronic Account Book</description>
+	<string_list>1100924</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>HistoryId</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>History Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RowId</id>
+		<source_code_name>ROW_ID</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AcctBkNo</id>
+		<source_code_name>ELEC_ACCT_BOOK_NO</source_code_name>
+		<description>Electronic Account Book No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AcctBkName</id>
+		<source_code_name>ELEC_ACCT_BOOK_NAME</source_code_name>
+		<description>Electronic Account Book Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrgCode</id>
+		<source_code_name>ORGANIZATIONAL_CODE</source_code_name>
+		<description>Organizational Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompType</id>
+		<source_code_name>COMPANY_TYPE</source_code_name>
+		<description>Company Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Industry</id>
+		<source_code_name>INDUSTRY</source_code_name>
+		<description>Industry</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SoftVender</id>
+		<source_code_name>ACCT_SOFT_PROVIDER</source_code_name>
+		<description>Accounting Software Provider</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Version</id>
+		<source_code_name>ACCT_SOFT_VERSION</source_code_name>
+		<description>Accounting Software Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FisYear</id>
+		<source_code_name>FISCAL_YEAR</source_code_name>
+		<description>Fiscal Year</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LocCurr</id>
+		<source_code_name>LOCAL_CURR</source_code_name>
+		<description>Local Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AcctStruct</id>
+		<source_code_name>ACCT_STRUCTURE</source_code_name>
+		<description>Account Structure</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>HistoryIdLink</id>
+		<target_direct>OGBI</target_direct>
+		<object_key_column>HistoryId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>HistoryId</column>
+		<column>RowId</column>
+	</key>
+</table>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OIAR</id>
+	<description>Inventory Account Substitute</description>
+	<string_list>1101080</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>MessageId</id>
+		<source_code_name>MESSAGE_ID</source_code_name>
+		<description>Message ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AccountId</id>
+		<source_code_name>ACCOUNT_ID</source_code_name>
+		<description>Account ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AcctCode</id>
+		<source_code_name>ACCOUNT_CODE</source_code_name>
+		<description>Account Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>DebitCredi</id>
+		<source_code_name>DEBIT_CREDIT</source_code_name>
+		<description>Debit or Credit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>U</default_value>
+		<valid_value>
+			<value>U</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Debit</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Credit</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>AcctCodeLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>AcctCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>MessageId</column>
+		<column>AccountId</column>
+	</key>
+</table>

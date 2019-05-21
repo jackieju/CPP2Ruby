@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DLBT</id>
+	<description sys="Y">Link Button Specifics</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<virtual />
+	<column>
+		<id>LinkedObj</id>
+		<source_code_name>LINK_OBJECT</source_code_name>
+		<description sys="Y">LinkedObject</description>
+		<field_type>311</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>22</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LinkedObj</column>
+	</key>
+</table>

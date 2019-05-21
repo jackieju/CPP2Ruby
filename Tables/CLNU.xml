@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CLNU</id>
+	<description>Display Definitions - Journal</description>
+	<string_list>1100015</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>DummyCode</id>
+		<source_code_name>DUMMY_CODE</source_code_name>
+		<description>Dummy Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FirstDay</id>
+		<source_code_name>FIRST_DAY</source_code_name>
+		<description>First day of the week</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Sunday</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Monday</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Tuesday</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Wednesday</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Thursday</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Friday</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Saturday</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TimeGap</id>
+		<source_code_name>TIME_GAP</source_code_name>
+		<description>Time Interval per Row</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">15</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">30</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">60</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">120</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>WorkColor</id>
+		<source_code_name>WORK_COLOR</source_code_name>
+		<description>Highlight Working Hours</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>13</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>13</edit_size>
+	</column>
+	<column>
+		<id>OWorkColor</id>
+		<source_code_name>OFF_WORK_COLOR</source_code_name>
+		<description>Highlight Off-Work Hours</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>13</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>13</edit_size>
+	</column>
+	<column>
+		<id>ActColor</id>
+		<source_code_name>ACTIVITY_COLOR</source_code_name>
+		<description>Color of Activity</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>13</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>13</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DummyCode</column>
+	</key>
+</table>

@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>KPS1</id>
+	<description>KPI Set Array 1</description>
+	<string_list>1101422</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>KpsCode</id>
+		<source_code_name>CODE</source_code_name>
+		<description>KPI Set Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>KPI Line Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiName</id>
+		<source_code_name>KPI_NAME</source_code_name>
+		<description>KPI Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue1</id>
+		<source_code_name>KPI_VALUE1</source_code_name>
+		<description>KPI Value 1</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue2</id>
+		<source_code_name>KPI_VALUE2</source_code_name>
+		<description>KPI Value 2</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue3</id>
+		<source_code_name>KPI_VALUE3</source_code_name>
+		<description>KPI Value 3</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue4</id>
+		<source_code_name>KPI_VALUE4</source_code_name>
+		<description>KPI Value 4</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue5</id>
+		<source_code_name>KPI_VALUE5</source_code_name>
+		<description>KPI Value 5</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue6</id>
+		<source_code_name>KPI_VALUE6</source_code_name>
+		<description>KPI Value 6</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue7</id>
+		<source_code_name>KPI_VALUE7</source_code_name>
+		<description>KPI Value 7</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue8</id>
+		<source_code_name>KPI_VALUE8</source_code_name>
+		<description>KPI Value 8</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue9</id>
+		<source_code_name>KPI_VALUE9</source_code_name>
+		<description>KPI Value 9</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue10</id>
+		<source_code_name>KPI_VALUE10</source_code_name>
+		<description>KPI Value 10</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue11</id>
+		<source_code_name>KPI_VALUE11</source_code_name>
+		<description>KPI Value 11</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue12</id>
+		<source_code_name>KPI_VALUE12</source_code_name>
+		<description>KPI Value 12</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue13</id>
+		<source_code_name>KPI_VALUE13</source_code_name>
+		<description>KPI Value 13</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue14</id>
+		<source_code_name>KPI_VALUE14</source_code_name>
+		<description>KPI Value 14</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue15</id>
+		<source_code_name>KPI_VALUE15</source_code_name>
+		<description>KPI Value 15</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue16</id>
+		<source_code_name>KPI_VALUE16</source_code_name>
+		<description>KPI Value 16</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue17</id>
+		<source_code_name>KPI_VALUE17</source_code_name>
+		<description>KPI Value 17</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue18</id>
+		<source_code_name>KPI_VALUE18</source_code_name>
+		<description>KPI Value 18</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue19</id>
+		<source_code_name>KPI_VALUE19</source_code_name>
+		<description>KPI Value 19</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue20</id>
+		<source_code_name>KPI_VALUE20</source_code_name>
+		<description>KPI Value 20</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue21</id>
+		<source_code_name>KPI_VALUE21</source_code_name>
+		<description>KPI Value 21</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue22</id>
+		<source_code_name>KPI_VALUE22</source_code_name>
+		<description>KPI Value 22</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue23</id>
+		<source_code_name>KPI_VALUE23</source_code_name>
+		<description>KPI Value 23</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue24</id>
+		<source_code_name>KPI_VALUE24</source_code_name>
+		<description>KPI Value 24</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue25</id>
+		<source_code_name>KPI_VALUE25</source_code_name>
+		<description>KPI Value 25</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue26</id>
+		<source_code_name>KPI_VALUE26</source_code_name>
+		<description>KPI Value 26</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue27</id>
+		<source_code_name>KPI_VALUE27</source_code_name>
+		<description>KPI Value 27</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue28</id>
+		<source_code_name>KPI_VALUE28</source_code_name>
+		<description>KPI Value 28</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue29</id>
+		<source_code_name>KPI_VALUE29</source_code_name>
+		<description>KPI Value 29</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KpiValue30</id>
+		<source_code_name>KPI_VALUE30</source_code_name>
+		<description>KPI Value 30</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>KpsCode</column>
+		<column>LineNum</column>
+	</key>
+	<key>
+		<id>NAME</id>
+		<unique />
+		<column>KpsCode</column>
+		<column>KpiName</column>
+	</key>
+</table>

@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OTCD</id>
+	<description>Tax Code Determination</description>
+	<string_list>1100818</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsId</id>
+		<source_code_name>ABS_ID</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TcdType</id>
+		<source_code_name>TCD_TYPE</source_code_name>
+		<description>Determination Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>MI</default_value>
+		<valid_value>
+			<value>MI</value>
+			<description sys="Y">Material Item</description>
+		</valid_value>
+		<valid_value>
+			<value>SI</value>
+			<description sys="Y">Service Item</description>
+		</valid_value>
+		<valid_value>
+			<value>SD</value>
+			<description sys="Y">Service Document</description>
+		</valid_value>
+		<valid_value>
+			<value>WT</value>
+			<description sys="Y">Withholding Tax</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DftArCode</id>
+		<source_code_name>DFT_AR_CODE</source_code_name>
+		<description>Default Sales Tax Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DftApCode</id>
+		<source_code_name>DFT_AP_CODE</source_code_name>
+		<description>Default Purchase Tax Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsId</column>
+	</key>
+	<key>
+		<id>TCD_TYPE</id>
+		<unique />
+		<column>TcdType</column>
+	</key>
+</table>

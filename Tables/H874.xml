@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>H874</id>
+	<description>835874 Report - Opening Record</description>
+	<string_list>1100033</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>RecMark</id>
+		<source_code_name>RECORD_MARK</source_code_name>
+		<description>Opening Record Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>835874</default_value>
+	</column>
+	<column>
+		<id>Space1</id>
+		<source_code_name>SPACE1</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>TaxIdNum</id>
+		<source_code_name>TAX_ID_NUMBER</source_code_name>
+		<description>Licensed Dealer No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>Space2</id>
+		<source_code_name>SPACE2</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>ActionCode</id>
+		<source_code_name>ACTION_CODE</source_code_name>
+		<description>Action Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>Space3</id>
+		<source_code_name>SPACE3</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>ReportDate</id>
+		<source_code_name>REPORT_DATE</source_code_name>
+		<description>Reporting Period (Month/Year)</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Space4</id>
+		<source_code_name>SPACE4</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>ExIncome</id>
+		<source_code_name>EXEMPT_INCOME</source_code_name>
+		<description>Exempt Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>Space5</id>
+		<source_code_name>SPACE5</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>TransCode</id>
+		<source_code_name>TRANS_CODE</source_code_name>
+		<description>Transaction Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>6</default_value>
+	</column>
+	<column>
+		<id>Space6</id>
+		<source_code_name>SPACE6</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>TaxIncome</id>
+		<source_code_name>TAXABLE_INCOME</source_code_name>
+		<description>Liable Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>Space7</id>
+		<source_code_name>SPACE7</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>AssetTax</id>
+		<source_code_name>ASSET_VAT</source_code_name>
+		<description>Tax Definition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>Space8</id>
+		<source_code_name>SPACE8</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>OutVat</id>
+		<source_code_name>OUT_VAT</source_code_name>
+		<description>Tax Definition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>Space9</id>
+		<source_code_name>SPACE9</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>Refund</id>
+		<source_code_name>REFUND</source_code_name>
+		<description>Total for Payment/Refund</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>Space10</id>
+		<source_code_name>SPACE10</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>RecCount</id>
+		<source_code_name>REC_COUNT</source_code_name>
+		<description>Number of Reports</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Space11</id>
+		<source_code_name>SPACE11</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value> </default_value>
+	</column>
+	<column>
+		<id>TotalVat</id>
+		<source_code_name>TOTAL_VAT</source_code_name>
+		<description>Total Tax in Data Records</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Space12</id>
+		<source_code_name>SPACE12</source_code_name>
+		<description>Profit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value> </default_value>
+	</column>
+</table>

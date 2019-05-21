@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ISW1</id>
+	<description>Reported Bussines Partners</description>
+	<string_list>1101563</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>WizAbsEnt</id>
+		<source_code_name>WIZ_RUN_ABS_ENTRY</source_code_name>
+		<description>Wizard Run Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>Business Partner Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardName</id>
+		<source_code_name>CARD_NAME</source_code_name>
+		<description>Business Partner Name</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardType</id>
+		<source_code_name>CARD_TYPE</source_code_name>
+		<description>Business Partner Type</description>
+		<field_type>75</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NatOfTrans</id>
+		<source_code_name>NATURE_OF_TRANS</source_code_name>
+		<description>Nature of Transaction</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StatProc</id>
+		<source_code_name>STAT_PROCEDURE</source_code_name>
+		<description>Statictical Procedure</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CustProc</id>
+		<source_code_name>CUSTOMS_PROCEDURE</source_code_name>
+		<description>Customs Procedure</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransMode</id>
+		<source_code_name>TRANSPORT_MODE</source_code_name>
+		<description>Transport Mode</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Incoterms</id>
+		<source_code_name>INCOTERM</source_code_name>
+		<description>Incoterms</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PortEnEx</id>
+		<source_code_name>PORT_OF_ENTRY_EXIT</source_code_name>
+		<description>Port of Entry or Exit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BPVATRegNo</id>
+		<source_code_name>BP_VAT_REG_NUM</source_code_name>
+		<description>Business Partner VAT Reg. No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DomFrgID</id>
+		<source_code_name>DOMESTIC_FOREIGN_ID</source_code_name>
+		<description>Domestic/Foreign Identifier</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CtryOrig</id>
+		<source_code_name>COUNTRY_OF_ORIGIN</source_code_name>
+		<description>Country of Origin</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>IdEntryLink</id>
+		<target_direct>OISW</target_direct>
+		<object_key_column>WizAbsEnt</object_key_column>
+	</association>
+	<association>
+		<id>BPLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WizAbsEnt</column>
+		<column>CardCode</column>
+	</key>
+</table>

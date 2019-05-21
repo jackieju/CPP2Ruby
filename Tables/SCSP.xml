@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SCSP</id>
+	<description sys="Y">Stored Procs (Company)</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>SpName</id>
+		<source_code_name>SP_NAME</source_code_name>
+		<description sys="Y">SP Name</description>
+		<field_type>1</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>SpString</id>
+		<source_code_name>SP_STRING</source_code_name>
+		<description sys="Y">SP String</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>doBefore</id>
+		<source_code_name>DO_BEFORE</source_code_name>
+		<description sys="Y">Do before</description>
+		<field_type>1</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>ForceCreat</id>
+		<source_code_name>FORCE_CREATE</source_code_name>
+		<description sys="Y">Force Create</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ServerType</id>
+		<source_code_name>SERVER_TYPE</source_code_name>
+		<description sys="Y">Server Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SpName</column>
+		<column>ServerType</column>
+	</key>
+</table>

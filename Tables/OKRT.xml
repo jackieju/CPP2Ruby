@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OKRT</id>
+	<description>Tax Report Type</description>
+	<string_list>1100948</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Tax Report Type ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaxRepType</id>
+		<source_code_name>TAX_REP_TYPE</source_code_name>
+		<description>Tax Report Type Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Descrip</id>
+		<source_code_name>TAX_REP_TYPE_DESC</source_code_name>
+		<description>Tax Report Type Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SumRepType</id>
+		<source_code_name>SUM_REP_TYPE</source_code_name>
+		<description>Summary VAT Report Type</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NameDesc</id>
+		<source_code_name>NAME_DESC</source_code_name>
+		<description>Tax Report Type Name + Desc</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>SumRepTypeLink</id>
+		<target_direct>OSVT</target_direct>
+		<object_key_column>SumRepType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>TAX_REP_TY</id>
+		<unique />
+		<column>TaxRepType</column>
+	</key>
+</table>

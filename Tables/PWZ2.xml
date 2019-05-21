@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>PWZ2</id>
+	<description>Payment Wizard - Rows 2</description>
+	<string_list>1100329</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>IdEntry</id>
+		<source_code_name>ABS_ENT</source_code_name>
+		<description>ID Entry</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymCode</id>
+		<source_code_name>PYM_CODE</source_code_name>
+		<description>Payment Method Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BnkAccount</id>
+		<source_code_name>BANK_ACCOUNT</source_code_name>
+		<description>Bank Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MaxIncom</id>
+		<source_code_name>MAX_INCOMING</source_code_name>
+		<description>Max. Incoming Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MaxOutgo</id>
+		<source_code_name>MAX_OUTGOING</source_code_name>
+		<description>Max. Outgoing Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Balance</id>
+		<source_code_name>BALANCE</source_code_name>
+		<description>G/L Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExpectBal</id>
+		<source_code_name>EXPECTED_BALANCE</source_code_name>
+		<description>Expected G/L Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Checked</id>
+		<source_code_name>CHECKED</source_code_name>
+		<description sys="Y">Checked</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymDisc</id>
+		<source_code_name>PYM_DISC</source_code_name>
+		<description sys="Y">Payment discription</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymType</id>
+		<source_code_name>PYM_TYPE</source_code_name>
+		<description sys="Y">Payment Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IntBalance</id>
+		<source_code_name>INTERIM_BALANCE</source_code_name>
+		<description>G/L Interim Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExpIntBal</id>
+		<source_code_name>EXP_INTERIM_BALANCE</source_code_name>
+		<description>Expected G/L Interim Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>InterimAct</id>
+		<source_code_name>INTERIM_ACCOUNT</source_code_name>
+		<description>Interim Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BnkCountry</id>
+		<source_code_name>COUNTRY</source_code_name>
+		<description>Bank Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BnkCode</id>
+		<source_code_name>BANK_CODE</source_code_name>
+		<description>Bank Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BnkAccNo</id>
+		<source_code_name>BANK_ACCOUNT_NO</source_code_name>
+		<description>Bank Account Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FatherLn</id>
+		<source_code_name>FATHER_LINE</source_code_name>
+		<description>Parent Line</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>IdEntryLink</id>
+		<target_direct>OPWZ</target_direct>
+		<object_key_column>IdEntry</object_key_column>
+	</association>
+	<association>
+		<id>PymCodeLink</id>
+		<target_direct>OPYM</target_direct>
+		<object_key_column>PymCode</object_key_column>
+	</association>
+	<association>
+		<id>BnkAccountLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>BnkAccount</object_key_column>
+	</association>
+	<association>
+		<id>InterimActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>InterimAct</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>IdEntry</column>
+		<column>PymCode</column>
+	</key>
+</table>

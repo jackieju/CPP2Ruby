@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>USR2</id>
+	<description>Run External Application</description>
+	<string_list>1100212</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>USER_CODE</id>
+		<source_code_name>USER_CODE</source_code_name>
+		<description>Alert Code</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>25</edit_size>
+	</column>
+	<column>
+		<id>PATH1</id>
+		<source_code_name>PATH1</source_code_name>
+		<description>Path 1</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PATH2</id>
+		<source_code_name>PATH2</source_code_name>
+		<description>Path 2</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PATH3</id>
+		<source_code_name>PATH3</source_code_name>
+		<description>Path 3</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PATH4</id>
+		<source_code_name>PATH4</source_code_name>
+		<description>Path 4</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PATH5</id>
+		<source_code_name>PATH5</source_code_name>
+		<description>Path 5</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PATH6</id>
+		<source_code_name>PATH6</source_code_name>
+		<description>Path 6</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PATH7</id>
+		<source_code_name>PATH7</source_code_name>
+		<description>Path 7</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PATH8</id>
+		<source_code_name>PATH8</source_code_name>
+		<description>Path 8</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PATH9</id>
+		<source_code_name>PATH9</source_code_name>
+		<description>Path 9</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>PATH10</id>
+		<source_code_name>PATH10</source_code_name>
+		<description>Path 10</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>USER_CODE</column>
+	</key>
+</table>

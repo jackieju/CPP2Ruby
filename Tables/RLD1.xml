@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RLD1</id>
+	<description>Reference Links Definition</description>
+	<string_list>1101294</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>106</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TargetType</id>
+		<source_code_name>TARGET_TYPE</source_code_name>
+		<description>Target Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>H</default_value>
+		<valid_value>
+			<value>H</value>
+			<description>Header</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>BP Row</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>Row</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TargetFld</id>
+		<source_code_name>TARGET_FIELD</source_code_name>
+		<description>Target Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>21</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>21</edit_size>
+	</column>
+	<column>
+		<id>SourceFld</id>
+		<source_code_name>SOURCE_FIELD</source_code_name>
+		<description>Source Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>21</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>21</edit_size>
+	</column>
+	<column>
+		<id>OrderNum</id>
+		<source_code_name>ORDER_NUM</source_code_name>
+		<description>Order Number</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SourceType</id>
+		<source_code_name>SOURCE_TYPE</source_code_name>
+		<description>Source Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>E</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Base Document Reference</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Column</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Default</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Not Defined</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Installment Number</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>ORLD</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>TargetType</column>
+		<column>TargetFld</column>
+	</key>
+</table>

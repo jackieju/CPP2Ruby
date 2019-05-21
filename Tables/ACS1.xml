@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ACS1</id>
+	<description>Asset Classes - Depreciation Areas</description>
+	<string_list>1101517</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Line Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DprAreaID</id>
+		<source_code_name>DEPRECIATION_AREA_ID</source_code_name>
+		<description>Depreciation Area ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>Active</id>
+		<source_code_name>ACTIVE</source_code_name>
+		<description>Active</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AcctDtn</id>
+		<source_code_name>ACC_DETERMINATION</source_code_name>
+		<description>Account Determination</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>DprTypID</id>
+		<source_code_name>DEPRECIATION_TYPE_ID</source_code_name>
+		<description>Depreciation Type ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>UseLife</id>
+		<source_code_name>USE_LIFE</source_code_name>
+		<description>Useful Life</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>CodeLink</id>
+		<target_direct>OACS</target_direct>
+		<object_key_column>Code</object_key_column>
+	</association>
+	<association>
+		<id>DprAreaIDLink</id>
+		<target_direct>ODPA</target_direct>
+		<object_key_column>DprAreaID</object_key_column>
+	</association>
+	<association>
+		<id>AcctDtnLink</id>
+		<target_direct>OADT</target_direct>
+		<object_key_column>AcctDtn</object_key_column>
+	</association>
+	<association>
+		<id>DprTypIDLink</id>
+		<target_direct>ODTP</target_direct>
+		<object_key_column>DprTypID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+		<column>LineNum</column>
+	</key>
+	<key>
+		<id>UNIQUE</id>
+		<unique />
+		<column>Code</column>
+		<column>DprAreaID</column>
+	</key>
+</table>

@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SOUT</id>
+	<description sys="Y">[SOUT]</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>LogNum</id>
+		<source_code_name>LOG_NUM</source_code_name>
+		<description sys="Y">??' ?????</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Company</id>
+		<source_code_name>COMPANY</source_code_name>
+		<description sys="Y">Company</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>USER_CODE</id>
+		<source_code_name>USER_CODE</source_code_name>
+		<description sys="Y">User code</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Object</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description sys="Y">Object</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjectAbs</id>
+		<source_code_name>OBJ_ABS</source_code_name>
+		<description sys="Y">ObjectAbs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SubDate</id>
+		<source_code_name>DATE1</source_code_name>
+		<description sys="Y">Submission date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SubTime</id>
+		<source_code_name>TIME1</source_code_name>
+		<description sys="Y">Submission time</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ActDate</id>
+		<source_code_name>DATE2</source_code_name>
+		<description sys="Y">Action date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ActTime</id>
+		<source_code_name>TIME2</source_code_name>
+		<description sys="Y">Action time</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description sys="Y">Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>C</default_value>
+		<valid_value>
+			<value>C</value>
+			<description sys="Y">Check in</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description sys="Y">In process</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description sys="Y">Error</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y">Success</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description sys="Y">Success with info</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ErrCode</id>
+		<source_code_name>ERROR_CODE</source_code_name>
+		<description sys="Y">Error code</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ErrMessage</id>
+		<source_code_name>ERROR_MESSAGE</source_code_name>
+		<description sys="Y">Error message</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LogNum</column>
+	</key>
+	<key>
+		<id>STATUS</id>
+		<column>Status</column>
+	</key>
+</table>

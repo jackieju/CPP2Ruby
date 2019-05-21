@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OERT</id>
+	<description>Excise Register Numbering Type</description>
+	<string_list>1101178</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>NumTypeId</id>
+		<source_code_name>NUMBER_TYPE_ID</source_code_name>
+		<description>Numbering Type ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NumTypeNam</id>
+		<source_code_name>NUMBER_TYPE_NAME</source_code_name>
+		<description>Numbering Type Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>FirstNum</id>
+		<source_code_name>FIRST_NUM</source_code_name>
+		<description>First Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NextNum</id>
+		<source_code_name>NEXT_NUM</source_code_name>
+		<description>Next Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LastNum</id>
+		<source_code_name>LAST_NUM</source_code_name>
+		<description>Last Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>NumTypeId</column>
+	</key>
+	<key>
+		<id>TYPE_NAME</id>
+		<unique />
+		<column>NumTypeNam</column>
+	</key>
+</table>

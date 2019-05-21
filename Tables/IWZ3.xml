@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>IWZ3</id>
+	<description>Items Last Revaluation Data</description>
+	<string_list>1100548</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Number</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WhCode</id>
+		<source_code_name>WH_CODE</source_code_name>
+		<description>Warehouse Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RevalPrice</id>
+		<source_code_name>REVAL_PRICE</source_code_name>
+		<description>Revaluated Price</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BaseCurr</id>
+		<source_code_name>BASE_CURR</source_code_name>
+		<description>Item Base Currency</description>
+		<field_type>33</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RevalDate</id>
+		<source_code_name>REVAL_DATE</source_code_name>
+		<description>Revaluation Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RevalSum</id>
+		<source_code_name>REVAL_SUM</source_code_name>
+		<description>Revaluation Sum</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BasePrice</id>
+		<source_code_name>BASE_PRICE</source_code_name>
+		<description>Base Price</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RealAcct</id>
+		<source_code_name>REVAL_ACCOUNT</source_code_name>
+		<description>Revaluation Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RevalOfsac</id>
+		<source_code_name>REVAL_OFFS_ACT</source_code_name>
+		<description>Reval. Offset Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RevalType</id>
+		<source_code_name>REVAL_TYPE</source_code_name>
+		<description>Revaluation Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>S</value>
+			<description>Inventory Reval. Type</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>COGS Revaluation Type</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExeLine</id>
+		<source_code_name>EXECUTED_LINE</source_code_name>
+		<description>Executed Row</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RevCancel</id>
+		<source_code_name>REVAL_CANCEL</source_code_name>
+		<description>Revaluation Cancel</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RvCaclDate</id>
+		<source_code_name>REVAL_CANCEL_DATE</source_code_name>
+		<description>Reval. Acct Cancellation Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BalanceBef</id>
+		<source_code_name>BALANCE_BEFORE</source_code_name>
+		<description>Balance Before Revaluation</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OIWZ</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>WhCodeLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhCode</object_key_column>
+	</association>
+	<association>
+		<id>RealAcctLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>RealAcct</object_key_column>
+	</association>
+	<association>
+		<id>RevalOfsacLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>RevalOfsac</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>ItemCode</column>
+		<column>WhCode</column>
+	</key>
+	<key>
+		<id>ABS</id>
+		<column>AbsEntry</column>
+	</key>
+</table>

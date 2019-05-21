@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CFH1</id>
+	<description>Cash Flow Statement Report - History - Rows</description>
+	<string_list>1100660</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>CFHId</id>
+		<source_code_name>CFH_ID</source_code_name>
+		<description>Cash Flow History Identity</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineId</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Row Number</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DispItem</id>
+		<source_code_name>DISP_ITEM</source_code_name>
+		<description>Displayed Item Title</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Levels</id>
+		<source_code_name>LEVELS</source_code_name>
+		<description>Levels</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Cash Flow Line No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>IndentChar</id>
+		<source_code_name>INDENT_CHAR</source_code_name>
+		<description>Indent Char.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>4</default_value>
+	</column>
+	<column>
+		<id>Amount</id>
+		<source_code_name>AMOUNT</source_code_name>
+		<description>Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Formula</id>
+		<source_code_name>IS_FORMULA</source_code_name>
+		<description>Formula Flag</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Non-Formula</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Formula Node</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>CFHIdLink</id>
+		<target_direct>OCFH</target_direct>
+		<object_key_column>CFHId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CFHId</column>
+		<column>LineId</column>
+	</key>
+</table>

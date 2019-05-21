@@ -1,0 +1,1801 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OHEM</id>
+	<description>Employees</description>
+	<string_list>1100395</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>HumanResources</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>empID</id>
+		<source_code_name>EMPLOYEE_ID</source_code_name>
+		<description>Employee No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>lastName</id>
+		<source_code_name>LAST_NAME</source_code_name>
+		<description>Last Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>firstName</id>
+		<source_code_name>FIRST_NAME</source_code_name>
+		<description>First Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>middleName</id>
+		<source_code_name>MIDDLE_NAME</source_code_name>
+		<description>Middle Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>sex</id>
+		<source_code_name>SEX</source_code_name>
+		<description>Gender</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>F</value>
+			<description>Female</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Male</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>jobTitle</id>
+		<source_code_name>JOB_TITLE</source_code_name>
+		<description>Job Title</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Employee Type</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>dept</id>
+		<source_code_name>DEPARTMENT</source_code_name>
+		<description>Department</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>branch</id>
+		<source_code_name>BRANCH</source_code_name>
+		<description>Branch</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>workStreet</id>
+		<source_code_name>WORK_STREET</source_code_name>
+		<description>Work Street</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>workBlock</id>
+		<source_code_name>WORK_BLOOK</source_code_name>
+		<description>Work Block</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>workZip</id>
+		<source_code_name>WORK_ZIP</source_code_name>
+		<description>Work Zip Code</description>
+		<field_type>281</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>workCity</id>
+		<source_code_name>WORK_CITY</source_code_name>
+		<description>Work City</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>workCounty</id>
+		<source_code_name>WORK_COUNTY</source_code_name>
+		<description>Work County</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>workCountr</id>
+		<source_code_name>WORK_COUNTRY</source_code_name>
+		<description>Work Country</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>workState</id>
+		<source_code_name>WORK_STATE</source_code_name>
+		<description>Work State</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>manager</id>
+		<source_code_name>MANAGER</source_code_name>
+		<description>Manager</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>userId</id>
+		<source_code_name>USER_ID</source_code_name>
+		<description>User ID</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>salesPrson</id>
+		<source_code_name>SALES_PERSON</source_code_name>
+		<description>Sales Employee</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>officeTel</id>
+		<source_code_name>OFFICE_TEL</source_code_name>
+		<description>Office Phone</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>Dial</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>officeExt</id>
+		<source_code_name>OFFICE_EXT</source_code_name>
+		<description>Office Ext.</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>mobile</id>
+		<source_code_name>MOBILE</source_code_name>
+		<description>Mobile Phone</description>
+		<field_type>246</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>pager</id>
+		<source_code_name>PAGER</source_code_name>
+		<description>Pager</description>
+		<field_type>278</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>homeTel</id>
+		<source_code_name>HOME_TEL</source_code_name>
+		<description>Home Phone</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>Dial</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>fax</id>
+		<source_code_name>FAX</source_code_name>
+		<description>Fax</description>
+		<field_type>251</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>email</id>
+		<source_code_name>EMAIL</source_code_name>
+		<description>E-Mail</description>
+		<field_type>245</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>startDate</id>
+		<source_code_name>START_DATE</source_code_name>
+		<description>Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>salary</id>
+		<source_code_name>SALARY</source_code_name>
+		<description>Salary</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>salaryUnit</id>
+		<source_code_name>SALARY_UNIT</source_code_name>
+		<description>Salary Unit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>H</value>
+			<description>Hour</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Day</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Week</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Month</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Year</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Semimonthly</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Biweekly</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>emplCost</id>
+		<source_code_name>EMPLOYEE_COST</source_code_name>
+		<description>Employee Costs</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>empCostUnt</id>
+		<source_code_name>EMPLOYEE_COST_UNIT</source_code_name>
+		<description>Employee Cost Unit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>H</value>
+			<description>Hour</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Day</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Week</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Month</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Year</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>termDate</id>
+		<source_code_name>TERMINATION_DATE</source_code_name>
+		<description>Termination Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>termReason</id>
+		<source_code_name>TERMINATION_REASON</source_code_name>
+		<description>Termination Reason</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>bankCode</id>
+		<source_code_name>BANK_CODE</source_code_name>
+		<description>Bank Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>bankBranch</id>
+		<source_code_name>BANK_BRANCH</source_code_name>
+		<description>Bank Branch</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>bankBranNo</id>
+		<source_code_name>BANK_BRANCH_NO</source_code_name>
+		<description>Bank Branch No.</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>bankAcount</id>
+		<source_code_name>BANK_ACCOUNT</source_code_name>
+		<description>Bank Account</description>
+		<field_type>68</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>homeStreet</id>
+		<source_code_name>HOME_STREET</source_code_name>
+		<description>Home Street</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>homeBlock</id>
+		<source_code_name>HOME_BLOCK</source_code_name>
+		<description>Home Block</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>homeZip</id>
+		<source_code_name>HOME_ZIP</source_code_name>
+		<description>Home Zip Code</description>
+		<field_type>281</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>homeCity</id>
+		<source_code_name>HOME_CITY</source_code_name>
+		<description>Home City</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>homeCounty</id>
+		<source_code_name>HOME_COUNTY</source_code_name>
+		<description>Home County</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>homeCountr</id>
+		<source_code_name>HOME_COUNTRY</source_code_name>
+		<description>Home Country</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>homeState</id>
+		<source_code_name>HOME_STATE</source_code_name>
+		<description>Home State</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>birthDate</id>
+		<source_code_name>BIRTH_DATE</source_code_name>
+		<description>Date of Birth</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>brthCountr</id>
+		<source_code_name>BIRTH_COUNTRY</source_code_name>
+		<description>Country of Birth</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>martStatus</id>
+		<source_code_name>MARTIAL_STATUS</source_code_name>
+		<description>Marital Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>S</value>
+			<description>Single</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Married</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Divorced</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Widowed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>nChildren</id>
+		<source_code_name>CHILDREN_NUMBER</source_code_name>
+		<description>No. of Children</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>govID</id>
+		<source_code_name>GOVERNMENT_ID</source_code_name>
+		<description>ID Issued by Authorities</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>citizenshp</id>
+		<source_code_name>CITIZENSHIP</source_code_name>
+		<description>Citizenship</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>passportNo</id>
+		<source_code_name>PASSPORT_NUM</source_code_name>
+		<description>Passport No.</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>passportEx</id>
+		<source_code_name>PASSPORT_EXP_DATE</source_code_name>
+		<description>Passport Expiration Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>picture</id>
+		<source_code_name>PICTURE</source_code_name>
+		<description>Picture</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>remark</id>
+		<source_code_name>REMARK</source_code_name>
+		<description>Remarks</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>attachment</id>
+		<source_code_name>ATTACHMENT</source_code_name>
+		<description>Attachments</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>salaryCurr</id>
+		<source_code_name>SALARY_CURRENCY</source_code_name>
+		<description>Salary Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>empCostCur</id>
+		<source_code_name>EMPLOYEE_COST_CURR</source_code_name>
+		<description>Employee Costs Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WorkBuild</id>
+		<source_code_name>WORK_BUILDING</source_code_name>
+		<description>Work Building/Floor/Room</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HomeBuild</id>
+		<source_code_name>HOME_BUILDING</source_code_name>
+		<description>Home Building/Floor/Room</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>position</id>
+		<source_code_name>POSITION</source_code_name>
+		<description>Position</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AtcEntry</id>
+		<source_code_name>ATTACHMENT_ENTRY</source_code_name>
+		<description>Attachment Entry</description>
+		<field_type>273</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AddrTypeW</id>
+		<source_code_name>WORK_ADDR_TYPE</source_code_name>
+		<description>Work Address Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AddrTypeH</id>
+		<source_code_name>HOME_ADDR_TYPE</source_code_name>
+		<description>Home Address Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>StreetNoW</id>
+		<source_code_name>WORK_STREET_NO</source_code_name>
+		<description>Work Street No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>StreetNoH</id>
+		<source_code_name>HOME_STREET_NO</source_code_name>
+		<description>Home Street No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>DispMidNam</id>
+		<source_code_name>DISPLAY_MIDDLE_NAME</source_code_name>
+		<description>Display Middle Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>NamePos</id>
+		<source_code_name>NAME_POSITIONING</source_code_name>
+		<description>Name Positioning Set</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Last Name, First Name</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>First Name, Last Name</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DispComma</id>
+		<source_code_name>DISPLAY_COMMA</source_code_name>
+		<description>Display Comma</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CostCenter</id>
+		<source_code_name>COST_CENTER_CODE</source_code_name>
+		<description>Cost Center</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CompanyNum</id>
+		<source_code_name>COMPANY_NUM</source_code_name>
+		<description>Company Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VacPreYear</id>
+		<source_code_name>VACATION_PREV_YEAR</source_code_name>
+		<description>Vacation: Previous Year</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>VacCurYear</id>
+		<source_code_name>VACATION_CUR_YEAR</source_code_name>
+		<description>Vacation: Current Year</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>MunKey</id>
+		<source_code_name>MUNICIPALITY_KEY</source_code_name>
+		<description>Municipality Key</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxClass</id>
+		<source_code_name>EMP_INCOME_TAX_CLASS</source_code_name>
+		<description>Tax Class</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Tax Class I</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Tax Class II</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Tax Class III</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Tax Class IV</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Tax Class V</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Tax Class VI</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InTaxLiabi</id>
+		<source_code_name>INCOME_TAX_LIABITY</source_code_name>
+		<description>Income Tax Liability</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>On Tax Card</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Flat-Rate Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Cross-Border Employee</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Not Liable</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>EmTaxCCode</id>
+		<source_code_name>EMP_TAX_CHURCH_CODE</source_code_name>
+		<description>Religion</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>--</value>
+			<description>No Church Tax Liability</description>
+		</valid_value>
+		<valid_value>
+			<value>AK</value>
+			<description>(AK) Old Catholic</description>
+		</valid_value>
+		<valid_value>
+			<value>EV</value>
+			<description>(EV) Protestant</description>
+		</valid_value>
+		<valid_value>
+			<value>FA</value>
+			<description>(FA) Non-Denomination Alzey</description>
+		</valid_value>
+		<valid_value>
+			<value>FB</value>
+			<description>(FB) Non-Denominational Regional Congregation Baden</description>
+		</valid_value>
+		<valid_value>
+			<value>FG</value>
+			<description>(FG) Non-Denominational Regional Congregation Palatinate</description>
+		</valid_value>
+		<valid_value>
+			<value>FM</value>
+			<description>(FM) Non-Denominational Congregation Mainz</description>
+		</valid_value>
+		<valid_value>
+			<value>FR</value>
+			<description>(FR) French-Reformed</description>
+		</valid_value>
+		<valid_value>
+			<value>FS</value>
+			<description>(FS) Non-Denominational Congregation Offenbach/Mainz</description>
+		</valid_value>
+		<valid_value>
+			<value>IB</value>
+			<description>(IB) Israelite Religious Community Baden</description>
+		</valid_value>
+		<valid_value>
+			<value>IL</value>
+			<description>(IL) Israelite Rural</description>
+		</valid_value>
+		<valid_value>
+			<value>IS</value>
+			<description>(IS) Israelite</description>
+		</valid_value>
+		<valid_value>
+			<value>IW</value>
+			<description>(IW) Israelite Religious Community Wuerttemberg</description>
+		</valid_value>
+		<valid_value>
+			<value>JD</value>
+			<description>(JD) Jewish Religion Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>JH</value>
+			<description>(JH) Jewish Religion Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>JS</value>
+			<description>(JS) Jewish Religion Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>LT</value>
+			<description>(LT) Lutheran</description>
+		</valid_value>
+		<valid_value>
+			<value>RF</value>
+			<description>(RF) Reformed</description>
+		</valid_value>
+		<valid_value>
+			<value>RK</value>
+			<description>(RK) Roman Catholic</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RelPartner</id>
+		<source_code_name>RELIGION_PARTER</source_code_name>
+		<description>Religion of Partner</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>--</value>
+			<description>No Church Tax Liability</description>
+		</valid_value>
+		<valid_value>
+			<value>AK</value>
+			<description>(AK) Old Catholic</description>
+		</valid_value>
+		<valid_value>
+			<value>EV</value>
+			<description>(EV) Protestant</description>
+		</valid_value>
+		<valid_value>
+			<value>FA</value>
+			<description>(FA) Non-Denomination Alzey</description>
+		</valid_value>
+		<valid_value>
+			<value>FB</value>
+			<description>(FB) Non-Denominational Regional Congregation Baden</description>
+		</valid_value>
+		<valid_value>
+			<value>FG</value>
+			<description>(FG) Non-Denominational Regional Congregation Palatinate</description>
+		</valid_value>
+		<valid_value>
+			<value>FM</value>
+			<description>(FM) Non-Denominational Congregation Mainz</description>
+		</valid_value>
+		<valid_value>
+			<value>FR</value>
+			<description>(FR) French-Reformed</description>
+		</valid_value>
+		<valid_value>
+			<value>FS</value>
+			<description>(FS) Non-Denominational Congregation Offenbach/Mainz</description>
+		</valid_value>
+		<valid_value>
+			<value>IB</value>
+			<description>(IB) Israelite Religious Community Baden</description>
+		</valid_value>
+		<valid_value>
+			<value>IL</value>
+			<description>(IL) Israelite Rural</description>
+		</valid_value>
+		<valid_value>
+			<value>IS</value>
+			<description>(IS) Israelite</description>
+		</valid_value>
+		<valid_value>
+			<value>IW</value>
+			<description>(IW) Israelite Religious Community Wuerttemberg</description>
+		</valid_value>
+		<valid_value>
+			<value>JD</value>
+			<description>(JD) Jewish Religion Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>JH</value>
+			<description>(JH) Jewish Religion Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>JS</value>
+			<description>(JS) Jewish Religion Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>LT</value>
+			<description>(LT) Lutheran</description>
+		</valid_value>
+		<valid_value>
+			<value>RF</value>
+			<description>(RF) Reformed</description>
+		</valid_value>
+		<valid_value>
+			<value>RK</value>
+			<description>(RK) Roman Catholic</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExemptAmnt</id>
+		<source_code_name>EXEMPTION_AMOUNT</source_code_name>
+		<description>Exemption Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ExemptUnit</id>
+		<source_code_name>EXEMPTION_UNIT</source_code_name>
+		<description>Exemption Amount Period</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Yearly</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Monthly</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Weekly</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Daily</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AddiAmnt</id>
+		<source_code_name>ADDITIONAL_AMOUNT</source_code_name>
+		<description>Additional Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AddiUnit</id>
+		<source_code_name>ADDITIONAL_UNIT</source_code_name>
+		<description>Additional Amount Period</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Yearly</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Monthly</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Weekly</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Daily</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TaxOName</id>
+		<source_code_name>TAX_OFFICE_NAME</source_code_name>
+		<description>Tax Office Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>TaxONum</id>
+		<source_code_name>TAX_OFFICE_NUM</source_code_name>
+		<description>Tax Office Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>HeaInsName</id>
+		<source_code_name>HEALTH_INSUR_NAME</source_code_name>
+		<description>Health Insurance Company Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>HeaInsCode</id>
+		<source_code_name>HEALTH_INSUR_CODE</source_code_name>
+		<description>Health Insurance Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>HeaInsType</id>
+		<source_code_name>TYPE_OF_HEALTH_INSUR</source_code_name>
+		<description>Type of Health Insurance</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>' '</default_value>
+		<valid_value>
+			<value>' '</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>AOK</value>
+			<description>(AOK)</description>
+		</valid_value>
+		<valid_value>
+			<value>IKK</value>
+			<description>(IKK)</description>
+		</valid_value>
+		<valid_value>
+			<value>EKK</value>
+			<description>(EKK)</description>
+		</valid_value>
+		<valid_value>
+			<value>BKK</value>
+			<description>(BKK)</description>
+		</valid_value>
+		<valid_value>
+			<value>BKS</value>
+			<description>(BKS)</description>
+		</valid_value>
+		<valid_value>
+			<value>LKK</value>
+			<description>(LKK)</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SInsurNum</id>
+		<source_code_name>SOCIAL_INSUR_NUM</source_code_name>
+		<description>Social Insurance Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>StatusOfP</id>
+		<source_code_name>STATUS_OF_PROFESSION</source_code_name>
+		<description>Professional Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description>Trainee</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Worker</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Skilled Worker</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Supervisor/Foreman</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Office Worker</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Youth Help/Sheltered Workshop</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>On Career Advancement Training</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Homeworker</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Part Time &lt; 18 Hrs</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Part Time &gt; 18 Hrs</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>StatusOfE</id>
+		<source_code_name>STATUS_OF_EDUCATION</source_code_name>
+		<description>Educational Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>W/o Professional Qualification</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>W. Professional Qualification</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>High School w/o Prof. Qualif.</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>High School w. Prof. Qualific.</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Vocational Qualification</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>University</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Not Possible to Specify</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BCodeDateV</id>
+		<source_code_name>BANK_CODE_DATEV</source_code_name>
+		<description>Bank Code for DATEV</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DevBAOwner</id>
+		<source_code_name>DEVI_BNK_ACCT_OWNER</source_code_name>
+		<description>Deviating Bank Account Owner</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FNameSP</id>
+		<source_code_name>FIRST_NAME_OF_SPOUSE</source_code_name>
+		<description>First Name of Spouse</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>SurnameSP</id>
+		<source_code_name>SURNAME_OF_SPOUSE</source_code_name>
+		<description>Last Name of Spouse</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign2</id>
+		<source_code_name>USER2_SIGNATURE</source_code_name>
+		<description>Updating User</description>
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Update Date</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PersGroup</id>
+		<source_code_name>PERSON_GROUP</source_code_name>
+		<description>Person Group</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>101</value>
+			<description>Subject to Social Insurance</description>
+		</valid_value>
+		<valid_value>
+			<value>102</value>
+			<description>Apprentice</description>
+		</valid_value>
+		<valid_value>
+			<value>104</value>
+			<description>Home Worker</description>
+		</valid_value>
+		<valid_value>
+			<value>105</value>
+			<description>Trainee</description>
+		</valid_value>
+		<valid_value>
+			<value>106</value>
+			<description>Student</description>
+		</valid_value>
+		<valid_value>
+			<value>108</value>
+			<description>Early Retirement</description>
+		</valid_value>
+		<valid_value>
+			<value>109</value>
+			<description>Part-Time Employee</description>
+		</valid_value>
+		<valid_value>
+			<value>110</value>
+			<description>Short-Term Employee</description>
+		</valid_value>
+		<valid_value>
+			<value>112</value>
+			<description>Family Member: Agriculture</description>
+		</valid_value>
+		<valid_value>
+			<value>113</value>
+			<description>Addnl Income: Agriculture</description>
+		</valid_value>
+		<valid_value>
+			<value>114</value>
+			<description>Addnl Income: Seasonal Agriculture</description>
+		</valid_value>
+		<valid_value>
+			<value>116</value>
+			<description>Receiving Compensation Pay</description>
+		</valid_value>
+		<valid_value>
+			<value>118</value>
+			<description>Irregularly Employed</description>
+		</valid_value>
+		<valid_value>
+			<value>119</value>
+			<description>Pensioner</description>
+		</valid_value>
+		<valid_value>
+			<value>997</value>
+			<description>Not Specified</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>JTCode</id>
+		<source_code_name>JOB_TITLE_CODE</source_code_name>
+		<description>Job Title Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>ExtEmpNo</id>
+		<source_code_name>EXT_EMPLOYEE_NO</source_code_name>
+		<description>Ext. Employee No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BirthPlace</id>
+		<source_code_name>BIRTH_PLACE</source_code_name>
+		<description>Place of Birth</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymMeth</id>
+		<source_code_name>PYM_METH</source_code_name>
+		<description>Payment Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>05</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>05</value>
+			<description>Bank Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExemptCurr</id>
+		<source_code_name>EXEMPT_CURR</source_code_name>
+		<description>Exemption Amount Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AddiCurr</id>
+		<source_code_name>ADDITIONAL_CURR</source_code_name>
+		<description>Additional Amount Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>STDCode</id>
+		<source_code_name>STD_CODE</source_code_name>
+		<description>STD Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>FatherName</id>
+		<source_code_name>FATHERNAME</source_code_name>
+		<description>Father's Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>150</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CPF</id>
+		<source_code_name>CPF</source_code_name>
+		<description>Personal Fiscal ID</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>CRC</id>
+		<source_code_name>CRC</source_code_name>
+		<description>CRC Number</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ContResp</id>
+		<source_code_name>ACC_RESPONSIBLE</source_code_name>
+		<description>Accountant Responsible</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RepLegal</id>
+		<source_code_name>LEGAL_REPRESENTATIVE</source_code_name>
+		<description>Legal Representative</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DirfDeclar</id>
+		<source_code_name>DIRF_DECLARING</source_code_name>
+		<description>DIRF Responsible</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UF_CRC</id>
+		<source_code_name>UF_CRC</source_code_name>
+		<description>CRC State</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IDType</id>
+		<source_code_name>ID_Type</source_code_name>
+		<description>ID Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>Active</id>
+		<source_code_name>ACTIVE</source_code_name>
+		<description>Employee Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Active</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Inactive</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BPLId</id>
+		<source_code_name>BPL_ID</source_code_name>
+		<description>Branch</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ManualNUM</id>
+		<source_code_name>MANUAL_EMP_NUM</source_code_name>
+		<description>Manual EMP No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>60</edit_size>
+	</column>
+	<association>
+		<id>typeLink</id>
+		<target_direct>OHTY</target_direct>
+		<object_key_column>type</object_key_column>
+	</association>
+	<association>
+		<id>deptLink</id>
+		<target_direct>OUDP</target_direct>
+		<object_key_column>dept</object_key_column>
+	</association>
+	<association>
+		<id>branchLink</id>
+		<target_direct>OUBR</target_direct>
+		<object_key_column>branch</object_key_column>
+	</association>
+	<association>
+		<id>workCountrLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>workCountr</object_key_column>
+	</association>
+	<association>
+		<id>managerLink</id>
+		<target_direct>OHEM</target_direct>
+		<object_key_column>manager</object_key_column>
+	</association>
+	<association>
+		<id>userIdLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>userId</object_key_column>
+	</association>
+	<association>
+		<id>salesPrsonLink</id>
+		<target_direct>OSLP</target_direct>
+		<object_key_column>salesPrson</object_key_column>
+	</association>
+	<association>
+		<id>statusLink</id>
+		<target_direct>OHST</target_direct>
+		<object_key_column>status</object_key_column>
+	</association>
+	<association>
+		<id>termReasonLink</id>
+		<target_direct>OHTR</target_direct>
+		<object_key_column>termReason</object_key_column>
+	</association>
+	<association>
+		<id>BankCodeLink</id>
+		<target_direct>ODSC</target_direct>
+		<object_key_column>bankCode</object_key_column>
+	</association>
+	<association>
+		<id>HomeCountryLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>homeCountr</object_key_column>
+	</association>
+	<association>
+		<id>brthCountrLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>brthCountr</object_key_column>
+	</association>
+	<association>
+		<id>citizenshpLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>citizenshp</object_key_column>
+	</association>
+	<association>
+		<id>positionLink</id>
+		<target_direct>OHPS</target_direct>
+		<object_key_column>position</object_key_column>
+	</association>
+	<association>
+		<id>PrcCodeLink</id>
+		<target_direct>OPRC</target_direct>
+		<object_key_column>CostCenter</object_key_column>
+	</association>
+	<association>
+		<id>CreatingUserLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>UpdatingUserLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign2</object_key_column>
+	</association>
+	<association>
+		<id>IDTypeLink</id>
+		<target_direct>OIDT</target_direct>
+		<object_key_column>IDType</object_key_column>
+	</association>
+	<association>
+		<id>BPLLink</id>
+		<target_direct>OBPL</target_direct>
+		<object_key_column>BPLId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>empID</column>
+	</key>
+	<key>
+		<id>OUSR</id>
+		<column>userId</column>
+	</key>
+	<key>
+		<id>OSLP</id>
+		<column>salesPrson</column>
+	</key>
+	<key>
+		<id>NAME</id>
+		<column>firstName</column>
+		<column>middleName</column>
+		<column>lastName</column>
+	</key>
+</table>

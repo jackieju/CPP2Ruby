@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>LOCL</id>
+	<description sys="Y">Localizations Table</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>AbsKey</id>
+		<source_code_name>ABS_KEY</source_code_name>
+		<description sys="Y">Abs Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOC_CODE</source_code_name>
+		<description sys="Y">Localization Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DfltLang</id>
+		<source_code_name>DEFAULT_LANG</source_code_name>
+		<description sys="Y">Default Language</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>B5IColctn</id>
+		<source_code_name>B5I_COLLECTION</source_code_name>
+		<description sys="Y">B5I Collection Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>IncldInExp</id>
+		<source_code_name>INCLUDE_IN_EXPORT</source_code_name>
+		<description sys="Y">Include In export</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IncEnInExp</id>
+		<source_code_name>INCLUDE_EN_IN_EXPORT</source_code_name>
+		<description sys="Y">Include English In Export</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LocCode</column>
+	</key>
+	<key>
+		<id>ABS_KEY</id>
+		<unique />
+		<column>AbsKey</column>
+	</key>
+</table>

@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OGBI</id>
+	<description>GB Interface: Common Info</description>
+	<string_list>1100947</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Numerator</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepNo</id>
+		<source_code_name>REP_NO</source_code_name>
+		<description>Report Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepCompany</id>
+		<source_code_name>REP_COMPANY</source_code_name>
+		<description>Report Company Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepPeriod</id>
+		<source_code_name>REP_PERIOD</source_code_name>
+		<description>Report Period</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Currency</id>
+		<source_code_name>CURRENCY</source_code_name>
+		<description>Currency Unit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Report Creation Date</description>
+		<field_type>242</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepType</id>
+		<source_code_name>REP_TYPE</source_code_name>
+		<description>Report Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Electronic Account Book</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>G/L Account Master Records</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Departments</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Employees</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Business Partners</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Projects</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>G/L Account Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Accounting Vouchers</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Enterprise's Balance Sheet</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Enterprise's Profit and Loss Statement</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Enterprise's Cash Flow Statement</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Devalue Provision of Enterprise Assets</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Shareholder's Rights and Interests Changing Report</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Enterprise's Profit Distribution Report</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Small Enterprise's Cash Flow Statement</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Enterprise's VAT Payable Detail Report</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RepEntity</id>
+		<source_code_name>REP_ENTITY</source_code_name>
+		<description>Report Entity</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

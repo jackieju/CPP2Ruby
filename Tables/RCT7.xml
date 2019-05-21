@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RCT7</id>
+	<description>Incoming Pmt - Tax Amount per Document</description>
+	<string_list>1100551</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_KEY</source_code_name>
+		<description>Document Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>SSNum</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineSeq</id>
+		<source_code_name>LINE_SEQUENCE</source_code_name>
+		<description>Row Sequence</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>InvoiceSeq</id>
+		<source_code_name>INVOICE_SEQ</source_code_name>
+		<description>Invoice Sequence Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ValueDate</id>
+		<source_code_name>VALUE_DATE</source_code_name>
+		<description>Due Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Inv4Seq</id>
+		<source_code_name>INV4_SEQUENCE</source_code_name>
+		<description>INV4 Sequence Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TaxSum</id>
+		<source_code_name>TAX_SUM</source_code_name>
+		<description>Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxSumFrgn</id>
+		<source_code_name>TAX_SUM_FRGN</source_code_name>
+		<description>Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxSumSys</id>
+		<source_code_name>TAX_SUM_SYS</source_code_name>
+		<description>Tax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseSum</id>
+		<source_code_name>BASE_SUM</source_code_name>
+		<description>Base Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseSumFrg</id>
+		<source_code_name>BASE_SUM_FRGN</source_code_name>
+		<description>Base Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseSumSys</id>
+		<source_code_name>BASE_SUM_SYS</source_code_name>
+		<description>Base Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>24</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>DocNumLink</id>
+		<target_direct>ORCT</target_direct>
+		<object_key_column>DocNum</object_key_column>
+	</association>
+	<association>
+		<id>ObjectTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjectType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocNum</column>
+		<column>LineSeq</column>
+	</key>
+</table>

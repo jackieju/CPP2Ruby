@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CIF1</id>
+	<description>Country specific information</description>
+	<string_list>1101566</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>FldAbsEnt</id>
+		<source_code_name>FIELD_ABS_ENTRY</source_code_name>
+		<description>Field ID</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Country</id>
+		<source_code_name>COUNTRY</source_code_name>
+		<description>Country Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsMandImp</id>
+		<source_code_name>IS_MANDATORY_IMPORT</source_code_name>
+		<description>Field is mandatory for import</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IsMandExp</id>
+		<source_code_name>IS_MANDATORY_EXPORT</source_code_name>
+		<description>Field is mandatory for export</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IsReqAllIm</id>
+		<source_code_name>IS_REQUIRED_ALL_IMP</source_code_name>
+		<description>Field is required for import</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IsReqAllEx</id>
+		<source_code_name>IS_REQUIRED_ALL_EXP</source_code_name>
+		<description>Field is required for export</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>MainTblLink</id>
+		<target_direct>OCIF</target_direct>
+		<object_key_column>FldAbsEnt</object_key_column>
+	</association>
+	<association>
+		<id>CountryLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>Country</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>FldAbsEnt</column>
+		<column>Country</column>
+	</key>
+</table>

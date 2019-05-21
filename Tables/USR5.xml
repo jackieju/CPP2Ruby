@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>USR5</id>
+	<description>User Access Log</description>
+	<string_list>1101287</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>UserCode</id>
+		<source_code_name>USER_CODE</source_code_name>
+		<description>User Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Action</id>
+		<source_code_name>ACTION</source_code_name>
+		<description>Performed Action</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>I</value>
+			<description>Logon Succeeded</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Logon Failed</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Logoff</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Created</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Superuser Selected</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Superuser Deselected</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>Locked</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Unlocked</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Password Changed</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Screen Unlock Failed</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Temporary User Change</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Removed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ActionBy</id>
+		<source_code_name>ACTION_BY</source_code_name>
+		<description>User Who Performed the Action</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ClientIP</id>
+		<source_code_name>CLIENT_IP</source_code_name>
+		<description sys="Y">IP Address of Client Computer</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Date</id>
+		<source_code_name>DATE</source_code_name>
+		<description>Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Time</id>
+		<source_code_name>TIME</source_code_name>
+		<description>Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ClientName</id>
+		<source_code_name>CLIENT_NAME</source_code_name>
+		<description>Hostname of Client Computer</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ProcessID</id>
+		<source_code_name>PROCESS_ID</source_code_name>
+		<description>Process ID of B1 Application</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>SessionID</id>
+		<source_code_name>Session_ID</source_code_name>
+		<description>Connection Session ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>WinSessnID</id>
+		<source_code_name>WINSESSION_ID</source_code_name>
+		<description>Client Windows Session ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>WinUsrName</id>
+		<source_code_name>WINUSER_NAME</source_code_name>
+		<description>User Name of Windows User</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ProcName</id>
+		<source_code_name>PROCESS_Name</source_code_name>
+		<description>Process Name of Logged-On App.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>80</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>UserIDLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>UserCode</column>
+		<column>Action</column>
+		<column>Date</column>
+		<column>Time</column>
+	</key>
+</table>

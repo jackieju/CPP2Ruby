@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>IPD2</id>
+	<description>Inventory Posting Draft - UoM</description>
+	<string_list>1101720</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ChildNum</id>
+		<source_code_name>CHILD_NUM</source_code_name>
+		<description>Child Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BarCode</id>
+		<source_code_name>BAR_CODE</source_code_name>
+		<description>Bar Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<column>
+		<id>UomCode</id>
+		<source_code_name>UOM_CODE</source_code_name>
+		<description>UoM Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>UomQty</id>
+		<source_code_name>UOM_COUNT_QTY</source_code_name>
+		<description>UoM Counted Qty</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CountQty</id>
+		<source_code_name>COUNTED_QTY</source_code_name>
+		<description>Counted Qty - Inventory UoM</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Tk1UomQty</id>
+		<source_code_name>CNTER1_UOM_COUNT_QTY</source_code_name>
+		<description>Counter 1 UoM Counted Qty</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Tk2UomQty</id>
+		<source_code_name>CNTER2_UOM_COUNT_QTY</source_code_name>
+		<description>Counter 2 UoM Counted Qty</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Tk1CntQty</id>
+		<source_code_name>CNTER1_COUNTED_QTY</source_code_name>
+		<description>Counter 1 Counted Qty of Inv.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Tk2CntQty</id>
+		<source_code_name>CNTER2_COUNTED_QTY</source_code_name>
+		<description>Counter 2 Counted Qty of Inv.</description>
+		<field_type>1</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ItmsPerUnt</id>
+		<source_code_name>ITEMS_PER_UNIT</source_code_name>
+		<description>Items per Unit</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LogIns</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance - History</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>UgpEntry</id>
+		<source_code_name>UOM_GROUP_ABS_ENTRY</source_code_name>
+		<description>UoM Group Abs. Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>OIPD</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>UomCodeLink</id>
+		<target_direct>OUOM</target_direct>
+		<object_key_column>UomCode</object_key_column>
+	</association>
+	<association>
+		<id>UgpEntryLink</id>
+		<target_direct>OUGP</target_direct>
+		<object_key_column>UgpEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+		<column>ChildNum</column>
+	</key>
+	<key>
+		<id>BUSINESS</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+		<column>BarCode</column>
+		<column>UomCode</column>
+	</key>
+</table>

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SRA2</id>
+	<description>Scheduled Report Run Output</description>
+	<string_list>1101329</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>ActionCode</id>
+		<source_code_name>ACTION_CODE</source_code_name>
+		<description>Action Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Date</id>
+		<source_code_name>DATE</source_code_name>
+		<description>Date of Run</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Time</id>
+		<source_code_name>TIME</source_code_name>
+		<description>Time of Run</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>S</value>
+			<description>Successful</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>In progress</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Failure</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Results to Be Distributed</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description>Schedule Inactive</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Report Scheduled</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ReturnCode</id>
+		<source_code_name>RETURN_CODE</source_code_name>
+		<description>Return Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ReturnStr</id>
+		<source_code_name>RETURN_STRING</source_code_name>
+		<description>Return String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ResDag</id>
+		<source_code_name>RESULT_DAG</source_code_name>
+		<description>Result in DAG format</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ResPdf</id>
+		<source_code_name>RESULT_PDF</source_code_name>
+		<description>Result in PDF format</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ResHtml</id>
+		<source_code_name>RESULT_HTML</source_code_name>
+		<description>Result in HTML format</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ResXml</id>
+		<source_code_name>RESULT_XML</source_code_name>
+		<description>Result in XML format</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Results</id>
+		<source_code_name>RESULTS</source_code_name>
+		<description>Result Availability</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>NNNN</default_value>
+	</column>
+	<column>
+		<id>ResLog</id>
+		<source_code_name>RESULT_LOG</source_code_name>
+		<description>Report Creation Log</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ErrScreen</id>
+		<source_code_name>ERROR_SCREEN</source_code_name>
+		<description>Error Screenshot</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ActionCode</column>
+		<column>Date</column>
+		<column>Time</column>
+	</key>
+	<key>
+		<id>ACTIONCODE</id>
+		<column>ActionCode</column>
+	</key>
+</table>

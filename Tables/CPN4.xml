@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CPN4</id>
+	<description>Campaign - Competitor</description>
+	<string_list>1101943</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<column>
+		<id>CpnNo</id>
+		<source_code_name>CAMPAIGN_NO</source_code_name>
+		<description>Campaign No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CpnLineNum</id>
+		<source_code_name>CPN_LINE_NUM</source_code_name>
+		<description>Campaign Line Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompetId</id>
+		<source_code_name>CMT_ID</source_code_name>
+		<description>Competitor ID</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ThreatLevl</id>
+		<source_code_name>THRT_LEVEL</source_code_name>
+		<description>Threat Level</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<valid_value>
+			<value>1</value>
+			<description>Low</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Medium</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>High</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Memo</id>
+		<source_code_name>MEMO</source_code_name>
+		<description>Details</description>
+		<field_type>5</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<association>
+		<id>CpnNoLink</id>
+		<target_direct>OCPN</target_direct>
+		<object_key_column>CpnNo</object_key_column>
+	</association>
+	<association>
+		<id>CompetIdLink</id>
+		<target_direct>OCMT</target_direct>
+		<object_key_column>CompetId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CpnNo</column>
+		<column>CpnLineNum</column>
+	</key>
+</table>

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>BPL2</id>
+	<description>Branch Tributary Info.</description>
+	<string_list>1101753</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>BPLId</id>
+		<source_code_name>BPL_ID</source_code_name>
+		<description>BPL ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>TributID</id>
+		<source_code_name>TRIBUTARY_ID</source_code_name>
+		<description>Tributary Info. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>TributType</id>
+		<source_code_name>TRIBUTARY_TYPE</source_code_name>
+		<description>Tributary Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>TTStartDat</id>
+		<source_code_name>TRIB_TYPE_START_DATE</source_code_name>
+		<description>Tributary Type Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TTEndDate</id>
+		<source_code_name>TRIB_TYPE_END_DATE</source_code_name>
+		<description>Tributary Type End Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TribRegCod</id>
+		<source_code_name>TRIBUTARY_REGIME_COD</source_code_name>
+		<description>Tributary Regime Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>TRCStartD</id>
+		<source_code_name>TRIB_REG_C_START_DAT</source_code_name>
+		<description>Tributary Reg. Code Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TRCEndDate</id>
+		<source_code_name>TRIB_REG_C_END_DATE</source_code_name>
+		<description>Tributary Regime Code End Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>247</default_value>
+	</column>
+	<association>
+		<id>BPLIdLink</id>
+		<target_direct>OBPL</target_direct>
+		<object_key_column>BPLId</object_key_column>
+	</association>
+	<association>
+		<id>TributTypeLink</id>
+		<target_direct>OBNI</target_direct>
+		<object_key_column>TributType</object_key_column>
+	</association>
+	<association>
+		<id>TribRegCodLink</id>
+		<target_direct>OBNI</target_direct>
+		<object_key_column>TribRegCod</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>BPLId</column>
+		<column>TributID</column>
+	</key>
+</table>

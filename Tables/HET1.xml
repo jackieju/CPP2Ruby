@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>HET1</id>
+	<description>Employee Transfer Details</description>
+	<string_list>1101343</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>HumanResources</info_category>
+	<column>
+		<id>TransferID</id>
+		<source_code_name>TRANSFER_ID</source_code_name>
+		<description>Foreign Key to OHET</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>empID</id>
+		<source_code_name>EMPLOYEE_ID</source_code_name>
+		<description>Foreign Key to OHEM</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Transfered</id>
+		<source_code_name>TRANSFERRED</source_code_name>
+		<description>Timestamp: Status "Sent"</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Processing Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>New</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Sent</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Accepted</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Error</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Comment</id>
+		<source_code_name>COMMENT</source_code_name>
+		<description>Any comments</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransTime</id>
+		<source_code_name>TRANSFERRED_TIME</source_code_name>
+		<description>Time When Status Is "Sent"</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>TransferIDLink</id>
+		<target_direct>OHET</target_direct>
+		<object_key_column>TransferID</object_key_column>
+	</association>
+	<association>
+		<id>empIDLink</id>
+		<target_direct>OHEM</target_direct>
+		<object_key_column>empID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TransferID</column>
+		<column>empID</column>
+	</key>
+</table>

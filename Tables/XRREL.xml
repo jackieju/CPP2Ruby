@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>XRREL</id>
+	<description>XLR Company Report Objects</description>
+	<string_list>1100908</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>ParentId</id>
+		<source_code_name>ParentId</source_code_name>
+		<description>ParentId</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>38</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>36</edit_size>
+	</column>
+	<column>
+		<id>ChildId</id>
+		<source_code_name>ChildId</source_code_name>
+		<description>ChildId</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>38</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>36</edit_size>
+	</column>
+	<column>
+		<id>RelType</id>
+		<source_code_name>RelType</source_code_name>
+		<description>RelType</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>SeqNo</id>
+		<source_code_name>SeqNo</source_code_name>
+		<description>SeqNo</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Global</id>
+		<source_code_name>Global</source_code_name>
+		<description>Global</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ParentId</column>
+		<column>ChildId</column>
+		<column>Global</column>
+	</key>
+</table>

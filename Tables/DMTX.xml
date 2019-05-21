@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DMTX</id>
+	<description sys="Y">Grid Specifics</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<virtual />
+	<column>
+		<id>Selection</id>
+		<source_code_name>SELECTION_MODE</source_code_name>
+		<description sys="Y">SelectionMode</description>
+		<field_type>312</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">ms_None</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">ms_Auto</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">ms_Single</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MatrixLay</id>
+		<source_code_name>LAYOUT</source_code_name>
+		<description sys="Y">MatrixLayout</description>
+		<field_type>313</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">mlt_Normal</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">mlt_Vertical</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">mlt_VerticalStaticTitle</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TitleHeig</id>
+		<source_code_name>TITLE_HEIGHT</source_code_name>
+		<description sys="Y">TitleHeight</description>
+		<field_type>102</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CellHeig</id>
+		<source_code_name>CELL_HEIGHT</source_code_name>
+		<description sys="Y">CellHeight</description>
+		<field_type>101</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TabOrder</id>
+		<source_code_name>TAB_ORDER</source_code_name>
+		<description sys="Y">Tab Order</description>
+		<field_type>69</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TabOrder</column>
+	</key>
+</table>

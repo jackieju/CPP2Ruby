@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DRF18</id>
+	<description>Draft - Export Process</description>
+	<string_list>1101798</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>112</default_value>
+	</column>
+	<column>
+		<id>ExpDocType</id>
+		<source_code_name>EXP_DOC_TYPE</source_code_name>
+		<description>Type of Exportation Document</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ExpDeclNum</id>
+		<source_code_name>EXP_DECL_NUM</source_code_name>
+		<description>Exportation Declaration Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ExpDeclDat</id>
+		<source_code_name>EXP_DECL_DATE</source_code_name>
+		<description>Exportation Declaration Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ExpNature</id>
+		<source_code_name>EXPORT_NATURE</source_code_name>
+		<description>Nature of Exportation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ExpRegNum</id>
+		<source_code_name>EXP_REG_NUMBER</source_code_name>
+		<description>Number of Exportation Registry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>ExpRegDate</id>
+		<source_code_name>EXP_REG_DATE</source_code_name>
+		<description>Date of Exportation Registry</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LadBillNum</id>
+		<source_code_name>LAD_BILL_NUM</source_code_name>
+		<description>Bill of Lading Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>19</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>18</edit_size>
+	</column>
+	<column>
+		<id>LadBillDat</id>
+		<source_code_name>LAD_BILL_DATE</source_code_name>
+		<description>Date of Bill of Lading</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>MerchLeftD</id>
+		<source_code_name>DATE_MERCH_LEFT_CUST</source_code_name>
+		<description>Date Merchandise Left Customs</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LadBillTyp</id>
+		<source_code_name>LAD_BILL_TYPE</source_code_name>
+		<description>Type of Bill of Lading</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>ODRF</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ObjectTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjectType</object_key_column>
+	</association>
+	<association>
+		<id>ExpDocTypeLink</id>
+		<target_direct>OBNI</target_direct>
+		<object_key_column>ExpDocType</object_key_column>
+	</association>
+	<association>
+		<id>ExpNatureLink</id>
+		<target_direct>OBNI</target_direct>
+		<object_key_column>ExpNature</object_key_column>
+	</association>
+	<association>
+		<id>LadBillTypLink</id>
+		<target_direct>OBNI</target_direct>
+		<object_key_column>LadBillTyp</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

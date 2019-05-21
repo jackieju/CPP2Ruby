@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>BOT1</id>
+	<description>Bill of Exchange Transactions</description>
+	<string_list>1100442</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Transaction No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BOENumber</id>
+		<source_code_name>BOE_NUM</source_code_name>
+		<description>Bill of Exchange No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BoeType</id>
+		<source_code_name>BOE_TYPE</source_code_name>
+		<description>Bill of Exchange Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Incoming</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Outgoing</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DueDate</id>
+		<source_code_name>DUE_DATE</source_code_name>
+		<description>Bill of Exchange Due Date</description>
+		<field_type>58</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BPBankCtr</id>
+		<source_code_name>CARD_BANK_CNTR</source_code_name>
+		<description>BP Bank Country</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>BPBankCod</id>
+		<source_code_name>CARD_BANK_CODE</source_code_name>
+		<description>BP Bank Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>BPBankAct</id>
+		<source_code_name>CARD_BANK_ACCT</source_code_name>
+		<description>BP Bank Account</description>
+		<field_type>157</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>BPBankBrnc</id>
+		<source_code_name>CARD_BANK_BRANCH</source_code_name>
+		<description>BP Bank Branch</description>
+		<field_type>156</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>ExReconNum</id>
+		<source_code_name>EXTRA_RECONCIL_NUM</source_code_name>
+		<description>Extra Reconciliation Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BOEAbs</id>
+		<source_code_name>BOE_ABS</source_code_name>
+		<description sys="Y">Bill of Exchange Key</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OBOT</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>BPBankCtrLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>BPBankCtr</object_key_column>
+	</association>
+	<association>
+		<id>BOEAbsLink</id>
+		<target_direct>OBOE</target_direct>
+		<object_key_column>BOEAbs</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>BOENumber</column>
+		<column>BoeType</column>
+	</key>
+</table>

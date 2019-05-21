@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>MAP1</id>
+	<description>Input and Output of Mapping</description>
+	<string_list>1101266</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>MapID</id>
+		<source_code_name>MAP_ID</source_code_name>
+		<description>Mapping ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+		<default_value>NA</default_value>
+		<valid_value>
+			<value>CRYSTAL</value>
+			<description sys="Y">Crystal Report</description>
+		</valid_value>
+		<valid_value>
+			<value>XML</value>
+			<description sys="Y">XML File</description>
+		</valid_value>
+		<valid_value>
+			<value>NA</value>
+			<description sys="Y">Not Avalible</description>
+		</valid_value>
+		<valid_value>
+			<value>TXT</value>
+			<description sys="Y">Text File</description>
+		</valid_value>
+		<valid_value>
+			<value>CSV</value>
+			<description sys="Y">CSV File</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RuleType</id>
+		<source_code_name>RULE_TYPE</source_code_name>
+		<description>Rule Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+		<default_value>NA</default_value>
+		<valid_value>
+			<value>XSLT</value>
+			<description sys="Y">XSLT Rule</description>
+		</valid_value>
+		<valid_value>
+			<value>NA</value>
+			<description sys="Y">Not Avalible</description>
+		</valid_value>
+		<valid_value>
+			<value>REGEX</value>
+			<description sys="Y">Reguler expression</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RuleRef</id>
+		<source_code_name>RULE_REF_ID</source_code_name>
+		<description>Rule Reference ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>RefID</id>
+		<source_code_name>REF_ID</source_code_name>
+		<description>Reference ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>RuleVer</id>
+		<source_code_name>RULE_VERSIONI</source_code_name>
+		<description>Rule Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>IsFinal</id>
+		<source_code_name>IS_FINAL</source_code_name>
+		<description>Is Final Result</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>MapIDLink</id>
+		<target_direct>OMAP</target_direct>
+		<object_key_column>MapID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>MapID</column>
+		<column>Code</column>
+	</key>
+</table>

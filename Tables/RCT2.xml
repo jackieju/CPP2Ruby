@@ -1,0 +1,762 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RCT2</id>
+	<description>Incoming Payments - Invoices</description>
+	<string_list>1100188</string_list>
+	<view_type>PaymentLine</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_KEY</source_code_name>
+		<description>Document Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>SSNum</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>InvoiceId</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Sequence No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>INVOICE_KEY</source_code_name>
+		<description>Invoice Key</description>
+		<field_type>98</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SumApplied</id>
+		<source_code_name>SUM_APPLIED</source_code_name>
+		<description>Paid to Invoice</description>
+		<field_type>58</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AppliedFC</id>
+		<source_code_name>FRGN_APPLIED</source_code_name>
+		<description>Paid (FC)</description>
+		<field_type>187</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AppliedSys</id>
+		<source_code_name>SYS_APPLIED</source_code_name>
+		<description>Paid (SC)</description>
+		<field_type>238</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>InvType</id>
+		<source_code_name>INVOICE_TYPE</source_code_name>
+		<description>Invoice Category</description>
+		<field_type>25</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>13</default_value>
+		<valid_value>
+			<value>203</value>
+			<description>A/R Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>A/R Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>A/P Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>A/P Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description>Incoming Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>25</value>
+			<description>Deposit</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description>Payment Advice</description>
+		</valid_value>
+		<valid_value>
+			<value>57</value>
+			<description>Checks for Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>76</value>
+			<description>Postdated Deposit</description>
+		</valid_value>
+		<valid_value>
+			<value>-2</value>
+			<description>Opening Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>-3</value>
+			<description>Closing Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>30</value>
+			<description>Journal Entry</description>
+		</valid_value>
+		<valid_value>
+			<value>-1</value>
+			<description>All Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>163</value>
+			<description sys="Y">A/P Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>165</value>
+			<description sys="Y">A/R Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>DocRate</id>
+		<source_code_name>DOC_RATE</source_code_name>
+		<description>Document Rate</description>
+		<field_type>116</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Flags</id>
+		<source_code_name>FLAGS</source_code_name>
+		<description>Flags</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>IntrsStat</id>
+		<source_code_name>INTRST_MAIL_STATUS</source_code_name>
+		<description>Interest Letter Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>U</default_value>
+		<valid_value>
+			<value>U</value>
+			<description>Not Sent</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Sent</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocLine</id>
+		<source_code_name>INVOICE_LINE</source_code_name>
+		<description>Row Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>vatApplied</id>
+		<source_code_name>VAT_APPLIED</source_code_name>
+		<description>Tax Definition</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>vatAppldFC</id>
+		<source_code_name>VAT_APPLIED_FRGN</source_code_name>
+		<description>Tax Paid (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>vatAppldSy</id>
+		<source_code_name>VAT_APPLIED_SYS</source_code_name>
+		<description>Tax Paid (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>selfInv</id>
+		<source_code_name>SELF_INVOICE</source_code_name>
+		<description>Autom. Invoice</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>24</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Dcount</id>
+		<source_code_name>DISCOUNT</source_code_name>
+		<description>Discount Rate</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DcntSum</id>
+		<source_code_name>DISCOUNT_SUM</source_code_name>
+		<description>Discount Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DcntSumFC</id>
+		<source_code_name>DISCOUNT_SUM_FRGN</source_code_name>
+		<description>Discount Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DcntSumSy</id>
+		<source_code_name>DISCOUNT_SUM_SYS</source_code_name>
+		<description>Discount Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BfDcntSum</id>
+		<source_code_name>BEF_DSCNT_SUM</source_code_name>
+		<description>Amount Before Discount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BfDcntSumF</id>
+		<source_code_name>BEF_DSCNT_SUM_FRGN</source_code_name>
+		<description>Amount Before Discount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BfDcntSumS</id>
+		<source_code_name>BEF_DSCNT_SUM_SYS</source_code_name>
+		<description>Amount Before Discount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BfNetDcnt</id>
+		<source_code_name>BEF_NET_DSCNT</source_code_name>
+		<description>Net Amount Before Discount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BfNetDcntF</id>
+		<source_code_name>BEF_NET_DSCNT_FC</source_code_name>
+		<description>Net Amt Before Discount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BfNetDcntS</id>
+		<source_code_name>BEF_NET_DSCNT_SC</source_code_name>
+		<description>Net Amt Before Discount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidSum</id>
+		<source_code_name>PAID_SUM</source_code_name>
+		<description>Paid Amount (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExpAppld</id>
+		<source_code_name>FREIGHT_APPLIED</source_code_name>
+		<description sys="Y">Freight applied</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpAppldFC</id>
+		<source_code_name>FREIGHT_APPLIED_FC</source_code_name>
+		<description sys="Y">Freight applied FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpAppldSC</id>
+		<source_code_name>FREIGHT_APPLIED_SC</source_code_name>
+		<description sys="Y">Freight applied SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Rounddiff</id>
+		<source_code_name>ROUNDING_DIFF</source_code_name>
+		<description>Rounding Diff.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>RounddifFc</id>
+		<source_code_name>ROUNDING_DIFF_FC</source_code_name>
+		<description>Rounding Diff. (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>RounddifSc</id>
+		<source_code_name>ROUNDING_DIFF_SC</source_code_name>
+		<description>Rounding Diff. (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>InstId</id>
+		<source_code_name>INSTALLMENT_ID</source_code_name>
+		<description>Installment ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>WtAppld</id>
+		<source_code_name>WT_APPLIED</source_code_name>
+		<description>Applied WTax</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WtAppldFC</id>
+		<source_code_name>WT_APPLIED_FC</source_code_name>
+		<description>Applied WTax (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WtAppldSC</id>
+		<source_code_name>WT_APPLIED_SC</source_code_name>
+		<description>Applied WTax (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LinkDate</id>
+		<source_code_name>LINK_DATE</source_code_name>
+		<description>Link Date</description>
+		<invisible />
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AmtDifPst</id>
+		<source_code_name>DIFFS_POSTING_DATE</source_code_name>
+		<description>Amount Diffs. Posting Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PaidDpm</id>
+		<source_code_name>PAID_DPM</source_code_name>
+		<description>Paid Down Payment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DpmPosted</id>
+		<source_code_name>DPM_POSTED</source_code_name>
+		<description>Link Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExpVatSum</id>
+		<source_code_name>VAT_ON_EXP_SUM</source_code_name>
+		<description>VAT on Freight Sum</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExpVatSumF</id>
+		<source_code_name>VAT_ON_EXP_SUM_FC</source_code_name>
+		<description>VAT on Freight Sum (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExpVatSumS</id>
+		<source_code_name>VAT_ON_EXP_SUM_SC</source_code_name>
+		<description>VAT on Freight Sum (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsRateDiff</id>
+		<source_code_name>IS_RATE_DIFF</source_code_name>
+		<description>Is Exchange Rate</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>WtInvCatS</id>
+		<source_code_name>WT_INV_CATEG_APPL</source_code_name>
+		<description>Withholding Tax Invoice Categ.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WtInvCatSF</id>
+		<source_code_name>WT_INV_CATEG_APPL_FC</source_code_name>
+		<description>Withholding Tax Invoice Categ.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WtInvCatSS</id>
+		<source_code_name>WT_INV_CATEG_APPL_SC</source_code_name>
+		<description>Withholding Tax Invoice Categ.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode</id>
+		<source_code_name>OCR_CODE</source_code_name>
+		<description>Distribution Rule</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DocTransId</id>
+		<source_code_name>DOC_TRANS_ABS</source_code_name>
+		<description>Trans. ID of Paid Document</description>
+		<field_type>74</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MIEntry</id>
+		<source_code_name>MI_ENTRY</source_code_name>
+		<description>MI Entry Include this Payment</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>OcrCode2</id>
+		<source_code_name>OCR_CODE2</source_code_name>
+		<description>Distribution Rule 2</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode3</id>
+		<source_code_name>OCR_CODE3</source_code_name>
+		<description>Distribution Rule 3</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode4</id>
+		<source_code_name>OCR_CODE4</source_code_name>
+		<description>Distribution Rule 4</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode5</id>
+		<source_code_name>OCR_CODE5</source_code_name>
+		<description>Distribution Rule 5</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>IsSelected</id>
+		<source_code_name>IS_SELECTED</source_code_name>
+		<description>Is Record Selected</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>WTOnHold</id>
+		<source_code_name>WTAX_ONHOLD</source_code_name>
+		<description>Withholding Tax On Hold</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WTOnhldPst</id>
+		<source_code_name>WTAX_ONHOLD_POSTED</source_code_name>
+		<description>Withholding Tax Posted</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>baseAbs</id>
+		<source_code_name>BASE_DOC_ABS</source_code_name>
+		<description>Base Document Number</description>
+		<field_type>26</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MIType</id>
+		<source_code_name>MI_TYPE</source_code_name>
+		<description>MI Type Include this Payment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<valid_value>
+			<value>270</value>
+			<description>A/R Monthly Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>140000014</value>
+			<description>A/P Monthly Invoice</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>DocNumLink</id>
+		<target_direct>ORCT</target_direct>
+		<object_key_column>DocNum</object_key_column>
+	</association>
+	<association>
+		<id>InvTypeLink</id>
+		<target_indirect_object>InvType</target_indirect_object>
+		<object_key_column>baseAbs</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<association>
+		<id>OcrCodeLink</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode</object_key_column>
+	</association>
+	<association>
+		<id>DocTransIdLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>DocTransId</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode2Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode2</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode3Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode3</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode4Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode4</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode5Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode5</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocNum</column>
+		<column>InvoiceId</column>
+	</key>
+	<key>
+		<id>JDT</id>
+		<column>DocTransId</column>
+		<column>DocLine</column>
+	</key>
+</table>

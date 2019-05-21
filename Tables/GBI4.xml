@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>GBI4</id>
+	<description>GBI Row 4 - Business Partners</description>
+	<string_list>1100929</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>HistoryId</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>History Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RowId</id>
+		<source_code_name>ROW_ID</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BPNo</id>
+		<source_code_name>BP_NO</source_code_name>
+		<description>BP Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BPName</id>
+		<source_code_name>BP_NAME</source_code_name>
+		<description>BP Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CatNo</id>
+		<source_code_name>CAT_NO</source_code_name>
+		<description>Category Number</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Loc</id>
+		<source_code_name>LOC</source_code_name>
+		<description>Location Area</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>103</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Tel</id>
+		<source_code_name>TEL</source_code_name>
+		<description>Telephone</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Address</id>
+		<source_code_name>ADDRESS</source_code_name>
+		<description>Street/PO Box</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CreditRank</id>
+		<source_code_name>CREDIT_RANK</source_code_name>
+		<description>Credit Rank</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>HistoryIdLink</id>
+		<target_direct>OGBI</target_direct>
+		<object_key_column>HistoryId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>HistoryId</column>
+		<column>RowId</column>
+	</key>
+</table>

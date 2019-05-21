@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SXRSS</id>
+	<description sys="Y">XLR Security Settings</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>SecuritySe</id>
+		<source_code_name>SecuritySettingId</source_code_name>
+		<description sys="Y">SecuritySettingId</description>
+		<db_type>Identity</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AppId</id>
+		<source_code_name>AppId</source_code_name>
+		<description sys="Y">AppId</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>218</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>218</edit_size>
+	</column>
+	<column>
+		<id>DatabaseId</id>
+		<source_code_name>DatabaseId</source_code_name>
+		<description sys="Y">DatabaseId</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>218</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>218</edit_size>
+	</column>
+	<column>
+		<id>ModuleId</id>
+		<source_code_name>ModuleId</source_code_name>
+		<description sys="Y">ModuleId</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>''</default_value>
+		<valid_value>
+			<value>''</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Label</id>
+		<source_code_name>Label</source_code_name>
+		<description sys="Y">Label</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Value</id>
+		<source_code_name>Value</source_code_name>
+		<description sys="Y">Value</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2000</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SecuritySe</column>
+	</key>
+	<key>
+		<id>second</id>
+		<unique />
+		<column>AppId</column>
+		<column>DatabaseId</column>
+		<column>ModuleId</column>
+		<column>Label</column>
+	</key>
+</table>

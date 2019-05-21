@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ONNM</id>
+	<description>Document Numbering</description>
+	<string_list>1100122</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<hana>RowBased</hana>
+	<column>
+		<id>ObjectCode</id>
+		<source_code_name>OBJ_CODE</source_code_name>
+		<description>Document</description>
+		<invisible />
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AutoKey</id>
+		<source_code_name>AUTO_KEY</source_code_name>
+		<description>Automatic Key</description>
+		<invisible />
+		<field_type>106</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>DfltSeries</id>
+		<source_code_name>DEFAULT</source_code_name>
+		<description>Default Series</description>
+		<invisible />
+		<field_type>247</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UpdCounter</id>
+		<source_code_name>COUNTER</source_code_name>
+		<description>Update Counter</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DocSubType</id>
+		<source_code_name>DOC_SUB_TYPE</source_code_name>
+		<description>Document Sub-Type</description>
+		<invisible />
+		<field_type>266</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>--</default_value>
+		<valid_value>
+			<value>--</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>IE</value>
+			<description>Invoice Exempt</description>
+		</valid_value>
+		<valid_value>
+			<value>DN</value>
+			<description>Debit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>IB</value>
+			<description>Bill</description>
+		</valid_value>
+		<valid_value>
+			<value>EB</value>
+			<description>Exempt Bill</description>
+		</valid_value>
+		<valid_value>
+			<value>RI</value>
+			<description>Reserve Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>IR</value>
+			<description>Invoice &amp; Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>DM</value>
+			<description>A/P Debit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>IX</value>
+			<description>Export Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>RP</value>
+			<description>A/P Reserve Invoice</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocAlias</id>
+		<source_code_name>DOC_ALIAS</source_code_name>
+		<description>Alternative Document Name</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PeriodTyp</id>
+		<source_code_name>PERIOD_TYPE</source_code_name>
+		<description>Seq. Period Type of Supply Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ObjectCode</column>
+		<column>DocSubType</column>
+	</key>
+</table>

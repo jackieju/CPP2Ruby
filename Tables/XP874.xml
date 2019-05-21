@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>XP874</id>
+	<description>PCN874 Report - Final Record</description>
+	<string_list>1101346</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>RecMark</id>
+		<source_code_name>RECORD_MARK</source_code_name>
+		<description>Record Identification Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>X</default_value>
+	</column>
+	<column>
+		<id>TaxIdNum</id>
+		<source_code_name>TAX_ID_NUMBER</source_code_name>
+		<description>Company Federal Tax ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>RecMark</column>
+	</key>
+</table>

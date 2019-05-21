@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>WTR20</id>
+	<description>Intrastat Expenses</description>
+	<string_list>1101895</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ExpnsCode</id>
+		<source_code_name>EXPENSE_CODE</source_code_name>
+		<description>Freight Code</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TotalLC</id>
+		<source_code_name>TOTAL_LC</source_code_name>
+		<description>Total</description>
+		<field_type>36</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TotalFC</id>
+		<source_code_name>TOTAL_FC</source_code_name>
+		<description>Total (FC)</description>
+		<field_type>48</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TotalSC</id>
+		<source_code_name>TOTAL_SC</source_code_name>
+		<description>Total (SC)</description>
+		<field_type>234</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DistribM</id>
+		<source_code_name>DISTRIB_M</source_code_name>
+		<description>Distribution Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>T</default_value>
+		<valid_value>
+			<value>Q</value>
+			<description>Quantity</description>
+		</valid_value>
+		<valid_value>
+			<value>V</value>
+			<description>Volume</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Weight</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Equally</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Row Total</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DrawnLC</id>
+		<source_code_name>DRAWN_LC</source_code_name>
+		<description>Drawn Total</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DrawnFC</id>
+		<source_code_name>DRAWN_FC</source_code_name>
+		<description>Drawn Total (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DrawnSC</id>
+		<source_code_name>DRAWN_SC</source_code_name>
+		<description>Drawn Total (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Line Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BaseAbsEnt</id>
+		<source_code_name>BASE_ABS_ENTRY</source_code_name>
+		<description>Base Abs. Entry</description>
+		<field_type>26</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BaseType</id>
+		<source_code_name>BASE_TYPE</source_code_name>
+		<description>Base Document Type</description>
+		<field_type>25</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>23</value>
+			<description>Sales Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Sales Order</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Delivery Notes</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Return</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>203</value>
+			<description>Down Payment Incoming</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>Down Payment Outgoing</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description>Purchase Order</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Good Receipt PO</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description>Goods Return</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>540000006</value>
+			<description>Purchase Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>BaseRef</id>
+		<source_code_name>BASE_REF</source_code_name>
+		<description>Base Document Reference</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BaseLnNum</id>
+		<source_code_name>BASE_LINE_NUM</source_code_name>
+		<description>Base Document Row No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>67</default_value>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>OINV</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ExpnsCodeLink</id>
+		<target_direct>OEXD</target_direct>
+		<object_key_column>ExpnsCode</object_key_column>
+	</association>
+	<association>
+		<id>BaseTypeLink</id>
+		<target_indirect_object>BaseType</target_indirect_object>
+		<object_key_column>BaseAbsEnt</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjectType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

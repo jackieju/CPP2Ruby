@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OVNM</id>
+	<description>VAT Report Numbering</description>
+	<string_list>1100669</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>NumId</id>
+		<source_code_name>NUM_ID</source_code_name>
+		<description>Numbering ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>NumName</id>
+		<source_code_name>NUM_NAME</source_code_name>
+		<description>Numbering Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>First</id>
+		<source_code_name>FIRST</source_code_name>
+		<description>First Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>Next</id>
+		<source_code_name>NEXT</source_code_name>
+		<description>Next Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>Last</id>
+		<source_code_name>LAST</source_code_name>
+		<description>Last Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>YrDepend</id>
+		<source_code_name>YR_DEPEND</source_code_name>
+		<description>Year-Dependent</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Year-Dependent</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Year-Indepedent</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DefaultNum</id>
+		<source_code_name>DEFAULT_NUM</source_code_name>
+		<description>Default Numbering</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Default Numbering</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No Default Numbering</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>NumId</column>
+	</key>
+</table>

@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OLLF</id>
+	<description>Legal List Format</description>
+	<string_list>1101268</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Electronic File Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Descr</id>
+		<source_code_name>DESC</source_code_name>
+		<description>Electronic File Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>MenuGuid</id>
+		<source_code_name>MENU_GUID</source_code_name>
+		<description>GUID of Menu Entry</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>Version</id>
+		<source_code_name>VERSION</source_code_name>
+		<description>Electronic File Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>SchVersion</id>
+		<source_code_name>SCH_VERSION</source_code_name>
+		<description>Electronic File Schema Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>OutPath</id>
+		<source_code_name>OUTPUT_PATH</source_code_name>
+		<description>Output Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FrmId</id>
+		<source_code_name>FRM_ID</source_code_name>
+		<description>OFRM Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpdateNum</id>
+		<source_code_name>UPDATE_NUM</source_code_name>
+		<description>Update Count</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>MenuName</id>
+		<source_code_name>MENU_NAME</source_code_name>
+		<description>Menu Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>MenuPath</id>
+		<source_code_name>MENU_PATH</source_code_name>
+		<description>Menu Path</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>Assigned</id>
+		<source_code_name>ASSIGNED</source_code_name>
+		<description>Format Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>A</value>
+			<description>Assigned</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Not Assigned</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Deleted</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SboVersion</id>
+		<source_code_name>SBO_VERSION</source_code_name>
+		<description>Compatible Release Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Format Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+		<default_value>L</default_value>
+		<valid_value>
+			<value>AR</value>
+			<description>Electronic Document</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>Generic Electronic File</description>
+		</valid_value>
+		<valid_value>
+			<value>ARA</value>
+			<description>Electronic Authority Report</description>
+		</valid_value>
+		<valid_value>
+			<value>INTER</value>
+			<description>Internally Used</description>
+		</valid_value>
+		<valid_value>
+			<value>IM</value>
+			<description>Electronic Document - Input Message</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SubType</id>
+		<source_code_name>SUBTYPE</source_code_name>
+		<description>Format Subtype</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+		<valid_value>
+			<value />
+			<description>None</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Intrastat</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Normal Generic File Format</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>FrmIdLink</id>
+		<target_direct>OFRM</target_direct>
+		<object_key_column>FrmId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

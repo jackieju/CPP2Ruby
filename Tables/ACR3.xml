@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ACR3</id>
+	<description>Business Partner Control Accounts - History</description>
+	<string_list>1100409</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>AcctType</id>
+		<source_code_name>ACCOUNT_TYPE</source_code_name>
+		<description>Account Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>M</value>
+			<description>Domestic</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Foreign</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Assets Account</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Bill of Exchange Accounts Receivable</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Bill of Exchange Accounts Payable</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Bill of Exchange on Collection</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Bill of Exchange Presentation</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Assets Bill of Exchange Acct Payable</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Bill of Exchange Discounted</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Unpaid Bill of Exchange</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Open Debts</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AcctCode</id>
+		<source_code_name>ACCOUNT_CODE</source_code_name>
+		<description>Account Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>LogInstane</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>2</default_value>
+	</column>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>AcctCodeLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>AcctCode</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CardCode</column>
+		<column>AcctType</column>
+		<column>LogInstane</column>
+	</key>
+</table>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OOND</id>
+	<description>Industries</description>
+	<string_list>1100533</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>SalesOpportunities</info_category>
+	<column>
+		<id>IndCode</id>
+		<source_code_name>IND_CODE</source_code_name>
+		<description sys="Y">Industry Code</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>IndName</id>
+		<source_code_name>IND_NAME</source_code_name>
+		<description>Industry Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>IndDesc</id>
+		<source_code_name>IND_DESC</source_code_name>
+		<description>Industry Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>IndCode</column>
+	</key>
+	<key>
+		<id>IND_NAME</id>
+		<unique />
+		<column>IndName</column>
+	</key>
+</table>

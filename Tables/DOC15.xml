@@ -1,0 +1,686 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DOC15</id>
+	<description>Mktg Docs - Drawn Dpm Applied</description>
+	<string_list>1101206</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<virtual />
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description sys="Y">Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description sys="Y">object type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>13</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description sys="Y">Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>VatGroup</id>
+		<source_code_name>VAT_GROUP</source_code_name>
+		<description>VAT Group Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>StaCode</id>
+		<source_code_name>STA_CODE</source_code_name>
+		<description>Tax Authority Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>StaType</id>
+		<source_code_name>STA_TYPE</source_code_name>
+		<description>Tax Authority Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>StaIndex</id>
+		<source_code_name>STA_INDEX</source_code_name>
+		<description>Tax Authority Seq Index</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BaseNet</id>
+		<source_code_name>BASE_NET</source_code_name>
+		<description>Net LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseNetFc</id>
+		<source_code_name>BASE_NET_FC</source_code_name>
+		<description>Net FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseNetSc</id>
+		<source_code_name>BASE_NET_SC</source_code_name>
+		<description>Net SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSum</id>
+		<source_code_name>VAT_SUM</source_code_name>
+		<description>Tax LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSumFc</id>
+		<source_code_name>VAT_SUM_FC</source_code_name>
+		<description>Tax FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSumSc</id>
+		<source_code_name>VAT_SUM_SC</source_code_name>
+		<description>Tax SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DctSum</id>
+		<source_code_name>DEDUCT_SUM</source_code_name>
+		<description>Deductible Sum LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DctSumFc</id>
+		<source_code_name>DEDUCT_SUM_FC</source_code_name>
+		<description>Deductible Sum FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DctSumSc</id>
+		<source_code_name>DEDUCT_SUM_SC</source_code_name>
+		<description>Deductible Sum SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>EqSum</id>
+		<source_code_name>EQ_SUM</source_code_name>
+		<description>Equalization Sum LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>EqSumFc</id>
+		<source_code_name>EQ_SUM_FC</source_code_name>
+		<description>Equalization Sum FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>EqSumSc</id>
+		<source_code_name>EQ_SUM_SC</source_code_name>
+		<description>Equalization Sum SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplNet</id>
+		<source_code_name>APPL_BASE_NET</source_code_name>
+		<description>Applied Net LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplNetFc</id>
+		<source_code_name>APPL_BASE_NET_FC</source_code_name>
+		<description>Applied Net FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplNetSc</id>
+		<source_code_name>APPL_BASE_NET_SC</source_code_name>
+		<description>Applied Net SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplVat</id>
+		<source_code_name>APPL_VAT_SUM</source_code_name>
+		<description>Applied Tax LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplVatFc</id>
+		<source_code_name>APPL_VAT_SUM_FC</source_code_name>
+		<description>Applied Tax FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplVatSc</id>
+		<source_code_name>APPL_VAT_SUM_SC</source_code_name>
+		<description>Applied Tax SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplDct</id>
+		<source_code_name>APPL_DEDUCT_SUM</source_code_name>
+		<description>Applied Deductible Sum LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplDctFc</id>
+		<source_code_name>APPL_DEDUCT_SUM_FC</source_code_name>
+		<description>Applied Deductible Sum FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplDctSc</id>
+		<source_code_name>APPL_DEDUCT_SUM_SC</source_code_name>
+		<description>Applied Deductible Sum SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplEq</id>
+		<source_code_name>APPL_EQ_SUM</source_code_name>
+		<description>Applied Equalization Sum LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplEqFc</id>
+		<source_code_name>APPL_EQ_SUM_FC</source_code_name>
+		<description>Applied Equalization Sum FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplEqSc</id>
+		<source_code_name>APPL_EQ_SUM_SC</source_code_name>
+		<description>Applied Equalization Sum SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidNet</id>
+		<source_code_name>PAID_BASE_SUM</source_code_name>
+		<description>Paid Net LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidNetFc</id>
+		<source_code_name>PAID_BASE_SUM_FC</source_code_name>
+		<description>Paid Net FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidNetSc</id>
+		<source_code_name>PAID_BASE_SUM_SC</source_code_name>
+		<description>Paid Net SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidVat</id>
+		<source_code_name>PAID_VAT_SUM</source_code_name>
+		<description>Paid Tax LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidVatFc</id>
+		<source_code_name>PAID_VAT_SUM_FC</source_code_name>
+		<description>Paid Tax FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidVatSc</id>
+		<source_code_name>PAID_VAT_SUM_SC</source_code_name>
+		<description>Paid Tax SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidDct</id>
+		<source_code_name>PAID_DEDUCT_SUM</source_code_name>
+		<description>Paid Deductible Sum LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidDctFc</id>
+		<source_code_name>PAID_DEDUCT_SUM_FC</source_code_name>
+		<description>Paid Deductible Sum FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidDctSc</id>
+		<source_code_name>PAID_DEDUCT_SUM_SC</source_code_name>
+		<description>Paid Deductible Sum SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidEq</id>
+		<source_code_name>PAID_EQ_SUM</source_code_name>
+		<description>Paid Equalization Sum LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidEqFc</id>
+		<source_code_name>PAID_EQ_SUM_FC</source_code_name>
+		<description>Paid Equalization Sum FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidEqSc</id>
+		<source_code_name>PAID_EQ_SUM_SC</source_code_name>
+		<description>Paid Equalization Sum SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplNet</id>
+		<source_code_name>DPM_APPL_BASE_SUM</source_code_name>
+		<description>Dpm Appl Net LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplNetF</id>
+		<source_code_name>DPM_APPL_BASE_SUM_FC</source_code_name>
+		<description>Dpm Appl Net FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplNetS</id>
+		<source_code_name>DPM_APPL_BASE_SUM_SC</source_code_name>
+		<description>Dpm Appl Net SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplVat</id>
+		<source_code_name>DPM_APPL_VAT_SUM</source_code_name>
+		<description>Dpm Appl Tax LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplVatF</id>
+		<source_code_name>DPM_APPL_VAT_SUM_FC</source_code_name>
+		<description>Dpm Appl Tax FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplVatS</id>
+		<source_code_name>DPM_APPL_VAT_SUM_SC</source_code_name>
+		<description>Dpm Appl Tax SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplDct</id>
+		<source_code_name>DPM_APPL_DED_SUM</source_code_name>
+		<description>Dpm Appl Deductible Sum LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplDctF</id>
+		<source_code_name>DPM_APPL_DED_SUM_FC</source_code_name>
+		<description>Dpm Appl Deductible Sum FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplDctS</id>
+		<source_code_name>DPM_APPL_DED_SUM_SC</source_code_name>
+		<description>Dpm Appl Deductible Sum SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplEq</id>
+		<source_code_name>DPM_APPL_EQ_SUM</source_code_name>
+		<description>Dpm Appl Equalization Sum LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplEqFc</id>
+		<source_code_name>DPM_APPL_EQ_SUM_FC</source_code_name>
+		<description>Dpm Appl Equalization Sum FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplEqSc</id>
+		<source_code_name>DPM_APPL_EQ_SUM_SC</source_code_name>
+		<description>Dpm Appl Equalization Sum SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxCode</id>
+		<source_code_name>TAX_CODE</source_code_name>
+		<description>Tax Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LineType</id>
+		<source_code_name>LINE_TYPE</source_code_name>
+		<description>Row Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>D</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Document</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Exchange Rate Rounding</description>
+		</valid_value>
+		<valid_value>
+			<value>H</value>
+			<description>Document Header Rounding</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BaseGrs</id>
+		<source_code_name>BASE_GROSS</source_code_name>
+		<description>Gross LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseGrsFc</id>
+		<source_code_name>BASE_GROSS_FC</source_code_name>
+		<description>Gross FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseGrsSc</id>
+		<source_code_name>BASE_GROSS_SC</source_code_name>
+		<description>Gross SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplGrs</id>
+		<source_code_name>APPL_GROSS</source_code_name>
+		<description>Applied Gross LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplGrsFc</id>
+		<source_code_name>APPL_GROSS_FC</source_code_name>
+		<description>Applied Gross FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ApplGrsSc</id>
+		<source_code_name>APPL_GROSS_SC</source_code_name>
+		<description>Applied Gross SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidGrs</id>
+		<source_code_name>PAID_GROSS</source_code_name>
+		<description>Paid Gross LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidGrsFc</id>
+		<source_code_name>PAID_GROSS_FC</source_code_name>
+		<description>Paid Gross FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidGrsSc</id>
+		<source_code_name>PAID_GROSS_SC</source_code_name>
+		<description>Paid Gross SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplGrs</id>
+		<source_code_name>DPM_APPL_GROSS</source_code_name>
+		<description>Dpm Appl Gross LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplGrsF</id>
+		<source_code_name>DPM_APPL_GROSS_FC</source_code_name>
+		<description>Dpm Appl Gross FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DpApplGrsS</id>
+		<source_code_name>DPM_APPL_GROSS_SC</source_code_name>
+		<description>Dpm Appl Gross SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>ODOC</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<association>
+		<id>VatGroupLink</id>
+		<target_direct>OVTG</target_direct>
+		<object_key_column>VatGroup</object_key_column>
+	</association>
+	<association>
+		<id>TaxCodeLink</id>
+		<target_direct>OSTC</target_direct>
+		<object_key_column>TaxCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>
