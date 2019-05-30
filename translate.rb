@@ -535,11 +535,13 @@ HERE
         }
        
 end
+$g_search_dirs=[]
 
 def init_env(fname)
     search_dirs = [File.dirname(__FILE__)]
     search_dirs.insert(0, File.dirname(fname))
-    
+    $g_search_dirs.insert(0, File.dirname(fname))
+    # TODO seems not used
     $g_options = {
         :include_dirs=>search_dirs
     }
@@ -562,6 +564,8 @@ def  parse_arg(arg, a)
     elsif arg == "-d"
         $output_dir = a #$*[i+1]
         FileUtils.makedirs($output_dir)
+    elsif arg == "-I"
+        $g_search_dirs.append(a)
     end
 end
 p $*.inspect

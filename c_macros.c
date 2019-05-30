@@ -2,6 +2,9 @@
 #define strlen(s) s.size
 /* END */
 
+
+#define const 
+#define inline
 #define TRUE true
 #define FALSE false
 #define NULL nil
@@ -11,6 +14,7 @@
 
 #define B1_ENGINE_API 
 #define int32_t int
+#define int64_t int
 //#define DBM_ColumnType
 //#define DBMTableColumn
 

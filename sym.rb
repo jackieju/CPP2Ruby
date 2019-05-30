@@ -172,19 +172,34 @@ C_LessLessEqualSym =            82	# "<<=" */
 C_GreaterGreaterEqualSym =      83	# ">>=" */
 C_BangSym =                     84	# "!" */
 C_TildeSym =                    85	# "~" */
-C_EnumSym =                     86
-C_StructSym =                   87
-C_TypedefSym =                  88
-C_QuestionMarkSym =             89
-C_CRLF_Sym = 90 
-C_deleteSym = 91 
-C_throwSym = 92 
-C_sizeofSym = 93
+C_EnumSym =                     86  # "enum"
+C_StructSym =                   87  # "struct"
+C_TypedefSym =                  88  # "typedef"
+C_QuestionMarkSym =             89  # "?"
+C_CRLF_Sym =                    90  # ""
+C_deleteSym =                   91  # "delete"
+C_throwSym =                    92  # "throw"
+C_sizeofSym =                   93  # "sizeof"
+C_INSym =                       94  # "IN"
+C_OUTSym =                      95  # "OUT"
+C_inlineSym =                   96  # "inline"
+
 #*** insert new sym here ***#
-C_No_Sym =                      94	# not */
-C_PreProcessorSym =             95	# PreProcessor */
+C_No_Sym =                      97	# not */
+C_PreProcessorSym =             98	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
+
+# how to add new sym
+# 1. add definition in above. e.g. 
+# C_OUTSym =                         95 
+# 2. add entry in SYMS below
+# 3. add code in scanner.rb->CheckLiteral()
+# e.g.             
+#            when 'O'
+#                return C_OUTSym if EqualStr("OUT")
+# 4. sometimes you need to add condition in cp.rb->C() to enter Definition()
+
 
 SYMS=[                                                
         "EOF"                         ,
@@ -281,6 +296,9 @@ SYMS=[
 "delete",
 "throw",
 "sizeof",
+"IN",
+"OUT",
+"inline",
 "not"                          ,
 "PreProcessor"         ,
     ]

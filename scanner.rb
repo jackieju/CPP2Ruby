@@ -431,8 +431,11 @@ class CScanner <  CRScanner
           		#break
           	when 'i'
           		return C_inheritSym if (EqualStr("inherit")) 
+           		return C_inlineSym if (EqualStr("inline")) 
                 return C_intSym if (EqualStr("int")) 
            		return C_ifSym if (EqualStr("if")) 
+            when 'I'
+                return C_INSym if (EqualStr("IN")) 
           		#break
           	when 'l'
           		return C_loadSym if (EqualStr("load")) 
@@ -445,6 +448,8 @@ class CScanner <  CRScanner
           	when 'n'
           		return C_newSym if (EqualStr("new")) 
           		#break
+            when 'O'
+                return C_OUTSym if EqualStr("OUT")
           	when 'p'
           		return C_packageSym if (EqualStr("package")) 
           		#break
@@ -954,6 +959,7 @@ public
         
     end
     def include_file(fname, dir=nil)
+        p("->->include file #{fname}", 10   )
         ret = true
         dirs = nil
         if $g_options

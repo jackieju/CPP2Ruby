@@ -243,7 +243,6 @@ class Parser < CRParser
                 # if $sc_cur != $sc.currSym.sym
                 #     pp("!!!===", 20)
                 # end
-            
                 _scanner.nextSym.SetSym(_sym)
                 if (_sym <= C_MAXT) 
                     # _error.errorDist +=1
@@ -694,12 +693,16 @@ class Parser < CRParser
         # filter out declaration between 'class' and class name
             p("ClassDef0:#{@sym}, #{curString()}")
 
-            filterSymBefore([C_ColonSym, C_LbraceSym], 1)
+            filterSymBefore([C_ColonSym, C_LbraceSym, C_LessSym, C_SemicolonSym], 1)
           #  Get()
             p("after filterSymBefore: #{@sym}, #{curString()}")
         	_class_name = curString()
         	Expect(C_identifierSym)
         	clsdef = ClassDef.new(_class_name)
+            
+            if @sym == C_LessSym
+                filterTemplate()
+            end
             # class_name = _class_name[0].upcase + _class_name[1.._class_name.size-1]
         # line 268 "cs.atg"
 
@@ -726,9 +729,10 @@ class Parser < CRParser
     end
     
     def FriendClass()
-             Expect(C_classSym)
-                Expect(C_identifierSym)
-                Expect(C_SemicolonSym)
+        ClassDef
+           #  Expect(C_classSym)
+           #     Expect(C_identifierSym)
+           #     Expect(C_SemicolonSym)
     end
     # line 297 "cs.atg"
     def ClassBody(clsdef)
@@ -756,7 +760,7 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
-               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ) 
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym) 
     # line 322 "cs.atg"
                 cs = curString()
                 p "cs:#{cs}"
@@ -888,7 +892,7 @@ class Parser < CRParser
     	           @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	           @sym >= C_newSym && @sym <= C_DollarSym ||
     	           @sym >= C_BangSym && @sym <= C_TildeSym ||
-    	           @sym == C_TypedefSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym 
+    	           @sym == C_TypedefSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym  
                    ) 
     # line 219 "cs.atg"
     		ret += Statements()
@@ -1268,7 +1272,7 @@ class Parser < CRParser
         p "===>isTypeStart:#{sym.sym}, val #{getSymValue(sym)}"
         # pos1 = sym.pos
         _sym = sym.sym
-        if _sym >= C_staticSym && _sym <= C_voidSym 
+        if _sym >= C_staticSym && _sym <= C_voidSym || _sym == C_INSym || _sym = C_OUTSym
             return true
         end
         if _sym == C_identifierSym
@@ -1512,6 +1516,11 @@ class Parser < CRParser
                 Get()
             else
                 Get()
+            	p "===>operator:#{fname}"
+                while @sym != C_identifierSym && @sym != C_constSym && @sym != C_LparenSym
+                    fname += curString()
+                    Get()
+                end
             end
         	p "===>operator:#{fname}"
             
@@ -1917,7 +1926,7 @@ class Parser < CRParser
     # line 545 "cs.atg"
     	if (@sym == C_identifierSym ||
     	    @sym >= C_varSym && @sym <= C_stringSym||
-    	   @sym == C_constSym) 
+    	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym) 
     # line 545 "cs.atg"
     		ret += FormalParamList()
     	end
@@ -2017,7 +2026,7 @@ class Parser < CRParser
     def StorageClass()
         ret = ""
     # line 396 "cs.atg"
-    	if (@sym >= C_staticSym && @sym <= C_constSym) 
+    	if (@sym >= C_staticSym && @sym <= C_constSym || @sym == C_INSym || @sym == C_OUTSym) 
     	    ret += curString()
     # line 395 "cs.atg"
     		Get();
@@ -2088,8 +2097,8 @@ class Parser < CRParser
         ret = ""
         
         
-        while (@sym >= C_staticSym && @sym <= C_constSym) 
-            StorageClass()
+        while (@sym >= C_staticSym && @sym <= C_constSym || @sym == C_INSym || @sym == C_OUTSym) 
+            StorageClass() # will be ignore
         end
         
      
@@ -4741,7 +4750,37 @@ a = 1;
 b = 1;
 #endif
 #endif
+a=1;
 HERE
+
+s63=<<HERE
+void MONEY::ToInt64 (char *sboI64) const
+{
+	*sboI64 = m_data;
+}
+HERE
+
+s64=<<HERE
+ SBOErr          CreateSystemFilterConds(IN  DBD_Params* pdbdParams, OUT std::vector<DBD_CondStruct>&   dataOwnershipConds);
+SBOErr          A::CreateSystemFilterConds(IN  DBD_Params* pdbdParams, OUT std::vector<DBD_CondStruct>&   dataOwnershipConds){
+    int a = 1;
+}
+HERE
+
+s65=<<HERE
+//inline
+friend class ObjWrapper1<Obj, Key, Creator>;
+template<typename Obj, typename Key, typename Creator>  class ObjWrapper2;
+
+HERE
+s66=<<HERE
+//static void *operator new[] (size_t size);
+ //ObjPool& operator= (const ObjPool&) = delete;
+B1_OBSERVER_API CBusinessException (WarningLevel warningLevel, ILanguageSettings& env, long msgUid, ...);
+ 
+HERE
+
+
 
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
@@ -4757,7 +4796,7 @@ HERE
 
 if !testall
    
-    s = s62
+    s = s66
 else
 
     r = ""
@@ -4803,5 +4842,5 @@ end # end of test
  
 
 #=end
-#test(false)
+test(false)
 
