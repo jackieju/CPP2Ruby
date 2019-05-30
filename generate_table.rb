@@ -2,7 +2,6 @@
 # require 'common.rb'
 
 
-
 def translate(fname)
     
       b = fname.split('/')
@@ -73,13 +72,29 @@ def translate(fname)
             
             columns.push(new_field)    
         }
+        
+        # output columns array 
+        s = ""
+        columns.each{|c|
+            s += "{:name=>\"#{c[:name]}\", :type=>\"#{c[:type]}\"},\r\n"
+        }        
+        h =<<HERE
+        def b1fields_array
+            [
+                #{s}
+            ]
+        end
+HERE
+        print h
             
+        # generate script
         s = "script/generate scaffold #{table_name} "    
         columns.each{|c|
-            p "#{c[:name]}:#{c[:type]}(default_value:#{c[:default_value]})"
+           # p "#{c[:name]}:#{c[:type]}(default_value:#{c[:default_value]})"
             s += "#{c[:name]}:#{c[:type]} "
         }
         p s
+
        return
 
        

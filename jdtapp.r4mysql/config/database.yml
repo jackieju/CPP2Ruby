@@ -10,15 +10,15 @@ default: &default
   timeout: 5000
 
 development:
-  adapter:  mysql
-  database: xy
+  adapter:  mysql2
+  database: jdt1
   host: localhost
   username: root
   password: Initial0
   timeout: 5000
-  socket: /var/lib/mysql/mysql.sock
+  socket: /var/run/mysqld/mysqld.sock  
   #pool: 5
-#  encoding: utf8
+#  encoding: utf81
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

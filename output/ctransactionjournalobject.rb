@@ -392,7 +392,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def CalculationFrnAmmounts(dagACT,dagCRD,found)
-      ooErr=0
+      ooErr=noErr
       dagJDT=nil
       dagJDT1 = nil
       mainCurr=""
@@ -426,7 +426,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             if accName.Compare(shortName)
                dagCRD=GetDAG(CRD)
                ooErr=dagCRD.GetByKey(shortName)
-               ooErr=(-2028==ooErr) ? ooInvalidCardCode : ooErr
+               ooErr=(dbmNoDataFound==ooErr) ? ooInvalidCardCode : ooErr
                if ooErr
                   return ooErr
                end
@@ -439,7 +439,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             multiACT=false
             dagACT=GetDAG(ACT)
             ooErr=dagACT.GetByKey(accName)
-            ooErr=(-2028==ooErr) ? ooInvalidAcctCode : ooErr
+            ooErr=(dbmNoDataFound==ooErr) ? ooInvalidAcctCode : ooErr
             if ooErr
                return ooErr
             end
@@ -589,10 +589,10 @@ class CTransactionJournalObject < CSystemBusinessObject
       end
 
       if !exist
-         return -2028
+         return dbmNoDataFound
       end
 
-      return 0
+      return noErr
    end
 
    def IsPaymentBlockValid(dagJDT1,rec)
@@ -655,7 +655,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       end
 
-      return 0
+      return noErr
    end
 
    def initialize(id,env)
@@ -679,7 +679,8 @@ class CTransactionJournalObject < CSystemBusinessObject
       end
 
       if @m_pSequenceParameter
-         m_pSequenceParameter=nil
+         @m_pSequenceParameter.__delete
+         @m_pSequenceParameter=nil
       end
 
       @m_reconAcctSet.clear()
@@ -882,7 +883,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def LoadObjInfoFromDags(objInfo,dagObj,dagWTaxs,dagObjRows)
-      sboErr=0
+      sboErr=noErr
       deb.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_DEBIT,JDT1_FC_DEBIT,JDT1_SYS_DEBIT)
       cred.FromDAG(dagObjRows,objInfo.m_ObjectRow,JDT1_CREDIT,JDT1_FC_CREDIT,JDT1_SYS_CREDIT)
       objInfo.m_DocTotal=deb-cred
@@ -905,7 +906,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagOBJ=GetDAG()
       dagObjWTax=GetArrayDAG(ao_Arr2)
       dagObjRows=GetArrayDAG(ao_Arr1)
-      return 0
+      return noErr
    end
 
    def CreateDocInfoQry(docInfoQry)
@@ -919,12 +920,12 @@ class CTransactionJournalObject < CSystemBusinessObject
       docInfoQry.Select().Col(tableObjRow,JDT1_TRANS_ABS)
       docInfoQry.Select().Col(tableObjRow,JDT1_LINE_ID)
       docInfoQry.Select().Max().Col(tableObj,OJDT_TRANS_CURR).As(OJDT_TRANS_CURR_ALIAS)
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_CREDIT).Sub().Max().Col(tableObjRow,JDT1_DEBIT).As("Credit")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_FC_CREDIT).Sub().Max().Col(tableObjRow,JDT1_FC_DEBIT).As("FCCredit")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_SYS_CREDIT).Sub().Max().Col(tableObjRow,JDT1_SYS_DEBIT).As("SYSCred")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_CREDIT).Sub().Max().Col(tableObjRow,JDT1_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_CREDIT).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_DEBIT).As("BalDueCred")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_FC_CREDIT).Sub().Max().Col(tableObjRow,JDT1_FC_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_FC_CRED).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_FC_DEB).As("BalFcCred")
-      docInfoQry.Select().Max().Col(tableObjRow,JDT1_SYS_CREDIT).Sub().Max().Col(tableObjRow,JDT1_SYS_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_SC_CRED).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_SC_DEB).As("BalScCred")
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_CREDIT).Sub().Max().Col(tableObjRow,JDT1_DEBIT).As(JDT1_CREDIT_ALIAS)
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_FC_CREDIT).Sub().Max().Col(tableObjRow,JDT1_FC_DEBIT).As(JDT1_FC_CREDIT_ALIAS)
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_SYS_CREDIT).Sub().Max().Col(tableObjRow,JDT1_SYS_DEBIT).As(JDT1_SYS_CREDIT_ALIAS)
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_CREDIT).Sub().Max().Col(tableObjRow,JDT1_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_CREDIT).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_DEBIT).As(JDT1_BALANCE_DUE_CREDIT_ALIAS)
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_FC_CREDIT).Sub().Max().Col(tableObjRow,JDT1_FC_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_FC_CRED).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_FC_DEB).As(JDT1_BALANCE_DUE_FC_CRED_ALIAS)
+      docInfoQry.Select().Max().Col(tableObjRow,JDT1_SYS_CREDIT).Sub().Max().Col(tableObjRow,JDT1_SYS_DEBIT).Sub().Max().Col(tableObjRow,JDT1_BALANCE_DUE_SC_CRED).Add().Max().Col(tableObjRow,JDT1_BALANCE_DUE_SC_DEB).As(JDT1_BALANCE_DUE_SC_CRED_ALIAS)
       docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_AMOUNT).As(JDT2_WT_AMOUNT_ALIAS)
       docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_AMOUNT_FC).As(JDT2_WT_AMOUNT_FC_ALIAS)
       docInfoQry.Select().Sum().Col(tableObjWtax,JDT2_WT_AMOUNT_SC).As(JDT2_WT_AMOUNT_SC_ALIAS)
@@ -936,7 +937,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       docInfoQry.Select(tableObj,OJDT_SYS_TOTAL).Val(0).As(_T("DummyCol4"))
       docInfoQry.GroupBy(tableObjRow,JDT1_TRANS_ABS)
       docInfoQry.GroupBy(tableObjRow,JDT1_LINE_ID)
-      return 0
+      return noErr
    end
 
    def self.DocBudgetCurrentSum(bizObject,currentMoney,acctCode)
@@ -948,7 +949,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       sumRow = MONEY.new(0)
       dagObj=bizObject.GetDAG(bizObject.GetID(),ao_Arr1)
       if !dAG.isValid(dagObj)
-         return -2007
+         return dbmBadDAG
       end
 
       dagDOC.GetColMoney(docDiscount,OINV_DISC_PERCENT)
@@ -985,7 +986,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def self.UpdateAccumulators(bizObject,rec,isCard)
       trace("UpdateAccumulators")
-      ooErr=0
+      ooErr=noErr
       dagBGT=nil
       dagBGT1 = nil
       blockLevel=0
@@ -1044,11 +1045,11 @@ class CTransactionJournalObject < CSystemBusinessObject
             dagBGT1.Close()
          end
 
-         if ooErr!=-2028
+         if ooErr!=dbmNoDataFound
             return ooErr
          end
 
-         if ooErr==-2028
+         if ooErr==dbmNoDataFound
             return ooNoErr
          end
 
@@ -1154,7 +1155,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def self.SetBudgetBlock(bizObject,blockLevel,testMoney,testYearMoney,testTmpM,testYearTmpM,workWithUI)
       trace("SetBudgetBlock")
-      ooErr=0
+      ooErr=noErr
       monSymbol=""
       msgStr1=""
       msgStr2 = ""
@@ -1332,11 +1333,11 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagBGT1=bizObject.GetDAG(BGT,ao_Arr1)
       bizEnv.GetCompanyDateRange(finYear,nil)
       ooErr=cBudgetGeneralObject.getBudgetRecords(dagBGT,dagBGT1,nil,nil,acctCode,finYear,-1,refDate,true)
-      if ooErr&&ooErr!=-2028
+      if ooErr&&ooErr!=dbmNoDataFound
          return ooErr
       end
 
-      if ooErr==-2028
+      if ooErr==dbmNoDataFound
          return ooNoErr
       end
 
@@ -1552,7 +1553,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       acctNum=0
       bizEnv=bizObject.GetEnv()
       if !dAG.isValid(dagDOC1)
-         return -2007
+         return dbmBadDAG
       end
 
       if bizEnv.IsComputeBudget()==false
@@ -1578,7 +1579,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          dagDOC1.GetColStr(itemCode,INV1_ITEM_CODE,rec)
          ooErr=cItemMasterData.isInventoryItemEx(bizEnv,bizObject.GetDAGNoOpen(SBOString(ITM)),itemCode,result)
          if ooErr
-            if ooErr==-2028
+            if ooErr==dbmNoDataFound
                ooErr=ooNoErr
             else
                return ooErr
@@ -1612,7 +1613,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
          ooErr=bizEnv.GetByOneKey(dagAct,1,updateBgtPtr.acctBgtRecords[acctNum].acctCode)
          if ooErr
-            if ooErr!=-2028
+            if ooErr!=dbmNoDataFound
                return ooErr
             end
 
@@ -1631,11 +1632,11 @@ class CTransactionJournalObject < CSystemBusinessObject
          dagDOC1.GetColStr(docDate,INV1_DATE,rec)
          bizEnv.GetCompanyDateRangeByDate(docDate,finYear,nil)
          ooErr=cBudgetGeneralObject.getBudgetRecords(dagBGT,dagBGT1,nil,nil,updateBgtPtr.acctBgtRecords[acctNum].acctCode,finYear,-1,updateBgtPtr.acctBgtRecords[acctNum].date,true,true)
-         if ooErr&&ooErr!=-2028
+         if ooErr&&ooErr!=dbmNoDataFound
             return ooErr
          end
 
-         if ooErr==-2028
+         if ooErr==dbmNoDataFound
             ooErr=ooNoErr
             next
 
@@ -1931,7 +1932,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
          ooErr=bizEnv.GetByOneKey(dagACT,OACT_KEYNUM_PRIMARY,actNum,lock)
          if ooErr
-            if ooErr==-2028
+            if ooErr==dbmNoDataFound
                return ooInvalidAcctCode
             else
                return ooErr
@@ -1949,7 +1950,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          dagACT.GetColStr(tmpCurr,OACT_ACT_CURR,0)
          dagJDT1.GetColStr(curr,JDT1_FC_CURRENCY,jj)
          if GNCoinCmp(tmpCurr,BAD_CURRENCY_STR)!=0
-            if !_STR_SpacesString(curr,_STR_strlen(curr))
+            if !_STR_SpacesString(curr,curr.size)
                if GNCoinCmp(tmpCurr,curr)!=0
                   dagACT.GetColStr(tmpStr,OACT_ACCOUNT_CODE)
                   ooErr=bizEnv.GetAccountSegmentsByCode(tmpStr,code,true)
@@ -1974,7 +1975,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def self.OJDTSetPaymentJdtOpenBalanceSums(paymentObject,dagJDT1,resDagFields,fromOffset,foundCaseK)
       trace("OJDTSetPaymentJdtOpenBalanceSums")
-      sboErr=0
+      sboErr=noErr
       sboErr=cTransactionJournalObject.oJDTFillAccountsFromJDT1RES(dagJDT1,resDagFields,actsArray)
       if sboErr
          return sboErr
@@ -2030,7 +2031,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          (ii+=1;ii-2)
       end
 
-      return 0
+      return noErr
    end
 
    def self.OJDTFillAccountsFromJDT1RES(dag,resDagFields,accountsArrayRes)
@@ -2103,7 +2104,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def self.CostAccountingAssignmentCheck(bizObject)
-      sboErr=0
+      sboErr=noErr
       bizEnv=bizObject.GetEnv()
       costAccountingRelevantFields=""
       costAccountingFields=""
@@ -2118,7 +2119,7 @@ class CTransactionJournalObject < CSystemBusinessObject
                dagJDT1.GetColStr(accountCode,JDT1_ACCT_NUM,rec)
                sboErr=bizEnv.GetByOneKey(dagACT,OACT_KEYNUM_PRIMARY,accountCode,true)
                if sboErr
-                  if sboErr==-2028
+                  if sboErr==dbmNoDataFound
                      return ooInvalidObject
                   else
                      return sboErr
@@ -2158,7 +2159,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def self.OJDTValidateCostAcountingStatus(bizObject,dagJDT)
-      sboErr=0
+      sboErr=noErr
       dagJDT1=bizObject.GetDAG(JDT,ao_Arr1)
       journalEntry=bizObject.CreateBusinessObjectJDT
       jdtCleaner = AutoCleanBOHandler.new(journalEntry)
@@ -2168,7 +2169,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def self.GetTransIdByDoc(bizEnv,transId,transtype,createdby,returnMinTransId)
-      sboErr=0
+      sboErr=noErr
       begin
          stmt = DBQRetrieveStatement.new(bizEnv)
          tJDT=stmt.From(bizEnv.ObjectToTable(JDT,ao_Main))
@@ -2184,7 +2185,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          if stmt.Execute(dagRes)>0
             dagRes.GetColLong(transId,0)
          else
-            sboErr=-2028
+            sboErr=dbmNoDataFound
          end
 
       rescue DBMException=>e
@@ -2274,6 +2275,8 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       UpdateWTAmounts(wtAllCurBaseCalcParamsPtr)
       dagDOC.Close()
+      wtAllCurBaseCalcParamsPtr.__delete
+      wtInfo.__delete
       return ooErr
    end
 
@@ -2416,7 +2419,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def SetCurrRateForDOC(dagDOC)
-      ooErr=0
+      ooErr=noErr
       env=GetEnv()
       dagJDT=GetDAG(JDT)
       if !dAG.isValid(dagDOC)
@@ -2436,7 +2439,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def SetSysCurrRateForDOC(dagDOC)
-      ooErr=0
+      ooErr=noErr
       env=GetEnv()
       dagJDT=GetDAG(JDT)
       if !dAG.isValid(dagDOC)
@@ -2479,10 +2482,10 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def SetJDTLineSrc(line,absEntry,srcLine)
       trace("SetJDTLineSrc")
-      ooErr=0
+      ooErr=noErr
       dagJDT1=GetDAG(JDT,ao_Arr1)
       if !DAG_IsValid(dagJDT1)
-         return (-2007)
+         return dbmBadDAG
       end
 
       dagJDT1.SetColLong(absEntry,JDT1_SRC_ABS_ID,line)
@@ -2592,7 +2595,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def DoSingleStorno(checkDate)
       trace("DoSingleStorno")
-      ooErr=0
+      ooErr=noErr
       fld1List=""
       fldList=""
       msgStr=""
@@ -2615,7 +2618,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       periodManager=bizEnv.GetPeriodCache()
       if GetDataSource()!=VAL_OBSERVER_SOURCE
          dagJDT.GetColStr(refDate,OJDT_STORNO_DATE,0)
-         if checkDate&&(-222==bizEnv.CheckCompanyPeriodByDaterefDate)
+         if checkDate&&(coreNoCurrPeriodErr==bizEnv.CheckCompanyPeriodByDaterefDate)
             SetErrorLine(-1)
             SetErrorField(OJDT_REF_DATE)
             return ooInvalidObject
@@ -2659,7 +2662,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
             when OJDT_REF_DATE
                dagJDT.GetColStr(refDate,OJDT_REF_DATE,0)
-               if -222==bizEnv.CheckCompanyPeriodByDate(refDate)
+               if coreNoCurrPeriodErr==bizEnv.CheckCompanyPeriodByDate(refDate)
                   SetErrorLine(-1)
                   SetErrorField(OJDT_REF_DATE)
                   Message(OBJ_MGR_ERROR_MSG,GO_DATE_OUT_OF_LIMIT,nil,OO_ERROR)
@@ -3011,7 +3014,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def ReconcileCertainLines()
       trace("ReconcileCertainLines")
-      ooErr=0
+      ooErr=noErr
       numOfConds=0
       bizEnv=GetEnv()
       pMM=nil
@@ -3038,6 +3041,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       ooErr=DBD_GetInNewFormat(dagJdt1,dagRES)
       if @m_isInCancellingAcctRecon
          dagRES.SetSize(@m_reconAcctSet.size(),dbmDropData)
+         itr=@m_reconAcctSet.begin()
          rec=0
          while (itr!=@m_reconAcctSet.end()) do
             dagRES.SetColStr(itr,0,rec)
@@ -3114,6 +3118,7 @@ class CTransactionJournalObject < CSystemBusinessObject
                   ooErr=cManualMatchManager.cancelAllReconsOfJournalLine(bizEnv,transNum,rec)
                   if ooErr
                      DAG_Close(dagDupJdt1)
+                     pMM.__delete
                      return ooErr
                   end
 
@@ -3134,6 +3139,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          end
 
          ooErr=pMM.Reconcile()
+         pMM.__delete
          if ooErr
             DAG_Close(dagDupJdt1)
             return ooErr
@@ -3294,7 +3300,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    def IsScAdjustment(isScAdjustment)
       dagJDT1=GetArrayDAG(ao_Arr1)
       numOfRecs=dagJDT1.GetRecordCount()
-      ooErr=0
+      ooErr=noErr
       bizEnv=GetEnv()
       dagJDT1.GetColLong(transID,JDT1_TRANS_ABS,0)
       isScAdjustment=false
@@ -3305,8 +3311,8 @@ class CTransactionJournalObject < CSystemBusinessObject
          ooErr=cManualMatchManager.getReconciliationByTransaction(bizEnv,transID,lineNum,dagRes)
          if ooErr
             dagRes.Close()
-            if ooErr=-2028
-               ooErr=0
+            if ooErr=dbmNoDataFound
+               ooErr=noErr
                next
 
             else
@@ -3342,7 +3348,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def CompleteJdtLine()
       trace("CompleteJdtLine")
-      ooErr=0
+      ooErr=noErr
       bizEnv=GetEnv()
       mbEnabled=false
       isAutoCompleteBPLFromUD = false
@@ -3430,7 +3436,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def CompleteVatLine()
       trace("CompleteVatLine")
-      ooErr=0
+      ooErr=noErr
       dateStr=""
       bizEnv=GetEnv()
       dagJDT=GetDAG(JDT)
@@ -3885,7 +3891,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def ComplateStampLine()
       trace("ComplateStampLine")
-      ooErr=0
+      ooErr=noErr
       sysCurr=""
       localCurr=""
       currency=""
@@ -4871,7 +4877,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagJDT=GetDAG()
       dagJDT.GetColLong(transId,OJDT_JDT_NUM)
       ooErr=taxAdaptor.Load(transId)
-      if ooErr==-2028
+      if ooErr==dbmNoDataFound
          ooErr=ooNoErr
       end
 
@@ -4900,7 +4906,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def BeforeDeleteArchivedObject(arcDelPref)
-      sboErr=0
+      sboErr=noErr
       dagDAR=GetDAG(DAR)
       dagDAR.GetColLong(jEPref.arc_entry,ODAR_ABS_ENTRY)
       dagDAR.GetColStr(tempStr,ODAR_JE_BY_PROJ)
@@ -4937,7 +4943,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def AfterDeleteArchivedObject(arcDelPref)
-      sboErr=0
+      sboErr=noErr
       begin
          dagACT=nil
          dagCRD=nil
@@ -4972,7 +4978,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def SetToZeroNullLineTypeCols()
       trace("SetToZeroNullLineTypeCols")
-      ooErr=0
+      ooErr=noErr
       updateZeroColNum=""
       dagJDT1=GetDAG(JDT,ao_Arr1)
       ooErr=GNUpdateNullColumnsToZero(dagJDT1,updateZeroColNum,1)
@@ -4985,7 +4991,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def SetToZeroOldLineTypeCols()
       trace("SetToZeroOldLineTypeCols")
-      ooErr=0
+      ooErr=noErr
       dagJDT1=GetDAG(JDT,ao_Arr1)
       conditions=(dagJDT1.GetDBDParams().GetConditions())
       conditions.Clear()
@@ -5059,7 +5065,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def UpgradeDpmLineTypeUsingJDT1(paymentObj)
       trace("UpgradeDpmLineTypeUsingJDT1")
-      ooErr=0
+      ooErr=noErr
 
       dagRES = nil
       numOfConds=0
@@ -5231,10 +5237,10 @@ class CTransactionJournalObject < CSystemBusinessObject
       DBD_SetTablesList(dagJDT1,tableStruct,7)
       ooErr=DBD_GetInNewFormat(dagJDT1,dagRES)
       dagRES.Detach()
-      if ooErr==-2028
+      if ooErr==dbmNoDataFound
          DAG_Close(dagRES)
          DAG_Close(dagJDT1)
-         return 0
+         return noErr
       else
          if ooErr
             DAG_Close(dagRES)
@@ -5246,6 +5252,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       DAG_GetCount(dagRES,numOfRecs)
       condStruct2=DBD_CondStruct.new[30*2]
+      acCondStruct2 = AutoCleanerArrayHandler.new(condStruct2)
       _STR_strcpy(tableStruct2[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Arr1))
       updStruct[0].colNum=JDT1_LINE_TYPE
       if paymentObj==RCT
@@ -5341,15 +5348,15 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def UpgradeDpmLineTypeUsingRCT2(object)
       trace("UpgradeDpmLineTypeUsingRCT2")
-      ooErr=0
+      ooErr=noErr
       dagRes=nil
       dagQuery=GetDAG()
       dpmStageArr=""
       stage=0
       while (dpmStageArr[stage]!=NOB) do
          ooErr=UpgradeDpmLineTypeExecuteQuery(dagQuery,dagRes,object,dpmStageArr[stage]==ooCtrlAct_DPRequestType)
-         if ooErr==-2028
-            ooErr=0
+         if ooErr==dbmNoDataFound
+            ooErr=noErr
             next
 
          else
@@ -5373,7 +5380,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def UpgradeDpmLineTypeExecuteQuery(dagQuery,dagRes,object,isFirst)
       trace("UpgradeDpmLineTypeExecuteQuery")
-      ooErr=0
+      ooErr=noErr
       bizEnv=GetEnv()
       pmtMainTableNum=0
       pmtJDT1TableNum=0
@@ -5528,7 +5535,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def UpgradeDpmLineTypeUpdate(dagRes,object,isFirst)
       trace("UpgradeDpmLineTypeUpdate")
-      ooErr=0
+      ooErr=noErr
       dagJDT1=GetDAG(JDT,ao_Arr1)
       conditions=(params.GetConditions())
       jDT1UpdateStruct[0].colNum=JDT1_LINE_TYPE
@@ -5589,7 +5596,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    def AddRowByParent(pParentDAG,lParentRow,pChildDAG)
       lDagSize=pChildDAG.GetSize(dbmDataBuffer)
       sboErr=pChildDAG.SetSize(lDagSize+1,dbmKeepData)
-      if sboErr!=0
+      if sboErr!=noErr
          return sboErr
       end
 
@@ -5603,7 +5610,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          pChildDAG.CopyColumn(pParentDAG,OCFT_JDT_LINE_ID,lDagSize,JDT1_LINE_ID,lParentRow)
       end
 
-      return 0
+      return noErr
    end
 
    def GetFirstRowByParent(pParentDAG,lParentRow,pChildDAG)
@@ -5767,7 +5774,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       dagOBJ.GetColStr(jdtNum,colNum)
       ooErr=GetByKey(jdtNum,OJDT_KEYNUM_PRIMARY)
-      if ooErr&&ooErr!=-2028&&ooErr!=-1025
+      if ooErr&&ooErr!=dbmNoDataFound&&ooErr!=dbmArrayRecordNotFound
          return ooErr
       end
 
@@ -5972,12 +5979,12 @@ class CTransactionJournalObject < CSystemBusinessObject
    def IsCardLine(rec)
       dagJDT1=GetArrayDAG(ao_Arr1)
       if !DAG_IsValid(dagJDT1)
-
+         throw dataTableInvalidDAG
       end
 
       recCount=dagJDT1.GetRealSize(dbmDataBuffer)
       if rec<0||rec>=recCount
-
+         throw dataTableInvalidRowIndex
       end
 
       ooErr=dagJDT1.GetColStr(accountNumber,JDT1_ACCT_NUM,rec,false,true)
@@ -5992,7 +5999,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    def ContainsCardLine()
       dagJDT1=GetArrayDAG(ao_Arr1)
       if !DAG_IsValid(dagJDT1)
-
+         throw dataTableInvalidDAG
       end
 
       recCount=dagJDT1.GetRealSize(dbmDataBuffer)
@@ -6048,20 +6055,20 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def ValidateBPL(bValidateSameBPLIDOnLines)
-      ooErr=0
+      ooErr=noErr
       env=GetEnv()
       if !VF_MultiBranch_EnabledInOADM(env)
-         return 0
+         return noErr
       end
 
       dagJDT=GetDAG(JDT,ao_Main)
       if !dAG.isValid(dagJDT)
-         return 0
+         return noErr
       end
 
       dagJDT1=GetDAG(JDT,ao_Arr1)
       if !dAG.isValid(dagJDT1)
-         return 0
+         return noErr
       end
 
       dag1Size=dagJDT1.GetRealSize(dbmDataBuffer)
@@ -6132,7 +6139,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       dagJDT2=GetDAG(JDT,ao_Arr2)
       if !dAG.isValid(dagJDT2)
-         return 0
+         return noErr
       end
 
       dag2Size=dagJDT2.GetRealSize(dbmDataBuffer)
@@ -6172,11 +6179,11 @@ class CTransactionJournalObject < CSystemBusinessObject
          return ooErr
       end
 
-      return 0
+      return noErr
    end
 
    def self.ValidateBPLEx(bizObject)
-      ooErr=0
+      ooErr=noErr
       env=bizObject.GetEnv()
       boJDT=env.CreateBusinessObject(SBOString(JDT))
       acBo = AutoCleanBOHandler.new(boJDT)
@@ -6458,7 +6465,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       end
 
       periodID=periodManager.GetPeriodId(bizEnv,dateStr.GetString())
-      if -222==bizEnv.CheckCompanyPeriodByDate(dateStr.GetString())
+      if coreNoCurrPeriodErr==bizEnv.CheckCompanyPeriodByDate(dateStr.GetString())
          SetErrorField(OJDT_REF_DATE)
          return ooInvalidObject
       end
@@ -6541,7 +6548,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          dag.GetColStr(blockDunningLetter,OJDT_BLOCK_DUNNING_LETTER)
          if blockDunningLetter==VAL_YES&&!IsBlockDunningLetterUpdateable()
             SetErrorField(OJDT_BLOCK_DUNNING_LETTER)
-            return -1029
+            return dbmColumnNotUpdatable
          end
 
       end
@@ -6785,7 +6792,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             SetErrorLine(rec+1)
             SetErrorField(JDT1_ACCT_NUM)
             SetArrNum(ao_Arr1)
-            if ooErr==-2028
+            if ooErr==dbmNoDataFound
                return ooInvalidAcctCode
             else
                return ooErr
@@ -6812,7 +6819,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          dagACT.GetColStr(tmpCurr,OACT_ACT_CURR,0)
          dagJDT1.GetColStr(curr,JDT1_FC_CURRENCY,rec)
          if GNCoinCmp(tmpCurr,BAD_CURRENCY_STR)!=0
-            if !_STR_SpacesString(curr,_STR_strlen(curr))
+            if !_STR_SpacesString(curr,curr.size)
                if GNCoinCmp(tmpCurr,curr)!=0
                   Message(OBJ_MGR_ERROR_MSG,GO_ACT_COIN_DIFFERS,code,OO_ERROR)
                   return ooInvalidObject
@@ -6852,7 +6859,7 @@ class CTransactionJournalObject < CSystemBusinessObject
                SetErrorLine(rec+1)
                SetErrorField(JDT1_SHORT_NAME)
                SetArrNum(ao_Arr1)
-               if ooErr==-2028
+               if ooErr==dbmNoDataFound
                   Message(OBJ_MGR_ERROR_MSG,GO_CRD_NAME_MISSING,shortName,OO_ERROR)
                   return ooInvalidObject
                else
@@ -6914,7 +6921,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          lineCurr[0]=0
          if !fCreditSum.IsZero()
             dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
-            if IsCurValid(lineCurr,nil)!=0
+            if IsCurValid(lineCurr,nil)!=noErr
                SetErrorLine(rec+1)
                Message(OBJ_MGR_ERROR_MSG,GO_INVALID_COIN,lineCurr,OO_ERROR)
                return ooInvalidObject
@@ -6924,7 +6931,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
          if !fDebitSum.IsZero()
             dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
-            if IsCurValid(lineCurr,nil)!=0
+            if IsCurValid(lineCurr,nil)!=noErr
                SetErrorLine(rec+1)
                Message(OBJ_MGR_ERROR_MSG,GO_INVALID_COIN,lineCurr,OO_ERROR)
                return ooInvalidObject
@@ -7315,18 +7322,18 @@ class CTransactionJournalObject < CSystemBusinessObject
          dagJDT.GetColStr(cupId,OJDT_CUP)
          cigId.Trim()
          cupId.Trim()
-         if cCigObject.getDescription(bizEnv,cigId,desc)!=0
+         if cCigObject.getDescription(bizEnv,cigId,desc)!=noErr
             dag.SetErrorTable(GetEnv().ObjectToTable(JDT))
             SetErrorField(OJDT_CIG)
             cMessagesManager.getHandle().Message(_54_APP_MSG_FIN_CIG_DOES_NOT_EXIST,EMPTY_STR,self)
-            return -10
+            return errNoMsg
          end
 
-         if cCupObject.getDescription(bizEnv,cupId,desc)!=0
+         if cCupObject.getDescription(bizEnv,cupId,desc)!=noErr
             dag.SetErrorTable(GetEnv().ObjectToTable(JDT))
             SetErrorField(OJDT_CUP)
             cMessagesManager.getHandle().Message(_54_APP_MSG_FIN_CUP_DOES_NOT_EXIST,EMPTY_STR,self)
-            return -10
+            return errNoMsg
          end
 
          numOfRec=dagJDT1.GetRecordCount()
@@ -7334,20 +7341,20 @@ class CTransactionJournalObject < CSystemBusinessObject
          while (rec<numOfRec) do
             dagJDT1.GetColStr(cigId,JDT1_CIG,rec)
             dagJDT1.GetColStr(cupId,JDT1_CUP,rec)
-            if cCigObject.getDescription(bizEnv,cigId,desc)!=0
+            if cCigObject.getDescription(bizEnv,cigId,desc)!=noErr
                SetErrorLine(rec+1)
                SetErrorField(JDT1_CIG)
                SetArrNum(ao_Arr1)
                cMessagesManager.getHandle().Message(_54_APP_MSG_FIN_CIG_DOES_NOT_EXIST,EMPTY_STR,self)
-               return -10
+               return errNoMsg
             end
 
-            if cCupObject.getDescription(bizEnv,cupId,desc)!=0
+            if cCupObject.getDescription(bizEnv,cupId,desc)!=noErr
                SetErrorLine(rec+1)
                SetErrorField(JDT1_CUP)
                SetArrNum(ao_Arr1)
                cMessagesManager.getHandle().Message(_54_APP_MSG_FIN_CUP_DOES_NOT_EXIST,EMPTY_STR,self)
-               return -10
+               return errNoMsg
             end
 
 
@@ -7367,7 +7374,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       if GetDataSource()==VAL_OBSERVER_SOURCE&&VF_DeferredTaxInJE(bizEnv)
          if !CJDTDeferredTaxUtil(self).IsValid()
-            return -10
+            return errNoMsg
          end
 
       end
@@ -7377,7 +7384,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def OnCreate()
       trace("OnCreate")
-      ooErr=0
+      ooErr=noErr
       blockLevel=0
       typeBlockLevel = 0
       recCount=0
@@ -7504,8 +7511,8 @@ class CTransactionJournalObject < CSystemBusinessObject
             bpBalanceChangeLogData.SetControlAcct(acctKey)
             bpBalanceChangeLogData.SetDocType(JDT)
             ooErr=bizEnv.GetByOneKey(dagCRD,GO_PRIMARY_KEY_NUM,cardKey,true)
-            if ooErr!=0
-               if ooErr==-2028
+            if ooErr!=noErr
+               if ooErr==dbmNoDataFound
                   Message(OBJ_MGR_ERROR_MSG,GO_CARD_NOT_FOUND_MSG,cardKey,OO_ERROR)
                   return ooErrNoMsg
                else
@@ -7527,8 +7534,8 @@ class CTransactionJournalObject < CSystemBusinessObject
          end
 
          ooErr=bizEnv.GetByOneKey(GetDAG(ACT),GO_PRIMARY_KEY_NUM,acctKey,true)
-         if ooErr!=0
-            if ooErr==-2028
+         if ooErr!=noErr
+            if ooErr==dbmNoDataFound
                Message(OBJ_MGR_ERROR_MSG,GO_ACT_MISSING,acctKey,OO_ERROR)
                return ooErrNoMsg
             else
@@ -7595,14 +7602,14 @@ class CTransactionJournalObject < CSystemBusinessObject
          end
 
          if !IsExDtCommand(ooDoAsUpgrade)&&transType!=DAR
-            if _STR_strlen(contraDebKey)==0
+            if contraDebKey.size==0
                if debAmount.IsPositive()||fDebAmount.IsPositive()||sDebAmount.IsPositive()||credAmount.IsNegative()||fCredAmount.IsNegative()||sCredAmount.IsNegative()
                   _STR_strcpy(contraDebKey,cardKey)
                end
 
             end
 
-            if _STR_strlen(contraCredKey)==0
+            if contraCredKey.size==0
                if credAmount.IsPositive()||fCredAmount.IsPositive()||sCredAmount.IsPositive()||debAmount.IsNegative()||fDebAmount.IsNegative()||sDebAmount.IsNegative()
                   _STR_strcpy(contraCredKey,cardKey)
                end
@@ -7921,7 +7928,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          rec=0
          while (rec<dagJDT1.GetRecordCount()) do
             ooErr=updateCenvatByJdt1Line(self,dagJDT1,rec)
-            if ooErr&&ooErr!=-2028
+            if ooErr&&ooErr!=dbmNoDataFound
                return ooErr
             end
 
@@ -7961,7 +7968,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
          if ordered
             bizEnv.SetErrorTable(dagJDT1.GetTableName())
-            return -2039
+            return dbmDataWasChanged
          end
 
       end
@@ -8035,7 +8042,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       _STR_strcpy(upd[2].updateVal,bizEnv.GetCompanyPeriodCategory())
       DBD_SetDAGUpd(dagJDT1,upd,3)
       ooErr=DBD_SpToDAG(dagJDT1,dagRES,sp_Name)
-      if ooErr==-2028
+      if ooErr==dbmNoDataFound
          return ooNoErr
       end
 
@@ -8238,7 +8245,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       if isOrdered!=isOrderedInDB
          bizEnv.SetErrorTable(dagJDT1.GetTableName())
-         return -2039
+         return dbmDataWasChanged
       end
 
       if VF_JEWHT(bizEnv)
@@ -8277,26 +8284,26 @@ class CTransactionJournalObject < CSystemBusinessObject
             dagJDT1.GetColStr(shrtCode,JDT1_SHORT_NAME,i)
             if acctCode.Trim()==shrtCode.Trim()
                SetErrorField(JDT1_TAX_ID_NUMBER)
-               return -1029
+               return dbmColumnNotUpdatable
             end
 
             if bizEnv.IsCurrentLocalSettings(USA_SETTINGS)
                SetErrorField(JDT1_TAX_ID_NUMBER)
-               return -1029
+               return dbmColumnNotUpdatable
             end
 
             dagJDT.GetColStr(transType,OJDT_TRANS_TYPE)
             objectId=transType.Trim().strtol()
             if objectId!=JDT&&objectId!=NONE_CHOICE
                SetErrorField(JDT1_TAX_ID_NUMBER)
-               return -1029
+               return dbmColumnNotUpdatable
             end
 
             series=0
             dagJDT.GetColLong(series,OJDT_SERIES)
             if VF_PTCertification(bizEnv)&&cDigitalSignatureBase.isDigitalSignatureAllowed(self,series)
                SetErrorField(JDT1_TAX_ID_NUMBER)
-               return -1029
+               return dbmColumnNotUpdatable
             end
 
          end
@@ -8330,7 +8337,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def OnAutoComplete()
       trace("OnAutoComplete")
-      ooErr=0
+      ooErr=noErr
       sysCurr=""
       localCurr=""
       tempCurr=""
@@ -8351,7 +8358,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagCRD=GetDAG(CRD)
       ooErr=CompleteKeys()
       if ooErr
-         if ooErr==-2038
+         if ooErr==dbmRecordLocked
             Message(ERROR_MESSAGES_STR,OO_RECORD_LOCKED_BY_ANOTHER_TRAN_STR,nil,OO_ERROR)
          end
 
@@ -8527,7 +8534,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
          else
             dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
-            if _STR_SpacesString(lineCurr,_STR_strlen(lineCurr))
+            if _STR_SpacesString(lineCurr,lineCurr.size)
                dagJDT1.GetColStr(actNum,JDT1_ACCT_NUM,rec)
                dagJDT1.GetColStr(shortName,JDT1_SHORT_NAME,rec)
                if _STR_strcmp(actNum,shortName)==0
@@ -8542,7 +8549,7 @@ class CTransactionJournalObject < CSystemBusinessObject
                            i=rec-1
                            while (i>0) do
                               dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,i)
-                              if !_STR_SpacesString(lineCurr,_STR_strlen(lineCurr))
+                              if !_STR_SpacesString(lineCurr,lineCurr.size)
                                  dagJDT1.SetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
                                  break
                               end
@@ -8571,7 +8578,7 @@ class CTransactionJournalObject < CSystemBusinessObject
                            i=rec-1
                            while (i>0) do
                               dagJDT1.GetColStr(lineCurr,JDT1_FC_CURRENCY,i)
-                              if !_STR_SpacesString(lineCurr,_STR_strlen(lineCurr))
+                              if !_STR_SpacesString(lineCurr,lineCurr.size)
                                  dagJDT1.SetColStr(lineCurr,JDT1_FC_CURRENCY,rec)
                                  break
                               end
@@ -8825,14 +8832,14 @@ class CTransactionJournalObject < CSystemBusinessObject
             when OJDT_REF_DATE
                SetErrorField(oopp.colsList[i].GetColNum())
                SetErrorLine(-1)
-               return -1029
+               return dbmColumnNotUpdatable
                break
             when OJDT_TAX_DATE
                if bizEnv.IsBlockTaxDateEdit()
                   if !oopp.colsList[i].GetBackupValue().IsEmpty()
                      SetErrorLine(-1)
                      SetErrorField(oopp.colsList[i].GetColNum())
-                     return -1029
+                     return dbmColumnNotUpdatable
                   end
 
                end
@@ -8850,7 +8857,7 @@ class CTransactionJournalObject < CSystemBusinessObject
                if !editableInUpdate
                   SetErrorLine(-1)
                   SetErrorField(oopp.colsList[i].GetColNum())
-                  return -1029
+                  return dbmColumnNotUpdatable
                end
 
                break
@@ -8868,7 +8875,7 @@ class CTransactionJournalObject < CSystemBusinessObject
                      if isReported
                         SetErrorLine(-1)
                         SetErrorField(oopp.colsList[i].GetColNum())
-                        return -1029
+                        return dbmColumnNotUpdatable
                      end
 
                   end
@@ -8880,7 +8887,7 @@ class CTransactionJournalObject < CSystemBusinessObject
                if !IsBlockDunningLetterUpdateable()
                   SetErrorLine(-1)
                   SetErrorField(OJDT_BLOCK_DUNNING_LETTER)
-                  return -1029
+                  return dbmColumnNotUpdatable
                end
 
                break
@@ -8888,14 +8895,14 @@ class CTransactionJournalObject < CSystemBusinessObject
                if self.IsPaymentOrdered()
                   SetErrorLine(-1)
                   SetErrorField(OJDT_DUE_DATE)
-                  return -1029
+                  return dbmColumnNotUpdatable
                end
 
                break
             when OJDT_DEFERRED_TAX
                SetErrorLine(-1)
                SetErrorField(OJDT_DUE_DATE)
-               return -1029
+               return dbmColumnNotUpdatable
                break
             end
 
@@ -8913,7 +8920,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             when JDT1_ACCT_NUM
             when JDT1_FC_CURRENCY
                SetErrorField(oopp.colsList[i].GetColNum())
-               return -1029
+               return dbmColumnNotUpdatable
                break
             when JDT1_DEBIT
             when JDT1_CREDIT
@@ -8927,7 +8934,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             when JDT1_GROSS_VALUE_FC
                if GetDataSource()==VAL_OBSERVER_SOURCE
                   SetErrorField(oopp.colsList[i].GetColNum())
-                  return -1029
+                  return dbmColumnNotUpdatable
                else
                   oopp.colsList[i].SetIngnoreUpdate(true)
                end
@@ -8936,7 +8943,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             when JDT1_TAX_DATE
                if bizEnv.IsBlockTaxDateEdit()
                   SetErrorField(oopp.colsList[i].GetColNum())
-                  return -1029
+                  return dbmColumnNotUpdatable
                end
 
                break
@@ -8948,7 +8955,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             when JDT1_PROJECT
                if !editableInUpdate
                   SetErrorField(oopp.colsList[i].GetColNum())
-                  return -1029
+                  return dbmColumnNotUpdatable
                end
 
                break
@@ -8959,21 +8966,21 @@ class CTransactionJournalObject < CSystemBusinessObject
                dag.GetColStr(ordered,JDT1_ORDERED,oopp.recOffset)
                if ordered==VAL_YES
                   SetErrorLine(oopp.colsList[i].GetColNum())
-                  return -1029
+                  return dbmColumnNotUpdatable
                end
 
                break
             when JDT1_TAX_ID_NUMBER
                if !editableInUpdate
                   SetErrorField(JDT1_TAX_ID_NUMBER)
-                  return -1029
+                  return dbmColumnNotUpdatable
                end
 
                break
             when JDT1_BPL_ID
                if VF_MultiBranch_EnabledInOADM(bizEnv)&&GetCurrentBusinessFlow()==bf_Update
                   SetErrorField(JDT1_BPL_ID)
-                  return -1029
+                  return dbmColumnNotUpdatable
                end
 
                break
@@ -9954,6 +9961,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          ooErr=reconUpgMgr.BuildViewsForBadPayments()
          if ooErr
             reconUpgMgr.ClearViewsForBadPayments()
+            reconUpgMgr.__delete
             return ooErr
          end
 
@@ -9965,6 +9973,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          ooErr=reconUpgMgr.Upgrade()
          if ooErr
             reconUpgMgr.ClearViewsForBadPayments()
+            reconUpgMgr.__delete
             return ooErr
          end
 
@@ -9977,6 +9986,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          ooErr=reconUpgMgr.FixLinkedInvoiceReconciliation()
          if ooErr
             reconUpgMgr.ClearViewsForBadPayments()
+            reconUpgMgr.__delete
             return ooErr
          end
 
@@ -9988,6 +9998,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          ooErr=reconUpgMgr.UpgradePartialReconciliationHistory()
          if ooErr
             reconUpgMgr.ClearViewsForBadPayments()
+            reconUpgMgr.__delete
             return ooErr
          end
 
@@ -9999,6 +10010,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          ooErr=reconUpgMgr.UpgradePartialReconHistReplaceWrongRecon()
          if ooErr
             reconUpgMgr.ClearViewsForBadPayments()
+            reconUpgMgr.__delete
             return ooErr
          end
 
@@ -10006,6 +10018,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       end
 
       reconUpgMgr.ClearViewsForBadPayments()
+      reconUpgMgr.__delete
       if UpgradeVersionRangeCheck(VERSION_2007_MR,VERSION_2007_50)
          upgradeBlock = ObjectUpgradeErrorLogger.new(_T("Upgrade Audit Trail JE Total"))
          ooErr=cReconUpgMgr.upgradeAuditTrailJETotal(bizEnv)
@@ -10479,7 +10492,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          return ooErr
       end
 
-      return 0
+      return noErr
    end
 
    def OnCheckIntegrityOnUpdate()
@@ -10489,7 +10502,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          return ooErr
       end
 
-      return 0
+      return noErr
    end
 
    def OnInitFlow()
@@ -10514,11 +10527,11 @@ class CTransactionJournalObject < CSystemBusinessObject
          return cSystemBusinessObject.onCommand(command)
       end
 
-      return 0
+      return noErr
    end
 
    def OnSetDynamicMetaData(commandCode)
-      ooErr=0
+      ooErr=noErr
       if commandCode==BusinessService_CmdCode_GetByParams||commandCode==BusinessService_CmdCode_Add
          headerFields=""
          i=0
@@ -10550,7 +10563,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagCFT = nil
       bizEnv=GetEnv()
       ooErr=cSystemBusinessObject.onGetByKey()
-      if ooErr&&ooErr!=-1025
+      if ooErr&&ooErr!=dbmArrayRecordNotFound
          return ooErr
       end
 
@@ -10608,15 +10621,15 @@ class CTransactionJournalObject < CSystemBusinessObject
          if dbErr==ooNoErr
             dagJDT1.CopyColumn(dagCRD,JDT1_SHORT_NAME,rec,OCRD_CARD_CODE,0)
          else
-            if dbErr==-2028
+            if dbErr==dbmNoDataFound
                dbErr=GetEnv().GetByOneKey(dagACT,OACT_KEYNUM_PRIMARY,shortName)
-               if dbErr==0
+               if dbErr==noErr
                   dagJDT1.CopyColumn(dagACT,JDT1_SHORT_NAME,rec,OACT_ACCOUNT_CODE,0)
                else
                   SetErrorField(JDT1_SHORT_NAME)
                   SetErrorLine(rec+1)
                   SetArrNum(ao_Arr1)
-                  if dbErr==-2028
+                  if dbErr==dbmNoDataFound
                      Message(OBJ_MGR_ERROR_MSG,GO_CRD_NAME_MISSING,shortName,OO_ERROR)
                      return ooInvalidObject
                   end
@@ -10642,7 +10655,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def OnCanCancel()
       bizEnv=GetEnv()
-      ooErr=0
+      ooErr=noErr
       canCancelJE=false
       if IsPaymentOrdered()
          return false
@@ -10725,12 +10738,12 @@ class CTransactionJournalObject < CSystemBusinessObject
       end
 
       canArchiveStmt.Where().Col(tObjectTable,OJDT_TRANS_TYPE).NE().Val(CLOSE_BLNC_TYPE).And().NotExists().OpenBracket().Subquery(subQ_unReconciledBPlines).CloseBracket()
-      return 0
+      return noErr
    end
 
    def GetArchiveDocNumCol(outArcDocNumCol)
       outArcDocNumCol=OJDT_JDT_NUM
-      return 0
+      return noErr
    end
 
    def CompleteDataForArchivingLog()
@@ -10788,7 +10801,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       end
 
-      return 0
+      return noErr
    end
 
    def UpdateTax()
@@ -10831,7 +10844,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagJDT=GetDAG()
       bizEnv=GetEnv()
       if !DAG_IsValid(dagJDT1)
-         return (-2007)
+         return dbmBadDAG
       end
 
       numOfAccts=accountsArrayFrom.GetSize()
@@ -11103,7 +11116,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       end
 
       if !linesAdded
-         return -2028
+         return dbmNoDataFound
       end
 
       return ooNoErr
@@ -11259,7 +11272,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             DAG_Close(dagAnswer)
             dagAnswer=nil
          else
-            if ooErr==-2028
+            if ooErr==dbmNoDataFound
                (numOfIterations+=1;numOfIterations-2)
                if numOfIterations==totalNumOfIterations
                   dagAnswer.Duplicate(dagRES,dbmKeepData)
@@ -11406,7 +11419,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             DAG_Close(dagAnswer)
             dagAnswer=nil
          else
-            if ooErr==-2028
+            if ooErr==dbmNoDataFound
                DAG_Close(dagAnswer)
                dagAnswer=nil
             else
@@ -11626,7 +11639,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       DBD_SetDAGRes(dagJDT1,resStruct,1)
       DBD_SetTablesList(dagJDT1,tableStruct,2)
       ooErr=DBD_GetInNewFormat(dagJDT1,dagRES)
-      if ooErr&&ooErr!=-2028
+      if ooErr&&ooErr!=dbmNoDataFound
          DAG_Close(dagJDT1)
          return ooErr
       else
@@ -11675,7 +11688,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          dagRES.Concat(dagRES2,dbmDataBuffer)
          DAG_Close(dagRES2)
       else
-         if ooErr==-2028
+         if ooErr==dbmNoDataFound
             DAG_Close(dagRES2)
             if firstErr
                DAG_Close(dagRES)
@@ -11876,7 +11889,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       end
 
       sboErr=ValidateVatReportTransType()
-      if sboErr==0
+      if sboErr==noErr
          numOfBPfound=0
          validateFedTaxId=bizEnv.IsVatPerLine()
          sboErr=GetNumOfBPRecords(numOfBPfound,validateFedTaxId)
@@ -11886,12 +11899,12 @@ class CTransactionJournalObject < CSystemBusinessObject
 
          if numOfBPfound!=1
             Message(GO_OBJ_ERROR_MSGS(JDT),12,nil,OO_ERROR)
-            sboErr=-10
+            sboErr=errNoMsg
          end
 
       end
 
-      if sboErr!=0
+      if sboErr!=noErr
          SetErrorField(-1)
          SetErrorField(OJDT_REPORT_EU)
       end
@@ -11914,7 +11927,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       end
 
       sboErr=ValidateVatReportTransType()
-      if sboErr==0
+      if sboErr==noErr
          numOfBPfound=0
          sboErr=GetNumOfBPRecords(numOfBPfound,false)
          if sboErr
@@ -11923,12 +11936,12 @@ class CTransactionJournalObject < CSystemBusinessObject
 
          if numOfBPfound!=1
             Message(GO_OBJ_ERROR_MSGS(JDT),13,nil,OO_ERROR)
-            sboErr=-10
+            sboErr=errNoMsg
          end
 
       end
 
-      if sboErr!=0
+      if sboErr!=noErr
          SetErrorField(-1)
          SetErrorField(OJDT_REPORT_347)
       end
@@ -11975,12 +11988,12 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       if validateFedTaxId&&foundECTax&&indexOfMissingTaxId>=0
          if cMessagesManager.getHandle().DisplayMessage(_48_APP_MSG_FIN_JDT_MISSING_FEDERAL_TAX_ID)!=DIALOG_YES_BTN
-            return -10
+            return errNoMsg
          end
 
       end
 
-      return 0
+      return noErr
    end
 
    def ValidateVatReportTransType()
@@ -11989,7 +12002,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagJDT=GetDAG()
       if IsManualJE(dagJDT)==false
          Message(GO_OBJ_ERROR_MSGS(JDT),14,nil,OO_ERROR)
-         sboErr=-10
+         sboErr=errNoMsg
       end
 
       return sboErr
@@ -11998,7 +12011,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    def ValidateBPLNumberingSeries()
       env=GetEnv()
       if !VF_MultiBranch_EnabledInOADM(env)
-         return 0
+         return noErr
       end
 
       series=GetSeries()
@@ -12016,7 +12029,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          (dag1Row+=1;dag1Row-2)
       end
 
-
+      it=bPLIds.begin()
       while (it!=bPLIds.end()) do
          tmpNum=SBOString(series)+SBOString(SUB_TYPE_NONE)
          if !cBusinessPlaceObject.isBPLIdAssignedToObject(env,it,NNM,tmpNum)
@@ -12040,13 +12053,13 @@ class CTransactionJournalObject < CSystemBusinessObject
          (it+=1;it-2)
       end
 
-      return 0
+      return noErr
    end
 
    def IsBalancedByBPL()
       env=GetEnv()
       if !VF_MultiBranch_EnabledInOADM(env)
-         return 0
+         return noErr
       end
 
       dagJDT1=GetArrayDAG(ao_Arr1)
@@ -12071,8 +12084,9 @@ class CTransactionJournalObject < CSystemBusinessObject
          (rec+=1;rec-2)
       end
 
-
+      itDeb=debits.begin()
       while (itDeb!=debits.end()) do
+         itCred=credits.find(itDeb.first)
          if itCred==credits.end()
             cMessagesManager.getHandle().Message(_132_APP_MSG_FIN_UNBALANCED_TRANS_FOR_BRANCH,EMPTY_STR,self)
             return ooInvalidObject
@@ -12087,12 +12101,12 @@ class CTransactionJournalObject < CSystemBusinessObject
          (itDeb+=1;itDeb-2)
       end
 
-      return 0
+      return noErr
    end
 
    def UpgradeOJDTCreatedByForWOR()
       trace("UpgradeOJDTCreatedByForWOR")
-      sboErr=0
+      sboErr=noErr
       bizEnv=GetEnv()
 
       dagJDT = GetDAG()
@@ -12131,7 +12145,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       DBD_SetDAGSort(dagQuery,sortStruct,1)
       sboErr=DBD_GetInNewFormat(dagQuery,dagRes)
       if sboErr
-         return (sboErr==-2028) ? ooNoErr : sboErr
+         return (sboErr==dbmNoDataFound) ? ooNoErr : sboErr
       end
 
       conds=dagJDT.GetDBDParams().GetConditions()
@@ -12145,7 +12159,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          return sboErr
       end
 
-      while (sboErr==0)
+      while (sboErr==noErr)
 
          numOfDoc1Recs = dagJDT.GetRecordCount()
          rec=0
@@ -12170,8 +12184,8 @@ class CTransactionJournalObject < CSystemBusinessObject
          sboErr=dagJDT.GetNextChunk(50000)
       end
 
-      if sboErr==-2028
-         sboErr=0
+      if sboErr==dbmNoDataFound
+         sboErr=noErr
       end
 
       return sboErr
@@ -12243,12 +12257,12 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagJDT=nil
       dagJDT1 = nil
 
-      ooErr=0
+      ooErr=noErr
       bizEnv=GetEnv()
       dagJDT1=GetArrayDAG(ao_Arr1)
       dagJDT=GetDAG()
       ooErr=dagJDT.GetFirstChunk(10000)
-      while (ooErr==0)
+      while (ooErr==noErr)
          numOfRecs=dagJDT.GetRealSize(dbmDataBuffer)
          rec=0
          while (rec<numOfRecs) do
@@ -12300,8 +12314,8 @@ class CTransactionJournalObject < CSystemBusinessObject
             DBD_SetDAGRes(dagJDT1,folioResStruct,2)
             ooErr=DBD_GetInNewFormat(dagJDT1,dagFolioRes)
             if ooErr
-               if ooErr==-2028
-                  ooErr=0
+               if ooErr==dbmNoDataFound
+                  ooErr=noErr
                   next
 
                end
@@ -12325,8 +12339,8 @@ class CTransactionJournalObject < CSystemBusinessObject
          ooErr=dagJDT.GetNextChunk(10000)
       end
 
-      if ooErr==-2028
-         ooErr=0
+      if ooErr==dbmNoDataFound
+         ooErr=noErr
       end
 
       return ooErr
@@ -12373,8 +12387,8 @@ class CTransactionJournalObject < CSystemBusinessObject
       DBD_SetDAGSort(dagJDT,sort,1)
       ooErr=DBD_GetInNewFormat(dagJDT,dagRES1)
       if ooErr
-         if ooErr==-2028
-            ooErr=0
+         if ooErr==dbmNoDataFound
+            ooErr=noErr
          end
 
          return ooErr
@@ -12394,8 +12408,8 @@ class CTransactionJournalObject < CSystemBusinessObject
       ooErr=DBD_GetInNewFormat(dagJDT,dagRES2)
       if ooErr
          dagRES1.Close()
-         if ooErr==-2028
-            ooErr=0
+         if ooErr==dbmNoDataFound
+            ooErr=noErr
          end
 
          return ooErr
@@ -12440,7 +12454,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       end
 
       dagRES1.Close()
-      return 0
+      return noErr
    end
 
    def UpgradeCreateDateSubQuery(subParams,subResStruct,subTableStruct,subCond,objectID)
@@ -12497,8 +12511,8 @@ class CTransactionJournalObject < CSystemBusinessObject
       cond.relationship=0
       ooErr=DBD_GetInNewFormat(dagJDT,dagRES)
       if ooErr
-         if ooErr==-2028
-            ooErr=0
+         if ooErr==dbmNoDataFound
+            ooErr=noErr
          end
 
          return ooErr
@@ -12547,11 +12561,11 @@ class CTransactionJournalObject < CSystemBusinessObject
          (ii+=1;ii-2)
       end
 
-      return 0
+      return noErr
    end
 
    def UpgradeJDT1VatLineToNo()
-      sboErr=0
+      sboErr=noErr
       bizEnv=GetEnv()
       queryDag=GetDAG()
       _STR_strcpy(subQueryTableStruct[0].tableCode,bizEnv.ObjectToTable(JDT,ao_Main))
@@ -12606,11 +12620,11 @@ class CTransactionJournalObject < CSystemBusinessObject
       mainConds[3].relationship=0
       DBD_SetDAGCond(queryDag,mainConds,4)
       sboErr=DBD_UpdateCols(queryDag)
-      if sboErr&&sboErr!=-2028
+      if sboErr&&sboErr!=dbmNoDataFound
          return sboErr
       end
 
-      return 0
+      return noErr
    end
 
    def UpgradeYearTransfer()
@@ -12646,7 +12660,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       bizEnv=GetEnv()
       queryDag=GetDAG(TAX,ao_Main)
       if !bizEnv.IsVatPerLine()
-         return 0
+         return noErr
       end
 
       _STR_strcpy(subQueryTableStruct[0].tableCode,bizEnv.ObjectToTable(TAX,ao_Arr1))
@@ -12716,12 +12730,12 @@ class CTransactionJournalObject < CSystemBusinessObject
       mainConds[0].relationship=0
       DBD_SetDAGCond(queryDag,mainConds,1)
       DBD_RemoveRecords(queryDag)
-      return 0
+      return noErr
    end
 
    def UpgradeJDTCEEPerioEndReconcilations()
       trace("UpgradeJDTCEEPerioEndReconcilations")
-      sboErr=0
+      sboErr=noErr
       bizEnv=GetEnv()
       dagJDT1=GetDAG()
       dagJDT1.ClearQueryParams()
@@ -12839,8 +12853,8 @@ class CTransactionJournalObject < CSystemBusinessObject
       cond.operation=DBD_EQ
       sboErr=DBD_GetInNewFormat(dagJDT1,dagRes)
       if sboErr
-         if sboErr==-2028
-            sboErr=0
+         if sboErr==dbmNoDataFound
+            sboErr=noErr
          end
 
          return sboErr
@@ -12890,7 +12904,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          condStruct[1].operation=DBD_EQ
          DBD_SetDAGCond(dagUpdate,condStruct,2)
          sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
+         if sboErr&&sboErr!=dbmNoDataFound
             return sboErr
          end
 
@@ -12958,7 +12972,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             condStruct[3].operation=DBD_EQ
             DBD_SetDAGCond(dagUpdate,condStruct,4)
             sboErr=DBD_UpdateCols(dagUpdate)
-            if sboErr&&sboErr!=-2028
+            if sboErr&&sboErr!=dbmNoDataFound
                return sboErr
             end
 
@@ -13028,7 +13042,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             condStruct[3].operation=DBD_EQ
             DBD_SetDAGCond(dagUpdate,condStruct,4)
             sboErr=DBD_UpdateCols(dagUpdate)
-            if sboErr&&sboErr!=-2028
+            if sboErr&&sboErr!=dbmNoDataFound
                return sboErr
             end
 
@@ -13097,7 +13111,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          condStruct[5].operation=DBD_NE
          DBD_SetDAGCond(dagUpdate,condStruct,6)
          sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
+         if sboErr&&sboErr!=dbmNoDataFound
             return sboErr
          end
 
@@ -13159,7 +13173,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          condStruct[4].operation=DBD_NE
          DBD_SetDAGCond(dagUpdate,condStruct,5)
          sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
+         if sboErr&&sboErr!=dbmNoDataFound
             return sboErr
          end
 
@@ -13195,7 +13209,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          condStruct[2].operation=DBD_NE
          DBD_SetDAGCond(dagUpdate,condStruct,3)
          sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
+         if sboErr&&sboErr!=dbmNoDataFound
             return sboErr
          end
 
@@ -13252,7 +13266,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          condStruct[2].operation=DBD_EQ
          DBD_SetDAGCond(dagUpdate,condStruct,3)
          sboErr=DBD_UpdateCols(dagUpdate)
-         if sboErr&&sboErr!=-2028
+         if sboErr&&sboErr!=dbmNoDataFound
             return sboErr
          end
 
@@ -13261,7 +13275,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          (i+=1;i-2)
       end
 
-      return 0
+      return noErr
    end
 
    def IsBlockDunningLetterUpdateable()
@@ -13271,7 +13285,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def UpgradeJDTIndianAutoVat()
       trace("UpgradeJDTIndianAutoVat")
-      sboErr=0
+      sboErr=noErr
       bizEnv=GetEnv()
       dagJDT=GetDAG()
       dagJDT.ClearQueryParams()
@@ -13309,8 +13323,8 @@ class CTransactionJournalObject < CSystemBusinessObject
       DBD_SetDAGRes(dagJDT,resStruct,1)
       sboErr=DBD_GetInNewFormat(dagJDT,dagRes)
       if sboErr
-         if sboErr==-2028
-            sboErr=0
+         if sboErr==dbmNoDataFound
+            sboErr=noErr
          end
 
          return sboErr
@@ -13806,7 +13820,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          else
             SetErrorField(oopp.colsList[i].GetColNum())
             SetErrorLine(-1)
-            return -1029
+            return dbmColumnNotUpdatable
          end
 
 
@@ -13859,7 +13873,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagJDT.GetColMoney(baseAmt,OJDT_WT_BASE_AMOUNT)
       numJdt2Rec=dagJDT2.GetRecordCount()
       if hasBPline&&(!baseAmt.IsZero())&&(bpDebCre!=wtDebCre)&&numJdt2Rec>0
-         return -1
+         return dbdError
       end
 
       return ooErr
@@ -14085,7 +14099,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          debCre=VAL_DEBIT
       end
 
-      return 0
+      return noErr
    end
 
    def GetBPLineCurrency()
@@ -14206,7 +14220,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
    def WtAutoAddJDT1Line(dagJDT1,jdt1RecSize,dagJDT2,jdt2CurRec,isDebit,wtSide)
       trace("WtAutoAddJDT1Line")
-      ooErr=0
+      ooErr=noErr
       toJDT1fields=""
       fromJDTfields=""
       dagJDT1.SetSize(jdt1RecSize+1,dbmKeepData)
@@ -14322,7 +14336,7 @@ class CTransactionJournalObject < CSystemBusinessObject
 
       else
          rate.FromDouble(MONEY_PERCISION_MUL)
-         ooErr=-10
+         ooErr=errNoMsg
       end
 
       return ooErr
@@ -14332,7 +14346,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       ooErr=ooNoErr
       ooErr=UpgradeERDBaseTransFromBackup()
       if ooErr
-         if ooErr==-2004
+         if ooErr==dbmTableNotFound
             ooErr=0
          else
             return ooErr
@@ -14442,12 +14456,12 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagQuery=bizEnv.OpenDAG(BOT,ao_Arr1)
       dagQuery.SetDBDParms(queryParams)
       ooErr=dagQuery.GetFirstChunk(10000,key,dagRes)
-      if ooErr&&(ooErr!=-2028)
+      if ooErr&&(ooErr!=dbmNoDataFound)
          dagQuery.Close()
          return ooErr
       end
 
-      while (ooErr!=-2028)
+      while (ooErr!=dbmNoDataFound)
          numOfRecs=dagRes.GetRecordCount()
          rec=0
          while (rec<numOfRecs) do
@@ -14458,7 +14472,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             baseTransCandidate=0
             ooErr=UpgradeERDBaseTransFindBaseTrans(abbrevMap,account,shortName,ref3Line,baseTransCandidate)
             if ooErr
-               if ooErr!=-2028
+               if ooErr!=dbmNoDataFound
                   dagQuery.Close()
                   return ooErr
                end
@@ -14480,7 +14494,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          end
 
          ooErr=dagQuery.GetNextChunk(10000,key,dagRes)
-         if ooErr&&(ooErr!=-2028)
+         if ooErr&&(ooErr!=dbmNoDataFound)
             dagQuery.Close()
             return ooErr
          end
@@ -14585,7 +14599,7 @@ class CTransactionJournalObject < CSystemBusinessObject
             dagQuery.SetDBDParms(queryParams)
             ooErr=DBD_GetInNewFormat(dagQuery,dagRes)
             if ooErr
-               if ooErr==-2028
+               if ooErr==dbmNoDataFound
                   dagRes.SetSize(0,dbmDropData)
                   ooErr=ooNoErr
                else
@@ -14610,7 +14624,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       if numOfCandidates==1
          ooErr=ooNoErr
       else
-         ooErr=-2028
+         ooErr=dbmNoDataFound
       end
 
       return ooErr
@@ -14814,7 +14828,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def UpgradeDOC6VatPaidForFullyBasedCreditMemos(objID)
-      ooErr=0
+      ooErr=noErr
       env=GetEnv()
       updStmt = DBQUpdateStatement.new(env)
       begin
@@ -14834,7 +14848,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    end
 
    def UpgradeODOCVatPaidForFullyBasedCreditMemos(objID)
-      ooErr=0
+      ooErr=noErr
       env=GetEnv()
       updStmt = DBQUpdateStatement.new(env)
       begin
@@ -14922,7 +14936,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       dagQuery=GetEnv().OpenDAG(JDT,ao_Arr1)
       bq.AssignToDAG(dagQuery)
       ooErr=dagQuery.GetFirstChunk(10000,key,dagRes)
-      if ooErr&&ooErr!=-2028
+      if ooErr&&ooErr!=dbmNoDataFound
          dagQuery.Close()
          return ooErr
       end
@@ -14937,7 +14951,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          ooErr=dagQuery.GetNextChunk(10000,key,dagRes)
       end
 
-      if ooErr==-2028
+      if ooErr==dbmNoDataFound
          ooErr=ooNoErr
       end
 
@@ -15118,6 +15132,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          return ooNoErr
       end
 
+      itr=currencyMap.begin()
 
       while (itr!=currencyMap.end()) do
          roundingStruct=itr.second
@@ -15216,7 +15231,7 @@ class CTransactionJournalObject < CSystemBusinessObject
          (objNum+=1;objNum-2)
       end
 
-      return 0
+      return noErr
    end
 
    def UpgradeDprId(isSalesObject,introVersion1_Including,introVersion2)
@@ -15675,7 +15690,7 @@ class CTransactionJournalObject < CSystemBusinessObject
       DBD_SetTablesList(dagJDT,tables,3)
       ooErr=DBD_GetInNewFormat(dagJDT,dagRes)
       if ooErr
-         if ooErr==-2028
+         if ooErr==dbmNoDataFound
             return ooNoErr
          else
             return ooErr
@@ -15859,7 +15874,7 @@ class CTransactionJournalObject < CSystemBusinessObject
    def LogBPAccountBalance(bpBalanceLogDataArray,keyNum)
       size=bpBalanceLogDataArray.size()
       dagCRD=GetDAG(CRD)
-      ooErr=0
+      ooErr=noErr
       i=0
       while (i<size) do
          bpBalanceChangeLogData=bpBalanceLogDataArray[i]
