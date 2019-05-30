@@ -1,0 +1,2 @@
+module JdtHelper
+end

@@ -1,0 +1,3 @@
+class SBOErr
+
+end

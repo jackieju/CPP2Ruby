@@ -1,0 +1,189 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Jdt2s</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Absentry</th>
+      <th>Wtcode</th>
+      <th>Rate</th>
+      <th>Taxbleamnt</th>
+      <th>Txblamntsc</th>
+      <th>Txblamntfc</th>
+      <th>Wtamnt</th>
+      <th>Wtamntsc</th>
+      <th>Wtamntfc</th>
+      <th>Applamnt</th>
+      <th>Applamntsc</th>
+      <th>Applamntfc</th>
+      <th>Category</th>
+      <th>Criteria</th>
+      <th>Account</th>
+      <th>Type</th>
+      <th>Roundtype</th>
+      <th>Basetype</th>
+      <th>Baseabsent</th>
+      <th>Baseline</th>
+      <th>Basenum</th>
+      <th>Linenum</th>
+      <th>Baseref</th>
+      <th>Status</th>
+      <th>Trgtype</th>
+      <th>Trgabsentr</th>
+      <th>Loginstanc</th>
+      <th>Objtype</th>
+      <th>Doc1lineno</th>
+      <th>Wtlinetype</th>
+      <th>Txblcurr</th>
+      <th>Dtblcurr</th>
+      <th>Dtblrate</th>
+      <th>Txblrate</th>
+      <th>Dtblamount</th>
+      <th>Tdsacc</th>
+      <th>Suracc</th>
+      <th>Cessacc</th>
+      <th>Hscacc</th>
+      <th>Tdsrate</th>
+      <th>Surrate</th>
+      <th>Cessrate</th>
+      <th>Hscrate</th>
+      <th>Tdsbamt</th>
+      <th>Tdsbamtsc</th>
+      <th>Tdsbamtfc</th>
+      <th>Surbamt</th>
+      <th>Surbamtsc</th>
+      <th>Surbamtfc</th>
+      <th>Cessbamt</th>
+      <th>Cessbamtsc</th>
+      <th>Cessbamtfc</th>
+      <th>Hscbamt</th>
+      <th>Hscbamtsc</th>
+      <th>Hscbamtfc</th>
+      <th>Tdsamnt</th>
+      <th>Tdsamntsc</th>
+      <th>Tdsamntfc</th>
+      <th>Suramnt</th>
+      <th>Suramntsc</th>
+      <th>Suramntfc</th>
+      <th>Cessamnt</th>
+      <th>Cessamntsc</th>
+      <th>Cessamntfc</th>
+      <th>Hscamnt</th>
+      <th>Hscamntsc</th>
+      <th>Hscamntfc</th>
+      <th>Tdsappl</th>
+      <th>Tdsapplsc</th>
+      <th>Tdsapplfc</th>
+      <th>Surappl</th>
+      <th>Surapplsc</th>
+      <th>Surapplfc</th>
+      <th>Cessappl</th>
+      <th>Cessapplsc</th>
+      <th>Cessapplfc</th>
+      <th>Hscappl</th>
+      <th>Hscapplsc</th>
+      <th>Hscapplfc</th>
+      <th>Batchnum</th>
+      <th>Incstcode</th>
+      <th>Outcstcode</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @jdt2s.each do |jdt2| %>
+      <tr>
+        <td><%= jdt2.AbsEntry %></td>
+        <td><%= jdt2.WTCode %></td>
+        <td><%= jdt2.Rate %></td>
+        <td><%= jdt2.TaxbleAmnt %></td>
+        <td><%= jdt2.TxblAmntSC %></td>
+        <td><%= jdt2.TxblAmntFC %></td>
+        <td><%= jdt2.WTAmnt %></td>
+        <td><%= jdt2.WTAmntSC %></td>
+        <td><%= jdt2.WTAmntFC %></td>
+        <td><%= jdt2.ApplAmnt %></td>
+        <td><%= jdt2.ApplAmntSC %></td>
+        <td><%= jdt2.ApplAmntFC %></td>
+        <td><%= jdt2.Category %></td>
+        <td><%= jdt2.Criteria %></td>
+        <td><%= jdt2.Account %></td>
+        <td><%= jdt2.Type %></td>
+        <td><%= jdt2.RoundType %></td>
+        <td><%= jdt2.BaseType %></td>
+        <td><%= jdt2.BaseAbsEnt %></td>
+        <td><%= jdt2.BaseLine %></td>
+        <td><%= jdt2.BaseNum %></td>
+        <td><%= jdt2.LineNum %></td>
+        <td><%= jdt2.BaseRef %></td>
+        <td><%= jdt2.Status %></td>
+        <td><%= jdt2.TrgType %></td>
+        <td><%= jdt2.TrgAbsEntr %></td>
+        <td><%= jdt2.LogInstanc %></td>
+        <td><%= jdt2.ObjType %></td>
+        <td><%= jdt2.Doc1LineNo %></td>
+        <td><%= jdt2.WtLineType %></td>
+        <td><%= jdt2.TxblCurr %></td>
+        <td><%= jdt2.DtblCurr %></td>
+        <td><%= jdt2.DtblRate %></td>
+        <td><%= jdt2.txblRate %></td>
+        <td><%= jdt2.DtblAmount %></td>
+        <td><%= jdt2.TdsAcc %></td>
+        <td><%= jdt2.SurAcc %></td>
+        <td><%= jdt2.CessAcc %></td>
+        <td><%= jdt2.HscAcc %></td>
+        <td><%= jdt2.TdsRate %></td>
+        <td><%= jdt2.SurRate %></td>
+        <td><%= jdt2.CessRate %></td>
+        <td><%= jdt2.HscRate %></td>
+        <td><%= jdt2.TdsBAmt %></td>
+        <td><%= jdt2.TdsBAmtSC %></td>
+        <td><%= jdt2.TdsBAmtFC %></td>
+        <td><%= jdt2.SurBAmt %></td>
+        <td><%= jdt2.SurBAmtSC %></td>
+        <td><%= jdt2.SurBAmtFC %></td>
+        <td><%= jdt2.CessBAmt %></td>
+        <td><%= jdt2.CessBAmtSC %></td>
+        <td><%= jdt2.CessBAmtFC %></td>
+        <td><%= jdt2.HscBAmt %></td>
+        <td><%= jdt2.HscBAmtSC %></td>
+        <td><%= jdt2.HscBAmtFC %></td>
+        <td><%= jdt2.TdsAmnt %></td>
+        <td><%= jdt2.TdsAmntSC %></td>
+        <td><%= jdt2.TdsAmntFC %></td>
+        <td><%= jdt2.SurAmnt %></td>
+        <td><%= jdt2.SurAmntSC %></td>
+        <td><%= jdt2.SurAmntFC %></td>
+        <td><%= jdt2.CessAmnt %></td>
+        <td><%= jdt2.CessAmntSC %></td>
+        <td><%= jdt2.CessAmntFC %></td>
+        <td><%= jdt2.HscAmnt %></td>
+        <td><%= jdt2.HscAmntSC %></td>
+        <td><%= jdt2.HscAmntFC %></td>
+        <td><%= jdt2.TdsAppl %></td>
+        <td><%= jdt2.TdsApplSC %></td>
+        <td><%= jdt2.TdsApplFC %></td>
+        <td><%= jdt2.SurAppl %></td>
+        <td><%= jdt2.SurApplSC %></td>
+        <td><%= jdt2.SurApplFC %></td>
+        <td><%= jdt2.CessAppl %></td>
+        <td><%= jdt2.CessApplSC %></td>
+        <td><%= jdt2.CessApplFC %></td>
+        <td><%= jdt2.HscAppl %></td>
+        <td><%= jdt2.HscApplSC %></td>
+        <td><%= jdt2.HscApplFC %></td>
+        <td><%= jdt2.BatchNum %></td>
+        <td><%= jdt2.InCSTCode %></td>
+        <td><%= jdt2.OutCSTCode %></td>
+        <td><%= link_to 'Show', jdt2 %></td>
+        <td><%= link_to 'Edit', edit_jdt2_path(jdt2) %></td>
+        <td><%= link_to 'Destroy', jdt2, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Jdt2', new_jdt2_path %>

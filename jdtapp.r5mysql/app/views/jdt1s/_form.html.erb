@@ -1,0 +1,622 @@
+<%= form_with(model: jdt1, local: true) do |form| %>
+  <% if jdt1.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(jdt1.errors.count, "error") %> prohibited this jdt1 from being saved:</h2>
+
+      <ul>
+      <% jdt1.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :TransId %>
+    <%= form.number_field :TransId %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Line_ID %>
+    <%= form.number_field :Line_ID %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Account %>
+    <%= form.text_field :Account %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Debit %>
+    <%= form.text_field :Debit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Credit %>
+    <%= form.text_field :Credit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SYSCred %>
+    <%= form.text_field :SYSCred %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SYSDeb %>
+    <%= form.text_field :SYSDeb %>
+  </div>
+
+  <div class="field">
+    <%= form.label :FCDebit %>
+    <%= form.text_field :FCDebit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :FCCredit %>
+    <%= form.text_field :FCCredit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :FCCurrency %>
+    <%= form.text_field :FCCurrency %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DueDate %>
+    <%= form.date_select :DueDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SourceID %>
+    <%= form.number_field :SourceID %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SourceLine %>
+    <%= form.number_field :SourceLine %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ShortName %>
+    <%= form.text_field :ShortName %>
+  </div>
+
+  <div class="field">
+    <%= form.label :IntrnMatch %>
+    <%= form.number_field :IntrnMatch %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ExtrMatch %>
+    <%= form.number_field :ExtrMatch %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ContraAct %>
+    <%= form.text_field :ContraAct %>
+  </div>
+
+  <div class="field">
+    <%= form.label :LineMemo %>
+    <%= form.text_field :LineMemo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Ref3Line %>
+    <%= form.text_field :Ref3Line %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TransType %>
+    <%= form.text_field :TransType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RefDate %>
+    <%= form.date_select :RefDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Ref2Date %>
+    <%= form.date_select :Ref2Date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Ref1 %>
+    <%= form.text_field :Ref1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Ref2 %>
+    <%= form.text_field :Ref2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CreatedBy %>
+    <%= form.number_field :CreatedBy %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseRef %>
+    <%= form.text_field :BaseRef %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Project %>
+    <%= form.text_field :Project %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TransCode %>
+    <%= form.text_field :TransCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ProfitCode %>
+    <%= form.text_field :ProfitCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TaxDate %>
+    <%= form.date_select :TaxDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SystemRate %>
+    <%= form.text_field :SystemRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :MthDate %>
+    <%= form.date_select :MthDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ToMthSum %>
+    <%= form.text_field :ToMthSum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :UserSign %>
+    <%= form.number_field :UserSign %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BatchNum %>
+    <%= form.number_field :BatchNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :FinncPriod %>
+    <%= form.number_field :FinncPriod %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RelTransId %>
+    <%= form.number_field :RelTransId %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RelLineID %>
+    <%= form.number_field :RelLineID %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RelType %>
+    <%= form.text_field :RelType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :LogInstanc %>
+    <%= form.number_field :LogInstanc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :VatGroup %>
+    <%= form.text_field :VatGroup %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseSum %>
+    <%= form.text_field :BaseSum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :VatRate %>
+    <%= form.text_field :VatRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Indicator %>
+    <%= form.text_field :Indicator %>
+  </div>
+
+  <div class="field">
+    <%= form.label :AdjTran %>
+    <%= form.text_field :AdjTran %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RevSource %>
+    <%= form.text_field :RevSource %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ObjType %>
+    <%= form.text_field :ObjType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :VatDate %>
+    <%= form.date_select :VatDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :PaymentRef %>
+    <%= form.text_field :PaymentRef %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SYSBaseSum %>
+    <%= form.text_field :SYSBaseSum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :MultMatch %>
+    <%= form.number_field :MultMatch %>
+  </div>
+
+  <div class="field">
+    <%= form.label :VatLine %>
+    <%= form.text_field :VatLine %>
+  </div>
+
+  <div class="field">
+    <%= form.label :VatAmount %>
+    <%= form.text_field :VatAmount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SYSVatSum %>
+    <%= form.text_field :SYSVatSum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Closed %>
+    <%= form.text_field :Closed %>
+  </div>
+
+  <div class="field">
+    <%= form.label :GrossValue %>
+    <%= form.text_field :GrossValue %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CheckAbs %>
+    <%= form.number_field :CheckAbs %>
+  </div>
+
+  <div class="field">
+    <%= form.label :LineType %>
+    <%= form.number_field :LineType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DebCred %>
+    <%= form.text_field :DebCred %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SequenceNr %>
+    <%= form.number_field :SequenceNr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :StornoAcc %>
+    <%= form.text_field :StornoAcc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BalDueDeb %>
+    <%= form.text_field :BalDueDeb %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BalDueCred %>
+    <%= form.text_field :BalDueCred %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BalFcDeb %>
+    <%= form.text_field :BalFcDeb %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BalFcCred %>
+    <%= form.text_field :BalFcCred %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BalScDeb %>
+    <%= form.text_field :BalScDeb %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BalScCred %>
+    <%= form.text_field :BalScCred %>
+  </div>
+
+  <div class="field">
+    <%= form.label :IsNet %>
+    <%= form.text_field :IsNet %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DunWizBlck %>
+    <%= form.text_field :DunWizBlck %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DunnLevel %>
+    <%= form.number_field :DunnLevel %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DunDate %>
+    <%= form.date_select :DunDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TaxType %>
+    <%= form.number_field :TaxType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TaxPostAcc %>
+    <%= form.text_field :TaxPostAcc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :StaCode %>
+    <%= form.text_field :StaCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :StaType %>
+    <%= form.number_field :StaType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TaxCode %>
+    <%= form.text_field :TaxCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ValidFrom %>
+    <%= form.date_select :ValidFrom %>
+  </div>
+
+  <div class="field">
+    <%= form.label :GrossValFc %>
+    <%= form.text_field :GrossValFc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :LvlUpdDate %>
+    <%= form.date_select :LvlUpdDate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :OcrCode2 %>
+    <%= form.text_field :OcrCode2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :OcrCode3 %>
+    <%= form.text_field :OcrCode3 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :OcrCode4 %>
+    <%= form.text_field :OcrCode4 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :OcrCode5 %>
+    <%= form.text_field :OcrCode5 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :MIEntry %>
+    <%= form.number_field :MIEntry %>
+  </div>
+
+  <div class="field">
+    <%= form.label :MIVEntry %>
+    <%= form.number_field :MIVEntry %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ClsInTP %>
+    <%= form.number_field :ClsInTP %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CenVatCom %>
+    <%= form.number_field :CenVatCom %>
+  </div>
+
+  <div class="field">
+    <%= form.label :MatType %>
+    <%= form.number_field :MatType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :PstngType %>
+    <%= form.number_field :PstngType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ValidFrom2 %>
+    <%= form.date_select :ValidFrom2 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ValidFrom3 %>
+    <%= form.date_select :ValidFrom3 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ValidFrom4 %>
+    <%= form.date_select :ValidFrom4 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ValidFrom5 %>
+    <%= form.date_select :ValidFrom5 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Location %>
+    <%= form.number_field :Location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTaxCode %>
+    <%= form.text_field :WTaxCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :EquVatRate %>
+    <%= form.text_field :EquVatRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :EquVatSum %>
+    <%= form.text_field :EquVatSum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SYSEquSum %>
+    <%= form.text_field :SYSEquSum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TotalVat %>
+    <%= form.text_field :TotalVat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SYSTVat %>
+    <%= form.text_field :SYSTVat %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTLiable %>
+    <%= form.text_field :WTLiable %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTLine %>
+    <%= form.text_field :WTLine %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTApplied %>
+    <%= form.text_field :WTApplied %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTAppliedS %>
+    <%= form.text_field :WTAppliedS %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTAppliedF %>
+    <%= form.text_field :WTAppliedF %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTSum %>
+    <%= form.text_field :WTSum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTSumFC %>
+    <%= form.text_field :WTSumFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTSumSC %>
+    <%= form.text_field :WTSumSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :PayBlock %>
+    <%= form.text_field :PayBlock %>
+  </div>
+
+  <div class="field">
+    <%= form.label :PayBlckRef %>
+    <%= form.number_field :PayBlckRef %>
+  </div>
+
+  <div class="field">
+    <%= form.label :LicTradNum %>
+    <%= form.text_field :LicTradNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :InterimTyp %>
+    <%= form.number_field :InterimTyp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DprId %>
+    <%= form.number_field :DprId %>
+  </div>
+
+  <div class="field">
+    <%= form.label :MatchRef %>
+    <%= form.text_field :MatchRef %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Ordered %>
+    <%= form.text_field :Ordered %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CUP %>
+    <%= form.number_field :CUP %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CIG %>
+    <%= form.number_field :CIG %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BPLId %>
+    <%= form.number_field :BPLId %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BPLName %>
+    <%= form.text_field :BPLName %>
+  </div>
+
+  <div class="field">
+    <%= form.label :VatRegNum %>
+    <%= form.text_field :VatRegNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SLEDGERF %>
+    <%= form.text_field :SLEDGERF %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

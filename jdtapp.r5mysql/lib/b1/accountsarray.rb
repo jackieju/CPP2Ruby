@@ -1,0 +1,3 @@
+class AccountsArray
+
+end
