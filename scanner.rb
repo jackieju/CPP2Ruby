@@ -1502,7 +1502,11 @@ public
               when 66
               	return C_MinusMinusSym
               when 67
-              	return C_PointSym
+                 if (@ch == '.') 
+                    state = 85
+                else
+                    return C_PointSym
+                end
               when 68
               	return C_MinusGreaterSym
               when 69
@@ -1543,6 +1547,12 @@ public
             	    else
             	        state = 1
         	        end
+              when 85
+                 if @ch == '.'
+                     state = 86
+                 end
+             when 86
+                    return C_PPPSym
               else
                    return C_No_Sym
              end #case

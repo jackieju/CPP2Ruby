@@ -491,7 +491,9 @@ end
 # end
 
 $output_dir = ""
-# generate ruby file
+
+# NOT USED, now use cp.rb->dump_classes_as_ruby
+# generate ruby file 
 def generate_ruby()
     log_msg("generate_ruby")
     
@@ -535,7 +537,7 @@ HERE
         }
        
 end
-$g_search_dirs=[]
+$g_search_dirs=["."]
 
 def init_env(fname)
     search_dirs = [File.dirname(__FILE__)]
@@ -623,7 +625,7 @@ if $*.size >0
             parse_file(a, false, false)
             # generate_ruby
         elsif $mode == "translate"
-            p "begin to translate file #{a}"
+            p "begin to translate file #{a}, preprocessor=#{$preprocessor}"
             parse_file(a, $preprocessor, false)
             
             # generate_ruby    

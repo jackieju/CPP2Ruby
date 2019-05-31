@@ -1,7 +1,17 @@
+// all define or other preprocessor directive will be deleted in preprocessor output file althought included successfully.
 /* standard c routine */
 #define strlen(s) s.size
 /* END */
 
+
+#define B1_OBSERVER_API
+#define B1_COMMON_API
+#define B1_SECURITY_COMMON_API
+#define B1_ENGINE_API		
+#define B1_UIENGINE_API	
+#define B1_LICENCE_COMMON_API
+#define B1_LICENCE_CONNECTOR_API
+#define B1_SERVICES_METADATA_API
 
 #define const 
 #define inline
@@ -19,3 +29,4 @@
 //#define DBMTableColumn
 
 #define _STR_strlen(s) s.size
+

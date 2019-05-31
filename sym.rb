@@ -183,10 +183,11 @@ C_sizeofSym =                   93  # "sizeof"
 C_INSym =                       94  # "IN"
 C_OUTSym =                      95  # "OUT"
 C_inlineSym =                   96  # "inline"
+C_PPPSym =                   97  # "..."
 
 #*** insert new sym here ***#
-C_No_Sym =                      97	# not */
-C_PreProcessorSym =             98	# PreProcessor */
+C_No_Sym =                      98	# not */
+C_PreProcessorSym =             99	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
@@ -299,6 +300,7 @@ SYMS=[
 "IN",
 "OUT",
 "inline",
+"...",
 "not"                          ,
 "PreProcessor"         ,
     ]

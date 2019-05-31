@@ -130,12 +130,14 @@ HERE
                     class_template =<<HERE
             class #{class_name} < #{v.parent}
             #{s_methods}
+             #{v.src}
             end
 HERE
                 else
                     class_template =<<HERE
             class #{class_name}
             #{s_methods}
+             #{v.src}
             end
 HERE
                 end
@@ -739,7 +741,7 @@ class Parser < CRParser
        
         in_scope(clsdef)
         pdebug("===>ClassBody:#{@sym}, #{curString()}");
-    
+        ret = ""
     # line 298 "cs.atg"
 
     # line 322 "cs.atg"
@@ -760,7 +762,7 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
-               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym) 
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym || @sym==C_EnumSym) 
     # line 322 "cs.atg"
                 cs = curString()
                 p "cs:#{cs}"
@@ -779,26 +781,75 @@ class Parser < CRParser
                 #           end
                 #           next
                 #       end 
-    		Definition()
+    		ret += Definition()
 		
     	end
     # line 322 "cs.atg"
     	Expect(C_RbraceSym)
     # line 324 "cs.atg"
+     
+        current_class_scope.add_src(ret)
 
     	 out_scope()
     end
     
+    # def EnumClass()
+    #     Get()
+    #     name = curString()
+    #     Get()
+    #     Expect(C_LbraceSym)
+    #     base = 0
+    #     while @sym == C_identifierSym
+    #         a = curString()
+    #         # to constant
+    #         a = a[0].upcase+a[1..a.size-1]
+    #
+    #         Get()
+    #         if (@sym == C_EqualSym)
+    #             Get()
+    #             v = curString()
+    #             Expect(C_numberSym)
+    #             p "v=#{v}, sym:#{@sym}"
+    #             if v =~ /^([\d.]+)\w*$/
+    #                 v = $1
+    #                 end
+    #             base = v.to_i
+    #             # Get()
+    #             end
+    #             ret += "#{a} = #{base}\n"
+    #             p "#{a} = #{base}\n"
+    #             p "sym:#{@sym}"
+    #             if @sym == C_CommaSym
+    #                 Get()
+    #                 base += 1
+    #         end
+    #         p "==>enum22:#{@sym}, #{SYMS[@sym]}, #{curString}", 10
+    #
+    #     end
+    #
+    #     Expect(C_RbraceSym)
+    #     pdebug("===>Enum1:#{@sym}, #{ret}")
+    #     return ret
+    # end
     def Enum()
         ret = ""
         pdebug("===>Enum:#{@sym}, #{curString()}");
     	Get()
-    	
-    	if @sym == C_identifierSym # enum name before {}
+        isClass = false
+        if @sym == C_classSym
+            isClass = true
+            Get()
+            module_name = curString()
+            module_name = module_name[0].upcase+module_name[1..module_name.size-1]
+           
+            Get()
+        
+        elsif @sym == C_identifierSym # enum type name before {}
     	    Get()
 	    end
         Expect(C_LbraceSym)
     	base = 0
+        list = ""
     	while @sym == C_identifierSym
     	    a = curString()
     	    # to constant
@@ -816,7 +867,7 @@ class Parser < CRParser
     	        base = v.to_i
                 # Get()
 	        end
-	        ret += "#{a} = #{base}\n"
+	        list += "#{a} = #{base}\n"
 	        p "#{a} = #{base}\n"
 	        p "sym:#{@sym}"
 	        if @sym == C_CommaSym
@@ -828,6 +879,11 @@ class Parser < CRParser
     	end
     	
     	Expect(C_RbraceSym)
+        if isClass
+             ret += "module #{module_name}{\n#{list}\n}"
+         else
+             ret += list
+         end
     	pdebug("===>Enum1:#{@sym}, #{ret}")
     	return ret
     end
@@ -1926,9 +1982,15 @@ class Parser < CRParser
     # line 545 "cs.atg"
     	if (@sym == C_identifierSym ||
     	    @sym >= C_varSym && @sym <= C_stringSym||
-    	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym) 
+    	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_PPPSym) 
     # line 545 "cs.atg"
-    		ret += FormalParamList()
+            if @sym == C_PPPSym
+                current_scope("FunctionDefinition").add_var(Variable.new("*_args_",  "vargs", "*_args_"))
+                ret += "*_args_"
+                Get()
+            else
+    		    ret += FormalParamList()
+            end
     	end
     # line 545 "cs.atg"
     	Expect(C_RparenSym)
@@ -1957,7 +2019,13 @@ class Parser < CRParser
     # line 567 "cs.atg"
     		Get()
     # line 567 "cs.atg"
-    		ret += FormalParameter()
+            if @sym == C_PPPSym
+                current_scope("FunctionDefinition").add_var(Variable.new("*_args_",  "vargs", "*_args_"))
+                ret += "*_args_"
+                Get()
+            else
+    		    ret += FormalParameter()
+            end
     		
     	end
     	
@@ -4776,11 +4844,42 @@ HERE
 s66=<<HERE
 //static void *operator new[] (size_t size);
  //ObjPool& operator= (const ObjPool&) = delete;
-B1_OBSERVER_API CBusinessException (WarningLevel warningLevel, ILanguageSettings& env, long msgUid, ...);
- 
+//B1_OBSERVER_API CBusinessException (WarningLevel warningLevel, ILanguageSettings& env, long msgUid, ...);
+int a(...);
 HERE
+s67=<<HERE
+B1_OBSERVER_API CBusinessException (WarningLevel warningLevel, ILanguageSettings& env, long msgUid, ...);
+int a(...);
+int aaaaaa(...){};
 
+HERE
+s68=<<HERE
 
+class CBusinessException{
+//B1_OBSERVER_API virtual ~CBusinessException (); //B1_OBSERVER_API needs to be defined to empty in c_macro.c
+}
+HERE
+s69=<<HERE
+enum eColumnJDT1
+{
+		// Transaction Key
+		JDT1_TRANS_ABS									=	0,
+}
+enum{
+ ConnID = 1
+};
+enum
+{
+	resTax1AbsEntry = 0L,
+	resTax1TaxCode, 
+	resTax1EqPercent,
+	resJdt1TransId,
+	resJdt1Line_ID,
+};
+class A{
+enum class MessageSource { FromSboErr, FromStringIndex, FromMessageUid }
+}
+HERE
 
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
@@ -4796,7 +4895,7 @@ HERE
 
 if !testall
    
-    s = s66
+    s = s69
 else
 
     r = ""
