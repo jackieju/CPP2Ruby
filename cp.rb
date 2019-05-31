@@ -629,7 +629,7 @@ class Parser < CRParser
     	       @sym == C_EnumSym || 
     	       @sym == C_TypedefSym || 
     	       @sym == C_StructSym ||
-               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym 
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym  || @sym == C_namespaceSym
                ) 
     # line 137 "cs.atg"
     		ret += Definition()
@@ -683,6 +683,31 @@ class Parser < CRParser
 
     # line 264 "cs.atg"
         # Expect(C_SemicolonSym)
+    end
+    
+    def NamespaceDef
+        p("NamespaceDef0", 10)
+        pdebug("===>NamespaceDef:#{@sym}, #{curString()}")
+        	Expect(C_namespaceSym)
+        
+     
+        	_class_name = curString()
+        	Expect(C_identifierSym)
+        clsdef = ClassDef.new(_class_name)
+            
+
+        	if (@sym == C_LbraceSym)
+        	   ClassBody(clsdef)
+            
+    	    else
+    	        p "--->NamespaceDef33, #{@sym}, #{curString()}"
+                Expect(C_SemicolonSym)
+                p "--->cNamespaceDef34, #{@sym}, #{curString()}"
+    	        
+    	    end
+    	    
+    	  #  @classdefs[_class_name] = clsdef
+     
     end
     
     def ClassDef
@@ -927,7 +952,9 @@ class Parser < CRParser
     # line 219 "cs.atg"
     		ClassDef()
             # p "--->classDef11, #{@sym}, #{curString()}"
-    	elsif (@sym == C_EnumSym)
+        elsif @symm = C_namespaceSym
+            NamespaceDef()
+        elsif (@sym == C_EnumSym)
     	    ret += Enum()
     	elsif (@sym == C_StructSym)
     	    StructDef()
@@ -4881,6 +4908,14 @@ enum class MessageSource { FromSboErr, FromStringIndex, FromMessageUid }
 }
 HERE
 
+s70=<<HERE
+
+namespace LinkMap
+{
+    
+    
+}
+HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -4895,7 +4930,7 @@ HERE
 
 if !testall
    
-    s = s69
+    s = s70
 else
 
     r = ""

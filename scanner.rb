@@ -446,6 +446,8 @@ class CScanner <  CRScanner
           		return C_mixedSym if (EqualStr("mixed")) 
           		#break
           	when 'n'
+          		return C_namespaceSym if (EqualStr("namespace")) 
+                
           		return C_newSym if (EqualStr("new")) 
           		#break
             when 'O'
