@@ -95,7 +95,7 @@ C_charD1Sym = 5	# char1 */
 C_librarySym = 6	# library */
 C_useSym = 7	# "use" */
 C_SemicolonSym = 8	# ";" */
-C_loadSym = 9	# "load" */
+#C_loadSym = 9	# "load" */
 C_packageSym = 10	# "package" */
 C_SlashSym = 11	# "/" */
 C_inheritSym = 12	# "inherit" */
@@ -117,7 +117,7 @@ C_unsignedSym = 27	# "unsigned" */
 C_charSym = 28	# "char" */
 C_doubleSym = 29	# "double" */
 C_voidSym = 30	# "void" */
-C_stringSym = 31	# keyword "string" */
+#C_stringSym = 31	# keyword "string" */
 C_EqualSym = 32	# "=" */
 C_CommaSym = 33	# ",        " */
 C_LbrackSym =                   34	# "[" */
@@ -213,7 +213,7 @@ SYMS=[
 "library"                  ,
 "use"                        ,
 ";"                      ,
-"load"                       ,
+#"load"                       ,
 "package"                ,
 "/"                          ,
 "inherit"                ,
@@ -235,7 +235,7 @@ SYMS=[
 "char"                       ,
 "double"                 ,
 "void"                       ,
-"string"                 ,
+#"string"                 ,
 "="                          ,
 ","                          ,
 "["                      ,

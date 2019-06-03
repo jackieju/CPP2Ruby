@@ -438,7 +438,7 @@ class CScanner <  CRScanner
                 return C_INSym if (EqualStr("IN")) 
           		#break
           	when 'l'
-          		return C_loadSym if (EqualStr("load")) 
+          		#return C_loadSym if (EqualStr("load")) 
           		return C_longSym if (EqualStr("long")) 
           		#break
           	when 'm'
@@ -461,7 +461,7 @@ class CScanner <  CRScanner
           	when 's'
           		return C_staticSym if (EqualStr("static")) 
           		return C_shortSym if (EqualStr("short")) 
-          		return C_stringSym if (EqualStr("string")) 
+          		#return C_stringSym if (EqualStr("string")) 
           		return C_switchSym if (EqualStr("switch")) 
           		return C_StructSym if (EqualStr("struct")) 
           		return C_sizeofSym if (EqualStr("sizeof")) 

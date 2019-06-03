@@ -617,7 +617,7 @@ class Parser < CRParser
     	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	       @sym == C_SemicolonSym ||
     	       @sym >= C_classSym && @sym <= C_LbraceSym ||
-    	       @sym >= C_staticSym && @sym <= C_stringSym ||
+    	       @sym >= C_staticSym && @sym <= C_voidSym ||
     	       @sym == C_LparenSym ||
     	       @sym >= C_StarSym && @sym <= C_caseSym ||
     	       @sym >= C_defaultSym && @sym <= C_ifSym ||
@@ -779,7 +779,7 @@ class Parser < CRParser
     	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	       @sym == C_SemicolonSym ||
     	       @sym >= C_classSym && @sym <= C_LbraceSym ||
-    	       @sym >= C_staticSym && @sym <= C_stringSym ||
+    	       @sym >= C_staticSym && @sym <= C_voidSym ||
     	       @sym == C_LparenSym ||
     	       @sym >= C_StarSym && @sym <= C_caseSym ||
     	       @sym >= C_defaultSym && @sym <= C_ifSym ||
@@ -973,7 +973,7 @@ class Parser < CRParser
     	elsif (@sym >= C_EOF_Sym && @sym <= C_hexnumberSym ||
     	           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	           @sym == C_SemicolonSym ||
-    	           @sym >= C_LbraceSym && @sym <= C_stringSym ||
+    	           @sym >= C_LbraceSym && @sym <= C_voidSym ||
     	           @sym == C_LparenSym ||
     	           @sym >= C_StarSym && @sym <= C_caseSym ||
     	           @sym >= C_defaultSym && @sym <= C_ifSym ||
@@ -1183,7 +1183,7 @@ class Parser < CRParser
                     rStatement += Statement()
                     # p "statement return #{rStatement}"
                 end
-        elsif (@sym >= C_staticSym && @sym <= C_stringSym || @sym == C_TypedefSym )
+        elsif (@sym >= C_staticSym && @sym <= C_voidSym || @sym == C_TypedefSym )
         # line 711 "cs.atg"
         		rStatement += LocalDeclaration()
        end
@@ -1273,7 +1273,7 @@ class Parser < CRParser
     	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	       @sym == C_SemicolonSym ||
     	       @sym == C_LbraceSym ||
-    	       @sym >= C_staticSym && @sym <= C_stringSym ||
+    	       @sym >= C_staticSym && @sym <= C_voidSym ||
     	       @sym == C_LparenSym ||
     	       @sym >= C_StarSym && @sym <= C_caseSym ||
     	       @sym >= C_defaultSym && @sym <= C_ifSym ||
@@ -1319,7 +1319,7 @@ class Parser < CRParser
                 next
             end    		
             p "sym:#{@sym},curString:#{curString}"
-            if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_stringSym ||
+            if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_voidSym ||
     		    @sym == C_TypedefSym ||
     		    (@sym == C_TildeSym && GetNext() == C_identifierSym)
     		    )
@@ -1499,7 +1499,7 @@ class Parser < CRParser
         _next = GetNext()
         while (@sym != C_LparenSym && @sym != C_ColonColonSym &&
                 (   _next == C_identifierSym ||
-                    _next >= C_varSym && _next <= C_stringSym || 
+                    _next >= C_varSym && _next <= C_voidSym || 
                     _next >= C_staticSym && _next <= C_functionSym ||
                     _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym ||
                     _next == C_LessSym # template
@@ -1518,7 +1518,7 @@ class Parser < CRParser
         	if (@sym >= C_staticSym && @sym <= C_functionSym) 
                 p "---->LocalDeclaration11"
         		storageclass += StorageClass()
-        	elsif (@sym >= C_varSym && @sym <= C_stringSym)
+        	elsif (@sym >= C_varSym && @sym <= C_voidSym)
                 p "---->LocalDeclaration12"
                 
                 type += Type()
@@ -2016,7 +2016,7 @@ class Parser < CRParser
     	Expect(C_LparenSym)
     # line 545 "cs.atg"
     	if (@sym == C_identifierSym ||
-    	    @sym >= C_varSym && @sym <= C_stringSym||
+    	    @sym >= C_varSym && @sym <= C_voidSym||
     	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_PPPSym) 
     # line 545 "cs.atg"
             if @sym == C_PPPSym
@@ -2033,7 +2033,8 @@ class Parser < CRParser
     _cs = curString()
         if @sym == C_identifierSym && ( _cs == 'const' || _cs == 'override')
             Get()
-            
+        elsif @sym == C_throwSym
+            Expression();
         end
         
         return "(#{ret})"
@@ -2312,10 +2313,10 @@ class Parser < CRParser
     			ret += curString()
     		    Get();
     			#break;
-    		when C_stringSym  
+    	#	when C_stringSym  
     # line 436 "cs.atg"
-    			ret += curString()
-    		    Get();
+    		#	ret += curString()
+    		  #  Get();
     # line 437 "cs.atg"
     			# break;
     		when C_identifierSym
@@ -3893,7 +3894,7 @@ HERE
     
                 if (@sym == C_identifierSym && isTypeStart()) || 
                     @sym == C_constSym || 
-                    @sym >= C_shortSym && @sym <= C_stringSym
+                    @sym >= C_shortSym && @sym <= C_voidSym
                     # type cast (A*)
                     if @sym == C_constSym
                         Get()
@@ -4934,6 +4935,10 @@ namespace LinkMap
     
     };
 HERE
+
+s71=<<HERE
+bool      IsYearTransferedDocumentsInCompany() throw (CBusinessException);
+HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -4948,7 +4953,7 @@ HERE
 
 if !testall
    
-    s = s69
+    s = s71
 else
 
     r = ""
