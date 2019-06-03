@@ -30,9 +30,11 @@ class VarType
     end
 end
 class Scope
+    # name is scope name in c/cpp, except "module"
+    # name can "class", "struct", "module"(module means namespace)
     attr_accessor :name, :vars, :parentScope
     def initialize(name)
-        @name = name
+        @name = name 
         @vars = {}
     end
     
@@ -50,12 +52,15 @@ class Scope
     end
 
 end
-class ClassDef < Scope
-    attr_accessor :class_name, :parent, :modules, :methods, :src
+class ModuleDef < Scope
+    attr_accessor :class_name, :parent, :modules, :classes, :methods, :src
+  
     def initialize(class_name)
-        super("class")
+        super("module")
         @class_name = class_name
         @methods = {}
+        @modules = {}
+        @classes = {}
     end
     def add_src(src)
         @src = "" if !@src
@@ -86,6 +91,39 @@ class ClassDef < Scope
             }
         end
     end
+    
+    def add_module(module_name)
+        if module_name.class == String
+            moduleDef = ModuleDef.new(module_name)
+            @modules[module_name] = moduleDef
+        else
+            moduleDef = module_name
+            @modules[moduleDef.class_name] = moduleDef
+            
+        end
+        return moduleDef
+    end
+    
+    def add_class(class_name)
+        if class_name.class == String
+            clsdef = ClassDef.new(class_name)
+            @classes[class_name] = clsdef
+        else
+            clsdef = class_name
+            @classes[clsdef.class_name] = clsdef
+        end
+        return clsdef
+    end
+end
+class ClassDef < ModuleDef
+    attr_accessor :class_name, :parent, :methods, :src
+    def initialize(class_name)
+        super("class")
+        @class_name = class_name
+        @methods = {}
+        @name="class"
+    end
+
 end
 class CRParser 
 # Abstract Parser
@@ -145,10 +183,11 @@ class CRParser
     def out_scope()
         @sstack.pop
     end    
-    def current_class_scope
+    def current_ruby_scope
          i = @sstack.size-1
          while (i>=0)
-             if @sstack[i].name == "class"
+             n = @sstack[i].name
+             if n == "class" || n == "struct" || n == "module"
                  return @sstack[i]
              end
              i -= 1

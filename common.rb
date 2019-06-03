@@ -7,6 +7,8 @@ def write_class(ruby_filename, class_template)
     p s
     
     begin
+        FileUtils.makedirs(File.dirname(ruby_filename))
+        
          aFile = File.new(ruby_filename, "w+")
          aFile.puts s[0]
          aFile.close

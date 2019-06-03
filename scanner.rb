@@ -1039,7 +1039,7 @@ public
 
     def Get(ignore_crlf=true)
         # int state, ctx
-     p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
+     p "pos:#{@buffPos}, line #{@currLine}, ch #{cch()}, @ch #{@ch}"
         
         return C_EOF_Sym if @ch == nil
         

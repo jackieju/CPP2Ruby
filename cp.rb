@@ -76,21 +76,10 @@ def add_class(class_name, parent=nil, modules=nil)
 end
 
 $g_classdefs = {} if $g_classdefs == nil
-if $ar_classdefs
-    $ar_classdefs.each{|cls|
-        add_class(cls)
-    }
-    p "===>$ar_classdefs:#{$ar_classdefs.inspect}"
-end
 
-def dump_classes_as_ruby(classdefs)
-       
-        classdefs.each{|k,v|
-            p "class #{k}:"
-            p "       class name: #{v.class_name}"
-            p "       parent: #{v.parent}"
-            p "       modules: #{v.modules}"
-            p "       methods: #{v.methods.size}"
+def dump_one_as_ruby(v, module_name=nil)
+    pp "dump ruby for #{v.class_name}, #{module_name}"
+   # pp "dump #{v.inspect}", 10
             s_methods =""
             v.methods.each{|k,v|
                 p "#{k}, #{v[:decoration]}"
@@ -126,6 +115,9 @@ HERE
                     #{v.src}
 HERE
             else
+                if (module_name && module_name != "")
+                    class_name = "#{module_name}::#{class_name}"
+                end
                 if v.parent
                     class_template =<<HERE
             class #{class_name} < #{v.parent}
@@ -143,14 +135,59 @@ HERE
                 end
             end
             
-            if $output_dir && $output_dir != ""
-                wfname = "#{$output_dir}/#{class_name.downcase}.rb"
-            else
-                wfname = "#{class_name.downcase}.rb"
-            end
+            wfname = ""
+            wfname += "#{$output_dir}/" if $output_dir && $output_dir != ""
+            
+            #if module_name && module_name != ""
+            #    p "module_name:#{module_name}"
+            #    
+            #    mds = module_name.split("::")
+            #    p "mds:#{mds}"
+            #    mpath = mds.join("/")
+            #    wfname += "#{mpath}/"
+            #end
+           # wfname +=  "#{v.class_name.downcase}.rb"
+           wfname +=  "#{class_name.gsub("::","/").downcase}.rb"
+            #if $output_dir && $output_dir != ""
+            #    wfname = "#{$output_dir}/#{class_name.downcase}.rb"
+            #else
+            #    wfname = "#{class_name.downcase}.rb"
+            #end
             write_class(wfname, class_template)
+end
+#def dump_module_as_ruby(moduleDef, module_name=nil)
+#    v =moduleDef
+#    dump_classes_as_ruby(v.classes) if v.classes && v.classes.size > 0
+#    dump_one_as_ruby(v, module_name)
+#end
+def dump_classes_as_ruby(classdefs, module_name=nil)
+   # p "dump222 #{classdefs.inspect}"
+        classdefs.each{|k,v|
+            p "class #{k}"
+            p "       class name: #{v.class_name}"
+            p "       parent: #{v.parent}"
+            p "       modules: #{v.modules.keys}"
+            p "       classes: #{v.classes.size}"
+            p "       methods: #{v.methods.size}"
+            m=""
+            if v.is_a?(ModuleDef)
+              # dump_module_as_ruby(v, module_name)
+              
+              if (module_name && module_name != "" && module_name != "::")
+                  m = "#{module_name}::"
+              else
+                  m =""
+              end
+              m += v.class_name if v.class_name != "::"
+              dump_classes_as_ruby(v.classes, m) if v.classes && v.classes.size > 0
+              dump_classes_as_ruby(v.modules, m) if v.classes && v.classes.size > 0
+              
+            end
+            dump_one_as_ruby(v, module_name)
             
         }
+        
+        
 end
 
 class Parser < CRParser
@@ -583,7 +620,7 @@ class Parser < CRParser
     # line 98 "cs.atg"
     def C()
         pclass()
-    	in_scope("::")
+    	in_scope(@root_class)
     	
         ret = ""
         p "==>C:#{SYMS[@sym]}"
@@ -694,7 +731,7 @@ class Parser < CRParser
      
         	_class_name = curString()
         	Expect(C_identifierSym)
-        clsdef = ClassDef.new(_class_name)
+        clsdef = ModuleDef.new(_class_name)
             
 
         	if (@sym == C_LbraceSym)
@@ -706,8 +743,11 @@ class Parser < CRParser
                 p "--->cNamespaceDef34, #{@sym}, #{curString()}"
     	        
     	    end
-    	    
+    	   
     	  #  @classdefs[_class_name] = clsdef
+          p "add module #{clsdef.class_name} to #{current_scope.inspect}"
+          current_ruby_scope.add_module(clsdef)
+          
           p("====>NamespaceDef1")
      
     end
@@ -751,10 +791,13 @@ class Parser < CRParser
     	        
     	    end
     	    
-    	    @classdefs[_class_name] = clsdef
+    	    #@classdefs[_class_name] = clsdef
             # @classdefs.each{|k,v|
             #               p "classdef #{k}=#{v}"
             #           }
+            p "currentrubyscope:#{current_ruby_scope.inspect}"
+            current_ruby_scope.add_class(clsdef)
+            p "add class:#{clsdef.class_name}"
     end
     
     def FriendClass()
@@ -764,7 +807,7 @@ class Parser < CRParser
            #     Expect(C_SemicolonSym)
     end
     # line 297 "cs.atg"
-    def ClassBody(clsdef)
+    def ClassBody(clsdef) #not onlye used in class, also used in namespace
        
         in_scope(clsdef)
         pdebug("===>ClassBody:#{@sym}, #{curString()}");
@@ -814,8 +857,9 @@ class Parser < CRParser
     # line 322 "cs.atg"
     	Expect(C_RbraceSym)
     # line 324 "cs.atg"
-     
-        current_class_scope.add_src(ret)
+   # p "#{current_scope().inspect}"
+   # p @sstack.inspect
+        current_scope.add_src(ret)
 
     	 out_scope()
     end
@@ -947,7 +991,8 @@ class Parser < CRParser
     	        
     	    end
     	    
-    	    @classdefs[_class_name] = clsdef
+    	   # @classdefs[_class_name] = clsdef
+           current_ruby_scope.add_class(clsdef)
     end
     # line 218 "cs.atg"
     def Definition()
@@ -1001,7 +1046,15 @@ class Parser < CRParser
         @macros = {}
         # @classdefs=$g_classdefs if $g_classdefs
         @classdefs = $g_classdefs
-        @root_class = add_class("::")
+        
+        moddef = ModuleDef.new("::")
+        $g_classdefs = {} if $g_classdefs == nil
+        $g_classdefs["::"] = moddef
+        @root_class = moddef
+        
+       # @root_class = add_class("::")
+
+        
         #p("classdefs:#{@classdefs.inspect}")
         p "init end"
         pclass
@@ -1039,7 +1092,7 @@ class Parser < CRParser
             Get()
            return "" 
         elsif @sym == C_TildeSym 
-            if ['class', 'struct'].include?(current_scope.name)
+            if ['class', 'struct', 'module'].include?(current_scope.name)
                 Get()
                 Expect(C_identifierSym)
                 FunctionDefinition(current_scope.class_name, "uninitialize")
@@ -1109,7 +1162,7 @@ class Parser < CRParser
                         end
     	            end 
     	            
-    	        elsif cs == "virtual" && ['class', 'struct'].include?(current_scope.name)
+    	        elsif cs == "virtual" && ['class', 'struct', 'module'].include?(current_scope.name)
     	            Get()
 	                if curString() == "~"
 	                    Get()
@@ -1127,7 +1180,7 @@ class Parser < CRParser
     
                     end
  
-    	        elsif _next == C_LparenSym  && ['class', 'struct'].include?(current_scope.name)# for constructor in class or struct
+    	        elsif _next == C_LparenSym  && ['class', 'struct', 'module'].include?(current_scope.name)# for constructor in class or struct
     	            p "--> in class scope"
     	            if current_scope.class_name == cs # constructor
     	                Get()
@@ -1329,7 +1382,7 @@ class Parser < CRParser
     		        rStatement += "\n" if rStatement.strip != ""
     		        rStatement += _retg	
 		        end
-                # p "enter 11,#{rStatement}"
+                 p "enter 11, sym #{@sym},#{rStatement}"
     		 elsif (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     		           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     		           @sym == C_SemicolonSym ||
@@ -4939,6 +4992,21 @@ HERE
 s71=<<HERE
 bool      IsYearTransferedDocumentsInCompany() throw (CBusinessException);
 HERE
+
+s71=<<HERE
+class BBB{
+}
+namespace nn
+{
+    class AAAA{
+        ~_DataOwnershipMgr();
+    }
+    int a(){};
+    
+}
+int b(){};
+HERE
+
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -4994,6 +5062,20 @@ ret = parser.C
 
 p "parsing result:#{ret}"
 error.PrintListing
+
+p "---->list classes"
+def list_classes(cls)
+
+    cls.each{|k,v|
+        p "class #{k}"
+        if v
+            list_classes(v.modules)
+            list_classes(v.classes)
+        end
+    }
+    
+end
+list_classes($g_classdefs)
 parser.dump_classes_as_ruby
 end # end of test
  
@@ -5001,3 +5083,11 @@ end # end of test
 #=end
 test(false)
 
+
+# execute after test
+if $ar_classdefs
+    $ar_classdefs.each{|cls|
+        add_class(cls)
+    }
+    p "===>$ar_classdefs:#{$ar_classdefs.inspect}"
+end
