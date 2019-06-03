@@ -229,6 +229,7 @@ class Parser < CRParser
          return nil
     end
     def add_class(class_name, parent=nil, modules=nil)
+        
         clsdef = ClassDef.new(class_name)
         @classdefs[class_name] = clsdef
         return clsdef
@@ -686,7 +687,7 @@ class Parser < CRParser
     end
     
     def NamespaceDef
-        p("NamespaceDef0", 10)
+        p("====>NamespaceDef0", 10)
         pdebug("===>NamespaceDef:#{@sym}, #{curString()}")
         	Expect(C_namespaceSym)
         
@@ -707,6 +708,7 @@ class Parser < CRParser
     	    end
     	    
     	  #  @classdefs[_class_name] = clsdef
+          p("====>NamespaceDef1")
      
     end
     
@@ -872,6 +874,11 @@ class Parser < CRParser
         elsif @sym == C_identifierSym # enum type name before {}
     	    Get()
 	    end
+        
+        if @sym == C_ColonSym # enum class F : char{}
+            Get()
+            Get()
+        end
         Expect(C_LbraceSym)
     	base = 0
         list = ""
@@ -883,10 +890,11 @@ class Parser < CRParser
     	    Get()
     	    if (@sym == C_EqualSym)
     	        Get()
-    	        v = curString()
-    	        Expect(C_numberSym)
+                v = Expression()
+    	       # v = curString()
+    	        #Expect(C_numberSym)
     	        p "v=#{v}, sym:#{@sym}"
-    	        if v =~ /^([\d.]+)\w*$/
+    	        if v =~ /^((-|\+)[\d.]+)\w*$/
     	            v = $1
 	            end
     	        base = v.to_i
@@ -952,7 +960,7 @@ class Parser < CRParser
     # line 219 "cs.atg"
     		ClassDef()
             # p "--->classDef11, #{@sym}, #{curString()}"
-        elsif @symm = C_namespaceSym
+        elsif @sym == C_namespaceSym
             NamespaceDef()
         elsif (@sym == C_EnumSym)
     	    ret += Enum()
@@ -4890,7 +4898,7 @@ s69=<<HERE
 enum eColumnJDT1
 {
 		// Transaction Key
-		JDT1_TRANS_ABS									=	0,
+		JDT1_TRANS_ABS									=	0
 }
 enum{
  ConnID = 1
@@ -4906,6 +4914,16 @@ enum
 class A{
 enum class MessageSource { FromSboErr, FromStringIndex, FromMessageUid }
 }
+enum class LocalSettings : long
+	{
+		INVALID = -1L,
+		Argentina = 0L,
+		Austria,
+		AustraliaNZ,
+		Belgian,
+		Brazil,
+		Canada
+    }
 HERE
 
 s70=<<HERE
@@ -4914,7 +4932,7 @@ namespace LinkMap
 {
     
     
-}
+    };
 HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
@@ -4930,7 +4948,7 @@ HERE
 
 if !testall
    
-    s = s70
+    s = s69
 else
 
     r = ""
