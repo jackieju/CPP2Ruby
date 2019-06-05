@@ -21,32 +21,7 @@ def debug(s)
     p s
 end
 
-def pdebug(s, stack=0)
-    depth = 0
-    sp = ""
-    begin
-        raise Exception.new
-    rescue Exception=>e
-        e.backtrace.each{|b|
-            if b =~ /in `C'/
-                # p "====got botoom====total #{e.backtrace.size}"
-                break
-            else
-                depth += 1
-                sp += "-+"
-            end
-        }
-        
-    end
-    
-    m = "{#{sp}#{depth}}#{s}"
-    if stack>0
-        m = format_msg(m, "", stack)
-    end
-    
-    debug(m)
-    
-end
+
 =begin
 $Sym = nil
 
@@ -152,6 +127,35 @@ HERE
 end
 
 class Parser < CRParser
+    def pdebug(s, stack=0)
+        depth = 0
+        sp = ""
+        begin
+            raise Exception.new
+        rescue Exception=>e
+            e.backtrace.each{|b|
+                if b =~ /in `C'/
+                    # p "====got botoom====total #{e.backtrace.size}"
+                    break
+                else
+                    depth += 1
+                    sp += "-+"
+                end
+            }
+        
+        end
+    
+        m = "{#{sp}#{depth}}#{s}"
+        if stack>0
+            m = format_msg(m, "", stack)
+        end
+       
+        line = "line %5d" % @scanner.currLine
+
+        m = "#{line}:#{m}"  
+        debug(m)
+    end
+    
     attr_accessor :classdefs
     def curLine()
         @scanner.currLine
