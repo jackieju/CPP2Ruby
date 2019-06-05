@@ -161,9 +161,10 @@ end
 #    dump_one_as_ruby(v, module_name)
 #end
 def dump_classes_as_ruby(classdefs, module_name=nil)
-   # p "dump222 #{classdefs.inspect}"
+    p "dump222 #{classdefs.inspect}"
         classdefs.each{|k,v|
             p "class #{k}"
+            p "       type: #{v.name} #{v.class}"
             p "       class name: #{v.class_name}"
             p "       parent: #{v.parent}"
             p "       modules: #{v.modules.keys}"
@@ -171,6 +172,7 @@ def dump_classes_as_ruby(classdefs, module_name=nil)
             p "       methods: #{v.methods.size}"
             m=""
             if v.is_a?(ModuleDef)
+                p "--->333"
               # dump_module_as_ruby(v, module_name)
               
               if (module_name && module_name != "" && module_name != "::")
@@ -178,9 +180,11 @@ def dump_classes_as_ruby(classdefs, module_name=nil)
               else
                   m =""
               end
+              
               m += v.class_name if v.class_name != "::"
               dump_classes_as_ruby(v.classes, m) if v.classes && v.classes.size > 0
-              dump_classes_as_ruby(v.modules, m) if v.classes && v.classes.size > 0
+              
+              dump_classes_as_ruby(v.modules, m) if v.modules && v.modules.size > 0
               
             end
             dump_one_as_ruby(v, module_name)
@@ -255,16 +259,174 @@ class Parser < CRParser
             }      
         }
     end   
-    def find_class(varname)
-        p("@classdefs:#{@classdefs.inspect}")
-        @classdefs.each{|k,v|
-                 p "find_class #{k}=#{v}"
-        }
-         if @classdefs[varname]
-             return @classdefs[varname]
-         end
-         return nil
+    #def find_class1(varname)
+    #    p("@classdefs:#{@classdefs.inspect}")
+    #    @classdefs.each{|k,v|
+    #             p "find_class #{k}=#{v}"
+    #    }
+    #     if @classdefs[varname]
+    #         return @classdefs[varname]
+    #     end
+    #     return nil
+    #end
+    
+    def using_namespace_scope()
+        return @using_namespace if @using_namespace
+        c = @root_class
+        ar = @using_namespace_str.split("::")
+        for i in 0..ar.size-1
+            r = c.modules[ar[i]]
+            if !r
+                p("namespace '#{ar[i]}' not found under #{c.class_name}")
+                return nil 
+            end
+            c = r
+        end
+        @using_namespace = c
+        return  @using_namespace
     end
+    
+    # find module from scope, if not found then find in parent scope
+    def find_module_from(name, scope)
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+        if scope == nil # find using namespace
+            if @using_namespace
+                ret[:v]= @using_namespace.modules[name]
+                if ret[:v]
+                    ret[:prefix]= @using_namespace_str
+                end
+            end
+            return ret
+        end
+        if !scope.is_a?(ModuleDef) # skip class, functiondef
+            return find_module_from(name, scope.parentScope)
+        end
+        ret[:v] = scope.modules[name]
+        if ret[:v]
+            return ret
+        else
+            return find_module_from(name, scope.parentScope)
+        end
+    end
+    
+    def find_class_from(name, sc)
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+        if !sc
+            return ret if !@using_namespace
+            ret[:v] = @using_namespace.classes[name]
+            if ret[:v]
+                ret[:prefix] = @using_namespace_str
+            end 
+            return ret
+        end
+        ret[:v] = sc.classes[name]
+        return ret if ret[:v]
+        return find_class_from(name, sc.parentScope)
+    end
+    def find_class(name)
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+      #  r = _find_class(name)
+      #  return r if r
+        
+        ar = name.split("::")
+        if ar.size == 1 # only class no modules
+             return find_class_from(name, current_ruby_scope)
+        else
+            na = ar[0]
+            # find first module
+            ret = find_module_from(na, current_ruby_scope) 
+            return ret if ret[:v] == nil
+            sc = ret[:v]
+            if ar.size >2 # more modules
+                for i in 1..ar.size-2
+                    sc = sc.modules[ar[i]]
+                end
+            end
+            ret[:v] = sc.classes[ar[ar.size-1]]
+            return ret
+        end
+        return ret
+    end
+=begin    
+    def _find_class(name)
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+        ar = name.split("::")
+        ret = ""
+        sc = current_ruby_scope
+        for i in 0..ar.size-1
+            na = ar[i]
+            if i == ar.size-1 # class
+                if sc.classes[na]
+                    if ret && ret !=""
+                        return "#{ret}::#{na}"
+                    else
+                        return na
+                    end
+                else 
+                    return ret
+                end
+            elsif i == 0 # first module
+                sc = find_module_from(na, sc)
+                return nil if !sc
+                ret += "#{sc.class_name}::" 
+                
+            else # module but not first
+                sc = sc.modules[na]
+                return nil if !sc
+                ret += "#{sc.class_name}::" 
+            end
+        end
+    end
+=end    
+    def find_function_from(name, sc)
+        r = sc.methods[name]
+        return if r
+        return find_function_from(name, sc.parentScope)
+    end
+    def find_function(name)
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+        ar = name.split(".")
+        if ar.size > 1 # has function owner
+            fn = ar[ar.size-1]
+            ar_sc = ar[0].split("::")
+            if ar_sc.size >1 # has module
+                ret = find_module_from(ar_sc[0], current_scope)
+                return ret if !ret[:v]
+                sc = ret[:v]
+                if ar_sc.size > 2 
+                    for i in 1..ar_sc.size-2
+                        sc = sc.modules[ar_sc[i]]
+                    end
+                end
+                ret[:v] = sc.methods[fn]
+                
+            else # only class
+                ret = find_class(ar_sc[0])
+                cls = ret[:v]
+                return ret if !cls
+                ret[:v] = cls.methods[fn]
+            end
+        else # only function name
+            ret[:v] = find_function_from(name, current_ruby_scope)
+        end
+        return ret
+    end
+    
     def add_class(class_name, parent=nil, modules=nil)
         
         clsdef = ClassDef.new(class_name)
@@ -667,7 +829,7 @@ class Parser < CRParser
     	       @sym == C_EnumSym || 
     	       @sym == C_TypedefSym || 
     	       @sym == C_StructSym ||
-               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym  || @sym == C_namespaceSym
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym  || @sym == C_namespaceSym || @sym== C_usingSym
                ) 
     # line 137 "cs.atg"
     		ret += Definition()
@@ -832,7 +994,7 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
-               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym || @sym==C_EnumSym) 
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym || @sym==C_EnumSym || @sym==C_namespaceSym) 
     # line 322 "cs.atg"
                 cs = curString()
                 p "cs:#{cs}"
@@ -1011,6 +1173,15 @@ class Parser < CRParser
     	    ret += Enum()
     	elsif (@sym == C_StructSym)
     	    StructDef()
+        elsif @sym == C_usingSym
+           Get()
+           Expect(C_namespaceSym)
+           ns = ClassFullName()
+           p "using1 namespace #{ns}"
+           @using_namespace_str = ns
+           using_namespace_scope()
+           Expect(C_SemicolonSym)
+           ret += "\n"
 	    # elsif
 	    #          [ StorageClass ] Type { "*" } identifier
 	    #                                    ( FunctionDefinition | VarList ";" ) 
@@ -1180,7 +1351,7 @@ class Parser < CRParser
     
                     end
  
-    	        elsif _next == C_LparenSym  && ['class', 'struct', 'module'].include?(current_scope.name)# for constructor in class or struct
+    	        elsif _next == C_LparenSym  && ['class', 'struct'].include?(current_scope.name)# for constructor in class or struct, should not include module
     	            p "--> in class scope"
     	            if current_scope.class_name == cs # constructor
     	                Get()
@@ -1371,7 +1542,7 @@ class Parser < CRParser
                 end
                 next
             end    		
-            p "sym:#{@sym},curString:#{curString}"
+            p "sym:#{@sym},curString:#{curString()}"
             if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_voidSym ||
     		    @sym == C_TypedefSym ||
     		    (@sym == C_TildeSym && GetNext() == C_identifierSym)
@@ -1382,7 +1553,7 @@ class Parser < CRParser
     		        rStatement += "\n" if rStatement.strip != ""
     		        rStatement += _retg	
 		        end
-                 p "enter 11, sym #{@sym},#{rStatement}"
+                 p "enter 11, sym #{@sym}(curString()),#{rStatement}"
     		 elsif (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     		           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     		           @sym == C_SemicolonSym ||
@@ -1470,7 +1641,7 @@ class Parser < CRParser
             
             varname = getSymValue(sym)
             # if @classdefs[varname] != nil
-            if find_class(varname)
+            if find_class(varname)[:v]
                 return true
             else
                 p "==>isTypeStart:class #{getSymValue(sym)} not found"
@@ -1864,7 +2035,8 @@ class Parser < CRParser
         
         if @sym == C_LparenSym
         	ret += " = #{var_type.name}.new"
-        	ret += FunctionCall()
+            s,n = FunctionCall()
+        	ret += s
         end
         
     # line 441 "cs.atg"
@@ -1901,7 +2073,8 @@ class Parser < CRParser
         	
         	if @sym == C_LparenSym
             	ret += " = #{var_type.name}.new"
-            	ret += FunctionCall()
+                s,n = FunctionCall()
+            	ret += s
             end
     # line 454 "cs.atg"
     		ArraySize()
@@ -1952,7 +2125,7 @@ class Parser < CRParser
     def FunctionDefinition(class_name, fn_name, acc="")
         pdebug "===>FunctionDefinition:#{class_name}::#{fn_name}", 30
         ret = ""
-        if class_name
+        if class_name && class_name != ""
  	        classdef = @classdefs[class_name]
  	        if !classdef
  	            if current_scope.is_a?(ClassDef)
@@ -1960,7 +2133,7 @@ class Parser < CRParser
                 end
             end
         else
-            if current_scope.is_a?(ClassDef)
+            if current_scope.is_a?(ClassDef) ||current_scope.is_a?(ModuleDef)
                 classdef = current_scope
             end
         end
@@ -2010,7 +2183,7 @@ class Parser < CRParser
                 Expect(C_identifierSym)
                
                 Expect(C_LparenSym)
-                v = ActualParameters()
+                v,arg_num = ActualParameters()
                 Expect(C_RparenSym)
                 if m == "super"
                     i_list += "super(#{v})\n"
@@ -2041,7 +2214,7 @@ class Parser < CRParser
             method_src = ret
         end
         # add_class_method_def(class_name, fn_name, args)
-        p "add mehtod '#{fn_name}' to class '#{class_name}':#{ret}"
+        p "add method '#{fn_name}' to class '#{class_name}':#{ret}", 10
         p "classdef #{classdef.inspect}"
         if classdef
             classdef.add_method(fn_name, args_num, method_src, acc)
@@ -3528,7 +3701,8 @@ HERE
                     if index_collon and !index_dot
                         ret = ret[0..index_collon-1]+"."+ret[index_collon+2..ret.size-1]
                     end
-                    ret += FunctionCall()
+                    s,n = FunctionCall()
+                    ret += s
     # line 1734 "cs.atg"
     				
     			when C_PointSym  
@@ -3576,7 +3750,14 @@ HERE
 
     # line 1894 "cs.atg"
                         # ret += FunctionCall(&fn)
-                        ret += FunctionCall()
+                 
+                          s,n =FunctionCall()
+                          r = find_function(method_signature(ret,n))
+                          if r[:v]
+                              ret = r[:prefix]+"::"+ret
+                          end
+                        p("111->#{ret}")
+                        ret += s
     				end
     # line 1896 "cs.atg"
 
@@ -3775,6 +3956,9 @@ HERE
         # line 2334 "cs.atg"
                     if @sym == C_ColonColonSym
                         ret += translate_varname(varname)
+                       #ar = []
+                       #ar.push(varname)
+                       
                         while (@sym == C_ColonColonSym)
                             p "====>233:#{curString()}"
                             # line 2353 "cs.atg"
@@ -3782,8 +3966,12 @@ HERE
                             # line 2353 "cs.atg"
                     
                             ret += "::#{translate_varname(curString())}"
+                           #ar.push(curString())
                             Expect(C_identifierSym)
                     	end
+                        #ret += ar[0..ar.size-2].join("::")
+                        #ret += "::" + translate_varname(ar[ar.size-1])
+                        
                 	else
                 	    if varname == "this"
                 	        ret += "self"
@@ -4018,19 +4206,20 @@ HERE
     	    @sym >= C_newSym && @sym  <= C_DollarSym ||
     	    @sym >= C_BangSym && @sym  <= C_TildeSym) 
     # line 2605 "cs.atg"
-    		ret += ActualParameters()
+            s,n = ActualParameters()
+    		ret += s
     	end
     # line 2605 "cs.atg"
     	Expect(C_RparenSym);
     # line 2606 "cs.atg"
         p "====>FunctionCall1:(#{ret})", 20
-        return "(#{ret})"
+        return ["(#{ret})", n]
     end
 
     # line 2660 "cs.atg"
     def ActualParameters()
         debug "==>ActualParameters:#{@sym}, line #{curLine}, val #{curString()}"
-	    
+	    arg_num = 0
         ret = ""
     # line 2661 "cs.atg"
 
@@ -4039,7 +4228,7 @@ HERE
     # line 2668 "cs.atg"
     	ret += Expression()
     # line 2669 "cs.atg"
-
+        arg_num += 1
     	p "ret:#{ret}"
     # line 2701 "cs.atg"
     	while (@sym  == C_CommaSym) 
@@ -4049,12 +4238,13 @@ HERE
     		Get()
     # line 2701 "cs.atg"
     		ret += Expression()
+            arg_num += 1
     # line 2703 "cs.atg"
 
 	    end
 	    debug "==>ActualParameters1:#{@sym}, line #{curLine}, val #{curString()}, ret=#{ret}"
     # line 2776 "cs.atg"
-        return ret
+        return [ret, arg_num]
     end
     def Creator()
         ret = ""
@@ -4063,6 +4253,15 @@ HERE
     	className = ClassFullName()
     # line 2246 "cs.atg"
 
+        r = find_class(className)
+        if !r[:v]
+        
+            dump_pos(@scanner.nextSym.pos)
+            throw "cannot find class #{className}"
+        end
+        if r[:prefix]
+            className = "#{r[:prefix]}::#{className}"
+        end
     
     # line 2287 "cs.atg"
         fCall = ""
@@ -4070,7 +4269,8 @@ HERE
     # line 2302 "cs.atg"
     	while (@sym == C_LparenSym) 
     # line 2302 "cs.atg"
-    		fCall += FunctionCall()
+    s,n = FunctionCall()
+    		fCall += s
     	end
     # line 2303 "cs.atg"
         
@@ -5007,6 +5207,35 @@ namespace nn
 int b(){};
 HERE
 
+s72=<<HERE
+namespace R1{
+    namespace Permission1{
+        class A{
+            int a(){}
+            int b(){}
+        }
+        int bb(){
+            c=1;
+        }
+        int cc(){
+        }
+    }
+}
+//R::Permission::A *a=new R::Permission::A();
+
+//using namespace R::Permission;
+//A *a= new A();
+bb();
+HERE
+
+s73 =<<HERE
+typedef struct _GiulSum
+{
+	MONEY		sums[NUM_OF_CURRENCY];
+	_GiulSum () {}
+}GiulSum, *GiulSumPtr;
+
+HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -5021,7 +5250,7 @@ HERE
 
 if !testall
    
-    s = s71
+    s = s73
 else
 
     r = ""
@@ -5064,13 +5293,16 @@ p "parsing result:#{ret}"
 error.PrintListing
 
 p "---->list classes"
-def list_classes(cls)
+def list_classes(cls, tabs=0)
 
     cls.each{|k,v|
-        p "class #{k}"
+        for i in 0..tabs
+            print("\t")
+        end
+        print "class #{k}\n"
         if v
-            list_classes(v.modules)
-            list_classes(v.classes)
+            list_classes(v.modules,tabs+1)
+            list_classes(v.classes,tabs+1)
         end
     }
     

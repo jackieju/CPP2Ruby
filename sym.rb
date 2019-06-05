@@ -93,7 +93,7 @@ C_hexnumberSym = 3	# hexnumber */
 C_stringD1Sym = 4	# string1 */
 C_charD1Sym = 5	# char1 */
 C_librarySym = 6	# library */
-C_useSym = 7	# "use" */
+#C_useSym = 7	# "use" */
 C_SemicolonSym = 8	# ";" */
 #C_loadSym = 9	# "load" */
 C_packageSym = 10	# "package" */
@@ -185,10 +185,11 @@ C_OUTSym =                      95  # "OUT"
 C_inlineSym =                   96  # "inline"
 C_PPPSym =                   97  # "..."
 C_namespaceSym =                   98  # "..."
+C_usingSym =                   99 # "using"
 
 #*** insert new sym here ***#
-C_No_Sym =                      99	# not */
-C_PreProcessorSym =             100	# PreProcessor */
+C_No_Sym =                      100	# not */
+C_PreProcessorSym =             101	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
@@ -204,7 +205,10 @@ C_MAXT = C_No_Sym	# Max Terminals */
 
 
 SYMS=[                                                
-        "EOF"                         ,
+
+
+
+"EOF"                         ,
 "identifier"               ,
 "number"                       ,
 "hexnumber"                ,
@@ -213,7 +217,7 @@ SYMS=[
 "library"                  ,
 "use"                        ,
 ";"                      ,
-#"load"                       ,
+"load"                       ,
 "package"                ,
 "/"                          ,
 "inherit"                ,
@@ -235,7 +239,7 @@ SYMS=[
 "char"                       ,
 "double"                 ,
 "void"                       ,
-#"string"                 ,
+"string"                 ,
 "="                          ,
 ","                          ,
 "["                      ,
@@ -303,6 +307,7 @@ SYMS=[
 "inline",
 "...",
 "namespace",
+"using",
 "not"                          ,
 "PreProcessor"         ,
     ]

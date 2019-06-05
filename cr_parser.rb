@@ -1,4 +1,7 @@
 load 'log.rb'
+def method_signature(method_name, arg_number)
+    return "#{method_name}\#\##{arg_number}"
+end
 def translate_varname(varname, uncapitalize=true)
     return "" if varname==nil or varname == ""
     if uncapitalize
@@ -61,13 +64,24 @@ class ModuleDef < Scope
         @methods = {}
         @modules = {}
         @classes = {}
+        @functions = {} # record mapping from c name to ruby name
     end
     def add_src(src)
         @src = "" if !@src
         @src += src
     end
+    
+
     def add_method(method_name, arg_number, src, acc="public")
-        method_sig = "#{method_name}\#\##{arg_number}"
+        method_sig = method_signature(method_name, arg_number)
+        
+        # if overriden, modify name
+        if @functions[method_name] && @functions[method_name].keys.size > 1
+            newname = @function[method_name].keys.size +1
+            newname = "#{method_name}_v#{arg_number}"
+            @functions[method_name][newname] = method_sig
+            method_name = newname
+        end
         if @methods[method_sig]
             @methods[method_sig][:name] = method_name
             if src && src.strip != ""
@@ -96,9 +110,12 @@ class ModuleDef < Scope
         if module_name.class == String
             moduleDef = ModuleDef.new(module_name)
             @modules[module_name] = moduleDef
+            moduleDef.parentScope = self
         else
             moduleDef = module_name
             @modules[moduleDef.class_name] = moduleDef
+            moduleDef.parentScope = self
+            
             
         end
         return moduleDef
@@ -108,15 +125,19 @@ class ModuleDef < Scope
         if class_name.class == String
             clsdef = ClassDef.new(class_name)
             @classes[class_name] = clsdef
+            clsdef.parentScope = self
+            
         else
             clsdef = class_name
             @classes[clsdef.class_name] = clsdef
+            clsdef.parentScope = self
+            
         end
         return clsdef
     end
 end
 class ClassDef < ModuleDef
-    attr_accessor :class_name, :parent, :methods, :src
+    attr_accessor :class_name, :parent, :methods, :src, :parentScope
     def initialize(class_name)
         super("class")
         @class_name = class_name
@@ -282,7 +303,7 @@ class CRParser
     end
     
     def Expect(n)
-        p "expect #{SYMS[n]}, sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@scanner.nextSym.sym]}"
+        p "expect #{n}(#{SYMS[n]}), sym = #{@sym}(#{SYMS[@sym]})('#{@scanner.GetSymValue(@scanner.nextSym)}'), line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@scanner.nextSym.sym]}"
         if @sym == n 
             Get()
         else 

@@ -472,7 +472,8 @@ class CScanner <  CRScanner
           		return C_throwSym if (EqualStr("throw")) 
                 
           	when 'u'
-          		return C_useSym if (EqualStr("use")) 
+          		return C_usingSym if (EqualStr("using")) 
+          		#return C_useSym if (EqualStr("use")) 
           		return C_unsignedSym if (EqualStr("unsigned")) 
           		#break
           	when 'v'
