@@ -161,7 +161,7 @@ end
 #    dump_one_as_ruby(v, module_name)
 #end
 def dump_classes_as_ruby(classdefs, module_name=nil)
-    p "dump222 #{classdefs.inspect}"
+ #   p "dump222 #{classdefs.inspect}"
         classdefs.each{|k,v|
             p "class #{k}"
             p "       type: #{v.name} #{v.class}"
@@ -1155,6 +1155,7 @@ class Parser < CRParser
     	    
     	   # @classdefs[_class_name] = clsdef
            current_ruby_scope.add_class(clsdef)
+           return clsdef
     end
     # line 218 "cs.atg"
     def Definition()
@@ -1173,6 +1174,7 @@ class Parser < CRParser
     	    ret += Enum()
     	elsif (@sym == C_StructSym)
     	    StructDef()
+            
         elsif @sym == C_usingSym
            Get()
            Expect(C_namespaceSym)
@@ -1661,11 +1663,47 @@ class Parser < CRParser
         type = ""
         if @sym == C_TypedefSym
     	    p "--->typedef"
-    	    while @sym != C_SemicolonSym
-    	        Get()
-    	        p "cs in td:#{@sym},#{curString}"
-	        end
-	        return ""
+            Get()
+            if @sym == C_StructSym
+                clsdef = StructDef()
+                p "---1>10, #{@sym}"
+                
+                
+                tn = nil
+    	        while @sym != C_SemicolonSym
+                    p "---1>13, #{@sym}"
+                    
+                    if @sym == C_CommaSym
+                        Get()
+                        next
+                    end
+                    p "---1>12, #{@sym}"
+                    
+                    if @sym == C_identifierSym
+                        p "---1>11, #{@sym}"
+                        ret += "#{curString()} = #{clsdef.class_name}\n"
+                        Get()
+                    else
+                        if @sym == C_StarSym
+                            while @sym == C_StarSym
+                                Get()
+                            end
+                            Expect(C_identifierSym)
+                        end
+                    end
+                        
+                end
+            
+
+                return ret
+            else
+    	        while @sym != C_SemicolonSym
+    	               Get()
+    	            p "cs in td:#{@sym},#{curString}"
+	            end
+                return ""
+            end
+	        
         end
 =begin        
         if @prev_sym == C_identifierSym
