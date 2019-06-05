@@ -395,9 +395,9 @@ class CScanner <  CRScanner
           # if (IgnoreCase) c = Upcase(c)
           case (c) 
           	when 'b'
-          		if (EqualStr("break")) 
-          		    return C_breakSym
-      		    end
+          		
+                return C_breakSym if (EqualStr("break")) 
+                return C_boolSym if (EqualStr("bool")) 
           		#break
           	when 'c'
           		if (EqualStr("class"))
@@ -427,6 +427,7 @@ class CScanner <  CRScanner
           	when 'f'
           		return C_functionSym if (EqualStr("function"))  
           		return C_floatSym if (EqualStr("float"))  
+          		return C_finalSym if (EqualStr("final"))  
           		return C_forSym if (EqualStr("for")) 
           		#break
           	when 'i'
@@ -450,6 +451,8 @@ class CScanner <  CRScanner
                 
           		return C_newSym if (EqualStr("new")) 
           		#break
+            when 'o'
+                return C_operatorSym if EqualStr("operator")
             when 'O'
                 return C_OUTSym if EqualStr("OUT")
           	when 'p'

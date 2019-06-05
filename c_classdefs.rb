@@ -37,7 +37,10 @@ $ar_classdefs = [
     "CORE_BYTE",
     "DAG_RecordStatusList",
     "wchar_t",
-    "DBM_ChangedColumn"
+    "DBM_ChangedColumn",
+    "CReconUpgMgr",
+    "CSystemMatchManager",
+    "CCompanyInfo"
     ]
 
 $unusableType =[

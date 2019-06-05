@@ -26,10 +26,11 @@ class Variable
     end
 end
 class VarType
-    attr_accessor :name, :ref
+    attr_accessor :name, :ref, :is_simpleType
     def initialize(name)
         @name = name
         @ref = 0
+        @is_simpleType = false
     end
 end
 class Scope
@@ -231,9 +232,9 @@ class CRParser
                 p "scope:#{scope.inspect}"
                 throw Exception.new("===>error<====")
             end
-            scope.vars.each{|k,v|
-                p "===>var:#{k}"
-            }
+            #scope.vars.each{|k,v|
+            #    p "===>var:#{k}"
+            #}
             ret = scope.get_var(name)
             return ret if ret
             scope = scope.parentScope

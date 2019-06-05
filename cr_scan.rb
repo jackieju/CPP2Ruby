@@ -115,7 +115,7 @@ class CRScanner < AbsScanner
     end
     
     def initialize(s, ing)
-        p "init CRScanner", 10
+#        p "init CRScanner", 10
         
         super()
         @buffer = s

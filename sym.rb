@@ -108,7 +108,7 @@ C_constSym = 18   # "const" */
 C_mySym = 19	# "my" */
 C_functionSym = 20	# "function" */
 C_varSym = 21	# "var" */
-C_mixedSym = 22	# "mixed" */
+C_boolSym = 22	# "bool" */
 C_shortSym = 23	# "short" */
 C_intSym = 24	# "int" */
 C_longSym = 25	# "long" */
@@ -186,10 +186,12 @@ C_inlineSym =                   96  # "inline"
 C_PPPSym =                   97  # "..."
 C_namespaceSym =                   98  # "..."
 C_usingSym =                   99 # "using"
+C_finalSym =                   100 # "final"
+C_operatorSym =                   101 # "final"
 
 #*** insert new sym here ***#
-C_No_Sym =                      100	# not */
-C_PreProcessorSym =             101	# PreProcessor */
+C_No_Sym =                      102	# not */
+C_PreProcessorSym =             103	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
@@ -230,7 +232,7 @@ SYMS=[
 "my"                         ,
 "function"               ,
 "var"                        ,
-"mixed"                      ,
+"bool"                      ,
 "short"                      ,
 "int"                        ,
 "long"                       ,
@@ -308,6 +310,8 @@ SYMS=[
 "...",
 "namespace",
 "using",
+"final",
+"operator",
 "not"                          ,
 "PreProcessor"         ,
     ]
