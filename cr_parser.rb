@@ -289,7 +289,40 @@ class CRParser
     end
     # Records semantic error ErrorNo
 
-
+    def dump_pos(pos=@scanner.buffPos)
+        p("start dump pos", 5)
+        lino = get_lineno_by_pos(pos)+1
+        
+        p "---- dump position ----"
+        i = 3
+        ls =  prevline(pos, i)
+        ls.each{|l|
+            p "#{"%05d" % (lino-i)}#{l}"
+            i-=1
+        }
+       
+        pos1 = pos
+        while (pos1 > 0 && @scanner.buffer[pos1-1] != "\n" )
+            pos1 -= 1
+        end
+        pos2 = pos 
+        while (pos2 < @scanner.buffer.size-1 && @scanner.buffer[pos2+1] != "\n" )
+            pos2 += 1
+        end        
+        p "#{"%05d" % (lino)}......#{@scanner.buffer[pos1..pos2].gsub("\t",' ')}......"
+        s1 = ""
+        for a in 0..pos-pos1-1
+            s1 += "~"
+        end
+        s2 = ""
+        for a in 0..pos2-pos-1
+            s2 += "~"
+        end
+        p "     ......#{s1}^#{s2}......"
+        
+        p "---- end of dump position ----"
+        
+    end    
 	
 
   protected
@@ -357,40 +390,7 @@ class CRParser
         buf = @scanner.buffer[0..pos]
         return buf.count("\n")
     end
-    def dump_pos(pos=@scanner.buffPos)
-        p("start dump pos", 5)
-        lino = get_lineno_by_pos(pos)+1
-        
-        p "---- dump position ----"
-        i = 3
-        ls =  prevline(pos, i)
-        ls.each{|l|
-            p "#{"%05d" % (lino-i)}#{l}"
-            i-=1
-        }
-       
-        pos1 = pos
-        while (pos1 > 0 && @scanner.buffer[pos1-1] != "\n" )
-            pos1 -= 1
-        end
-        pos2 = pos 
-        while (pos2 < @scanner.buffer.size-1 && @scanner.buffer[pos2+1] != "\n" )
-            pos2 += 1
-        end        
-        p "#{"%05d" % (lino)}......#{@scanner.buffer[pos1..pos2].gsub("\t",' ')}......"
-        s1 = ""
-        for a in 0..pos-pos1-1
-            s1 += "~"
-        end
-        s2 = ""
-        for a in 0..pos2-pos-1
-            s2 += "~"
-        end
-        p "     ......#{s1}^#{s2}......"
-        
-        p "---- end of dump position ----"
-        
-    end    
+
     
     def GenError(errorNo)
         p "generror #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym} val #{@scanner.GetName()}"
