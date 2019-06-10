@@ -1009,7 +1009,7 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
-               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym || @sym==C_EnumSym || @sym==C_namespaceSym) 
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym || @sym==C_EnumSym || @sym==C_namespaceSym || @sym == C_StructSym) 
     # line 322 "cs.atg"
                 cs = curString()
                 p "cs:#{cs}"
@@ -2294,7 +2294,7 @@ class Parser < CRParser
         end
         # add_class_method_def(class_name, fn_name, args)
         p "add method '#{fn_name}' to class '#{class_name}':#{ret}", 10
-        p "classdef #{classdef.inspect}"
+        #p "classdef #{classdef.inspect}"
         if classdef
             classdef.add_method(fn_name, args_num, method_src, acc)
         else
@@ -4139,7 +4139,7 @@ HERE
                 p("-->primary2:sizeof")
                  Get()
                  Expect(C_LparenSym)
-                 if (@sym >=C_shortSym && @sym <= C_voidSym)
+                 if (@sym >=C_boolSym && @sym <= C_voidSym)
                      t = Type().name
                  else
                      t = Expression()
@@ -4227,7 +4227,7 @@ HERE
     
                 if (@sym == C_identifierSym && isTypeStart()) || 
                     @sym == C_constSym || 
-                    @sym >= C_shortSym && @sym <= C_voidSym
+                    @sym >= C_boolSym && @sym <= C_voidSym
                     # type cast (A*)
                     if @sym == C_constSym
                         Get()

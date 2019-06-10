@@ -1,9 +1,9 @@
 def OJDTWriteErrorMessage(bizObject)
    trace("OJDTWriteErrorMessage")
-   dagJDT1 = PDAG.new=nil
-   fldInfo = DBM_CA.new
-   sum = MONEY.new
-   buffer = TCHAR.new
+   dagJDT1 = ::PDAG.new=nil
+   fldInfo = ::DBM_CA.new
+   sum = ::MONEY.new
+   buffer = ::TCHAR.new
    tmpStr = []
    =""
    path = []
@@ -67,16 +67,6 @@ def OJDTWriteErrorMessage(bizObject)
 end
 
 
-
-debAmount1 = MONEY.new
-debAmount = MONEY.new
-credAmount = MONEY.new
-transTotal = MONEY.new
-transTotalChk = MONEY.new
-acctKey1 = []
-
-acctKey = []
-tempStr = []
 ResTax1AbsEntry = 0
 ResTax1TaxCode = 1
 ResTax1EqPercent = 2
