@@ -188,10 +188,11 @@ C_namespaceSym =                   98  # "..."
 C_usingSym =                   99 # "using"
 C_finalSym =                   100 # "final"
 C_operatorSym =                   101 # "final"
+C_overrideSym =                   102 # "override"
 
 #*** insert new sym here ***#
-C_No_Sym =                      102	# not */
-C_PreProcessorSym =             103	# PreProcessor */
+C_No_Sym =                      103	# not */
+C_PreProcessorSym =             104	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
@@ -312,6 +313,7 @@ SYMS=[
 "using",
 "final",
 "operator",
+"override",
 "not"                          ,
 "PreProcessor"         ,
     ]

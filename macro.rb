@@ -1572,7 +1572,7 @@ class Preprocessor < Parser
                         # p "after replace:#{@scanner.buffer}"
                         next
                     end
-                elsif @sym == C_inlineSym
+                elsif @sym == C_inlineSym #ignore inline statement
                     p_start = @scanner.nextSym.pos
                     p_end = p_start + @scanner.nextSym.len
                     Get()
@@ -3065,11 +3065,17 @@ HERE
 
 s19=<<HERE
 inline ArrayOffset  SubObjectToArrayOffSet(IN long subObject);
-
 HERE
+
+s20=<<HERE
+#	define UTB_API 11
+
+int a = UTB_API;
+HERE
+
 if !testall
    
-    s = s19
+    s = s20
 else
 
     r = ""

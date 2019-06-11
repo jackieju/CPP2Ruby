@@ -5,7 +5,7 @@ load "log.rb"
 class String
     def to_byte
         # self.bytes[0] # not work for ruby 1.8.7
-        self[0].ord
+        self[0].ord # to Decimal
     end
 end
 COCO_WCHAR_MAX =65535
@@ -452,6 +452,7 @@ class CScanner <  CRScanner
           		return C_newSym if (EqualStr("new")) 
           		#break
             when 'o'
+                return C_overrideSym if EqualStr("override")
                 return C_operatorSym if EqualStr("operator")
             when 'O'
                 return C_OUTSym if EqualStr("OUT")
@@ -1095,11 +1096,31 @@ public
            #   p "--->111ch:#{@ch[0].ord}=#{ch[0]}, #{state}=#{state}", 10
             while(1) 
                 # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
+              
               Scan_NextCh()
               # p "ch:#{@ch}, #{@buffer[nextSym.pos+nextSym.len]}, stat #{state}"
               nextSym.len+=1
           #    p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
-              
+
+                if state == 33 &&  (@ch == ' ' || @ch.to_byte == 9) # is '#', support "#   define"
+                    p "bufpos:#{buffPos}"
+                    del_start = @buffPos
+                    while (@ch == ' ' || @ch.to_byte == 9)
+                        Scan_NextCh()
+                        nextSym.len+=1
+                    end
+                    del_end = @buffPos -1
+                    str1 = @buffer[0..del_start - 1]
+                    str2 = @buffer[del_end + 1..@buffer.size-1]
+                    p ("#{del_start}, #{del_end}, #{@buffPos}, #{str1}, #{str2}")
+                    
+                    @buffer = str1 + str2
+                    delnum = del_end- del_start+1
+                    @buffPos -= delnum
+                    @currCol -= delnum
+                    nextSym.len -= delnum
+                    p "after delete333:#{@buffer}"
+                end
               case (state) 
            
               when 1

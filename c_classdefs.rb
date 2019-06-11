@@ -40,7 +40,14 @@ $ar_classdefs = [
     "DBM_ChangedColumn",
     "CReconUpgMgr",
     "CSystemMatchManager",
-    "CCompanyInfo"
+    "CCompanyInfo",
+    "CItemMasterData",
+    "MONEY_RoundRule",
+    "IRoundingData",
+    "PDBD_Cond",
+    "PDBD_Upd",
+    "BGSDataPtr",
+    "TotalsPair"
     ]
 
 $unusableType =[

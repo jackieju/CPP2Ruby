@@ -985,41 +985,38 @@ namespace nsDocument
 {
 class CDOC1CardCodeUpgrader : public CBaseUpgrader
 {
-public:
-	CDOC1CardCodeUpgrader(CDocumentObject& bizObj):CBaseUpgrader(bizObj){}
-	virtual ~CDOC1CardCodeUpgrader() {}
-
-protected:
-	virtual void BuildQuery();
-	virtual SBOErr UpgradeChunk();
-
-	DBD_Tables		tables[2];
-	DBD_ResStruct	resStruct[3];
-	DBD_CondStruct	condStruct[2], join[1];
-};
-//bool      IsInFlow () {return (bool)(m_FlowingObjects.size () > 0);}
-void CalculateDpRequestRates (CBizEnv &env, MONEY &docRate, MONEY &sysRate, 
-                              CAllCurrencySums &dpmAmount, const SBOString &dpiCurrency, 
-	                       long paymentCount,const MONEY &rctDocRate, const MONEY &rctSysRate,
-					       const SBOString & rctCurrency);
-
-
-struct MktDocKey
-{
-	long docType;
-	SBOString absEntry;
-
-	MktDocKey (long lDocType, long lAbsEntry) 
-		: docType (lDocType), absEntry (lAbsEntry)
-	{}
-
-	bool operator < (const MktDocKey& other) const
-	{
-		return docType < other.docType || docType == other.docType && absEntry < other.absEntry;
-    }
-}; 
+    struct MktDocKey
+    {
+        }; 
 }
 HERE
+
+s79=<<HERE
+class CPeriodCache{
+CPeriodCache (class CPeriodCache& other);
+}
+CPeriodCache::CPeriodCache (class CPeriodCache& other){
+}
+}
+HERE
+
+s80=<<HERE
+ static SBOErr AutoCompleteITM(CItemMasterData * pThis, int loadFromDb = true);
+ oActCodeTmp1->operator= (*oActCodeTmp2);  // Call operator= directly
+HERE
+
+s81=<<HERE
+class A{
+MONEY_RoundRule GetRoundRule (const IRoundingData* roundingData) override;
+}
+HERE
+
+
+s82=<<HERE
+ SBOErr CompleteTotals(const TotalsPair (&totalFields)[fieldsCount], PDAG pBudgetDag);
+HERE
+
+
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -1031,13 +1028,13 @@ HERE
 
 if !testall
    
-    s = s78
+    s = s82
 else
 
     r = ""
     for i in 0..100
         begin
-            si = eval("s#{i}")
+            si = eval("#test case #{i}\ns#{i}")
         rescue
             break
         end
