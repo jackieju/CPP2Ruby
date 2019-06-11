@@ -87,7 +87,7 @@ if $ar_classdefs
 end
 
 def dump_one_as_ruby(v, module_name=nil)
-    pp "dump ruby for #{v.class_name}, #{module_name}"
+    pp "dump ruby for #{v.class_name}@#{v}, #{module_name}", 20
    # pp "dump #{v.inspect}", 10
             s_methods =""
             v.methods.each{|k,v|
@@ -176,6 +176,7 @@ def dump_classes_as_ruby(classdefs, module_name=nil)
             p "       type: #{v.name} #{v.class}"
             p "       class name: #{v.class_name}"
             p "       parent: #{v.parent}"
+            p "       parentScope: #{v.parentScope.class_name}@#{v.parentScope}" if v.parentScope
             p "       modules: #{v.modules.keys}"
             p "       classes: #{v.classes.size}"
             p "       methods: #{v.methods.size}"
@@ -1954,7 +1955,7 @@ class Parser < CRParser
     	    #          }
     	    if @classdefs[varname] == nil #&& varname != "std"
                 # raise "class #{varname} not found"
-                add_class(varname)
+              #  current_ruby_scope.add_class(varname)
 	        end
 	        class_name = varname
     	    Get()
@@ -2264,6 +2265,7 @@ class Parser < CRParser
         in_scope("FunctionDefinition")
     # line 509 "cs.atg"
     	ret += FunctionHeader()
+        
     	if ret.gsub(/\s/,"") == "()"
     	    args_num = 0
 	    else
@@ -2474,7 +2476,7 @@ class Parser < CRParser
         
     # line 444 "cs.atg"
    
-        parameter_to_var(var_type)
+        ret += parameter_to_var(var_type)
         # Expect(C_identifierSym)
     	
     # line 445 "cs.atg"

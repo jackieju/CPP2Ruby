@@ -1022,18 +1022,25 @@ extern void a();
 HERE
 
 s84=<<HERE
-CToolTipPreviewObjectDataConfig::operator=(other);
-class A{
-    public:
-    void c(int a){
-       
-    };
-}
-bool AA::operator=(AA other);
-AA::operator=(1);
-AA::a(1);
-void AA::operator=(int a){a = 1;};
-hasher.digestBuffer((unsigned char*)temp.get(), length, true);
+//CToolTipPreviewObjectDataConfig::operator=(other);
+//class A{
+//    public:
+//    void c(int a){
+//       
+//    };
+//}
+//
+//AA::operator=(1);
+//AA::a(1);
+//void AA::operator=(int a){a = 1;};
+//hasher.digestBuffer((unsigned char*)temp.get(), length, true);
+//class AA{
+//}
+//bool AA::operator=(AA other){u=1;};
+//class AA{};
+//a(AA& bb){bb=1;};
+
+A fn(int bb, int c){};
 HERE
 
 s_notsupport=<<HERE # lumda
