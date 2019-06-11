@@ -855,8 +855,9 @@ class Parser < CRParser
     # line 137 "cs.atg"
         
         out_scope()
-        
+       
         @root_class.add_src(ret)
+        
     	return ret
     end
     
@@ -4298,7 +4299,6 @@ HERE
     			
     		when C_stringD1Sym  
     		    ret += curString()
-            	
     # line 2512 "cs.atg"
     			Get();
     # line 2513 "cs.atg"

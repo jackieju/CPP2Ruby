@@ -1041,12 +1041,14 @@ s84=<<HERE
 //a(AA& bb){bb=1;};
 
 //A fn(int bb, int c){};
-try{
-    a = 1;
-}
-catch(...){
-    a = 2;
-}
+//try{
+//    a = 1;
+//}
+//catch(...){
+//    a = 2;
+//}
+//if (thouseSepStr[0] == L'\x07');
+L"\x07";
 HERE
 
 s_notsupport=<<HERE # lumda

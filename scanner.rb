@@ -1253,10 +1253,10 @@ public
               	return C_hexnumberSym
               when 24
                 # p "->111:#{@ch}"
-              	if (@ch == '"')  # if meet second ", then it's string
+              	if (@ch == '"' )  # if meet second ", then it's string
               	    state = 25
                     # p "->1111:#{@ch}"
-          	    elsif @ch == "\\"
+          	    elsif @ch == "\\" # using \ for multi lines string
                     Scan_NextCh()
                     if @ch == "\n"
                         nextSym.len+=1
@@ -1344,7 +1344,7 @@ public
                 else
                     return C_PreProcessorSym
                 end
-              when 35
+              when 35 # number with post: 100L, 100u
               	if (@ch == 'U') 
                     # state = 5
                     Scan_NextCh()
@@ -1567,20 +1567,44 @@ public
               	return C_TildeSym
               when 83
                   return C_QuestionMarkSym 
-              when 84 #parse L"fdasf"
-                  if (@ch == '"') 
+              when 84 # parse L"fdasf", which means store every char in 16bit wchar_t, it's only for windows. so we just use normal string
+                  if (@ch == '"' || @ch == "'" ) 
                       nextSym.pos+=1
                       nextSym.len-=1
-                	    state = 24
-            	    else
+                      
+                	  state = 24 if @ch == '"'
+                      state = 87 if @ch == "'"
+            	  else
             	        state = 1
-        	        end
+        	      end
               when 85
                  if @ch == '.'
                      state = 86
                  end
              when 86
                     return C_PPPSym
+                when 87
+                    # p "->111:#{@ch}"
+                  	if ( @ch == "'")  # if meet second ', then it's string,
+                  	    state = 25
+                        # p "->1111:#{@ch}"
+              	    elsif @ch == "\\" # using \ for multi lines string
+                        Scan_NextCh()
+                        if @ch == "\n"
+                            nextSym.len+=1
+                        else
+                            nextSym.len+=1
+                        end
+                        # p "->112:#{@ch}"
+                  	elsif (@ch >= ' ' && @ch <= '!' ||
+                  	    @ch >= '#' && @ch.to_byte <= 255) 
+                        # p "->113:#{@ch}"
+          	        
+                  	   # same state
+                  	else
+                        # temperary solution for Chinese string
+                  	    #return C_No_Sym
+                  	end
               else
                    return C_No_Sym
              end #case
