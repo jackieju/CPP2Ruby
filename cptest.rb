@@ -1040,7 +1040,13 @@ s84=<<HERE
 //class AA{};
 //a(AA& bb){bb=1;};
 
-A fn(int bb, int c){};
+//A fn(int bb, int c){};
+try{
+    a = 1;
+}
+catch(...){
+    a = 2;
+}
 HERE
 
 s_notsupport=<<HERE # lumda

@@ -2054,7 +2054,7 @@ class Parser < CRParser
             p "--->111:#{@sym}, #{_n}"
             
             gnsstr = getSymValue(gns)
-            if gnsstr[0] == gnsstr[0].upcase  && !find_var(gnsstr, current_scope)
+            if gnsstr[0] == gnsstr[0].upcase  && !find_var(gnsstr, current_scope) && find_class(gnsstr)[:v] == nil
                 current_ruby_scope.add_class(ClassDef.new(getSymValue(gns)))
                 append_file("newclass", "\"#{getSymValue(gns)}\",")
             end
@@ -2773,34 +2773,50 @@ class Parser < CRParser
             #             while (@sym == C_StarSym || @sym == C_AndSym)
             #                 Get()
             #             end
-            exptype = FullType()
+            pdebug("===>TryStatement31, #{@sym}")
             
-            #Expect(C_identifierSym)
-            #expvar = prevString()
-            #Expect(C_RparenSym)
+            if (@sym == C_PPPSym)
+                Get()
+                Expect(C_RparenSym)
+                catch_stmt = CompoundStatement()
+                stmt =<<HERE
+                begin
+                    #{try_stmt}
+                rescue 
+                    #{catch_stmt}
+                end
+HERE
+            else
+
+            exptype = FullType()
+                #Expect(C_identifierSym)
+                #expvar = prevString()
+                #Expect(C_RparenSym)
             
           
-            pdebug("===>TryStatement4, #{@sym}")
+                pdebug("===>TryStatement4, #{@sym}")
             
-            if @sym == C_identifierSym
-                Get()                
-                expvar = prevString()
-                p("expvar=#{expvar}")
-                Expect(C_RparenSym)
-            else
-               Expect(C_RparenSym)# @sym should already be C_RparenSym
-            end
+                if @sym == C_identifierSym
+                    Get()                
+                    expvar = prevString()
+                    p("expvar=#{expvar}")
+                    Expect(C_RparenSym)
+                else
+                   Expect(C_RparenSym)# @sym should already be C_RparenSym
+                end
             
             
-            catch_stmt = CompoundStatement()
-        end
-        stmt =<<HERE
-        begin
-            #{try_stmt}
-        rescue #{exptype.name}=>#{expvar}
-            #{catch_stmt}
-        end
+                catch_stmt = CompoundStatement()
+            
+                stmt =<<HERE
+                begin
+                    #{try_stmt}
+                rescue #{exptype.name}=>#{expvar}
+                    #{catch_stmt}
+                end
 HERE
+            end
+        end
         pdebug("===>TryStatement1:#{stmt}")
         return stmt
     end
