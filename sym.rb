@@ -106,7 +106,7 @@ C_RbraceSym = 16	# "}" */
 C_staticSym = 17	# "static" */
 C_constSym = 18   # "const" */
 C_mySym = 19	# "my" */
-C_functionSym = 20	# "function" */
+C_externSym = 20	# "extern" */
 C_varSym = 21	# "var" */
 C_boolSym = 22	# "bool" */
 C_shortSym = 23	# "short" */
@@ -190,6 +190,8 @@ C_finalSym =                   100 # "final"
 C_operatorSym =                   101 # "final"
 C_overrideSym =                   102 # "override"
 
+
+
 #*** insert new sym here ***#
 C_No_Sym =                      103	# not */
 C_PreProcessorSym =             104	# PreProcessor */
@@ -231,7 +233,7 @@ SYMS=[
 "static"                 ,
 "const"                     ,
 "my"                         ,
-"function"               ,
+"extern"               ,
 "var"                        ,
 "bool"                      ,
 "short"                      ,

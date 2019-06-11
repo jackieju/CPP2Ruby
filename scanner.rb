@@ -422,10 +422,11 @@ class CScanner <  CRScanner
           	when 'e'
           		return C_elseSym if (EqualStr("else")) 
           		return C_EnumSym if (EqualStr("enum")) 
+          		return C_externSym if (EqualStr("extern")) 
           		
           		#break
           	when 'f'
-          		return C_functionSym if (EqualStr("function"))  
+#          		return C_functionSym if (EqualStr("function"))  
           		return C_floatSym if (EqualStr("float"))  
           		return C_finalSym if (EqualStr("final"))  
           		return C_forSym if (EqualStr("for")) 

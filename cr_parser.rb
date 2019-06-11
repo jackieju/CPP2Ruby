@@ -57,7 +57,7 @@ class Scope
 
 end
 class ModuleDef < Scope
-    attr_accessor :class_name, :parent, :modules, :classes, :methods, :src
+    attr_accessor :class_name, :parent, :modules, :classes, :methods, :src, :functions
   
     def initialize(class_name)
         super("module")
@@ -65,7 +65,7 @@ class ModuleDef < Scope
         @methods = {}
         @modules = {}
         @classes = {}
-        @functions = {} # record mapping from c name to ruby name
+        @functions = {} # record mapping from c name to ruby name, because c can overide function with same name, we will map them to "#{cmethod_name}_v#{arg_number}"
     end
     def add_src(src)
         @src = "" if !@src
@@ -138,7 +138,7 @@ class ModuleDef < Scope
     end
 end
 class ClassDef < ModuleDef
-    attr_accessor :class_name, :parent, :methods, :src, :parentScope
+    attr_accessor :class_name, :parent, :methods, :src, :parentScope, :functions
     def initialize(class_name)
         super("class")
         @class_name = class_name

@@ -1016,6 +1016,25 @@ s82=<<HERE
  SBOErr CompleteTotals(const TotalsPair (&totalFields)[fieldsCount], PDAG pBudgetDag);
 HERE
 
+s83=<<HERE
+extern void ALRSetColParams (ALRColParamsPtr colParams, PDAG dagALR, long recOffset);
+extern void a();
+HERE
+
+s84=<<HERE
+CToolTipPreviewObjectDataConfig::operator=(other);
+class A{
+    public:
+    void c(int a){
+       
+    };
+}
+bool AA::operator=(AA other);
+AA::operator=(1);
+AA::a(1);
+void AA::operator=(int a){a = 1;};
+hasher.digestBuffer((unsigned char*)temp.get(), length, true);
+HERE
 
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
@@ -1028,7 +1047,7 @@ HERE
 
 if !testall
    
-    s = s82
+    s = s84
 else
 
     r = ""

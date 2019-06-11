@@ -47,7 +47,8 @@ $ar_classdefs = [
     "PDBD_Cond",
     "PDBD_Upd",
     "BGSDataPtr",
-    "TotalsPair"
+    "TotalsPair",
+    "CINVLineAgreementInfoMap"
     ]
 
 $unusableType =[

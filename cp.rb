@@ -1339,6 +1339,8 @@ class Parser < CRParser
                         Expect(C_ColonColonSym)
                         Expect(C_identifierSym)
                         FunctionDefinition(class_name, "initialize")
+                    elsif _nn.sym == C_operatorSym
+                        rStatement += Statement()
 	                else
 	                    count = 3
 	                    _nnn = GetNext(count)
@@ -1840,7 +1842,7 @@ class Parser < CRParser
                 (   @sym >= C_varSym && @sym <= C_voidSym ||
                     _next == C_identifierSym || #_next == C_operatorSym ||
                     _next >= C_varSym && _next <= C_voidSym || # data type
-                    _next >= C_staticSym && _next <= C_functionSym ||
+                    _next >= C_staticSym && _next <= C_externSym ||
                     _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym ||
                     _next == C_LessSym # template 
                 )
@@ -1855,7 +1857,7 @@ class Parser < CRParser
                  break
               end
              p "-->sym:#{@sym}, next:#{_next}, line #{@scanner.nextSym.line }, v=#{curString()}"
-        	if (@sym >= C_staticSym && @sym <= C_functionSym) 
+        	if (@sym >= C_staticSym && @sym <= C_externSym) 
                 p "---->LocalDeclaration11"
         		storageclass += StorageClass()
         	elsif (@sym >= C_varSym && @sym <= C_voidSym)
@@ -1876,7 +1878,7 @@ class Parser < CRParser
            #     Get()
             end
             if type != ""
-                p "---->LocalDeclaration15:#{_var_type.inspect}"
+                p "---->LocalDeclaration15:#{type}, #{_var_type.inspect}"
                 
                 var_type = _var_type # will be used in check if need add namespace prefix
             end
@@ -1943,7 +1945,7 @@ class Parser < CRParser
     	if @sym == C_LparenSym
     	    # for constructor with initialization list in classdef or sturctdef
 	    else
-            Expect(C_identifierSym)
+                Expect(C_identifierSym)
     	end
     	p "===>33:#{varname}, #{@sym}"
     	if @sym == C_ColonColonSym
@@ -2050,6 +2052,11 @@ class Parser < CRParser
             # ====    
             p "--->111:#{@sym}, #{_n}"
             
+            gnsstr = getSymValue(gns)
+            if gnsstr[0] == gnsstr[0].upcase  && !find_var(gnsstr, current_scope)
+                current_ruby_scope.add_class(ClassDef.new(getSymValue(gns)))
+                append_file("newclass", "\"#{getSymValue(gns)}\",")
+            end
             if (isOperatorDef ||  _n == C_RparenSym || _n == C_PPPSym ||
                  isTypeStart(gns)# || isFunctionFormalParamStart(offset)
                  )# && !find_var(getSymValue(gns), current_scope) # is not var
@@ -2491,7 +2498,7 @@ class Parser < CRParser
     def StorageClass()
         ret = ""
     # line 396 "cs.atg"
-    	if (@sym >= C_staticSym && @sym <= C_constSym || @sym == C_INSym || @sym == C_OUTSym) 
+    	if (@sym >= C_staticSym && @sym <= C_externSym || @sym == C_INSym || @sym == C_OUTSym) 
     	    ret += curString()
     # line 395 "cs.atg"
     		Get();
@@ -2566,7 +2573,7 @@ class Parser < CRParser
             StorageClass() # will be ignore
         end
         
-     
+        # skill "export", "__dll_..."
         skipUnusableType()
         
     # line 423 "cs.atg"
@@ -2626,24 +2633,11 @@ class Parser < CRParser
     			ret += curString()
     		    Get();
     # line 428 "cs.atg"
-    			if (@sym >= C_intSym && @sym <= C_intSym ||
-    			    @sym == C_intSym) 
+    			while (@sym >= C_shortSym && @sym <= C_doubleSym ) 
     # line 428 "cs.atg"
-    				if (@sym == C_intSym) 
-    # line 428 "cs.atg"
-    					ret += curString()
-            		    Get()
-    				elsif (Sym == C_intSym) 
-    # line 428 "cs.atg"
-    					ret += curString()
-            		    Get()
-    				elsif (@sym == C_intSym) 
-    # line 428 "cs.atg"
-    					ret += curString()
-            		    Get()
-    				else 
-    				    GenError(94)
-				    end
+    				ret += curString()
+            	    Get()
+    		
     			end
     			#break;
             when C_boolSym
@@ -2715,7 +2709,7 @@ class Parser < CRParser
 		        end
                 
                 r = find_class(ret)
-                ret = r[:prefix] + "::" + ret
+                ret = r[:prefix] + "::" + ret if r[:prefix]  != ""
                 is_simpleType = false
 	            p "sym3:#{@sym}, val #{curString()}"
 	            p "ret3:#{ret}"
@@ -3843,14 +3837,21 @@ HERE
                     # in c/c++, class member variable and member method cannot have same name, so we don't need to 
                     # check @ here
                     # ret += FunctionCall(&fn)
+                    p ("-->237:#{ret}")
                     
+                    # in ruby A::B::c() should be A::B.c(), no matter c is static method or not
                     index_collon = ret.rindex("::")
                     index_dot = ret.rindex(".")
-                    if index_collon and !index_dot
+                    if index_collon && index_collon > 0 && !index_dot
+                        p ("-->236:#{ret}, #{index_collon}, #{index_dot}, #{ret[0..index_collon-1]}")
+                        
                         ret = ret[0..index_collon-1]+"."+ret[index_collon+2..ret.size-1]
                     end
+                   
+                    
                     s,n = FunctionCall()
                     ret += s
+                    p ("-->235:#{s}")
     # line 1734 "cs.atg"
     				
     			when C_PointSym  
@@ -3965,7 +3966,7 @@ HERE
     			    GenError(109)
     		end # case
     	end # while
-    	pdebug "==>PostFixExp1:#{ret}"
+    	pdebug "<===PostFixExp0:#{ret}"
     	return ret
     end
     # line 1538 "cs.atg"
@@ -4107,19 +4108,47 @@ HERE
                 	Get()
         # line 2334 "cs.atg"
                     if @sym == C_ColonColonSym
-                        ret += translate_varname(varname)
+                        r = find_class(varname)
+                        if !r[:v]
+                           # dump_pos(@scanner.nextSym.pos)
+                            p "cannot find class #{varname}"
+                        else
+                            cls = r[:v]
+                        end
+                        
+                        if r[:prefix] != ""
+                            varname = "#{r[:prefix]}::#{varname}"
+                        end
+                       # ret += translate_varname(varname)
+                       ret += varname
+                       
                        #ar = []
                        #ar.push(varname)
                        
                         while (@sym == C_ColonColonSym)
-                            p "====>233:#{curString()}"
+                            
                             # line 2353 "cs.atg"
                             	Get();
                             # line 2353 "cs.atg"
-                    
-                            ret += "::#{translate_varname(curString())}"
+                    p "====>233:#{curString()}, #{ret}"
+                            #ret += "::#{translate_varname(curString())}"
+                            if @sym == C_operatorSym
+                                Get()
+                                ret += "#{curString}"
+                                p "====>234:#{curString()}, #{ret}"
+                                
+                            else
+                                if cls && cls.functions[curString()]
+                                    ret += ".#{curString}"
+                                else
+                                    ret += "::#{curString}"
+                                end
+                            end
+                           
                            #ar.push(curString())
-                            Expect(C_identifierSym)
+                            #Expect(C_identifierSym)
+                            Get()
+
                     	end
                         #ret += ar[0..ar.size-2].join("::")
                         #ret += "::" + translate_varname(ar[ar.size-1])
@@ -4294,9 +4323,10 @@ HERE
                     end
                     _next = GetNext()
                     _next2 = GetNext(2)
-                    p "_next:#{_next}, _next2:#{_next2}"
-                    if (_next == C_RparenSym&&  _next2 != C_QuestionMarkSym) || 
-                        ( ( _next == C_StarSym || _next == C_AndSym ) && (_next2 < C_identifierSym || _next2 > C_charD1Sym) )
+                    p "--->sym5551_next:#{_next}, _next2:#{_next2}"
+                    if (_next == C_RparenSym &&  _next2 != C_QuestionMarkSym) || # not the case: a()?f1:f2
+                        ( ( _next == C_StarSym || _next == C_AndSym ) && (_next2 < C_identifierSym || _next2 > C_charD1Sym) ) ||
+                        ( @sym >= C_boolSym && @sym <= C_doubleSym && _next >= C_boolSym && _next <= C_doubleSym)
                         vt = FullType()
                         p "vt:#{vt.inspect}"
                         Expect(C_RparenSym)
@@ -4417,7 +4447,7 @@ HERE
             #throw "cannot find class #{className}"
             p "cannot find class #{className}"
         end
-        if r[:prefix]
+        if r[:prefix] != ""
             className = "#{r[:prefix]}::#{className}"
         end
     
