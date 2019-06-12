@@ -277,7 +277,8 @@ class CRScanner < AbsScanner
         @ch = CurrentCh(@buffPos)
         return @ch
     end
-    # include_current_char: returned string includes current char
+    # include_current_char: returned string includes current char, NOTICE, current char means start of nextsym, not current sym
+    # e.g. int a = 1, @sym=C_intSym and curString="int", then "current char" is 'a'
     def NextLine(include_current_char = false, from = nil)
         p "from:#{from}, ch #{@buffer[from]}" if from 
         ret = ""

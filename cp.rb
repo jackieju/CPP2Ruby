@@ -76,6 +76,7 @@ def add_class(class_name, parent=nil, modules=nil)
     $g_classdefs[class_name] = clsdef
 end
 
+# when translate multiple file, will share one class tree
 $g_classdefs = {} if $g_classdefs == nil
 $g_root_moddef = ModuleDef.new("::")
 $g_classdefs["::"] = $g_root_moddef

@@ -128,12 +128,17 @@ class Preprocessor < Parser
                       @scanner.skip_curline(true)
                   elsif (@sym == C_LparenSym)
                       Get()
-                      Expect(C_identifierSym)
-                      args.push(prevString())
-                      while (@sym == C_CommaSym)
-                          Get()
+                      if @sym == C_RparenSym
+                          #Get()
+                          p("===>pre_define3:#{@sym},#{curString}")
+                      else
                           Expect(C_identifierSym)
                           args.push(prevString())
+                          while (@sym == C_CommaSym)
+                              Get()
+                              Expect(C_identifierSym)
+                              args.push(prevString())
+                          end
                       end
                       #Expect(C_RparenSym)
                       v = @scanner.skip_curline(true)
@@ -3071,11 +3076,33 @@ s20=<<HERE
 #	define UTB_API 11
 
 int a = UTB_API;
+
 HERE
+
+s21=<<HERE
+#define DECLARE_SENSITIVE_FIELD()\
+public:\
+	class SensitiveFieldsHolder\
+	{\
+	public:\
+		SensitiveFieldsHolder();\
+		const SensitiveFieldList* GetSensitiveFields() const {return &m_sensitiveFieldList;}\
+		~SensitiveFieldsHolder(){m_sensitiveFieldList.clear ();}\
+	private:\
+		SensitiveFieldList m_sensitiveFieldList;\
+	};\
+private:\
+	static const SensitiveFieldsHolder sfHolder;\
+	const SensitiveFieldList* GetSensitiveFieldList(){return sfHolder.GetSensitiveFields();}
+    
+    DECLARE_SENSITIVE_FIELD
+
+HERE
+
 
 if !testall
    
-    s = s20
+    s = s21
 else
 
     r = ""
