@@ -1050,7 +1050,18 @@ s84=<<HERE
 //if (thouseSepStr[0] == L'\x07');
 L"\x07";
 HERE
-
+s85=<<HERE
+int main(char*arg[]){
+    int a = 1;
+    if (a == 1)
+        if (a == 1)
+            goto l;
+l:
+    int b = 1;
+    fn();
+    return;
+}
+HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -1062,7 +1073,7 @@ HERE
 
 if !testall
    
-    s = s84
+    s = s85
 else
 
     r = ""

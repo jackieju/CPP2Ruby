@@ -1,20 +1,44 @@
+def main(arg)
+
+
+   frame_start
+   a=1
+   if a==1
+      if a==1
+         goto :l
+      end
+
+   end
+
+   label(:l){
+      b=1
+      fn()
+      return
+   }
+
+   frame_end
+
+end
+
 def OJDTWriteErrorMessage(bizObject)
+
    trace("OJDTWriteErrorMessage")
-   dagJDT1 = ::PDAG.new=nil
-   fldInfo = ::DBM_CA.new
-   sum = ::MONEY.new
-   buffer = ::TCHAR.new
+   dagJDT1 = PDAG.new=nil
+   fldInfo = DBM_CA.new
+   sum = MONEY.new
+   buffer = TCHAR.new
    tmpStr = []
    =""
    path = []
    =""
    msg = []
    =""
+
    colArr = []
    =""
    dagJDT1=bizObject.GetDAGNoOpen(SBOString(JDT),ao_Arr1)
    DAG_GetCount(dagJDT1,records)
-   buffer=::TCHAR.new[150]
+   buffer=TCHAR.new[150]
    i=0
    while (colArr[i]!=-1) do
       dagJDT1.GetColAttributes(colArr[i],fldInfo,false)
@@ -62,7 +86,7 @@ def OJDTWriteErrorMessage(bizObject)
    _STR_strcat(path,_T("transaction.txt"))
    _FILE_BufferToFile(path,buffer,true)
    buffer.__delete
-   cMessagesManager.getHandle().Message(_1_APP_MSG_FIN_OO_TRANSACTION_NOT_BALANCED,EMPTY_STR,bizObject)
+   CMessagesManager.GetHandle().Message(_1_APP_MSG_FIN_OO_TRANSACTION_NOT_BALANCED,EMPTY_STR,bizObject)
    return ooTransNotBalanced
 end
 

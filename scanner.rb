@@ -431,6 +431,8 @@ class CScanner <  CRScanner
           		return C_finalSym if (EqualStr("final"))  
           		return C_forSym if (EqualStr("for")) 
           		#break
+            when 'g'
+                return C_gotoSym if EqualStr("goto")
           	when 'i'
           		return C_inheritSym if (EqualStr("inherit")) 
            		return C_inlineSym if (EqualStr("inline")) 

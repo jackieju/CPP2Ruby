@@ -12,6 +12,7 @@
 #define B1_LICENCE_COMMON_API
 #define B1_LICENCE_CONNECTOR_API
 #define B1_SERVICES_METADATA_API
+#define TRACE_METHOD
 
 #define const 
 #define inline

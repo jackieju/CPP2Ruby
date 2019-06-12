@@ -36,10 +36,12 @@ end
 class Scope
     # name is scope name in c/cpp, except "module"
     # name can "class", "struct", "module"(module means namespace)
-    attr_accessor :name, :vars, :parentScope
+    attr_accessor :name, :vars, :parentScope, :hasGoto, :labeled_blocks
     def initialize(name)
         @name = name 
         @vars = {}
+        @hasGoto = false # only for functiondefinition
+        @labeled_blocks =[]
     end
     
     def add_var(v)

@@ -1,3 +1,4 @@
+load 'goto.rb'
 load 'sym.rb'
 load 'scanner.rb'
 load 'cr_parser.rb'
@@ -1525,7 +1526,9 @@ class Parser < CRParser
     # line 711 "cs.atg"
     def Statements()
      #   p "-->Statements1", 10
-        rStatement = ""
+         ret = ""
+        csf = current_scope("FunctionDefinition")
+        p "===>Statements0:#{csf}", 20
     # line 711 "cs.atg"
     	while (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     	       @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
@@ -1541,7 +1544,7 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
                # @sym >= C_newSym && @sym <= C_DollarSym ||
                @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
-    	       @sym >= C_BangSym && @sym <= C_TildeSym ||  @sym == C_operatorSym ||
+    	       @sym >= C_BangSym && @sym <= C_TildeSym ||  @sym == C_operatorSym || @sym == C_gotoSym ||
     	       @sym == C_TypedefSym)  do
     # line 711 "cs.atg"
                 #             if (@sym == C_identifierSym)
@@ -1556,6 +1559,9 @@ class Parser < CRParser
                 #                   p "enter ld"
                 #     rStatement += LocalDeclaration()+"\n"
                 #               end
+                
+                rStatement = ""
+            
     		cs = curString()
     		if @sym == C_identifierSym && cs == "friend"#ignore
                 Get()
@@ -1576,6 +1582,21 @@ class Parser < CRParser
                 end
                 next
             end    		
+            
+            if csf && @sym == C_identifierSym && GetNextSym().sym == C_ColonSym
+                label = curString()
+                current_labeled_block = {
+                    :label=>label,
+                    :src=>""
+                }
+                csf.labeled_blocks.push(current_labeled_block)
+                csf.hasGoto = true
+                Expect(C_identifierSym)
+                Expect(C_ColonSym)
+               
+                next
+            end
+            
             p "sym:#{@sym},curString:#{curString()}"
             if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_voidSym ||
     		    @sym == C_TypedefSym || @sym == C_operatorSym || 
@@ -1586,9 +1607,11 @@ class Parser < CRParser
     		    if _retg && _retg.strip != ""
     		        rStatement += "\n" if rStatement.strip != ""
     		        rStatement += _retg	
+                    p ("===>Statements3:#{rStatement}")
 		        end
+   
                  p "enter 11, sym #{@sym}(curString()),#{rStatement}"
-    		 elsif (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
+    		elsif (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     		           @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     		           @sym == C_SemicolonSym ||
     		           @sym == C_LbraceSym ||
@@ -1600,7 +1623,7 @@ class Parser < CRParser
     		           @sym >= C_PlusSym && @sym <= C_MinusSym ||
     		           @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
                        # @sym >= C_newSym && @sym <= C_DollarSym ||
-                       @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
+                       @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_gotoSym ||
     		           @sym >= C_BangSym && @sym <= C_TildeSym ) 
     # line 711 "cs.atg"
     			_ret_s = Statement()
@@ -1611,8 +1634,20 @@ class Parser < CRParser
     		 else 
     		     GenError(90)
 		     end
+             
+             if csf && csf.hasGoto &&  current_labeled_block
+  		        current_labeled_block[:src] += "\n" if current_labeled_block[:src].strip != ""
+                 
+                current_labeled_block[:src] += rStatement
+                p ("=>Statements2:#{current_labeled_block[:label]}=>#{current_labeled_block[:src]}")
+             else
+ 		        ret += "\n" if ret.strip != ""
+                 
+                ret += rStatement
+             end
+             
     	end # while
-    	return rStatement
+    	return ret
     # line 711 "cs.atg"
     end    
     def operatorName()
@@ -2323,6 +2358,14 @@ class Parser < CRParser
             end
         	fb = FunctionBody()
         	fb = i_list + fb if i_list
+            p ("FunctionDefinition3:#{fb}")
+            if current_scope("FunctionDefinition").hasGoto
+                blk_src = ""
+                current_scope("FunctionDefinition").labeled_blocks.each{|b|
+                    blk_src += "label(:#{b[:label]}){\n#{b[:src]}\n}\n"
+                }
+                fb = "\nframe_start\n#{fb}\n#{blk_src}\nframe_end\n"
+            end
             # out_scope() if classdef
     	end
     	 out_scope() # functiondefinition
@@ -2749,11 +2792,12 @@ class Parser < CRParser
     		Get()
     # line 674 "cs.atg"
     		Expect(C_ColonSym)
-    		ret += "else \n"
-    	else 
+    		ret += "else \n"            
+        else 
     	    GenError(97)
 	    end
 	    
+        return ret
     end
     
     def TryStatement()
@@ -2833,6 +2877,8 @@ HERE
     # line 658 "cs.atg"
     		stmt += Label()
     	end
+        
+ 
     # line 666 "cs.atg"
         
     	case (@sym) 
@@ -2910,6 +2956,8 @@ HERE
     # line 671 "cs.atg"
     			stmt += WhileStatement()
     			#break
+            when C_gotoSym
+                stmt += GotoStatement()
             else 
                 GenError(96) 
     	end
@@ -2917,6 +2965,18 @@ HERE
 	    p "current symbol:#{@sym}, #{curString()}, #{@scanner.nextSym.line}"
 	    pdebug("====>statement1:#{stmt}")
         return stmt
+    end
+
+    def GotoStatement()
+        Expect(C_gotoSym)
+        current_scope("FunctionDefinition").hasGoto = true
+        ret = "goto :#{curString}"
+        Expect(C_identifierSym)
+        
+        Expect(C_SemicolonSym)
+        
+        return ret
+    
     end
 
     # line 679 "cs.atg"
@@ -4348,7 +4408,9 @@ HERE
                         vt = FullType()
                         p "vt:#{vt.inspect}"
                         Expect(C_RparenSym)
-                        ret += Expression()
+                        if @sym != C_LbraceSym # in case fn() throw (exp){...}
+                            ret += Expression()
+                        end
                         bT = true
                     end
                 end
