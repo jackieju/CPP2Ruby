@@ -88,6 +88,7 @@ if $ar_classdefs
     p "===>$ar_classdefs:#{$ar_classdefs.inspect}"
 end
 
+
 def dump_one_as_ruby(v, module_name=nil)
     pp "dump ruby for #{v.class_name}@#{v}, #{module_name}", 20
    # pp "dump #{v.inspect}", 10
@@ -133,22 +134,33 @@ HERE
                 if (module_name && module_name != "")
                     class_name = "#{module_name}::#{class_name}"
                 end
-                if v.parent
+                if v.class == ModuleDef
                     class_template =<<HERE
-            class #{class_name} < #{v.parent}
-                #{includings}
-            #{s_methods}
-             #{v.src}
-            end
+                module #{class_name}
+                    #{includings}
+                 #{s_methods}
+                 #{v.src}
+                end
 HERE
                 else
-                    class_template =<<HERE
-            class #{class_name}
-                #{includings}
-             #{s_methods}
-             #{v.src}
-            end
+                    
+                    if v.parent
+                        class_template =<<HERE
+                class #{class_name} < #{v.parent}
+                    #{includings}
+                #{s_methods}
+                 #{v.src}
+                end
 HERE
+                    else
+                        class_template =<<HERE
+                class #{class_name}
+                    #{includings}
+                 #{s_methods}
+                 #{v.src}
+                end
+HERE
+                    end
                 end
             end
             
@@ -184,7 +196,7 @@ def dump_classes_as_ruby(classdefs, module_name=nil)
             p "       type: #{v.name} #{v.class}"
             p "       class name: #{v.class_name}"
 #            p "       parent: #{v.parent}"
-            p "       parentScope: #{v.parentScope.class_name}@#{v.parentScope}" if v.parentScope
+            p "       parentScope: #{v.parentScope}@#{v.parentScope}" if v.parentScope
             p "       modules: #{v.modules.keys}"
             p "       classes: #{v.classes.size}"
             p "       methods: #{v.methods.size}"
@@ -814,6 +826,7 @@ class Parser < CRParser
     def C()
         pclass()
     	in_scope(@root_class)
+        p "root:#{@root_class.inspect}"
     	
         ret = ""
         p "==>C:#{SYMS[@sym]}"
@@ -902,7 +915,7 @@ class Parser < CRParser
     	#Expect(C_identifierSym) # parent class name
     	#parent_class_name = prevString()
     	p "parent class name = #{parent_class_name}"
-    	clsdef.parent=parent_class_name
+    	clsdef.parent = parent_class_name
     	#if @sym == C_LessSym
         #        filterTemplate()
         #end
@@ -1285,6 +1298,7 @@ class Parser < CRParser
     end
     
     def initialize(scanner, error, classdefs={})
+        
         # @scanner = scanner
         #         @error = MyError.new("whaterver", scanner)
         super(scanner, error)
@@ -1331,6 +1345,7 @@ class Parser < CRParser
     
     # general statement, can be local definition or statement
     def gStatement()
+        
         p("gStatement0", 10)
         pdebug("-->gStatement, line #{@scanner.currLine}, sym=#{@sym}, val=#{curString()}")
         rStatement = ""
@@ -1490,6 +1505,7 @@ class Parser < CRParser
         elsif (@sym >= C_staticSym && @sym <= C_voidSym || @sym == C_TypedefSym || @sym == C_operatorSym)
         # line 711 "cs.atg"
         		rStatement += LocalDeclaration()
+                
        end
        pdebug("-->gStatement1, line #{@scanner.currLine}, sym=#{@sym}, val=#{curString()}")
        
@@ -1570,9 +1586,11 @@ class Parser < CRParser
     end
     # line 711 "cs.atg"
     def Statements()
+        
      #   p "-->Statements1", 10
          ret = ""
         csf = current_scope("FunctionDefinition")
+        
         p "===>Statements0:#{csf}", 20
     # line 711 "cs.atg"
     	while (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
@@ -1618,6 +1636,7 @@ class Parser < CRParser
                 Get()
                 next
             end
+            
             if cs == "public" || cs == "private" || cs == "protected"
                 Get()
                 Expect(C_ColonSym)
@@ -1806,6 +1825,7 @@ class Parser < CRParser
     end
     # line 689 "cs.atg"
    def LocalDeclaration()
+       
        p "---->LocalDeclaration1"
         ret = ""
     # line 690 "cs.atg"
@@ -1996,7 +2016,7 @@ class Parser < CRParser
         	 _next = GetNext()
               p "---->LocalDeclaration33, _next:#{_next}"
         end
-        var_type.name = prefix + var_type.name # put "::" before type
+        var_type.name = prefix + var_type.name if var_type # put "::" before type
 #end # if @sym == C_ColonColonSym
  
         p "--->isOperatorDef:#{isOperatorDef}"
@@ -2152,19 +2172,23 @@ class Parser < CRParser
             # 
             #if (type && type != "" ) || 
             # ====    
-            p "--->111:#{@sym}, #{_n}"
+            p "--->111:#{@sym} #{curString},  #{_n}"
             
             gnsstr = getSymValue(gns)
             if gns.sym == C_identifierSym && gnsstr[0] == gnsstr[0].upcase  && !find_var(gnsstr, current_scope) && find_class(gnsstr)[:v] == nil
                 current_ruby_scope.add_class(ClassDef.new(getSymValue(gns)))
                 append_file("newclass", "\"#{getSymValue(gns)}\",")
+                p("append newclass #{getSymValue(gns)}")
             end
+            
             if (_n == C_EnumSym || # A fn(enum B b);
-                isOperatorDef ||  _n == C_RparenSym || _n == C_PPPSym ||
+                isOperatorDef ||  (_n == C_RparenSym && nn != C_SemicolonSym ) || _n == C_PPPSym ||
                  isTypeStart(gns)# || isFunctionFormalParamStart(offset)
                  )# && !find_var(getSymValue(gns), current_scope) # is not var
                 # A fn();
                 # A fn(a* b) in which a is type
+                 
+        
                 fd = FunctionDefinition(class_name, fname, storageclass)
             else
                 p "--->1111:#{@sym}, #{_n}"
@@ -2181,6 +2205,7 @@ class Parser < CRParser
                 # line 706 "cs.atg"
             	Expect(C_SemicolonSym)
             end
+            
             
             # fd = FunctionCall()
     	elsif (@sym == C_SemicolonSym ||
@@ -2226,6 +2251,8 @@ class Parser < CRParser
             p "localdeclaration4:#{ret}, #{ret.size}", 10
             
         end
+           
+        
         return ret
     end
     
@@ -2342,42 +2369,44 @@ class Parser < CRParser
     
     # class_name should never be nil
     def FunctionDefinition(class_name, fn_name, acc="")
+        
         pdebug "===>FunctionDefinition:#{class_name}::#{fn_name}", 30
         ret = ""
         @presrc = "" # predfined code before function body source
         if class_name && class_name != ""
-            p 1
  	       # classdef = @classdefs[class_name]
            classdef = find_class(class_name)[:v]
  	        if !classdef
-                p 11
  	            if current_scope.is_a?(ClassDef)
-                    p 111
                     classdef = current_scope
                 end
             end
         else
-            p 2
-            #if current_scope.is_a?(ClassDef) ||current_scope.is_a?(ModuleDef)
-            #    classdef = current_scope
-            #end
-            classdef = current_ruby_scope()
-            class_name = classdef.class_name
+            if current_scope.is_a?(ClassDef) ||current_scope.is_a?(ModuleDef)
+                classdef = current_scope
+            end
+            #classdef = current_ruby_scope()
+            #class_name = classdef.class_name
         end
         
         
         pushed = false
+        p("==>FunctionDefinition17:#{current_scope.name}")
         if classdef && classdef != current_scope
+            
             in_scope(classdef)
+        	throw  "4" if $g_root_moddef.parentScope != nil && fn_name == "t"
+            
             pushed = true
         end
-        classdef.class_name
+        
         if classdef
             p "===>FunctionDefinition3:#{classdef.class_name}@#{classdef}"
         else
             p "===>FunctionDefinition3:#{classdef}"
             
         end
+        
         # list_scopes
       #  p "classdef:#{classdef.inspect}"
     # line 466 "cs.atg"
@@ -2400,10 +2429,14 @@ class Parser < CRParser
         if @sym == C_SemicolonSym  ||symValue == "const" || @sym==C_overrideSym
             #if just function declaration without body
             # return ""
+        	throw  "1" if $g_root_moddef.parentScope != nil && fn_name == "t"
+       
         elsif @sym == C_EqualSym
             Get()
             Expression()
             Expect(C_SemicolonSym)
+        	throw  "2" if $g_root_moddef.parentScope != nil && fn_name == "t"
+            
         else
 
             # in_scope(classdef) if classdef
@@ -2440,9 +2473,12 @@ class Parser < CRParser
                      
                 end
             end
+            
         	fb = FunctionBody()
+            
         	fb = i_list + fb if i_list
             p ("FunctionDefinition3:#{fb}")
+            
             if current_scope("FunctionDefinition").hasGoto
                 blk_src = ""
                 current_scope("FunctionDefinition").labeled_blocks.each{|b|
@@ -2450,9 +2486,14 @@ class Parser < CRParser
                 }
                 fb = "\nframe_start\n#{fb}\n#{blk_src}\nframe_end\n"
             end
+        	throw  "2" if $g_root_moddef.parentScope != nil && fn_name == "t"
+            
             # out_scope() if classdef
     	end
+    	throw  "3" if $g_root_moddef.parentScope != nil && fn_name == "t"
+
     	 out_scope() # functiondefinition
+
     # line 510 "cs.atg"
         method_src = nil
         if (fb)

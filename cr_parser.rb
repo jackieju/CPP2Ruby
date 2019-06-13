@@ -110,9 +110,10 @@ class ModuleDef < Scope
         end
         p("method added:#{@methods[method_sig].inspect} \n to #{self.class_name}@#{self}")
         p(@methods.inspect)
-        if !self.is_a?(ModuleDef)
+        if self.class != ModuleDef
+            p ("parent:#{self.parent}")
             if  self.parent
-                p("parent:#{self.parent.class_name}@#{self.parent}")
+                p("parent:#{self.parent.inspect}")
             else
                 p("parent:#{self.parent}")
         
@@ -152,6 +153,7 @@ class ModuleDef < Scope
             p "===>add_class:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
         end
         
+
         return clsdef
     end
 end
@@ -222,9 +224,9 @@ class CRParser
     end
     def in_scope(name)
         cs = current_scope
-        p "==>cs0:#{name}"
+        p "==>in_scope0:#{name}, #{name.inspect} ", 10
         
-        # p "==>cs1:#{cs.inspect}"
+        p "==>cs1:#{cs.inspect}"
         if name.class == String
             @sstack.push(Scope.new(name))
         else
@@ -233,10 +235,16 @@ class CRParser
             end
             @sstack.push(name)
         end
-        # p "cs2:#{current_scope.inspect}"
+    
+        p("rootmod3:#{$g_root_moddef.parentScope}")
+        p "cs2:#{current_scope.inspect}, #{cs}"
         current_scope.parentScope = cs
+           p("rootmod4:#{$g_root_moddef.parentScope}")
+        if current_scope == cs
+            throw Exception.new("hahahahaha")
+        end
         # p "cs3:#{current_scope.inspect}, parent=#{current_scope.parent}", 30
-        
+     
     end
     def out_scope()
         @sstack.pop
@@ -254,11 +262,11 @@ class CRParser
     end
     
     def find_var(name, scope=nil)
-        # p "find_var:#{name}", 10
+         p "find_var:#{name}", 10
         scope= current_scope  if !scope
         i = 1
         while scope 
-            # p "scope:#{scope.inspect}"
+             p "scope:#{scope.inspect}"
             p "scope:#{scope}"
             p "class:#{scope.class_name}" if scope.is_a?(ClassDef)
             
@@ -268,9 +276,9 @@ class CRParser
                 p "scope:#{scope.inspect}"
                 throw Exception.new("===>error<====")
             end
-            #scope.vars.each{|k,v|
-            #    p "===>var:#{k}"
-            #}
+            scope.vars.each{|k,v|
+                p "===>var:#{k}"
+            }
             ret = scope.get_var(name)
             return ret if ret
             scope = scope.parentScope

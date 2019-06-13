@@ -1091,6 +1091,18 @@ s86=<<HERE
 void ArcDeletePrefs::b(){}
 HERE
 
+s87=<<HERE
+static	bool			IsDupSeriesName (PDAG dagNNM1, PDAG dagNNM3, long* series, SBOString& objectId)
+{
+	SBOString temp(SUB_TYPE_NONE);
+	return IsDupSeriesName (dagNNM1, dagNNM3, series, objectId, temp);
+}
+A a(){
+    A t();
+    b();
+}
+A t(1);
+HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -1102,7 +1114,7 @@ HERE
 
 if !testall
    
-    s = s86
+    s = s87
 else
 
     r = ""
@@ -1171,7 +1183,7 @@ end
 
 
 #=end
-test(false)
+test(true)
 
 
 # execute after test
