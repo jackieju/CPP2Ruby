@@ -753,6 +753,11 @@ throw "a";
 throw a;
 throw A();
 throw CDagException (coreInvalidPointer, GetTableName (), "_DBM_DataAccessGate::CompareBuffers failed. DataBuffer is nullptr.");
+bool      IsYearTransferedDocumentsInCompany() throw (CBusinessException);
+bool      IsYearTransferedDocumentsInCompany() throw CBusinessException;
+
+bool      IsYearTransferedDocumentsInCompany() throw (CBusinessException, B);
+
 HERE
 s57=<<HERE
  i = 0, keyOff = 0;
@@ -875,7 +880,6 @@ namespace LinkMap
 HERE
 
 s71=<<HERE
-bool      IsYearTransferedDocumentsInCompany() throw (CBusinessException);
 HERE
 
 s71=<<HERE
@@ -946,6 +950,7 @@ s76=<<HERE
 //a = (CompareTo(b) <  0);
 HERE
 
+#operator
 s77=<<HERE
 CJDTStornoExtraInfoCreator * CJDTStornoExtraInfoCreator::operator=(const CJDTStornoExtraInfoCreator & other){}
 CJDTStornoExtraInfoCreator & CJDTStornoExtraInfoCreator::operator=(const CJDTStornoExtraInfoCreator & other)
@@ -977,6 +982,8 @@ std::wostream& operator << (std::wostream& stream, const _DBM_DataAccessGate& da
 // prepreccssor will define B1_ENGINE_API to empty
 //B1_ENGINE_API
  std::wostream& operator << (std::wostream& stream, const _DBM_DataAccessGate& dag);
+ const CAllCurrencySums operator- () const { return CAllCurrencySums (-m_SumLc, -m_SumFc, -m_SumSc); }
+ CToolTipPreviewObjectDataConfig::operator=(other);
 
 HERE
 s78=<<HERE
@@ -1022,34 +1029,34 @@ extern void a();
 HERE
 
 s84=<<HERE
-//CToolTipPreviewObjectDataConfig::operator=(other);
-//class A{
-//    public:
-//    void c(int a){
-//       
-//    };
-//}
-//
-//AA::operator=(1);
-//AA::a(1);
-//void AA::operator=(int a){a = 1;};
-//hasher.digestBuffer((unsigned char*)temp.get(), length, true);
-//class AA{
-//}
-//bool AA::operator=(AA other){u=1;};
-//class AA{};
+class A{
+    public:
+    void c(int a){
+       
+    };
+}
+
+AA::operator=(1);
+AA::a(1);
+void AA::operator=(int a){a = 1;};
+hasher.digestBuffer((unsigned char*)temp.get(), length, true);
+class AA{
+}
+bool AA::operator=(AA other){u=1;};
+class AA{};
 //a(AA& bb){bb=1;};
 
-//A fn(int bb, int c){};
-//try{
-//    a = 1;
-//}
-//catch(...){
-//    a = 2;
-//}
-//if (thouseSepStr[0] == L'\x07');
+A fn(int bb, int c){};
+try{
+    a = 1;
+}
+catch(...){
+    a = 2;
+}
+if (thouseSepStr[0] == L'\x07');
 L"\x07";
 HERE
+
 s85=<<HERE
 int main(char*arg[]){
     int a = 1;
@@ -1062,6 +1069,28 @@ l:
     return;
 }
 HERE
+s86=<<HERE
+//::TreeType  treeType;
+//int b = ::a;
+//
+//void m(){
+//    int a = ::a;
+//}
+//class A{
+//    int a;
+//    ::TreeType TreeType;
+//}
+//class CDocumentObject: public CTypedBofDocumentObject<CDocumentObjectRoot>, public IIVIAble, public std::CPostingPreviewSource, public IApprovalObject, public CElectronicDocument, public IGDPAction
+  //  {}
+ //   SBOErr	ODOCUndoDoc						(enum ObjectMethod sourceProc){};
+ class ArcDeletePrefs{
+     public:
+ ArcDeletePrefs(): m_dagRES(NULL), m_ArchiveDate() {}
+ int aaaa(){};
+}
+void ArcDeletePrefs::b(){}
+HERE
+
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -1073,7 +1102,7 @@ HERE
 
 if !testall
    
-    s = s85
+    s = s86
 else
 
     r = ""
@@ -1123,7 +1152,7 @@ begin
             for i in 0..tabs
                 print("\t")
             end
-            print "class #{k}\n"
+            print "class #{k}@#{v}\n"
             if v
                 list_classes(v.modules,tabs+1)
                 list_classes(v.classes,tabs+1)
@@ -1142,7 +1171,7 @@ end
 
 
 #=end
-#test(false)
+test(false)
 
 
 # execute after test

@@ -119,6 +119,10 @@ HERE
             }
             # p "==>methods:#{methods}"
             class_name = v.class_name
+            includings = ""
+            v.includings.each{|inc|
+                includings += "include #{inc}\n"
+            }
             if class_name == "::"
                     class_name ="_global_"
                     class_template = <<HERE
@@ -132,6 +136,7 @@ HERE
                 if v.parent
                     class_template =<<HERE
             class #{class_name} < #{v.parent}
+                #{includings}
             #{s_methods}
              #{v.src}
             end
@@ -139,7 +144,8 @@ HERE
                 else
                     class_template =<<HERE
             class #{class_name}
-            #{s_methods}
+                #{includings}
+             #{s_methods}
              #{v.src}
             end
 HERE
@@ -177,11 +183,12 @@ def dump_classes_as_ruby(classdefs, module_name=nil)
             p "class #{k}"
             p "       type: #{v.name} #{v.class}"
             p "       class name: #{v.class_name}"
-            p "       parent: #{v.parent}"
+#            p "       parent: #{v.parent}"
             p "       parentScope: #{v.parentScope.class_name}@#{v.parentScope}" if v.parentScope
             p "       modules: #{v.modules.keys}"
             p "       classes: #{v.classes.size}"
             p "       methods: #{v.methods.size}"
+            p "       src: #{v.src}" if v.src
             m=""
             if v.is_a?(ModuleDef)
                 p "--->333"
@@ -355,12 +362,19 @@ class Parser < CRParser
       #  return r if r
         
         ar = name.split("::")
-        if ar.size == 1 # only class no modules
+        if ar.size == 1 # not "::", means only class no modules
              return find_class_from(name, current_ruby_scope)
         else
             na = ar[0]
             # find first module
-            ret = find_module_from(na, current_ruby_scope) 
+            if na == "" # the case "::a"
+                ret = {
+                    :v=>@root_class,
+                    :prefix=>""
+                }
+            else
+                ret = find_module_from(na, current_ruby_scope) 
+            end
             return ret if ret[:v] == nil
             sc = ret[:v]
             if ar.size >2 # more modules
@@ -847,7 +861,7 @@ class Parser < CRParser
     	       @sym == C_TypedefSym || 
     	       @sym == C_StructSym ||
                @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym  || @sym == C_namespaceSym || @sym== C_usingSym ||
-               @sym == C_operatorSym
+               @sym == C_operatorSym || @sym == C_ColonColonSym
                ) 
     # line 137 "cs.atg"
     		ret += Definition()
@@ -884,19 +898,42 @@ class Parser < CRParser
         if (@sym == C_identifierSym && decorators.include?(curString()) )
             Get()  # Expect(C_identifierSym) # public/private
         end
-        
-    	Expect(C_identifierSym) # parent class name
-    	parent_class_name = prevString()
+        parent_class_name = ClassFullName()
+    	#Expect(C_identifierSym) # parent class name
+    	#parent_class_name = prevString()
     	p "parent class name = #{parent_class_name}"
     	clsdef.parent=parent_class_name
+    	#if @sym == C_LessSym
+        #        filterTemplate()
+        #end
     # line 247 "cs.atg"
         
+    # multi inheritance
+    # for ruby doesn't have MI, we create module for other parent from the 2nd one
         while (@sym==C_CommaSym)
             Get()
             if (@sym == C_identifierSym && decorators.include?(curString()) )
                 Get()  # Expect(C_identifierSym) # public/private
             end
-            Expect(C_identifierSym)
+            #Expect(C_identifierSym)
+        	#parent_class_name = prevString()
+            parent_class_name = ClassFullName()
+            r = find_class(parent_class_name)
+            #newmodule = ModuleDef.new(parent_class_name)
+            #pmodule = @root_class
+            #if r[:prefix]
+            #    parent_class_name = r[:prefix]+"::"+parent_class_name 
+            #    rr = find_module_from(r[:prefix], current_scope)
+            #    if rr[:v]
+            #        pmodule = rr[:v]
+            #    end
+            #end
+            #pmodule.add_module(newmodule)
+            clsdef.includings.push(parent_class_name)
+            if r[:v]
+                newmodule = r[:v].to_module() 
+                r[:v].parentScope.add_module(newmodule)
+            end
         end
 
 
@@ -962,7 +999,13 @@ class Parser < CRParser
         		Inheritance(clsdef)
         	end
         # line 296 "cs.atg"
-        	if (@sym == C_LbraceSym)
+        	
+        # has to add class before class body, in case class with same name already added in c_classdefs.rb
+        p "currentrubyscope:#{current_ruby_scope.inspect}"
+        current_ruby_scope.add_class(clsdef)
+        p "add class:#{clsdef.class_name}"
+            
+            if (@sym == C_LbraceSym)
         	    ClassBody(clsdef)
     	    else
     	        p "--->classdef33, #{@sym}, #{curString()}"
@@ -976,9 +1019,7 @@ class Parser < CRParser
             # @classdefs.each{|k,v|
             #               p "classdef #{k}=#{v}"
             #           }
-            p "currentrubyscope:#{current_ruby_scope.inspect}"
-            current_ruby_scope.add_class(clsdef)
-            p "add class:#{clsdef.class_name}"
+
     end
     
     def FriendClass()
@@ -1233,7 +1274,7 @@ class Parser < CRParser
     	           @sym >= C_newSym && @sym <= C_DollarSym ||
     	           @sym >= C_BangSym && @sym <= C_TildeSym ||
     	           @sym == C_TypedefSym || @sym == C_deleteSym || @sym == C_throwSym ||
-                   @sym == C_sizeofSym || @sym == C_operatorSym
+                   @sym == C_sizeofSym || @sym == C_operatorSym || @sym == C_ColonColonSym
                    ) 
     # line 219 "cs.atg"
     		ret += Statements()
@@ -1301,8 +1342,11 @@ class Parser < CRParser
                 Get()
                 Expect(C_identifierSym)
                 FunctionDefinition(current_scope.class_name, "uninitialize")
-	        end     
-		elsif (@sym == C_identifierSym )
+	        end
+        elsif @sym == C_ColonColonSym
+            p("--->3333121")
+            rStatement += LocalDeclaration()
+		elsif @sym == C_identifierSym 
 		     # p "|||||||||||||@sym = #{@sym}, #{@scanner.currSym.inspect}, #{curString()}, @scanner=#{@scanner}"
         	    #                 $sc_cur = $sc.currSym.sym
                 _next = GetNext()
@@ -1346,7 +1390,7 @@ class Parser < CRParser
                     elsif _nn.sym == C_operatorSym
                         rStatement += Statement()
 	                else
-	                    count = 3
+	                    count = 3 # in c++, only A::B::C, A is namespace, B is class, so at most 3
 	                    _nnn = GetNext(count)
 	                    while ( _nnn== C_ColonColonSym)
 	                        count +=1
@@ -1391,11 +1435,11 @@ class Parser < CRParser
     	            p "--> in class scope"
     	            if current_scope.class_name == cs # constructor
     	                Get()
-                        rStatement += FunctionDefinition(current_scope.class_name, "initialize")
+                        FunctionDefinition(current_scope.class_name, "initialize")
 	                elsif cs=="~" # deconstructor
                         Get()
                         Expect(C_identifierSym)
-	                    rStatement += FunctionDefinition(current_scope.class_name, "uninitialize")                        
+	                    FunctionDefinition(current_scope.class_name, "uninitialize")                        
                     end
     	        elsif _next == C_LessSym # 
     	             p("before using template3:sym=#{@sym}, curString=#{curString()}")
@@ -1545,7 +1589,7 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
                # @sym >= C_newSym && @sym <= C_DollarSym ||
                @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
-    	       @sym >= C_BangSym && @sym <= C_TildeSym ||  @sym == C_operatorSym || @sym == C_gotoSym ||
+    	       @sym >= C_BangSym && @sym <= C_TildeSym ||  @sym == C_operatorSym || @sym == C_gotoSym || @sym == C_ColonColonSym ||
     	       @sym == C_TypedefSym)  do
     # line 711 "cs.atg"
                 #             if (@sym == C_identifierSym)
@@ -1560,6 +1604,7 @@ class Parser < CRParser
                 #                   p "enter ld"
                 #     rStatement += LocalDeclaration()+"\n"
                 #               end
+                p "===>Statements2:#{@sym}"
                 
                 rStatement = ""
             
@@ -1584,6 +1629,7 @@ class Parser < CRParser
                 next
             end    		
             
+            # label for goto
             if csf && @sym == C_identifierSym && GetNextSym().sym == C_ColonSym
                 label = curString()
                 current_labeled_block = {
@@ -1600,10 +1646,10 @@ class Parser < CRParser
             
             p "sym:#{@sym},curString:#{curString()}"
             if (@sym == C_identifierSym || @sym >= C_staticSym && @sym <= C_voidSym ||
-    		    @sym == C_TypedefSym || @sym == C_operatorSym || 
+    		    @sym == C_TypedefSym || @sym == C_operatorSym || @sym == C_ColonColonSym ||
     		    (@sym == C_TildeSym && GetNext() == C_identifierSym)
     		    )
-                # p "enter 1,#{rStatement}"
+             #    p "enter 1,#{rStatement}"
     		    _retg = gStatement()
     		    if _retg && _retg.strip != ""
     		        rStatement += "\n" if rStatement.strip != ""
@@ -1872,13 +1918,27 @@ class Parser < CRParser
     
         dump_pos()
         isOperatorDef = false
+        p "---->LocalDeclaration21, #{@sym}, #{curString()}"
+        
+        prefix = ""
+        if @sym == C_ColonColonSym
+            p "---->LocalDeclaration212, #{@sym}, #{curString()}"
+            prefix = "::"
+            Get()
+           # if @sym == C_operatorSym
+           #     isOperatorDef = true
+           #     Get()
+           #     
+           # end
+        
+        end
         
         _next = GetNext()
         p "---->LocalDeclaration2, #{@sym}, #{curString()} #{_next}"
         
         while (@sym != C_LparenSym && @sym != C_ColonColonSym && @sym != C_operatorSym &&
                 (   @sym >= C_varSym && @sym <= C_voidSym ||
-                    _next == C_identifierSym || #_next == C_operatorSym ||
+                    _next == C_identifierSym || _next == C_operatorSym ||
                     _next >= C_varSym && _next <= C_voidSym || # data type
                     _next >= C_staticSym && _next <= C_externSym ||
                     _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym ||
@@ -1915,6 +1975,8 @@ class Parser < CRParser
            #     isOperatorDef = true
            #     Get()
             end
+        
+        
             if type != ""
                 p "---->LocalDeclaration15:#{type}, #{_var_type.inspect}"
                 
@@ -1934,7 +1996,9 @@ class Parser < CRParser
         	 _next = GetNext()
               p "---->LocalDeclaration33, _next:#{_next}"
         end
-
+        var_type.name = prefix + var_type.name # put "::" before type
+#end # if @sym == C_ColonColonSym
+ 
         p "--->isOperatorDef:#{isOperatorDef}"
         
         # line 702 "cs.atg"
@@ -2091,11 +2155,12 @@ class Parser < CRParser
             p "--->111:#{@sym}, #{_n}"
             
             gnsstr = getSymValue(gns)
-            if gnsstr[0] == gnsstr[0].upcase  && !find_var(gnsstr, current_scope) && find_class(gnsstr)[:v] == nil
+            if gns.sym == C_identifierSym && gnsstr[0] == gnsstr[0].upcase  && !find_var(gnsstr, current_scope) && find_class(gnsstr)[:v] == nil
                 current_ruby_scope.add_class(ClassDef.new(getSymValue(gns)))
                 append_file("newclass", "\"#{getSymValue(gns)}\",")
             end
-            if (isOperatorDef ||  _n == C_RparenSym || _n == C_PPPSym ||
+            if (_n == C_EnumSym || # A fn(enum B b);
+                isOperatorDef ||  _n == C_RparenSym || _n == C_PPPSym ||
                  isTypeStart(gns)# || isFunctionFormalParamStart(offset)
                  )# && !find_var(getSymValue(gns), current_scope) # is not var
                 # A fn();
@@ -2126,7 +2191,7 @@ class Parser < CRParser
 	
     # line 706 "cs.atg"
     		Expect(C_SemicolonSym)
-    	else 
+    	else # if (@sym == C_LparenSym)
     	    GenError(99)
 	    end
     # line 706 "cs.atg"
@@ -2175,7 +2240,7 @@ class Parser < CRParser
    #end
     # line 440 "cs.atg"
     def VarList(var_type, var_name)
-        pdebug("varlist")
+        pdebug("----->varlist0;#{@sym}, #{curString}")
         p("var_type:#{var_type.inspect}")
         ret = ""
         
@@ -2274,27 +2339,44 @@ class Parser < CRParser
     	return ret
     end    
     # line 465 "cs.atg"
+    
+    # class_name should never be nil
     def FunctionDefinition(class_name, fn_name, acc="")
         pdebug "===>FunctionDefinition:#{class_name}::#{fn_name}", 30
         ret = ""
         @presrc = "" # predfined code before function body source
         if class_name && class_name != ""
+            p 1
  	       # classdef = @classdefs[class_name]
            classdef = find_class(class_name)[:v]
  	        if !classdef
+                p 11
  	            if current_scope.is_a?(ClassDef)
+                    p 111
                     classdef = current_scope
                 end
             end
         else
-            if current_scope.is_a?(ClassDef) ||current_scope.is_a?(ModuleDef)
-                classdef = current_scope
-            end
+            p 2
+            #if current_scope.is_a?(ClassDef) ||current_scope.is_a?(ModuleDef)
+            #    classdef = current_scope
+            #end
+            classdef = current_ruby_scope()
+            class_name = classdef.class_name
         end
+        
+        
         pushed = false
         if classdef && classdef != current_scope
             in_scope(classdef)
             pushed = true
+        end
+        classdef.class_name
+        if classdef
+            p "===>FunctionDefinition3:#{classdef.class_name}@#{classdef}"
+        else
+            p "===>FunctionDefinition3:#{classdef}"
+            
         end
         # list_scopes
       #  p "classdef:#{classdef.inspect}"
@@ -2326,8 +2408,9 @@ class Parser < CRParser
 
             # in_scope(classdef) if classdef
             if @sym == C_ColonSym
+                p("===>FunctionDefinition2:ctor")
                 # member value initialization list, for constructor of class/struct
-                p "# initialization list, for constructor of class/struct:#{classdef}"
+                p "# initialization list, for constructor of class/struct:#{classdef.class_name}"
                 i_list = ""
                 Get()
                  m = curString()
@@ -2352,7 +2435,7 @@ class Parser < CRParser
                      Expect(C_LparenSym)
                      v = Expression()
                      Expect(C_RparenSym)
-                     
+                     v = "nil" if v == ""
                      i_list += "@#{m} = #{v}\n"
                      
                 end
@@ -2375,13 +2458,17 @@ class Parser < CRParser
         if (fb)
             ret = "#{ret}\n#{@presrc}\n#{fb}\nend"
             method_src = ret
+            ret = ""
         end
         # add_class_method_def(class_name, fn_name, args)
-        p "add method '#{fn_name}' to class '#{class_name}':#{ret}", 10
         #p "classdef #{classdef.inspect}"
         if classdef
+            p "add method '#{fn_name}'##{args_num} to class '#{classdef.class_name}@#{classdef}':#{method_src}\nacc:#{acc}", 10
+            
             classdef.add_method(fn_name, args_num, method_src, acc)
         else
+            p "add method '#{fn_name}'##{args_num} to root class '#{@root_class}':#{method_src}\nacc:#{acc}", 10
+            
             @root_class.add_method(fn_name, args_num, method_src, acc)
         end
         #p "classdef #{classdef.inspect}"
@@ -2406,7 +2493,7 @@ class Parser < CRParser
     # line 545 "cs.atg"
     	if (@sym == C_identifierSym ||
     	    @sym >= C_varSym && @sym <= C_voidSym||
-    	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_PPPSym  ||
+    	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_PPPSym  || @sym == C_EnumSym ||
             @sym == C_classSym # only for strange copy ctor A(class A&other);
             ) 
     # line 545 "cs.atg"
@@ -2426,7 +2513,14 @@ class Parser < CRParser
         if (@sym == C_identifierSym && ( _cs == 'const') )|| @sym == C_overrideSym
             Get()
         elsif @sym == C_throwSym 
-            Expression()
+            Get()
+            if (@sym == C_LparenSym)
+                Get()
+                CommaExpression()
+                Expect(C_RparenSym)
+            else
+                CommaExpression()
+            end
         end
         
         
@@ -2463,6 +2557,7 @@ class Parser < CRParser
     
     def parameter_to_var(var_type)
         ret = ""
+        p("parameter_to_var0:#{@sym}")
         if @sym == C_identifierSym 
              param_name = varname = curString()
            
@@ -2491,11 +2586,11 @@ class Parser < CRParser
         # PTYPEDES type = new TYPEDES;
     # line 442 "cs.atg"
         if (@sym == C_identifierSym && curString() == 'const') ||
-             @sym == C_classSym # only for strange copy ctor A(class A&other);
+             @sym == C_classSym # only for strange copy ctor: A(class A&other);
             Get()
         end
     	var_type = Type().name
-        p("FormalParameter1:sym=#{@sym}, curString=#{curString()}")
+        p("FormalParameter1:sym=#{@sym}, curString=#{curString()}, #{var_type}")
     # line 442 "cs.atg"
     
     if @sym == C_LparenSym # template parameter:   template <size_t count>  int c(const B (&t)[count], long fff);
@@ -2509,6 +2604,7 @@ class Parser < CRParser
         @presrc += "#{count}=#{varname}.size\n"
         Get()
         Expect(C_RbrackSym)
+
     else
     	while (@sym == C_StarSym || @sym == C_AndSym || @sym == C_AndAndSym) 
     # line 442 "cs.atg"
@@ -2725,6 +2821,11 @@ class Parser < CRParser
     		  #  Get();
     # line 437 "cs.atg"
     			# break;
+            when C_EnumSym
+                Get()
+                ret += curString()
+                Expect(C_identifierSym)
+               
     		when C_identifierSym
     		    ret += curString()
     		    Get()
@@ -4082,7 +4183,7 @@ HERE
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
             # @sym >= newSym && @sym <= C_DollarSym) 
-            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym ||
+            @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_ColonColonSym ||
             @sym == C_defaultSym || @sym == C_operatorSym) 
             
     # line 1538 "cs.atg"
@@ -4174,14 +4275,19 @@ HERE
         pdebug "=====>Primary:#{@sym}, #{curString()}"
         ret = ""
     # line 2328 "cs.atg"
-
+    prefix = ""
+    if @sym == C_ColonColonSym
+        Get()
+        #ret += "::"
+        prefix = "::"
+    end
     # line 2475 "cs.atg"
         isExpression = false
         primary_sym = @sym
     	case @sym
     		when C_identifierSym  
-                # varname = translate_varname()
-                varname = curString()
+                # varname = translate_varname()},
+                varname = prefix+curString()
                 
 		  
 
@@ -4569,6 +4675,9 @@ HERE
             # p "id2=#{curString()}"
     # line 2324 "cs.atg"
     	end
+    	if @sym == C_LessSym
+            filterTemplate()
+        end
     	p "==>ClassFullName1:#{ret}"
         return ret
     end

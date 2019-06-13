@@ -59,7 +59,7 @@ class Scope
 
 end
 class ModuleDef < Scope
-    attr_accessor :class_name, :parent, :modules, :classes, :methods, :src, :functions
+    attr_accessor :class_name, :modules, :classes, :methods, :src, :functions, :includings
   
     def initialize(class_name)
         super("module")
@@ -68,6 +68,7 @@ class ModuleDef < Scope
         @modules = {}
         @classes = {}
         @functions = {} # record mapping from c name to ruby name, because c can overide function with same name, we will map them to "#{cmethod_name}_v#{arg_number}"
+        @includings = [] 
     end
     def add_src(src)
         @src = "" if !@src
@@ -107,6 +108,16 @@ class ModuleDef < Scope
                 :decoration=>acc
             }
         end
+        p("method added:#{@methods[method_sig].inspect} \n to #{self.class_name}@#{self}")
+        p(@methods.inspect)
+        if !self.is_a?(ModuleDef)
+            if  self.parent
+                p("parent:#{self.parent.class_name}@#{self.parent}")
+            else
+                p("parent:#{self.parent}")
+        
+            end
+        end
     end
     
     def add_module(module_name)
@@ -124,28 +135,51 @@ class ModuleDef < Scope
         return moduleDef
     end
     
+    # class_name can be CladdDef Object
     def add_class(class_name)
-        if class_name.class == String
+        
+        if class_name.class == String && @classes[class_name] == nil
+            
             clsdef = ClassDef.new(class_name)
             @classes[class_name] = clsdef
             clsdef.parentScope = self
-            
+            p "===>add_class:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
         else
+            
             clsdef = class_name
             @classes[clsdef.class_name] = clsdef
             clsdef.parentScope = self
-            
+            p "===>add_class:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
         end
+        
         return clsdef
     end
 end
 class ClassDef < ModuleDef
-    attr_accessor :class_name, :parent, :methods, :src, :parentScope, :functions
+    attr_accessor :class_name, :parent, :methods, :src, :parentScope, :functions, :includings
     def initialize(class_name)
         super("class")
         @class_name = class_name
         @methods = {}
         @name="class"
+        @includings = []
+    end
+    # for supporting multi-inheritanc
+    # will generate new module containings class content, and current class will just include the module
+    def to_module
+        module_name = "#{@class_name}_module"
+        r = ModuleDef.new(module_name)
+        r.methods = @methods
+        r.functions = @functions
+        r.src = @src
+        r.parentScope = parentScope
+        r.includings = includings
+        
+        @methods = {}
+        @classes = {}
+        @functions = {} 
+        @includings = [module_name]
+        return r
     end
 
 end

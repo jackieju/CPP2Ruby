@@ -187,7 +187,7 @@ C_PPPSym =                   97  # "..."
 C_namespaceSym =                   98  # "..."
 C_usingSym =                   99 # "using"
 C_finalSym =                   100 # "final"
-C_operatorSym =                   101 # "final"
+C_operatorSym =                   101 # "operator"
 C_overrideSym =                   102 # "override"
 
 C_gotoSym =                   103 # "goto"
