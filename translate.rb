@@ -553,7 +553,7 @@ end
 hide_p_in_file("scanner.rb")
 hide_p_in_file("macro.rb")
 p "Hidden_log_files=#{$Hidden_log_files}"
- 
+
 # use gcc preprocess as preprocess
 $preprocessor = "my" 
 def  parse_arg(arg, a)
@@ -620,6 +620,7 @@ if $*.size >0
         end
         
         init_env(a) # set file path as search dir
+        $g_cur_parse_file = a
         if $mode == "parse"
             p "begin to parse file #{a}"
             parse_file(a, false, false)
@@ -638,6 +639,7 @@ if $*.size >0
         # preprocess_file(a)
     end
     dump_classes_as_ruby($g_classdefs)
+    p "current parse file #{$g_cur_parse_file}"
 else
     p "no file specified"
     p "usage: ruby translate.rb <c source file>\n

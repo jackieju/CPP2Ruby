@@ -108,17 +108,17 @@ class ModuleDef < Scope
                 :decoration=>acc
             }
         end
-        p("method added:#{@methods[method_sig].inspect} \n to #{self.class_name}@#{self}")
-        p(@methods.inspect)
-        if self.class != ModuleDef
-            p ("parent:#{self.parent}")
-            if  self.parent
-                p("parent:#{self.parent.inspect}")
-            else
-                p("parent:#{self.parent}")
-        
-            end
-        end
+      #  p("method added:#{@methods[method_sig].inspect} \n to #{self.class_name}@#{self}")
+      #  p(@methods.inspect)
+      #  if self.class != ModuleDef
+      #      p ("parent:#{self.parent}")
+      #      if  self.parent
+      #          p("parent:#{self.parent.inspect}")
+      #      else
+      #          p("parent:#{self.parent}")
+      #  
+      #      end
+      #  end
     end
     
     def add_module(module_name)
@@ -224,9 +224,9 @@ class CRParser
     end
     def in_scope(name)
         cs = current_scope
-        p "==>in_scope0:#{name}, #{name.inspect} ", 10
+      #  p "==>in_scope0:#{name}, #{name.inspect} ", 10
         
-        p "==>cs1:#{cs.inspect}"
+      #  p "==>cs1:#{cs.inspect}"
         if name.class == String
             @sstack.push(Scope.new(name))
         else
@@ -236,10 +236,10 @@ class CRParser
             @sstack.push(name)
         end
     
-        p("rootmod3:#{$g_root_moddef.parentScope}")
-        p "cs2:#{current_scope.inspect}, #{cs}"
+      #  p("rootmod3:#{$g_root_moddef.parentScope}")
+     #   p "cs2:#{current_scope.inspect}, #{cs}"
         current_scope.parentScope = cs
-           p("rootmod4:#{$g_root_moddef.parentScope}")
+       #    p("rootmod4:#{$g_root_moddef.parentScope}")
         if current_scope == cs
             throw Exception.new("hahahahaha")
         end
@@ -266,9 +266,9 @@ class CRParser
         scope= current_scope  if !scope
         i = 1
         while scope 
-             p "scope:#{scope.inspect}"
-            p "scope:#{scope}"
-            p "class:#{scope.class_name}" if scope.is_a?(ClassDef)
+           #  p "scope:#{scope.inspect}"
+           # p "scope:#{scope}"
+           # p "class:#{scope.class_name}" if scope.is_a?(ClassDef)
             
             i+=1
             if i>=20
@@ -447,7 +447,7 @@ class CRParser
         # # p "line:#{@scanner.cur_line()}"
         p("stack:", 1000)
         @error.StoreErr(errorNo, @scanner.nextSym.clone)
-        raise "stopped because error"
+        raise "stopped because error #{errorNo}, file #{$g_cur_parse_file}"
     end
     # Scanner
     #    Error

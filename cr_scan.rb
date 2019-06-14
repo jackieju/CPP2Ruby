@@ -311,12 +311,28 @@ class CRScanner < AbsScanner
                 # _get()
                 # return @buffer[ret_start..@buffer.size-1] if @ch == nil || @ch.to_byte == EOF_CHAR
                 return ret if @ch == nil || @ch.to_byte == EOF_CHAR
-                if (@ch == "\\")
-                   while (_get() =~ /\s/)
-                   end
-                   if @ch == "\n"
-                       _get()
-                   end
+                #if (@ch == "\\")
+                #   while (_get() =~ /\s/)
+                #   end
+                #   if @ch == "\n"
+                #       _get()
+                #   end
+                #end
+                if @ch == "\\" && @buffer[@buffPos+1] =~ /\s/
+                    p "--->00000:#{@ch}, #{@buffPos}, #{@buffer[@buffPos]}@#{@buffer[@buffPos].to_byte} #{@buffer[@buffPos+1]}@#{@buffer[@buffPos+1].to_byte} #{@buffer[@buffPos+2]}@#{@buffer[@buffPos+2].to_byte}"
+                    # skip white space after \
+                    while (_get() =~ /\s/ && @ch != "\n")
+                    end
+                    p "--->00001:#{@ch}, #{@buffPos}, #{@buffer[@buffPos+1]} #{@buffer[@buffPos+1].to_byte}"
+                    
+                    # skip first LF
+                    #if @ch == "\n"
+                    #    p "--->00003:#{@ch}, #{@buffPos}, #{@buffer[@buffPos+1]} #{@buffer[@buffPos+1].to_byte}"
+                    #    
+                    #    _get()
+                    #end
+                    p "--->00002:#{@ch}, #{@buffPos}, #{@buffer[@buffPos+1]} #{@buffer[@buffPos+1].to_byte}"
+     
                 end
                 p "@ch011=#{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, pos #{@buffPos}, ret=#{ret}"
                 if (@ch == '"')
@@ -360,7 +376,7 @@ class CRScanner < AbsScanner
                 end
                 _get()
                 # p "@ch2 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, ret=#{ret}"
-            end while (@ch != "\n")
+            end while (@ch != "\n" && @ch != "\r")
         end
         p "nextline2:#{ret}"
         

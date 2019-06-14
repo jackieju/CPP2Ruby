@@ -1083,9 +1083,11 @@ s86=<<HERE
 //class CDocumentObject: public CTypedBofDocumentObject<CDocumentObjectRoot>, public IIVIAble, public std::CPostingPreviewSource, public IApprovalObject, public CElectronicDocument, public IGDPAction
   //  {}
  //   SBOErr	ODOCUndoDoc						(enum ObjectMethod sourceProc){};
- class ArcDeletePrefs{
-     public:
- ArcDeletePrefs(): m_dagRES(NULL), m_ArchiveDate() {}
+ class ArcDeletePrefs 
+ {
+ public:
+ 	// CTORs:
+ 	ArcDeletePrefs(): m_dagRES(NULL), m_ArchiveDate() {}
  int aaaa(){};
 }
 void ArcDeletePrefs::b(){}
@@ -1102,6 +1104,74 @@ A a(){
     b();
 }
 A t(1);
+class ArcDeletePrefs 
+{
+public:
+	// CTORs:
+	ArcDeletePrefs(): m_dagRES(NULL), m_ArchiveDate() {}
+	ArcDeletePrefs(const Date& archiveDate, SBOString tmpTblName): 
+		m_dagRES(NULL), m_ArchiveDate(archiveDate), m_TmpArcTblName(tmpTblName) {};
+
+	// DTOR:
+	//B1_OBSERVER_API ~ArcDeletePrefs();
+
+	PDAG		m_dagRES;
+	Date		m_ArchiveDate;
+	SBOString	m_TmpArcTblName;
+
+}; 
+HERE
+
+s88=<<HERE
+CTransactionJournalObject::CTransactionJournalObject (const TCHAR *id, CBizEnv &env) :
+							CSystemBusinessObject (id, env), m_digitalSignature (env){
+                            }
+HERE
+
+s89=<<HERE
+
+
+#define __RegisterSensitiveFieldInner(objectId, offset, column, defaultVal, beginVersion,  tryDKey)\
+
+#define DECLARE_SENSITIVE_FIELD()\
+public:\
+	class SensitiveFieldsHolder\
+	{\
+	public:\
+		SensitiveFieldsHolder();\
+		const SensitiveFieldList* GetSensitiveFields() const {return &m_sensitiveFieldList;}\
+		~SensitiveFieldsHolder(){m_sensitiveFieldList.clear ();}\
+	private:\
+		SensitiveFieldList m_sensitiveFieldList;\
+	};\
+private:\
+	static const SensitiveFieldsHolder sfHolder;\
+
+#define BEGIN_REGISTER_SENSITIVE_FIELD(TYPE)\
+	const TYPE::SensitiveFieldsHolder TYPE::sfHolder;\
+	
+#define REGISTER_SENSITIVE_FIELD_DKEY(objectId, offset, column, defaultVal, beginVersion)\
+
+#define REGISTER_SENSITIVE_FIELD_SKEY(objectId, offset, column, defaultVal, beginVersion)\
+
+#define END_REGISTER_SENSITIVE_FIELD()\
+
+class ArcDeletePrefs 
+{
+public:
+	// CTORs:
+	ArcDeletePrefs(): m_dagRES(nil), m_ArchiveDate() {}
+	ArcDeletePrefs(const Date& archiveDate, SBOString tmpTblName): 
+		m_dagRES(nil), m_ArchiveDate(archiveDate), m_TmpArcTblName(tmpTblName) {};
+
+	// DTOR:
+	 ~ArcDeletePrefs();
+
+	PDAG		m_dagRES;
+	Date		m_ArchiveDate;
+	SBOString	m_TmpArcTblName;
+
+}; 
 HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
@@ -1114,7 +1184,7 @@ HERE
 
 if !testall
    
-    s = s87
+    s = s89
 else
 
     r = ""
@@ -1183,7 +1253,7 @@ end
 
 
 #=end
-test(true)
+#test(false)
 
 
 # execute after test

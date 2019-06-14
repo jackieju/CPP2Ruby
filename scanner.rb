@@ -281,7 +281,7 @@ end # end Scanner
            MAX_IDENTIFIER_LENGTH = 1000
 class CScanner <  CRScanner
     
-    attr_accessor :currLine, :currCol
+    attr_accessor :currLine, :currCol, :include_stack
    def Scan_NextCh    
        NextCh()
    end
@@ -315,6 +315,7 @@ class CScanner <  CRScanner
     # end
     def initialize( str="",  ignoreCase=true) 
         super(str, ignoreCase)
+        @include_stack = []
     end
 
     
@@ -727,17 +728,29 @@ public
     
     # delete lines where from line pos1 located1 to line pos2 located
     def delete_lines(pos1, pos2, include_last_line=true)
-        #pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
+     #   pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
         
         replace_start = pos1
-        replace_end = pos2-1
+        replace_end = pos2
        # p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
        # p "replace_end:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
                 
          # to line start
-        while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
+         if @buffer[replace_start] == "\n" || @buffer[replace_start] == "\r" 
+             if @buffer[replace_start] == "\r" 
+                 replace_start -=1
+             elsif @buffer[replace_start] == "\n" 
+                 replace_start -=1
+                 replace_start -=1 if @buffer[replace_start] == "\r"
+             end
+         end
+        while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r" && replace_start >=0)
             replace_start -=1
         end
+        if @buffer[replace_start] == "\n" || @buffer[replace_start] == "\r"  
+            replace_start +=1 
+        end
+        
        # p "replace_start1:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
        # p "replace_end1:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
         
@@ -747,9 +760,9 @@ public
                 replace_end +=1
             end
         else
-            while (@buffer[replace_end] == "\n" || @buffer[replace_end] == "\r")
-                replace_end -=1
-            end
+            #while (@buffer[replace_end] == "\n" || @buffer[replace_end] == "\r")
+            #    replace_end -=1
+            #end1
            # p "replace_start2:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
            # p "replace_end2:#{replace_end}(#{@buffer[replace_end]}) #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
             
@@ -762,7 +775,7 @@ public
         end
         
 
-       # p "replace_start=#{replace_start}, replace_end=#{replace_end}, buffPos=#{@buffPos}"
+        p "replace_start=#{replace_start}, replace_end=#{replace_end}, buffPos=#{@buffPos}"
         
         if replace_end > replace_start       
         
@@ -785,10 +798,11 @@ public
             end
         
         
+            p "replace_start=#{replace_start} #{@buffer[replace_start..replace_start+3]}, replace_end=#{replace_end} #{@buffer[replace_end..replace_end+3]}, buffPos=#{@buffPos}"
         
             str1 = ""
             if replace_start >= 0 
-                str1 = @buffer[0..replace_start]
+                str1 = @buffer[0..replace_start-1]
             end
             old_buffer_size = @buffer.size
             @buffer = "#{str1}#{@buffer[replace_end+1..@buffer.size-1]}"
@@ -970,6 +984,7 @@ public
     end
     def include_file(fname, dir=nil)
         p("->->include file #{fname}", 10   )
+        
         ret = true
         dirs = nil
         if $g_options
@@ -985,14 +1000,17 @@ public
         #     delete_curline
         #     return false
         # end
+        p "=>include_stack:#{@include_stack.inspect}"
         
         if c == nil
            c = "// include file #{fname} failed\n"
            ret = false
         else
-           c = "// included from file #{fname}\n#{c}\n // end include file #{fname}\n"   
+           c = "// included file #{path} from file #{@include_stack.last} \n#{c}\n // end include file #{path}\n#includestackpop #{path}\n"   # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method Get()
+           @include_stack.push(path)
         end
         # p "===>432q42#{@buffer[@buffPos..@buffer.size-1]}"
+        p "before includefile #{fname}:#{@buffPos}, #{@buffer[@buffPos..@buffPos+20]}"
         replace_start = @buffPos-1
        
         # replace_end = @buffPos
@@ -1028,6 +1046,7 @@ public
         end
          Scan_NextCh()
          # p "3325:#{@ch}"
+         p "after includefile #{fname}:#{@buffPos}, #{@buffer[@buffPos..@buffPos+20]}"
          
         # p "new buffer after include: #{@buffer[@buffPos..@buffer.size-1]}"
         
@@ -1122,7 +1141,7 @@ public
                     @buffPos -= delnum
                     @currCol -= delnum
                     nextSym.len -= delnum
-                    p "after delete333:#{@buffer}"
+                  #  p "after delete333:#{@buffer}"
                 end
               case (state) 
            

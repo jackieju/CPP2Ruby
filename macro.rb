@@ -52,14 +52,29 @@ class Preprocessor < Parser
            @directive = "#{_str1}#{_str2}"
 =end          
            p "preprocess_directive0 #{@directive}, line=#{@scanner.currLine}", 10
-           if  @directive == "\#include"
+           if @scanner.currLine == 54 && @directive == "\#include"
+               p "==>preprocess_directive9:#{@scanner.buffer}"
+           end
+           if @directive == "\#includestackpop"  # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method scanner::Get()
+               p "pop stack"
+               @scanner.include_stack.pop
+               
+        #       p "before delete line:#{@scanner.buffer}"
+                p "-->111#{skip_curline}"
+               #p "--->113#{delete_prevline}"
+               delete_prevline
+          #     p "after line2:#{@scanner.buffer}"
+               
+           elsif  @directive == "\#include"
                p "====>preprocess_directive1"
                Get()
                if (@sym == 4) # string
                    finclude = curString()
+                    #p "==>preprocess_directive91:#{@scanner.buffer}"
+                   p "fclude111:#{finclude}"
+                   
                    p "@sym=#{@sym}"
                    p "current sym:#{@scanner.currSym.sym}"
-                   p "fclude:#{finclude}"
                    if finclude[0]=="\"" || finclude[0] =="\'"
                          finclude = finclude[1..finclude.size-1]
                    end
@@ -67,10 +82,13 @@ class Preprocessor < Parser
                          finclude = finclude[0..finclude.size-2]
                    end
                else # @sym should be 13 # <
+                   p("sym:#{@sym}, #{curString}")
+                  # p "==>:#{@scanner.buffer}"
                     Get()
+                    p "sym33=#{@sym}, #{curString()}"
                     finclude = ""
                     
-                    while (@sym != 58)
+                    while (@sym != C_GreaterSym && (@sym == C_PointSym || @sym == C_identifierSym || @sym == C_SlashSym )) # ">"
                         finclude += curString()
                         Get()
                     end
@@ -118,7 +136,9 @@ class Preprocessor < Parser
                Get(false)
                # Expect(C_identifierSym)
                p "c0000=#{@sym}, #{curString()}, line #{@scanner.currLine}, ch=#{@scanner.cch.to_byte}"
+               start_pos = @scanner.buffPos
                n = curString()
+               p "--->pre_define:#{n}"
                Get(false)
                   # n = prevString()
                   args =[]
@@ -167,9 +187,15 @@ class Preprocessor < Parser
                   # v = curString()+@scanner.skip_curline(true)
                   
                   p "==>define:#{n}==#{v}, pos=#{@scanner.buffPos}", 10
-                  delete_prevline
+                  #delete_prevline
                   # p "pre_define1:pos=#{@scanner.buffPos}, buffer #{@scanner.buffer}, sym:#{@sym}"  
-
+                     #   p "before line1:#{@scanner.buffer}"
+                        pos2 = @scanner.buffPos
+                     #   p "delete lines #{start_pos} #{@scanner.buffer[start_pos..start_pos+5]}, #{pos2} #{@scanner.buffer[pos2..pos2+5]}"
+                        delete_lines(start_pos, pos2, false)
+                     #    p "after line2:#{@scanner.buffer}" 
+             
+                  
                   v=v.gsub(/(\w[\w\d_]*)/){|m|
                      p m.inspect
                      count = args.index(m)
@@ -1517,6 +1543,7 @@ class Preprocessor < Parser
                 #_str2 = curString()
                 #@directive = "#{_str1}#{_str2}"
                 @directive = curString()
+                p "_preprocess directive3:#{@directive}, #{@scanner.buffer[@scanner.buffPos-10..@scanner.buffPos+10]}"
               #  p "_preprocess directive=#{@directive}, until_find=#{until_find.inspect}, process_directive=#{process_directive}"
                 if until_find.include?(@directive)
               #      p "--->222", 10
@@ -3099,10 +3126,53 @@ private:\
 
 HERE
 
+s22=<<HERE
+#define __RegisterSensitiveFieldInner(objectId, offset, column, defaultVal, beginVersion,  tryDKey)\
+
+#define DECLARE_SENSITIVE_FIELD()\
+public:\
+	class SensitiveFieldsHolder\
+	{\
+	public:\
+		SensitiveFieldsHolder();\
+		const SensitiveFieldList* GetSensitiveFields() const {return &m_sensitiveFieldList;}\
+		~SensitiveFieldsHolder(){m_sensitiveFieldList.clear ();}\
+	private:\
+		SensitiveFieldList m_sensitiveFieldList;\
+	};\
+private:\
+	static const SensitiveFieldsHolder sfHolder;\
+
+#define BEGIN_REGISTER_SENSITIVE_FIELD(TYPE)\
+	const TYPE::SensitiveFieldsHolder TYPE::sfHolder;\
+	
+#define REGISTER_SENSITIVE_FIELD_DKEY(objectId, offset, column, defaultVal, beginVersion)\
+
+#define REGISTER_SENSITIVE_FIELD_SKEY(objectId, offset, column, defaultVal, beginVersion)\
+
+#define END_REGISTER_SENSITIVE_FIELD()\
+
+class ArcDeletePrefs 
+{
+public:
+	// CTORs:
+	ArcDeletePrefs(): m_dagRES(nil), m_ArchiveDate() {}
+	ArcDeletePrefs(const Date& archiveDate, SBOString tmpTblName): 
+		m_dagRES(nil), m_ArchiveDate(archiveDate), m_TmpArcTblName(tmpTblName) {};
+
+	// DTOR:
+	 ~ArcDeletePrefs();
+
+	PDAG		m_dagRES;
+	Date		m_ArchiveDate;
+	SBOString	m_TmpArcTblName;
+
+}; 
+HERE
 
 if !testall
    
-    s = s21
+    s = s22
 else
 
     r = ""
@@ -3123,15 +3193,26 @@ end
 #    :include_dirs=>[]
 #}
     p "==>#{s}"
+    $g_search_dirs=["."]
+    fname = "./"
+    search_dirs = [File.dirname(__FILE__)]
+    search_dirs.insert(0, File.dirname(fname))
+    $g_search_dirs.insert(0, File.dirname(fname))
+
+    # TODO seems not used
+    $g_options = {
+        :include_dirs=>search_dirs
+    }
+ 
     scanner = CScanner.new(s, false)
     error = MyError.new("whaterver", scanner)
     parser = Preprocessor.new(scanner, error)
     # parser.Get
     p "preprocess content:#{scanner.buffer}"
-    content = parser.Preprocess(false)
+    content = parser.Preprocess(true)
     p "====== result ======"
     p content
     parser.show_macros
     error.PrintListing
 end
-test()
+#test()

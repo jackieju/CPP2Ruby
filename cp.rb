@@ -237,6 +237,7 @@ class Parser < CRParser
         # ret = @scanner.GetName()
         ret = @scanner.GetSymValue(@scanner.nextSym)
         # p "------#{@scanner}"
+        p 1
         return ret
     end
     def prevString() # previous string means value of currsym
@@ -732,7 +733,7 @@ class Parser < CRParser
                     @scanner.nextSym = @scanner.currSym
                 end
             end
-        end while (@sym > C_MAXT || ignoreSym?(@sym))
+        end while (@sym > C_MAXT || (self.class!= Preprocessor &&ignoreSym?(@sym) ) )
         # p "get()2: #{@sym}"
         # p "Get()2 #{@scanner.nextSym.sym}, line #{@scanner.nextSym.line}, col #{@scanner.nextSym.col}, value #{curString()}"
         # p("Get()3:#{@sym}, #{curString()}, line #{curLine}", 20)
@@ -780,10 +781,17 @@ class Parser < CRParser
     end
     def delete_lines(p1,p2,inclue = true)
         pos = @scanner.buffPos
+        p("---->dddd:#{pos}, #{p1}, #{p2}")
         pos1,pos2 = @scanner.delete_lines(p1, p2, inclue)
-        # p "after delete_lines:#{pos1}, #{pos2}, pos #{pos}, buffer:#{@scanner.buffer}", 10
+        #p "after delete_lines:#{pos1}, #{pos2}, pos #{pos}, buffer:#{@scanner.buffer}", 10
         # Get() if pos != @scanner.buffPos
-        Get() if pos >pos1 && pos <= pos2
+        p "after delete_lines:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+20]}"
+        p("---->dddd:#{pos}, #{pos1}, #{pos2}")
+        
+      #  Get() if pos >pos1 && pos <= pos2
+    #    Get() if pos >=pos1 && pos <= pos2
+        p "after delete_lines2:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+20]}"
+        
     end
  
 
@@ -1014,7 +1022,7 @@ class Parser < CRParser
         # line 296 "cs.atg"
         	
         # has to add class before class body, in case class with same name already added in c_classdefs.rb
-        p "currentrubyscope:#{current_ruby_scope.inspect}"
+        #p "currentrubyscope:#{current_ruby_scope.inspect}"
         current_ruby_scope.add_class(clsdef)
         p "add class:#{clsdef.class_name}"
             
@@ -2380,6 +2388,9 @@ class Parser < CRParser
  	            if current_scope.is_a?(ClassDef)
                     classdef = current_scope
                 end
+                if !classdef
+                    classdef = current_ruby_scope.add_class(class_name)
+                end
             end
         else
             if current_scope.is_a?(ClassDef) ||current_scope.is_a?(ModuleDef)
@@ -2391,7 +2402,7 @@ class Parser < CRParser
         
         
         pushed = false
-        p("==>FunctionDefinition17:#{current_scope.name}")
+        p("==>FunctionDefinition17:#{current_scope.name}, #{classdef}")
         if classdef && classdef != current_scope
             
             in_scope(classdef)

@@ -3,7 +3,6 @@
 #define strlen(s) s.size
 /* END */
 
-
 #define B1_OBSERVER_API
 #define B1_COMMON_API
 #define B1_SECURITY_COMMON_API
@@ -14,7 +13,7 @@
 #define B1_SERVICES_METADATA_API
 #define TRACE_METHOD
 
-#define const 
+#define const
 #define inline
 #define TRUE true
 #define FALSE false
