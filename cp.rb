@@ -733,7 +733,7 @@ class Parser < CRParser
                     @scanner.nextSym = @scanner.currSym
                 end
             end
-        end while (@sym > C_MAXT || (self.class!= Preprocessor &&ignoreSym?(@sym) ) )
+        end while (@sym > C_MAXT || (self.class.to_s!= "Preprocessor" &&ignoreSym?(@sym) ) )
         # p "get()2: #{@sym}"
         # p "Get()2 #{@scanner.nextSym.sym}, line #{@scanner.nextSym.line}, col #{@scanner.nextSym.col}, value #{curString()}"
         # p("Get()3:#{@sym}, #{curString()}, line #{curLine}", 20)
@@ -1761,7 +1761,7 @@ class Parser < CRParser
         p "===>isTypeStart:#{sym.sym}, val #{getSymValue(sym)}"
         # pos1 = sym.pos
         _sym = sym.sym
-        if _sym >= C_staticSym && _sym <= C_voidSym || _sym == C_INSym || _sym == C_OUTSym
+        if _sym >= C_staticSym && _sym <= C_voidSym || _sym == C_INSym || _sym == C_OUTSym || @sym == C_INOUTSym
             return true
         end
         if _sym == C_identifierSym
@@ -1831,6 +1831,23 @@ class Parser < CRParser
        p "==>symbol #{getSymValue(sym)} is not type start!"
         return false
     end
+    $typedef = {}
+    def find_typedef(n)
+        p "find_typedef:#{n}, #{$typedef[n].inspect}"
+        $typedef[n] 
+    end
+    
+    def addTypeDef(n, t)
+        p "addTypeDef1:#{n}, #{t.inspect}", 10
+        if t.name
+            if $typedef[t.name]
+                $typedef[n] = $typedef[t.name]
+            else
+                $typedef[n] = t
+            end
+        end
+        
+    end
     # line 689 "cs.atg"
    def LocalDeclaration()
        
@@ -1886,6 +1903,20 @@ class Parser < CRParser
 
                 return ret
             else
+                t = Type()
+                while( @sym == C_StarSym || @sym == C_AndSym)
+                    Get()
+                end
+                if (@sym == C_identifierSym)
+                    addTypeDef(curString(), t)
+                elsif (@sym == C_LparenSym && GetNextSym().sym == C_StarSym)
+                    Get()
+                    Expect(C_StarSym)
+                    t.name = curString()
+                    t.type = "FunctionPointer"
+                    addTypeDef(curString(), t)
+                    
+                end
     	        while @sym != C_SemicolonSym
     	               Get()
     	            p "cs in td:#{@sym},#{curString}"
@@ -2282,11 +2313,11 @@ class Parser < CRParser
         
         if @sym == C_LparenSym
         	ret += " = #{var_type.name}.new"
-            s,n = FunctionCall()
+            s,n = FunctionCall("#{var_type.name}.initialize")
         	ret += s
         elsif ArraySize() != ""
             ret += " = []\n"
-        elsif !var_type.is_simpleType 
+        elsif !var_type.is_simpleType && var_type.type != "FunctionPointer"
         	ret += " = #{var_type.name}.new"
         end
     # line 442 "cs.atg"
@@ -2298,7 +2329,16 @@ class Parser < CRParser
     # line 445 "cs.atg"
     		Get();
     # line 445 "cs.atg"
-    		ret += Expression()
+            parsed = false
+            if (@sym == C_identifierSym && GetNextSym.sym == C_SemicolonSym)
+                if find_method(curString)
+                    ret += ":#{curString}"
+                    parsed = true
+                end
+            end
+    		
+            ret += Expression() if !parsed
+                
     # line 445 "cs.atg"
     	end
     # line 446 "cs.atg"
@@ -2321,7 +2361,7 @@ class Parser < CRParser
         	
             if @sym == C_LparenSym
             	ret += " = #{var_type.name}.new"
-                s,n = FunctionCall()
+                s,n = FunctionCall("#{var_type.name}.initialize")
             	ret += s
             elsif ArraySize() != ""
                 ret += " = []\n"
@@ -2423,7 +2463,8 @@ class Parser < CRParser
     # line 466 "cs.atg"
         in_scope("FunctionDefinition")
     # line 509 "cs.atg"
-    	ret += FunctionHeader()
+        r,pds = FunctionHeader()
+    	ret += r
         
     	if ret.gsub(/\s/,"") == "()"
     	    args_num = 0
@@ -2465,7 +2506,7 @@ class Parser < CRParser
                 Expect(C_identifierSym)
                
                 Expect(C_LparenSym)
-                v,arg_num = ActualParameters()
+                v,args = ActualParameters()
                 Expect(C_RparenSym)
                 if m == "super"
                     i_list += "super(#{v})\n"
@@ -2501,7 +2542,6 @@ class Parser < CRParser
             
             # out_scope() if classdef
     	end
-    	throw  "3" if $g_root_moddef.parentScope != nil && fn_name == "t"
 
     	 out_scope() # functiondefinition
 
@@ -2517,11 +2557,11 @@ class Parser < CRParser
         if classdef
             p "add method '#{fn_name}'##{args_num} to class '#{classdef.class_name}@#{classdef}':#{method_src}\nacc:#{acc}", 10
             
-            classdef.add_method(fn_name, args_num, method_src, acc)
+            classdef.add_method(fn_name, pds, method_src, acc)
         else
             p "add method '#{fn_name}'##{args_num} to root class '#{@root_class}':#{method_src}\nacc:#{acc}", 10
             
-            @root_class.add_method(fn_name, args_num, method_src, acc)
+            @root_class.add_method(fn_name, pds, method_src, acc)
         end
         #p "classdef #{classdef.inspect}"
         pdebug "===>FunctionDefinition1:#{class_name}::#{fn_name}"
@@ -2539,13 +2579,14 @@ class Parser < CRParser
 
 
         ret = ""
-
+        pd = [] #parameters description
+        
     # line 545 "cs.atg"
     	Expect(C_LparenSym)
     # line 545 "cs.atg"
     	if (@sym == C_identifierSym ||
     	    @sym >= C_varSym && @sym <= C_voidSym||
-    	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_PPPSym  || @sym == C_EnumSym ||
+    	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym || @sym == C_PPPSym  || @sym == C_EnumSym ||
             @sym == C_classSym # only for strange copy ctor A(class A&other);
             ) 
     # line 545 "cs.atg"
@@ -2554,7 +2595,8 @@ class Parser < CRParser
                 ret += "*_args_"
                 Get()
             else
-    		    ret += FormalParamList()
+                r, pds = FormalParamList()
+    		    ret += r
             end
     	end
     # line 545 "cs.atg"
@@ -2576,7 +2618,7 @@ class Parser < CRParser
         end
         
         
-        return "(#{ret})"
+        return "(#{ret})", pds
  
     end
     
@@ -2584,9 +2626,12 @@ class Parser < CRParser
     def FormalParamList()
         p("FormalParamList0")
         $formal_p_count = 0
+        pds = []
         ret = ""
     # line 567 "cs.atg"
-    	ret += FormalParameter()
+        pd = FormalParameter()
+    	ret += pd[:name]
+        pds.push(pd)
     	
     # line 567 "cs.atg"
     	while (@sym == C_CommaSym) 
@@ -2599,12 +2644,14 @@ class Parser < CRParser
                 ret += "*_args_"
                 Get()
             else
-    		    ret += FormalParameter()
+                pd = FormalParameter()
+    		    ret += pd[:name]
+                pds.push(pd)
             end
     		
     	end
     	
-    	return ret
+    	return ret,pds
     end
     
     def parameter_to_var(var_type)
@@ -2615,6 +2662,7 @@ class Parser < CRParser
            
             # here parameter in function header cannot be Const (Capital on first char)
             param_name = param_name[0].downcase + param_name[1..param_name.size-1]
+         #   param_name = ":#{param_name}" if var_type == "__FunctionPointer__"
             ret += param_name
             cs = current_scope("FunctionDefinition")
             if (cs)
@@ -2634,6 +2682,7 @@ class Parser < CRParser
         p("FormalParameter0:sym=#{@sym}, curString=#{curString()}")
         
         ret = ""
+        pd = {}
     # line 441 "cs.atg"
         # PTYPEDES type = new TYPEDES;
     # line 442 "cs.atg"
@@ -2641,59 +2690,73 @@ class Parser < CRParser
              @sym == C_classSym # only for strange copy ctor: A(class A&other);
             Get()
         end
-    	var_type = Type().name
+    	var_type = Type()
         p("FormalParameter1:sym=#{@sym}, curString=#{curString()}, #{var_type}")
     # line 442 "cs.atg"
-    
-    if @sym == C_LparenSym # template parameter:   template <size_t count>  int c(const B (&t)[count], long fff);
-        Get()
-        Expect(C_AndSym)
-        varname= curString()
-        ret += parameter_to_var(var_type)
-        Expect(C_RparenSym)
-        Expect(C_LbrackSym)
-        count = curString()
-        @presrc += "#{count}=#{varname}.size\n"
-        Get()
-        Expect(C_RbrackSym)
-
-    else
-    	while (@sym == C_StarSym || @sym == C_AndSym || @sym == C_AndAndSym) 
-    # line 442 "cs.atg"
-    # line 442 "cs.atg"
-    		Get()
-    # line 442 "cs.atg"
-            # type->refLevel++;
-    	end
-        p("FormalParameter2:sym=#{@sym}, curString=#{curString()}")
-        
-    # line 444 "cs.atg"
-   
-        ret += parameter_to_var(var_type)
-        # Expect(C_identifierSym)
-    	
-    # line 445 "cs.atg"
-
-    # line 450 "cs.atg"
-    	ArraySize()
-    # line 451 "cs.atg"
-        
-        if @sym == C_EqualSym #default value for parameter
-            Get()
-            r = Expression()
-            ret += " = #{r}"
-            p "===>FormalParameter default value"
+        pd[:type] = var_type.name
+        td = find_typedef(var_type.name)
+        if (td && td.type == "FunctionPointer")
+            pd[:type] = "FunctionPointer"
         end
+        if @sym == C_LparenSym && GetNextSym().sym == C_AndSym# template parameter:   template <size_t count>  int c(const B (&t)[count], long fff);
+            Get()
+            Expect(C_AndSym)
+            varname= curString()
+            ret += parameter_to_var(var_type)
+            Expect(C_RparenSym)
+            Expect(C_LbrackSym)
+            count = curString()
+            @presrc += "#{count}=#{varname}.size\n"
+            Get()
+            Expect(C_RbrackSym)
+        elsif  @sym == C_LparenSym && GetNextSym().sym == C_StarSym # function pointer: void fn(long propertyId, bool (*onCanChange)(const CBofNode&, T, bool), ...
+            Get()
+            Expect(C_StarSym)
+            var_type.type = "FunctionPointer"
+            ret += parameter_to_var(var_type)
         
-    end # if @sym == C_LparenSym; else
-        return ret
+            Expect(C_RparenSym)
+            FunctionHeader()
+            pd[:type] = "FunctionPointer"
+        else
+        	while (@sym == C_StarSym || @sym == C_AndSym || @sym == C_AndAndSym) 
+        # line 442 "cs.atg"
+        # line 442 "cs.atg"
+        		Get()
+        # line 442 "cs.atg"
+                # type->refLevel++;
+        	end
+            p("FormalParameter2:sym=#{@sym}, curString=#{curString()}")
+        
+        # line 444 "cs.atg"
+   
+            ret += parameter_to_var(var_type)
+            # Expect(C_identifierSym)
+    	
+        # line 445 "cs.atg"
+
+        # line 450 "cs.atg"
+        	ArraySize()
+        # line 451 "cs.atg"
+        
+            if @sym == C_EqualSym #default value for parameter
+                Get()
+                r = Expression()
+                ret += " = #{r}"
+                p "===>FormalParameter default value"
+            end
+        
+        end # if @sym == C_LparenSym; else
+        pd[:name] = ret
+        p "FormalParameter0:pd=#{pd.inspect}"
+        return pd
         
     end
     # line 394 "cs.atg"
     def StorageClass()
         ret = ""
     # line 396 "cs.atg"
-    	if (@sym >= C_staticSym && @sym <= C_externSym || @sym == C_INSym || @sym == C_OUTSym) 
+    	if (@sym >= C_staticSym && @sym <= C_externSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym) 
     	    ret += curString()
     # line 395 "cs.atg"
     		Get();
@@ -2763,8 +2826,9 @@ class Parser < CRParser
         pdebug("---->type:#{@sym}, #{curString()}")
         ret = ""
         is_simpleType = true
+        var_type = nil
         
-        while (@sym >= C_staticSym && @sym <= C_constSym || @sym == C_INSym || @sym == C_OUTSym) 
+        while (@sym >= C_staticSym && @sym <= C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym) 
             StorageClass() # will be ignore
         end
         
@@ -2879,54 +2943,68 @@ class Parser < CRParser
                 Expect(C_identifierSym)
                
     		when C_identifierSym
-    		    ret += curString()
+                _n = curString()
+    		    ret += _n
     		    Get()
                 p "sym1:#{@sym}, #{curString()}"
-		        
-    		    while @sym == C_ColonColonSym
-    		        Get()
-    		        ret += "::#{curString()}"
-    		        Get()
-    		        if @sym == C_LessSym # stl type (using template)
-                        p("type20:before parse stl0")
-    		            STLType()
-                        p("type20:after parse stl0, #{@sym} #{curString()}")
-                        
-    	            end
-		        end
-                # p "sym2:#{@sym}"
-		        if @sym == C_LessSym # stl type (using template)
-                    p("type21:before parse stl1", 10)
-                    STLType()
-                    p("type21:after parse stl0, #{@sym} #{curString()}")
-                    
-	            end
-	            while @sym == C_ColonColonSym
-    		        Get()
-    		        ret += "::#{curString()}"
-    		        Get()
-    		        
-		        end
                 
-                r = find_class(ret)
-                ret = r[:prefix] + "::" + ret if r[:prefix]  != ""
-                is_simpleType = false
-	            p "sym3:#{@sym}, val #{curString()}"
-	            p "ret3:#{ret}"
-               # if (find_class(ret) == nil)
-    	       #     p "unknow type:#{ret}"
-               #     
-               #     GenError(116)
-               # end
+                if (@sym == C_identifierSym || @sym == C_StarSym || @sym == C_AndSym)
+                    var_type = find_typedef(_n)
+                    is_simpleType = false if var_type
+                else
+		        
+        		    while @sym == C_ColonColonSym
+        		        Get()
+        		        ret += "::#{curString()}"
+        		        Get()
+        		        if @sym == C_LessSym # stl type (using template)
+                            p("type20:before parse stl0")
+        		            STLType()
+                            p("type20:after parse stl0, #{@sym} #{curString()}")
+                        
+        	            end
+    		        end
+                    # p "sym2:#{@sym}"
+    		        if @sym == C_LessSym # stl type (using template)
+                        p("type21:before parse stl1", 10)
+                        STLType()
+                        p("type21:after parse stl0, #{@sym} #{curString()}")
+                    
+    	            end
+    	            while @sym == C_ColonColonSym
+        		        Get()
+        		        ret += "::#{curString()}"
+        		        Get()
+    		        
+    		        end
+                
+                    r = find_class(ret)
+                    ret = r[:prefix] + "::" + ret if r[:prefix]  != ""
+                    is_simpleType = false
+    	            p "sym3:#{@sym}, val #{curString()}"
+    	            p "ret3:#{ret}"
+                   # if (find_class(ret) == nil)
+        	       #     p "unknow type:#{ret}"
+                   #     
+                   #     GenError(116)
+                   # end
+               
+               end
     		else 
     		    GenError(95)
-    	end # case
+    	    end # case
     	p "type3:ret=#{ret}, #{@sym}, val #{curString()}"
 
     	#return ret
-        r =  VarType.new(ret)
-        r.is_simpleType = is_simpleType
-        return r
+        if var_type == nil
+            r =  VarType.new(ret)
+            r.is_simpleType = is_simpleType
+            return r
+        else
+            var_type.is_simpleType = is_simpleType
+             return var_type
+        end
+       
     end
     
     def Label
@@ -4082,7 +4160,7 @@ HERE
                     end
                    
                     
-                    s,n = FunctionCall()
+                    s,n = FunctionCall(ret)
                     ret += s
                     p ("-->235:#{s}")
     # line 1734 "cs.atg"
@@ -4132,7 +4210,7 @@ HERE
     # line 1894 "cs.atg"
                         # ret += FunctionCall(&fn)
                  
-                          s,n =FunctionCall()
+                          s,n =FunctionCall(ret)
                           r = find_function(method_signature(ret,n))
                           if r[:v]
                               ret = r[:prefix]+"::"+ret
@@ -4611,8 +4689,27 @@ HERE
         return ret
     end
     
+    def find_method(method, arg_num)
+        p "find_method1:#{method}, #{arg_num}"
+        ar = method.split(".")
+        
+        if (ar.size >1)
+         
+            clsdef = find_class(ar[0])[:v]
+        else
+            clsdef = @root_class
+        end
+        clsdef = @root_class if !clsdef
+        fname = ar[ar.size-1]
+        p "find_method3:#{clsdef}"
+        
+        ret =  clsdef.methods[method_signature(fname, arg_num)]
+        p "find_method2:#{method_signature(fname, arg_num)}=>#{clsdef.class_name}, #{ret}"
+        p clsdef.methods.inspect
+        return ret
+    end
     # line 2597 "cs.atg"
-    def FunctionCall()
+    def FunctionCall(method)
         pp "functioncall()",20
         ret  =""
     # line 2597 "cs.atg"
@@ -4633,45 +4730,74 @@ HERE
     	    @sym >= C_newSym && @sym  <= C_DollarSym ||
     	    @sym >= C_BangSym && @sym  <= C_TildeSym ) 
     # line 2605 "cs.atg"
-            s,n = ActualParameters()
+            s,args = ActualParameters()
     		ret += s
     	end
     # line 2605 "cs.atg"
     	Expect(C_RparenSym);
     # line 2606 "cs.atg"
+        
+    # check if this function name is var (passed in as parameter of current function definition)
+
+        # check if one parameter is function pointer
+        method_desc = find_method(method, args.size)
+        if method_desc && method_desc[:args] 
+            for i in 0..args.size-1
+                if method_desc[:args][i][:type] == "FunctionPointer"
+                    args[i]= "method(:#{args[i]})"
+                end
+            end
+        end
+        ret = args.join(",")
+        ret = "(#{ret})"
+        
+        v = find_var(method)
+        p "find_var111:#{method}:#{v}"
+        if v
+            if v.type.type == "FunctionPointer"
+                ret = ".call#{ret}"
+            end
+        end
+        
+        
         p "====>FunctionCall1:(#{ret})", 20
-        return ["(#{ret})", n]
+        return [ret, args.size]
     end
 
     # line 2660 "cs.atg"
     def ActualParameters()
         debug "==>ActualParameters:#{@sym}, line #{curLine}, val #{curString()}"
-	    arg_num = 0
         ret = ""
+        args=[]
     # line 2661 "cs.atg"
 
     	
 
     # line 2668 "cs.atg"
-    	ret += Expression()
+        r = Expression()
+        args.push(r)
+    	ret += r
+        
     # line 2669 "cs.atg"
-        arg_num += 1
+       
     	p "ret:#{ret}"
     # line 2701 "cs.atg"
     	while (@sym  == C_CommaSym) 
     # line 2701 "cs.atg"
-    		ret += curString()
+    		ret += ","
     		
     		Get()
     # line 2701 "cs.atg"
-    		ret += Expression()
-            arg_num += 1
+            r = Expression()
+            args.push(r)
+            ret += r
+    
     # line 2703 "cs.atg"
 
 	    end
 	    debug "==>ActualParameters1:#{@sym}, line #{curLine}, val #{curString()}, ret=#{ret}"
     # line 2776 "cs.atg"
-        return [ret, arg_num]
+        return [ret, args]
     end
     def Creator()
         ret = ""
@@ -4696,7 +4822,7 @@ HERE
     # line 2302 "cs.atg"
     	while (@sym == C_LparenSym) 
     # line 2302 "cs.atg"
-    s,n = FunctionCall()
+    s,n = FunctionCall("#{className}.initilize")
     		fCall += s
     	end
     # line 2303 "cs.atg"

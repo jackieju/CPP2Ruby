@@ -182,20 +182,19 @@ C_throwSym =                    92  # "throw"
 C_sizeofSym =                   93  # "sizeof"
 C_INSym =                       94  # "IN"
 C_OUTSym =                      95  # "OUT"
-C_inlineSym =                   96  # "inline"
-C_PPPSym =                   97  # "..."
-C_namespaceSym =                   98  # "..."
-C_usingSym =                   99 # "using"
-C_finalSym =                   100 # "final"
-C_operatorSym =                   101 # "operator"
-C_overrideSym =                   102 # "override"
+C_INOUTSym =                    96  # "INOUT"
+C_inlineSym =                   97  # "inline"
+C_PPPSym =                      98   # "..."
+C_namespaceSym =                99     # "..."
+C_usingSym =                    100    # "using"
+C_finalSym =                    101    # "final"
+C_operatorSym =                 102    # "operator"
+C_overrideSym =                 103    # "override"
+C_gotoSym =                     104    # "goto
 
-C_gotoSym =                   103 # "goto"
-
-
-#*** insert new sym here ***#
-C_No_Sym =                      104	# not */
-C_PreProcessorSym =             105	# PreProcessor */
+#*** insert new sym here ***#   
+C_No_Sym =                      105	# not */
+C_PreProcessorSym =             106	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
@@ -310,6 +309,7 @@ SYMS=[
 "sizeof",
 "IN",
 "OUT",
+"INOUT",
 "inline",
 "...",
 "namespace",

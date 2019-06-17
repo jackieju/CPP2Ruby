@@ -440,8 +440,10 @@ class CScanner <  CRScanner
                 return C_intSym if (EqualStr("int")) 
            		return C_ifSym if (EqualStr("if")) 
             when 'I'
-                return C_INSym if (EqualStr("IN")) 
+                return C_INSym if (EqualStr("IN"))
+                return C_INOUTSym if (EqualStr("INOUT"))  
           		#break
+                
           	when 'l'
           		#return C_loadSym if (EqualStr("load")) 
           		return C_longSym if (EqualStr("long")) 

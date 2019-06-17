@@ -26,11 +26,12 @@ class Variable
     end
 end
 class VarType
-    attr_accessor :name, :ref, :is_simpleType
+    attr_accessor :name, :ref, :is_simpleType, :type # type can be:nil, "FunctionPointer"
     def initialize(name)
         @name = name
         @ref = 0
         @is_simpleType = false
+        @type = nil
     end
 end
 class Scope
@@ -67,7 +68,15 @@ class ModuleDef < Scope
         @methods = {}
         @modules = {}
         @classes = {}
-        @functions = {} # record mapping from c name to ruby name, because c can overide function with same name, we will map them to "#{cmethod_name}_v#{arg_number}"
+        # @functions record mapping from c name to ruby name, because c can overide function with same name, we will map them to "#{cmethod_name}_v#{arg_number}"
+        # e.g.
+        # functions=>{
+        #    "fn1"=>{
+        #        "fn1_v1"=>"fn1#1", #fn1 with 1 parameter
+        #        "fn1_v2"=>"fn1#2"  #fn2 with 2 paratermers          
+        #    }
+        #}
+        @functions = {} 
         @includings = [] 
     end
     def add_src(src)
@@ -76,7 +85,8 @@ class ModuleDef < Scope
     end
     
 
-    def add_method(method_name, arg_number, src, acc="public")
+    def add_method(method_name, args, src, acc="public")
+        arg_number = args.size
         method_sig = method_signature(method_name, arg_number)
         
         # if overriden, modify name
@@ -87,28 +97,31 @@ class ModuleDef < Scope
             method_name = newname
         end
         if @methods[method_sig]
-            @methods[method_sig][:name] = method_name
+            method_desc = @methods[method_sig]
+            method_desc[:name] = method_name
+            method_desc[:args] = args
             if src && src.strip != ""
-                @methods[method_sig][:src] =src
+                method_desc[:src] =src
             end
-            if @methods[method_sig][:decoration] == nil
-                @methods[method_sig][:decoration] = ""
+            if method_desc[:decoration] == nil
+                method_desc[:decoration] = ""
             end
             ar = acc.split(" ")
             ar.each{|v|
-                if @methods[method_sig][:decoration].index(v) == nil
-                    @methods[method_sig][:decoration] += " #{v}"
+                if method_desc[:decoration].index(v) == nil
+                    method_desc[:decoration] += " #{v}"
                 end
             }
             
         else
             @methods[method_sig]={
                 :name=>method_name,
+                :args=>args,
                 :src=>src,
                 :decoration=>acc
             }
         end
-      #  p("method added:#{@methods[method_sig].inspect} \n to #{self.class_name}@#{self}")
+        p("method #{method_sig} added to #{self.class_name}@#{self}:#{@methods[method_sig].inspect} \n")
       #  p(@methods.inspect)
       #  if self.class != ModuleDef
       #      p ("parent:#{self.parent}")
@@ -266,7 +279,7 @@ class CRParser
         scope= current_scope  if !scope
         i = 1
         while scope 
-           #  p "scope:#{scope.inspect}"
+             p "scope:#{scope.inspect}"
            # p "scope:#{scope}"
            # p "class:#{scope.class_name}" if scope.is_a?(ClassDef)
             

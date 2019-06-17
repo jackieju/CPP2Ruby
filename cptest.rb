@@ -1173,6 +1173,23 @@ public:
 
 }; 
 HERE
+s90=<<HERE
+typedef bool (*CALLBACK)(const CBofNode&, const SBOString&);
+template <typename T> void fn1(bool (*onCanChange)(const CBofNode&, T, bool), void (*onChanged)(CBofNode&, T, bool), T value, CALLBACK valueIsNull){
+    onCanChange(3,false);
+    valueIsNull(1,2);
+};
+template <typename T> void A::fn2(long propertyId, long columnId, bool (*onCanChange)(const CBofNode&, T, bool), void (*onChanged)(CBofNode&, T, bool), T value, fn3 valueIsNull){
+    onCanChange(3,false);
+};
+fn1<int>(b,c, 3,4);
+A a;
+a.fn2(1,2,b,c, 3,4);
+CALLBACK fn3;
+fn3 = fn1;
+fn3(3,4);
+
+HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -1184,7 +1201,7 @@ HERE
 
 if !testall
    
-    s = s89
+    s = s90
 else
 
     r = ""
@@ -1253,8 +1270,8 @@ end
 
 
 #=end
-#test(false)
-
+test(false)
+p "$typedef:#{$typedef.inspect}"
 
 # execute after test
 
