@@ -33,6 +33,7 @@ class VarType
         @is_simpleType = false
         @type = nil
     end
+
 end
 class Scope
     # name is scope name in c/cpp, except "module"
@@ -90,12 +91,12 @@ class ModuleDef < Scope
         method_sig = method_signature(method_name, arg_number)
         
         # if overriden, modify name
-        if @functions[method_name] && @functions[method_name].keys.size > 1
-            newname = @function[method_name].keys.size +1
-            newname = "#{method_name}_v#{arg_number}"
-            @functions[method_name][newname] = method_sig
-            method_name = newname
-        end
+        @functions[method_name] = {} if !@functions[method_name] 
+        
+        newname = "#{method_name}_v#{arg_number}"
+        @functions[method_name][newname] = method_sig
+        method_name = newname
+            
         if @methods[method_sig]
             method_desc = @methods[method_sig]
             method_desc[:name] = method_name
@@ -279,14 +280,14 @@ class CRParser
         scope= current_scope  if !scope
         i = 1
         while scope 
-             p "scope:#{scope.inspect}"
+             #p "scope:#{scope.inspect}"
            # p "scope:#{scope}"
            # p "class:#{scope.class_name}" if scope.is_a?(ClassDef)
             
             i+=1
             if i>=20
                 dump_pos
-                p "scope:#{scope.inspect}"
+                #p "scope:#{scope.inspect}"
                 throw Exception.new("===>error<====")
             end
             scope.vars.each{|k,v|

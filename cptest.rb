@@ -1188,6 +1188,9 @@ a.fn2(1,2,b,c, 3,4);
 CALLBACK fn3;
 fn3 = fn1;
 fn3(3,4);
+void fn4(int a, int b){ return a+b;}
+fn4(3, 4);
+int d = fn4(2,3);
 
 HERE
 s_notsupport=<<HERE # lumda

@@ -1075,7 +1075,7 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
-               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym || @sym==C_EnumSym || @sym==C_namespaceSym || @sym == C_StructSym) 
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym || @sym==C_EnumSym || @sym==C_namespaceSym || @sym == C_StructSym || @sym == C_usingSym) 
     # line 322 "cs.atg"
                 cs = curString()
                 p "cs:#{cs}"
@@ -1903,20 +1903,26 @@ class Parser < CRParser
 
                 return ret
             else
-                t = Type()
-                while( @sym == C_StarSym || @sym == C_AndSym)
-                    Get()
-                end
-                if (@sym == C_identifierSym)
-                    addTypeDef(curString(), t)
-                elsif (@sym == C_LparenSym && GetNextSym().sym == C_StarSym)
-                    Get()
-                    Expect(C_StarSym)
-                    t.name = curString()
-                    t.type = "FunctionPointer"
-                    addTypeDef(curString(), t)
-                    
-                end
+                #if @sym == C_classSym 
+                #    Get()
+                #    Expect(C_identifierSym)
+                #    t = VarType.new(curString(), "class")
+                #else
+                #    t = Type()
+                #end
+                #while( @sym == C_StarSym || @sym == C_AndSym)
+                #    Get()
+                #end
+                #if (@sym == C_identifierSym)
+                #    addTypeDef(curString(), t)
+                #elsif (@sym == C_LparenSym && GetNextSym().sym == C_StarSym)
+                #    Get()
+                #    Expect(C_StarSym)
+                #    t.name = curString()
+                #    t.type = "FunctionPointer"
+                #    addTypeDef(curString(), t)
+                #    
+                #end
     	        while @sym != C_SemicolonSym
     	               Get()
     	            p "cs in td:#{@sym},#{curString}"
@@ -2329,16 +2335,16 @@ class Parser < CRParser
     # line 445 "cs.atg"
     		Get();
     # line 445 "cs.atg"
-            parsed = false
-            if (@sym == C_identifierSym && GetNextSym.sym == C_SemicolonSym)
-                if find_method(curString)
-                    ret += ":#{curString}"
-                    parsed = true
-                end
-            end
-    		
-            ret += Expression() if !parsed
-                
+            #parsed = false
+            #if (@sym == C_identifierSym && GetNextSym.sym == C_SemicolonSym)
+            #    if find_method(curString)
+            #        ret += ":#{curString}"
+            #        parsed = true
+            #    end
+            #end
+    		#
+            #ret += Expression() if !parsed
+            ret += Expression()
     # line 445 "cs.atg"
     	end
     # line 446 "cs.atg"
@@ -2579,7 +2585,7 @@ class Parser < CRParser
 
 
         ret = ""
-        pd = [] #parameters description
+        pds = [] #parameters description
         
     # line 545 "cs.atg"
     	Expect(C_LparenSym)
@@ -4161,7 +4167,17 @@ HERE
                    
                     
                     s,n = FunctionCall(ret)
+                    # check if going to call a variable, which is typed as FunctionPointer
+                    method =ret
+                    v = find_var(method)
+                    p "find_var111:#{method}:#{v}"
+                    if v
+                        if v.type.type == "FunctionPointer"
+                            ret = "method(#{method}).call"
+                        end
+                    end 
                     ret += s
+                    
                     p ("-->235:#{s}")
     # line 1734 "cs.atg"
     				
@@ -4216,6 +4232,15 @@ HERE
                               ret = r[:prefix]+"::"+ret
                           end
                         p("111->#{ret}")
+                       
+                        method =ret
+                        v = find_var(method)
+                        p "find_var111:#{method}:#{v}"
+                        if v
+                            if v.type.type == "FunctionPointer"
+                                ret = "method(#{method}).call"
+                            end
+                        end 
                         ret += s
     				end
     # line 1896 "cs.atg"
@@ -4423,6 +4448,7 @@ HERE
 
                 	Get()
         # line 2334 "cs.atg"
+        isOperator = false
                     if @sym == C_ColonColonSym
                         r = find_class(varname)
                         if !r[:v]
@@ -4452,7 +4478,7 @@ HERE
                                 Get()
                                 ret += "#{curString}"
                                 p "====>234:#{curString()}, #{ret}"
-                                
+                                isOperator = true
                             else
                                 if cls && cls.functions[curString()]
                                     ret += ".#{curString}"
@@ -4509,6 +4535,15 @@ HERE
                         filterTemplate()
                     end
                     p "====>primary4:#{@sym}, #{curString()}"
+                    
+                    if @sym != C_LparenSym && # not functioncall
+                        !isOperator && !ret.index("::")  && !ret.index(".")
+                        if (find_method(ret))
+                            ret = ":#{ret}"
+                        end
+                    end
+                    p "====>primary4:#{ret}"
+                    
                 dump_pos()
     # line 2335 "cs.atg"
 
@@ -4689,7 +4724,7 @@ HERE
         return ret
     end
     
-    def find_method(method, arg_num)
+    def find_method(method, arg_num=nil)
         p "find_method1:#{method}, #{arg_num}"
         ar = method.split(".")
         
@@ -4701,17 +4736,23 @@ HERE
         end
         clsdef = @root_class if !clsdef
         fname = ar[ar.size-1]
-        p "find_method3:#{clsdef}"
+        p "find_method3:#{clsdef.class_name}, #{clsdef.functions.inspect}"
         
-        ret =  clsdef.methods[method_signature(fname, arg_num)]
-        p "find_method2:#{method_signature(fname, arg_num)}=>#{clsdef.class_name}, #{ret}"
-        p clsdef.methods.inspect
+        if (arg_num)
+            ret =  clsdef.methods[method_signature(fname, arg_num)]
+        else
+            ret =  clsdef.functions[fname]
+            
+        end
+       # p "find_method2:#{method_signature(fname, arg_num)}=>#{clsdef.class_name}, #{ret}"
+   #     p clsdef.methods.inspect
         return ret
     end
     # line 2597 "cs.atg"
     def FunctionCall(method)
         pp "functioncall()",20
         ret  =""
+        args = []
     # line 2597 "cs.atg"
     	Expect(C_LparenSym);
     # line 2598 "cs.atg"
@@ -4740,24 +4781,25 @@ HERE
     # check if this function name is var (passed in as parameter of current function definition)
 
         # check if one parameter is function pointer
-        method_desc = find_method(method, args.size)
-        if method_desc && method_desc[:args] 
-            for i in 0..args.size-1
-                if method_desc[:args][i][:type] == "FunctionPointer"
-                    args[i]= "method(:#{args[i]})"
-                end
-            end
-        end
-        ret = args.join(",")
+        #method_desc = find_method(method, args.size)
+        #if method_desc && method_desc[:args] 
+        #    for i in 0..args.size-1
+        #        if method_desc[:args][i][:type] == "FunctionPointer"
+        #            args[i]= "method(:#{args[i]})"
+        #        end
+        #    end
+        #end
+        ret = args.join(",") if args && args.size >0
         ret = "(#{ret})"
         
-        v = find_var(method)
-        p "find_var111:#{method}:#{v}"
-        if v
-            if v.type.type == "FunctionPointer"
-                ret = ".call#{ret}"
-            end
-        end
+        ## check if going to call a variable, which is typed as FunctionPointer
+        #v = find_var(method)
+        #p "find_var111:#{method}:#{v}"
+        #if v
+        #    if v.type.type == "FunctionPointer"
+        #        ret = ".call#{ret}"
+        #    end
+        #end
         
         
         p "====>FunctionCall1:(#{ret})", 20
