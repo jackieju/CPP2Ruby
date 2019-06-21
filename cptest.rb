@@ -1193,18 +1193,29 @@ fn4(3, 4);
 int d = fn4(2,3);
 
 HERE
+s91=<<HERE
+SBOErr	CTransactionJournalObject::OnUpdate()
+{
+        trace("OnUpdate");
+    }
+HERE
+s92=<<HERE
+typedef bool (*DBD_ProgressCallback) (void *userData, long curr, long max);
+typedef bool (*DBD_FilterCallback) (PDAG pDag, long rec, void *param1, void *param2);
+typedef SBOErr (*DBD_CondCallback) (void *form, DBD_Params *addedParams);
+void     SetProgressCallback (DBD_ProgressCallback progressProc, void* userData, CProgressIndicator *progressPtr);
+HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
 auto Cleanup = [&] () {}
-
 HERE
 
 
 
 if !testall
    
-    s = s90
+    s = s92
 else
 
     r = ""

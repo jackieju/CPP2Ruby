@@ -48,8 +48,23 @@ $ar_classdefs = [
     "PDBD_Upd",
     "BGSDataPtr",
     "TotalsPair",
-    "CINVLineAgreementInfoMap"
-    ]
+    "CINVLineAgreementInfoMap",
+    "Currency",
+    "DocSubTypeStruct",
+    "DBD_TablesList",
+    "DBD_CondTables",
+    "DBD_Conditions",
+    "PDBD_Sort",
+    "PDBD_Group",
+    "PDBD_Res",
+    "PDBD_Filter",
+    "DBMCconnBase",
+    "PDBD_Params",
+    "DBM_PreparedStatementType",
+    "DBMCSqlStatement",
+    "DBM_CA",
+    "DBM_BindType"
+]
 
 $unusableType =[
     "export"

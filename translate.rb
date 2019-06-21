@@ -567,7 +567,7 @@ def  parse_arg(arg, a)
         $output_dir = a #$*[i+1]
         FileUtils.makedirs($output_dir)
     elsif arg == "-I"
-        $g_search_dirs.append(a)
+        $g_search_dirs = $g_search_dirs.concat(a.split(";"))
     end
 end
 p $*.inspect
@@ -604,26 +604,31 @@ if $*.size >0
     end
     p "mode=#{$mode}"
     p "output dir:#{$output_dir}"
+    p "include dirs:#{$g_search_dirs}"
     p "******* start translate **********"
     nextisarg = false
     arg = nil
+    i = 0
     for a in $*[0..$*.size-1]
-        p a
+        p "arg[#{i}]=#{a}"
+        i+=1
         if nextisarg
            nextisarg = false
            next
         end
         if a.start_with?("-")
-            nextisarg = true
+             
+            nextisarg = true if a !="-parse" && a !="-preprocess"  && a !="-translate"
             next
             
         end
         
         init_env(a) # set file path as search dir
         $g_cur_parse_file = a
+        
         if $mode == "parse"
-            p "begin to parse file #{a}"
-            parse_file(a, false, false)
+            p "begin to parse file #{a} without preprocess"
+            parse_file(a, "no", false)
             # generate_ruby
         elsif $mode == "translate"
             p "begin to translate file #{a}, preprocessor=#{$preprocessor}"

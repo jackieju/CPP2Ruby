@@ -3,6 +3,13 @@
 #define strlen(s) s.size
 /* END */
 
+
+
+// compiler switcher
+#define __cplusplus
+
+// for clean and ignore
+#define __CRTDECL
 #define B1_OBSERVER_API
 #define B1_COMMON_API
 #define B1_SECURITY_COMMON_API
@@ -20,7 +27,7 @@
 #define NULL nil
 #define _LOGMSG(a,b,c) 
 #define IF_ERROR_RETURN(errorCode) if (errorCode) return errorCode
-#define _TRACER(m)  trace(m)
+#define _TRACER(m) trace(m)
 
 #define B1_ENGINE_API 
 #define int32_t int
@@ -28,5 +35,11 @@
 //#define DBM_ColumnType
 //#define DBMTableColumn
 
+//#define trace(m)
 #define _STR_strlen(s) s.size
 
+
+
+typedef bool (*DBD_ProgressCallback) (void *userData, long curr, long max);
+typedef bool (*DBD_FilterCallback) (PDAG pDag, long rec, void *param1, void *param2);
+typedef SBOErr (*DBD_CondCallback) (void *form, DBD_Params *addedParams);

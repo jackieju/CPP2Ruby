@@ -737,6 +737,7 @@ class Parser < CRParser
         # p "get()2: #{@sym}"
         # p "Get()2 #{@scanner.nextSym.sym}, line #{@scanner.nextSym.line}, col #{@scanner.nextSym.col}, value #{curString()}"
         # p("Get()3:#{@sym}, #{curString()}, line #{curLine}", 20)
+        return @scanner.nextSym.sym
     end
     
     def add_macro(n,v)
@@ -1270,7 +1271,8 @@ class Parser < CRParser
             
         elsif @sym == C_usingSym
            Get()
-           Expect(C_namespaceSym)
+           Get() if @sym ==  C_namespaceSym
+           
            ns = ClassFullName()
            p "using1 namespace #{ns}"
            @using_namespace_str = ns
@@ -1848,6 +1850,8 @@ class Parser < CRParser
         end
         
     end
+    
+    $temp_symtab = {}
     # line 689 "cs.atg"
    def LocalDeclaration()
        
@@ -1902,27 +1906,33 @@ class Parser < CRParser
             
 
                 return ret
+            elsif @sym == C_EnumSym
+                ret += Enum()
+                Expect(C_identifierSym)
+                addTypeDef(prevString(), VarType.new(curString(), "enum"))
+                Expect(C_SemicolonSym)
+                return ret
             else
-                #if @sym == C_classSym 
-                #    Get()
-                #    Expect(C_identifierSym)
-                #    t = VarType.new(curString(), "class")
-                #else
-                #    t = Type()
-                #end
-                #while( @sym == C_StarSym || @sym == C_AndSym)
-                #    Get()
-                #end
-                #if (@sym == C_identifierSym)
-                #    addTypeDef(curString(), t)
-                #elsif (@sym == C_LparenSym && GetNextSym().sym == C_StarSym)
-                #    Get()
-                #    Expect(C_StarSym)
-                #    t.name = curString()
-                #    t.type = "FunctionPointer"
-                #    addTypeDef(curString(), t)
-                #    
-                #end
+                if @sym == C_classSym 
+                    Get()
+                    Expect(C_identifierSym)
+                    t = VarType.new(curString(), "class")
+                else
+                    t = Type()
+                end
+                while( @sym == C_StarSym || @sym == C_AndSym)
+                    Get()
+                end
+                if (@sym == C_identifierSym)
+                    addTypeDef(curString(), t)
+                elsif (@sym == C_LparenSym && GetNextSym().sym == C_StarSym)
+                    Get()
+                    Expect(C_StarSym)
+                    t.name = curString()
+                    t.type = "FunctionPointer"
+                    addTypeDef(curString(), t)
+                    
+                end
     	        while @sym != C_SemicolonSym
     	               Get()
     	            p "cs in td:#{@sym},#{curString}"
@@ -1938,14 +1948,14 @@ class Parser < CRParser
         
             p "=3>#{@sym}"
         # line 696 "cs.atg"
-        	if (@sym >= C_varSym && @sym <= C_stringSym || @sym == C_identifierSym) 
+        	if (@sym >= C_boolSym && @sym <= C_stringSym || @sym == C_identifierSym) 
         # line 696 "cs.atg"
         		type += Type()
         	elsif (@sym >= C_staticSym && @sym <= C_functionSym) 
         # line 696 "cs.atg"
         		storageclass += StorageClass()
         # line 696 "cs.atg"
-                # if (@sym >= C_varSym && @sym <= C_stringSym) 
+                # if (@sym >= C_boolSym && @sym <= C_stringSym) 
         # line 696 "cs.atg"
                     # Type()  
                 # end       
@@ -2002,9 +2012,9 @@ class Parser < CRParser
         p "---->LocalDeclaration2, #{@sym}, #{curString()} #{_next}"
         
         while (@sym != C_LparenSym && @sym != C_ColonColonSym && @sym != C_operatorSym &&
-                (   @sym >= C_varSym && @sym <= C_voidSym ||
+                (   @sym >= C_boolSym && @sym <= C_voidSym ||
                     _next == C_identifierSym || _next == C_operatorSym ||
-                    _next >= C_varSym && _next <= C_voidSym || # data type
+                    _next >= C_boolSym && _next <= C_voidSym || # data type
                     _next >= C_staticSym && _next <= C_externSym ||
                     _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym ||
                     _next == C_LessSym # template 
@@ -2023,7 +2033,7 @@ class Parser < CRParser
         	if (@sym >= C_staticSym && @sym <= C_externSym) 
                 p "---->LocalDeclaration11"
         		storageclass += StorageClass()
-        	elsif (@sym >= C_varSym && @sym <= C_voidSym)
+        	elsif (@sym >= C_boolSym && @sym <= C_voidSym)
                 p "---->LocalDeclaration12"
                 _var_type = Type()
                 type += _var_type.name
@@ -2218,10 +2228,20 @@ class Parser < CRParser
             #if (type && type != "" ) || 
             # ====    
             p "--->111:#{@sym} #{curString},  #{_n}"
-            
+
+
+            # add new class for unregcognized symbol           
             gnsstr = getSymValue(gns)
-            if gns.sym == C_identifierSym && gnsstr[0] == gnsstr[0].upcase  && !find_var(gnsstr, current_scope) && find_class(gnsstr)[:v] == nil
-                current_ruby_scope.add_class(ClassDef.new(getSymValue(gns)))
+            if gns.sym == C_identifierSym && 
+               # gnsstr[0] == gnsstr[0].upcase  && # usually Class is Upcase at first char
+                 !find_var(gnsstr, current_scope) && # not variable
+                 find_class(gnsstr)[:v] == nil && # not class
+                 find_module_from(gnsstr, nil)[:v] == nil  && # not module
+                 find_typedef(gnsstr) == nil # not typedef
+               #  throw "#{gnsstr} is not defined anywhere"
+                 @root_class.add_class(ClassDef.new(gnsstr))
+            #    $temp_symtab[gnsstr]= current_ruby_scope
+                
                 append_file("newclass", "\"#{getSymValue(gns)}\",")
                 p("append newclass #{getSymValue(gns)}")
             end
@@ -2423,8 +2443,9 @@ class Parser < CRParser
     
     # class_name should never be nil
     def FunctionDefinition(class_name, fn_name, acc="")
-        
         pdebug "===>FunctionDefinition:#{class_name}::#{fn_name}", 30
+        throw "cannot have function defition(#{fn_name}) in a function defintion #{current_scope.class_name}" if current_scope.name == "FunctionDefinition"
+        
         ret = ""
         @presrc = "" # predfined code before function body source
         if class_name && class_name != ""
@@ -2467,7 +2488,9 @@ class Parser < CRParser
         # list_scopes
       #  p "classdef:#{classdef.inspect}"
     # line 466 "cs.atg"
-        in_scope("FunctionDefinition")
+        _sc = Scope.new("FunctionDefinition")
+        _sc.class_name = fn_name
+        in_scope(_sc)
     # line 509 "cs.atg"
         r,pds = FunctionHeader()
     	ret += r
@@ -2591,7 +2614,7 @@ class Parser < CRParser
     	Expect(C_LparenSym)
     # line 545 "cs.atg"
     	if (@sym == C_identifierSym ||
-    	    @sym >= C_varSym && @sym <= C_voidSym||
+    	    @sym >= C_boolSym && @sym <= C_voidSym||
     	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym || @sym == C_PPPSym  || @sym == C_EnumSym ||
             @sym == C_classSym # only for strange copy ctor A(class A&other);
             ) 
@@ -2844,7 +2867,7 @@ class Parser < CRParser
     # line 423 "cs.atg"
     	case (@sym) 
 =begin
-    		when C_varSym 
+    		when C_boolSym 
     		when C_mixedSym  
     # line 406 "cs.atg"
     			if (Sym == varSym) {
@@ -4485,13 +4508,17 @@ HERE
                                 else
                                     ret += "::#{curString}"
                                 end
+
                             end
                            
                            #ar.push(curString())
                             #Expect(C_identifierSym)
                             Get()
+                            if @sym == C_LessSym
+                                filterTemplate()
+                            end
 
-                    	end
+                    	end # while
                         #ret += ar[0..ar.size-2].join("::")
                         #ret += "::" + translate_varname(ar[ar.size-1])
                         

@@ -27,18 +27,18 @@ class Variable
 end
 class VarType
     attr_accessor :name, :ref, :is_simpleType, :type # type can be:nil, "FunctionPointer"
-    def initialize(name)
+    def initialize(name, type=nil)
         @name = name
         @ref = 0
         @is_simpleType = false
-        @type = nil
+        @type = type
     end
 
 end
 class Scope
     # name is scope name in c/cpp, except "module"
     # name can "class", "struct", "module"(module means namespace)
-    attr_accessor :name, :vars, :parentScope, :hasGoto, :labeled_blocks
+    attr_accessor :name, :vars, :parentScope, :hasGoto, :labeled_blocks, :class_name # class_name here is just for easy debuging
     def initialize(name)
         @name = name 
         @vars = {}
@@ -238,11 +238,12 @@ class CRParser
     end
     def in_scope(name)
         cs = current_scope
-      #  p "==>in_scope0:#{name}, #{name.inspect} ", 10
+       # p "==>in_scope0:#{name}, #{name.class_name}, #{name.} ", 10
         
       #  p "==>cs1:#{cs.inspect}"
         if name.class == String
-            @sstack.push(Scope.new(name))
+            name = Scope.new(name)
+            @sstack.push(name)
         else
             if name == cs
                 throw Exception.new("enter wrong scope")
@@ -254,14 +255,18 @@ class CRParser
      #   p "cs2:#{current_scope.inspect}, #{cs}"
         current_scope.parentScope = cs
        #    p("rootmod4:#{$g_root_moddef.parentScope}")
+        throw Exception.new("hehehehe") if current_scope != name
         if current_scope == cs
             throw Exception.new("hahahahaha")
         end
         # p "cs3:#{current_scope.inspect}, parent=#{current_scope.parent}", 30
-     
+        p "==>in_scope1:#{name}, #{name.class_name}, #{name.name}, #{name.parentScope}, #{name.parentScope.name if name.parentScope}, #{name.parentScope.class_name if name.parentScope} ", 10
+        return name
     end
     def out_scope()
-        @sstack.pop
+        r = @sstack.pop
+        p "==>out_scop:#{r}, #{r.name}, #{r.class_name}"
+        return r
     end    
     def current_ruby_scope
          i = @sstack.size-1
@@ -281,8 +286,8 @@ class CRParser
         i = 1
         while scope 
              #p "scope:#{scope.inspect}"
-           # p "scope:#{scope}"
-           # p "class:#{scope.class_name}" if scope.is_a?(ClassDef)
+            p "scope:#{scope}, #{scope.name}"
+            p "class:#{scope.class_name}" if scope.is_a?(ClassDef) || scope.is_a?(ModuleDef)
             
             i+=1
             if i>=20
@@ -348,7 +353,7 @@ class CRParser
     # Records semantic error ErrorNo
 
     def dump_pos(pos=@scanner.buffPos)
-        p("start dump pos", 5)
+        p("start dump pos:#{pos},#{@scanner.buffer[pos..pos+100]}", 5)
         lino = get_lineno_by_pos(pos)+1
         
         p "---- dump position ----"

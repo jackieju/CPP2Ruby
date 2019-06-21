@@ -80,7 +80,12 @@ def preprocess(s)
     scanner = CScanner.new(s, false)
     error = MyError.new("whaterver", scanner)
     parser = Preprocessor.new(scanner, error)
-    content = parser.Preprocess
+    begin
+        content = parser.Preprocess
+   rescue Exception=>e
+       parser.dump_pos
+       throw e
+   end
     begin
         fname = "pre.#{$g_cur_parse_file.split("/").last}.#{Time.now.to_i}"
        aFile = File.new(fname, "w+")

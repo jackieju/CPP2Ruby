@@ -487,7 +487,7 @@ class CScanner <  CRScanner
           		return C_unsignedSym if (EqualStr("unsigned")) 
           		#break
           	when 'v'
-          		return C_varSym if (EqualStr("var")) 
+          		#return C_varSym if (EqualStr("var")) 
           		return C_voidSym if (EqualStr("void")) 
           		#break
           	when 'w'
@@ -777,7 +777,7 @@ public
         end
         
 
-        p "replace_start=#{replace_start}, replace_end=#{replace_end}, buffPos=#{@buffPos}"
+        p "replace_start=#{replace_start}, #{buffer[replace_start..replace_start+10]}, replace_end=#{replace_end}, ,#{buffer[replace_end..replace_end+10]}, buffPos=#{@buffPos}"
         
         if replace_end > replace_start       
         
@@ -788,7 +788,7 @@ public
                 i = 0 if i < 0
                 while (i < @buffPos)
                     i +=1
-                    line_count_before_pos += 1 if cch() == "\n"
+                    line_count_before_pos += 1 if buffer[i] == "\n"
                 end
             end
             line_count=0
@@ -796,18 +796,19 @@ public
             i = 0 if i < 0
             while (i < replace_end)
                 i +=1
-                line_count += 1 if cch() == "\n"
+                line_count += 1 if buffer[i] == "\n"
             end
         
         
-            p "replace_start=#{replace_start} #{@buffer[replace_start..replace_start+3]}, replace_end=#{replace_end} #{@buffer[replace_end..replace_end+3]}, buffPos=#{@buffPos}"
-        
+            p "replace_start=#{replace_start} #{@buffer[replace_start..replace_start+10]}, replace_end=#{replace_end}, #{@buffer[replace_end..replace_end+10]}, buffPos=#{@buffPos}"
+            p "line count:#{line_count}"
             str1 = ""
             if replace_start >= 0 
                 str1 = @buffer[0..replace_start-1]
             end
             old_buffer_size = @buffer.size
             @buffer = "#{str1}#{@buffer[replace_end+1..@buffer.size-1]}"
+           # p "buffer:#{@buffer}"
             # if include_last_line
             #     @buffPos = replace_start
             # else
@@ -843,7 +844,7 @@ public
         
         # pp "===>delete_lines2, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20 
         
-        return [replace_start, replace_end] # replace_start not replaced, replace_end replaced
+        return [replace_start, replace_end] 
     end
     
     def dump_char(pos=@buffPos)
@@ -883,6 +884,7 @@ public
     end
     def delete_line(pos=nil)
         pos = @buffPos if pos == nil
+    #    p "===>delete_line, #{@buffer[pos..pos+20].inspect}, @buffPos=#{@buffPos}, #{@buffer}", 10
         
      #   pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
         
@@ -981,7 +983,7 @@ public
         # p "buffer4(size=#{@buffer.size}):#{@buffer[0..431]}\n=========\n#{@buffer[432..552]}"
         
         # p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
-    #     p "pos:#{@buffPos}, #{@ch}, buffer:#{@buffer}"
+       # p "pos:#{@buffPos}, #{@ch}, buffer:#{@buffer}"
         
     end
     def include_file(fname, dir=nil)
@@ -994,7 +996,7 @@ public
             dirs = $g_search_dirs.clone    
         end
         dirs = [] if !dirs
-        dirs.push(dir) if !dir
+        dirs.push(dir) if dir
         path = find_file(fname, dirs)
         c = read_file(path) if path
       #  p "read file #{path}, return #{c}"
@@ -1008,6 +1010,18 @@ public
            c = "// include file #{fname} failed\n"
            ret = false
         else
+         
+              #begin
+              #  c.encode("utf-8")
+              # # "UTF-8"
+              #rescue
+              #  #"ISO-8859-1"
+              #  p "--->encoding not utf-8"
+              #  c = c.force_encoding('iso-8859-1').encode('utf-8')
+              #end
+              if ! c.valid_encoding?
+                c = c.encode("UTF-16be", :invalid=>:replace, :replace=>"?").encode('UTF-8')
+              end
            c = "// included file #{path} from file #{@include_stack.last} \n#{c}\n // end include file #{path}\n#includestackpop #{path}\n"   # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method Get()
            @include_stack.push(path)
         end
@@ -1136,7 +1150,7 @@ public
                     del_end = @buffPos -1
                     str1 = @buffer[0..del_start - 1]
                     str2 = @buffer[del_end + 1..@buffer.size-1]
-                    p ("#{del_start}, #{del_end}, #{@buffPos}, #{str1}, #{str2}")
+                 #   p ("#{del_start}, #{del_end}, #{@buffPos}, #{str1}, #{str2}")
                     
                     @buffer = str1 + str2
                     delnum = del_end- del_start+1
