@@ -44,7 +44,7 @@ class Preprocessor < Parser
      end
      
      # process every directive
-     def preprocess_directive()
+     def preprocess_directive(doprepro)
 =begin        
            _str1 = curString()
            # pp "preprocessor: #{@sym}, #{_str1}", 20
@@ -100,29 +100,39 @@ class Preprocessor < Parser
                p "-->include file #{finclude}"
                #p self.inspect
                #p @scanner.inspect
-               include_file(finclude)  
+               include_file(finclude)  if doprepro
+               @directive = nil
          elsif @directive == "\#define" 
              p "====>preprocess_directive2"
             
-            pre_define()
+            pre_define(doprepro)
+            @directive = nil
+            
             
          elsif @directive == "\#ifdef"
              p "====>preprocess_directive3"
             
-             pre_ifdef()
+             pre_ifdef(doprepro)
+             expect("\#endif")
          elsif @directive == "\#ifndef"
              p "====>preprocess_directive4"
             
-             pre_ifndef()
+             pre_ifndef(doprepro)
+             expect("\#endif")
+             
          elsif @directive == "\#if"
              p "====>preprocess_directive5"
             
-             pre_if()
+             pre_if(doprepro)
+             expect("\#endif")
+             
          elsif @directive == "\#undef"
              Get()
              p "undefine #{curString}"
              @macros.delete(curString())
-             delete_prevline
+             delete_curline
+             @directive = nil
+             
          else
                 # @scanner.delete_curline
                 # if !["#else", "#endif", "elif"].include?(@directive)
@@ -138,7 +148,7 @@ class Preprocessor < Parser
      def ifdefined?(n)
          return @macros[n] != nil
      end
-     def pre_define()
+     def pre_define(doprepro)
                Get(false)
                # Expect(C_identifierSym)
                p "c0000=#{@sym}, #{curString()}, line #{@scanner.currLine}, ch=#{@scanner.cch.to_byte}"
@@ -229,7 +239,7 @@ class Preprocessor < Parser
                    end
                    p "n=#{n}"
                    p "v=#{v}"
-                   add_macro(n, v)
+                   add_macro(n, v) if doprepro
      end
      # def preprocess_directive()
      # 
@@ -1401,17 +1411,17 @@ class Preprocessor < Parser
       return ret
     end
 =end
-    def pre_ifdef(ifndef=false)
+    def pre_ifdef(doprepro, ifndef=false)
          Get()
          n = curString()
-         p "pre_ifdef0: #{n}"
+         p "===>pre_ifdef0: #{n}, #{doprepro}, #{ifndef}", 10
          
     #      p "pre_ifdef before delete:n=#{n}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}", 10
          delete_curline  # delele line #ifdef
      #    p "pre_ifdef after delete:pos #{@scanner.buffPos}, buffer #{@scanner.buffer}"
          
          idf = ifdefined?(n)
-         pp "idf=#{idf}, @sym=#{@sym}",20
+         pp "===>pre_ifdef2: idf=#{idf}, @sym=#{@sym}",20
           if ifndef
               idf = !idf
           end
@@ -1421,16 +1431,18 @@ class Preprocessor < Parser
          @directive=_preprocess(["#else", "#endif", "#elif"], idf)
          p "pre_ifdef: directive=#{@directive}"
          
-         pos2 = @scanner.buffPos
+         #pos2 = @scanner.buffPos
          # p "pos:#{@scanner.buffPos}"
-         
+         pos2 = @scanner.nextSym.pos
          p "pre_ifdef1:pos:#{@scanner.buffPos}, #{@sym}, #{curString()}, #{@scanner.dump_char}"
  # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}"
          # p "===>113:#{@scanner.buffer}"
          # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}, buffer=#{@scanner.buffer}, #{@scanner.buffer[@scanner.buffPos].inspect}"
-         if !idf
-  
-             delete_lines(pos1, pos2, false) # delete whole block (...)#else
+         if !idf || !doprepro
+             buf = @scanner.buffer
+             p "==>pre_ifdef3:before delete_lines, #{buf[pos1..pos1+6]}, #{buf[pos2..pos2+6]}, buffer:#{buf}"
+             delete_lines(pos1, pos2, false) # delete whole block (...) not include #else
+             p "==>pre_ifdef3:after delete_lines, #{buf[pos1..pos1+6]}, #{buf[pos2..pos2+6]}, buffer:#{@scanner.buffer}"
     
              # p "===>115:pos #{@scanner.buffPos}, buffer=#{@scanner.buffer}"
          else
@@ -1446,67 +1458,100 @@ class Preprocessor < Parser
         
         # Get()
         
-        pre_elif(idf)
-        pre_else(idf)
-        pre_endif(idf)
+        if doprepro && idf
+            doprepro = true
+        end
+        while @directive == "\#elif"
+            idf2 = pre_elif(doprepro) # only when doprepor == true and condition is true then will return true
+            if idf2 && doprepro
+                doprepro = false # if current one fufill, ignore remaining
+            end
+        end
+ 
+        pre_else(doprepro, !idf)
+        pre_endif(doprepro, idf)
        
     end
-    def pre_elif(idf)
-        while @directive == "\#elif"
-            # Get()
-            Get()
-             n1 = curString()
-             # p "==>112:#{n1}, #{@scanner.buffPos}"
-             delete_curline
-             pos11 = @scanner.buffPos
-             Get()
-             @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
-             p "directive=#{@directive}", 10
-             
-             pos22 = @scanner.buffPos
-             if !idf
-                if is_number?(n1)
-                    idf = n1.to_i != 0
-                else
-                    idf = ifdefined?(n1) && @macros[n1].to_i !=0
-                end
-                # p "==>111:#{n1}, #{idf}"
-                if !idf
-                    delete_lines(pos11, pos22, false)
-                end
-            else
-                delete_lines(pos11, pos22, false)
-            end
-         
-        end
+    #def pre_elif(idf)
+    #    while @directive == "\#elif"
+    #        # Get()
+    #        Get()
+    #         n1 = curString()
+    #         # p "==>112:#{n1}, #{@scanner.buffPos}"
+    #         delete_curline
+    #         pos11 = @scanner.buffPos
+    #         Get()
+    #         @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
+    #         p "directive=#{@directive}", 10
+    #         
+    #         pos22 = @scanner.buffPos
+    #         if !idf
+    #            if is_number?(n1)
+    #                idf = n1.to_i != 0
+    #            else
+    #                idf = ifdefined?(n1) && @macros[n1].to_i !=0
+    #            end
+    #            # p "==>111:#{n1}, #{idf}"
+    #            if !idf
+    #                delete_lines(pos11, pos22, false)
+    #            end
+    #        else
+    #            delete_lines(pos11, pos22, false)
+    #        end
+    #     
+    #    end
+    #end
+    def pre_elif(doprepro)
+        p "===>pre_elif1:#{doprepro}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+20]}"
+        
+        idf = _pre_if()
+        p "===>pre_elif3:#{doprepro}, #{idf}"
+         @scanner.delete_curline
+         p "===>pre_elif4:after delete curline:#{@scanner.buffer}"
+         pos1 = @scanner.buffPos
+         @directive=_preprocess(["#else", "#endif", "#elif"], idf)
+         #pos2 = @scanner.buffPos
+     
+         pos2 = @scanner.nextSym.pos
+  
+         if !idf || !doprepro
+             @scanner.delete_lines(pos1, pos2, false) # delete whole block
+         end  
+         return idf
     end
-    def pre_else(idf)
+    def pre_else(doprepro, idf)
+        p "===>pre_else0:#{idf}, #{doprepro}", 10
         if @directive == "\#else"
-            # p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}, #{@scanner.dump_char}"
+             p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}, #{@scanner.dump_char}"
             # delete_prevline # delete #else line
             delete_curline
             # p "112=>#{@scanner.buffer}, pos #{@scanner.buffPos}, idf=#{idf}"
+            p "hahaha1110:#{@directive}"
                 
             Get()
              pos11 = @scanner.buffPos
             # p "pre_else: sym=#{@sym}, directive=#{@directive}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}, #{@scanner.dump_char}"
+            p "hahaha111:#{@directive}"
              
-             @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
+             @directive=_preprocess(["#endif", "#elif"], idf)
              # p "pre_else: directive=#{@directive}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}, #{@scanner.dump_char}", 20
              # p "222=>#{@scanner.buffer}, pos #{@scanner.buffPos}, ch #{@scanner.cch.inspect}"
              
-             pos22 = @scanner.buffPos
-             # p "hahaha11:#{directive}"
+            # pos22 = @scanner.buffPos
+            pos22 = @scanner.nextSym.pos
+            
+              p "hahaha11:#{@directive}"
         
-            if idf
-                # p "==>pos11:#{pos11}, #{pos22}, buffer #{@scanner.buffer}"
-                delete_lines(pos11, pos22, false) # delete whole else part include #endif
-                # p "==>pos12:#{pos11}, #{pos22}, buffer #{@scanner.buffer}"
+            if !idf || !doprepro
+                 p "==>pos11:#{pos11}, #{pos22}, buffer #{@scanner.buffer}"
+                delete_lines(pos11, pos22, false) # delete whole else part not include #endif
+                 p "==>pos12:#{pos11}, #{pos22}, buffer #{@scanner.buffer}"
                 
             else
                 # pos is next char after current directive
                 # delete_prevline # only delete #endif line
             end
+            p "hahaha12:#{@directive}", 107
 
             if @directive == "\#endif"
                 # p "hahaha:#{directive}"
@@ -1514,7 +1559,11 @@ class Preprocessor < Parser
             end
         end
     end
-    def pre_endif(idf)
+    def expect(directive)
+        throw "Expect directive #{directive}, get #{@directive}" if @directive != directive 
+        @directive = nil
+    end
+    def pre_endif(doprepro, idf)
         if @directive == "\#endif"
          #   p "9999:pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}"
             # @scanner.delete_prevline
@@ -1560,7 +1609,8 @@ class Preprocessor < Parser
         p "_pre_if2:#{s}"
         return eval(s)
     end
-    def pre_if()
+    def pre_if(doprepro)
+        p "===>pre_if0:#{doprepro}", 10
 =begin
         Get()
          n = curString()
@@ -1613,7 +1663,7 @@ class Preprocessor < Parser
          p ("pos1:#{pos1}, #{@scanner.buffer[pos1..pos1+5]}, currSym:#{@scanner.currSym.sym}")
          
          p ("pos2:#{pos2}, #{@scanner.buffer[pos2..pos2+5]}, currSym:#{@scanner.currSym.sym}")
-         if !idf
+         if !idf || !doprepro
              #p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
              #p "before replace #{idf}:#{@scanner.buffer}"
              
@@ -1634,13 +1684,21 @@ class Preprocessor < Parser
         #   _str2 = curString()
         #   directive = "#{_str1}#{_str2}"
         
-
-        pre_elif(idf)
-        pre_else(idf)
-        pre_endif(idf)
+        if doprepro && idf
+            doprepro = true
+        end
+        while @directive == "\#elif"
+            idf2 = pre_elif(doprepro) # only when doprepor == true and condition is true then will return true
+            if idf2 && doprepro
+                doprepro = false # if current one fufill, ignore remaining
+            end
+        end
+        
+        pre_else(doprepro, !idf)
+        pre_endif(doprepro, idf)
     end
-    def pre_ifndef()
-         pre_ifdef(true)
+    def pre_ifndef(doprepro)
+         pre_ifdef(doprepro, true)
     end    
     def _preprocess(until_find = [], process_directive = true)
         while (@sym!=C_EOF_Sym)
@@ -1654,7 +1712,7 @@ class Preprocessor < Parser
                 #@directive = "#{_str1}#{_str2}"
                 @directive = curString()
                 p "_preprocess directive3:#{@directive}, #{@scanner.buffer[@scanner.buffPos-30..@scanner.buffPos+30]}"
-                p "_preprocess directive=#{@directive}, until_find=#{until_find.inspect}, process_directive=#{process_directive}"
+                p "_preprocess directive=#{@directive}, until_find=#{until_find.inspect}, process_directive=#{process_directive}", 10
               
                 if until_find.include?(@directive)
                     p "222222#{@directive}"
@@ -1663,14 +1721,18 @@ class Preprocessor < Parser
             #    elsif process_directive == true
                else
                    p "1111111#{@directive}"
-                    preprocess_directive() if process_directive
+                    preprocess_directive(process_directive)
                     #@directive = preprocess_directive()
                     #next
                     
                 end
                 # return @directive if stop_on_unkown_directive && @directive
             else
-                if @sym == C_identifierSym && 
+                if @sym == C_identifierSym 
+                    p "prepcoess identifier3:#{@scanner.nextSym.inspect}"
+                    p "prepcoess identifier31:#{@scanner.buffer[@scanner.nextSym.pos..@scanner.nextSym.pos+10]}"
+                    p "prepcoess identifier31:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+                    
                     idf = curString()
                     p "prepcoess identifier:#{idf}", 10
                     p_start = @scanner.nextSym.pos
@@ -1680,6 +1742,7 @@ class Preprocessor < Parser
                     # p "nextsym:#{@scanner.nextSym.sym}"
                     # p_end = @scanner.nextSym.pos
                     
+                    sym_pos = @scanner.nextSym.pos
                     if ifdefined?(idf)
                          Get()
                         res = @macros[idf]
@@ -1707,11 +1770,12 @@ class Preprocessor < Parser
                             res = res.gsub("__VA_ARGS__", v)
                             p "--->result:#{res}"
                         end
+                        __t = Time.now.to_f
                         p "p_start=#{p_start},p_end=#{p_end}, #{@scanner.buffer[p_start..p_end]}"
                         p "pos:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
                         p "sym:#{@sym}"
                         replaced = @scanner.buffer[p_start..p_end]
-                        lines_replaced = replaced.scan(/\n/).count
+                       # lines_replaced = replaced.scan(/\n/).count
                         if p_start <= 0 
                             s = res + @scanner.buffer[p_end+1..@scanner.buffer.size-1]
                         else
@@ -1725,34 +1789,42 @@ class Preprocessor < Parser
                         # p "before replace #{idf}:#{@scanner.buffer}"
                         
                         @scanner.buffer = s
-                        
-                        @scanner.buffPos += sizediff
-                        po = @scanner.buffPos
-                        p "size diff:#{s.size()-old_size}"
+                       @scanner.buffPos = sym_pos
+                      @scanner.fix_ch
+                       p "after replace macro #{idf}:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+                       
+                       Get()
+                       p "after replace macro2 #{idf}:#{@sym}, #{curString}"
+                        #@scanner.buffPos += sizediff
+                        #po = @scanner.buffPos
+                        #p "size diff:#{s.size()-old_size}"
                        #  p "after replace #{idf}:#{@scanner.buffPos},#{@scanner.buffer[po..po+10]}"
                        #  p "after replace #{idf}:#{@scanner.buffer}"
                        
-                         @scanner.currLine -= lines_replaced if lines_replaced>0   
-                         @scanner.nextSym.line -= lines_replaced if lines_replaced>0
-                         @scanner.nextSym.pos += sizediff
-                         if lines_replaced == 0
-                             @scanner.nextSym.col += sizediff
-                         else
-                             pos_ns = @scanner.nextSym.pos
-                             i = 0
-                             while (@scanner.buffer[pos_ns]!="\n" && pos_ns >=0)
-                                 pos_ns-=1
-                                 i+=1
-                             end
-                             @scanner.nextSym.col = i-1
-                         end
+                        # @scanner.currLine -= lines_replaced if lines_replaced>0   
+                        # @scanner.nextSym.line -= lines_replaced if lines_replaced>0
+                        #@scanner.nextSym.pos += sizediff
+                        #if lines_replaced == 0
+                        #    @scanner.nextSym.col += sizediff
+                        #else
+                        #    pos_ns = @scanner.nextSym.pos
+                        #    i = 0
+                        #    while (@scanner.buffer[pos_ns]!="\n" && pos_ns >=0)
+                        #        pos_ns-=1
+                        #        i+=1
+                        #    end
+                        #    @scanner.nextSym.col = i-1
+                        #end
                          # currSym maybe already replaced
                        #  @scanner.currSym.line -= lines_replaced if lines_replaced>0
                        #  @scanner.currSym.pos += sizediff
+                       p "@@@ replace macro cost #{Time.now.to_f - __t}"
+                       
                         next
                         
                     end #if ifdefined?(idf)
                 elsif @sym == C_inlineSym #ignore inline statement
+                    __t = Time.now.to_f
                     p_start = @scanner.nextSym.pos
                     p_end = p_start + @scanner.nextSym.len
                     Get()
@@ -1767,6 +1839,7 @@ class Preprocessor < Parser
                     @scanner.buffer = s
                     @scanner.buffPos += s.size()-old_size
                     # p "after replace:#{@scanner.buffer}"
+                    p "@@@ remove inline cost #{Time.now.to_f - __t}"
                     next
                 end
             end
@@ -3379,10 +3452,65 @@ namespace CMONEY
 #ifndef _LP64
 		operator unsigned long () const;
 #endif
+
+B1_OBSERVER_API void a(){}
+
+HERE
+
+s26=<<HERE
+#includestackpop ddd
+int a = 1;
+#undef CreateProcess
+int b=1;
+
+#define CDF 333
+#define AA CDF*bcd
+int c = AA;
+fn(c);
+
+
+HERE
+s27=<<HERE
+#define BUILD_INTERFACE_RUNTIME
+#define __hpux
+#define sun
+#if defined(_WIN32)
+    #define SQL_API  __stdcall
+#else
+    a=1;
+    b=1;
+#ifdef BUILD_INTERFACE_RUNTIME
+        /* RTE_VISIBILITY_CHECK: Symbol visibility support for Unix */
+        "defined BUILD_INTERFACE_RUNTIME"
+        
+        #if (defined(__linux__) || defined(__APPLE__))
+            "defined linux"
+            #if __GNUC__ >= 4
+                #define SQL_API __attribute__ ((visibility("default")))
+            #else
+                #define SQL_API
+            #endif
+        #elif (defined(sun) || defined(__sun))
+            #define SQL_API __symbolic
+            "defined sun"
+        #elif (defined(__hpux))
+            #define SQL_API __declspec(dllexport)
+            "defined __hpux"
+        #elif (defined(_AIX))
+            #define SQL_API
+        #else
+        p("error");
+            #error Unknown platform
+        #endif
+#else
+        "BUILD_INTERFACE_RUNTIME not defined"
+        #define SQL_API
+#endif
+#endif
 HERE
 if !testall
    
-    s = s25
+    s = s27
 else
 
     r = ""

@@ -188,15 +188,9 @@ def read_file(fname)
     end
     return nil
 end
-def get_dir(path)
-    if path.end_with?("/")
-        return path[0..path.size-2]
-    end
-    index = path.rindex("/")
-    return path[0..index-1]
-end
+
 def save_to_file(data, fname)
-    dir = get_dir(fname)
+    dir = File.dirname(fname)
     FileUtils.makedirs(dir)
     begin
             open(fname, "w+") {|f|

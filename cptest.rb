@@ -1200,10 +1200,12 @@ SBOErr	CTransactionJournalObject::OnUpdate()
     }
 HERE
 s92=<<HERE
+#define B1_OBSERVER_API
 typedef bool (*DBD_ProgressCallback) (void *userData, long curr, long max);
 typedef bool (*DBD_FilterCallback) (PDAG pDag, long rec, void *param1, void *param2);
 typedef SBOErr (*DBD_CondCallback) (void *form, DBD_Params *addedParams);
 void     SetProgressCallback (DBD_ProgressCallback progressProc, void* userData, CProgressIndicator *progressPtr);
+B1_OBSERVER_API bool IsGrossPriceMode() { return GetEnv().EnableGrossPriceMode() && GetPriceMode().CompareNoCase(SBOString(STR_PRICE_MODE_GROSS_PRICE)) == 0; }
 HERE
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
@@ -1284,7 +1286,7 @@ end
 
 
 #=end
-test(false)
+#test(false)
 p "$typedef:#{$typedef.inspect}"
 
 # execute after test

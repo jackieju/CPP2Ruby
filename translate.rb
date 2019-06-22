@@ -537,6 +537,8 @@ HERE
         }
        
 end
+
+
 $g_search_dirs=["."]
 
 def init_env(fname)

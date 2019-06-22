@@ -83,7 +83,10 @@ def preprocess(s)
     begin
         content = parser.Preprocess
    rescue Exception=>e
-       parser.dump_pos
+       parser.dump_pos(nil, 30)
+       dump_file = "dump#{Time.now.to_i}"
+       parser.dump_buffer_to_file(dump_file)
+       p "buffer dumped to file '#{dump_file}'"
        throw e
    end
     begin

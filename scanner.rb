@@ -664,6 +664,7 @@ class CScanner <  CRScanner
     end
 public
     def delete_prevline
+        
       #  p "-=-->delete_prevline:pos #{@buffPos}, cur line #{@currLine}, ch #{@buffer[@buffPos].inspect}, buffer size #{@buffer.size}, buffer=#{@buffer}", 10
         return if @buffPos <=0
         
@@ -700,6 +701,7 @@ public
     end
     # insert before pos line
     def insert_line(str, pos=nil)
+        __t = Time.now.to_f
         # p "insert line #{str}, pos=#{pos}, @buffPos=#{@buffPos}"
         # pp "insert line #{str}, pos=#{pos}, #{self.inspect}"
         # pp "old buffer before insert:#{@buffer}", 20
@@ -721,6 +723,8 @@ public
         # p "str1:#{str1}"
         @buffer = "#{str1}#{str}#{str2}"
         # p "new buffer after insert:#{@buffer}"
+        p "@@@ insert line cost #{Time.now.to_f - __t}"
+        
     end
     
     
@@ -730,6 +734,8 @@ public
     
     # delete lines where from line pos1 located1 to line pos2 located
     def delete_lines(pos1, pos2, include_last_line=true)
+        __t = Time.now.to_f
+        
      #   pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
         
         replace_start = pos1
@@ -843,6 +849,7 @@ public
         
         
         # pp "===>delete_lines2, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20 
+        p "@@@ delete lines cost #{Time.now.to_f - __t}"
         
         return [replace_start, replace_end] 
     end
@@ -858,6 +865,8 @@ public
     end
     
     def delete_in_line(from, to) # delete content from pos(from) to pos(to)(not include to)
+        __t = Time.now.to_f
+        
         p ("delete:#{from}, #{to}, #{@buffPos}")
         replace_start = from 
          replace_end = to
@@ -881,10 +890,14 @@ public
           @ch = CurrentCh(@buffPos)
           p "pos after deleteinline:#{@buffPos}"
          # p "buffer  after deleteinline:#{@buffer}", 10
+         p "@@@ delete in line cost #{Time.now.to_f - __t}"
+         
     end
     def delete_line(pos=nil)
+        __t = Time.now.to_f
+        
         pos = @buffPos if pos == nil
-    #    p "===>delete_line, #{@buffer[pos..pos+20].inspect}, @buffPos=#{@buffPos}, #{@buffer}", 10
+        p "===>delete_line, #{@buffer[pos..pos+20].inspect}, @buffPos=#{@buffPos}, #{@buffer}", 10
         
      #   pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
         
@@ -984,9 +997,16 @@ public
         
         # p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
        # p "pos:#{@buffPos}, #{@ch}, buffer:#{@buffer}"
+       p "@@@ delete line cost #{Time.now.to_f - __t}"
         
     end
+    
+    def fix_ch
+        @ch = CurrentCh(@buffPos)
+    end
     def include_file(fname, dir=nil)
+        __t = Time.now.to_f
+        
         p("->->include file #{fname}", 10   )
         
         ret = true
@@ -1009,6 +1029,7 @@ public
         if c == nil
            c = "// include file #{fname} failed\n"
            ret = false
+           append_file("err", c)
         else
          
               #begin
@@ -1068,6 +1089,8 @@ public
         
         # p "new buffer after include :#{@buffer}"
         # p "pos1:#{@buffPos}, #{@buffer[@buffPos..@buffPos+30]}"
+        p "@@@ include file cost #{Time.now.to_f - __t}"
+        
         return ret
     end
     # # get next next sym

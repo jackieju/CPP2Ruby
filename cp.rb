@@ -89,6 +89,7 @@ if $ar_classdefs
 end
 
 
+
 def dump_one_as_ruby(v, module_name=nil)
     pp "dump ruby for #{v.class_name}@#{v}, #{module_name}", 20
    # pp "dump #{v.inspect}", 10
@@ -269,6 +270,9 @@ class Parser < CRParser
             }
             p "=====classdefs end====="
             
+    end
+    def dump_buffer_to_file(fname)
+        save_to_file(@scanner.buffer, fname)
     end
     def dump_classes_as_ruby
         Kernel.send(:dump_classes_as_ruby, @classdefs)
@@ -791,7 +795,7 @@ class Parser < CRParser
         
       #  Get() if pos >pos1 && pos <= pos2
     #    Get() if pos >=pos1 && pos <= pos2
-        p "after delete_lines2:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+20]}"
+        p "after delete_lines2:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+50]}"
         
     end
  
@@ -1378,7 +1382,7 @@ class Parser < CRParser
         	    #                 if $sc_cur != $sc.currSym.sym
         	    #                     pp("!!!===", 20)
         	    #                 end
-                                p "GetNext=#{_next}"
+                p "GetNext=#{_next}"
         	    #                 p "|||||||||||||@sym = #{@sym}, #{@scanner.currSym.inspect}, #{curString()}, @scanner=#{@scanner}"
         	    #                 
         	    
@@ -1438,7 +1442,7 @@ class Parser < CRParser
                         end
     	            end 
     	            
-    	        elsif cs == "virtual" && ['class', 'struct', 'module'].include?(current_scope.name)
+    	         elsif cs == "virtual" && ['class', 'struct', 'module'].include?(current_scope.name)
     	            Get()
 	                if curString() == "~"
 	                    Get()

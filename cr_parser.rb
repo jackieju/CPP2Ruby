@@ -352,12 +352,14 @@ class CRParser
     end
     # Records semantic error ErrorNo
 
-    def dump_pos(pos=@scanner.buffPos)
+    def dump_pos(pos=@scanner.buffPos, lines = 5)
+        pos=@scanner.buffPos if pos == nil
+            
         p("start dump pos:#{pos},#{@scanner.buffer[pos..pos+100]}", 5)
         lino = get_lineno_by_pos(pos)+1
         
         p "---- dump position ----"
-        i = 3
+        i = lines
         ls =  prevline(pos, i)
         ls.each{|l|
             p "#{"%05d" % (lino-i)}#{l}"
