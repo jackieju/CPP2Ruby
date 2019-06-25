@@ -3,8 +3,6 @@
 #define strlen(s) s.size
 /* END */
 
-
-
 // compiler switcher
 #define __cplusplus
 
@@ -43,3 +41,13 @@
 typedef bool (*DBD_ProgressCallback) (void *userData, long curr, long max);
 typedef bool (*DBD_FilterCallback) (PDAG pDag, long rec, void *param1, void *param2);
 typedef SBOErr (*DBD_CondCallback) (void *form, DBD_Params *addedParams);
+
+
+// SAL
+//#define _In_	
+//#define _In_opt_
+//#define Inout_	
+//#define _Inout_opt_
+//#define	_Out_	
+//#define _Out_opt_
+//#define	_Outptr_opt_

@@ -190,11 +190,12 @@ C_usingSym =                    100    # "using"
 C_finalSym =                    101    # "final"
 C_operatorSym =                 102    # "operator"
 C_overrideSym =                 103    # "override"
-C_gotoSym =                     104    # "goto
+C_gotoSym =                     104    # "goto"
+C_unionSym =                     105    # "union"
 
 #*** insert new sym here ***#   
-C_No_Sym =                      105	# not */
-C_PreProcessorSym =             106	# PreProcessor */
+C_No_Sym =                      106	# not */
+C_PreProcessorSym =             107	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
@@ -318,6 +319,7 @@ SYMS=[
 "operator",
 "override",
 "goto",
+"union",
 "not"                          ,
 "PreProcessor"         ,
     ]

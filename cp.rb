@@ -656,7 +656,7 @@ class Parser < CRParser
             return false
         end
     end
-    def Get(ignore_crlf=true)
+    def Get(ignore_crlf=true)        
         # p "sym1=#{@sym}"
          begin 
 # p "Get0:@sym=#{@sym}, len=#{@scanner.nextSym.len}, nextSym=#{@scanner.nextSym.sym}, string=#{@scanner.GetSymString(@scanner.nextSym)}, pos=#{@scanner.buffPos}, @ch=#{@scanner.ch}"
@@ -1217,7 +1217,34 @@ class Parser < CRParser
     	pdebug("===>Enum1:#{@sym}, #{ret}")
     	return ret
     end
-    
+
+    def Union()
+        pdebug("===>Union:#{@sym}, #{curString()}");
+        	Expect(C_unionSym)
+        
+        if @sym == C_identifierSym
+        	_class_name = curString()
+        	clsdef = ClassDef.new(_class_name)
+            Get()
+        else
+            clsdef = ClassDef.new("__union_dummy_name__")
+        end
+  
+        if @sym == C_finalSym
+            Get()
+        end
+  
+
+        	if (@sym == C_LbraceSym)
+        	    ClassBody(clsdef)
+    	    else
+                Expect(C_SemicolonSym)
+     
+    	        
+    	    end
+
+           return 
+    end
     def StructDef()
         pdebug("===>StructDef:#{@sym}, #{curString()}");
         	Expect(C_StructSym)
@@ -1827,12 +1854,14 @@ class Parser < CRParser
             
             varname = getSymValue(sym)
             # if @classdefs[varname] != nil
-            if find_class(varname)[:v]
-                return true
-            else
-                p "==>isTypeStart:class #{getSymValue(sym)} not found"
-            end
+            if !@in_preprocessing
             
+                if find_class(varname)[:v]
+                    return true
+                else
+                    p "==>isTypeStart:class #{getSymValue(sym)} not found"
+                end
+            end
         end
        p "==>symbol #{getSymValue(sym)} is not type start!"
         return false
@@ -1870,7 +1899,31 @@ class Parser < CRParser
         if @sym == C_TypedefSym
     	    p "--->typedef"
             Get()
-            if @sym == C_StructSym # handle typedef struct _A{...}A,*PA;
+            
+            if @sym == C_unionSym 
+                Union()
+    	        while @sym != C_SemicolonSym
+                    
+                    if @sym == C_CommaSym
+                        Get()
+                        next
+                    end
+                    
+                    if @sym == C_identifierSym
+                        Get()
+                    else
+                        if @sym == C_StarSym
+                            while @sym == C_StarSym
+                                Get()
+                            end
+                            Expect(C_identifierSym)
+                        end
+                    end
+                        
+                end
+                return ret
+            elsif @sym == C_StructSym   # handle typedef struct _A{...}A,*PA;
+                
                 clsdef = StructDef()
                 p "---1>10, #{@sym}"
                 
@@ -1916,6 +1969,7 @@ class Parser < CRParser
                 addTypeDef(prevString(), VarType.new(curString(), "enum"))
                 Expect(C_SemicolonSym)
                 return ret
+
             else
                 if @sym == C_classSym 
                     Get()
@@ -2233,21 +2287,22 @@ class Parser < CRParser
             # ====    
             p "--->111:#{@sym} #{curString},  #{_n}"
 
-
-            # add new class for unregcognized symbol           
-            gnsstr = getSymValue(gns)
-            if gns.sym == C_identifierSym && 
-               # gnsstr[0] == gnsstr[0].upcase  && # usually Class is Upcase at first char
-                 !find_var(gnsstr, current_scope) && # not variable
-                 find_class(gnsstr)[:v] == nil && # not class
-                 find_module_from(gnsstr, nil)[:v] == nil  && # not module
-                 find_typedef(gnsstr) == nil # not typedef
-               #  throw "#{gnsstr} is not defined anywhere"
-                 @root_class.add_class(ClassDef.new(gnsstr))
-            #    $temp_symtab[gnsstr]= current_ruby_scope
+            if !@in_preprocessing
+                # add new class for unregcognized symbol           
+                gnsstr = getSymValue(gns)
+                if gns.sym == C_identifierSym && 
+                   # gnsstr[0] == gnsstr[0].upcase  && # usually Class is Upcase at first char
+                     !find_var(gnsstr, current_scope) && # not variable
+                     find_class(gnsstr)[:v] == nil && # not class
+                     find_module_from(gnsstr, nil)[:v] == nil  && # not module
+                     find_typedef(gnsstr) == nil # not typedef
+                   #  throw "#{gnsstr} is not defined anywhere"
+                     @root_class.add_class(ClassDef.new(gnsstr))
+                #    $temp_symtab[gnsstr]= current_ruby_scope
                 
-                append_file("newclass", "\"#{getSymValue(gns)}\",")
-                p("append newclass #{getSymValue(gns)}")
+                    append_file("newclass", "\"#{getSymValue(gns)}\",")
+                    p("append newclass #{getSymValue(gns)}")
+                end
             end
             
             if (_n == C_EnumSym || # A fn(enum B b);
@@ -2452,26 +2507,27 @@ class Parser < CRParser
         
         ret = ""
         @presrc = "" # predfined code before function body source
-        if class_name && class_name != ""
- 	       # classdef = @classdefs[class_name]
-           classdef = find_class(class_name)[:v]
- 	        if !classdef
- 	            if current_scope.is_a?(ClassDef)
+        if !@in_preprocessing
+            if class_name && class_name != ""
+     	       # classdef = @classdefs[class_name]
+               classdef = find_class(class_name)[:v]
+     	        if !classdef
+     	            if current_scope.is_a?(ClassDef)
+                        classdef = current_scope
+                    end
+                    if !classdef
+                        classdef = current_ruby_scope.add_class(class_name)
+                    end
+                end
+            else
+                if current_scope.is_a?(ClassDef) ||current_scope.is_a?(ModuleDef)
                     classdef = current_scope
                 end
-                if !classdef
-                    classdef = current_ruby_scope.add_class(class_name)
-                end
+                #classdef = current_ruby_scope()
+                #class_name = classdef.class_name
             end
-        else
-            if current_scope.is_a?(ClassDef) ||current_scope.is_a?(ModuleDef)
-                classdef = current_scope
-            end
-            #classdef = current_ruby_scope()
-            #class_name = classdef.class_name
+        
         end
-        
-        
         pushed = false
         p("==>FunctionDefinition17:#{current_scope.name}, #{classdef}")
         if classdef && classdef != current_scope
@@ -2982,8 +3038,10 @@ class Parser < CRParser
                 p "sym1:#{@sym}, #{curString()}"
                 
                 if (@sym == C_identifierSym || @sym == C_StarSym || @sym == C_AndSym)
-                    var_type = find_typedef(_n)
-                    is_simpleType = false if var_type
+                    if !@in_preprocessing
+                        var_type = find_typedef(_n)
+                        is_simpleType = false if var_type
+                    end
                 else
 		        
         		    while @sym == C_ColonColonSym
@@ -3010,9 +3068,11 @@ class Parser < CRParser
         		        Get()
     		        
     		        end
-                
-                    r = find_class(ret)
-                    ret = r[:prefix] + "::" + ret if r[:prefix]  != ""
+                    
+                    if !@in_preprocessing
+                        r = find_class(ret)
+                        ret = r[:prefix] + "::" + ret if r[:prefix]  != ""
+                    end
                     is_simpleType = false
     	            p "sym3:#{@sym}, val #{curString()}"
     	            p "ret3:#{ret}"
@@ -4195,15 +4255,20 @@ HERE
                     
                     s,n = FunctionCall(ret)
                     # check if going to call a variable, which is typed as FunctionPointer
-                    method =ret
-                    v = find_var(method)
-                    p "find_var111:#{method}:#{v}"
-                    if v
-                        if v.type.type == "FunctionPointer"
-                            ret = "method(#{method}).call"
-                        end
-                    end 
+                    
+                    if !@in_preprocessing
+
+                        method =ret
+                        v = find_var(method)
+                        p "find_var111:#{method}:#{v}"
+                        if v
+                            if v.type.type == "FunctionPointer"
+                                ret = "method(#{method}).call"
+                            end
+                        end 
+                     end
                     ret += s
+                    
                     
                     p ("-->235:#{s}")
     # line 1734 "cs.atg"
@@ -4254,21 +4319,24 @@ HERE
                         # ret += FunctionCall(&fn)
                  
                           s,n =FunctionCall(ret)
-                          r = find_function(method_signature(ret,n))
-                          if r[:v]
-                              ret = r[:prefix]+"::"+ret
-                          end
-                        p("111->#{ret}")
+                          if !@in_preprocessing
+                              r = find_function(method_signature(ret,n))
+                              if r[:v]
+                                  ret = r[:prefix]+"::"+ret
+                              end
+                                p("111->#{ret}")
                        
-                        method =ret
-                        v = find_var(method)
-                        p "find_var111:#{method}:#{v}"
-                        if v
-                            if v.type.type == "FunctionPointer"
-                                ret = "method(#{method}).call"
-                            end
-                        end 
-                        ret += s
+                                method =ret
+                                v = find_var(method)
+                                p "find_var111:#{method}:#{v}"
+                                if v
+                                    if v.type.type == "FunctionPointer"
+                                        ret = "method(#{method}).call"
+                                    end
+                                end 
+                          end
+                          ret += s
+                        
     				end
     # line 1896 "cs.atg"
 
@@ -4477,22 +4545,24 @@ HERE
         # line 2334 "cs.atg"
         isOperator = false
                     if @sym == C_ColonColonSym
-                        r = find_class(varname)
-                        if !r[:v]
-                           # dump_pos(@scanner.nextSym.pos)
-                            p "cannot find class #{varname}"
-                        else
-                            cls = r[:v]
-                        end
+                        if !@in_preprocessing
+                            r = find_class(varname)
+                            if !r[:v]
+                               # dump_pos(@scanner.nextSym.pos)
+                                p "cannot find class #{varname}"
+                            else
+                                cls = r[:v]
+                            end
                         
-                        if r[:prefix] != ""
-                            varname = "#{r[:prefix]}::#{varname}"
-                        end
-                       # ret += translate_varname(varname)
-                       ret += varname
+                            if r[:prefix] != ""
+                                varname = "#{r[:prefix]}::#{varname}"
+                            end
+                       end     
+                           # ret += translate_varname(varname)
+                           ret += varname
                        
-                       #ar = []
-                       #ar.push(varname)
+                           #ar = []
+                           #ar.push(varname)
                        
                         while (@sym == C_ColonColonSym)
                             
@@ -4530,13 +4600,13 @@ HERE
                 	    if varname == "this"
                 	        ret += "self"
             	        else
-        	            
-                             # p "====>2330:#{current_scope.inspect}"
-                    	    cs = current_scope("FunctionDefinition")
-        			        if cs && find_var(varname, cs)
-        			             p "====>2331:"
-        			            ret += find_var(varname, cs).newname
-        		            else
+                            if !@in_preprocessing
+                                 # p "====>2330:#{current_scope.inspect}"
+                        	    cs = current_scope("FunctionDefinition")
+            			        if cs && find_var(varname, cs)
+            			             p "====>2331:"
+            			            ret += find_var(varname, cs).newname
+            		            else
 =begin			            
         		                ccs =  current_class_scope
         		                 p "====>2332:#{ccs}"
@@ -4554,9 +4624,12 @@ HERE
         			         
                 			    end
 =end		                
-                                ret += translate_varname(varname, false)
+                                    ret += translate_varname(varname, false)
 
-        	                end
+            	                end
+                            else
+                                ret += varname
+                            end
                         end
     		    	
         		    end # if @sym == C_ColonColonSym
@@ -4567,10 +4640,12 @@ HERE
                     end
                     p "====>primary4:#{@sym}, #{curString()}"
                     
-                    if @sym != C_LparenSym && # not functioncall
-                        !isOperator && !ret.index("::")  && !ret.index(".")
-                        if (find_method(ret))
-                            ret = ":#{ret}"
+                    if !@in_preprocessing
+                        if @sym != C_LparenSym && # not functioncall
+                            !isOperator && !ret.index("::")  && !ret.index(".")
+                            if (find_method(ret))
+                                ret = ":#{ret}"
+                            end
                         end
                     end
                     p "====>primary4:#{ret}"
@@ -4879,6 +4954,8 @@ HERE
     	className = ClassFullName()
     # line 2246 "cs.atg"
 
+    if !@in_preprocessing
+
         r = find_class(className)
         if !r[:v]
             dump_pos(@scanner.nextSym.pos)
@@ -4888,7 +4965,7 @@ HERE
         if r[:prefix] != ""
             className = "#{r[:prefix]}::#{className}"
         end
-    
+    end
     # line 2287 "cs.atg"
         fCall = ""
     	  

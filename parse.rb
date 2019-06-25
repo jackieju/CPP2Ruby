@@ -80,15 +80,22 @@ def preprocess(s)
     scanner = CScanner.new(s, false)
     error = MyError.new("whaterver", scanner)
     parser = Preprocessor.new(scanner, error)
+    _t = Time.now.to_i
     begin
         content = parser.Preprocess
    rescue Exception=>e
+       p "Preprocessing cost #{Time.now.to_i - _t} second"
+       p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
+           
+       parser.show_macros
        parser.dump_pos(nil, 30)
        dump_file = "dump#{Time.now.to_i}"
        parser.dump_buffer_to_file(dump_file)
        p "buffer dumped to file '#{dump_file}'"
        throw e
    end
+   parser.show_macros
+   p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
     begin
         fname = "pre.#{$g_cur_parse_file.split("/").last}.#{Time.now.to_i}"
        aFile = File.new(fname, "w+")

@@ -273,13 +273,15 @@ class CRScanner < AbsScanner
         @buffer.lines[@currLine-1]
     end
     def _get()
-        @buffPos+=1
-        @ch = CurrentCh(@buffPos)
-        return @ch
+        #@buffPos+=1
+        #@ch = CurrentCh(@buffPos)
+        #return @ch
+        NextCh()
     end
     # include_current_char: returned string includes current char, NOTICE, current char means start of nextsym, not current sym
     # e.g. int a = 1, @sym=C_intSym and curString="int", then "current char" is 'a'
     def NextLine(include_current_char = false, from = nil)
+        p "==>nextline1:line #{currLine}"
         p "from:#{from}, ch #{@buffer[from]}" if from 
         ret = ""
         if include_current_char
@@ -387,9 +389,9 @@ class CRScanner < AbsScanner
         # bufferpos point to "\n"
      
         ret_end = @buffPos-1 #return value not include \n
-        @currLine += 1
-        @currCol = 1
-        @lineStart = @buffPos + 1
+       # @currLine += 1
+       # @currCol = 1
+       # @lineStart = @buffPos + 1
         
         _get()
         @ch = '\0' if @ch == nil
@@ -398,6 +400,8 @@ class CRScanner < AbsScanner
         return "" if ret_end < ret_start
         p "nextline:#{@buffer[ret_start..ret_end]}", 30
         p "nextline1:#{ret}"
+        p "==>nextline0:line #{currLine}"
+        
         # return @buffer[ret_start..ret_end]
         return ret
     end

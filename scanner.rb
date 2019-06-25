@@ -482,6 +482,7 @@ class CScanner <  CRScanner
           		return C_throwSym if (EqualStr("throw")) 
                 
           	when 'u'
+                return C_unionSym if EqualStr("union")
           		return C_usingSym if (EqualStr("using")) 
           		#return C_useSym if (EqualStr("use")) 
           		return C_unsignedSym if (EqualStr("unsigned")) 
@@ -664,11 +665,11 @@ class CScanner <  CRScanner
     end
 public
     def delete_prevline
-        
+        pos = nextSym.pos
       #  p "-=-->delete_prevline:pos #{@buffPos}, cur line #{@currLine}, ch #{@buffer[@buffPos].inspect}, buffer size #{@buffer.size}, buffer=#{@buffer}", 10
-        return if @buffPos <=0
+        return if pos <=0
         
-        pos = @buffPos
+        
         if pos > @buffer.size-1
             return delete_line(@buffer.size-1)
         end
@@ -692,7 +693,7 @@ public
         end
         p "-=-->pos2:#{pos}"
         pos = 0 if pos < 0
-        old_size = @buffer.size
+       # old_size = @buffer.size
         # p "-=-->pos3:#{pos}, #{@buffer[pos].to_byte}"
         
         delete_line(pos)
@@ -797,60 +798,63 @@ public
                     line_count_before_pos += 1 if buffer[i] == "\n"
                 end
             end
-            line_count=0
-            i = replace_start
-            i = 0 if i < 0
-            while (i < replace_end)
-                i +=1
-                line_count += 1 if buffer[i] == "\n"
-            end
-        
+
+            replaced = @buffer[replace_start..replace_end]
+            line_count = replaced.count("\n")
         
             p "replace_start=#{replace_start} #{@buffer[replace_start..replace_start+10]}, replace_end=#{replace_end}, #{@buffer[replace_end..replace_end+10]}, buffPos=#{@buffPos}"
             p "line count:#{line_count}"
             str1 = ""
-            if replace_start >= 0 
+                    
+            if replace_start > 0 
                 str1 = @buffer[0..replace_start-1]
             end
             old_buffer_size = @buffer.size
+            deleted_content = @buffer[replace_start..replace_end]
             @buffer = "#{str1}#{@buffer[replace_end+1..@buffer.size-1]}"
+            size_diff = @buffer.size - old_buffer_size
            # p "buffer:#{@buffer}"
             # if include_last_line
             #     @buffPos = replace_start
             # else
             #     @buffPos -= (old_buffer_size - @buffer.size )
             # end
-            p "==>789L:#{@buffPos}, size change #{old_buffer_size-@buffer.size}"
+            p "==>789L:line #{@currLine}, #{@buffPos}, size change #{old_buffer_size-@buffer.size}"
              if @buffPos >= replace_end
-                  @buffPos -= (old_buffer_size - @buffer.size )+1
+                  @buffPos -= (old_buffer_size - @buffer.size )
                   @currLine -= line_count
                   @lineStart -= (old_buffer_size-@buffer.size)
-                   p "==>7892L:#{@buffPos}"
-                  Reset(@buffPos, @currLine, @lineStart, @currCol)
+                   p "==>7892L:#{@buffPos}, #{@currLine}"
+                  #Reset(@buffPos, @currLine, @lineStart, @currCol)
                   p "==>7893L:#{@buffPos}"
              elsif @buffPos > replace_start# &&  @buffPos <replace_end
                  # adjust buffPos
                 if replace_start < 0
                     @buffPos = -1
-                else
-                    @buffPos = replace_start
+                else                    
+                    @buffPos = replace_start-1 # -1 because will scann_nextch()
                 end
                 # adjust currLine, lineStart
                 if @buffPos >= replace_end
                     @currLine -= line_count
-                    @lineStart -= (old_buffer_size-@buffer.size)
+                    @lineStart += size_diff
                 else
                     @currCol = 0
                     @currLine -= line_count_before_pos
                 end
-                Reset(@buffPos, @currLine, @lineStart, @currCol)
+              #  Reset(@buffPos, @currLine, @lineStart, @currCol)
+                 
+              Scan_NextCh()
+                 
             end
         end
         
         
         # pp "===>delete_lines2, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20 
-        p "@@@ delete lines cost #{Time.now.to_f - __t}"
-        
+        p "@@@ delete lines#{line_count}/#{size_diff} cost #{Time.now.to_f - __t}", 5
+      #  p "buffer(#{@buffer.size}):#{@buffer}"
+      #  p "deleted:#{deleted_content}"
+      #  p "buffPos:#{buffPos}, #{nextSym.inspect}"
         return [replace_start, replace_end] 
     end
     
@@ -895,9 +899,14 @@ public
     end
     def delete_line(pos=nil)
         __t = Time.now.to_f
+        p "replace_start333:#{nextSym.inspect}, pos=#{pos}, #{GetSymValue(nextSym)}"
         
-        pos = @buffPos if pos == nil
-        p "===>delete_line, #{@buffer[pos..pos+20].inspect}, @buffPos=#{@buffPos}, #{@buffer}", 10
+        pos = nextSym.pos if pos == nil
+        if pos >= @buffer.size
+            pos -=1
+        end
+        return if pos >= @buffer.size || pos < 0 || pos == nil
+       # p "===>delete_line, #{@buffer[pos..pos+20].inspect}, @buffPos=#{@buffPos}, #{@buffer}", 10
         
      #   pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
         
@@ -905,6 +914,8 @@ public
         replace_start = pos 
         replace_start = 0 if replace_start < 0
         replace_end = pos
+      #  p "replace_start333:#{replace_start}, #{replace_end}, #{@buffer[replace_start].to_byte if @buffer[replace_start]},#{@buffer.size}, #{@buffer}"
+        
         #if @buffer[replace_start] == nil
         #    replace_start -=1
         #end
@@ -970,11 +981,12 @@ public
         # p "str2=#{@buffer[replace_end..@buffer.size-1]}"    
         old_size = @buffer.size   
         str = str1+@buffer[replace_end..@buffer.size-1]
-        # p "buffer1:#{@buffer}"
-        
+     #   p "buffer1:#{@buffer}"
+       # p "replace_start:#{replace_start}, #{replace_end}, #{@buffer[replace_start].to_byte}"
+         @currLine -= @buffer[replace_start+1..replace_end-1].count("\n")
         @buffer=str
         # p "buffer2:#{@buffer}"
-        
+       
         if @buffPos > replace_start# &&  @buffPos <replace_end
             if replace_start < 0
                 @buffPos = -1
@@ -982,7 +994,7 @@ public
                 @buffPos = replace_start
             end
             if @buffPos >= replace_end
-                @currLine = @currLine-1
+               # @currLine = @currLine-1
                 @lineStart -= (old_size-@buffer.size)
             end
             if @buffPos < replace_end
@@ -1045,6 +1057,7 @@ public
               end
            c = "// included file #{path} from file #{@include_stack.last} \n#{c}\n // end include file #{path}\n#includestackpop #{path}\n"   # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method Get()
            @include_stack.push(path)
+           append_file("included_files", "#{path}\n")
         end
         # p "===>432q42#{@buffer[@buffPos..@buffer.size-1]}"
         p "before includefile #{fname}:#{@buffPos}, #{@buffer[@buffPos..@buffPos+20]}"
@@ -1105,8 +1118,10 @@ public
 
     def Get(ignore_crlf=true)
         # int state, ctx
-     p "pos:#{@buffPos}, line #{@currLine}, ch #{cch()}, @ch #{@ch}"
-        
+    # p "pos:#{@buffPos}, line #{@currLine}, ch #{cch()}, @ch #{@ch}"
+     #    @ch = @buffer[buffPos]
+   #  p "pos:#{@buffPos}, line #{@currLine}, ch #{cch()}, @ch #{@ch}"
+         
         return C_EOF_Sym if @ch == nil
         
          # filter white space and comments

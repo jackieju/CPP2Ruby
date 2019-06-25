@@ -1207,6 +1207,18 @@ typedef SBOErr (*DBD_CondCallback) (void *form, DBD_Params *addedParams);
 void     SetProgressCallback (DBD_ProgressCallback progressProc, void* userData, CProgressIndicator *progressPtr);
 B1_OBSERVER_API bool IsGrossPriceMode() { return GetEnv().EnableGrossPriceMode() && GetPriceMode().CompareNoCase(SBOString(STR_PRICE_MODE_GROSS_PRICE)) == 0; }
 HERE
+
+s93=<<HERE
+typedef union _BigInt
+{
+    int i64[SIZE_IN_INT64];
+    uint64_t u64[SIZE_IN_INT64];
+    int i32[SIZE_IN_INT32];
+    uint32_t u32[SIZE_IN_INT32];
+} BigInt;
+BigInt data;
+HERE
+
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -1217,7 +1229,7 @@ HERE
 
 if !testall
    
-    s = s92
+    s = s93
 else
 
     r = ""
@@ -1286,7 +1298,7 @@ end
 
 
 #=end
-#test(false)
+test(false)
 p "$typedef:#{$typedef.inspect}"
 
 # execute after test
