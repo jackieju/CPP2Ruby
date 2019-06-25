@@ -68,11 +68,15 @@ class Preprocessor < Parser
                    end
                else # @sym should be 13 # <
                     Get()
-                    finclude = curString()
+                    finclude = ""
+                    
+                    while (@sym != 58)
+                        finclude += curString()
+                        Get()
+                    end
                     p "@sym=#{@sym}"
                     p "current sym:#{@scanner.currSym.sym}"
                     p "fclude:#{finclude}"
-                    Get()
                end
                p "-->include file #{finclude}"
                #p self.inspect
@@ -1500,7 +1504,7 @@ class Preprocessor < Parser
     def _preprocess(until_find = [], process_directive = true)
         while (@sym!=C_EOF_Sym)
             
-          #   p "_preprocess1:sym2:#{@sym}, d:#{@directive}, #{curString()}"
+             p "_preprocess1:sym2:#{@sym}, d:#{@directive}, #{curString()}"
             if @sym == C_PreProcessorSym
                 #_str1 = curString()
                 ## pp "preprocessor: #{@sym}, #{_str1}", 20
@@ -1513,7 +1517,7 @@ class Preprocessor < Parser
               #      p "--->222", 10
                     return @directive
             #    elsif process_directive == true
-            else
+               else
                     preprocess_directive()
                     #@directive = preprocess_directive()
                     #next
@@ -1568,7 +1572,22 @@ class Preprocessor < Parser
                         # p "after replace:#{@scanner.buffer}"
                         next
                     end
-                            
+                elsif @sym == C_inlineSym
+                    p_start = @scanner.nextSym.pos
+                    p_end = p_start + @scanner.nextSym.len
+                    Get()
+                    p "p_start=#{p_start},p_end=#{p_end}"
+                    if p_start <= 0 
+                        s = @scanner.buffer[p_end..@scanner.buffer.size-1]
+                    else
+                        s = @scanner.buffer[0..p_start-1] + @scanner.buffer[p_end..@scanner.buffer.size-1]
+                    end
+                    old_size = @scanner.buffer.size
+                    # p "before replace:#{@scanner.buffer}"
+                    @scanner.buffer = s
+                    @scanner.buffPos += s.size()-old_size
+                    # p "after replace:#{@scanner.buffer}"
+                    next
                 end
             end
             # if @sym == C_identifierSym
@@ -3043,9 +3062,14 @@ public:
 		: CException (sboErr, L"DAG error", message + " (table " + tableAlias + ")") {}
 };
 HERE
+
+s19=<<HERE
+inline ArrayOffset  SubObjectToArrayOffSet(IN long subObject);
+
+HERE
 if !testall
    
-    s = s18
+    s = s19
 else
 
     r = ""

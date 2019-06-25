@@ -46,7 +46,13 @@ def parse(s, preprocess = true, to_ruby=true)
 =end  
     p "===== start parsing ====="
     parser.Get
+    begin
     ret = parser.C
+    rescue Exception=>e
+       
+        parser.dump_pos
+        throw e
+    end 
     p ret
     error.PrintListing
     p "===== end of parsing ====="
@@ -74,9 +80,24 @@ def preprocess(s)
     scanner = CScanner.new(s, false)
     error = MyError.new("whaterver", scanner)
     parser = Preprocessor.new(scanner, error)
-    content = parser.Preprocess
+    _t = Time.now.to_i
     begin
-        fname = "pre.#{Time.now.to_i}"
+        content = parser.Preprocess
+   rescue Exception=>e
+       p "Preprocessing cost #{Time.now.to_i - _t} second"
+       p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
+           
+       parser.show_macros
+       parser.dump_pos(nil, 30)
+       dump_file = "dump#{Time.now.to_i}"
+       parser.dump_buffer_to_file(dump_file)
+       p "buffer dumped to file '#{dump_file}'"
+       throw e
+   end
+   parser.show_macros
+   p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
+    begin
+        fname = "pre.#{$g_cur_parse_file.split("/").last}.#{Time.now.to_i}"
        aFile = File.new(fname, "w+")
        aFile.puts content
        aFile.close
@@ -100,7 +121,7 @@ end
 def parse_file(fname, preprocess = "my", to_ruby=true)
     content = read_file(fname)
     if preprocess == "gcc"
-        fs = "pre.#{Time.now.to_f}"
+        fs = "pre.#{$g_cur_parse_file.split("/").last}.#{Time.now.to_f}"
         p "process using gcc -E"
         p `gcc -E #{fname} > #{fs} `
         content = read_file(fs)

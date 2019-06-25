@@ -37,8 +37,34 @@ $ar_classdefs = [
     "CORE_BYTE",
     "DAG_RecordStatusList",
     "wchar_t",
-    "DBM_ChangedColumn"
-    ]
+    "DBM_ChangedColumn",
+    "CReconUpgMgr",
+    "CSystemMatchManager",
+    "CCompanyInfo",
+    "CItemMasterData",
+    "MONEY_RoundRule",
+    "IRoundingData",
+    "PDBD_Cond",
+    "PDBD_Upd",
+    "BGSDataPtr",
+    "TotalsPair",
+    "CINVLineAgreementInfoMap",
+    "Currency",
+    "DocSubTypeStruct",
+    "DBD_TablesList",
+    "DBD_CondTables",
+    "DBD_Conditions",
+    "PDBD_Sort",
+    "PDBD_Group",
+    "PDBD_Res",
+    "PDBD_Filter",
+    "DBMCconnBase",
+    "PDBD_Params",
+    "DBM_PreparedStatementType",
+    "DBMCSqlStatement",
+    "DBM_CA",
+    "DBM_BindType"
+]
 
 $unusableType =[
     "export"

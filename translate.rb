@@ -491,7 +491,9 @@ end
 # end
 
 $output_dir = ""
-# generate ruby file
+
+# NOT USED, now use cp.rb->dump_classes_as_ruby
+# generate ruby file 
 def generate_ruby()
     log_msg("generate_ruby")
     
@@ -536,10 +538,14 @@ HERE
        
 end
 
+
+$g_search_dirs=["."]
+
 def init_env(fname)
     search_dirs = [File.dirname(__FILE__)]
     search_dirs.insert(0, File.dirname(fname))
-    
+    $g_search_dirs.insert(0, File.dirname(fname))
+    # TODO seems not used
     $g_options = {
         :include_dirs=>search_dirs
     }
@@ -549,7 +555,7 @@ end
 hide_p_in_file("scanner.rb")
 hide_p_in_file("macro.rb")
 p "Hidden_log_files=#{$Hidden_log_files}"
- 
+
 # use gcc preprocess as preprocess
 $preprocessor = "my" 
 def  parse_arg(arg, a)
@@ -562,6 +568,8 @@ def  parse_arg(arg, a)
     elsif arg == "-d"
         $output_dir = a #$*[i+1]
         FileUtils.makedirs($output_dir)
+    elsif arg == "-I"
+        $g_search_dirs = $g_search_dirs.concat(a.split(";"))
     end
 end
 p $*.inspect
@@ -598,28 +606,34 @@ if $*.size >0
     end
     p "mode=#{$mode}"
     p "output dir:#{$output_dir}"
+    p "include dirs:#{$g_search_dirs}"
     p "******* start translate **********"
     nextisarg = false
     arg = nil
+    i = 0
     for a in $*[0..$*.size-1]
-        p a
+        p "arg[#{i}]=#{a}"
+        i+=1
         if nextisarg
            nextisarg = false
            next
         end
         if a.start_with?("-")
-            nextisarg = true
+             
+            nextisarg = true if a !="-parse" && a !="-preprocess"  && a !="-translate"
             next
             
         end
         
         init_env(a) # set file path as search dir
+        $g_cur_parse_file = a
+        
         if $mode == "parse"
-            p "begin to parse file #{a}"
-            parse_file(a, false, false)
+            p "begin to parse file #{a} without preprocess"
+            parse_file(a, "no", false)
             # generate_ruby
         elsif $mode == "translate"
-            p "begin to translate file #{a}"
+            p "begin to translate file #{a}, preprocessor=#{$preprocessor}"
             parse_file(a, $preprocessor, false)
             
             # generate_ruby    
@@ -632,6 +646,7 @@ if $*.size >0
         # preprocess_file(a)
     end
     dump_classes_as_ruby($g_classdefs)
+    p "current parse file #{$g_cur_parse_file}"
 else
     p "no file specified"
     p "usage: ruby translate.rb <c source file>\n

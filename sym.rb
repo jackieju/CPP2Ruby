@@ -93,9 +93,9 @@ C_hexnumberSym = 3	# hexnumber */
 C_stringD1Sym = 4	# string1 */
 C_charD1Sym = 5	# char1 */
 C_librarySym = 6	# library */
-C_useSym = 7	# "use" */
+#C_useSym = 7	# "use" */
 C_SemicolonSym = 8	# ";" */
-C_loadSym = 9	# "load" */
+#C_loadSym = 9	# "load" */
 C_packageSym = 10	# "package" */
 C_SlashSym = 11	# "/" */
 C_inheritSym = 12	# "inherit" */
@@ -106,9 +106,9 @@ C_RbraceSym = 16	# "}" */
 C_staticSym = 17	# "static" */
 C_constSym = 18   # "const" */
 C_mySym = 19	# "my" */
-C_functionSym = 20	# "function" */
+C_externSym = 20	# "extern" */
 C_varSym = 21	# "var" */
-C_mixedSym = 22	# "mixed" */
+C_boolSym = 22	# "bool" */
 C_shortSym = 23	# "short" */
 C_intSym = 24	# "int" */
 C_longSym = 25	# "long" */
@@ -117,7 +117,7 @@ C_unsignedSym = 27	# "unsigned" */
 C_charSym = 28	# "char" */
 C_doubleSym = 29	# "double" */
 C_voidSym = 30	# "void" */
-C_stringSym = 31	# keyword "string" */
+#C_stringSym = 31	# keyword "string" */
 C_EqualSym = 32	# "=" */
 C_CommaSym = 33	# ",        " */
 C_LbrackSym =                   34	# "[" */
@@ -172,22 +172,49 @@ C_LessLessEqualSym =            82	# "<<=" */
 C_GreaterGreaterEqualSym =      83	# ">>=" */
 C_BangSym =                     84	# "!" */
 C_TildeSym =                    85	# "~" */
-C_EnumSym =                     86
-C_StructSym =                   87
-C_TypedefSym =                  88
-C_QuestionMarkSym =             89
-C_CRLF_Sym = 90 
-C_deleteSym = 91 
-C_throwSym = 92 
-C_sizeofSym = 93
-#*** insert new sym here ***#
-C_No_Sym =                      94	# not */
-C_PreProcessorSym =             95	# PreProcessor */
+C_EnumSym =                     86  # "enum"
+C_StructSym =                   87  # "struct"
+C_TypedefSym =                  88  # "typedef"
+C_QuestionMarkSym =             89  # "?"
+C_CRLF_Sym =                    90  # ""
+C_deleteSym =                   91  # "delete"
+C_throwSym =                    92  # "throw"
+C_sizeofSym =                   93  # "sizeof"
+C_INSym =                       94  # "IN"
+C_OUTSym =                      95  # "OUT"
+C_INOUTSym =                    96  # "INOUT"
+C_inlineSym =                   97  # "inline"
+C_PPPSym =                      98   # "..."
+C_namespaceSym =                99     # "..."
+C_usingSym =                    100    # "using"
+C_finalSym =                    101    # "final"
+C_operatorSym =                 102    # "operator"
+C_overrideSym =                 103    # "override"
+C_gotoSym =                     104    # "goto"
+C_unionSym =                     105    # "union"
+
+#*** insert new sym here ***#   
+C_No_Sym =                      106	# not */
+C_PreProcessorSym =             107	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
+# how to add new sym
+# 1. add definition in above. e.g. 
+# C_OUTSym =                         95 
+# 2. add entry in SYMS below
+# 3. add code in scanner.rb->CheckLiteral()
+# e.g.             
+#            when 'O'
+#                return C_OUTSym if EqualStr("OUT")
+# 4. sometimes you need to add condition in cp.rb->C() to enter Definition()
+
+
 SYMS=[                                                
-        "EOF"                         ,
+
+
+
+"EOF"                         ,
 "identifier"               ,
 "number"                       ,
 "hexnumber"                ,
@@ -207,9 +234,9 @@ SYMS=[
 "static"                 ,
 "const"                     ,
 "my"                         ,
-"function"               ,
+"extern"               ,
 "var"                        ,
-"mixed"                      ,
+"bool"                      ,
 "short"                      ,
 "int"                        ,
 "long"                       ,
@@ -281,6 +308,18 @@ SYMS=[
 "delete",
 "throw",
 "sizeof",
+"IN",
+"OUT",
+"INOUT",
+"inline",
+"...",
+"namespace",
+"using",
+"final",
+"operator",
+"override",
+"goto",
+"union",
 "not"                          ,
 "PreProcessor"         ,
     ]

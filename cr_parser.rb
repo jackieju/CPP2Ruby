@@ -1,4 +1,7 @@
 load 'log.rb'
+def method_signature(method_name, arg_number)
+    return "#{method_name}\#\##{arg_number}"
+end
 def translate_varname(varname, uncapitalize=true)
     return "" if varname==nil or varname == ""
     if uncapitalize
@@ -23,17 +26,24 @@ class Variable
     end
 end
 class VarType
-    attr_accessor :name, :ref
-    def initialize(name)
+    attr_accessor :name, :ref, :is_simpleType, :type # type can be:nil, "FunctionPointer"
+    def initialize(name, type=nil)
         @name = name
         @ref = 0
+        @is_simpleType = false
+        @type = type
     end
+
 end
 class Scope
-    attr_accessor :name, :vars, :parentScope
+    # name is scope name in c/cpp, except "module"
+    # name can "class", "struct", "module"(module means namespace)
+    attr_accessor :name, :vars, :parentScope, :hasGoto, :labeled_blocks, :class_name # class_name here is just for easy debuging
     def initialize(name)
-        @name = name
+        @name = name 
         @vars = {}
+        @hasGoto = false # only for functiondefinition
+        @labeled_blocks =[]
     end
     
     def add_var(v)
@@ -50,42 +60,144 @@ class Scope
     end
 
 end
-class ClassDef < Scope
-    attr_accessor :class_name, :parent, :modules, :methods, :src
+class ModuleDef < Scope
+    attr_accessor :class_name, :modules, :classes, :methods, :src, :functions, :includings
+  
     def initialize(class_name)
-        super("class")
+        super("module")
         @class_name = class_name
         @methods = {}
+        @modules = {}
+        @classes = {}
+        # @functions record mapping from c name to ruby name, because c can overide function with same name, we will map them to "#{cmethod_name}_v#{arg_number}"
+        # e.g.
+        # functions=>{
+        #    "fn1"=>{
+        #        "fn1_v1"=>"fn1#1", #fn1 with 1 parameter
+        #        "fn1_v2"=>"fn1#2"  #fn2 with 2 paratermers          
+        #    }
+        #}
+        @functions = {} 
+        @includings = [] 
     end
     def add_src(src)
         @src = "" if !@src
         @src += src
     end
-    def add_method(method_name, arg_number, src, acc="public")
-        method_sig = "#{method_name}\#\##{arg_number}"
+    
+
+    def add_method(method_name, args, src, acc="public")
+        arg_number = args.size
+        method_sig = method_signature(method_name, arg_number)
+        
+        # if overriden, modify name
+        @functions[method_name] = {} if !@functions[method_name] 
+        
+        newname = "#{method_name}_v#{arg_number}"
+        @functions[method_name][newname] = method_sig
+        method_name = newname
+            
         if @methods[method_sig]
-            @methods[method_sig][:name] = method_name
+            method_desc = @methods[method_sig]
+            method_desc[:name] = method_name
+            method_desc[:args] = args
             if src && src.strip != ""
-                @methods[method_sig][:src] =src
+                method_desc[:src] =src
             end
-            if @methods[method_sig][:decoration] == nil
-                @methods[method_sig][:decoration] = ""
+            if method_desc[:decoration] == nil
+                method_desc[:decoration] = ""
             end
             ar = acc.split(" ")
             ar.each{|v|
-                if @methods[method_sig][:decoration].index(v) == nil
-                    @methods[method_sig][:decoration] += " #{v}"
+                if method_desc[:decoration].index(v) == nil
+                    method_desc[:decoration] += " #{v}"
                 end
             }
             
         else
             @methods[method_sig]={
                 :name=>method_name,
+                :args=>args,
                 :src=>src,
                 :decoration=>acc
             }
         end
+        p("method #{method_sig} added to #{self.class_name}@#{self}:#{@methods[method_sig].inspect} \n")
+      #  p(@methods.inspect)
+      #  if self.class != ModuleDef
+      #      p ("parent:#{self.parent}")
+      #      if  self.parent
+      #          p("parent:#{self.parent.inspect}")
+      #      else
+      #          p("parent:#{self.parent}")
+      #  
+      #      end
+      #  end
     end
+    
+    def add_module(module_name)
+        if module_name.class == String
+            moduleDef = ModuleDef.new(module_name)
+            @modules[module_name] = moduleDef
+            moduleDef.parentScope = self
+        else
+            moduleDef = module_name
+            @modules[moduleDef.class_name] = moduleDef
+            moduleDef.parentScope = self
+            
+            
+        end
+        return moduleDef
+    end
+    
+    # class_name can be CladdDef Object
+    def add_class(class_name)
+        
+        if class_name.class == String && @classes[class_name] == nil
+            
+            clsdef = ClassDef.new(class_name)
+            @classes[class_name] = clsdef
+            clsdef.parentScope = self
+            p "===>add_class:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
+        else
+            
+            clsdef = class_name
+            @classes[clsdef.class_name] = clsdef
+            clsdef.parentScope = self
+            p "===>add_class:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
+        end
+        
+
+        return clsdef
+    end
+end
+class ClassDef < ModuleDef
+    attr_accessor :class_name, :parent, :methods, :src, :parentScope, :functions, :includings
+    def initialize(class_name)
+        super("class")
+        @class_name = class_name
+        @methods = {}
+        @name="class"
+        @includings = []
+    end
+    # for supporting multi-inheritanc
+    # will generate new module containings class content, and current class will just include the module
+    def to_module
+        module_name = "#{@class_name}_module"
+        r = ModuleDef.new(module_name)
+        r.methods = @methods
+        r.functions = @functions
+        r.src = @src
+        r.parentScope = parentScope
+        r.includings = includings
+        
+        @methods = {}
+        @classes = {}
+        @functions = {} 
+        @includings = [module_name]
+        return r
+    end
+
 end
 class CRParser 
 # Abstract Parser
@@ -126,29 +238,41 @@ class CRParser
     end
     def in_scope(name)
         cs = current_scope
-        p "==>cs0:#{name}"
+       # p "==>in_scope0:#{name}, #{name.class_name}, #{name.} ", 10
         
-        # p "==>cs1:#{cs.inspect}"
+      #  p "==>cs1:#{cs.inspect}"
         if name.class == String
-            @sstack.push(Scope.new(name))
+            name = Scope.new(name)
+            @sstack.push(name)
         else
             if name == cs
                 throw Exception.new("enter wrong scope")
             end
             @sstack.push(name)
         end
-        # p "cs2:#{current_scope.inspect}"
+    
+      #  p("rootmod3:#{$g_root_moddef.parentScope}")
+     #   p "cs2:#{current_scope.inspect}, #{cs}"
         current_scope.parentScope = cs
+       #    p("rootmod4:#{$g_root_moddef.parentScope}")
+        throw Exception.new("hehehehe") if current_scope != name
+        if current_scope == cs
+            throw Exception.new("hahahahaha")
+        end
         # p "cs3:#{current_scope.inspect}, parent=#{current_scope.parent}", 30
-        
+        p "==>in_scope1:#{name}, #{name.class_name}, #{name.name}, #{name.parentScope}, #{name.parentScope.name if name.parentScope}, #{name.parentScope.class_name if name.parentScope} ", 10
+        return name
     end
     def out_scope()
-        @sstack.pop
+        r = @sstack.pop
+        p "==>out_scop:#{r}, #{r.name}, #{r.class_name}"
+        return r
     end    
-    def current_class_scope
+    def current_ruby_scope
          i = @sstack.size-1
          while (i>=0)
-             if @sstack[i].name == "class"
+             n = @sstack[i].name
+             if n == "class" || n == "struct" || n == "module"
                  return @sstack[i]
              end
              i -= 1
@@ -157,18 +281,18 @@ class CRParser
     end
     
     def find_var(name, scope=nil)
-        # p "find_var:#{name}", 10
+         p "find_var:#{name}", 10
         scope= current_scope  if !scope
         i = 1
         while scope 
-            # p "scope:#{scope.inspect}"
-            p "scope:#{scope}"
-            p "class:#{scope.class_name}" if scope.is_a?(ClassDef)
+             #p "scope:#{scope.inspect}"
+            p "scope:#{scope}, #{scope.name}"
+            p "class:#{scope.class_name}" if scope.is_a?(ClassDef) || scope.is_a?(ModuleDef)
             
             i+=1
             if i>=20
                 dump_pos
-                p "scope:#{scope.inspect}"
+                #p "scope:#{scope.inspect}"
                 throw Exception.new("===>error<====")
             end
             scope.vars.each{|k,v|
@@ -228,7 +352,42 @@ class CRParser
     end
     # Records semantic error ErrorNo
 
-
+    def dump_pos(pos=@scanner.buffPos, lines = 5)
+        pos=@scanner.buffPos if pos == nil
+            
+        p("start dump pos:#{pos},#{@scanner.buffer[pos..pos+100]}", 5)
+        lino = get_lineno_by_pos(pos)+1
+        
+        p "---- dump position ----"
+        i = lines
+        ls =  prevline(pos, i)
+        ls.each{|l|
+            p "#{"%05d" % (lino-i)}#{l}"
+            i-=1
+        }
+       
+        pos1 = pos
+        while (pos1 > 0 && @scanner.buffer[pos1-1] != "\n" )
+            pos1 -= 1
+        end
+        pos2 = pos 
+        while (pos2 < @scanner.buffer.size-1 && @scanner.buffer[pos2+1] != "\n" )
+            pos2 += 1
+        end        
+        p "#{"%05d" % (lino)}......#{@scanner.buffer[pos1..pos2].gsub("\t",' ')}......"
+        s1 = ""
+        for a in 0..pos-pos1-1
+            s1 += "~"
+        end
+        s2 = ""
+        for a in 0..pos2-pos-1
+            s2 += "~"
+        end
+        p "     ......#{s1}^#{s2}......"
+        
+        p "---- end of dump position ----"
+        
+    end    
 	
 
   protected
@@ -243,7 +402,7 @@ class CRParser
     end
     
     def Expect(n)
-        p "expect #{SYMS[n]}, sym = #{@sym}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@scanner.nextSym.sym]}"
+        p "expect #{n}(#{SYMS[n]}), sym = #{@sym}(#{SYMS[@sym]})('#{@scanner.GetSymValue(@scanner.nextSym)}'), line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} pos #{@scanner.nextSym.pos} sym #{SYMS[@scanner.nextSym.sym]}"
         if @sym == n 
             Get()
         else 
@@ -296,40 +455,7 @@ class CRParser
         buf = @scanner.buffer[0..pos]
         return buf.count("\n")
     end
-    def dump_pos(pos=@scanner.buffPos)
-        p("start dump pos", 5)
-        lino = get_lineno_by_pos(pos)+1
-        
-        p "---- dump position ----"
-        i = 3
-        ls =  prevline(pos, i)
-        ls.each{|l|
-            p "#{"%05d" % (lino-i)}#{l}"
-            i-=1
-        }
-       
-        pos1 = pos
-        while (pos1 > 0 && @scanner.buffer[pos1-1] != "\n" )
-            pos1 -= 1
-        end
-        pos2 = pos 
-        while (pos2 < @scanner.buffer.size-1 && @scanner.buffer[pos2+1] != "\n" )
-            pos2 += 1
-        end        
-        p "#{"%05d" % (lino)}......#{@scanner.buffer[pos1..pos2].gsub("\t",' ')}......"
-        s1 = ""
-        for a in 0..pos-pos1-1
-            s1 += "~"
-        end
-        s2 = ""
-        for a in 0..pos2-pos-1
-            s2 += "~"
-        end
-        p "     ......#{s1}^#{s2}......"
-        
-        p "---- end of dump position ----"
-        
-    end    
+
     
     def GenError(errorNo)
         p "generror #{errorNo}, line #{@scanner.nextSym.line} col #{@scanner.nextSym.col} sym #{@scanner.nextSym.sym} val #{@scanner.GetName()}"
@@ -342,7 +468,7 @@ class CRParser
         # # p "line:#{@scanner.cur_line()}"
         p("stack:", 1000)
         @error.StoreErr(errorNo, @scanner.nextSym.clone)
-        raise "stopped because error"
+        raise "stopped because error #{errorNo}, file #{$g_cur_parse_file}"
     end
     # Scanner
     #    Error
