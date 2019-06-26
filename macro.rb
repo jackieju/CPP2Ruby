@@ -3,12 +3,25 @@ load "cp.rb"
 
 # hide_p_in_file(__FILE__)
 class Preprocessor < Parser
+    attr_accessor :ifstack
  
     def Preprocess(include_predined_file = true)
+        if $g_cur_parse_file
+            @file_save = "pre.part.#{$g_cur_parse_file.split("/").last}.#{Time.now.to_i}" 
+        else
+            @file_save = "pre.#{Time.now.to_i}" 
+        end
+        @in_preprocessing = true
+        @ifstack = []
+        @ifstack_before_inc = []
+        @saved_line = 0
+        @count = 0
+              
          if include_predined_file 
              include_file("c_macros.c") # predefined macros
          end
-         @in_preprocessing = true
+
+         
          Get()
          p "sym3333:#{@sym}"
          # _preprocess(false)
@@ -18,7 +31,9 @@ class Preprocessor < Parser
          # ret = expand_macro(@scanner.buffer)
          # p "after expand_macro: #{ret}"
          p "after preprocess:line #{@scanner.currLine}"
-         return @scanner.buffer
+         s = read_file(@file_save)
+         s = "" if !s
+         return s+ @scanner.buffer
      end
      # def _preprocess(stop_on_unkown_directive = true)
      #        while (@sym!=C_EOF_Sym)
@@ -42,7 +57,23 @@ class Preprocessor < Parser
          @macros = {} if @macros == nil
          @macros[n] = v
      end
-     
+     def push_ifstack
+         cl = @scanner.current_line
+         @ifstack.push(cl)
+         indent = ""
+         for i in 1..@ifstack.size
+             indent += "---+"
+         end
+         append_file("ifstack", "#{indent}>#{cl}\n")
+     end
+     def pop_ifstack
+         cl = @ifstack.pop
+         indent = ""
+         for i in 1..@ifstack.size+1
+             indent += "---+"
+         end
+         append_file("ifstack", "#{indent}<#{cl}\n")
+     end
      # process every directive
      def preprocess_directive(doprepro)
 =begin        
@@ -58,8 +89,18 @@ class Preprocessor < Parser
            end
            if @directive == "\#includestackpop"  # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method scanner::Get()
                p "pop stack"
-               @scanner.include_stack.pop
-               
+
+               path = @scanner.include_stack.pop
+               if @ifstack_before_inc.last != @ifstack.last
+                   p "#{@ifstack_before_inc.last}!=#{@ifstack.last}"
+                   throw "---->ifstack cross included file #{path}, error <------"
+               end
+               @ifstack_before_inc.pop
+               indent = ""
+               for i in 1..@scanner.include_stack.size+1
+                   indent += "----"
+               end
+               append_file("included_files", "#{indent}<#{path}\n")
         #       p "before delete line:#{@scanner.buffer}"
                # p "-->111#{skip_curline}"
                #p "--->113#{delete_prevline}"
@@ -100,7 +141,10 @@ class Preprocessor < Parser
                p "-->include file #{finclude}"
                #p self.inspect
                #p @scanner.inspect
-               include_file(finclude)  if doprepro
+             if doprepro
+                 ri = include_file(finclude)
+                 @ifstack_before_inc.push(@ifstack.last) if ri
+             end
                @directive = nil
          elsif @directive == "\#define" 
              p "====>preprocess_directive2"
@@ -111,21 +155,31 @@ class Preprocessor < Parser
             
          elsif @directive == "\#ifdef"
              p "====>preprocess_directive3"
-            
+             push_ifstack
+             
              pre_ifdef(doprepro)
              expect("\#endif")
+             
+             pop_ifstack       
+                   
          elsif @directive == "\#ifndef"
              p "====>preprocess_directive4"
-            
+             push_ifstack
+             
              pre_ifndef(doprepro)
              expect("\#endif")
              
+             pop_ifstack             
+
          elsif @directive == "\#if"
              p "====>preprocess_directive5"
+             push_ifstack
             
              pre_if(doprepro)
              expect("\#endif")
              
+             pop_ifstack             
+
          elsif @directive == "\#undef"
              Get()
              p "undefine #{curString}"
@@ -137,10 +191,16 @@ class Preprocessor < Parser
                 # @scanner.delete_curline
                 # if !["#else", "#endif", "elif"].include?(@directive)
                     # @scanner.skip_curline
-                 skip_curline
+                @scanner.skip_curline(true)
+                #delete_curline()
+                 #p "after skip_curline:#{@scanner.buffPos}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+15]}", 10
+                #  Get()
+               #  p "get:#{@scanner.nextSym.inspect}, #{@scanner.ch} #{curString}"
+               #  p "buffer:#{@scanner.buffer}"
+                
                  
                 # end
-                return @directive
+                @directive = nil
          end
          # p "after process directive #{@directive}:#{@scanner.buffer}"
          return nil
@@ -225,12 +285,12 @@ class Preprocessor < Parser
                   #delete_prevline
                   # p "pre_define1:pos=#{@scanner.buffPos}, buffer #{@scanner.buffer}, sym:#{@sym}"  
                        # p "before line1:#{@scanner.buffer}"
-                       p "before line1:buffPos:#{@scanner.buffPos},#{@scanner.buffer[@scanner.buffPos]}, #{@scanner.ch},#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+2]} "
+                      # p "before line1:buffPos:#{@scanner.buffPos},#{@scanner.buffer[@scanner.buffPos]}, #{@scanner.ch},#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+2]} "
                         pos2 = @scanner.buffPos
                      #   p "delete lines #{start_pos} #{@scanner.buffer[start_pos..start_pos+5]}, #{pos2} #{@scanner.buffer[pos2..pos2+5]}"
                         delete_lines(start_pos, pos2, false)
                        #  p "after line2:#{@scanner.buffer}" 
-              p "==>define5:#{n}:after delete_lines, #{@scanner.currLine}, #{@scanner.ch}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+            #  p "==>define5:#{n}:after delete_lines, #{@scanner.currLine}, #{@scanner.ch}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
                     if !vargs 
                       v=v.gsub(/(\w[\w\d_]*)/){|m|
                          p m.inspect
@@ -1423,14 +1483,14 @@ class Preprocessor < Parser
     def pre_ifdef(doprepro, ifndef=false)
          Get()
          n = curString()
-         p "===>pre_ifdef0: #{n}, #{doprepro}, #{ifndef}", 10
+       #  p "===>pre_ifdef0: #{n}, #{doprepro}, #{ifndef}", 10
          
          #p "pre_ifdef before delete:n=#{n}, line #{@scanner.currLine},  pos #{@scanner.buffPos}, buffer #{@scanner.buffer}", 10
          delete_curline  # delele line #ifdef
          #p "pre_ifdef after delete: line #{@scanner.currLine}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}"
          
          idf = ifdefined?(n)
-         pp "===>pre_ifdef2: idf=#{idf}, @sym=#{@sym}",20
+       #  pp "===>pre_ifdef2: idf=#{idf}, @sym=#{@sym}",20
           if ifndef
               idf = !idf
           end
@@ -1438,12 +1498,12 @@ class Preprocessor < Parser
          pos1 = @scanner.buffPos
          Get()
          @directive=_preprocess(["#else", "#endif", "#elif"], idf)
-         p "pre_ifdef: directive=#{@directive}"
+         p "pre_ifdef: directive=#{@directive}, n=#{n}"
          
          #pos2 = @scanner.buffPos
          # p "pos:#{@scanner.buffPos}"
          pos2 = @scanner.nextSym.pos
-         p "pre_ifdef1:pos:#{@scanner.buffPos}, #{@sym}, #{curString()}, #{@scanner.dump_char}"
+      #   p "pre_ifdef1:pos:#{@scanner.buffPos}, #{@sym}, #{curString()}, #{@scanner.dump_char}"
  # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}"
          # p "===>113:#{@scanner.buffer}"
          # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}, buffer=#{@scanner.buffer}, #{@scanner.buffer[@scanner.buffPos].inspect}"
@@ -1529,7 +1589,7 @@ class Preprocessor < Parser
          return idf
     end
     def pre_else(doprepro, idf)
-        p "===>pre_else0:#{idf}, #{doprepro}", 10
+    #    p "===>pre_else0:#{idf}, #{doprepro}", 10
         if @directive == "\#else"
            #  p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}, #{@scanner.dump_char}"
             # delete_prevline # delete #else line
@@ -1561,7 +1621,7 @@ class Preprocessor < Parser
                 # pos is next char after current directive
                 # delete_prevline # only delete #endif line
             end
-            p "hahaha12:#{@directive}", 107
+           # p "hahaha12:#{@directive}", 10
 
             if @directive == "\#endif"
                 # p "hahaha:#{directive}"
@@ -1577,6 +1637,7 @@ class Preprocessor < Parser
         if @directive == "\#endif"
             #p "9999:line #{@scanner.currLine}, pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer:#{@scanner.buffer}"
             # @scanner.delete_prevline
+           # p "==>pre_endif:before delete_curline:#{@scanner.nextSym.inspect}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+15]}"
             delete_curline
             #p "99992:line #{@scanner.currLine}, pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}", 19
             
@@ -1584,7 +1645,7 @@ class Preprocessor < Parser
     end
     
     def _pre_if()
-        dump_pos
+        #dump_pos
         s = ""
         while (Get(false) != C_CRLF_Sym)
             n = curString()
@@ -1668,7 +1729,7 @@ class Preprocessor < Parser
          
          pos1 = @scanner.buffPos
          @directive=_preprocess(["#else", "#endif", "#elif"], idf)
-        p "===>pre_if:directive=#{@directive}", 10
+      #  p "===>pre_if:directive=#{@directive}", 10
          #pos2 = @scanner.buffPos
          
          pos2 = @scanner.nextSym.pos
@@ -1678,11 +1739,11 @@ class Preprocessor < Parser
          if !idf || !doprepro
              #p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
              #p "before replace #{idf}:#{@scanner.buffer}"
-             
+            # p "===>pre_if63:pos1:#{pos1}, pos2:#{pos2}, #{@scanner.buffer[pos1..pos1+10]}"
              @scanner.delete_lines(pos1, pos2, false) # delete whole block
              #p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
              
-             #p "after replace #{idf}:#{@scanner.buffer}"
+           #  p "after replace #{idf}:#{@scanner.buffer}"
              
          else
              p "-->333332"
@@ -1719,7 +1780,7 @@ class Preprocessor < Parser
     def _preprocess(until_find = [], process_directive = true)
         while (@sym!=C_EOF_Sym)
             
-             p "_preprocess1:sym2: line #{@scanner.currLine}, sym #{@sym}, d:#{@directive}, #{curString()}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+             #p "_preprocess1:sym2: line #{@scanner.currLine}, sym #{@sym}, d:#{@directive}, #{curString()}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
             if @sym == C_PreProcessorSym
                 #_str1 = curString()
                 ## pp "preprocessor: #{@sym}, #{_str1}", 20
@@ -1731,12 +1792,12 @@ class Preprocessor < Parser
                 #p "_preprocess directive=#{@directive}, until_find=#{until_find.inspect}, process_directive=#{process_directive}", 10
               
                 if until_find.include?(@directive)
-                    p "222222#{@directive}"
+                   # p "222222#{@directive}"
               #      p "--->222", 10
                     return @directive
             #    elsif process_directive == true
                else
-                   p "1111111#{@directive}"
+                  # p "1111111#{@directive}"
                     preprocess_directive(process_directive)
                     #@directive = preprocess_directive()
                     #next
@@ -1748,21 +1809,20 @@ class Preprocessor < Parser
                     #p "prepcoess identifier3:#{@scanner.nextSym.inspect}"
                     #p "prepcoess identifier31:#{@scanner.buffer[@scanner.nextSym.pos..@scanner.nextSym.pos+10]}"
                     #p "prepcoess identifier31:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
-                    
                     idf = curString()
                     #p "prepcoess identifier:#{idf}", 10
                     p_start = @scanner.nextSym.pos
                     p_end = p_start + @scanner.nextSym.len-1
                     res = ""
-                   
                     # p "nextsym:#{@scanner.nextSym.sym}"
                     # p_end = @scanner.nextSym.pos
                     
                     sym_pos = @scanner.nextSym.pos
+                    __t = Time.now.to_f
                     if ifdefined?(idf)
                          Get()
                         res = @macros[idf]
-                        p "===>defined:#{idf}, #{@sym}, #{res}"
+                        #p "===>defined:#{idf}, #{@sym}, #{res}"
                         if @sym == C_LparenSym
                             Get()
                             v,args = ActualParameters()
@@ -1788,7 +1848,7 @@ class Preprocessor < Parser
                           #res = res.gsub("__VA_ARGS__", args.join(","))
                             p "--->result:#{res}"
                         end
-                        __t = Time.now.to_f
+                        
                         #p "p_start=#{p_start},p_end=#{p_end}, #{@scanner.buffer[p_start..p_end]}"
                         #p "pos:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
                         p "sym:#{@sym}"
@@ -1809,10 +1869,10 @@ class Preprocessor < Parser
                         @scanner.buffer = s
                        @scanner.buffPos = sym_pos
                       @scanner.fix_ch
-                       p "after replace macro #{idf}:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+                     #  p "after replace macro #{idf}:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
                        
                        Get()
-                       p "after replace macro2 #{idf}:#{@sym}, #{curString}"
+                      # p "after replace macro2 #{idf}:#{@sym}, #{curString}"
                         #@scanner.buffPos += sizediff
                         #po = @scanner.buffPos
                         #p "size diff:#{s.size()-old_size}"
@@ -1836,7 +1896,7 @@ class Preprocessor < Parser
                          # currSym maybe already replaced
                        #  @scanner.currSym.line -= lines_replaced if lines_replaced>0
                        #  @scanner.currSym.pos += sizediff
-                       p "@@@ replace macro cost #{Time.now.to_f - __t}"
+                       p "@@@ replace macro #{idf} line #{@scanner.currLine} cost #{Time.now.to_f - __t}"
                        
                         next
                         
@@ -1846,7 +1906,7 @@ class Preprocessor < Parser
                     p_start = @scanner.nextSym.pos
                     p_end = p_start + @scanner.nextSym.len
                     Get()
-                    p "p_start=#{p_start},p_end=#{p_end}"
+                   # p "p_start=#{p_start},p_end=#{p_end}"
                     if p_start <= 0 
                         s = @scanner.buffer[p_end..@scanner.buffer.size-1]
                     else
@@ -1871,12 +1931,70 @@ class Preprocessor < Parser
             
             Get()
             # p "_preprocess0:sym3:#{@sym}, d:#{@directive}, #{@scanner.nextSym.inspect}, #{curString()}"
+            @count += 1
+            if @count > 100
+                p "==>count:#{@scanner.currLine}, #{@saved_line}, #{@scanner.remain_enough_line?(31)} "
+                @count = 0
+                if @scanner.currLine - @saved_line > 10000 && @scanner.remain_enough_line?(31)
+                p "before save:#{@scanner.currLine}"
+                    ln = @scanner.save_part(@file_save)
+                    @saved_line +=ln
+                    p "saved #{ln} to #{@file_save}"
+                    p "after save:#{@scanner.currLine}, #{@saved_line}"
+                end
+            end
         end # while
        # p "buffer(#{@scanner.buffer.size}):#{@scanner.buffer}"
        # p "bufferPos:#{@scanner.buffPos}, #{@sym}, d:#{@directive}, #{@scanner.nextSym.inspect}, #{curString()}"
         #throw "shouldn't goto here"
     end
     
+    
+
+    def dump_pos(pos=@scanner.buffPos, lines = 5)
+        pos=@scanner.buffPos if pos == nil
+            
+        p("start dump pos in macro.rb:pos #{pos}, buf size #{@scanner.buffer.size}, line #{@scanner.currLine}, saved line #{@saved_line}#{@scanner.buffer[pos..pos+100]}", 5)
+        lino = get_lineno_by_pos(pos)+1
+        lino += @saved_line
+        
+        p "---- dump position ----"
+        i = lines
+        ls =  prevline(pos, i)
+        ls.each{|l|
+            p "#{"%05d" % (lino-i)}#{l}"
+            i-=1
+        }
+       
+        pos1 = pos
+        while (pos1 > 0 && @scanner.buffer[pos1-1] != "\n" )
+            pos1 -= 1
+        end
+        pos2 = pos 
+        while (pos2 < @scanner.buffer.size-1 && @scanner.buffer[pos2+1] != "\n" )
+            pos2 += 1
+        end        
+        p "#{"%05d" % (lino)}......#{@scanner.buffer[pos1..pos2].gsub("\t",' ')}......"
+        s1 = ""
+        for a in 0..pos-pos1-1
+            s1 += "~"
+        end
+        s2 = ""
+        for a in 0..pos2-pos-1
+            s2 += "~"
+        end
+        p "     ......#{s1}^#{s2}......"
+        
+        
+        p "---- end of dump position ----"
+        
+        pos1 = @scanner.buffPos
+        pos1 -= 30
+        pos1 = 0 if pos1 < 0
+        p "==>#{@scanner.buffer[pos1..@scanner.buffPos+30]}"
+        
+    end    
+	
 
 =begin      
     def expand_macro(cs)
@@ -3537,6 +3655,7 @@ s27=<<HERE
 HERE
 
 s28=<<HERE
+/*
 #ifdef AA
 "aa"
 #else
@@ -3549,7 +3668,7 @@ s28=<<HERE
 "AA"
 #else
 "jha"
-#endif #2
+#endif //2
 
 #if defined(B1_OBSERVER_MODULE) || defined(B1_INTERNAL_FIELDS_MODULE)
 	#define B1_OBSERVER_API __declspec(dllexport)
@@ -3561,10 +3680,33 @@ s28=<<HERE
 	#define B1_OBSERVER_API __declspec(dllimport)
     "fff"
 #endif
+*/
+#if defined (_MSC_VER) && (_MSC_VER >= 1020)
+#pragma once
+#endif //fff
+
+/*  If defined, the following flags inhibit definition
+ *     of the indicated items.
+ *  NOMCX             - Modem Configuration Extensions
+ */
+HERE
+s29=<<HERE
+
+#ifndef B1_SERVER_MANAGER
+#pragma comment(linker, \\
+    "/manifestdependency:\"type='win32' " \\
+    "name='Microsoft.Windows.Common-Controls' " \\
+    "version='6.0.0.0' " \\
+    "processorArchitecture='*' " \\
+    "publicKeyToken='6595b64144ccf1df' " \\
+    "language='*'\"")
+#endif
+
+
 HERE
 if !testall
    
-    s = s28
+    s = s29
 else
 
     r = ""

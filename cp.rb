@@ -238,7 +238,6 @@ class Parser < CRParser
         # ret = @scanner.GetName()
         ret = @scanner.GetSymValue(@scanner.nextSym)
         # p "------#{@scanner}"
-        p 1
         return ret
     end
     def prevString() # previous string means value of currsym
@@ -2049,7 +2048,7 @@ class Parser < CRParser
     	end
 =end
     
-        dump_pos()
+        #dump_pos()
         isOperatorDef = false
         p "---->LocalDeclaration21, #{@sym}, #{curString()}"
         
@@ -2079,7 +2078,7 @@ class Parser < CRParser
                 )
                )
                p "---->LocalDeclaration3, @sym=#{@sym}, curString=#{curString()}, line #{curLine()}, col #{curCol()}"
-           dump_pos()
+           #dump_pos()
            
            if @sym == C_identifierSym && _next == C_ColonColonSym  && type != ""
                break
@@ -2136,7 +2135,7 @@ class Parser < CRParser
         
         # line 702 "cs.atg"
         p "type=#{type}, storageclass=#{storageclass}, prev=#{@prev_sym}, cur=#{@sym}, val #{curString}"
-        dump_pos()
+        #dump_pos()
         
         # end of parsing type
 
@@ -4650,7 +4649,7 @@ HERE
                     end
                     p "====>primary4:#{ret}"
                     
-                dump_pos()
+                #dump_pos()
     # line 2335 "cs.atg"
 
 =begin    	
@@ -4958,7 +4957,7 @@ HERE
 
         r = find_class(className)
         if !r[:v]
-            dump_pos(@scanner.nextSym.pos)
+            #dump_pos(@scanner.nextSym.pos)
             #throw "cannot find class #{className}"
             p "cannot find class #{className}"
         end

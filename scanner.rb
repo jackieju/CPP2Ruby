@@ -318,7 +318,17 @@ class CScanner <  CRScanner
         @include_stack = []
     end
 
-    
+    def current_line
+        pos1 = nextSym.pos
+        while pos1-1 >= 0 && buffer[pos1-1] != "\n"
+            pos1 -=1
+        end
+        pos2 = nextSym.pos
+        while buffer[pos2+1] && buffer[pos2+1] != "\n"
+            pos2 +=1
+        end
+        return buffer[pos1..pos2]
+    end
     def set(_str, _ignoreCase, _currSym, _nextSym, _currLine, _currCol, _lineStart, _pos, _ch, _comEols)
         @ch = _ch
         @buffer = _str
@@ -813,6 +823,8 @@ public
             deleted_content = @buffer[replace_start..replace_end]
             @buffer = "#{str1}#{@buffer[replace_end+1..@buffer.size-1]}"
             size_diff = @buffer.size - old_buffer_size
+            @nextSym.pos += size_diff if @nextSym.pos > replace_end
+            @currSym.pos += size_diff if @currSym.pos > replace_end
            # p "buffer:#{@buffer}"
             # if include_last_line
             #     @buffPos = replace_start
@@ -824,9 +836,9 @@ public
                   @buffPos -= (old_buffer_size - @buffer.size )
                   @currLine -= line_count
                   @lineStart -= (old_buffer_size-@buffer.size)
-                   p "==>7892L:#{@buffPos}, #{@currLine}"
+                 #  p "==>7892L:#{@buffPos}, #{@currLine}"
                   #Reset(@buffPos, @currLine, @lineStart, @currCol)
-                  p "==>7893L:#{@buffPos}"
+                 # p "==>7893L:#{@buffPos}"
              elsif @buffPos > replace_start# &&  @buffPos <replace_end
                  # adjust buffPos
                 if replace_start < 0
@@ -1057,7 +1069,11 @@ public
               end
            c = "// included file #{path} from file #{@include_stack.last} \n#{c}\n // end include file #{path}\n#includestackpop #{path}\n"   # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method Get()
            @include_stack.push(path)
-           append_file("included_files", "#{path}\n")
+           indent = ""
+           for i in 1..@include_stack.size
+               indent += "----"
+           end
+           append_file("included_files", "#{indent}>#{path}\n")
         end
         # p "===>432q42#{@buffer[@buffPos..@buffer.size-1]}"
         p "before includefile #{fname}:#{@buffPos}, #{@buffer[@buffPos..@buffPos+20]}"
@@ -1115,6 +1131,58 @@ public
     #  end
     # get next sym
     
+    # should'nt do this in a cycle like #ifdef #if
+    def save_part(fname)
+        @saved_line = 0 if !@save_line
+        pos = @buffPos
+        p "save_part1:#{pos}, #{currLine}, #{@saved_line}"
+        while pos>=0 && @buffer[pos] != "\n"
+            pos -=1
+        end
+        for i in 0..5
+            if pos >= 0
+                pos -= 1 if @buffer[pos] == "\n"
+                while pos>=0 && @buffer[pos] != "\n"
+                    pos -=1
+                end 
+            end
+        end
+        pos = 0 if pos < 0
+        # now pos will be \n 
+        p "save_part:#{pos}"
+        content = @buffer[0..pos]
+        #p "content:#{content}"
+        append_file(fname, content)
+        lineLost = content.count("\n")
+        p "save line #{lineLost}"
+        
+        @saved_line += lineLost
+        @buffer = @buffer[pos+1..@buffer.size-1]
+        sizeDiff = pos+1
+        @buffPos -= sizeDiff
+      #  @currLine = @buffer[0..@buffPos].count("\n")+1
+        @nextSym.pos -=sizeDiff
+        @nextSym.line -= lineLost
+        @currSym.pos -= sizeDiff
+        @currSym.line -= lineLost
+        
+        return lineLost
+        
+    end
+    
+    def remain_enough_line?(n)
+        #p "=>remain_enough_line?"
+        pos = @buffPos
+        i = 0
+        while i <= n && pos < @buffer.size-1
+           while @buffer[pos] != "\n" && pos < @buffer.size-1
+               pos += 1
+           end
+           i +=1 if @buffer[pos] == "\n"
+           pos +=1 
+        end
+        return i > n
+    end
 
     def Get(ignore_crlf=true)
         # int state, ctx

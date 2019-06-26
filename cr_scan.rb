@@ -281,8 +281,8 @@ class CRScanner < AbsScanner
     # include_current_char: returned string includes current char, NOTICE, current char means start of nextsym, not current sym
     # e.g. int a = 1, @sym=C_intSym and curString="int", then "current char" is 'a'
     def NextLine(include_current_char = false, from = nil)
-        p "==>nextline1:line #{currLine}"
-        p "from:#{from}, ch #{@buffer[from]}" if from 
+        #p "==>nextline1:line #{currLine}"
+       # p "from:#{from}, ch #{@buffer[from]}" if from 
         ret = ""
         if include_current_char
             if from 
@@ -302,7 +302,7 @@ class CRScanner < AbsScanner
             end
         end
         @ch = @buffer[buffPos]
-        p "nextline ret_start:#{ret_start}, ch #{@ch}, @buffPos:#{@buffPos}, pos #{@buffPos}", 20
+       # p "nextline ret_start:#{ret_start}, ch #{@ch}, @buffPos:#{@buffPos}, pos #{@buffPos}", 20
         if cch() == "\n"
         else
             begin # while (@ch != "\n")
@@ -321,11 +321,11 @@ class CRScanner < AbsScanner
                 #   end
                 #end
                 if @ch == "\\" && @buffer[@buffPos+1] =~ /\s/
-                    p "--->00000:#{@ch}, #{@buffPos}, #{@buffer[@buffPos]}@#{@buffer[@buffPos].to_byte} #{@buffer[@buffPos+1]}@#{@buffer[@buffPos+1].to_byte} #{@buffer[@buffPos+2]}@#{@buffer[@buffPos+2].to_byte}"
+                   # p "--->00000:#{@ch}, #{@buffPos}, #{@buffer[@buffPos]}@#{@buffer[@buffPos].to_byte} #{@buffer[@buffPos+1]}@#{@buffer[@buffPos+1].to_byte} #{@buffer[@buffPos+2]}@#{@buffer[@buffPos+2].to_byte}"
                     # skip white space after \
                     while (_get() =~ /\s/ && @ch != "\n")
                     end
-                    p "--->00001:#{@ch}, #{@buffPos}, #{@buffer[@buffPos+1]} #{@buffer[@buffPos+1].to_byte}"
+                   # p "--->00001:#{@ch}, #{@buffPos}, #{@buffer[@buffPos+1]} #{@buffer[@buffPos+1].to_byte}"
                     
                     # skip first LF
                     #if @ch == "\n"
@@ -333,16 +333,16 @@ class CRScanner < AbsScanner
                     #    
                     #    _get()
                     #end
-                    p "--->00002:#{@ch}, #{@buffPos}, #{@buffer[@buffPos+1]} #{@buffer[@buffPos+1].to_byte}"
+                   # p "--->00002:#{@ch}, #{@buffPos}, #{@buffer[@buffPos+1]} #{@buffer[@buffPos+1].to_byte}"
      
                 end
-                p "@ch011=#{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, pos #{@buffPos}, ret=#{ret}"
+               # p "@ch011=#{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, pos #{@buffPos}, ret=#{ret}"
                 if (@ch == '"')
                     ret += "\""
-                    p "@ch222:#{@ch}"
+                  #  p "@ch222:#{@ch}"
                     _get()
                     while @ch != '"'
-                        p "@ch333:#{@ch.to_byte}, pos #{@buffPos}"
+                     #   p "@ch333:#{@ch.to_byte}, pos #{@buffPos}"
                      
                         if @ch == "\\"
                             ret += "\\"
@@ -367,7 +367,7 @@ class CRScanner < AbsScanner
                     line = @currLine
                     Comment()
                     ret += @ch
-                    p "pos=#{@buffPos}, @ch1111 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
+                  #  p "pos=#{@buffPos}, @ch1111 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
                     
                     if @currLine > line # if multi line comments
                         break
@@ -380,11 +380,11 @@ class CRScanner < AbsScanner
                 # p "@ch2 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}, ret=#{ret}"
             end while (@ch != "\n" && @ch != "\r")
         end
-        p "nextline2:#{ret}"
+      #  p "nextline2:#{ret}"
         
         @ch = '\0' if @ch == nil
             
-        p "@ch3 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
+     #   p "@ch3 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
      
         # bufferpos point to "\n"
      
@@ -395,12 +395,12 @@ class CRScanner < AbsScanner
         
         _get()
         @ch = '\0' if @ch == nil
-        p "@ch4 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
+      #  p "@ch4 = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
         
         return "" if ret_end < ret_start
-        p "nextline:#{@buffer[ret_start..ret_end]}", 30
-        p "nextline1:#{ret}"
-        p "==>nextline0:line #{currLine}"
+       #p "nextline:#{@buffer[ret_start..ret_end]}", 30
+       #p "nextline1:#{ret}"
+       #p "==>nextline0:line #{currLine}"
         
         # return @buffer[ret_start..ret_end]
         return ret

@@ -77,6 +77,7 @@ def parse(s, preprocess = true, to_ruby=true)
 end
 
 def preprocess(s)
+   # p "content to prepro:#{s}"
     scanner = CScanner.new(s, false)
     error = MyError.new("whaterver", scanner)
     parser = Preprocessor.new(scanner, error)
@@ -88,7 +89,14 @@ def preprocess(s)
        p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
            
        parser.show_macros
-       parser.dump_pos(nil, 30)
+       parser.dump_pos(nil, 10)
+
+       p "****** ifstack ******"
+       for i in 0..parser.ifstack.size
+           p parser.ifstack[i]
+       end
+       p "****** end ******"
+        
        dump_file = "dump#{Time.now.to_i}"
        parser.dump_buffer_to_file(dump_file)
        p "buffer dumped to file '#{dump_file}'"
@@ -97,7 +105,7 @@ def preprocess(s)
    parser.show_macros
    p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
     begin
-        fname = "pre.#{$g_cur_parse_file.split("/").last}.#{Time.now.to_i}"
+        fname = "pre.#{$g_cur_parse_file.split("/").last}.#{_t}"
        aFile = File.new(fname, "w+")
        aFile.puts content
        aFile.close
