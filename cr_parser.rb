@@ -27,10 +27,11 @@ class Variable
 end
 class VarType
     attr_accessor :name, :ref, :is_simpleType, :type # type can be:nil, "FunctionPointer"
-    def initialize(name, type=nil)
+    # simple type means can typename is identifier and can be used like A Fn(a); to instantiate using constructor 
+    def initialize(name, type=nil, is_simpleType = true)
         @name = name
         @ref = 0
-        @is_simpleType = false
+        @is_simpleType = is_simpleType
         @type = type
     end
 
@@ -86,21 +87,61 @@ class ModuleDef < Scope
     end
     
 
-    def add_method(method_name, args, src, acc="public")
+    def add_method(method_name, head, args, src, acc="public")
         arg_number = args.size
         method_sig = method_signature(method_name, arg_number)
         
         # if overriden, modify name
         @functions[method_name] = {} if !@functions[method_name] 
         
-        newname = "#{method_name}_v#{arg_number}"
-        @functions[method_name][newname] = method_sig
-        method_name = newname
+        if @functions[method_name].keys.size == 0 # first one, maybe will not be overriden, so we give original name
+            @functions[method_name][method_name] = method_sig
+        else
+            if @functions[method_name][method_name] == method_sig # already exist one with normal name, no need to change too
+            else
+                #if @functions[method_name].keys.size == 1 # change to new name for the old one
+                #    v = @functions[method_name].values[0]
+                #    nn = "#{method_name}_v#{@methods[v][:args].size}"
+                #    @functions[method_name].delete(method_name)
+                #    @functions[method_name][nn] = v
+                #end
+                first = @functions[method_name][method_name]
+                newname = "#{method_name}_v#{arg_number}"
+                @functions[method_name][newname] = method_sig
+               
+                
+                # change first one src
+                m = @methods[first]
+                if m[:poly] == nil
+                    ass = ""
+                    if m[:args].size > 0
+                        for i in 0..m[:args].size-1
+                            p "fff#{m[:args][i]}"
+                            ass += "\n#{m[:args][i][:name]} = *_args_[#{i}]\n"
+                        end
+                    end
+                    m[:head]="(*_args_)"
+                    pre =<<HERE
+                    # this method has been overriden with different number of parameters
+                    #{ass}
+                    if _args_.size != #{m[:args].size}
+                       return method("#{method_name}_v\#{_args_.size}").call(*_args_) 
+                    end
+HERE
+m[:src] = "" if m[:src] ==nil
+                    m[:src] = pre + m[:src]
+                    m[:poly] = true
+                end
+                 method_name = newname
+            end
+        end
             
         if @methods[method_sig]
             method_desc = @methods[method_sig]
             method_desc[:name] = method_name
             method_desc[:args] = args
+            method_desc[:head] = head
+            
             if src && src.strip != ""
                 method_desc[:src] =src
             end
@@ -119,7 +160,8 @@ class ModuleDef < Scope
                 :name=>method_name,
                 :args=>args,
                 :src=>src,
-                :decoration=>acc
+                :decoration=>acc,
+                :head=>head
             }
         end
         p("method #{method_sig} added to #{self.class_name}@#{self}:#{@methods[method_sig].inspect} \n")

@@ -1231,22 +1231,62 @@ extern "C"{
 HERE
 
 s95=<<HERE
-template<typename KEY, typename VALUE, typename FREE_KEY, typename FREE_VALUE>
-class StdMap
-{
-	// The condition in static_assert must depend on template parameters for this to work.
-	static_assert (!std::is_same<FREE_KEY, True>::value, "StdMap<KEY, VALUE, True, FREE_VALUE> is no longer supported. Please use std::map<KEY, VALUE> instead.");
-	static_assert (!std::is_same<FREE_KEY, Count>::value, "StdMap<KEY, VALUE, Count, FREE_VALUE> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+//template<typename KEY, typename VALUE, typename FREE_KEY, typename FREE_VALUE>
+//class StdMap
+//{
+//	// The condition in static_assert must depend on template parameters for this to work.
+//	static_assert (!std::is_same<FREE_KEY, True>::value, "StdMap<KEY, VALUE, True, FREE_VALUE> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+//	static_assert (!std::is_same<FREE_KEY, Count>::value, "StdMap<KEY, VALUE, Count, FREE_VALUE> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+//
+//	static_assert (!std::is_same<FREE_VALUE, False>::value, "StdMap<KEY, VALUE, False, False> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+//	static_assert (!std::is_same<FREE_VALUE, Count>::value, "StdMap<KEY, VALUE, False, Count> is no longer supported. Please use std::map<KEY, std::shared_ptr<VALUE>> instead.");
+//};
+//void	operator += (const SBOString& str)
+//{
+//	operator +=((const TCHAR*)str);
+//}
+class C{
 
-	static_assert (!std::is_same<FREE_VALUE, False>::value, "StdMap<KEY, VALUE, False, False> is no longer supported. Please use std::map<KEY, VALUE> instead.");
-	static_assert (!std::is_same<FREE_VALUE, Count>::value, "StdMap<KEY, VALUE, False, Count> is no longer supported. Please use std::map<KEY, std::shared_ptr<VALUE>> instead.");
+	operator unsigned long () const;
+	operator bool() const;
+	operator int32_t() const;
+	operator int64_t() const;
+	operator uint32_t () const;
+	operator uint64_t () const;
+	operator double () const ;
+	operator const TCHAR * () const{};
+    void a(){};
+    void a(int b){};
+}
+void c(int a, int b){
+    puts("v2");
 };
+void c(){
+    puts("v0");
+
+};
+void c(int a){
+    puts("v1");
+    
+};
+c();
+c(1);
+c(3,2);
+void d(...){
+}
 HERE
 
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
 auto Cleanup = [&] () {}
+
+// operator =, and call operator directlz
+void	operator += (const SBOString& str)
+{
+	operator +=((const TCHAR*)str);
+}
+
 HERE
 
 

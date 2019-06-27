@@ -1635,6 +1635,20 @@ c()
 
 AA
 
+#define BB(c) c+1
+
+class C{
+
+	operator unsigned long () const;
+	operator bool() const;
+	operator int32_t() const;
+	operator int64_t() const;
+	operator uint32_t () const;
+	operator uint64_t () const;
+	operator double () const ;
+
+}
+B1_OBSERVER_API void fn();
 HERE
 if !testall
    
@@ -1676,7 +1690,7 @@ end
     parser = Preprocessor.new(scanner, error)
     # parser.Get
     p "preprocess content:#{scanner.buffer}"
-    content = parser.Preprocess(false)
+    content = parser.Preprocess(true)
     p "====== result ======"
     p content
     p "====== content end ======"

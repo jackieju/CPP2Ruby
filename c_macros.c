@@ -18,7 +18,7 @@
 #define B1_SERVICES_METADATA_API
 #define TRACE_METHOD
 
-#define const
+//#define const
 #define inline
 #define TRUE true
 #define FALSE false
@@ -36,7 +36,8 @@
 //#define trace(m)
 #define _STR_strlen(s) s.size
 #define __declspec( dllimport ) 
-
+#define mutable
+#define volatile
 
 typedef bool (*DBD_ProgressCallback) (void *userData, long curr, long max);
 typedef bool (*DBD_FilterCallback) (PDAG pDag, long rec, void *param1, void *param2);

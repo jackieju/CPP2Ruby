@@ -110,7 +110,7 @@ def dump_one_as_ruby(v, module_name=nil)
             
                 if v[:src] && v[:src].strip != ""
                     method_template =<<HERE
-                def #{method_name}#{v[:src]}
+                def #{method_name}#{v[:head]}#{v[:src]}
                 
 HERE
                 else
@@ -659,7 +659,7 @@ class Parser < CRParser
     end
     def ignoreSym?(sym)
         ignored = [
-            C_constSym
+         #   C_constSym
             ]
         if ignored.include?(sym)
             return true
@@ -1091,7 +1091,9 @@ class Parser < CRParser
     	       @sym >= C_PlusPlusSym && @sym <= C_MinusMinusSym ||
     	       @sym >= C_newSym && @sym <= C_DollarSym ||
     	       @sym >= C_BangSym && @sym <= C_TildeSym ||
-               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_TypedefSym || @sym==C_EnumSym || @sym==C_namespaceSym || @sym == C_StructSym || @sym == C_usingSym) 
+               @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || 
+               @sym == C_TypedefSym || @sym==C_EnumSym || @sym==C_namespaceSym || 
+               @sym == C_StructSym || @sym == C_usingSym || @sym == C_operatorSym) 
     # line 322 "cs.atg"
                 cs = curString()
                 p "cs:#{cs}"
@@ -1557,9 +1559,21 @@ class Parser < CRParser
                     rStatement += Statement()
                     # p "statement return #{rStatement}"
                 end
-        elsif (@sym >= C_staticSym && @sym <= C_voidSym || @sym == C_TypedefSym || @sym == C_operatorSym)
-        # line 711 "cs.atg"
+        
+        elsif @sym >= C_staticSym && @sym <= C_varSym || @sym == C_TypedefSym
+    		rStatement += LocalDeclaration()
+            
+        elsif  @sym >= C_boolSym && @sym <= C_voidSym 
+    		rStatement += LocalDeclaration()
+        
+        elsif @sym == C_operatorSym
+            # line 711 "cs.atg"
+            if hasBodyOrConstAfterParenAndBeforeSemiColon?
         		rStatement += LocalDeclaration()
+            else
+                rStatement += Statement()
+            end
+ 
         else
                 throw "error in gstatement"
        end
@@ -1773,7 +1787,14 @@ class Parser < CRParser
     # line 711 "cs.atg"
     end    
     def operatorName()
-	    fname = curString()
+    	p "===>operator1:#{@sym},#{curString}"
+	    fname = ""
+        if @sym == C_constSym
+            fname += curString
+            Get()
+        end
+        
+        fname = curString()
         if (fname == "std")
             Get()
 		    while @sym == C_ColonColonSym
@@ -1795,13 +1816,13 @@ class Parser < CRParser
             Get()
         else
             Get()
-        	p "===>operator:#{fname}"
-            while @sym != C_identifierSym && @sym != C_constSym && @sym != C_LparenSym
+        	p "===>operator2:#{fname}"
+            while @sym != C_identifierSym && @sym != C_constSym && @sym != C_LparenSym && @sym != C_SemicolonSym
                 fname += curString()
                 Get()
             end
         end
-    	p "===>operator:#{fname}"
+    	p "===>operator0:#{fname}"
         return fname
     end
     
@@ -1891,7 +1912,7 @@ class Parser < CRParser
         p "addTypeDef1:#{n}, #{t.inspect}", 10
         if t.name
             if $typedef[t.name]
-                $typedef[n] = $typedef[t.name]
+                $typedef[n] = $typedef[t.name] # just link to same define
             else
                 $typedef[n] = t
             end
@@ -1901,6 +1922,8 @@ class Parser < CRParser
     
     $temp_symtab = {}
     # line 689 "cs.atg"
+    
+    # functiondefition, varlist will go here
    def LocalDeclaration()
        
        p "---->LocalDeclaration1"
@@ -1933,6 +1956,10 @@ class Parser < CRParser
         if @sym == C_TypedefSym
     	    p "--->typedef"
             Get()
+            
+            if @sym == C_constSym
+                Get()
+            end
             
             if @sym == C_unionSym 
                 Union()
@@ -2000,7 +2027,7 @@ class Parser < CRParser
             elsif @sym == C_EnumSym
                 ret += Enum()
                 Expect(C_identifierSym)
-                addTypeDef(prevString(), VarType.new(curString(), "enum"))
+                addTypeDef(prevString(), VarType.new(curString(), "enum", false))
                 Expect(C_SemicolonSym)
                 return ret
 
@@ -2008,7 +2035,7 @@ class Parser < CRParser
                 if @sym == C_classSym 
                     Get()
                     Expect(C_identifierSym)
-                    t = VarType.new(curString(), "class")
+                    t = VarType.new(curString(), "class", false)
                 else
                     t = Type()
                 end
@@ -2338,10 +2365,12 @@ class Parser < CRParser
                     p("append newclass #{getSymValue(gns)}")
                 end
             end
-            
-            if (_n == C_EnumSym || # A fn(enum B b);
+            p "_var_type:#{_var_type.inspect}" if _var_type
+            if ( (_var_type && _var_type.is_simpleType) || #int fn();
+                 _n == C_EnumSym || # A fn(enum B b);
                 isOperatorDef ||  (_n == C_RparenSym && nn != C_SemicolonSym ) || _n == C_PPPSym ||
-                 isTypeStart(gns)# || isFunctionFormalParamStart(offset)
+                hasBodyOrConstAfterParenAndBeforeSemiColon?() ||
+                 isTypeStart(gns)# || isFunctionFormalParamStart(offset) 
                  )# && !find_var(getSymValue(gns), current_scope) # is not var
                 # A fn();
                 # A fn(a* b) in which a is type
@@ -2588,7 +2617,7 @@ class Parser < CRParser
     # line 509 "cs.atg"
         r,pds = FunctionHeader()
     	ret += r
-        
+        head = ret
     	if ret.gsub(/\s/,"") == "()"
     	    args_num = 0
 	    else
@@ -2598,6 +2627,10 @@ class Parser < CRParser
     	if @sym == C_constSym
     	    Get()
 	    end
+    	if @sym == C_overrideSym
+    	    Get()
+	    end
+        
     # line 509 "cs.atg"
         p "--->FunctionDefinition sym:#{@sym}, #{curString()}"
         symValue = curString()
@@ -2671,7 +2704,8 @@ class Parser < CRParser
     # line 510 "cs.atg"
         method_src = nil
         if (fb)
-            ret = "#{ret}\n#{@presrc}\n#{fb}\nend"
+            #ret = "#{ret}\n#{@presrc}\n#{fb}\nend"
+            ret = "#{@presrc}\n#{fb}\nend" 
             method_src = ret
             ret = ""
         end
@@ -2680,11 +2714,11 @@ class Parser < CRParser
         if classdef
             p "add method '#{fn_name}'##{args_num} to class '#{classdef.class_name}@#{classdef}':#{method_src}\nacc:#{acc}", 10
             
-            classdef.add_method(fn_name, pds, method_src, acc)
+            classdef.add_method(fn_name, head, pds, method_src, acc)
         else
             p "add method '#{fn_name}'##{args_num} to root class '#{@root_class}':#{method_src}\nacc:#{acc}", 10
             
-            @root_class.add_method(fn_name, pds, method_src, acc)
+            @root_class.add_method(fn_name, head, pds, method_src, acc)
         end
         #p "classdef #{classdef.inspect}"
         pdebug "===>FunctionDefinition1:#{class_name}::#{fn_name}"
@@ -2725,6 +2759,8 @@ class Parser < CRParser
     # line 545 "cs.atg"
     	Expect(C_RparenSym)
     # line 546 "cs.atg"
+    
+    Get() if @sym == C_constSym
     _cs = curString()
     p("====>FunctionHeader1:#{@sym}")
         if (@sym == C_identifierSym && ( _cs == 'const') )|| @sym == C_overrideSym
@@ -2946,10 +2982,12 @@ class Parser < CRParser
     
     # line 400 "cs.atg"
     def Type()
-        pdebug("---->type:#{@sym}, #{curString()}")
+        pdebug("---->type1:#{@sym}, #{curString()}")
         ret = ""
         is_simpleType = true
         var_type = nil
+        
+        _sym = @sym
         
         while (@sym >= C_staticSym && @sym <= C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym) 
             StorageClass() # will be ignore
@@ -3074,7 +3112,11 @@ class Parser < CRParser
                 if (@sym == C_identifierSym || @sym == C_StarSym || @sym == C_AndSym)
                     if !@in_preprocessing
                         var_type = find_typedef(_n)
-                        is_simpleType = false if var_type
+                        if var_type
+                            is_simpleType = var_type.is_simpleType
+                        else
+                            is_simpleType = false if _sym == C_identifierSym
+                        end
                     end
                 else
 		        
@@ -3122,6 +3164,9 @@ class Parser < CRParser
     	    end # case
     	p "type3:ret=#{ret}, #{@sym}, val #{curString()}"
 
+        Get() if @sym == C_constSym
+            
+        
     	#return ret
         if var_type == nil
             r =  VarType.new(ret)
@@ -3260,9 +3305,10 @@ HERE
             C_sizeofSym,
             # C_DollarSym       ,
     		C_BangSym         ,
-    		C_TildeSym  
+    		C_TildeSym  ,
+            C_operatorSym
     # line 666 "cs.atg"
-    			if @sym == C_identifierSym
+    			if @sym == C_identifierSym || @sym == C_operatorSym
     			    cs = curString()
     			    
 			        if cs == "try" # try catch statment
@@ -3338,6 +3384,53 @@ HERE
     
     end
 
+    # to tell operator const TCHAR*() const {return m_pStr;} or
+    # operator const TCHAR*();
+    def hasBodyOrConstAfterParenAndBeforeSemiColon?
+        after_rparen = false
+        after_lparen = false
+        
+        lparen_c = 0
+        if @sym == C_LparenSym
+            after_lparen = true
+            lparen_c +=1 
+        end
+            
+        step = 1
+        p "==>hasBodyOrConstAfterParenAndBeforeSemiColon1:#{@sym}, #{curString}"
+        n = GetNextSym(step).sym
+        while (n != C_SemicolonSym && !after_rparen)
+            p "==>hasBodyOrConstAfterParenAndBeforeSemiColon2:#{n}, #{getSymValue(GetNextSym(step))}"
+            
+            if n == C_LparenSym
+                lparen_c +=1
+                after_lparen = true
+            elsif n == C_RparenSym
+                lparen_c -=1
+            end
+            if after_lparen && lparen_c == 0
+                after_rparen = true
+                break
+            end
+            step += 1
+            n = GetNextSym(step).sym
+        end
+        
+        return false if n == C_SemicolonSym || !after_rparen || !after_lparen
+        
+        while (n != C_SemicolonSym && n != nil && n != C_EOF_Sym)
+            p "==>hasBodyOrConstAfterParenAndBeforeSemiColon3:#{n}, #{getSymValue(GetNextSym(step))}"
+            
+            return true if n == C_LbraceSym || n == C_constSym
+            step += 1
+            n = GetNextSym(step).sym
+        end        
+        p "==>hasBodyOrConstAfterParenAndBeforeSemiColon4:#{n}, #{getSymValue(GetNextSym(step))}"
+        
+        return false
+        
+    end
+    
     # line 679 "cs.atg"
     def AssignmentStatement()
         ret = ""
@@ -5019,6 +5112,10 @@ HERE
     # line 2321 "cs.atg"
     def ClassFullName()
         ret = ""
+        
+        if @sym == C_ColonColonSym
+            Get()
+        end
         
         ret += curString()
     # line 2322 "cs.atg"
