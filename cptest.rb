@@ -1219,6 +1219,30 @@ typedef union _BigInt
 BigInt data;
 HERE
 
+s94=<<HERE
+extern "C"{
+    int a=1;
+    void main(){
+    }
+    int b(){
+        c();
+    }
+}
+HERE
+
+s95=<<HERE
+template<typename KEY, typename VALUE, typename FREE_KEY, typename FREE_VALUE>
+class StdMap
+{
+	// The condition in static_assert must depend on template parameters for this to work.
+	static_assert (!std::is_same<FREE_KEY, True>::value, "StdMap<KEY, VALUE, True, FREE_VALUE> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+	static_assert (!std::is_same<FREE_KEY, Count>::value, "StdMap<KEY, VALUE, Count, FREE_VALUE> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+
+	static_assert (!std::is_same<FREE_VALUE, False>::value, "StdMap<KEY, VALUE, False, False> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+	static_assert (!std::is_same<FREE_VALUE, Count>::value, "StdMap<KEY, VALUE, False, Count> is no longer supported. Please use std::map<KEY, std::shared_ptr<VALUE>> instead.");
+};
+HERE
+
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
@@ -1229,7 +1253,7 @@ HERE
 
 if !testall
    
-    s = s93
+    s = s95
 else
 
     r = ""

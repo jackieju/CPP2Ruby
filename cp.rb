@@ -631,6 +631,18 @@ class Parser < CRParser
         return _sym
     end
     def include_file(finclude)
+        $exclude_file.each{|f|
+            f = f.downcase
+            fi = finclude.downcase
+            return false if f == fi
+            if f.index("*")
+                reg = Regexp.new(f)
+                if (fi =~ reg) == 0
+                    return false
+                end
+            end
+    
+        }
         # make sure include only once
         if (@included_files[finclude] == 1)
             @scanner.delete_curline
@@ -1494,7 +1506,10 @@ class Parser < CRParser
 	                elsif cs=="~" # deconstructor
                         Get()
                         Expect(C_identifierSym)
-	                    FunctionDefinition(current_scope.class_name, "uninitialize")                        
+	                    FunctionDefinition(current_scope.class_name, "uninitialize") 
+                    else # maybe functioncall
+                        rStatement += Statement()
+                                               
                     end
     	        elsif _next == C_LessSym # 
     	             p("before using template3:sym=#{@sym}, curString=#{curString()}")
@@ -1545,7 +1560,8 @@ class Parser < CRParser
         elsif (@sym >= C_staticSym && @sym <= C_voidSym || @sym == C_TypedefSym || @sym == C_operatorSym)
         # line 711 "cs.atg"
         		rStatement += LocalDeclaration()
-                
+        else
+                throw "error in gstatement"
        end
        pdebug("-->gStatement1, line #{@scanner.currLine}, sym=#{@sym}, val=#{curString()}")
        
@@ -1893,6 +1909,25 @@ class Parser < CRParser
 
         storageclass = ""
         
+        if @sym == C_externSym 
+            _n = GetNextSym()
+            p "===>LocalDeclaration2:extern:#{_n.sym}"
+            
+            if _n.sym == C_stringD1Sym 
+                p "===>LocalDeclaration3:extern:#{getSymValue(_n)}"
+                
+                if  getSymValue(_n) == '"C"'
+                    p "===>LocalDeclaration4:extern:"
+                    Get()
+                    Get()
+                    return CompoundStatement()
+                
+                end
+                
+            end
+        end
+        
+        
         # handle typedef
         type = ""
         if @sym == C_TypedefSym
@@ -2179,7 +2214,7 @@ class Parser < CRParser
     	if @sym == C_LparenSym
     	    # for constructor with initialization list in classdef or sturctdef
 	    else
-                Expect(C_identifierSym)
+            Expect(C_identifierSym)
     	end
     	p "===>33:#{varname}, #{@sym}"
     	if @sym == C_ColonColonSym
@@ -2920,7 +2955,7 @@ class Parser < CRParser
             StorageClass() # will be ignore
         end
         
-        # skill "export", "__dll_..."
+        # skip "export", "__dll_..."
         skipUnusableType()
         
     # line 423 "cs.atg"
@@ -5009,5 +5044,6 @@ HERE
         return ret
     end
 end  # class Parser
+
 
 load 'cptest.rb'

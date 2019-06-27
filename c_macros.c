@@ -32,10 +32,10 @@
 #define int64_t int
 //#define DBM_ColumnType
 //#define DBMTableColumn
-
+#define __field_bcount(cbData)
 //#define trace(m)
 #define _STR_strlen(s) s.size
-
+#define __declspec( dllimport ) 
 
 
 typedef bool (*DBD_ProgressCallback) (void *userData, long curr, long max);

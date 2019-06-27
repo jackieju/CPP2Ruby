@@ -1051,7 +1051,7 @@ public
         p "=>include_stack:#{@include_stack.inspect}"
         
         if c == nil
-           c = "// include file #{fname} failed\n"
+           c = "// include file #{fname} failed from file #{@include_stack.last}\n"
            ret = false
            append_file("err", c)
         else

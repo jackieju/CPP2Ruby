@@ -130,7 +130,7 @@ class Preprocessor < Parser
                     p "sym33=#{@sym}, #{curString()}"
                     finclude = ""
                     
-                    while (@sym != C_GreaterSym && (@sym == C_PointSym || @sym == C_identifierSym || @sym == C_SlashSym )) # ">"
+                    while @sym != C_GreaterSym #&& (@sym == C_PointSym || @sym == C_identifierSym || @sym == C_SlashSym ) # ">"
                         finclude += curString()
                         Get()
                     end
