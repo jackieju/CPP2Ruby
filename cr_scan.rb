@@ -303,7 +303,7 @@ class CRScanner < AbsScanner
         end
         @ch = @buffer[buffPos]
        # p "nextline ret_start:#{ret_start}, ch #{@ch}, @buffPos:#{@buffPos}, pos #{@buffPos}", 20
-        if cch() == "\n"
+        if cch() == "\n" # if already in end of line, do nothing then _get()
         else
             begin # while (@ch != "\n")
                 # p "NextLine() @ch=#{@ch}"
@@ -320,11 +320,16 @@ class CRScanner < AbsScanner
                 #       _get()
                 #   end
                 #end
+                
+                # if line end with "\", move to \n, then will ignore this \n
                 if @ch == "\\" && @buffer[@buffPos+1] =~ /\s/
+                    p "==>nl:1111"
                    # p "--->00000:#{@ch}, #{@buffPos}, #{@buffer[@buffPos]}@#{@buffer[@buffPos].to_byte} #{@buffer[@buffPos+1]}@#{@buffer[@buffPos+1].to_byte} #{@buffer[@buffPos+2]}@#{@buffer[@buffPos+2].to_byte}"
                     # skip white space after \
                     while (_get() =~ /\s/ && @ch != "\n")
                     end
+                    p "==>nl:1112:#{@ch}"
+                    
                    # p "--->00001:#{@ch}, #{@buffPos}, #{@buffer[@buffPos+1]} #{@buffer[@buffPos+1].to_byte}"
                     
                     # skip first LF
@@ -346,6 +351,8 @@ class CRScanner < AbsScanner
                      
                         if @ch == "\\"
                             ret += "\\"
+                            _get()
+                            ret += @ch
                             _get()
                               p "@ch = #{@ch.to_byte}, #{@buffer[ret_start..@buffPos]}"
                         elsif (@ch >= ' ' && @ch <= '!' ||

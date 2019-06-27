@@ -9,8 +9,8 @@ inc="/Users/i027910/p4root/BUSMB_B1/SBO/9.3_COR/Source/LinuxProjects;/Users/i027
 
 
 
-#ruby translate.rb -d output -I "$inc" POJDT.c 
-ruby translate.rb -d output -I "$inc"  /Users/i027910/p4root/BUSMB_B1/SBO/9.3_COR/Source/Infrastructure/Engines/Hdr/__SBOEngines.h
+ruby translate.rb -d output -I "$inc" POJDT.c 
+#ruby translate.rb -d output -I "$inc"  /Users/i027910/p4root/BUSMB_B1/SBO/9.3_COR/Source/Infrastructure/Engines/Hdr/__SBOEngines.h
 
 
 
