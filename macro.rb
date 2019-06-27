@@ -219,6 +219,7 @@ class Preprocessor < Parser
                p "--->pre_define:#{n}, #{@scanner.buffer[@scanner.buffPos].to_byte}@#{@scanner.buffer[@scanner.buffPos]}"
                args =[]
                v = ""
+               hasArg = false
                ch = @scanner.buffer[@scanner.buffPos] 
                if (ch.to_byte >= 9 && # TAB
                    ch.to_byte <= 10 || # LF
@@ -233,10 +234,12 @@ class Preprocessor < Parser
                Get(false)
                   # n = prevString()
                   vargs = false
+                  
                   p "c1111=#{@sym}, #{curString()}, line #{curLine}"
                   if @sym == C_CRLF_Sym
                       @scanner.skip_curline(true)
                   elsif (@sym == C_LparenSym)
+                      hasArg = true
                       Get()
                       if @sym == C_RparenSym
                           #Get()
@@ -307,7 +310,10 @@ class Preprocessor < Parser
                    end
                    p "n=#{n}"
                    p "v=#{v}"
-                   add_macro(n, v) if doprepro
+                   add_macro(n, {
+                       :v=>v,
+                       :hasArg=>hasArg
+                   }) if doprepro
      end
      # def preprocess_directive()
      # 
@@ -1818,14 +1824,17 @@ class Preprocessor < Parser
                     res = ""
                     # p "nextsym:#{@scanner.nextSym.sym}"
                     # p_end = @scanner.nextSym.pos
-                    
+                    hasArg = false
                     sym_pos = @scanner.nextSym.pos
                     __t = Time.now.to_f
                     if ifdefined?(idf)
                          Get()
-                        res = @macros[idf]
+                         _res = @macros[idf]
+                        res = _res[:v]
                         #p "===>defined:#{idf}, #{@sym}, #{res}"
                         if @sym == C_LparenSym
+                            p "hasarg"
+                            hasArg = true
                             Get()
                             v,args = ActualParameters()
                             #args = ActualParameters()
@@ -1834,74 +1843,80 @@ class Preprocessor < Parser
                             
                             Expect(C_RparenSym)
                             p "end:#{p_end}"
+                            
+                            if hasArg == _res[:hasArg]
+                                cs = @macros[idf][:v]
+                                p "cs:#{cs}"
+                                res = cs.gsub(/%<\d+>%/){|m|
+                                    index = -1
+                                    m.scan(/%<(\d+)>%/){|i|
+                                        p i.inspect
+                                        index = i[0].to_i
 
-                            cs = @macros[idf]
-                            p "cs:#{cs}"
-                            res = cs.gsub(/%<\d+>%/){|m|
-                                index = -1
-                                m.scan(/%<(\d+)>%/){|i|
-                                    p i.inspect
-                                    index = i[0].to_i
-
+                                    }
+                                    args[index] 
                                 }
-                                args[index] 
-                            }
-                          res = res.gsub("__VA_ARGS__", v)
-                          #res = res.gsub("__VA_ARGS__", args.join(","))
-                            p "--->result:#{res}"
+                              res = res.gsub("__VA_ARGS__", v)
+                              #res = res.gsub("__VA_ARGS__", args.join(","))
+                                p "--->result:#{res}"
+                            end
                         end
                         
-                        #p "p_start=#{p_start},p_end=#{p_end}, #{@scanner.buffer[p_start..p_end]}"
-                        #p "pos:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
-                        p "sym:#{@sym}"
-                        replaced = @scanner.buffer[p_start..p_end]
-                       # lines_replaced = replaced.scan(/\n/).count
-                        if p_start <= 0 
-                            s = res + @scanner.buffer[p_end+1..@scanner.buffer.size-1]
-                        else
-                            s = @scanner.buffer[0..p_start-1] + res + @scanner.buffer[p_end+1..@scanner.buffer.size-1]
+                        p "defined:#{idf}"
+                        p "#{hasArg}==#{_res[:hasArg]}=#{hasArg == _res[:hasArg]}"
+                        
+                         if hasArg == _res[:hasArg]
+                            #p "p_start=#{p_start},p_end=#{p_end}, #{@scanner.buffer[p_start..p_end]}"
+                            #p "pos:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+                            p "sym:#{@sym}"
+                            replaced = @scanner.buffer[p_start..p_end]
+                           # lines_replaced = replaced.scan(/\n/).count
+                            if p_start <= 0 
+                                s = res + @scanner.buffer[p_end+1..@scanner.buffer.size-1]
+                            else
+                                s = @scanner.buffer[0..p_start-1] + res + @scanner.buffer[p_end+1..@scanner.buffer.size-1]
+                            end
+                        
+                            old_size = @scanner.buffer.size
+                             sizediff = s.size()-old_size
+                            po = @scanner.buffPos
+                           #  p "before replace #{idf}:#{@scanner.buffPos},#{@scanner.buffer[po..po+10]}"
+                            # p "before replace #{idf}:#{@scanner.buffer}"
+                        
+                            @scanner.buffer = s
+                           @scanner.buffPos = sym_pos
+                          @scanner.fix_ch
+                         #  p "after replace macro #{idf}:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+                       
+                           Get()
+                          # p "after replace macro2 #{idf}:#{@sym}, #{curString}"
+                            #@scanner.buffPos += sizediff
+                            #po = @scanner.buffPos
+                            #p "size diff:#{s.size()-old_size}"
+                           #  p "after replace #{idf}:#{@scanner.buffPos},#{@scanner.buffer[po..po+10]}"
+                           #  p "after replace #{idf}:#{@scanner.buffer}"
+                       
+                            # @scanner.currLine -= lines_replaced if lines_replaced>0   
+                            # @scanner.nextSym.line -= lines_replaced if lines_replaced>0
+                            #@scanner.nextSym.pos += sizediff
+                            #if lines_replaced == 0
+                            #    @scanner.nextSym.col += sizediff
+                            #else
+                            #    pos_ns = @scanner.nextSym.pos
+                            #    i = 0
+                            #    while (@scanner.buffer[pos_ns]!="\n" && pos_ns >=0)
+                            #        pos_ns-=1
+                            #        i+=1
+                            #    end
+                            #    @scanner.nextSym.col = i-1
+                            #end
+                             # currSym maybe already replaced
+                           #  @scanner.currSym.line -= lines_replaced if lines_replaced>0
+                           #  @scanner.currSym.pos += sizediff
+                           p "@@@ replace macro #{idf} line #{@scanner.currLine} cost #{Time.now.to_f - __t}"
+                   
+                            next
                         end
-                        
-                        old_size = @scanner.buffer.size
-                         sizediff = s.size()-old_size
-                        po = @scanner.buffPos
-                       #  p "before replace #{idf}:#{@scanner.buffPos},#{@scanner.buffer[po..po+10]}"
-                        # p "before replace #{idf}:#{@scanner.buffer}"
-                        
-                        @scanner.buffer = s
-                       @scanner.buffPos = sym_pos
-                      @scanner.fix_ch
-                     #  p "after replace macro #{idf}:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
-                       
-                       Get()
-                      # p "after replace macro2 #{idf}:#{@sym}, #{curString}"
-                        #@scanner.buffPos += sizediff
-                        #po = @scanner.buffPos
-                        #p "size diff:#{s.size()-old_size}"
-                       #  p "after replace #{idf}:#{@scanner.buffPos},#{@scanner.buffer[po..po+10]}"
-                       #  p "after replace #{idf}:#{@scanner.buffer}"
-                       
-                        # @scanner.currLine -= lines_replaced if lines_replaced>0   
-                        # @scanner.nextSym.line -= lines_replaced if lines_replaced>0
-                        #@scanner.nextSym.pos += sizediff
-                        #if lines_replaced == 0
-                        #    @scanner.nextSym.col += sizediff
-                        #else
-                        #    pos_ns = @scanner.nextSym.pos
-                        #    i = 0
-                        #    while (@scanner.buffer[pos_ns]!="\n" && pos_ns >=0)
-                        #        pos_ns-=1
-                        #        i+=1
-                        #    end
-                        #    @scanner.nextSym.col = i-1
-                        #end
-                         # currSym maybe already replaced
-                       #  @scanner.currSym.line -= lines_replaced if lines_replaced>0
-                       #  @scanner.currSym.pos += sizediff
-                       p "@@@ replace macro #{idf} line #{@scanner.currLine} cost #{Time.now.to_f - __t}"
-                       
-                        next
-                        
                     end #if ifdefined?(idf)
                 elsif @sym == C_inlineSym #ignore inline statement
                     __t = Time.now.to_f
