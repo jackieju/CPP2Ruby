@@ -931,6 +931,12 @@ class Parser < CRParser
     #     end
     # line 246 "cs.atg"
         Get()
+        
+
+        if @sym == C_identifierSym && curString == "virtual"
+            Get()  # Expect(C_identifierSym) # public/private
+        end
+        
         decorators = ["public", "protected", "privrate"]
         if (@sym == C_identifierSym && decorators.include?(curString()) )
             Get()  # Expect(C_identifierSym) # public/private

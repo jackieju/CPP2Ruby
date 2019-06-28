@@ -1275,6 +1275,17 @@ c(3,2);
 void d(...){
 }
 HERE
+s96=<<HERE
+class CTaxMoneyOverflowException : virtual public CTaxException, public CMoneyOverflowFormulaException
+{
+public:
+	CTaxMoneyOverflowException (long id, const SBOString& op1, const SBOString& op2, const SBOString& op, CBizEnv& env)
+		: CTaxException (id, env), CMoneyOverflowFormulaException (id, op1, op2, op) {}
+	virtual ~CTaxMoneyOverflowException() {}
+
+	virtual SBOString GetDescription ();
+};
+HERE
 
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),

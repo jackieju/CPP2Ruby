@@ -473,7 +473,7 @@ class CScanner <  CRScanner
             when 'O'
                 return C_OUTSym if EqualStr("OUT")
           	when 'p'
-          		return C_packageSym if (EqualStr("package")) 
+          		#return C_packageSym if (EqualStr("package")) 
           		#break
           	when 'r'
           		return C_returnSym if (EqualStr("return")) 

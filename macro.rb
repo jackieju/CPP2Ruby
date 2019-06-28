@@ -296,7 +296,7 @@ class Preprocessor < Parser
                         delete_lines(start_pos, pos2, false)
                        #  p "after line2:#{@scanner.buffer}" 
             #  p "==>define5:#{n}:after delete_lines, #{@scanner.currLine}, #{@scanner.ch}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
-                    if !vargs 
+                    if !vargs # not vararg
                       v=v.gsub(/(\w[\w\d_]*)/){|m|
                          p m.inspect
                          count = args.index(m)
@@ -308,6 +308,7 @@ class Preprocessor < Parser
                        }
                        v = v.strip
                    end
+                   
                    p "n=#{n}"
                    p "v=#{v}"
                    add_macro(n, {
@@ -1844,7 +1845,7 @@ class Preprocessor < Parser
                             Expect(C_RparenSym)
                             p "end:#{p_end}"
                             
-                            if hasArg == _res[:hasArg]
+                            if hasArg == _res[:hasArg] # fill arg
                                 cs = @macros[idf][:v]
                                 p "cs:#{cs}"
                                 res = cs.gsub(/%<\d+>%/){|m|
@@ -1862,10 +1863,13 @@ class Preprocessor < Parser
                             end
                         end
                         
+                        # handle ##
+                        res = res.gsub(/\s*##\s*/,"")
+                        
                         p "defined:#{idf}"
                         p "#{hasArg}==#{_res[:hasArg]}=#{hasArg == _res[:hasArg]}"
                         
-                         if hasArg == _res[:hasArg]
+                         if hasArg == _res[:hasArg] # macro only match when both has arg or not
                             #p "p_start=#{p_start},p_end=#{p_end}, #{@scanner.buffer[p_start..p_end]}"
                             #p "pos:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
                             p "sym:#{@sym}"
