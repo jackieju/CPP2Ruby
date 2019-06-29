@@ -1276,11 +1276,29 @@ void d(...){
 }
 HERE
 s96=<<HERE
-class CTaxMoneyOverflowException : virtual public CTaxException, public CMoneyOverflowFormulaException
+class CTaxException{
+    public:
+    CTaxException(long id,CBizEnv& env){
+    }
+}
+class CMoneyOverflowFormulaException{
+    public:
+    CMoneyOverflowFormulaException(long id, const SBOString& op1, const SBOString& op2, const SBOString& op){
+    }
+    void hello(){}
+}
+class C{
+    public:
+    C(){}
+}
+class CTaxMoneyOverflowException : virtual public CTaxException, public CMoneyOverflowFormulaException, public C
 {
 public:
 	CTaxMoneyOverflowException (long id, const SBOString& op1, const SBOString& op2, const SBOString& op, CBizEnv& env)
-		: CTaxException (id, env), CMoneyOverflowFormulaException (id, op1, op2, op) {}
+	: CTaxException (id, env), CMoneyOverflowFormulaException (id, op1, op2, op) {}
+    
+		//: CTaxException (id, env){}
+        
 	virtual ~CTaxMoneyOverflowException() {}
 
 	virtual SBOString GetDescription ();
@@ -1297,14 +1315,26 @@ void	operator += (const SBOString& str)
 {
 	operator +=((const TCHAR*)str);
 }
+// multi call to multiple parent classs's constructor is not support, generated ruby will only call one "super(xxx)"
+class CTaxMoneyOverflowException : virtual public CTaxException, public CMoneyOverflowFormulaException, public C
+{
+public:
+	CTaxMoneyOverflowException (long id, const SBOString& op1, const SBOString& op2, const SBOString& op, CBizEnv& env)
+	: CTaxException (id, env), CMoneyOverflowFormulaException (id, op1, op2, op) {}
+    
+		//: CTaxException (id, env){}
+        
+	virtual ~CTaxMoneyOverflowException() {}
 
+	virtual SBOString GetDescription ();
+};
 HERE
 
 
 
 if !testall
    
-    s = s95
+    s = s96
 else
 
     r = ""

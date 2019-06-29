@@ -892,7 +892,7 @@ public
              str1 = @buffer[0..replace_start-1]
          end
          old_size = @buffer.size   
-         str = str1+" "+@buffer[replace_end..@buffer.size-1] # insert one space to make it safe
+         str = str1+@buffer[replace_end..@buffer.size-1]
           @buffer=str
           if @buffPos > replace_start# &&  @buffPos <replace_end
               if replace_start < 0

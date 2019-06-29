@@ -316,6 +316,67 @@ class Preprocessor < Parser
                        :hasArg=>hasArg
                    }) if doprepro
      end
+     
+     def ActualParameters()
+         debug "==>ActualParameters:#{@sym}, line #{curLine}, val #{curString()}"
+         ret = ""
+         args=[]
+     # line 2661 "cs.atg"
+
+    	
+
+     # line 2668 "cs.atg"
+     
+     lp = 1
+     
+     r = ""
+     while (@sym != C_CommaSym )
+         if @sym == C_RparenSym
+             lp -= 1
+             if lp == 0
+                 break
+             end
+         elsif @sym == C_LparenSym
+             lp += 1
+         end
+         r += curString()
+         
+         Get()
+         
+     end
+     
+     args.push(r)
+     ret += r
+        
+       
+     	p "ret:#{ret}"
+        if lp >0
+         	while (@sym  == C_CommaSym) 
+         		ret += ","
+    		
+         		Get()
+                r = ""
+                while (@sym != C_CommaSym )
+                    if @sym == C_RparenSym
+                        lp -= 1
+                        if lp == 0
+                            break
+                        end
+                    elsif @sym == C_LparenSym
+                        lp += 1
+                    end
+                    r += curString()
+         
+                    Get()
+                end
+                args.push(r)
+                ret += r
+     	    end
+        end
+ 	    debug "==>ActualParameters1:#{@sym}, line #{curLine}, val #{curString()}, ret=#{ret}"
+     # line 2776 "cs.atg"
+         return [ret, args]
+     end
      # def preprocess_directive()
      # 
      #           _str1 = curString()
@@ -1828,12 +1889,15 @@ class Preprocessor < Parser
                     hasArg = false
                     sym_pos = @scanner.nextSym.pos
                     __t = Time.now.to_f
+                    if idf == "_CACHE_READ_LOCK_"
+                       # throw "ffff"
+                    end
                     if ifdefined?(idf)
                          Get()
                          _res = @macros[idf]
                         res = _res[:v]
                         #p "===>defined:#{idf}, #{@sym}, #{res}"
-                        if @sym == C_LparenSym
+                        if @sym == C_LparenSym && _res[:hasArg] == true
                             p "hasarg"
                             hasArg = true
                             Get()
@@ -2077,12 +2141,20 @@ class Preprocessor < Parser
     
 
 =end    
+    
     def show_macros
         p "====macros====="
         @macros.each{|n,v|
-
-         p "===>#{n}=>#{v}"
+        p "===>#{n}=>#{v}"
      }
+    end
+    
+    def dump_macros_to_file(fname)
+        s = ""
+        @macros.each{|n,v|
+            s+="#{n}=>#{v}\n"
+     }
+     save_to_file(s, fname)
     end
 end # class Preprocessor
 

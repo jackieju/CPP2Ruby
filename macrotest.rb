@@ -1649,10 +1649,18 @@ class C{
 
 }
 B1_OBSERVER_API void fn();
+
+
+#define HUI(a,b,c) a+b+c;
+HUI(r,q,e)
+HERE
+s30=<<HERE
+#define				_STR_charset(ptr, ch, num)	{ for (int ___STR_charset_index = 0; ___STR_charset_index < (int)num; ___STR_charset_index++) (ptr)[___STR_charset_index] = (TCHAR)ch; } // setting num chars starting in ptr
+_STR_charset(pThis->GetString(), ch, nCount);
 HERE
 if !testall
    
-    s = s29
+    s = s30
 
 else
 

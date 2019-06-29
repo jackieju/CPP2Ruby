@@ -37,10 +37,10 @@ end
 class AbsScanner 
     attr_accessor :nextSym, :currSym, :buffer, :buffPos, :ch
     def initialize
-        p "init absscanner"
+       # p "init absscanner"
         @nextSym = AbsToken.new
         @nextSym.init
-        p "nextSym=#{nextSym}"
+       # p "nextSym=#{nextSym}"
         @currSym = AbsToken.new
         @currSym.init
     end
@@ -120,11 +120,11 @@ class CRScanner < AbsScanner
         super()
         @buffer = s
         @ignoreCase = ing
-        p "next sym = #{nextSym}"
+       # p "next sym = #{nextSym}"
         
         Reset()
-        p "next sym = #{nextSym}"
-        p "init CRScanner OK"
+       # p "next sym = #{nextSym}"
+        #p "init CRScanner OK"
     end 
 
     # def CRScanner(ignoreCase)

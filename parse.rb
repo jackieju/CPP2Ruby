@@ -89,6 +89,7 @@ def preprocess(s)
        p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
            
        parser.show_macros
+       parser.dump_macros_to_file("allmacros")
        parser.dump_pos(nil, 10)
 
        p "****** ifstack ******"
@@ -103,6 +104,8 @@ def preprocess(s)
        throw e
    end
    parser.show_macros
+   parser.dump_macros_to_file("allmacros")
+   
    p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
     begin
         fname = "pre.#{$g_cur_parse_file.split("/").last}.#{_t}"

@@ -393,12 +393,13 @@ class Parser < CRParser
             end
             return ret if ret[:v] == nil
             sc = ret[:v]
-            if ar.size >2 # more modules
+            if ar.size >2 # more thant 1 module
                 for i in 1..ar.size-2
                     sc = sc.modules[ar[i]]
                 end
             end
-            ret[:v] = sc.classes[ar[ar.size-1]]
+             ret[:v] = sc.classes[ar[ar.size-1]] if sc
+           
             return ret
         end
         return ret
@@ -972,7 +973,7 @@ class Parser < CRParser
             #    end
             #end
             #pmodule.add_module(newmodule)
-            clsdef.includings.push(parent_class_name)
+            clsdef.includings.push("#{parent_class_name}_module")
             if r[:v]
                 newmodule = r[:v].to_module() 
                 r[:v].parentScope.add_module(newmodule)
@@ -1435,8 +1436,10 @@ class Parser < CRParser
         	    # TODO, theoritcally, user can write "a *b;", which is ambiguious (see where a is type)
         	    p "current scope:#{current_scope.name}"
         	    cs = curString()
+                class_name = nil
         	    if current_scope.name == "class"
         	        p "class name #{current_scope.class_name}, curString1()=#{cs}"
+                    class_name = current_scope.class_name
     	        end
                 if _next == C_ColonColonSym
                     #    A::~A
@@ -1550,7 +1553,7 @@ class Parser < CRParser
                        #   rStatement += cs+FunctionCall()
                        #end
                        
-                       if isTemplatedFnCall(1)
+                       if isTemplatedFnCall(1) && class_name != cs
                             rStatement += Statement()
                        else
                             rStatement += LocalDeclaration()
@@ -1651,7 +1654,7 @@ class Parser < CRParser
     def isTemplatedFnCall(offset)# pass <int, bool....>
         _s =  filterTemplate(offset)
         
-        
+        p "isTemplatedFnCall:#{_s.sym}"
         if _s.sym == C_LparenSym
           
             return true
@@ -2659,33 +2662,41 @@ class Parser < CRParser
                 # member value initialization list, for constructor of class/struct
                 p "# initialization list, for constructor of class/struct:#{classdef.class_name}"
                 i_list = ""
-                Get()
-                 m = curString()
-                 p "m=#{m}, parent=#{classdef.parent}"
-                 if m == classdef.parent
-                     m = "super"
-                 end
-                Expect(C_identifierSym)
-               
-                Expect(C_LparenSym)
-                v,args = ActualParameters()
-                Expect(C_RparenSym)
-                if m == "super"
-                    i_list += "super(#{v})\n"
-                else
-                    i_list += "@#{m} = #{v}\n"
-                end
-                while (@sym == C_CommaSym)
+                #Get()
+               #  m = curString()
+               #  p "m=#{m}, parent=#{classdef.parent}"
+               #  if m == classdef.parent || classdef.includings.include(m+"_module")
+               #      m = "super"
+               #  end
+               # Expect(C_identifierSym)
+               #
+               # Expect(C_LparenSym)
+               # v,args = ActualParameters()
+               # Expect(C_RparenSym)
+               # if m == "super"
+               #     i_list += "super(#{v})\n"
+               # else
+               #     i_list += "@#{m} = #{v}\n"
+               # end
+                begin 
                      Get()
+                     m = curString()
+                     p "m=#{m}, parent=#{classdef.parent}"
+                     if m == classdef.parent || classdef.includings.include?(m+"_module")
+                         m = "super"
+                     end
                      Expect(C_identifierSym)
-                     m = prevString()
                      Expect(C_LparenSym)
-                     v = Expression()
+                    # v = Expression()
+                     v,args = ActualParameters()
                      Expect(C_RparenSym)
-                     v = "nil" if v == ""
-                     i_list += "@#{m} = #{v}\n"
+                     if m == "super"
+                        # i_list += "super(#{v})\n" # ignore other call to super, because we don't support it
+                     else
+                         i_list += "@#{m} = #{v}\n"
+                     end
                      
-                end
+                end while (@sym == C_CommaSym)
             end
             
         	fb = FunctionBody()
