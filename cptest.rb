@@ -1304,13 +1304,97 @@ public:
 	virtual SBOString GetDescription ();
 };
 HERE
+s97=<<HERE
+//A::B C::D::c(It a, It b){
+//}
+//struct A* b;
+//template<class F>
+//ObjectPtr<F>::ObjectPtr (const ObjectPtr<F>& sp)
+//{
+//
+//}
+//namespace std
+//{
+//	template<>
+//	class hash<SBOString>
+//		: public unary_function < SBOString, size_t >
+//	{	// hash functor
+//    }
+//}
+// bool VectorContains (const std::vector<SBOString>& vector, const SBOString& value)
+//{
+//	return std::find (vector.cbegin (), vector.cend (), value) != vector.cend ();
+//}
+//template<typename TList, typename TValue>
+//bool ListContains (const std::list<TList>& list, const TValue& value)
+//{
+//	return std::find (list.cbegin (), list.cend (), value) != list.cend ();
+//}
+//template<int a>class A{int f(){};};
+//template<class F>
+//ObjectPtr<F>::~ObjectPtr ()
+//{
+//	if (m_refCount)
+//	{
+//		m_refCount->DecRefCount ();
+//	}
+//}
+//int a;
+//template
+//bool b(){};
+//A::B c;
+//class A
+//{
+//public:
+//	A(): m_readerCount(0), m_readerRestoreCount(0), m_writerCount(0){}
+//}
+
+//class  SBOProcessSemaphore {};
+//
+//template <class ACE_LOCK, typename TYPE> class ACE_Atomic_Op;
+//class ACE_Thread_Mutex;
+//
+//    void fn(){
+//	CLogManager::GetInstance ()->Log (logSysMessageComponent, logErrorSeverity, errStr, __FILE__, __LINE__);;
+//
+//m_op1 = op1;}
+//
+//void fn1(){
+//return false;
+//}
+//
+//template<class F>
+//F* ObjectPtr<F>::operator-> () const
+//{
+//	if (m_refCount == nullptr)
+//	{
+//		return nullptr;
+//	}
+//	return m_refCount->GetHandle ();
+//}
+//template<class F>
+//ObjectPtr<F>::operator F* () const
+//{
+//	if (m_refCount == nullptr)
+//	{
+//		return nullptr;
+//	}
+//	return m_refCount->GetHandle ();
+//}
+
+template<class F>
+bool ObjectPtr<F>::operator== (const ObjectPtr<F>& sp) const
+{
+	return m_refCount == sp.GetRefCount ();
+}
+HERE
 
 s_notsupport=<<HERE # lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
 auto Cleanup = [&] () {}
 
-// operator =, and call operator directlz
+// operator =, and call operator directly
 void	operator += (const SBOString& str)
 {
 	operator +=((const TCHAR*)str);
@@ -1334,7 +1418,7 @@ HERE
 
 if !testall
    
-    s = s96
+    s = s97
 else
 
     r = ""

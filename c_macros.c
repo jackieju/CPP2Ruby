@@ -43,8 +43,8 @@ typedef bool (*DBD_ProgressCallback) (void *userData, long curr, long max);
 typedef bool (*DBD_FilterCallback) (PDAG pDag, long rec, void *param1, void *param2);
 typedef SBOErr (*DBD_CondCallback) (void *form, DBD_Params *addedParams);
 
-
-#define L__FILE__ __FILE__ // from L ## __FILE__
+// from L ## __FILE__
+#define L__FILE__ __FILE__ 
 // SAL
 //#define _In_	
 //#define _In_opt_

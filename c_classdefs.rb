@@ -82,6 +82,8 @@ $exclude_file=[
     "__CORE_OS.h",
     "WinCrypt.h",
     "Assert.h",
-    "WWMap.h"
+    "WWMap.h",
+    "ScopeGuard.h",
+    "TaxFormulaCombinationCache.h"
 ]
     

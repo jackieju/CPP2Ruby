@@ -439,7 +439,7 @@ class CScanner <  CRScanner
           	when 'f'
 #          		return C_functionSym if (EqualStr("function"))  
           		return C_floatSym if (EqualStr("float"))  
-          		return C_finalSym if (EqualStr("final"))  
+          		#return C_finalSym if (EqualStr("final"))  
           		return C_forSym if (EqualStr("for")) 
           		#break
             when 'g'
@@ -490,7 +490,7 @@ class CScanner <  CRScanner
           	when 't'
           	    return C_TypedefSym if (EqualStr("typedef")) 
           		return C_throwSym if (EqualStr("throw")) 
-                
+                return C_templateSym if (EqualStr("template")) 
           	when 'u'
                 return C_unionSym if EqualStr("union")
           		return C_usingSym if (EqualStr("using")) 
@@ -883,7 +883,7 @@ public
     def delete_in_line(from, to) # delete content from pos(from) to pos(to)(not include to)
         __t = Time.now.to_f
         
-        p ("delete:#{from}, #{to}, #{@buffPos}")
+        p ("delete_in_line:from #{from}(#{buffer[from..from+5]}), #{to}(#{buffer[to..to+5]}), #{@buffPos}"), 10
         replace_start = from 
          replace_end = to
          
@@ -905,6 +905,7 @@ public
           
           @ch = CurrentCh(@buffPos)
           p "pos after deleteinline:#{@buffPos}"
+         # p "after delete_in_line:#{@buffer}"
          # p "buffer  after deleteinline:#{@buffer}", 10
          p "@@@ delete in line cost #{Time.now.to_f - __t}"
          

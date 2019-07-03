@@ -187,7 +187,7 @@ C_inlineSym =                   97  # "inline"
 C_PPPSym =                      98   # "..."
 C_namespaceSym =                99     # "..."
 C_usingSym =                    100    # "using"
-C_finalSym =                    101    # "final"
+C_templateSym =                    101    # "template"
 C_operatorSym =                 102    # "operator"
 C_overrideSym =                 103    # "override"
 C_gotoSym =                     104    # "goto"
@@ -315,7 +315,7 @@ SYMS=[
 "...",
 "namespace",
 "using",
-"final",
+"template",
 "operator",
 "override",
 "goto",
