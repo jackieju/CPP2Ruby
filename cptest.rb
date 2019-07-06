@@ -1387,6 +1387,66 @@ bool ObjectPtr<F>::operator== (const ObjectPtr<F>& sp) const
 {
 	return m_refCount == sp.GetRefCount ();
 }
+class CSystemAlertParams
+{
+public:
+
+	union
+	{
+		CBusinessObject* m_bo;
+		CBizEnv* m_env;
+	};
+	//virtual long GetObjectType () const override { 
+    //    return m_dagDOC == nullptr ? NOB : dynamic_cast<CBizEnv&> (*m_dagDOC->GetEnv ()).TableToObject (m_dagDOC->GetTableName (), false).strtol (); 
+    //}
+    
+};
+//bool a = m_dagDOC == nullptr ? NOB : dynamic_cast<CBizEnv&> (*m_dagDOC->GetEnv ()).TableToObject (m_dagDOC->GetTableName (), false).strtol (); 
+int a =  dynamic_cast<CBizEnv&> (*m_dagDOC->GetEnv ()).TableToObject (m_dagDOC->GetTableName (), false).strtol (); 
+HERE
+s98=<<HERE
+template <typename ClassType,typename MemberFunctionType>
+class CMemberFunctionEventHandler : public IEventHandler
+{
+public:
+	CMemberFunctionEventHandler(ClassType* pObjHandler, const MemberFunctionType memberFunc):
+	m_objHandler(pObjHandler),
+	m_functionHandler(memberFunc)
+	{
+	}
+
+	virtual ~CMemberFunctionEventHandler(){};
+
+protected:	
+	virtual SBOErr Invoke()
+	{
+		if(m_objHandler != nil && m_functionHandler!= nil)
+		{
+			return (m_objHandler->*m_functionHandler)();
+		}
+		return 0+TraceErrorGroup1(0);
+	}		
+
+private:
+	ClassType*  m_objHandler;
+	MemberFunctionType  m_functionHandler;
+};
+HERE
+s99=<<HERE
+//for (auto fkv : EFMMapping::Map)
+//{
+//	if (value == fkv.second)
+//	{
+//		result = fkv.first;
+//		break;
+//	}
+//}
+//for (auto itr = m_WtAmountsChangeStatus.begin (); itr != m_WtAmountsChangeStatus.end (); ++itr){
+//    Clear (itr->first);
+//}
+//for (; _First < _Last; _First += _Stride)
+	//_Val = 16777619U * _Val ^ (size_t) _Keyval[_First];
+    const auto &str = GetAttributeString (colIndex, arrayOffset, line);
 HERE
 
 s_notsupport=<<HERE # lumda
@@ -1418,7 +1478,7 @@ HERE
 
 if !testall
    
-    s = s97
+    s = s99
 else
 
     r = ""

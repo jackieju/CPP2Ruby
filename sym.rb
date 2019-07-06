@@ -107,7 +107,7 @@ C_staticSym = 17	# "static" */
 C_constSym = 18   # "const" */
 C_mySym = 19	# "my" */
 C_externSym = 20	# "extern" */
-C_varSym = 21	# "var" */
+C_autoSym = 21	# "auto" */
 C_boolSym = 22	# "bool" */
 C_shortSym = 23	# "short" */
 C_intSym = 24	# "int" */
@@ -235,7 +235,7 @@ SYMS=[
 "const"                     ,
 "my"                         ,
 "extern"               ,
-"var"                        ,
+"auto"                        ,
 "bool"                      ,
 "short"                      ,
 "int"                        ,

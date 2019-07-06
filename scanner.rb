@@ -405,6 +405,9 @@ class CScanner <  CRScanner
          
           # if (IgnoreCase) c = Upcase(c)
           case (c) 
+        	when 'a'
+        		
+              return C_autoSym if (EqualStr("auto")) 
           	when 'b'
           		
                 return C_breakSym if (EqualStr("break")) 

@@ -924,9 +924,10 @@ class Parser < CRParser
     	       @sym == C_TypedefSym || 
     	       @sym == C_StructSym ||
                @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym  || @sym == C_namespaceSym || @sym== C_usingSym ||
-               @sym == C_operatorSym || @sym == C_ColonColonSym || @sym == C_templateSym
+               @sym == C_operatorSym || @sym == C_ColonColonSym || @sym == C_templateSym || @sym == C_unionSym
 
                ) 
+               p("==>Definitions21:#{@sym}, #{curString}")
     # line 137 "cs.atg"
         rStatement =""
 		cs = curString()
@@ -950,6 +951,7 @@ class Parser < CRParser
             end
             next
         end    		
+        p("==>Definitions22:#{@sym}, #{curString}")
         
         # label for goto
         if csf && @sym == C_identifierSym && GetNextSym().sym == C_ColonSym
@@ -1424,7 +1426,27 @@ class Parser < CRParser
     	    ret += Enum()
     	elsif (@sym == C_StructSym)
     	    StructDef()
-     
+        elsif  @sym == C_unionSym 
+            Union()
+	      #  while @sym != C_SemicolonSym
+          #      
+          #      if @sym == C_CommaSym
+          #          Get()
+          #          next
+          #      end
+          #      
+          #      if @sym == C_identifierSym
+          #          Get()
+          #      else
+          #          if @sym == C_StarSym
+          #              while @sym == C_StarSym
+          #                  Get()
+          #              end
+          #              Expect(C_identifierSym)
+          #          end
+          #      end
+          #          
+            
         elsif @sym == C_usingSym
            Get()
            Get() if @sym ==  C_namespaceSym
@@ -1706,12 +1728,9 @@ class Parser < CRParser
                     # p "statement return #{rStatement}"
                 end
         
-        elsif @sym >= C_staticSym && @sym <= C_varSym || @sym == C_TypedefSym
+        elsif @sym >= C_staticSym && @sym <= C_voidSym || @sym == C_TypedefSym
     		rStatement += LocalDeclaration()
-            
-        elsif  @sym >= C_boolSym && @sym <= C_voidSym 
-    		rStatement += LocalDeclaration()
-        
+   
         elsif @sym == C_operatorSym
             # line 711 "cs.atg"
             if hasBodyOrConstAfterParenAndBeforeSemiColon?
@@ -2332,6 +2351,9 @@ class Parser < CRParser
         
         end
         
+        if @sym == C_constSym
+            Get()
+        end
         
         ##====================
         # forward check one, to get type
@@ -2343,7 +2365,7 @@ class Parser < CRParser
         p "---->LocalDeclaration2, #{@sym}, #{curString()} #{_next}"
         
         while (@sym != C_LparenSym && @sym != C_ColonColonSym && @sym != C_operatorSym &&
-                (   @sym >= C_boolSym && @sym <= C_voidSym ||
+                (   @sym >= C_autoSym && @sym <= C_voidSym ||
                     _next == C_identifierSym || _next == C_operatorSym ||
                     _next >= C_boolSym && _next <= C_voidSym || # data type
                     _next >= C_staticSym && _next <= C_externSym ||
@@ -2364,7 +2386,7 @@ class Parser < CRParser
         	if (@sym >= C_staticSym && @sym <= C_externSym) 
                 p "---->LocalDeclaration11:pass storage class"
         		storageclass += StorageClass()
-        	elsif (@sym >= C_boolSym && @sym <= C_voidSym)
+        	elsif (@sym >= C_autoSym && @sym <= C_voidSym)
                 p "---->LocalDeclaration12: parse simple type"
                 _var_type = Type()
                 type += _var_type.name
@@ -3322,7 +3344,7 @@ class Parser < CRParser
         
         _sym = @sym
         
-        while (@sym >= C_staticSym && @sym <= C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym) 
+        while (@sym >= C_staticSym && @sym <= C_externSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym) 
             StorageClass() # will be ignore
         end
         
@@ -3346,6 +3368,10 @@ class Parser < CRParser
 
     			#break;
 =end
+            when C_autoSym
+                p("===>Type33:")
+                ret += curString()
+                Get()
     		when C_shortSym  
     		    ret += curString()
     # line 424 "cs.atg"
@@ -3835,6 +3861,25 @@ HERE
 	    return ret
     end
 
+    def meetSemicolonBeforRparen?()
+        return true if @sym == C_SemicolonSym
+        count = 1
+        parenCount = 1
+        p("==>meetSemicolonBeforRparen?0")
+        
+        begin 
+            _sym = GetNextSym(count).sym 
+            p("===>meetSemicolonBeforRparen?2:#{_sym}, #{@scanner.GetSymValue(GetNextSym(count))}")
+            return true if _sym == C_SemicolonSym
+            
+            parenCount -= 1 if _sym == C_RparenSym
+            parenCount += 1 if _sym == C_LparenSym
+            count +=1
+        end while (parenCount > 0)
+        p("===>meetSemicolonBeforRparen?1:#{_sym}")
+        return false
+        
+    end
     # line 726 "cs.atg"
     def ForStatement()
         ret = ""
@@ -3864,10 +3909,60 @@ HERE
         Expect(C_SemicolonSym)
     # line 727 "cs.atg"
 =end
-      exp1= gStatement()
-        p "exp1:#{exp1}, SYM:#{@sym}"	
-
-	
+        p "===>ForStatement21:sym:#{@sym}, #{curString}"	
+=begin        
+        if @sym == C_autoSym
+            Get() 
+            exp1 = curString
+            Get()
+            if @sym == C_ColonSym
+                Get()
+                exp2 = Expression()
+            	stmt = ""
+            	Expect(C_RparenSym)
+            	stmt = Statement()
+                p "for,#{exp1},#{stmt},#{exp2}"
+        	    ret =<<HERE
+            #{exp2}.each{|#{exp1}|
+             #{stmt}
+            }
+HERE
+p "===>ForStatement2:exp1:#{exp1}, SYM:#{@sym}"	
+end
+       # else
+=end    
+      
+       # exp1= gStatement()
+       if !meetSemicolonBeforRparen?()
+                 
+            if @sym != C_SemicolonSym
+                var_type = Type()
+                varname = curString()
+            	varname = current_scope.add_var(Variable.new(varname, var_type))
+                Get()
+                exp1 = VarList(var_type, varname) # define lots of variables in one line splitted by comma
+                exp1 ="#{varname}#{exp1}"
+                p "===>ForStatement3:exp1:#{exp1}, SYM:#{@sym}, #{curString}, varname=#{varname}"	
+            end
+            if @sym == C_ColonSym
+                Get()
+                    exp2 = Expression()
+                	stmt = ""
+                	Expect(C_RparenSym)
+                	stmt = Statement()
+                    p "for,#{exp1},#{stmt},#{exp2}"
+            	    ret =<<HERE
+                #{exp2}.each{|#{exp1}|
+                 #{stmt}
+                }
+HERE
+end
+        else
+        
+            exp1= gStatement()
+        
+        p "===>ForStatement4:exp1:#{exp1}, SYM:#{@sym}, #{curString}"	
+        
     # line 738 "cs.atg"
 	    exp2 = ""
     # line 739 "cs.atg"
@@ -3935,6 +4030,8 @@ while (#{exp2}) do
     #{exp3}
 end 
 HERE
+end # if @sym == C_ColonSym else
+
         # ret = ret.gsub(/next|continue/m, exp2)
 	    out_scope()
         return ret
@@ -4132,6 +4229,8 @@ HERE
                     
                     Expect(C_ColonSym)
                     ret += " : #{Expression()}"
+                    p("after questionmark2:#{ret}, #{@sym}, #{curString()}")
+                    
                 else
 	                
             		ret += AssignmentOperator()
@@ -4816,6 +4915,11 @@ HERE
 	    ret += "#{curString}"
 	    Get()
     else
+        
+        # handle  (m_objHandler->*m_functionHandler)();
+        if @sym == C_StarSym
+            Get()
+        end
     				while (@sym == C_LbraceSym) 
     # line 1937 "cs.atg"
     					ret += curString()
@@ -4876,19 +4980,27 @@ HERE
         #            CastExp()
         # els
     	cs = curString()
-    	if @sym >= C_identifierSym && (cs == 'static_cast' || cs == 'dynamic_cast')
-    	    Get()
-    	    Expect(C_LessSym)
-    	    Type()
-  	    	while (@sym == C_StarSym || @sym == C_AndSym) 
-        		Get()
-        	end
-        	Expect(C_GreaterSym)
-        	Expect(C_LparenSym)
-        	ret += Expression()
-        	Expect(C_RparenSym)
-        	
-    	elsif (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
+    	#if @sym == C_identifierSym && (cs == 'static_cast' || cs == 'dynamic_cast')
+        #    p ("===>UnaryExp21:#{@sym}")
+        #    
+    	#    Get()
+    	#    #Expect(C_LessSym)
+    	#    #Type()
+  	    #	#while (@sym == C_StarSym || @sym == C_AndSym) 
+        #	#	Get()
+        #	#end
+        #	#Expect(C_GreaterSym)
+        #    p ("===>UnaryExp22:#{@sym}")
+        #    if @sym == C_LessSym
+        #        filterTemplate()
+        #    end
+        #	Expect(C_LparenSym)
+        #	ret += Expression()
+        #	Expect(C_RparenSym)
+        #    p ("===>UnaryExp23:#{@sym}, #{curString()}")
+        #	
+    	#elsif 
+        if (@sym >= C_identifierSym && @sym <= C_hexnumberSym ||
     	    @sym >= C_stringD1Sym && @sym <= C_charD1Sym ||
     	    @sym == C_LbraceSym ||
     	    @sym == C_LparenSym ||
@@ -5302,7 +5414,7 @@ HERE
         end
         clsdef = @root_class if !clsdef
         fname = ar[ar.size-1]
-        p "find_method3:#{clsdef.class_name}, #{clsdef.functions.inspect}"
+        #p "find_method3:#{clsdef.class_name}, #{clsdef.functions.inspect}"
         
         if (arg_num)
             ret =  clsdef.methods[method_signature(fname, arg_num)]
