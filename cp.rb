@@ -2519,7 +2519,13 @@ class Parser < CRParser
         if @sym == C_ColonColonSym
             while @sym == C_ColonColonSym
                 Get()
-                break if @sym == C_operatorSym
+                if @sym == C_operatorSym
+                    isOperatorDef = true
+                    Get()
+                    op_name = fname = operatorName()
+                    break
+                end
+           
                 varname += "::#{curString}"
                 Get()
                 if (@sym == C_LessSym)
@@ -2533,9 +2539,9 @@ class Parser < CRParser
             ##====================
             # 
             # bool A<F>::c(){}
-            #            ^
+            #             ^
             ##==================== 
-           
+   
             ar = varname.split ("::")
             ar.pop  if ar.size > 1
             class_name = ar.join("::")
@@ -2603,7 +2609,6 @@ class Parser < CRParser
     # line 702 "cs.atg"
 
     # line 706 "cs.atg"
-    p "sym333:#{@sym}, val #{curString()} line #{@scanner.currLine}"
     
     ##====================
     # 
@@ -2614,6 +2619,7 @@ class Parser < CRParser
     if (@sym == C_LessSym)
         filterTemplate()
     end
+    p "===>LocalDeclaration83:class_name=#{class_name}, varname=#{varname}, fname=#{fname}, opname=#{op_name}, #{@sym}, val #{curString()} line #{@scanner.currLine}"
     
     ##====================
     # forward check 2 symbol, to know it's varlist or functiondefition
@@ -3241,6 +3247,9 @@ class Parser < CRParser
         	end
             p("FormalParameter2:sym=#{@sym}, curString=#{curString()}")
         
+            if @sym == C_PPPSym #ignore cpp11 template Parameter pack https://en.cppreference.com/w/cpp/language/parameter_pack
+                Get()
+            end
         # line 444 "cs.atg"
    
         # const TCHAR* const a,

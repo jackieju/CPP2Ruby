@@ -1453,9 +1453,14 @@ s99=<<HERE
 //}
 //bool result = (m_ht->*((*handlerArr)[i]))(params, handled);
 //bool result =  (m_objHandler->*m_functionHandler)();
-const TNode& operator[] (ptrdiff_t n) const { 
-    return const_cast (this)->operator[] (n); 
-}
+//const TNode& operator[] (ptrdiff_t n) const { 
+//    return const_cast (this)->operator[] (n); 
+//}
+//template<class F>
+//F* ObjectPtr<F>::operator-> () const{}
+
+template <typename T, typename ...Args>
+void						SetDisplayObjectUserInterface (long objectType, Args&&... args){};
 HERE
 
 s_notsupport=<<HERE # lumda
