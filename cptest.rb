@@ -1446,7 +1446,16 @@ s99=<<HERE
 //}
 //for (; _First < _Last; _First += _Stride)
 	//_Val = 16777619U * _Val ^ (size_t) _Keyval[_First];
-    const auto &str = GetAttributeString (colIndex, arrayOffset, line);
+// const auto &str = GetAttributeString (colIndex, arrayOffset, line);
+
+//template <class HT, typename ParamType, typename KeyType, class DT>
+//typename CMulticastDelegateByKey<HT, ParamType, KeyType, DT>::FuncType CMulticastDelegateByKey<HT, ParamType, KeyType, DT>::GetHandler (KeyType key, long index) const{
+//}
+//bool result = (m_ht->*((*handlerArr)[i]))(params, handled);
+//bool result =  (m_objHandler->*m_functionHandler)();
+const TNode& operator[] (ptrdiff_t n) const { 
+    return const_cast (this)->operator[] (n); 
+}
 HERE
 
 s_notsupport=<<HERE # lumda

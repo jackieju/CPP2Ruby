@@ -67,7 +67,9 @@ $ar_classdefs = [
 ]
 
 $unusableType =[
-    "export"
+    "export",
+    "typename"
+    
 ]
 
 #file don't include, all is downcased filename

@@ -924,7 +924,7 @@ class Parser < CRParser
     	       @sym == C_TypedefSym || 
     	       @sym == C_StructSym ||
                @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym  || @sym == C_namespaceSym || @sym== C_usingSym ||
-               @sym == C_operatorSym || @sym == C_ColonColonSym || @sym == C_templateSym || @sym == C_unionSym
+               @sym == C_operatorSym || @sym == C_ColonColonSym || @sym == C_templateSym || @sym == C_unionSym || @sym == C_typenameSym
 
                ) 
                p("==>Definitions21:#{@sym}, #{curString}")
@@ -1475,7 +1475,7 @@ class Parser < CRParser
     	           @sym >= C_newSym && @sym <= C_DollarSym ||
     	           @sym >= C_BangSym && @sym <= C_TildeSym ||
     	           @sym == C_TypedefSym || @sym == C_deleteSym || @sym == C_throwSym ||
-                   @sym == C_sizeofSym || @sym == C_operatorSym || @sym == C_ColonColonSym
+                   @sym == C_sizeofSym || @sym == C_operatorSym || @sym == C_ColonColonSym || @sym == C_typenameSym
                    ) 
     # line 219 "cs.atg"
     	#	ret += Statements()
@@ -1728,7 +1728,7 @@ class Parser < CRParser
                     # p "statement return #{rStatement}"
                 end
         
-        elsif @sym >= C_staticSym && @sym <= C_voidSym || @sym == C_TypedefSym
+        elsif @sym >= C_staticSym && @sym <= C_voidSym || @sym == C_TypedefSym || @sym == C_typenameSym
     		rStatement += LocalDeclaration()
    
         elsif @sym == C_operatorSym
@@ -1988,7 +1988,7 @@ class Parser < CRParser
     end    
 
     def operatorName()
-    	p "===>operator1:#{@sym},#{curString}"
+    	p "===>operatorName1:#{@sym},#{curString}"
 	    fname = ""
         if @sym == C_constSym
             fname += curString
@@ -2386,7 +2386,7 @@ class Parser < CRParser
         	if (@sym >= C_staticSym && @sym <= C_externSym) 
                 p "---->LocalDeclaration11:pass storage class"
         		storageclass += StorageClass()
-        	elsif (@sym >= C_autoSym && @sym <= C_voidSym)
+        	elsif (@sym >= C_autoSym && @sym <= C_voidSym || @sym == C_typenameSym)
                 p "---->LocalDeclaration12: parse simple type"
                 _var_type = Type()
                 type += _var_type.name
@@ -2482,8 +2482,7 @@ class Parser < CRParser
     	p "===>321:#{curString()}, #{isOperatorDef}"
              
     	if isOperatorDef 
-            fname = operatorName()
-            
+            op_name = fname = operatorName()
 	    end
         p "===>LocalDeclaration51:name:#{fname}, #{varname}"
     	p "===>LocalDeclaration6:#{@sym}, #{curString()}"
@@ -2552,21 +2551,25 @@ class Parser < CRParser
         ##==================== 
          
         
-	    p "===>LocalDeclaration8:class_name=#{class_name}"
-        if @sym == C_operatorSym
-            isOperatorDef = true
-            op_name = ""
-            Get()
-            begin 
-                op_name += curString()
-                Get()
-            end while @sym != C_identifierSym && @sym != C_constSym && @sym != C_LparenSym
-            p "opname:#{op_name}"
-            fname=op_name
-        else
+	    p "===>LocalDeclaration8:class_name=#{class_name}, #{@sym}, #{curString}"
+        #if @sym == C_operatorSym
+        #    isOperatorDef = true
+        #    op_name = ""
+        #    Get()
+        #    begin 
+        #        op_name += curString()
+        #        Get()
+        #    end while @sym != C_identifierSym && @sym != C_constSym && @sym != C_LparenSym
+        #    p "opname:#{op_name}"
+        #    fname=op_name
+        #else
+        #    fname = varname.split().last
+        #end
+        
+        if !isOperatorDef
             fname = varname.split().last
         end
-        
+	    p "===>LocalDeclaration82:fname=#{fname}, #{@sym}, #{curString}"
 
         
         #{
@@ -2750,7 +2753,7 @@ class Parser < CRParser
     	    GenError(99)
 	    end
     # line 706 "cs.atg"
-        if fd && fd != ""
+        if fd# && fd != ""
             # ret = "def #{fname}#{fd}\nend"
         else
             # _ret = "#{varname}#{vl}"
@@ -3036,7 +3039,7 @@ class Parser < CRParser
         	fb = FunctionBody()
             
         	fb = i_list + fb if i_list
-            p ("FunctionDefinition3:#{fb}")
+            p ("FunctionDefinition3:#{fb.inspect}")
             
             if current_scope("FunctionDefinition").hasGoto
                 blk_src = ""
@@ -3072,7 +3075,7 @@ class Parser < CRParser
             @root_class.add_method(fn_name, head, pds, method_src, acc)
         end
         #p "classdef #{classdef.inspect}"
-        pdebug "===>FunctionDefinition1:#{class_name}::#{fn_name}"
+        pdebug "===>FunctionDefinition1:#{class_name}::#{fn_name},ret=#{ret}"
         
         if pushed
             out_scope()
@@ -3325,7 +3328,12 @@ class Parser < CRParser
     end
     
     def skipUnusableType()
-        while (@sym == C_identifierSym && GetNext() != C_ColonColonSym )
+        utype = [C_typenameSym]
+        while (@sym == C_identifierSym && GetNext() != C_ColonColonSym || utype.include?(@sym))
+            if utype.include?(@sym)
+                Get()
+                next
+            end
             v = curString()
             if ($unusableType.include?(v))
                 Get()
@@ -3350,6 +3358,7 @@ class Parser < CRParser
         
         # skip "export", "__dll_..."
         skipUnusableType()
+        pdebug("---->type2:#{@sym}, #{curString()}")
         
     # line 423 "cs.atg"
     	case (@sym) 
@@ -4909,17 +4918,23 @@ HERE
     			
         			Get()
     # line 1937 "cs.atg"
-                	
     if @sym == C_operatorSym # call operator directly, e.g. a->operator=(*z);
 	    Get()
-	    ret += "#{curString}"
-	    Get()
+	    #ret += "#{curString}"
+        ret += operatorName()
+	    #Get()
+        p("===>Postfixexp3:call operator directly: #{@sym}, #{curString}, #{ret}")
+        
     else
         
         # handle  (m_objHandler->*m_functionHandler)();
         if @sym == C_StarSym
-            Get()
-        end
+            ret  += UnaryExp()
+            #Get()
+            p("===>PostFixExp4:#{@sym}, #{curString}")
+            
+        else
+        p("===>PostFixExp3:#{@sym}, #{curString}")
     				while (@sym == C_LbraceSym) 
     # line 1937 "cs.atg"
     					ret += curString()
@@ -4938,6 +4953,7 @@ HERE
     # line 1937 "cs.atg"
     				end
     # line 1938 "cs.atg"
+        end
     end
     			when C_PlusPlusSym  
     # line 2025 "cs.atg"

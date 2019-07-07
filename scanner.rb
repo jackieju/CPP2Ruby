@@ -491,6 +491,7 @@ class CScanner <  CRScanner
           		
           		#break
           	when 't'
+          	    return C_typenameSym if (EqualStr("typename")) 
           	    return C_TypedefSym if (EqualStr("typedef")) 
           		return C_throwSym if (EqualStr("throw")) 
                 return C_templateSym if (EqualStr("template")) 
