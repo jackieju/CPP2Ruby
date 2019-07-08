@@ -2004,6 +2004,15 @@ class Preprocessor < Parser
                     # p "after replace:#{@scanner.buffer}"
                     p "@@@ remove inline cost #{Time.now.to_f - __t}"
                     next
+                elsif @sym == C_classSym # to gather all classes name
+                    _n = GetNextSym().sym
+                    if _n != C_CommaSym && _n != C_GreaterSym # not as parameter in template. e.g. template<class A, class B>
+                        Get()
+                        $pre_classlist = {} if $pre_classlist == nil
+                        $pre_classlist[curString()]=1
+                    end
+                elsif @sym == C_templateSym
+                    filterTemplate(1)
                 end
             end
             # if @sym == C_identifierSym
@@ -2155,6 +2164,18 @@ class Preprocessor < Parser
             s+="#{n}=>#{v}\n"
      }
      save_to_file(s, fname)
+    end
+    def dump_classes_to_file(fname)
+        s = ""
+        list = $pre_classlist.keys.sort
+        p "=====>list classes:"
+        p list.inspect
+        list.each{|n|
+            s+="#{n}\n"
+     }
+     save_to_file(s, fname)
+     p "classes list dumped to file #{fname}"
+     
     end
 end # class Preprocessor
 

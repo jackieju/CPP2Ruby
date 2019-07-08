@@ -1660,7 +1660,7 @@ _STR_charset(pThis->GetString(), ch, nCount);
 HERE
 if !testall
    
-    s = s30
+    s = s29
 
 else
 

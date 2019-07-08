@@ -1,4 +1,9 @@
 #!/bin/sh
+
+# find all class
+# find ./ -name "*.h" |xargs grep -hE "class " | grep -v "@class" | grep -v "<class" | grep -vE "^.*?\*" | grep -Ev "^.*?\/\/" > c
+
+
 rm included_files
 rm ifstack
 src_dir=/Users/i027910/p4root/BUSMB_B1/SBO/9.3_COR/Source

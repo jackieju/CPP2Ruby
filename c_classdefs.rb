@@ -72,7 +72,7 @@ $unusableType =[
     
 ]
 
-#file don't include, all is downcased filename
+#files don't include
 $exclude_file=[
     "stdio",
     "stdio.h",
@@ -86,6 +86,7 @@ $exclude_file=[
     "Assert.h",
     "WWMap.h",
     "ScopeGuard.h",
-    "TaxFormulaCombinationCache.h"
+    "TaxFormulaCombinationCache.h",
+    "_FU_P_CBusinessFormsMgr.h"
 ]
     

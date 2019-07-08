@@ -92,7 +92,7 @@ def preprocess(s)
        parser.dump_macros_to_file("allmacros")
        parser.dump_pos(nil, 10)
 
-       p "****** ifstack ******"
+       p "****** #ifstack ******"
        for i in 0..parser.ifstack.size
            p parser.ifstack[i]
        end
@@ -105,6 +105,8 @@ def preprocess(s)
    end
    parser.show_macros
    parser.dump_macros_to_file("allmacros")
+   parser.dump_classes_to_file("allclasses.#{Time.now.to_i}")
+   
    
    p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
     begin

@@ -538,7 +538,7 @@ HERE
        
 end
 
-
+$pre_classlist={} # class found in preprocessing
 $g_search_dirs=["."]
 
 def init_env(fname)
@@ -559,7 +559,7 @@ p "Hidden_log_files=#{$Hidden_log_files}"
 # use gcc preprocess as preprocess
 $preprocessor = "my" 
 def  parse_arg(arg, a)
-    if arg == "-pre"
+    if arg == "-pre" || arg == "-preprocess"
         $mode = "preprocess"
     elsif arg == "-parse"
         $mode = "parse"
@@ -620,7 +620,7 @@ if $*.size >0
         end
         if a.start_with?("-")
              
-            nextisarg = true if a !="-parse" && a !="-preprocess"  && a !="-translate"
+            nextisarg = true if a !="-parse" && a !="-preprocess" && a !="-pre" && a !="-translate" 
             next
             
         end

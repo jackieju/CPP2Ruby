@@ -195,12 +195,13 @@ m[:src] = "" if m[:src] ==nil
     # class_name can be CladdDef Object
     def add_class(class_name)
         
-        if class_name.class == String && @classes[class_name] == nil
-            
-            clsdef = ClassDef.new(class_name)
-            @classes[class_name] = clsdef
-            clsdef.parentScope = self
-            p "===>add_class:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
+        if class_name.class == String 
+            if @classes[class_name] == nil
+                clsdef = ClassDef.new(class_name)
+                @classes[class_name] = clsdef
+                clsdef.parentScope = self
+                p "===>add_class:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
+            end
         else
             
             clsdef = class_name

@@ -1058,7 +1058,10 @@ L"\x07";
 HERE
 
 s85=<<HERE
+
 int main(char*arg[]){
+    goto l;
+    
     int a = 1;
     if (a == 1)
         if (a == 1)
@@ -1066,8 +1069,11 @@ int main(char*arg[]){
 l:
     int b = 1;
     fn();
+    
     return;
 }
+
+
 HERE
 s86=<<HERE
 //::TreeType  treeType;
@@ -1459,11 +1465,25 @@ s99=<<HERE
 //template<class F>
 //F* ObjectPtr<F>::operator-> () const{}
 
-template <typename T, typename ...Args>
-void						SetDisplayObjectUserInterface (long objectType, Args&&... args){};
+//template <typename T, typename ...Args>
+//void						SetDisplayObjectUserInterface (long objectType, Args&&... args){};
+//
+//typedef struct _BarcodeFuncs
+//{
+//	void (*GetFieldValue)(BarcodeHandler handle, const TCHAR *tableName, const TCHAR *fieldName, TCHAR *value);
+//	ErrCode (*GetFieldLength) (BarcodeHandler handle, const TCHAR *tableName, const TCHAR *fieldName, long *pLength);
+//
+//}BarcodeFuncs,*PBarcodeFuncs;
+void A::fn(){
+    {
+ SBOString objCFTId(CFT);
+}
+}
+
 HERE
 
-s_notsupport=<<HERE # lumda
+s_notsupport=<<HERE 
+// lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
 auto Cleanup = [&] () {}
@@ -1486,13 +1506,21 @@ public:
 
 	virtual SBOString GetDescription ();
 };
+ template parameter pack 
+template <typename T, typename ...Args>
+void CBizFormsMgr::SetDisplayObjectUserInterface (long objectType, Args&&... args)
+{
+	m_objectUserInterfaceRegister.RegisterDisplayObjectUserInterface (SBOString (objectType), std::make_unique<T> (std::forward<Args> (args)...), false);
+}
+
+
 HERE
 
 
 
 if !testall
    
-    s = s99
+    s = s85
 else
 
     r = ""
