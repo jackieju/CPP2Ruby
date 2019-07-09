@@ -121,7 +121,7 @@ e.g.
 	#define NULL nil
 	#define _LOGMSG(a,b,c)
 </pre>
-2) Define all classes name referenced in your c/cpp file in c_classdefs.rb<br>
+2) You can define all classes name which are referenced but not defined in your c/cpp file, in c_classdefs.rb<br>
 <pre>
 $ar_classdefs = [
     "std",
