@@ -1014,7 +1014,7 @@ HERE
 
 s81=<<HERE
 class A{
-MONEY_RoundRule GetRoundRule (const IRoundingData* roundingData) override;
+MONEY_RoundRule GetRoundRule (const IRoundingData* roundingData) GetRoundRule;
 }
 HERE
 
@@ -1439,41 +1439,41 @@ private:
 };
 HERE
 s99=<<HERE
-//for (auto fkv : EFMMapping::Map)
-//{
-//	if (value == fkv.second)
-//	{
-//		result = fkv.first;
-//		break;
-//	}
-//}
-//for (auto itr = m_WtAmountsChangeStatus.begin (); itr != m_WtAmountsChangeStatus.end (); ++itr){
-//    Clear (itr->first);
-//}
-//for (; _First < _Last; _First += _Stride)
+for (auto fkv : EFMMapping::Map)
+{
+	if (value == fkv.second)
+	{
+		result = fkv.first;
+		break;
+	}
+}
+for (auto itr = m_WtAmountsChangeStatus.begin (); itr != m_WtAmountsChangeStatus.end (); ++itr){
+    Clear (itr->first);
+}
+for (; _First < _Last; _First += _Stride)
 	//_Val = 16777619U * _Val ^ (size_t) _Keyval[_First];
-// const auto &str = GetAttributeString (colIndex, arrayOffset, line);
+ const auto &str = GetAttributeString (colIndex, arrayOffset, line);
 
-//template <class HT, typename ParamType, typename KeyType, class DT>
-//typename CMulticastDelegateByKey<HT, ParamType, KeyType, DT>::FuncType CMulticastDelegateByKey<HT, ParamType, KeyType, DT>::GetHandler (KeyType key, long index) const{
-//}
-//bool result = (m_ht->*((*handlerArr)[i]))(params, handled);
-//bool result =  (m_objHandler->*m_functionHandler)();
-//const TNode& operator[] (ptrdiff_t n) const { 
-//    return const_cast (this)->operator[] (n); 
-//}
-//template<class F>
-//F* ObjectPtr<F>::operator-> () const{}
+template <class HT, typename ParamType, typename KeyType, class DT>
+typename CMulticastDelegateByKey<HT, ParamType, KeyType, DT>::FuncType CMulticastDelegateByKey<HT, ParamType, KeyType, DT>::GetHandler (KeyType key, long index) const{
+}
+bool result = (m_ht->*((*handlerArr)[i]))(params, handled);
+bool result =  (m_objHandler->*m_functionHandler)();
+const TNode& operator[] (ptrdiff_t n) const { 
+    return const_cast (this)->operator[] (n); 
+}
+template<class F>
+F* ObjectPtr<F>::operator-> () const{}
 
-//template <typename T, typename ...Args>
-//void						SetDisplayObjectUserInterface (long objectType, Args&&... args){};
-//
-//typedef struct _BarcodeFuncs
-//{
-//	void (*GetFieldValue)(BarcodeHandler handle, const TCHAR *tableName, const TCHAR *fieldName, TCHAR *value);
-//	ErrCode (*GetFieldLength) (BarcodeHandler handle, const TCHAR *tableName, const TCHAR *fieldName, long *pLength);
-//
-//}BarcodeFuncs,*PBarcodeFuncs;
+template <typename T, typename ...Args>
+void						SetDisplayObjectUserInterface (long objectType, Args&&... args){};
+
+typedef struct _BarcodeFuncs
+{
+	void (*GetFieldValue)(BarcodeHandler handle, const TCHAR *tableName, const TCHAR *fieldName, TCHAR *value);
+	ErrCode (*GetFieldLength) (BarcodeHandler handle, const TCHAR *tableName, const TCHAR *fieldName, long *pLength);
+
+}BarcodeFuncs,*PBarcodeFuncs;
 class A{
 }
 void A::fn(){
@@ -1483,7 +1483,11 @@ void A::fn(){
 }
 
 HERE
-
+s100=<<HERE
+// test function polymophysim with different number of parameter
+void fn(){}
+void fn(int a){}
+HERE
 s_notsupport=<<HERE 
 // lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
@@ -1522,7 +1526,7 @@ HERE
 
 if !testall
    
-    s = s99
+    s = s100
 else
 
     r = ""

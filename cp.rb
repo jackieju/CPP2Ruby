@@ -99,12 +99,14 @@ p "===>$pre_classlist:#{$pre_classlist.inspect}"
 $g_classlist = {} if !$g_classlist
 
 allclasses = read_file("allclasses")
+if allclasses
 allclasses.each_line{|line|
     cls = line.strip
     if cls != ""
         $g_classlist[cls] =1
     end
 }
+end
 
 
 def dump_one_as_ruby(v, module_name=nil)
