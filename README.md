@@ -25,10 +25,12 @@ You absolutely need do some manual work. This tool's goal is helping you do the 
 Supported Features
 ===
 1. goto statement
+
 Althought ruby doesn't support goto, but will generate which code has same effection.
 Please see https://rubygems.org/gems/goto
 
 2. Mulit-inheritence
+
 Although ruby doesn't support, but will generate code which has same functionality.
 If the class has more than one parent class, The translator will generate normal class for the first one, 
 and from the 2nd parent class, it will generate a class with same name which include a ruby module withe the name "<name>_module", and the current class will include it.
@@ -50,6 +52,7 @@ and from the 2nd parent class, it will generate a class with same name which inc
 	end
 	</pre>
 3. Function Polymophism with different parameter number
+
 The generated ruby will implement it in this ways.
 The translator will generate one ruby method with variable arguments, which will call relative method with name "<functionname>_v<number of parameter>"
 e.g. in cpp
@@ -72,6 +75,7 @@ end
 Unsupported Features
 ===
 Some cpp11 features are not supported
+
 1. lumda
 2. operator=, because in ruby class you cannot override = to do copy construction
 3. Multi call to multiple parent classs's constructor is not support, generated ruby will only call one "super(xxx)"
@@ -86,6 +90,7 @@ public:
 </pre>
 
 4. template parameter pack 
+
 <pre>
 template <typename T, typename ...Args>
 void CBizFormsMgr::SetDisplayObjectUserInterface (long objectType, Args&&... args)
@@ -127,6 +132,7 @@ $ar_classdefs = [
     ]
 </pre>
 4. other options
+
 You can define the type you want parser to ignore, and the file you don't want to include in "c_classdefs.rb"
 <pre>
 $unusableType =[
