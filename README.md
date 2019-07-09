@@ -21,6 +21,38 @@ You absolutely need do some manual work. This tool's goal is helping you do the 
 
 5 . License is GPL
 
+Supported Features
+===
+1. goto statement
+Althought ruby doesn't support goto, but will generate which code has same effection.
+
+2. Mulit-inheritence
+Although ruby doesn't support, but will generate code which has same functionality.
+If the class has more than one parent class, The translator will generate normal class for the first one, 
+and from the 2nd parent class, it will generate a class with same name which include a ruby module withe the name "<name>_module", and the current class will include it.
+	e.g. in cpp
+	<pre>
+	class A: B, C{
+	}
+	</pre>
+	generated ruby code:
+	<pre>
+	class A< B
+	end
+	class B
+	end
+	class C
+	include C_module
+	end
+	module C_module
+	end
+	</pre>
+3. Function Polymophism with different parameter number
+The generated ruby will implement it in this ways.
+
+Unsupported Features
+===
+
 How to translate your cpp to ruby:
 ===
 1 . Download the project from https://github.com/jackieju/CPP2Ruby.git  
@@ -54,6 +86,26 @@ $ar_classdefs = [
 ...
     ]
 </pre>
+4. other options
+You can define the type you want parser to ignore, and the file you don't want to include in "c_classdefs.rb"
+<pre>
+$unusableType =[
+    "export",
+    "typename"
+]
+
+#files don't include
+$exclude_file=[
+    "stdio",
+    "stdio.h",
+    "malloc.h",
+    "windows.h",
+    "sql.h",
+    "sqlext.h",
+    "__DBM.*\\.h",
+]
+</pre>
+5. Troubleshooting
 When you encounter error while translating, please check the line and the perpetrator class and macro in above 2 steps.  
 e.g. The error message is:
 <pre>
@@ -66,8 +118,12 @@ cp.rb:1693:in `VarList'
 </pre>
 Then you need add "CBusinessObject" and "PDAG" into the array in file c_classdefs.rb
 	
-	
 If you'v done translation successfully, you will see all ruby files under directory "output"
+
+The preprocessing result is in file named like "pre.<your c file name>.<timestamp>".
+The "pre.part.<c file name>.<time" is temp file in case the result it too big, the the proprocessing failed, you can also check "pre.part.." file.
+The "./included_files" stores the including infomation during preprocessing.
+The "./allmacros" stores all the macro defined in preprocessing.
 
 4 . You can define more macros in c_macros.c to extend this tranlate. 
 This is very useful to translate platform dependant api to ruby api.  
