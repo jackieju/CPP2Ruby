@@ -1474,6 +1474,8 @@ s99=<<HERE
 //	ErrCode (*GetFieldLength) (BarcodeHandler handle, const TCHAR *tableName, const TCHAR *fieldName, long *pLength);
 //
 //}BarcodeFuncs,*PBarcodeFuncs;
+class A{
+}
 void A::fn(){
     {
  SBOString objCFTId(CFT);
@@ -1520,7 +1522,7 @@ HERE
 
 if !testall
    
-    s = s85
+    s = s99
 else
 
     r = ""

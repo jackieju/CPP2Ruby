@@ -201,6 +201,8 @@ HERE
             #    wfname = "#{class_name.downcase}.rb"
             #end
             write_class(wfname, class_template)
+            $output_filelist = [] if !$output_filelist
+            $output_filelist.push(wfname)
 end
 #def dump_module_as_ruby(moduleDef, module_name=nil)
 #    v =moduleDef
@@ -2584,9 +2586,14 @@ class Parser < CRParser
             ##==================== 
    
             ar = varname.split ("::")
+             if !isOperatorDef
+                 fname = ar.last
+             end
             ar.pop  if ar.size > 1
             class_name = ar.join("::")
-    	    p "===>LocalDeclaration73:class_name=#{class_name}"
+          
+    	    p "===>LocalDeclaration73:class_name=#{class_name}, fname=#{fname}"
+           
             
         end
         
@@ -2613,9 +2620,9 @@ class Parser < CRParser
         #    fname = varname.split().last
         #end
         
-        if !isOperatorDef
-            fname = varname.split().last
-        end
+        #if !isOperatorDef
+        #    fname = varname.split("::").last
+        #end
 	    p "===>LocalDeclaration82:fname=#{fname}, #{@sym}, #{curString}"
 
         
@@ -2958,7 +2965,7 @@ class Parser < CRParser
     
     # class_name should never be nil
     def FunctionDefinition(class_name, fn_name, acc="")
-        pdebug "===>FunctionDefinition:#{class_name}::#{fn_name}", 30
+        pdebug "===>FunctionDefinition:#{class_name}, #{fn_name}", 30
         throw "cannot have function defition(#{fn_name}) in a function defintion #{current_scope.class_name}" if current_scope.name == "FunctionDefinition"
         
         ret = ""

@@ -611,6 +611,7 @@ if $*.size >0
     nextisarg = false
     arg = nil
     i = 0
+    _time_start = Time.now.to_i
     for a in $*[0..$*.size-1]
         p "arg[#{i}]=#{a}"
         i+=1
@@ -646,7 +647,14 @@ if $*.size >0
         # preprocess_file(a)
     end
     dump_classes_as_ruby($g_classdefs)
+    p "******* output file list *******"
+    $output_filelist.each{|h|
+        p h
+    } 
+    save_to_file( $output_filelist.join("\n"), "output_filelist")
+    
     p "current parse file #{$g_cur_parse_file}"
+    p "cost #{Time.now.to_i - _time_start }sec"
 else
     p "no file specified"
     p "usage: ruby translate.rb <c source file>\n
