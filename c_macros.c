@@ -8,7 +8,7 @@
 
 // for clean and ignore
 #define __CRTDECL
-#define B1_OBSERVER_API
+#define B1_OBSERVER_API  __dllexport__ 
 #define B1_COMMON_API
 #define B1_SECURITY_COMMON_API
 #define B1_ENGINE_API		
