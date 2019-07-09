@@ -28,14 +28,16 @@ This tools supports all cpp features expect some after cpp11.
 Here describe some and explain how we support it.
 1. goto statement
 
-Althought ruby doesn't support goto, but will generate which code has same effection.
+Althought ruby doesn't support goto, but will generate code which has same effection.
 Please see https://rubygems.org/gems/goto
 
 2. Mulit-inheritence
 
-Although ruby doesn't support, but will generate code which has same functionality.
+Although ruby doesn't support it, but will generate code which has same functionality.
+
 If the class has more than one parent class, The translator will generate normal class for the first one, 
 and from the 2nd parent class, it will generate a class with same name which include a ruby module withe the name "<name>_module", and the current class will include it.
+	
 	e.g. in cpp
 	<pre>
 	class A: B, C{
@@ -55,8 +57,10 @@ and from the 2nd parent class, it will generate a class with same name which inc
 	</pre>
 3. Function Polymophism with different parameter number
 
-The generated ruby will implement it in this ways.
+The generated ruby will implement it in this ways:
+
 The translator will generate one ruby method with variable arguments, which will call relative method with name "<functionname>_v<number of parameter>"
+	
 e.g. in cpp
 <pre>
 void fn(){}
@@ -81,8 +85,10 @@ Some cpp11 features are not supported
 1. lumda
 2. operator=, because in ruby class you cannot override = to do copy construction
 3. Multi call to multiple parent classs's constructor is not support, generated ruby will only call one "super(xxx)"
+
 e.g.
-</pre>
+
+<pre>
 class CTaxMoneyOverflowException : virtual public CTaxException, public CMoneyOverflowFormulaException, public C
 {
 public:
@@ -133,6 +139,7 @@ $ar_classdefs = [
 ...
     ]
 </pre>
+
 4. other options
 
 You can define the type you want parser to ignore, and the file you don't want to include in "c_classdefs.rb"
@@ -153,7 +160,9 @@ $exclude_file=[
     "__DBM.*\\.h",
 ]
 </pre>
+
 5. Troubleshooting
+
 When you encounter error while translating, please check the line and the perpetrator class and macro in above 2 steps.  
 e.g. The error message is:
 <pre>
@@ -166,15 +175,22 @@ cp.rb:1693:in `VarList'
 </pre>
 Then you need add "CBusinessObject" and "PDAG" into the array in file c_classdefs.rb
 	
-If you'v done translation successfully, you will see all ruby files under directory "output"
+If you'v done translation successfully, you will see all ruby files under directory "output"( because we use -d option in command line)
 
-The preprocessing result is in file named like "pre.<your c file name>.<timestamp>".
-The "pre.part.<c file name>.<time" is temp file in case the result it too big, the the proprocessing failed, you can also check "pre.part.." file.
-The "./included_files" stores the including infomation during preprocessing.
-The "./allmacros" stores all the macro defined in preprocessing.
+"pre.<your c file name>.<timestamp>" file  stores the preprocessing results.
+	
+"pre.part.<c file name>.<time" file is temp file in case the result it too big, the the proprocessing failed, you can also check "pre.part.." file.
+	
+"./included_files" stores the including infomation during preprocessing.
 
-4 . You can define more macros in c_macros.c to extend this tranlate. 
+"./allmacros" stores all the macro defined in preprocessing.
+
+"./output_filelist" stores names of all the generated ruby files.
+
+6 . You can define more macros in c_macros.c to extend this tranlate. 
+
 This is very useful to translate platform dependant api to ruby api.  
+
 e.g. You want to translate strlen(s) to ruby code s.size()
 		#define strlen(s) s.size
 
