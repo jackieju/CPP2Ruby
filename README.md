@@ -114,7 +114,7 @@ How to translate your cpp to ruby:
 
 2 . Run translate.rb to do job  
 
-        $ ruby translate.rb -d cp_testcase.cpp 
+        $ ruby translate.rb -d output cp_testcase.cpp 
 
 You don't need involve all files included by POJDT.c (which will leads to a hell), you just need to copy those file you really want them logic.<br>
 So here I only want copy 3 file POJDT.c POJDT1.c and POJDT.h, and just declare those macros and class name that you don't want involve.<br>
