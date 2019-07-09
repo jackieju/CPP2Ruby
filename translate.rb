@@ -538,7 +538,7 @@ HERE
        
 end
 
-
+$pre_classlist={} # class found in preprocessing
 $g_search_dirs=["."]
 
 def init_env(fname)
@@ -559,7 +559,7 @@ p "Hidden_log_files=#{$Hidden_log_files}"
 # use gcc preprocess as preprocess
 $preprocessor = "my" 
 def  parse_arg(arg, a)
-    if arg == "-pre"
+    if arg == "-pre" || arg == "-preprocess"
         $mode = "preprocess"
     elsif arg == "-parse"
         $mode = "parse"
@@ -611,6 +611,7 @@ if $*.size >0
     nextisarg = false
     arg = nil
     i = 0
+    _time_start = Time.now.to_i
     for a in $*[0..$*.size-1]
         p "arg[#{i}]=#{a}"
         i+=1
@@ -620,7 +621,7 @@ if $*.size >0
         end
         if a.start_with?("-")
              
-            nextisarg = true if a !="-parse" && a !="-preprocess"  && a !="-translate"
+            nextisarg = true if a !="-parse" && a !="-preprocess" && a !="-pre" && a !="-translate" 
             next
             
         end
@@ -646,7 +647,14 @@ if $*.size >0
         # preprocess_file(a)
     end
     dump_classes_as_ruby($g_classdefs)
+    p "******* output file list *******"
+    $output_filelist.each{|h|
+        p h
+    } 
+    save_to_file( $output_filelist.join("\n"), "output_filelist")
+    
     p "current parse file #{$g_cur_parse_file}"
+    p "cost #{Time.now.to_i - _time_start }sec"
 else
     p "no file specified"
     p "usage: ruby translate.rb <c source file>\n

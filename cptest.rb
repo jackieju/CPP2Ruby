@@ -1058,7 +1058,10 @@ L"\x07";
 HERE
 
 s85=<<HERE
+
 int main(char*arg[]){
+    goto l;
+    
     int a = 1;
     if (a == 1)
         if (a == 1)
@@ -1066,8 +1069,11 @@ int main(char*arg[]){
 l:
     int b = 1;
     fn();
+    
     return;
 }
+
+
 HERE
 s86=<<HERE
 //::TreeType  treeType;
@@ -1219,17 +1225,304 @@ typedef union _BigInt
 BigInt data;
 HERE
 
-s_notsupport=<<HERE # lumda
+s94=<<HERE
+extern "C"{
+    int a=1;
+    void main(){
+    }
+    int b(){
+        c();
+    }
+}
+HERE
+
+s95=<<HERE
+//template<typename KEY, typename VALUE, typename FREE_KEY, typename FREE_VALUE>
+//class StdMap
+//{
+//	// The condition in static_assert must depend on template parameters for this to work.
+//	static_assert (!std::is_same<FREE_KEY, True>::value, "StdMap<KEY, VALUE, True, FREE_VALUE> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+//	static_assert (!std::is_same<FREE_KEY, Count>::value, "StdMap<KEY, VALUE, Count, FREE_VALUE> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+//
+//	static_assert (!std::is_same<FREE_VALUE, False>::value, "StdMap<KEY, VALUE, False, False> is no longer supported. Please use std::map<KEY, VALUE> instead.");
+//	static_assert (!std::is_same<FREE_VALUE, Count>::value, "StdMap<KEY, VALUE, False, Count> is no longer supported. Please use std::map<KEY, std::shared_ptr<VALUE>> instead.");
+//};
+//void	operator += (const SBOString& str)
+//{
+//	operator +=((const TCHAR*)str);
+//}
+class C{
+
+	operator unsigned long () const;
+	operator bool() const;
+	operator int32_t() const;
+	operator int64_t() const;
+	operator uint32_t () const;
+	operator uint64_t () const;
+	operator double () const ;
+	operator const TCHAR * () const{};
+    void a(){};
+    void a(int b){};
+}
+void c(int a, int b){
+    puts("v2");
+};
+void c(){
+    puts("v0");
+
+};
+void c(int a){
+    puts("v1");
+    
+};
+c();
+c(1);
+c(3,2);
+void d(...){
+}
+HERE
+s96=<<HERE
+class CTaxException{
+    public:
+    CTaxException(long id,CBizEnv& env){
+    }
+}
+class CMoneyOverflowFormulaException{
+    public:
+    CMoneyOverflowFormulaException(long id, const SBOString& op1, const SBOString& op2, const SBOString& op){
+    }
+    void hello(){}
+}
+class C{
+    public:
+    C(){}
+}
+class CTaxMoneyOverflowException : virtual public CTaxException, public CMoneyOverflowFormulaException, public C
+{
+public:
+	CTaxMoneyOverflowException (long id, const SBOString& op1, const SBOString& op2, const SBOString& op, CBizEnv& env)
+	: CTaxException (id, env), CMoneyOverflowFormulaException (id, op1, op2, op) {}
+    
+		//: CTaxException (id, env){}
+        
+	virtual ~CTaxMoneyOverflowException() {}
+
+	virtual SBOString GetDescription ();
+};
+HERE
+s97=<<HERE
+//A::B C::D::c(It a, It b){
+//}
+//struct A* b;
+//template<class F>
+//ObjectPtr<F>::ObjectPtr (const ObjectPtr<F>& sp)
+//{
+//
+//}
+//namespace std
+//{
+//	template<>
+//	class hash<SBOString>
+//		: public unary_function < SBOString, size_t >
+//	{	// hash functor
+//    }
+//}
+// bool VectorContains (const std::vector<SBOString>& vector, const SBOString& value)
+//{
+//	return std::find (vector.cbegin (), vector.cend (), value) != vector.cend ();
+//}
+//template<typename TList, typename TValue>
+//bool ListContains (const std::list<TList>& list, const TValue& value)
+//{
+//	return std::find (list.cbegin (), list.cend (), value) != list.cend ();
+//}
+//template<int a>class A{int f(){};};
+//template<class F>
+//ObjectPtr<F>::~ObjectPtr ()
+//{
+//	if (m_refCount)
+//	{
+//		m_refCount->DecRefCount ();
+//	}
+//}
+//int a;
+//template
+//bool b(){};
+//A::B c;
+//class A
+//{
+//public:
+//	A(): m_readerCount(0), m_readerRestoreCount(0), m_writerCount(0){}
+//}
+
+//class  SBOProcessSemaphore {};
+//
+//template <class ACE_LOCK, typename TYPE> class ACE_Atomic_Op;
+//class ACE_Thread_Mutex;
+//
+//    void fn(){
+//	CLogManager::GetInstance ()->Log (logSysMessageComponent, logErrorSeverity, errStr, __FILE__, __LINE__);;
+//
+//m_op1 = op1;}
+//
+//void fn1(){
+//return false;
+//}
+//
+//template<class F>
+//F* ObjectPtr<F>::operator-> () const
+//{
+//	if (m_refCount == nullptr)
+//	{
+//		return nullptr;
+//	}
+//	return m_refCount->GetHandle ();
+//}
+//template<class F>
+//ObjectPtr<F>::operator F* () const
+//{
+//	if (m_refCount == nullptr)
+//	{
+//		return nullptr;
+//	}
+//	return m_refCount->GetHandle ();
+//}
+
+template<class F>
+bool ObjectPtr<F>::operator== (const ObjectPtr<F>& sp) const
+{
+	return m_refCount == sp.GetRefCount ();
+}
+class CSystemAlertParams
+{
+public:
+
+	union
+	{
+		CBusinessObject* m_bo;
+		CBizEnv* m_env;
+	};
+	//virtual long GetObjectType () const override { 
+    //    return m_dagDOC == nullptr ? NOB : dynamic_cast<CBizEnv&> (*m_dagDOC->GetEnv ()).TableToObject (m_dagDOC->GetTableName (), false).strtol (); 
+    //}
+    
+};
+//bool a = m_dagDOC == nullptr ? NOB : dynamic_cast<CBizEnv&> (*m_dagDOC->GetEnv ()).TableToObject (m_dagDOC->GetTableName (), false).strtol (); 
+int a =  dynamic_cast<CBizEnv&> (*m_dagDOC->GetEnv ()).TableToObject (m_dagDOC->GetTableName (), false).strtol (); 
+HERE
+s98=<<HERE
+template <typename ClassType,typename MemberFunctionType>
+class CMemberFunctionEventHandler : public IEventHandler
+{
+public:
+	CMemberFunctionEventHandler(ClassType* pObjHandler, const MemberFunctionType memberFunc):
+	m_objHandler(pObjHandler),
+	m_functionHandler(memberFunc)
+	{
+	}
+
+	virtual ~CMemberFunctionEventHandler(){};
+
+protected:	
+	virtual SBOErr Invoke()
+	{
+		if(m_objHandler != nil && m_functionHandler!= nil)
+		{
+			return (m_objHandler->*m_functionHandler)();
+		}
+		return 0+TraceErrorGroup1(0);
+	}		
+
+private:
+	ClassType*  m_objHandler;
+	MemberFunctionType  m_functionHandler;
+};
+HERE
+s99=<<HERE
+//for (auto fkv : EFMMapping::Map)
+//{
+//	if (value == fkv.second)
+//	{
+//		result = fkv.first;
+//		break;
+//	}
+//}
+//for (auto itr = m_WtAmountsChangeStatus.begin (); itr != m_WtAmountsChangeStatus.end (); ++itr){
+//    Clear (itr->first);
+//}
+//for (; _First < _Last; _First += _Stride)
+	//_Val = 16777619U * _Val ^ (size_t) _Keyval[_First];
+// const auto &str = GetAttributeString (colIndex, arrayOffset, line);
+
+//template <class HT, typename ParamType, typename KeyType, class DT>
+//typename CMulticastDelegateByKey<HT, ParamType, KeyType, DT>::FuncType CMulticastDelegateByKey<HT, ParamType, KeyType, DT>::GetHandler (KeyType key, long index) const{
+//}
+//bool result = (m_ht->*((*handlerArr)[i]))(params, handled);
+//bool result =  (m_objHandler->*m_functionHandler)();
+//const TNode& operator[] (ptrdiff_t n) const { 
+//    return const_cast (this)->operator[] (n); 
+//}
+//template<class F>
+//F* ObjectPtr<F>::operator-> () const{}
+
+//template <typename T, typename ...Args>
+//void						SetDisplayObjectUserInterface (long objectType, Args&&... args){};
+//
+//typedef struct _BarcodeFuncs
+//{
+//	void (*GetFieldValue)(BarcodeHandler handle, const TCHAR *tableName, const TCHAR *fieldName, TCHAR *value);
+//	ErrCode (*GetFieldLength) (BarcodeHandler handle, const TCHAR *tableName, const TCHAR *fieldName, long *pLength);
+//
+//}BarcodeFuncs,*PBarcodeFuncs;
+class A{
+}
+void A::fn(){
+    {
+ SBOString objCFTId(CFT);
+}
+}
+
+HERE
+
+s_notsupport=<<HERE 
+// lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
 	[] (const DBM_ChangedColumn& c) { return c.GetColType () != dbmText && c.GetBackupValue ().IsEmpty () && c.GetValue ().IsEmpty (); });
 auto Cleanup = [&] () {}
+
+// operator =, and call operator directly
+void	operator += (const SBOString& str)
+{
+	operator +=((const TCHAR*)str);
+}
+// multi call to multiple parent classs's constructor is not support, generated ruby will only call one "super(xxx)"
+class CTaxMoneyOverflowException : virtual public CTaxException, public CMoneyOverflowFormulaException, public C
+{
+public:
+	CTaxMoneyOverflowException (long id, const SBOString& op1, const SBOString& op2, const SBOString& op, CBizEnv& env)
+	: CTaxException (id, env), CMoneyOverflowFormulaException (id, op1, op2, op) {}
+    
+		//: CTaxException (id, env){}
+        
+	virtual ~CTaxMoneyOverflowException() {}
+
+	virtual SBOString GetDescription ();
+};
+ template parameter pack 
+template <typename T, typename ...Args>
+void CBizFormsMgr::SetDisplayObjectUserInterface (long objectType, Args&&... args)
+{
+	m_objectUserInterfaceRegister.RegisterDisplayObjectUserInterface (SBOString (objectType), std::make_unique<T> (std::forward<Args> (args)...), false);
+}
+
+
 HERE
 
 
 
 if !testall
    
-    s = s93
+    s = s99
 else
 
     r = ""

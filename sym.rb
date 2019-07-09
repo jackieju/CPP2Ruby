@@ -96,7 +96,7 @@ C_librarySym = 6	# library */
 #C_useSym = 7	# "use" */
 C_SemicolonSym = 8	# ";" */
 #C_loadSym = 9	# "load" */
-C_packageSym = 10	# "package" */
+C_packageSym = 10	# "package" */ TODO should not be cpp keyword
 C_SlashSym = 11	# "/" */
 C_inheritSym = 12	# "inherit" */
 C_LessSym = 13	# "<" */
@@ -107,7 +107,7 @@ C_staticSym = 17	# "static" */
 C_constSym = 18   # "const" */
 C_mySym = 19	# "my" */
 C_externSym = 20	# "extern" */
-C_varSym = 21	# "var" */
+C_autoSym = 21	# "auto" */
 C_boolSym = 22	# "bool" */
 C_shortSym = 23	# "short" */
 C_intSym = 24	# "int" */
@@ -187,15 +187,16 @@ C_inlineSym =                   97  # "inline"
 C_PPPSym =                      98   # "..."
 C_namespaceSym =                99     # "..."
 C_usingSym =                    100    # "using"
-C_finalSym =                    101    # "final"
+C_templateSym =                    101    # "template"
 C_operatorSym =                 102    # "operator"
 C_overrideSym =                 103    # "override"
 C_gotoSym =                     104    # "goto"
 C_unionSym =                     105    # "union"
+C_typenameSym =                   106 # "typename"
 
 #*** insert new sym here ***#   
-C_No_Sym =                      106	# not */
-C_PreProcessorSym =             107	# PreProcessor */
+C_No_Sym =                      107	# not */
+C_PreProcessorSym =             108	# PreProcessor */
 
 C_MAXT = C_No_Sym	# Max Terminals */
 
@@ -235,7 +236,7 @@ SYMS=[
 "const"                     ,
 "my"                         ,
 "extern"               ,
-"var"                        ,
+"auto"                        ,
 "bool"                      ,
 "short"                      ,
 "int"                        ,
@@ -315,11 +316,12 @@ SYMS=[
 "...",
 "namespace",
 "using",
-"final",
+"template",
 "operator",
 "override",
 "goto",
 "union",
+"typename",
 "not"                          ,
 "PreProcessor"         ,
     ]

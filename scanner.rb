@@ -5,7 +5,7 @@ load "log.rb"
 class String
     def to_byte
         # self.bytes[0] # not work for ruby 1.8.7
-        self[0].ord
+        self[0].ord # to Decimal
     end
 end
 COCO_WCHAR_MAX =65535
@@ -281,7 +281,7 @@ end # end Scanner
            MAX_IDENTIFIER_LENGTH = 1000
 class CScanner <  CRScanner
     
-    attr_accessor :currLine, :currCol
+    attr_accessor :currLine, :currCol, :include_stack
    def Scan_NextCh    
        NextCh()
    end
@@ -315,9 +315,20 @@ class CScanner <  CRScanner
     # end
     def initialize( str="",  ignoreCase=true) 
         super(str, ignoreCase)
+        @include_stack = []
     end
 
-    
+    def current_line
+        pos1 = nextSym.pos
+        while pos1-1 >= 0 && buffer[pos1-1] != "\n"
+            pos1 -=1
+        end
+        pos2 = nextSym.pos
+        while buffer[pos2+1] && buffer[pos2+1] != "\n"
+            pos2 +=1
+        end
+        return buffer[pos1..pos2]
+    end
     def set(_str, _ignoreCase, _currSym, _nextSym, _currLine, _currCol, _lineStart, _pos, _ch, _comEols)
         @ch = _ch
         @buffer = _str
@@ -394,10 +405,13 @@ class CScanner <  CRScanner
          
           # if (IgnoreCase) c = Upcase(c)
           case (c) 
+        	when 'a'
+        		
+              return C_autoSym if (EqualStr("auto")) 
           	when 'b'
-          		if (EqualStr("break")) 
-          		    return C_breakSym
-      		    end
+          		
+                return C_breakSym if (EqualStr("break")) 
+                return C_boolSym if (EqualStr("bool")) 
           		#break
           	when 'c'
           		if (EqualStr("class"))
@@ -422,20 +436,29 @@ class CScanner <  CRScanner
           	when 'e'
           		return C_elseSym if (EqualStr("else")) 
           		return C_EnumSym if (EqualStr("enum")) 
+          		return C_externSym if (EqualStr("extern")) 
           		
           		#break
           	when 'f'
-          		return C_functionSym if (EqualStr("function"))  
+#          		return C_functionSym if (EqualStr("function"))  
           		return C_floatSym if (EqualStr("float"))  
+          		#return C_finalSym if (EqualStr("final"))  
           		return C_forSym if (EqualStr("for")) 
           		#break
+            when 'g'
+                return C_gotoSym if EqualStr("goto")
           	when 'i'
           		return C_inheritSym if (EqualStr("inherit")) 
+           		return C_inlineSym if (EqualStr("inline")) 
                 return C_intSym if (EqualStr("int")) 
            		return C_ifSym if (EqualStr("if")) 
+            when 'I'
+                return C_INSym if (EqualStr("IN"))
+                return C_INOUTSym if (EqualStr("INOUT"))  
           		#break
+                
           	when 'l'
-          		return C_loadSym if (EqualStr("load")) 
+          		#return C_loadSym if (EqualStr("load")) 
           		return C_longSym if (EqualStr("long")) 
           		#break
           	when 'm'
@@ -443,10 +466,17 @@ class CScanner <  CRScanner
           		return C_mixedSym if (EqualStr("mixed")) 
           		#break
           	when 'n'
+          		return C_namespaceSym if (EqualStr("namespace")) 
+                
           		return C_newSym if (EqualStr("new")) 
           		#break
+            when 'o'
+                return C_overrideSym if EqualStr("override")
+                return C_operatorSym if EqualStr("operator")
+            when 'O'
+                return C_OUTSym if EqualStr("OUT")
           	when 'p'
-          		return C_packageSym if (EqualStr("package")) 
+          		#return C_packageSym if (EqualStr("package")) 
           		#break
           	when 'r'
           		return C_returnSym if (EqualStr("return")) 
@@ -454,22 +484,25 @@ class CScanner <  CRScanner
           	when 's'
           		return C_staticSym if (EqualStr("static")) 
           		return C_shortSym if (EqualStr("short")) 
-          		return C_stringSym if (EqualStr("string")) 
+          		#return C_stringSym if (EqualStr("string")) 
           		return C_switchSym if (EqualStr("switch")) 
           		return C_StructSym if (EqualStr("struct")) 
           		return C_sizeofSym if (EqualStr("sizeof")) 
           		
           		#break
           	when 't'
+          	    return C_typenameSym if (EqualStr("typename")) 
           	    return C_TypedefSym if (EqualStr("typedef")) 
           		return C_throwSym if (EqualStr("throw")) 
-                
+                return C_templateSym if (EqualStr("template")) 
           	when 'u'
-          		return C_useSym if (EqualStr("use")) 
+                return C_unionSym if EqualStr("union")
+          		return C_usingSym if (EqualStr("using")) 
+          		#return C_useSym if (EqualStr("use")) 
           		return C_unsignedSym if (EqualStr("unsigned")) 
           		#break
           	when 'v'
-          		return C_varSym if (EqualStr("var")) 
+          		#return C_varSym if (EqualStr("var")) 
           		return C_voidSym if (EqualStr("void")) 
           		#break
           	when 'w'
@@ -646,10 +679,11 @@ class CScanner <  CRScanner
     end
 public
     def delete_prevline
+        pos = nextSym.pos
       #  p "-=-->delete_prevline:pos #{@buffPos}, cur line #{@currLine}, ch #{@buffer[@buffPos].inspect}, buffer size #{@buffer.size}, buffer=#{@buffer}", 10
-        return if @buffPos <=0
+        return if pos <=0
         
-        pos = @buffPos
+        
         if pos > @buffer.size-1
             return delete_line(@buffer.size-1)
         end
@@ -673,7 +707,7 @@ public
         end
         p "-=-->pos2:#{pos}"
         pos = 0 if pos < 0
-        old_size = @buffer.size
+       # old_size = @buffer.size
         # p "-=-->pos3:#{pos}, #{@buffer[pos].to_byte}"
         
         delete_line(pos)
@@ -682,6 +716,7 @@ public
     end
     # insert before pos line
     def insert_line(str, pos=nil)
+        __t = Time.now.to_f
         # p "insert line #{str}, pos=#{pos}, @buffPos=#{@buffPos}"
         # pp "insert line #{str}, pos=#{pos}, #{self.inspect}"
         # pp "old buffer before insert:#{@buffer}", 20
@@ -703,6 +738,8 @@ public
         # p "str1:#{str1}"
         @buffer = "#{str1}#{str}#{str2}"
         # p "new buffer after insert:#{@buffer}"
+        p "@@@ insert line cost #{Time.now.to_f - __t}"
+        
     end
     
     
@@ -712,17 +749,31 @@ public
     
     # delete lines where from line pos1 located1 to line pos2 located
     def delete_lines(pos1, pos2, include_last_line=true)
-        #pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
+        __t = Time.now.to_f
+        
+     #   pp "===>delete_lines, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20
         
         replace_start = pos1
-        replace_end = pos2-1
+        replace_end = pos2
        # p "replace_start:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
        # p "replace_end:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
                 
          # to line start
-        while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r")
+         if @buffer[replace_start] == "\n" || @buffer[replace_start] == "\r" 
+             if @buffer[replace_start] == "\r" 
+                 replace_start -=1
+             elsif @buffer[replace_start] == "\n" 
+                 replace_start -=1
+                 replace_start -=1 if @buffer[replace_start] == "\r"
+             end
+         end
+        while (@buffer[replace_start] != "\n" && @buffer[replace_start] != "\r" && replace_start >=0)
             replace_start -=1
         end
+        if @buffer[replace_start] == "\n" || @buffer[replace_start] == "\r"  
+            replace_start +=1 
+        end
+        
        # p "replace_start1:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
        # p "replace_end1:#{replace_end}(#{@buffer[replace_end]})  #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
         
@@ -732,9 +783,9 @@ public
                 replace_end +=1
             end
         else
-            while (@buffer[replace_end] == "\n" || @buffer[replace_end] == "\r")
-                replace_end -=1
-            end
+            #while (@buffer[replace_end] == "\n" || @buffer[replace_end] == "\r")
+            #    replace_end -=1
+            #end1
            # p "replace_start2:#{dump_char(replace_start-2)}|#{dump_char(replace_start-1)}|#{dump_char(replace_start)}|#{dump_char(replace_start+1)}"
            # p "replace_end2:#{replace_end}(#{@buffer[replace_end]}) #{dump_char(replace_end-2)}|#{dump_char(replace_end-1)}|#{dump_char(replace_end)}|#{dump_char(replace_end+1)}"
             
@@ -747,7 +798,7 @@ public
         end
         
 
-       # p "replace_start=#{replace_start}, replace_end=#{replace_end}, buffPos=#{@buffPos}"
+        p "replace_start=#{replace_start}, #{buffer[replace_start..replace_start+10]}, replace_end=#{replace_end}, ,#{buffer[replace_end..replace_end+10]}, buffPos=#{@buffPos}"
         
         if replace_end > replace_start       
         
@@ -758,61 +809,69 @@ public
                 i = 0 if i < 0
                 while (i < @buffPos)
                     i +=1
-                    line_count_before_pos += 1 if cch() == "\n"
+                    line_count_before_pos += 1 if buffer[i] == "\n"
                 end
             end
-            line_count=0
-            i = replace_start
-            i = 0 if i < 0
-            while (i < replace_end)
-                i +=1
-                line_count += 1 if cch() == "\n"
-            end
+
+            replaced = @buffer[replace_start..replace_end]
+            line_count = replaced.count("\n")
         
-        
-        
+            p "replace_start=#{replace_start} #{@buffer[replace_start..replace_start+10]}, replace_end=#{replace_end}, #{@buffer[replace_end..replace_end+10]}, buffPos=#{@buffPos}"
+            p "line count:#{line_count}"
             str1 = ""
-            if replace_start >= 0 
-                str1 = @buffer[0..replace_start]
+                    
+            if replace_start > 0 
+                str1 = @buffer[0..replace_start-1]
             end
             old_buffer_size = @buffer.size
+            deleted_content = @buffer[replace_start..replace_end]
             @buffer = "#{str1}#{@buffer[replace_end+1..@buffer.size-1]}"
+            size_diff = @buffer.size - old_buffer_size
+            @nextSym.pos += size_diff if @nextSym.pos > replace_end
+            @currSym.pos += size_diff if @currSym.pos > replace_end
+           # p "buffer:#{@buffer}"
             # if include_last_line
             #     @buffPos = replace_start
             # else
             #     @buffPos -= (old_buffer_size - @buffer.size )
             # end
-            p "==>789L:#{@buffPos}, size change #{old_buffer_size-@buffer.size}"
+            p "==>789L:line #{@currLine}, #{@buffPos}, size change #{old_buffer_size-@buffer.size}"
              if @buffPos >= replace_end
-                  @buffPos -= (old_buffer_size - @buffer.size )+1
+                  @buffPos -= (old_buffer_size - @buffer.size )
                   @currLine -= line_count
                   @lineStart -= (old_buffer_size-@buffer.size)
-                   p "==>7892L:#{@buffPos}"
-                  Reset(@buffPos, @currLine, @lineStart, @currCol)
-                  p "==>7893L:#{@buffPos}"
+                 #  p "==>7892L:#{@buffPos}, #{@currLine}"
+                  #Reset(@buffPos, @currLine, @lineStart, @currCol)
+                 # p "==>7893L:#{@buffPos}"
              elsif @buffPos > replace_start# &&  @buffPos <replace_end
                  # adjust buffPos
                 if replace_start < 0
                     @buffPos = -1
-                else
-                    @buffPos = replace_start
+                else                    
+                    @buffPos = replace_start-1 # -1 because will scann_nextch()
                 end
                 # adjust currLine, lineStart
                 if @buffPos >= replace_end
                     @currLine -= line_count
-                    @lineStart -= (old_buffer_size-@buffer.size)
+                    @lineStart += size_diff
                 else
                     @currCol = 0
                     @currLine -= line_count_before_pos
                 end
-                Reset(@buffPos, @currLine, @lineStart, @currCol)
+              #  Reset(@buffPos, @currLine, @lineStart, @currCol)
+                 
+              Scan_NextCh()
+                 
             end
         end
         
         
         # pp "===>delete_lines2, pos=#{pos1},#{pos2}, @buffPo=#{@buffPos}, buffer=#{@buffer}", 20 
-        
-        return [replace_start, replace_end] # replace_start not replaced, replace_end replaced
+        p "@@@ delete lines#{line_count}/#{size_diff} cost #{Time.now.to_f - __t}", 5
+      #  p "buffer(#{@buffer.size}):#{@buffer}"
+      #  p "deleted:#{deleted_content}"
+      #  p "buffPos:#{buffPos}, #{nextSym.inspect}"
+        return [replace_start, replace_end] 
     end
     
     def dump_char(pos=@buffPos)
@@ -826,7 +885,9 @@ public
     end
     
     def delete_in_line(from, to) # delete content from pos(from) to pos(to)(not include to)
-        p ("delete:#{from}, #{to}, #{@buffPos}")
+        __t = Time.now.to_f
+        
+        p ("delete_in_line:from #{from}(#{buffer[from..from+5]}), #{to}(#{buffer[to..to+5]}), #{@buffPos}"), 10
         replace_start = from 
          replace_end = to
          
@@ -835,7 +896,7 @@ public
              str1 = @buffer[0..replace_start-1]
          end
          old_size = @buffer.size   
-         str = str1+" "+@buffer[replace_end..@buffer.size-1] # insert one space to make it safe
+         str = str1+@buffer[replace_end..@buffer.size-1]
           @buffer=str
           if @buffPos > replace_start# &&  @buffPos <replace_end
               if replace_start < 0
@@ -848,10 +909,21 @@ public
           
           @ch = CurrentCh(@buffPos)
           p "pos after deleteinline:#{@buffPos}"
+         # p "after delete_in_line:#{@buffer}"
          # p "buffer  after deleteinline:#{@buffer}", 10
+         p "@@@ delete in line cost #{Time.now.to_f - __t}"
+         
     end
     def delete_line(pos=nil)
-        pos = @buffPos if pos == nil
+        __t = Time.now.to_f
+        p "replace_start333:#{nextSym.inspect}, pos=#{pos}, #{GetSymValue(nextSym)}"
+        
+        pos = nextSym.pos if pos == nil
+        if pos >= @buffer.size
+            pos -=1
+        end
+        return if pos >= @buffer.size || pos < 0 || pos == nil
+       # p "===>delete_line, #{@buffer[pos..pos+20].inspect}, @buffPos=#{@buffPos}, #{@buffer}", 10
         
      #   pp "===>delete_line, pos=#{pos}, ch=#{@buffer[pos].inspect}, @buffPos=#{@buffPos}, buffer=#{@buffer}", 20
         
@@ -859,6 +931,8 @@ public
         replace_start = pos 
         replace_start = 0 if replace_start < 0
         replace_end = pos
+      #  p "replace_start333:#{replace_start}, #{replace_end}, #{@buffer[replace_start].to_byte if @buffer[replace_start]},#{@buffer.size}, #{@buffer}"
+        
         #if @buffer[replace_start] == nil
         #    replace_start -=1
         #end
@@ -924,11 +998,12 @@ public
         # p "str2=#{@buffer[replace_end..@buffer.size-1]}"    
         old_size = @buffer.size   
         str = str1+@buffer[replace_end..@buffer.size-1]
-        # p "buffer1:#{@buffer}"
-        
+     #   p "buffer1:#{@buffer}"
+       # p "replace_start:#{replace_start}, #{replace_end}, #{@buffer[replace_start].to_byte}"
+         @currLine -= @buffer[replace_start+1..replace_end-1].count("\n")
         @buffer=str
         # p "buffer2:#{@buffer}"
-        
+       
         if @buffPos > replace_start# &&  @buffPos <replace_end
             if replace_start < 0
                 @buffPos = -1
@@ -936,7 +1011,7 @@ public
                 @buffPos = replace_start
             end
             if @buffPos >= replace_end
-                @currLine = @currLine-1
+               # @currLine = @currLine-1
                 @lineStart -= (old_size-@buffer.size)
             end
             if @buffPos < replace_end
@@ -950,10 +1025,19 @@ public
         # p "buffer4(size=#{@buffer.size}):#{@buffer[0..431]}\n=========\n#{@buffer[432..552]}"
         
         # p "===>delete_line1:pos=#{@buffPos}, ch=#{@ch}, #{@buffer[@buffPos..@buffPos+10]},buffer:#{@buffer}"
-    #     p "pos:#{@buffPos}, #{@ch}, buffer:#{@buffer}"
+       # p "pos:#{@buffPos}, #{@ch}, buffer:#{@buffer}"
+       p "@@@ delete line cost #{Time.now.to_f - __t}"
         
     end
+    
+    def fix_ch
+        @ch = CurrentCh(@buffPos)
+    end
     def include_file(fname, dir=nil)
+        __t = Time.now.to_f
+        
+        p("->->include file #{fname}", 10   )
+        
         ret = true
         dirs = nil
         if $g_options
@@ -961,7 +1045,7 @@ public
             dirs = $g_search_dirs.clone    
         end
         dirs = [] if !dirs
-        dirs.push(dir) if !dir
+        dirs.push(dir) if dir
         path = find_file(fname, dirs)
         c = read_file(path) if path
       #  p "read file #{path}, return #{c}"
@@ -969,14 +1053,35 @@ public
         #     delete_curline
         #     return false
         # end
+        p "=>include_stack:#{@include_stack.inspect}"
         
         if c == nil
-           c = "// include file #{fname} failed\n"
+           c = "// include file #{fname} failed from file #{@include_stack.last}\n"
            ret = false
+           append_file("err", c)
         else
-           c = "// included from file #{fname}\n#{c}\n // end include file #{fname}\n"   
+         
+              #begin
+              #  c.encode("utf-8")
+              # # "UTF-8"
+              #rescue
+              #  #"ISO-8859-1"
+              #  p "--->encoding not utf-8"
+              #  c = c.force_encoding('iso-8859-1').encode('utf-8')
+              #end
+              if ! c.valid_encoding?
+                c = c.encode("UTF-16be", :invalid=>:replace, :replace=>"?").encode('UTF-8')
+              end
+           c = "// included file #{path} from file #{@include_stack.last} \n#{c}\n // end include file #{path}\n#includestackpop #{path}\n"   # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method Get()
+           @include_stack.push(path)
+           indent = ""
+           for i in 1..@include_stack.size
+               indent += "----"
+           end
+           append_file("included_files", "#{indent}>#{path}\n")
         end
         # p "===>432q42#{@buffer[@buffPos..@buffer.size-1]}"
+        p "before includefile #{fname}:#{@buffPos}, #{@buffer[@buffPos..@buffPos+20]}"
         replace_start = @buffPos-1
        
         # replace_end = @buffPos
@@ -1012,11 +1117,14 @@ public
         end
          Scan_NextCh()
          # p "3325:#{@ch}"
+         p "after includefile #{fname}:#{@buffPos}, #{@buffer[@buffPos..@buffPos+20]}"
          
         # p "new buffer after include: #{@buffer[@buffPos..@buffer.size-1]}"
         
         # p "new buffer after include :#{@buffer}"
         # p "pos1:#{@buffPos}, #{@buffer[@buffPos..@buffPos+30]}"
+        p "@@@ include file cost #{Time.now.to_f - __t}"
+        
         return ret
     end
     # # get next next sym
@@ -1028,11 +1136,65 @@ public
     #  end
     # get next sym
     
+    # should'nt do this in a cycle like #ifdef #if
+    def save_part(fname)
+        @saved_line = 0 if !@save_line
+        pos = @buffPos
+        p "save_part1:#{pos}, #{currLine}, #{@saved_line}"
+        while pos>=0 && @buffer[pos] != "\n"
+            pos -=1
+        end
+        for i in 0..5
+            if pos >= 0
+                pos -= 1 if @buffer[pos] == "\n"
+                while pos>=0 && @buffer[pos] != "\n"
+                    pos -=1
+                end 
+            end
+        end
+        pos = 0 if pos < 0
+        # now pos will be \n 
+        p "save_part:#{pos}"
+        content = @buffer[0..pos]
+        #p "content:#{content}"
+        append_file(fname, content)
+        lineLost = content.count("\n")
+        p "save line #{lineLost}"
+        
+        @saved_line += lineLost
+        @buffer = @buffer[pos+1..@buffer.size-1]
+        sizeDiff = pos+1
+        @buffPos -= sizeDiff
+      #  @currLine = @buffer[0..@buffPos].count("\n")+1
+        @nextSym.pos -=sizeDiff
+        @nextSym.line -= lineLost
+        @currSym.pos -= sizeDiff
+        @currSym.line -= lineLost
+        
+        return lineLost
+        
+    end
+    
+    def remain_enough_line?(n)
+        #p "=>remain_enough_line?"
+        pos = @buffPos
+        i = 0
+        while i <= n && pos < @buffer.size-1
+           while @buffer[pos] != "\n" && pos < @buffer.size-1
+               pos += 1
+           end
+           i +=1 if @buffer[pos] == "\n"
+           pos +=1 
+        end
+        return i > n
+    end
 
     def Get(ignore_crlf=true)
         # int state, ctx
-     p "pos:#{@buffPos}, ch #{cch()}, @ch #{@ch}"
-        
+    # p "pos:#{@buffPos}, line #{@currLine}, ch #{cch()}, @ch #{@ch}"
+     #    @ch = @buffer[buffPos]
+   #  p "pos:#{@buffPos}, line #{@currLine}, ch #{cch()}, @ch #{@ch}"
+         
         return C_EOF_Sym if @ch == nil
         
          # filter white space and comments
@@ -1083,11 +1245,31 @@ public
            #   p "--->111ch:#{@ch[0].ord}=#{ch[0]}, #{state}=#{state}", 10
             while(1) 
                 # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
+              
               Scan_NextCh()
               # p "ch:#{@ch}, #{@buffer[nextSym.pos+nextSym.len]}, stat #{state}"
               nextSym.len+=1
           #    p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
-              
+
+                if state == 33 &&  (@ch == ' ' || @ch.to_byte == 9) # is '#', support "#   define"
+                    p "bufpos:#{buffPos}"
+                    del_start = @buffPos
+                    while (@ch == ' ' || @ch.to_byte == 9)
+                        Scan_NextCh()
+                        nextSym.len+=1
+                    end
+                    del_end = @buffPos -1
+                    str1 = @buffer[0..del_start - 1]
+                    str2 = @buffer[del_end + 1..@buffer.size-1]
+                 #   p ("#{del_start}, #{del_end}, #{@buffPos}, #{str1}, #{str2}")
+                    
+                    @buffer = str1 + str2
+                    delnum = del_end- del_start+1
+                    @buffPos -= delnum
+                    @currCol -= delnum
+                    nextSym.len -= delnum
+                  #  p "after delete333:#{@buffer}"
+                end
               case (state) 
            
               when 1
@@ -1219,10 +1401,10 @@ public
               	return C_hexnumberSym
               when 24
                 # p "->111:#{@ch}"
-              	if (@ch == '"')  # if meet second ", then it's string
+              	if (@ch == '"' )  # if meet second ", then it's string
               	    state = 25
                     # p "->1111:#{@ch}"
-          	    elsif @ch == "\\"
+          	    elsif @ch == "\\" # using \ for multi lines string
                     Scan_NextCh()
                     if @ch == "\n"
                         nextSym.len+=1
@@ -1310,7 +1492,7 @@ public
                 else
                     return C_PreProcessorSym
                 end
-              when 35
+              when 35 # number with post: 100L, 100u
               	if (@ch == 'U') 
                     # state = 5
                     Scan_NextCh()
@@ -1496,7 +1678,11 @@ public
               when 66
               	return C_MinusMinusSym
               when 67
-              	return C_PointSym
+                 if (@ch == '.') 
+                    state = 85
+                else
+                    return C_PointSym
+                end
               when 68
               	return C_MinusGreaterSym
               when 69
@@ -1529,14 +1715,44 @@ public
               	return C_TildeSym
               when 83
                   return C_QuestionMarkSym 
-              when 84 #parse L"fdasf"
-                  if (@ch == '"') 
+              when 84 # parse L"fdasf", which means store every char in 16bit wchar_t, it's only for windows. so we just use normal string
+                  if (@ch == '"' || @ch == "'" ) 
                       nextSym.pos+=1
                       nextSym.len-=1
-                	    state = 24
-            	    else
+                      
+                	  state = 24 if @ch == '"'
+                      state = 87 if @ch == "'"
+            	  else
             	        state = 1
-        	        end
+        	      end
+              when 85
+                 if @ch == '.'
+                     state = 86
+                 end
+             when 86
+                    return C_PPPSym
+                when 87
+                    # p "->111:#{@ch}"
+                  	if ( @ch == "'")  # if meet second ', then it's string,
+                  	    state = 25
+                        # p "->1111:#{@ch}"
+              	    elsif @ch == "\\" # using \ for multi lines string
+                        Scan_NextCh()
+                        if @ch == "\n"
+                            nextSym.len+=1
+                        else
+                            nextSym.len+=1
+                        end
+                        # p "->112:#{@ch}"
+                  	elsif (@ch >= ' ' && @ch <= '!' ||
+                  	    @ch >= '#' && @ch.to_byte <= 255) 
+                        # p "->113:#{@ch}"
+          	        
+                  	   # same state
+                  	else
+                        # temperary solution for Chinese string
+                  	    #return C_No_Sym
+                  	end
               else
                    return C_No_Sym
              end #case

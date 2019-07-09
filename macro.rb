@@ -3,12 +3,25 @@ load "cp.rb"
 
 # hide_p_in_file(__FILE__)
 class Preprocessor < Parser
+    attr_accessor :ifstack
  
     def Preprocess(include_predined_file = true)
+        if $g_cur_parse_file
+            @file_save = "pre.part.#{$g_cur_parse_file.split("/").last}.#{Time.now.to_i}" 
+        else
+            @file_save = "pre.#{Time.now.to_i}" 
+        end
+        @in_preprocessing = true
+        @ifstack = []
+        @ifstack_before_inc = []
+        @saved_line = 0
+        @count = 0
+              
          if include_predined_file 
              include_file("c_macros.c") # predefined macros
          end
-         @in_preprocessing = true
+
+         
          Get()
          p "sym3333:#{@sym}"
          # _preprocess(false)
@@ -17,7 +30,10 @@ class Preprocessor < Parser
          # @scanner.Reset()
          # ret = expand_macro(@scanner.buffer)
          # p "after expand_macro: #{ret}"
-         return @scanner.buffer
+         p "after preprocess:line #{@scanner.currLine}"
+         s = read_file(@file_save)
+         s = "" if !s
+         return s+ @scanner.buffer
      end
      # def _preprocess(stop_on_unkown_directive = true)
      #        while (@sym!=C_EOF_Sym)
@@ -41,9 +57,25 @@ class Preprocessor < Parser
          @macros = {} if @macros == nil
          @macros[n] = v
      end
-     
+     def push_ifstack
+         cl = @scanner.current_line
+         @ifstack.push(cl)
+         indent = ""
+         for i in 1..@ifstack.size
+             indent += "---+"
+         end
+         append_file("ifstack", "#{indent}>#{cl}\n")
+     end
+     def pop_ifstack
+         cl = @ifstack.pop
+         indent = ""
+         for i in 1..@ifstack.size+1
+             indent += "---+"
+         end
+         append_file("ifstack", "#{indent}<#{cl}\n")
+     end
      # process every directive
-     def preprocess_directive()
+     def preprocess_directive(doprepro)
 =begin        
            _str1 = curString()
            # pp "preprocessor: #{@sym}, #{_str1}", 20
@@ -52,14 +84,39 @@ class Preprocessor < Parser
            @directive = "#{_str1}#{_str2}"
 =end          
            p "preprocess_directive0 #{@directive}, line=#{@scanner.currLine}", 10
-           if  @directive == "\#include"
+           if @scanner.currLine == 54 && @directive == "\#include"
+             #  p "==>preprocess_directive9:#{@scanner.buffer}"
+           end
+           if @directive == "\#includestackpop"  # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method scanner::Get()
+               p "pop stack"
+
+               path = @scanner.include_stack.pop
+               if @ifstack_before_inc.last != @ifstack.last
+                   p "#{@ifstack_before_inc.last}!=#{@ifstack.last}"
+                   throw "---->ifstack cross included file #{path}, error <------"
+               end
+               @ifstack_before_inc.pop
+               indent = ""
+               for i in 1..@scanner.include_stack.size+1
+                   indent += "----"
+               end
+               append_file("included_files", "#{indent}<#{path}\n")
+        #       p "before delete line:#{@scanner.buffer}"
+               # p "-->111#{skip_curline}"
+               #p "--->113#{delete_prevline}"
+               delete_curline
+          #     p "after line2:#{@scanner.buffer}"
+               @directive = nil
+           elsif  @directive == "\#include"
                p "====>preprocess_directive1"
                Get()
                if (@sym == 4) # string
                    finclude = curString()
+                    #p "==>preprocess_directive91:#{@scanner.buffer}"
+                   p "fclude111:#{finclude}"
+                   
                    p "@sym=#{@sym}"
                    p "current sym:#{@scanner.currSym.sym}"
-                   p "fclude:#{finclude}"
                    if finclude[0]=="\"" || finclude[0] =="\'"
                          finclude = finclude[1..finclude.size-1]
                    end
@@ -67,10 +124,13 @@ class Preprocessor < Parser
                          finclude = finclude[0..finclude.size-2]
                    end
                else # @sym should be 13 # <
+                   p("sym:#{@sym}, #{curString}")
+                  # p "==>:#{@scanner.buffer}"
                     Get()
+                    p "sym33=#{@sym}, #{curString()}"
                     finclude = ""
                     
-                    while (@sym != 58)
+                    while @sym != C_GreaterSym #&& (@sym == C_PointSym || @sym == C_identifierSym || @sym == C_SlashSym ) # ">"
                         finclude += curString()
                         Get()
                     end
@@ -81,32 +141,68 @@ class Preprocessor < Parser
                p "-->include file #{finclude}"
                #p self.inspect
                #p @scanner.inspect
-               include_file(finclude)  
+             if doprepro
+                 ri = include_file(finclude)
+                 @ifstack_before_inc.push(@ifstack.last) if ri
+             end
+               @directive = nil
          elsif @directive == "\#define" 
              p "====>preprocess_directive2"
             
-            pre_define()
+            pre_define(doprepro)
+            @directive = nil
+            
             
          elsif @directive == "\#ifdef"
              p "====>preprocess_directive3"
-            
-             pre_ifdef()
+             push_ifstack
+             
+             pre_ifdef(doprepro)
+             expect("\#endif")
+             
+             pop_ifstack       
+                   
          elsif @directive == "\#ifndef"
              p "====>preprocess_directive4"
-            
-             pre_ifndef()
+             push_ifstack
+             
+             pre_ifndef(doprepro)
+             expect("\#endif")
+             
+             pop_ifstack             
+
          elsif @directive == "\#if"
              p "====>preprocess_directive5"
+             push_ifstack
             
-             pre_if()
+             pre_if(doprepro)
+             expect("\#endif")
+             
+             pop_ifstack             
+
+         elsif @directive == "\#undef"
+             Get()
+             p "undefine #{curString}"
+             @macros.delete(curString())
+             delete_curline
+             @directive = nil
+             
          else
                 # @scanner.delete_curline
                 # if !["#else", "#endif", "elif"].include?(@directive)
                     # @scanner.skip_curline
-                 skip_curline
+                    p "before skip_curline:#{@scanner.buffPos}, #{@scanner.buffer[@scanner.buffPos-5..@scanner.buffPos+15]}", 10
+                    
+                @scanner.skip_curline(true)
+                #delete_curline()
+                 p "after skip_curline:#{@scanner.buffPos}, #{@scanner.buffer[@scanner.buffPos-5..@scanner.buffPos+15]}", 10
+                #  Get()
+               #  p "get:#{@scanner.nextSym.inspect}, #{@scanner.ch} #{curString}"
+               #  p "buffer:#{@scanner.buffer}"
+                
                  
                 # end
-                return @directive
+                @directive = nil
          end
          # p "after process directive #{@directive}:#{@scanner.buffer}"
          return nil
@@ -114,26 +210,53 @@ class Preprocessor < Parser
      def ifdefined?(n)
          return @macros[n] != nil
      end
-     def pre_define()
+     def pre_define(doprepro)
                Get(false)
                # Expect(C_identifierSym)
                p "c0000=#{@sym}, #{curString()}, line #{@scanner.currLine}, ch=#{@scanner.cch.to_byte}"
+               start_pos = @scanner.buffPos
                n = curString()
+               p "--->pre_define:#{n}, #{@scanner.buffer[@scanner.buffPos].to_byte}@#{@scanner.buffer[@scanner.buffPos]}"
+               args =[]
+               v = ""
+               hasArg = false
+               ch = @scanner.buffer[@scanner.buffPos] 
+               if (ch.to_byte >= 9 && # TAB
+                   ch.to_byte <= 10 || # LF
+                   ch.to_byte == 13 || # CR
+                   ch == ' ')
+                 #  p "==>define51:#{n}:before skip_curline, #{@scanner.currLine}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}, buffer:#{@scanner.buffer}"
+                   
+                   v = @scanner.skip_curline(true)
+                  # p "==>define51:#{n}:after skip_curline, #{@scanner.currLine}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+                   
+               else
                Get(false)
                   # n = prevString()
-                  args =[]
-                  v = ""
+                  vargs = false
+                  
                   p "c1111=#{@sym}, #{curString()}, line #{curLine}"
                   if @sym == C_CRLF_Sym
                       @scanner.skip_curline(true)
                   elsif (@sym == C_LparenSym)
+                      hasArg = true
                       Get()
-                      Expect(C_identifierSym)
-                      args.push(prevString())
-                      while (@sym == C_CommaSym)
-                          Get()
-                          Expect(C_identifierSym)
-                          args.push(prevString())
+                      if @sym == C_RparenSym
+                          #Get()
+                          p("===>pre_define3:#{@sym},#{curString}")
+                      else
+                          if (@sym == C_identifierSym)
+                              Expect(C_identifierSym)
+                              args.push(prevString())
+                              while (@sym == C_CommaSym)
+                                  Get()
+                                  Expect(C_identifierSym)
+                                  args.push(prevString())
+                              end
+                          elsif @sym == C_PPPSym
+                              vargs = true
+                              Get()
+                          end
                       end
                       #Expect(C_RparenSym)
                       v = @scanner.skip_curline(true)
@@ -141,7 +264,9 @@ class Preprocessor < Parser
                       v = @scanner.skip_curline(true, @scanner.nextSym.pos)
                   end
            
-                  
+              end
+              p "macro #{n} defined in line #{@scanner.currLine}"
+              
                   # while @sym < C_No_Sym && @sym != C_EOF_Sym
                   #       c = curString()
                   #      if @sym ==C_identifierSym
@@ -162,21 +287,95 @@ class Preprocessor < Parser
                   # v = curString()+@scanner.skip_curline(true)
                   
                   p "==>define:#{n}==#{v}, pos=#{@scanner.buffPos}", 10
-                  delete_prevline
+                  #delete_prevline
                   # p "pre_define1:pos=#{@scanner.buffPos}, buffer #{@scanner.buffer}, sym:#{@sym}"  
-
-                  v=v.gsub(/(\w[\w\d_]*)/){|m|
-                     p m.inspect
-                     count = args.index(m)
-                     if count
-                         "%<#{count}>%"
-                     else
-                         m
-                     end
-                   }
+                       # p "before line1:#{@scanner.buffer}"
+                      # p "before line1:buffPos:#{@scanner.buffPos},#{@scanner.buffer[@scanner.buffPos]}, #{@scanner.ch},#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+2]} "
+                        pos2 = @scanner.buffPos
+                     #   p "delete lines #{start_pos} #{@scanner.buffer[start_pos..start_pos+5]}, #{pos2} #{@scanner.buffer[pos2..pos2+5]}"
+                        delete_lines(start_pos, pos2, false)
+                       #  p "after line2:#{@scanner.buffer}" 
+            #  p "==>define5:#{n}:after delete_lines, #{@scanner.currLine}, #{@scanner.ch}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+                    if !vargs # not vararg
+                      v=v.gsub(/(\w[\w\d_]*)/){|m|
+                         p m.inspect
+                         count = args.index(m)
+                         if count
+                             "%<#{count}>%"
+                         else
+                             m
+                         end
+                       }
+                       v = v.strip
+                   end
+                   
                    p "n=#{n}"
                    p "v=#{v}"
-                   add_macro(n, v)
+                   add_macro(n, {
+                       :v=>v,
+                       :hasArg=>hasArg
+                   }) if doprepro
+     end
+     
+     def ActualParameters()
+         debug "==>ActualParameters:#{@sym}, line #{curLine}, val #{curString()}"
+         ret = ""
+         args=[]
+     # line 2661 "cs.atg"
+
+    	
+
+     # line 2668 "cs.atg"
+     
+     lp = 1
+     
+     r = ""
+     while (@sym != C_CommaSym )
+         if @sym == C_RparenSym
+             lp -= 1
+             if lp == 0
+                 break
+             end
+         elsif @sym == C_LparenSym
+             lp += 1
+         end
+         r += curString()
+         
+         Get()
+         
+     end
+     
+     args.push(r)
+     ret += r
+        
+       
+     	p "ret:#{ret}"
+        if lp >0
+         	while (@sym  == C_CommaSym) 
+         		ret += ","
+    		
+         		Get()
+                r = ""
+                while (@sym != C_CommaSym )
+                    if @sym == C_RparenSym
+                        lp -= 1
+                        if lp == 0
+                            break
+                        end
+                    elsif @sym == C_LparenSym
+                        lp += 1
+                    end
+                    r += curString()
+         
+                    Get()
+                end
+                args.push(r)
+                ret += r
+     	    end
+        end
+ 	    debug "==>ActualParameters1:#{@sym}, line #{curLine}, val #{curString()}, ret=#{ret}"
+     # line 2776 "cs.atg"
+         return [ret, args]
      end
      # def preprocess_directive()
      # 
@@ -196,7 +395,8 @@ class Preprocessor < Parser
      #         end
      #         return nil
      #     end
-     
+
+=begin    
      # line 2597 "cs.atg"
      def FunctionCall()
          pp "functioncall()",20
@@ -874,6 +1074,7 @@ class Preprocessor < Parser
     	p "==>PostFixExp1:#{ret}"
     	return ret
     end
+=begin
     # line 1538 "cs.atg"
     def UnaryExp()
       ret = ""
@@ -1026,7 +1227,7 @@ class Preprocessor < Parser
 	    end
 	    return ret
     end
-    def STLType()
+    def STLType1()
        ret = "<"
             Get()
             ret +=FormalParamList()
@@ -1034,7 +1235,7 @@ class Preprocessor < Parser
         ret += ">"
         return 
     end
-     def Type()
+     def Type1()
         pdebug("---->type:#{@sym}")
         ret = ""
 
@@ -1223,6 +1424,8 @@ class Preprocessor < Parser
         return "(#{ret})#{const}"
  
     end
+
+
     # line 2327 "cs.atg"
     def Primary()
       p "=====>Primary:#{@sym}, #{curString()}"
@@ -1245,11 +1448,18 @@ class Preprocessor < Parser
                       # line 2353 "cs.atg"
 
                     ret += "::#{curString()}"
-                      	Expect(C_identifierSym)
+                      	#Expect(C_identifierSym)
+                    Get()
+                    if @sym == C_LessSym
+                        filterTemplate()
                     end
+                  end
           	    else
     		    	
     			        ret += varname
+                        if @sym == C_LessSym
+                            filterTemplate()
+                        end
     			    
     		    end
     # line 2335 "cs.atg"
@@ -1339,15 +1549,18 @@ class Preprocessor < Parser
 
       return ret
     end
-    def pre_ifdef(ifndef=false)
+=end
+    def pre_ifdef(doprepro, ifndef=false)
          Get()
          n = curString()
-    #      p "pre_ifdef before delete:n=#{n}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}", 10
+       #  p "===>pre_ifdef0: #{n}, #{doprepro}, #{ifndef}", 10
+         
+         #p "pre_ifdef before delete:n=#{n}, line #{@scanner.currLine},  pos #{@scanner.buffPos}, buffer #{@scanner.buffer}", 10
          delete_curline  # delele line #ifdef
-     #    p "pre_ifdef after delete:pos #{@scanner.buffPos}, buffer #{@scanner.buffer}"
+         #p "pre_ifdef after delete: line #{@scanner.currLine}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}"
          
          idf = ifdefined?(n)
-         pp "idf=#{idf}, @sym=#{@sym}",20
+       #  pp "===>pre_ifdef2: idf=#{idf}, @sym=#{@sym}",20
           if ifndef
               idf = !idf
           end
@@ -1355,17 +1568,21 @@ class Preprocessor < Parser
          pos1 = @scanner.buffPos
          Get()
          @directive=_preprocess(["#else", "#endif", "#elif"], idf)
-         p "pre_ifdef: directive=#{@directive}"
+         p "pre_ifdef: directive=#{@directive}, n=#{n}"
          
-         pos2 = @scanner.buffPos
+         #pos2 = @scanner.buffPos
          # p "pos:#{@scanner.buffPos}"
-         
-         p "pre_ifdef1:pos:#{@scanner.buffPos}, #{@sym}, #{curString()}, #{@scanner.dump_char}"
+         pos2 = @scanner.nextSym.pos
+      #   p "pre_ifdef1:pos:#{@scanner.buffPos}, #{@sym}, #{curString()}, #{@scanner.dump_char}"
  # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}"
          # p "===>113:#{@scanner.buffer}"
          # p "===>114:pos1:#{pos1}, pos2 #{pos2}, pos #{@scanner.buffPos}, buffer=#{@scanner.buffer}, #{@scanner.buffer[@scanner.buffPos].inspect}"
-         if !idf
-             delete_lines(pos1, pos2, false) # delete whole block (...)#else
+         if !idf || !doprepro
+             buf = @scanner.buffer
+             #p "==>pre_ifdef3:before delete_lines, line #{@scanner.currLine}, #{buf[pos1..pos1+6]}, #{buf[pos2..pos2+6]}, buffer:#{buf}"
+             delete_lines(pos1, pos2, false) # delete whole block (...) not include #else
+             #p "==>pre_ifdef3:after delete_lines, line #{@scanner.currLine}, #{buf[pos1..pos1+6]}, #{buf[pos2..pos2+6]}, buffer:#{@scanner.buffer}"
+    
              # p "===>115:pos #{@scanner.buffPos}, buffer=#{@scanner.buffer}"
          else
              # delete_curline # only delete #preprocess line
@@ -1380,67 +1597,101 @@ class Preprocessor < Parser
         
         # Get()
         
-        pre_elif(idf)
-        pre_else(idf)
-        pre_endif(idf)
+        if doprepro && idf
+            doprepro = true
+        end
+        while @directive == "\#elif"
+            idf2 = pre_elif(doprepro) # only when doprepor == true and condition is true then will return true
+            if idf2 && doprepro
+                doprepro = false # if current one fufill, ignore remaining
+            end
+        end
+ 
+        pre_else(doprepro, !idf)
+        pre_endif(doprepro, idf)
        
     end
-    def pre_elif(idf)
-        while @directive == "\#elif"
-            # Get()
-            Get()
-             n1 = curString()
-             # p "==>112:#{n1}, #{@scanner.buffPos}"
-             delete_curline
-             pos11 = @scanner.buffPos
-             Get()
-             @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
-             p "directive=#{@directive}", 10
-             
-             pos22 = @scanner.buffPos
-             if !idf
-                if is_number?(n1)
-                    idf = n1.to_i != 0
-                else
-                    idf = ifdefined?(n1) && @macros[n1].to_i !=0
-                end
-                # p "==>111:#{n1}, #{idf}"
-                if !idf
-                    delete_lines(pos11, pos22, false)
-                end
-            else
-                delete_lines(pos11, pos22, false)
-            end
-         
-        end
+    #def pre_elif(idf)
+    #    while @directive == "\#elif"
+    #        # Get()
+    #        Get()
+    #         n1 = curString()
+    #         # p "==>112:#{n1}, #{@scanner.buffPos}"
+    #         delete_curline
+    #         pos11 = @scanner.buffPos
+    #         Get()
+    #         @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
+    #         p "directive=#{@directive}", 10
+    #         
+    #         pos22 = @scanner.buffPos
+    #         if !idf
+    #            if is_number?(n1)
+    #                idf = n1.to_i != 0
+    #            else
+    #                idf = ifdefined?(n1) && @macros[n1].to_i !=0
+    #            end
+    #            # p "==>111:#{n1}, #{idf}"
+    #            if !idf
+    #                delete_lines(pos11, pos22, false)
+    #            end
+    #        else
+    #            delete_lines(pos11, pos22, false)
+    #        end
+    #     
+    #    end
+    #end
+    def pre_elif(doprepro)
+        p "===>pre_elif1:#{doprepro}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+20]}"
+        
+        idf = _pre_if()
+        p "===>pre_elif3:#{doprepro}, #{idf}"
+         @scanner.delete_curline
+      #   p "===>pre_elif4:after delete curline:#{@scanner.buffer}"
+         pos1 = @scanner.buffPos
+         @directive=_preprocess(["#else", "#endif", "#elif"], idf)
+         #pos2 = @scanner.buffPos
+     
+         pos2 = @scanner.nextSym.pos
+  
+         if !idf || !doprepro
+             @scanner.delete_lines(pos1, pos2, false) # delete whole block
+         end  
+         return idf
     end
-    def pre_else(idf)
+    def pre_else(doprepro, idf)
+    #    p "===>pre_else0:#{idf}, #{doprepro}", 10
         if @directive == "\#else"
-            # p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}, #{@scanner.dump_char}"
+           #  p "111=>#{@scanner.buffer}, pos #{@scanner.buffPos}, #{@scanner.dump_char}"
             # delete_prevline # delete #else line
+            #p "1113=>#{@scanner.currLine}, #{@scanner.buffer}"
             delete_curline
-            # p "112=>#{@scanner.buffer}, pos #{@scanner.buffPos}, idf=#{idf}"
+            #p "112=>#{@scanner.currLine}, #{@scanner.buffer}, pos #{@scanner.buffPos}, idf=#{idf}, #{@scanner.currLine}"
+            p "hahaha1110:#{@directive}"
                 
             Get()
-             pos11 = @scanner.buffPos
+             pos11 = @scanner.nextSym.pos
             # p "pre_else: sym=#{@sym}, directive=#{@directive}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}, #{@scanner.dump_char}"
+            p "hahaha111:#{@directive}"
              
-             @directive=_preprocess(["#else", "#endif", "#elif"], !idf)
+             @directive=_preprocess(["#endif", "#elif"], idf)
              # p "pre_else: directive=#{@directive}, pos #{@scanner.buffPos}, buffer #{@scanner.buffer}, #{@scanner.dump_char}", 20
              # p "222=>#{@scanner.buffer}, pos #{@scanner.buffPos}, ch #{@scanner.cch.inspect}"
              
-             pos22 = @scanner.buffPos
-             # p "hahaha11:#{directive}"
+            # pos22 = @scanner.buffPos
+            pos22 = @scanner.nextSym.pos
+            
+              p "hahaha11:#{@directive}"
         
-            if idf
-                # p "==>pos11:#{pos11}, #{pos22}, buffer #{@scanner.buffer}"
-                delete_lines(pos11, pos22, false) # delete whole else part include #endif
-                # p "==>pos12:#{pos11}, #{pos22}, buffer #{@scanner.buffer}"
+            if !idf || !doprepro
+                #p "==>pos11:line #{@scanner.currLine}, #{pos11}, #{pos22}, buffer #{@scanner.buffer}"
+                delete_lines(pos11, pos22, false) # delete whole else part not include #endif
+                 #p "==>pos12:line #{@scanner.currLine}, #{pos11}, #{pos22}, buffer #{@scanner.buffer}"
                 
             else
                 # pos is next char after current directive
                 # delete_prevline # only delete #endif line
             end
+           # p "hahaha12:#{@directive}", 10
 
             if @directive == "\#endif"
                 # p "hahaha:#{directive}"
@@ -1448,38 +1699,121 @@ class Preprocessor < Parser
             end
         end
     end
-    def pre_endif(idf)
+    def expect(directive)
+        throw "Expect directive #{directive}, get #{@directive}" if @directive != directive 
+        @directive = nil
+    end
+    def pre_endif(doprepro, idf)
         if @directive == "\#endif"
-         #   p "9999:pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}"
+            #p "9999:line #{@scanner.currLine}, pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer:#{@scanner.buffer}"
             # @scanner.delete_prevline
+           # p "==>pre_endif:before delete_curline:#{@scanner.nextSym.inspect}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+15]}"
             delete_curline
-        #    p "99992:pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}", 19
+            #p "99992:line #{@scanner.currLine}, pos #{@scanner.buffPos},#{@scanner.cch.inspect}, buffer #{@scanner.buffer}", 19
             
         end
     end
-    def pre_if()
+    
+    def _pre_if()
+        #dump_pos
+        s = ""
+        while (Get(false) != C_CRLF_Sym)
+            n = curString()
+            p "==>_pre_if:n:#{@sym},#{n}"
+            if n == "defined" 
+            elsif @sym == C_identifierSym 
+                v = @macros[n]
+                if v
+                    if v == "" # defined to empty string
+                        s += "true"
+                    else
+                        s +=  v
+                    end
+                else # not defined
+                    _n = GetNextSym()
+                    _n = getSymValue(_n)
+                    if [">","<","="].include?(_n[0])
+                        s+="0"
+                    else
+                        _p = getSymValue(@scanner.currSym)
+                        
+                        if [">","<","="].include?(_p[0])
+                            s += "0"
+                        else
+                            s += "false"
+                        end
+                    end
+                end
+            else
+                s += n
+            end 
+            p "_pre_if2:#{s}"
+        end
+        p "_pre_if2:#{s}"
+        return eval(s)
+    end
+    def pre_if(doprepro)
+        p "===>pre_if0:#{doprepro}", 10
+=begin
         Get()
          n = curString()
+         p "===>pre_if:n=#{n}"
          
-         if n=~ /^\d+$/
-            idf = (n.to_i !=0)
-         else
-            idf = (ifdefined?(n) && @macros[n].to_i != 0)
+         neg = false
+         if n == "!"
+             neg = true
+             Get()
+             n = curString()
          end
+         p "===>pre_if2:n=#{n}"
          
+         if n=~ /^\d+$/ # if 0 or other number
+            idf = (n.to_i !=0)
+        elsif n == "defined"
+            Get() # (
+            inp = false
+            if curString == "("
+                inp = true           
+                Get()
+              
+            end
+             n = curString()
+             Get() if inp # )
+            p "===>pre_if3:n=#{n}"
+            idf = !( ifdefined?(n) == false || ( @macros[n].to_i ==0 && @macros[n].to_i.to_s == @macros[n] ))
+            p "===>pre_if4:idf=#{idf}, #{@macros[n].inspect}, #{ifdefined?(n)}, "
+            #show_macros if n == "__cplusplus"
+         else           # if WIN32
+           # idf = (ifdefined?(n)# && (@macros[n].to_i.to_s == @macros[n] && @macros[n].to_i != 0) )
+            idf = !( ifdefined?(n) == false || ( @macros[n].to_i ==0 && @macros[n].to_i.to_s == @macros[n] ))
+
+         end
+         idf = !idf if neg
+         p "===>pre_if5:idf=#{idf} "
+=end         
+        idf = _pre_if()
+        p "===>pre_if6:idf=#{idf}"
+        # p "===>pre_if8:#{@scanner.buffer}", 10
          @scanner.delete_curline
+        # p "===>pre_if7:#{@scanner.buffer}"
          
          pos1 = @scanner.buffPos
          @directive=_preprocess(["#else", "#endif", "#elif"], idf)
-         p "directive=#{@directive}", 10
-         pos2 = @scanner.buffPos
+      #  p "===>pre_if:directive=#{@directive}", 10
+         #pos2 = @scanner.buffPos
          
-
+         pos2 = @scanner.nextSym.pos
+        # p ("pos1:#{pos1}, #{@scanner.buffer[pos1..pos1+5]}, currSym:#{@scanner.currSym.sym}")
          
-         if !idf
-             # p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
+        # p ("pos2:#{pos2}, #{@scanner.buffer[pos2..pos2+5]}, currSym:#{@scanner.currSym.sym}")
+         if !idf || !doprepro
+             #p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
+             #p "before replace #{idf}:#{@scanner.buffer}"
+            # p "===>pre_if63:pos1:#{pos1}, pos2:#{pos2}, #{@scanner.buffer[pos1..pos1+10]}"
              @scanner.delete_lines(pos1, pos2, false) # delete whole block
-             # p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
+             #p "-->33333, pos #{@scanner.buffPos}, current ch #{@scanner.cch.inspect}"
+             
+           #  p "after replace #{idf}:#{@scanner.buffer}"
              
          else
              p "-->333332"
@@ -1493,18 +1827,30 @@ class Preprocessor < Parser
         #   _str2 = curString()
         #   directive = "#{_str1}#{_str2}"
         
-
-        pre_elif(idf)
-        pre_else(idf)
-        pre_endif(idf)
+        if doprepro && idf
+            doprepro = true
+        end
+        p "===>pre_if33:directive=#{@directive}"
+        while @directive == "\#elif"
+            idf2 = pre_elif(doprepro) # only when doprepor == true and condition is true then will return true
+            if idf2 && doprepro
+                doprepro = false # if current one fufill, ignore remaining
+            end
+        end
+        p "===>pre_if34:directive=#{@directive}"
+        
+        pre_else(doprepro, !idf)
+        p "===>pre_if35:directive=#{@directive}"
+        
+        pre_endif(doprepro, idf)
     end
-    def pre_ifndef()
-         pre_ifdef(true)
+    def pre_ifndef(doprepro)
+         pre_ifdef(doprepro, true)
     end    
     def _preprocess(until_find = [], process_directive = true)
         while (@sym!=C_EOF_Sym)
             
-             p "_preprocess1:sym2:#{@sym}, d:#{@directive}, #{curString()}"
+             #p "_preprocess1:sym2: line #{@scanner.currLine}, sym #{@sym}, d:#{@directive}, #{curString()}, #{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
             if @sym == C_PreProcessorSym
                 #_str1 = curString()
                 ## pp "preprocessor: #{@sym}, #{_str1}", 20
@@ -1512,71 +1858,140 @@ class Preprocessor < Parser
                 #_str2 = curString()
                 #@directive = "#{_str1}#{_str2}"
                 @directive = curString()
-              #  p "_preprocess directive=#{@directive}, until_find=#{until_find.inspect}, process_directive=#{process_directive}"
+                #p "_preprocess directive3:#{@directive}, #{@scanner.buffer[@scanner.buffPos-30..@scanner.buffPos+30]}"
+                #p "_preprocess directive=#{@directive}, until_find=#{until_find.inspect}, process_directive=#{process_directive}", 10
+              
                 if until_find.include?(@directive)
+                   # p "222222#{@directive}"
               #      p "--->222", 10
                     return @directive
             #    elsif process_directive == true
                else
-                    preprocess_directive()
+                  # p "1111111#{@directive}"
+                    preprocess_directive(process_directive)
                     #@directive = preprocess_directive()
                     #next
                     
                 end
                 # return @directive if stop_on_unkown_directive && @directive
             else
-                if @sym == C_identifierSym
+                if @sym == C_identifierSym 
+                    #p "prepcoess identifier3:#{@scanner.nextSym.inspect}"
+                    #p "prepcoess identifier31:#{@scanner.buffer[@scanner.nextSym.pos..@scanner.nextSym.pos+10]}"
+                    #p "prepcoess identifier31:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
                     idf = curString()
-                    p "prepcoess identifier:#{idf}", 10
+                    #p "prepcoess identifier:#{idf}", 10
                     p_start = @scanner.nextSym.pos
-                    p_end = p_start + @scanner.nextSym.len
+                    p_end = p_start + @scanner.nextSym.len-1
                     res = ""
-                    Get()
                     # p "nextsym:#{@scanner.nextSym.sym}"
                     # p_end = @scanner.nextSym.pos
-                    
-                    if ifdefined?(idf)
-                        res = @macros[idf]
-                       
-                        if @sym == C_LparenSym
-                            Get()
-                            args = ActualParameters()
-                            p "args:#{args}"
-                            Expect(C_RparenSym)
-                            p_end = @scanner.nextSym.pos
-                            p "end:#{p_end}"
-
-                            cs = @macros[idf]
-                            p "cs:#{cs}"
-                            res = cs.gsub(/%<\d+>%/){|m|
-                                index = -1
-                                m.scan(/%<(\d+)>%/){|i|
-                                    p i.inspect
-                                    index = i[0].to_i
-
-                                }
-                                args[index] 
-                            }
-                            p "--->result:#{res}"
-                        end
-                        p "p_start=#{p_start},p_end=#{p_end}"
-                        if p_start <= 0 
-                            s = res + @scanner.buffer[p_end..@scanner.buffer.size-1]
-                        else
-                            s = @scanner.buffer[0..p_start-1] + res + @scanner.buffer[p_end..@scanner.buffer.size-1]
-                        end
-                        old_size = @scanner.buffer.size
-                        # p "before replace:#{@scanner.buffer}"
-                        @scanner.buffer = s
-                        @scanner.buffPos += s.size()-old_size
-                        # p "after replace:#{@scanner.buffer}"
-                        next
+                    hasArg = false
+                    sym_pos = @scanner.nextSym.pos
+                    __t = Time.now.to_f
+                    if idf == "_CACHE_READ_LOCK_"
+                       # throw "ffff"
                     end
-                elsif @sym == C_inlineSym
+                    if ifdefined?(idf)
+                         Get()
+                         _res = @macros[idf]
+                        res = _res[:v]
+                        #p "===>defined:#{idf}, #{@sym}, #{res}"
+                        if @sym == C_LparenSym && _res[:hasArg] == true
+                            p "hasarg"
+                            hasArg = true
+                            Get()
+                            v,args = ActualParameters()
+                            #args = ActualParameters()
+                            p "args:#{args}"
+                            p_end = @scanner.nextSym.pos
+                            
+                            Expect(C_RparenSym)
+                            p "end:#{p_end}"
+                            
+                            if hasArg == _res[:hasArg] # fill arg
+                                cs = @macros[idf][:v]
+                                p "cs:#{cs}"
+                                res = cs.gsub(/%<\d+>%/){|m|
+                                    index = -1
+                                    m.scan(/%<(\d+)>%/){|i|
+                                        p i.inspect
+                                        index = i[0].to_i
+
+                                    }
+                                    args[index] 
+                                }
+                              res = res.gsub("__VA_ARGS__", v)
+                              #res = res.gsub("__VA_ARGS__", args.join(","))
+                                p "--->result:#{res}"
+                            end
+                        end
+                        
+                        # handle ##
+                        res = res.gsub(/\s*##\s*/,"")
+                        
+                        p "defined:#{idf}"
+                        p "#{hasArg}==#{_res[:hasArg]}=#{hasArg == _res[:hasArg]}"
+                        
+                         if hasArg == _res[:hasArg] # macro only match when both has arg or not
+                            #p "p_start=#{p_start},p_end=#{p_end}, #{@scanner.buffer[p_start..p_end]}"
+                            #p "pos:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+                            p "sym:#{@sym}"
+                            replaced = @scanner.buffer[p_start..p_end]
+                           # lines_replaced = replaced.scan(/\n/).count
+                            if p_start <= 0 
+                                s = res + @scanner.buffer[p_end+1..@scanner.buffer.size-1]
+                            else
+                                s = @scanner.buffer[0..p_start-1] + res + @scanner.buffer[p_end+1..@scanner.buffer.size-1]
+                            end
+                        
+                            old_size = @scanner.buffer.size
+                             sizediff = s.size()-old_size
+                            po = @scanner.buffPos
+                           #  p "before replace #{idf}:#{@scanner.buffPos},#{@scanner.buffer[po..po+10]}"
+                            # p "before replace #{idf}:#{@scanner.buffer}"
+                        
+                            @scanner.buffer = s
+                           @scanner.buffPos = sym_pos
+                          @scanner.fix_ch
+                         #  p "after replace macro #{idf}:#{@scanner.buffer[@scanner.buffPos..@scanner.buffPos+10]}"
+                       
+                           Get()
+                          # p "after replace macro2 #{idf}:#{@sym}, #{curString}"
+                            #@scanner.buffPos += sizediff
+                            #po = @scanner.buffPos
+                            #p "size diff:#{s.size()-old_size}"
+                           #  p "after replace #{idf}:#{@scanner.buffPos},#{@scanner.buffer[po..po+10]}"
+                           #  p "after replace #{idf}:#{@scanner.buffer}"
+                       
+                            # @scanner.currLine -= lines_replaced if lines_replaced>0   
+                            # @scanner.nextSym.line -= lines_replaced if lines_replaced>0
+                            #@scanner.nextSym.pos += sizediff
+                            #if lines_replaced == 0
+                            #    @scanner.nextSym.col += sizediff
+                            #else
+                            #    pos_ns = @scanner.nextSym.pos
+                            #    i = 0
+                            #    while (@scanner.buffer[pos_ns]!="\n" && pos_ns >=0)
+                            #        pos_ns-=1
+                            #        i+=1
+                            #    end
+                            #    @scanner.nextSym.col = i-1
+                            #end
+                             # currSym maybe already replaced
+                           #  @scanner.currSym.line -= lines_replaced if lines_replaced>0
+                           #  @scanner.currSym.pos += sizediff
+                           p "@@@ replace macro #{idf} line #{@scanner.currLine} cost #{Time.now.to_f - __t}"
+                   
+                            next
+                        end
+                    end #if ifdefined?(idf)
+                elsif @sym == C_inlineSym #ignore inline statement
+                    __t = Time.now.to_f
                     p_start = @scanner.nextSym.pos
                     p_end = p_start + @scanner.nextSym.len
                     Get()
-                    p "p_start=#{p_start},p_end=#{p_end}"
+                   # p "p_start=#{p_start},p_end=#{p_end}"
                     if p_start <= 0 
                         s = @scanner.buffer[p_end..@scanner.buffer.size-1]
                     else
@@ -1587,7 +2002,17 @@ class Preprocessor < Parser
                     @scanner.buffer = s
                     @scanner.buffPos += s.size()-old_size
                     # p "after replace:#{@scanner.buffer}"
+                    p "@@@ remove inline cost #{Time.now.to_f - __t}"
                     next
+                elsif @sym == C_classSym # to gather all classes name
+                    _n = GetNextSym().sym
+                    if _n != C_CommaSym && _n != C_GreaterSym # not as parameter in template. e.g. template<class A, class B>
+                        Get()
+                        $pre_classlist = {} if $pre_classlist == nil
+                        $pre_classlist[curString()]=1
+                    end
+                elsif @sym == C_templateSym
+                    filterTemplate(1)
                 end
             end
             # if @sym == C_identifierSym
@@ -1596,13 +2021,76 @@ class Preprocessor < Parser
             #         @macros[n]
             #     end
             # end
+            #p "before get:buffer(#{@scanner.buffer.size}):#{@scanner.buffer}"
+            
             Get()
-             p "_preprocess2:sym3:#{@sym}, d:#{@directive}, #{curString()}"
+            # p "_preprocess0:sym3:#{@sym}, d:#{@directive}, #{@scanner.nextSym.inspect}, #{curString()}"
+            @count += 1
+            if @count > 100
+                p "==>count:#{@scanner.currLine}, #{@saved_line}, #{@scanner.remain_enough_line?(31)} "
+                @count = 0
+                if @scanner.currLine - @saved_line > 10000 && @scanner.remain_enough_line?(31)
+                p "before save:#{@scanner.currLine}"
+                    ln = @scanner.save_part(@file_save)
+                    @saved_line +=ln
+                    p "saved #{ln} to #{@file_save}"
+                    p "after save:#{@scanner.currLine}, #{@saved_line}"
+                end
+            end
         end # while
+       # p "buffer(#{@scanner.buffer.size}):#{@scanner.buffer}"
+       # p "bufferPos:#{@scanner.buffPos}, #{@sym}, d:#{@directive}, #{@scanner.nextSym.inspect}, #{curString()}"
+        #throw "shouldn't goto here"
     end
     
+    
 
-      
+    def dump_pos(pos=@scanner.buffPos, lines = 5)
+        pos=@scanner.buffPos if pos == nil
+            
+        p("start dump pos in macro.rb:pos #{pos}, buf size #{@scanner.buffer.size}, line #{@scanner.currLine}, saved line #{@saved_line}#{@scanner.buffer[pos..pos+100]}", 5)
+        lino = get_lineno_by_pos(pos)+1
+        lino += @saved_line
+        
+        p "---- dump position ----"
+        i = lines
+        ls =  prevline(pos, i)
+        ls.each{|l|
+            p "#{"%05d" % (lino-i)}#{l}"
+            i-=1
+        }
+       
+        pos1 = pos
+        while (pos1 > 0 && @scanner.buffer[pos1-1] != "\n" )
+            pos1 -= 1
+        end
+        pos2 = pos 
+        while (pos2 < @scanner.buffer.size-1 && @scanner.buffer[pos2+1] != "\n" )
+            pos2 += 1
+        end        
+        p "#{"%05d" % (lino)}......#{@scanner.buffer[pos1..pos2].gsub("\t",' ')}......"
+        s1 = ""
+        for a in 0..pos-pos1-1
+            s1 += "~"
+        end
+        s2 = ""
+        for a in 0..pos2-pos-1
+            s2 += "~"
+        end
+        p "     ......#{s1}^#{s2}......"
+        
+        
+        p "---- end of dump position ----"
+        
+        pos1 = @scanner.buffPos
+        pos1 -= 30
+        pos1 = 0 if pos1 < 0
+        p "==>#{@scanner.buffer[pos1..@scanner.buffPos+30]}"
+        
+    end    
+	
+
+=begin      
     def expand_macro(cs)
         ret = ""
         pos = 0
@@ -1660,1445 +2148,40 @@ class Preprocessor < Parser
     
     end
     
+
+=end    
+    
     def show_macros
         p "====macros====="
         @macros.each{|n,v|
-
-         p "===>#{n}=>#{v}"
+        p "===>#{n}=>#{v}"
      }
     end
-end
-
-def test(testall=false)
-
-
-
-
-
-
-s=<<HERE
-#ifndef	MNHL_SERVER_MODE
-						TCHAR	ContinueStr[50];
-
-						_STR_GetStringResource (ContinueStr, BGT0_FORM_NUM, BGT0_CONTINUE_STR);
-retBtn = FORM_GEN_Message (msgStr1, ContinueStr, CANCEL_STR(*OOGetEnv(NULL)), YES_TO_ALL_STR(*OOGetEnv(NULL)), 2);
-#else
-						retBtn = 2;
-#endif
-	switch (retBtn)
-	{
-		case 1://formOKReturn
-		case 3://formOKReturn
-			budgetAllYes = (retBtn == 3 ? TRUE:FALSE);
-			if (budgetAllYes)
-			{
-				SetExCommand ( ooDontUpdateBudget, fa_Set );
-			}
-
-			if (GetEnv ().GetPermission (PRM_ID_BUDGET_BLOCK) != OO_PRM_FULL)
-			{
-				DisplayError (fuNoPermission);
-				return ooErrNoMsg;//fuNoPermission;
-			}
-			//return ooNoErr;
-		break;
-
-		case 2:
-			return ooErrNoMsg;
-		break;
-
-	}
-#define ABC 1 //fdafsa
-HERE
-s=<<HERE
-a = 1;
-#define AAA 1//f/sdafs
-#define AAAa //f/sdafs
-#define BBB "fd/*a*/s//fas" //fdasfsd
-#define C(a) c(/*fdfasf*/a, "fd/*af*/s") //fdasfsd
-HERE
-s=<<HERE
-/************************************************************************************/
-/************************************************************************************/
-SBOErr CTransactionJournalObject::OnCreate()
-{
-        _TRACER("OnCreate");
-	SBOErr	ooErr = noErr;
-	PDAG	dagJDT, dagJDT1, dagCRD;
- 	PDAG	dagRES;
-
-	long    blockLevel=0, typeBlockLevel=0;
-	long	retBtn;
-	long	recCount = 0, ii = 0;
-	long	RetVal = 0;
-	long	numOfRecs, rec;
-	long	lastContraRec = 0, contraCredLines = 0, contraDebLines = 0;		// VF_EnableCorrAct
-	long	createdBy, transAbs, transType;
-
-	Currency	monSymbol={0};
-
-	MONEY	debAmount, credAmount, transTotal, transTotalChk;
-	MONEY	transTotalCredChk, transTotalDebChk, sTransTotalDebChk, sTransTotalCredChk, fTransTotalDebChk, fTransTotalCredChk;		// VF_EnableCorrAct
-	MONEY	fTransTotal, fDebAmount, fCredAmount;
-	MONEY	sTransTotal, sDebAmount, sCredAmount;
-	MONEY	rateMoney, tempMoney;
-	MONEY	BgtMonthOver, BgtYearOver;
-	MONEY	creditBalDue, debitBalDue, fCreditBalDue, fDebitBalDue, sCreditBalDue, sDebitBalDue;
-
-	TCHAR	acctKey[GO_MAX_KEY_LEN + 1], tempStr[256];
-	TCHAR	contraCredKey[GO_MAX_KEY_LEN + 1], contraDebKey[GO_MAX_KEY_LEN + 1];
-	TCHAR	cardKey[OCRD_CARD_CODE_LEN + 1];
-	TCHAR	Sp_Name[256] = {0};
-	TCHAR	mainCurr[GO_CURRENCY_LEN+1]={0}, frnCurr[GO_CURRENCY_LEN+1]={0};
-	TCHAR	tmpStr[256]={0};
-	TCHAR	msgStr1[512]={0}, msgStr2[512]={0};	
-	TCHAR	moneyStr[256]={0}, moneyMonthStr[256]={0}, moneyYearStr[256]={0}; 
-	TCHAR	acctCode[OACT_ACCOUNT_CODE_LEN + 1] ={0};
-	TCHAR	DoAlert,AlrType;
-
-	Boolean		balanced = FALSE;
-	Boolean		budgetAllYes = FALSE, bgtDebitSize; 
-	Boolean		fromImport = FALSE;
-	Boolean		itsCard, qc;
-
-	DBD_ResStruct	res[5] ;
-	DBD_UpdStruct	Upd[4];
-	CBizEnv			&bizEnv = GetEnv ();
-    BPBalanceChangeLogDataArr bpBalanceLogDataArray;
-
-#ifdef QC_SHELL_ON
-		qc = TRUE;
-#else
-		qc = FALSE;
-#endif
-
-	
-		
-	dagJDT = GetDAG();
-	dagJDT1 = GetDAG(JDT, ao_Arr1);
-    PDAG dagJDT2 = GetDAG(JDT, ao_Arr2);
-    if(!dagJDT2->GetRealSize(dbmDataBuffer)) 
-    {
-        dagJDT2->SetSize(0, dbmDropData);
-    }
-    dagCRD = GetDAG (CRD);
-	// If from observer and IsVatPerLine and the vat line is zero amount
-	// we need to nullify debit/credit col for the Vat Report, until the
-	// Vat Report start to use the new col JDT1_DEBIT_CREDIT. 
-	if (GetDataSource () == *VAL_OBSERVER_SOURCE && bizEnv.IsVatPerLine ())
-	{
-		DAG_GetCount (dagJDT1, &numOfRecs);
-		for (rec = 0; rec < numOfRecs; rec++)
-		{
-			dagJDT1->GetColStr (tmpStr, JDT1_VAT_LINE, rec);
-			if (tmpStr[0] == VAL_YES[0])
-			{
-				dagJDT1->GetColMoney (&debAmount, JDT1_DEBIT, rec, DBM_NOT_ARRAY);
-				dagJDT1->GetColMoney (&credAmount, JDT1_CREDIT, rec, DBM_NOT_ARRAY);
-				if (debAmount.IsZero() && credAmount.IsZero())
-				{
-					dagJDT1->GetColStr (tmpStr, JDT1_DEBIT_CREDIT, rec);
-					if (tmpStr[0] == VAL_DEBIT[0])
-					{
-						dagJDT1->NullifyCol (JDT1_CREDIT, rec);
-					}
-					else if (tmpStr[0] == VAL_CREDIT[0])
-					{
-						dagJDT1->NullifyCol (JDT1_DEBIT, rec);
-					}
-				}
-			}
-		}
-	}
-
-	SetDebitCreditField();
-
-	contraCredKey[0] = '\0';
-	contraDebKey[0] = '\0';
-	
-	transTotal.SetToZero();
-	transTotalChk.SetToZero();
-	fTransTotal.SetToZero();
-	sTransTotal.SetToZero();
-
-	_STR_strcpy (mainCurr, bizEnv.GetMainCurrency ());
-	_STR_LRTrim (mainCurr);
-
-	// Clear the recalc columns if recalcing to the main currency or if rate is zero //
-	dagJDT->GetColMoney (&rateMoney, OJDT_TRANS_RATE, 0, DBM_NOT_ARRAY);
-	dagJDT->GetColStr (tempStr, OJDT_ORIGN_CURRENCY, 0);
-	_STR_LRTrim (tempStr);
-	if (GNCoinCmp (tempStr, mainCurr)==0 || rateMoney.IsZero())
-	{
-		tempStr[0] = 0;
-		//		dagJDT->SetColStr (tempStr, OJDT_ORIGN_CURRENCY, 0);
-	}
-
-	DAG_GetCount (dagJDT1, &numOfRecs);
-
-	if (VF_RmvZeroLineFromJE (bizEnv) && !bizEnv.IsZeroLineAllowed ())
-	{
-	for (rec = 0; rec < numOfRecs; rec++)
-	{
-			dagJDT1->GetColMoney (&debAmount, JDT1_DEBIT, rec);
-			dagJDT1->GetColMoney (&credAmount, JDT1_CREDIT, rec);
-			dagJDT1->GetColMoney (&fDebAmount, JDT1_FC_DEBIT, rec);
-			dagJDT1->GetColMoney (&fCredAmount, JDT1_FC_CREDIT, rec);
-			dagJDT1->GetColMoney (&sDebAmount, JDT1_SYS_DEBIT, rec);
-			dagJDT1->GetColMoney (&sCredAmount, JDT1_SYS_CREDIT, rec);
-			
-			MONEY	debBalanceDue, credBalanceDue, fDebBalanceDue, fCredBalanceDue, sDebBalanceDue, sCredBalanceDue;
-			dagJDT1->GetColMoney (&debBalanceDue, JDT1_BALANCE_DUE_DEBIT, rec);
-			dagJDT1->GetColMoney (&credBalanceDue, JDT1_BALANCE_DUE_CREDIT, rec);
-			dagJDT1->GetColMoney (&fDebBalanceDue, JDT1_BALANCE_DUE_FC_DEB, rec);
-			dagJDT1->GetColMoney (&fCredBalanceDue, JDT1_BALANCE_DUE_FC_CRED, rec);
-			dagJDT1->GetColMoney (&sDebBalanceDue, JDT1_BALANCE_DUE_SC_DEB, rec);
-			dagJDT1->GetColMoney (&sCredBalanceDue, JDT1_BALANCE_DUE_SC_CRED, rec);
-
-			if (debAmount.IsZero() && credAmount.IsZero() &&
-				fDebAmount.IsZero() && fCredAmount.IsZero() &&
-				sDebAmount.IsZero() && sCredAmount.IsZero() &&
-				debBalanceDue.IsZero() && credBalanceDue.IsZero() &&
-				fDebBalanceDue.IsZero() && fCredBalanceDue.IsZero() &&
-				sDebBalanceDue.IsZero() && sCredBalanceDue.IsZero())
-			{
-				dagJDT1->RemoveRecord (rec);
-				rec--;
-				numOfRecs--;
-			}
-		}
-	}
-
-	//Set Transaction type (Creating Object type)
-	dagJDT->GetColLong(&transType, OJDT_TRANS_TYPE);
-
-	if (transType == -1)
-	{
-		dagJDT->SetColLong(JDT, OJDT_TRANS_TYPE);
-
-		transType = JDT;
-	}
-
-	SBOString deferredTax;
-	dagJDT->GetColStr(deferredTax, OJDT_DEFERRED_TAX);
-	deferredTax.Trim ();
-	bool isDeferredTax = (deferredTax == VAL_YES);
-
-	for (rec = 0; rec < numOfRecs; rec++)
-	{
-		dagJDT1->GetColStr (acctKey, JDT1_ACCT_NUM, rec);
-		dagJDT1->GetColStr (cardKey, JDT1_SHORT_NAME, rec);
-
-		itsCard = (_STR_stricmp (acctKey, cardKey) != 0) && (!_STR_IsSpacesStr (cardKey));
-		if (itsCard )
-		{
-            CBPBalanceChangeLogData bpBalanceChangeLogData(bizEnv);
-            bpBalanceChangeLogData.SetCode(cardKey);
-            bpBalanceChangeLogData.SetControlAcct(acctKey);
-            bpBalanceChangeLogData.SetDocType(JDT);
-
-			ooErr = bizEnv.GetByOneKey (dagCRD, GO_PRIMARY_KEY_NUM, cardKey, true);
-			if (ooErr != noErr)
-			{
-				if (ooErr == dbmNoDataFound)
-				{
-					Message (OBJ_MGR_ERROR_MSG, GO_CARD_NOT_FOUND_MSG, cardKey, OO_ERROR);
-					return (ooErrNoMsg);
-				}
-			
-				else
-				{
-					return ooErr;
-				}
-			}
-
-            dagCRD->GetColMoney(&tempMoney, OCRD_CURRENT_BALANCE);
-            bpBalanceChangeLogData.SetOldAcctBalanceLC(tempMoney);
-            dagCRD->GetColMoney(&tempMoney, OCRD_F_BALANCE);
-            bpBalanceChangeLogData.SetOldAcctBalanceFC(tempMoney);
-
-            bpBalanceLogDataArray.Add(bpBalanceChangeLogData);
-		}
-
-		if (_STR_IsSpacesStr (acctKey))
-		{
-			dagJDT1->CopyColumn (GetDAG(CRD), JDT1_ACCT_NUM, rec, OCRD_DEB_PAY_ACCOUNT, 0);
-			dagJDT1->GetColStr (acctKey, JDT1_ACCT_NUM, rec);
-		}
-
-		ooErr = bizEnv.GetByOneKey (GetDAG(ACT), GO_PRIMARY_KEY_NUM, acctKey, true);
-		if (ooErr != noErr)
-		{
-			if (ooErr == dbmNoDataFound)
-			{
-				//Retrieve original parameters
-				Message (OBJ_MGR_ERROR_MSG, GO_ACT_MISSING, acctKey, OO_ERROR);
-				return (ooErrNoMsg);
-			}
-		
-			else
-			{
-				return ooErr;
-			}
-		}
-
-// Set Default Distribution rule
-        SBOString	ocrCode;
-        PDAG        dagAct;
-	    long jdtOcrCols[] = {JDT1_OCR_CODE, JDT1_OCR_CODE2, JDT1_OCR_CODE3, 
-                             JDT1_OCR_CODE4, JDT1_OCR_CODE5};
-        long actOcrCols[] = {OACT_OVER_CODE, OACT_OVER_CODE2, OACT_OVER_CODE3,
-                             OACT_OVER_CODE4, OACT_OVER_CODE5};
-        long dimentionLen = VF_CostAcctingEnh(GetEnv()) ? DIMENSION_MAX : 1;
-        dagAct = GetDAG(ACT);
-		for (long dim = 0; dim < dimentionLen; dim ++)
-        {
-            if(dagJDT1->IsNullCol(jdtOcrCols[dim], rec))
-            {
-               dagAct->GetColStr(ocrCode, actOcrCols[dim], 0);
-               if(!ocrCode.Trim().IsEmpty())
-               {
-                    dagJDT1->SetColStr(ocrCode, jdtOcrCols[dim], rec);
-               }
-            }   
-        }
-	 
-		//
-		// set valid from for profict code
-		dagJDT1->GetColStr (ocrCode, JDT1_OCR_CODE, rec);
-		
-		SBOString	postDate, validFrom;
-		dagJDT1->GetColStr (postDate, JDT1_REF_DATE, rec);
-		ooErr = COverheadCostRateObject::GetValidFrom (bizEnv, ocrCode, postDate, validFrom);
-		if (ooErr)
-		{
-			SetErrorField (JDT1_VALID_FROM);
-			SetErrorLine (rec+1);
-			return ooErr;
-		}
-		
-		dagJDT1->SetColStr (validFrom, JDT1_VALID_FROM, rec);
-
-		dagJDT1->GetColMoney (&debAmount, JDT1_DEBIT, rec, DBM_NOT_ARRAY);
-		dagJDT1->GetColMoney (&credAmount, JDT1_CREDIT, rec, DBM_NOT_ARRAY);
-		
-		dagJDT1->GetColMoney (&fDebAmount, JDT1_FC_DEBIT, rec, DBM_NOT_ARRAY);
-		dagJDT1->GetColMoney (&fCredAmount, JDT1_FC_CREDIT, rec, DBM_NOT_ARRAY);
-		
-		dagJDT1->GetColMoney (&sDebAmount, JDT1_SYS_DEBIT, rec, DBM_NOT_ARRAY);
-		dagJDT1->GetColMoney (&sCredAmount, JDT1_SYS_CREDIT, rec, DBM_NOT_ARRAY);
-		
-		MONEY_Add (&transTotal, &debAmount);
-		MONEY_Add (&transTotalChk, &credAmount);
-		MONEY_Add (&fTransTotal, &fDebAmount);
-		MONEY_Add (&sTransTotal, &sDebAmount);
-
-		balanced = FALSE;
-
-		if (VF_EnableCorrAct (bizEnv))
-		{
-			transTotalDebChk += debAmount;		
-			transTotalCredChk += credAmount;
-			fTransTotalDebChk += fDebAmount;;
-			fTransTotalCredChk += fCredAmount;
-			sTransTotalDebChk += sDebAmount;;
-			sTransTotalCredChk += sCredAmount;
-
-			if (transTotalDebChk == transTotalCredChk &&
-				fTransTotalDebChk == fTransTotalCredChk &&
-				sTransTotalDebChk == sTransTotalCredChk)
-			{
-				balanced = TRUE;
-			}
-		}
-		else
-		{
-			if (!MONEY_Cmp (&transTotal, &transTotalChk))
-			{
-				balanced = TRUE;
-			}
-		}
-
-		if (!IsExDtCommand (ooDoAsUpgrade) && transType != DAR)
-		{
-			//searching for first account in debit side and credit side,
-			//to be the contra account
-			if (_STR_strlen (contraDebKey) == 0)
-			{
-				if (debAmount.IsPositive()  ||
-					fDebAmount.IsPositive() ||
-					sDebAmount.IsPositive() ||
-					credAmount.IsNegative() ||
-					fCredAmount.IsNegative()||
-					sCredAmount.IsNegative())
-				{
-					_STR_strcpy (contraDebKey, cardKey);
-				}
-			}
-
-			if (_STR_strlen (contraCredKey) == 0)
-			{
-				if (credAmount.IsPositive() ||
-					fCredAmount.IsPositive()||
-					sCredAmount.IsPositive()||
-					debAmount.IsNegative()  ||
-					fDebAmount.IsNegative() ||
-					sDebAmount.IsNegative())
-				{
-					_STR_strcpy (contraCredKey, cardKey);
-				}
-			}
-
-			if (VF_EnableCorrAct (bizEnv))
-			{
-				// Same conditions as above, but because of necessarity to use VF_ flag and
-				// different starting condition repeating here
-
-				if (debAmount.IsPositive()  ||
-					fDebAmount.IsPositive() ||
-					sDebAmount.IsPositive() ||
-					credAmount.IsNegative() ||
-					fCredAmount.IsNegative()||
-					sCredAmount.IsNegative())
-				{
-					contraDebLines++;
-				}
-				if (credAmount.IsPositive() ||
-					fCredAmount.IsPositive()||
-					sCredAmount.IsPositive()||
-					debAmount.IsNegative()  ||
-					fDebAmount.IsNegative() ||
-					sDebAmount.IsNegative())
-				{
-					contraCredLines++;
-				}
-			}
-
-			if (balanced && contraDebKey[0] && contraCredKey[0])
-			{
-				// For non VF_EnableCorrAct code, lastContraRec is always 0
-				SetContraAccounts (dagJDT1, lastContraRec, rec+1, contraDebKey, contraCredKey, contraDebLines, contraCredLines);
-				contraDebKey[0] = contraCredKey[0] = 0;
-
-				if (VF_EnableCorrAct (bizEnv))
-				{
-					contraDebLines = contraCredLines = 0;
-					lastContraRec = rec+1;
-					transTotalDebChk = transTotalCredChk = fTransTotalDebChk = fTransTotalCredChk = sTransTotalDebChk = sTransTotalCredChk = 0L;
-				}
-			}
-		}
-
-		// Copy to balance due
-		if (transType != DAR)
-		{
-			dagJDT1->GetColMoney(&creditBalDue, JDT1_CREDIT,rec);
-			dagJDT1->GetColMoney(&debitBalDue, JDT1_DEBIT,rec);
-			dagJDT1->GetColMoney(&fCreditBalDue, JDT1_FC_CREDIT,rec);
-			dagJDT1->GetColMoney(&fDebitBalDue, JDT1_FC_DEBIT,rec);
-			dagJDT1->GetColMoney(&sCreditBalDue, JDT1_SYS_CREDIT,rec);
-			dagJDT1->GetColMoney(&sDebitBalDue, JDT1_SYS_DEBIT,rec);
-
-
-			// VF_MultiBranch_EnabledInOADM
-			bool zeroBalanceDue = false;
-			if (IsZeroBalanceDueForCentralizedPayment () &&
-				dagJDT1->GetColStrAndTrim (JDT1_ACCT_NUM, rec, coreSystemDefault) !=
-				dagJDT1->GetColStrAndTrim (JDT1_SHORT_NAME, rec, coreSystemDefault))
-			{
-				zeroBalanceDue = true;
-			}
-
-			if ((!creditBalDue.IsZero() || !debitBalDue.IsZero() ||
-				!fCreditBalDue.IsZero() || !fDebitBalDue.IsZero() ||
-				!sCreditBalDue.IsZero() || !sDebitBalDue.IsZero())
-				&& !zeroBalanceDue)
-			{	
-				dagJDT1->CopyColumn (dagJDT1, JDT1_BALANCE_DUE_DEBIT, rec, JDT1_DEBIT, rec);
-				dagJDT1->CopyColumn (dagJDT1, JDT1_BALANCE_DUE_CREDIT, rec, JDT1_CREDIT, rec);
-				dagJDT1->CopyColumn (dagJDT1, JDT1_BALANCE_DUE_SC_DEB, rec, JDT1_SYS_DEBIT, rec);
-				dagJDT1->CopyColumn (dagJDT1, JDT1_BALANCE_DUE_SC_CRED, rec, JDT1_SYS_CREDIT, rec);
-				dagJDT1->CopyColumn (dagJDT1, JDT1_BALANCE_DUE_FC_DEB, rec, JDT1_FC_DEBIT, rec);	
-				dagJDT1->CopyColumn (dagJDT1, JDT1_BALANCE_DUE_FC_CRED, rec, JDT1_FC_CREDIT, rec);
-			}
-		}	
-
-		SBOString vatLine;
-		dagJDT1->GetColStr (vatLine, JDT1_VAT_LINE, rec);
-		vatLine.Trim ();
-		bool isVatLine = (vatLine == VAL_YES);
-		if (isVatLine && isDeferredTax)
-		{
-			dagJDT1->SetColLong (IAT_DeferTaxInterim_Type, JDT1_INTERIM_ACCT_TYPE, rec);
-		}
-	} // end of for (rec)
-
-	//budget flag
-	if ( IsExCommand( ooDontUpdateBudget))
-	{
-		SetExCommand ( ooDontUpdateBudget, fa_Clear );
-	}
-	//budget flag
-	
-	if (MONEY_Cmp (&transTotal, &transTotalChk) != 0)
-	{
-		dagJDT->GetColLong (&transAbs, OJDT_JDT_NUM, 0);
-		
-		_STR_sprintf (tempStr, LONG_FORMAT, transAbs);
-		Message (ERROR_MESSAGES_STR,OO_TRANSACTION_NOT_BALANCED, tempStr, OO_ERROR);
-		return ((SBOErr)NULL);
-	}
-
-	//Set transaction total (one side)
-	dagJDT->SetColMoney (&transTotal, OJDT_LOC_TOTAL, 0, DBM_NOT_ARRAY);
-	dagJDT->SetColMoney (&fTransTotal, OJDT_FC_TOTAL, 0, DBM_NOT_ARRAY);
-	dagJDT->SetColMoney (&sTransTotal, OJDT_SYS_TOTAL, 0, DBM_NOT_ARRAY);
-
-	//Set contra account of each line in transaction
-	if (!IsExDtCommand (ooDoAsUpgrade) && transType != DAR)
-	{
-		if (contraDebKey[0] && contraCredKey[0])
-		{
-			//Set to JDT1 contra accounts
-
-			// For non VF_EnableCorrAct code, lastContraRec is always 0
-			SetContraAccounts (dagJDT1, lastContraRec, numOfRecs, contraDebKey, contraCredKey, contraDebLines, contraCredLines);
-		}
-
-		if (VF_EnableCorrAct(bizEnv) && balanced == FALSE)
-		{
-			// NOTE: This is warning only
-			SetErrorField(JDT1_CONTRA_ACT);
-			SetErrorLine(1);	
-			Message(OBJ_MGR_ERROR_MSG, GO_CONTRA_ACNT_MISSING, NULL, OO_WARNING);
-		}
-	}
-
-	//@ABMerge ADD I035300 [ExciseInvoice]
-	if(VF_ExciseInvoice(bizEnv))
-	{
-		SBOString genRegNumFlag;
-		dagJDT->GetColStr(genRegNumFlag, OJDT_GEN_REG_NO, 0);
-		genRegNumFlag.Trim ();
-		if(genRegNumFlag == VAL_YES)
-		{
-			long matType;
-			long regNo;
-			long location;
-			dagJDT->GetColLong(&matType, OJDT_MAT_TYPE, 0);
-			dagJDT->GetColLong (&location, OJDT_LOCATION, 0);
-			if(matType == 1 || matType == 3)
-			{
-				regNo = bizEnv.GetNextRegNum (location, RG23APart2, TRUE);
-				dagJDT->SetColLong(regNo, OJDT_RG23A_PART2, 0);
-				dagJDT->NullifyCol(OJDT_RG23C_PART2, 0);
-			}
-			else if(matType == 2)
-			{
-				regNo = bizEnv.GetNextRegNum (location, RG23CPart2, TRUE);
-				dagJDT->SetColLong(regNo, OJDT_RG23C_PART2, 0);
-				dagJDT->NullifyCol (OJDT_RG23A_PART2, 0);
-			}
-		}
-		else if(genRegNumFlag[0] == VAL_NO[0])
-		{
-			dagJDT->NullifyCol(OJDT_MAT_TYPE, 0);
-			dagJDT->NullifyCol(OJDT_RG23A_PART2, 0);
-			dagJDT->NullifyCol(OJDT_RG23C_PART2, 0);
-		}
-	}
-	//@ABMerge END I035300
-	
-//Do not update related PDAG, set zero pointer into the 'arrTable' entry
-	bool isNeedToFree = SetDAG ( NULL, false, JDT, ao_Arr1 );
-    bool isNeedToFree2 = SetDAG(NULL, false, JDT, ao_Arr2);
-	if (VF_RmvZeroLineFromJE (GetEnv()) && !(GetEnv()).IsZeroLineAllowed ())
-	{
-		if (dagJDT1->GetRecordCount () == 0)
-		{
-			dagJDT->Clear ();
-			return ooErr; 
-		}
-
-		if (dagJDT1->GetRecordCount () == 1)
-		{
-			dagJDT1->GetColMoney (&debAmount, JDT1_DEBIT, 0);
-			dagJDT1->GetColMoney (&credAmount, JDT1_CREDIT, 0);
-			dagJDT1->GetColMoney (&fDebAmount, JDT1_FC_DEBIT, 0);
-			dagJDT1->GetColMoney (&fCredAmount, JDT1_FC_CREDIT, 0);
-			dagJDT1->GetColMoney (&sDebAmount, JDT1_SYS_DEBIT, 0);
-			dagJDT1->GetColMoney (&sCredAmount, JDT1_SYS_CREDIT, 0);
-			
-			MONEY	debBalanceDue, credBalanceDue, fDebBalanceDue, fCredBalanceDue, sDebBalanceDue, sCredBalanceDue;
-			dagJDT1->GetColMoney (&debBalanceDue, JDT1_BALANCE_DUE_DEBIT, 0);
-			dagJDT1->GetColMoney (&credBalanceDue, JDT1_BALANCE_DUE_CREDIT, 0);
-			dagJDT1->GetColMoney (&fDebBalanceDue, JDT1_BALANCE_DUE_FC_DEB, 0);
-			dagJDT1->GetColMoney (&fCredBalanceDue, JDT1_BALANCE_DUE_FC_CRED, 0);
-			dagJDT1->GetColMoney (&sDebBalanceDue, JDT1_BALANCE_DUE_SC_DEB, 0);
-			dagJDT1->GetColMoney (&sCredBalanceDue, JDT1_BALANCE_DUE_SC_CRED, 0);
-
-			if (debAmount.IsZero() && credAmount.IsZero() &&
-				fDebAmount.IsZero() && fCredAmount.IsZero() &&
-				sDebAmount.IsZero() && sCredAmount.IsZero() &&
-				debBalanceDue.IsZero() && credBalanceDue.IsZero() &&
-				fDebBalanceDue.IsZero() && fCredBalanceDue.IsZero() &&
-				sDebBalanceDue.IsZero() && sCredBalanceDue.IsZero())
-			{
-				dagJDT->Clear ();
-				return ooErr;
-			}
-		}
-	}
-
-	// If Year Transfer Data_Source, then keep it that way.
-	SBOString dataSource;
-	dagJDT->GetColStr (dataSource, OJDT_DATA_SOURCE);
-	dataSource.Trim ();
-	if (dataSource.Compare (VAL_YEAR_TRANSFER_SOURCE) == 0)
-	{
-		SetDataSource (*VAL_YEAR_TRANSFER_SOURCE);
-	}
-	//Sequence
-	if (VF_MultipleRegistrationNumber (GetEnv ()))
-	{			
-		CSequenceManager* seqManager = bizEnv.GetSequenceManager ();
-		ooErr = seqManager->HandleSerial (*this);
-		IF_ERROR_RETURN (ooErr);
-	}
-
-	//Supplementary Code OnCreate
-	if(VF_SupplCode(GetEnv ()))
-	{
-		CSupplCodeManager* pManager = bizEnv.GetSupplCodeManager();
-		Date PostDate;
-		dagJDT->GetColStr(PostDate, OJDT_REF_DATE);
-		ooErr = pManager->CodeChange(*this, PostDate);
-		IF_ERROR_RETURN (ooErr);
-		ooErr = pManager->CheckCode(*this);
-		if(ooErr)
-		{
-			CMessagesManager::GetHandle()->Message(_54_APP_MSG_CORE_SUPPL_CODE_CODE_EXIST, EMPTY_STR, this);
-			return ooErrNoMsg;
-		}
-	}
-	else if(bizEnv.IsCurrentLocalSettings(CHINA_SETTINGS))	
-	{
-		if(!dagJDT->IsNullCol(OJDT_SUPPL_CODE, 0L))
-		{
-			dagJDT->NullifyCol(OJDT_SUPPL_CODE, 0L);
-		}
-	}
-
-
-	if (VF_MultiBranch_EnabledInOADM (bizEnv))
-	{
-		// set selected branch to JDT object for the later validation (Incident 30293)
-		if (!CBusinessPlaceObject::IsValidBPLId (GetBPLId ()) && dagJDT1->GetRealSize (dbmDataBuffer) > 0)
-		{
-			long bplId;
-			dagJDT1->GetColLong (&bplId, JDT1_BPL_ID, 0);
-			SetBPLId (bplId);
-		}
-	}
-	//Write a header record
-	
-	ooErr = GORecordHistProc (*this, dagJDT);
-
-	//Restore relative PDAG
-	SetDAG ( dagJDT1, isNeedToFree, JDT, ao_Arr1 );
-	SetDAG ( dagJDT2, isNeedToFree2, JDT, ao_Arr2 );
-
-	if (ooErr != ooNoErr)
-	{
-		return (ooErr);
-	}
-// Record Cash Flow Assignment Transaction before updating 'arrTable' entry.
-	if(VF_CashflowReport(bizEnv))
-	{
-		long	transType;
-		dagJDT->GetColLong(&transType, OJDT_TRANS_TYPE);
-		if (transType != RCT && transType != VPM)
-		{
-		SBOString	objCFTId(CFT);
-		PDAG dagCFT = GetDAGNoOpen(objCFTId);
-		if (dagCFT)
-		{
-				dagJDT->GetColLong (&transAbs, OJDT_JDT_NUM, 0);
-
-			CCashFlowTransactionObject	*bo = static_cast<CCashFlowTransactionObject*>(CreateBusinessObject(CFT));
-
-			bo->SetDataSource(GetDataSource());
-
-			ooErr = bo->OCFTCreateByJDT (GetDAG(CFT), transAbs, dagJDT1);
-			bo->Destroy ();
-			if (ooErr != ooNoErr)
-			{
-				return (ooErr);
-			}
-		}
-	}
-	}
-
-
-	ooErr = PutSignature (dagJDT1);
-	if (ooErr)
-	{
-		return (ooErr);
-	}
-
-	if (VF_ExciseInvoice(bizEnv) && this->m_isVatJournalEntry)
-	{
-		long	wtrKey, vatJournalKey;
-		dagJDT->GetColLong(&wtrKey, OJDT_CREATED_BY);
-		dagJDT->GetColLong(&vatJournalKey, OJDT_JDT_NUM);
-		if (wtrKey <= 0 || vatJournalKey <= 0)
-		{
-			return ooErrNoMsg;
-		}
-
-		dagJDT->SetColLong (0, OJDT_STORNO_TO_TRANS);
-
-		ooErr = CWarehouseTransferObject::LinkVatJournalEntry2WTR (bizEnv, wtrKey, vatJournalKey);
-		if (ooErr)
-		{
-			return ooErr;
-		}
-	}
-
-	dagJDT->GetColLong (&createdBy, OJDT_CREATED_BY, 0);
-	
-	//Insert header's absolute entry into the lines
-	dagJDT->GetColLong (&transAbs, OJDT_JDT_NUM, 0);
-
-	for (rec=0; rec<numOfRecs; rec++)
-	{
-		dagJDT1->SetColLong (rec, JDT1_LINE_ID, rec);
-
-		dagJDT1->SetColLong (transAbs, JDT1_TRANS_ABS, rec);
-		dagJDT1->SetColLong (transType, JDT1_TRANS_TYPE, rec);
-
-		dagJDT->GetColStr (tempStr, OJDT_BASE_REF, 0);
-		dagJDT1->SetColStr (tempStr, JDT1_BASE_REF, rec);
-		
-		dagJDT->GetColStr (tempStr, OJDT_TRANS_CODE, 0);
-		dagJDT1->SetColStr (tempStr, JDT1_TRANS_CODE, rec);
-
-		dagJDT1->SetColLong (createdBy, JDT1_CREATED_BY, rec);
-	}
-
-    if(VF_JEWHT(bizEnv) && _DBM_DataAccessGate::IsValid(dagJDT2))
-    {
-        long numOfJDT2 = dagJDT2->GetRecordCount();
-		
-        for(long rec2 = 0; rec2 < numOfJDT2; rec2++)
-        {
-            dagJDT2->SetColLong(transAbs, INV5_ABS_ENTRY, rec2);
-            dagJDT2->SetColLong(rec2, INV5_LINE_NUM, rec2);
-        }
-        UpdateWTInfo();   
-    }
-
-	if ((GetDataSource () == *VAL_OBSERVER_SOURCE) && (GetID().strtol() == JDT) &&  _DBM_DataAccessGate::IsValid(dagJDT2))
-	{
-		BusinessFlow	bizFlow = GetCurrentBusinessFlow();
-		SBOString		wt;
-		Boolean			useNegativeAmount;
-
-		dagJDT->GetColStr(wt, OJDT_AUTO_WT);
-		useNegativeAmount = bizEnv.GetUseNegativeAmount();
-
-		if (bizFlow == bf_Cancel && wt == VAL_YES )
-		{
-
-			if (VF_JEWHT(bizEnv) && useNegativeAmount)
-			{
-				CMessagesManager::GetHandle()->Message (_1_APP_MSG_FIN_JDT_NOT_REVERSE_NEG_WT, EMPTY_STR, this);
-				return ooInvalidObject;
-			}
-			long numOfJDT2 = dagJDT2->GetRecordCount();
-			for(long idx = 0; idx < numOfJDT2; idx++)
-			{
-				dagJDT2->SetRecordFetchStatus(idx, false); 
-			}
-		}
-	}
-
-
-	Boolean fetched = dagJDT1->GetRecordFetchStatus (0);
-	if (true == fetched)
-	{
-		dagJDT1->SetBackupSize (numOfRecs, dbmDropData);
-		for (ii=0; ii < numOfRecs; ii++) 
-		{
-			dagJDT1->MarkRecAsNew (ii);		
-		}
-	}
-
-	ooErr = CSystemBusinessObject::OnUpdate();
-	if (ooErr)
-	{
-		return ooErr;
-	}
-
-	if(VF_TaxPayment(bizEnv))
-	{
-		for(rec = 0; rec < dagJDT1->GetRecordCount(); rec++)
-		{
-			ooErr = updateCenvatByJdt1Line(*this, dagJDT1, rec);
-			if (ooErr && ooErr != dbmNoDataFound)
-			{
-				return ooErr;
-			}
-		}
-	}
-
-//Update Cards and accounts Tzovarim With Stored Proc -	 _T("TmSp_SetBalanceByJdt")
-	_STR_strcpy (Sp_Name, _T("TmSp_SetBalanceByJdt"));
-	dagJDT->GetColStr (tempStr, OJDT_JDT_NUM, 0);
-	_STR_LRTrim (tempStr);
-	Upd[0].colNum = dbmInteger;
-	_STR_strcpy (Upd[0].updateVal, tempStr);
-	DBD_SetDAGUpd (dagJDT, Upd, 1);
-	
-	RetVal=0;
-	ooErr =  DBD_SpExec (dagJDT, Sp_Name, &RetVal);
-	SBOString tmpstr(tempStr);
-    LogBPAccountBalance(bpBalanceLogDataArray, tmpstr);
-	bizEnv.InvalidateCache (bizEnv.ObjectToTable (CRD));
-	bizEnv.InvalidateCache (bizEnv.ObjectToTable (ACT));
-	
-	if (RetVal)
-	{
-		return RetVal;
-	}
-
-	if (ooErr)
-	{
-		return ooErr;
-	}
-
-	long	canceledTrans;
-	dagJDT->GetColLong (&canceledTrans, OJDT_STORNO_TO_TRANS, 0);
-	if (canceledTrans > 0)
-	{
-		bool ordered = false;
-		ooErr = CTransactionJournalObject::IsPaymentOrdered(bizEnv, canceledTrans, ordered);
-		IF_ERROR_RETURN (ooErr);
-
-		if (ordered)
-		{
-			bizEnv.SetErrorTable (dagJDT1->GetTableName ());
-			return dbmDataWasChanged;
-		}
-	}
-
-	/* When we cancel IRU journals we want to make reconciliation by ourselves and 
-	   we don't want CTransactionJournalObject do it automatically */
-	if ((canceledTrans > 0) && (m_reconcileBPLines))
-	{
-		ooErr = ReconcileCertainLines();
-		if (ooErr)
-		{
-			return ooErr;
-		}
-		
-		// auto-reconcile deferred tax account lines when cancel BP reconciliation
-		if (!m_isInCancellingAcctRecon)
-		{
-			ooErr = ReconcileDeferredTaxAcctLines();
-			IF_ERROR_RETURN (ooErr);
-		}
-	}
-
-	//Save Tax information
-	ooErr = CreateTax();
-	if (ooErr)
-	{
-		return ooErr;
-	}
-
-	//	Update Cards deduction percentage in Deduct Terraces Company _T("TmSp_SetVendorDeductPercent")
-	//	Error is not cheaked becouse it's not crutial, and there's no reason to rollback if it failes
-	//	Start ====>
-	if (VF_EnableDeductAtSrc (GetEnv ()))
-	{
-		long transID;
-		dagJDT->GetColLong (&transID, OJDT_JDT_NUM, 0);
-		ooErr = nsDeductHierarchy::UpdateDeductionPercent (bizEnv, transID);
-		IF_ERROR_RETURN (ooErr);
-		}
-	//	<===== End
-
-	if (transType == JDT)
-	{
-		ooErr = m_digitalSignature.CreateSignature (this);
-		IF_ERROR_RETURN (ooErr);
-	}
-
-	ooErr = ValidateBPLNumberingSeries ();
-	IF_ERROR_RETURN (ooErr);
-
-	ooErr = IsBalancedByBPL ();
-	IF_ERROR_RETURN (ooErr);
-
-	//****************************************************************************
-	if (bizEnv.IsComputeBudget () == FALSE || bizEnv.IsDuringUpgradeProcess () || transType == DAR)
-	{
-		return ooErr;
-	}
-
-	//Update Budget Acomulators And Look for An Alert with Sp  - _T("TmSp_SetBgtAccumulators_ByJdt")
-	_STR_strcpy (Sp_Name	, _T("TmSp_SetBgtAccumulators_ByJdt"));
-
-	res[0].colNum = JDT1_ACCT_NUM;
-	res[1].colNum = JDT1_FC_CURRENCY;
-	res[2].colNum =	JDT1_FC_CURRENCY;
-	res[3].colNum = JDT1_DEBIT;
-	res[4].colNum = JDT1_DEBIT;
- 
-	DBD_SetDAGRes (dagJDT1, res, 5);
-
-	dagJDT->GetColStr (tempStr, OJDT_JDT_NUM, 0);
-	_STR_LRTrim (tempStr);
-	Upd[0].colNum = dbmInteger;
-	_STR_strcpy (Upd[0].updateVal, tempStr);
-
-	Upd[1].colNum = dbmAlphaNumeric;
-	_STR_strcpy (Upd[1].updateVal, _T("Y"));
-
-	Upd[2].colNum = dbmAlphaNumeric;
-	_STR_strcpy (Upd[2].updateVal, bizEnv.GetCompanyPeriodCategory ());
-
-	DBD_SetDAGUpd (dagJDT1 , Upd, 3);
-
-	ooErr = DBD_SpToDAG (dagJDT1, &dagRES, Sp_Name);
-	if (ooErr == dbmNoDataFound)
-	{
-		return ooNoErr;
-	}
-	if (ooErr)
-	{
-		return ooErr;
-	}
-		
- 	blockLevel	= RetBlockLevel(bizEnv);
-	typeBlockLevel = RettypeBlockLevel(bizEnv, GetID().strtol ());
-
-
-	if (blockLevel>=JDT_WARNING_BLOCK && typeBlockLevel == JDT_TYPE_ACCOUNTING_BLOCK && 
-		(OOIsSaleObject (transType) || OOIsPurchaseObject (transType)))
-	{
-		//dont given alert
-		blockLevel = JDT_NOT_BGT_BLOCK;
-	}
-
-	if (blockLevel>=JDT_WARNING_BLOCK && typeBlockLevel != JDT_TYPE_ACCOUNTING_BLOCK && 
-			transType == 30)
-	{
-		//dont give alert
-		blockLevel = JDT_NOT_BGT_BLOCK;
-	}
-
-	_STR_strcpy (monSymbol, bizEnv.GetMainCurrency ());
-
-	//Loop threw the records and see witch accounts has faild US !!!
-	DAG_GetCount (dagRES, &recCount);
-	for (ii = 0 ; ii < recCount ; ii++)
-	{
-		dagRES->GetColStr (acctCode, 0,ii);
-
-		dagRES->GetColStr (tmpStr, 1,ii);
-		DoAlert = tmpStr[0];
-	
-		dagRES->GetColStr (tmpStr, 2,ii);
-		AlrType = tmpStr[0];
-	
-		dagRES->GetColMoney (&BgtMonthOver, 3, ii, DBM_NOT_ARRAY);
-		dagRES->GetColMoney (&BgtYearOver, 4, ii, DBM_NOT_ARRAY);
-
-		if (DoAlert == *VAL_YES)
-		{
-			transTotal.SetToZero();
-			for (rec=0; rec<numOfRecs; rec++)
-			{
-				dagJDT1->GetColStr (acctKey, JDT1_ACCT_NUM, rec);
-				if (_STR_stricmp (acctKey, acctCode) == 0)
-				{
-					dagJDT1->GetColMoney (&debAmount, JDT1_DEBIT, rec, DBM_NOT_ARRAY);
-					dagJDT1->GetColMoney (&credAmount, JDT1_CREDIT, rec, DBM_NOT_ARRAY);
-					MONEY_Add (&transTotal, &debAmount);
-					MONEY_Sub (&transTotal, &credAmount);
-				}
-			}
-			if (bizEnv.GetBudgetWarningFrequency() == VAL_MONTHLY[0])
-			{
-				if ((BgtMonthOver.IsPositive() && transTotal.IsPositive()) ||
-					(BgtMonthOver.IsNegative() && transTotal.IsNegative()))
-				{
-					bgtDebitSize	= TRUE;
-				}
-				else
-				{
-					bgtDebitSize	= FALSE;
-				}
-			}
-			else
-			{
-				if ((BgtYearOver.IsPositive() && transTotal.IsPositive()) ||
-					(BgtYearOver.IsNegative() && transTotal.IsNegative()))
-				{
-					bgtDebitSize	= TRUE;
-				}
-				else
-				{
-					bgtDebitSize	= FALSE;
-				}
-			}
-		}
-		else
-		{
-		   bgtDebitSize	= FALSE;
-		}
-
-		 	//set the blocking of budget
-		if (blockLevel > JDT_NOT_BGT_BLOCK  && bgtDebitSize)
-		{
-			budgetAllYes = IsExCommand( ooDontUpdateBudget) ;
-
-			//the temp flag  used for ImportExportTrans
-			fromImport = IsExCommand( ooImportData);
-
-			//MONEY_Multiply (&BgtMonthOver, -1, &BgtMonthOver);
-
-			MONEY_ToText (&BgtMonthOver, moneyMonthStr, RC_SUM, monSymbol, bizEnv);   
-			
-			MONEY_ToText (&BgtYearOver, moneyYearStr, RC_SUM, monSymbol, bizEnv);   	
-
-			if (bizEnv.GetBudgetWarningFrequency() == VAL_MONTHLY[0])
-			{
-				GetBudgBlockErrorMessage(moneyMonthStr, moneyYearStr, acctCode, MONTH_ALERT_MESSAGE, msgStr1);
-			}
-			else
-			{
-				GetBudgBlockErrorMessage(moneyMonthStr, moneyYearStr, acctCode, YEAR_ALERT_MESSAGE, msgStr1);
-			}
-		
-			switch (blockLevel)
-			{
-				case JDT_BGT_BLOCK:
-					if (typeBlockLevel == JDT_TYPE_ACCOUNTING_BLOCK)
-					{
-						if (bizEnv.GetBudgetWarningFrequency() == VAL_MONTHLY[0])
-						{
-						GetBudgBlockErrorMessage (moneyMonthStr, moneyYearStr, acctCode, BLOCK_ONE_MESSAGE, msgStr1);
-						_STR_strcat (msgStr1, _T(" , "));
-						_STR_strcat (msgStr1,EMPTY_STR );
-						Message (-1, -1, msgStr1, OO_ERROR);
-						}
-						else
-						{
-								CMessagesManager::GetHandle()->Message(
-														_1_APP_MSG_FIN_BGT0_CHECK_YEAR_TOTAL_STR, 
-														EMPTY_STR, 
-														this,
-														acctCode, 
-														moneyYearStr);
-						}
-						
-						return ooInvalidObject;
-					}
-				break;
-
-				case JDT_WARNING_BLOCK:
-				////the Message not to bee bring for ImportExportTrans
-				if (fromImport|| GetDataSource () == *VAL_OBSERVER_SOURCE)
-					{
-						_STR_strcat (msgStr1, _T(" , "));
-						_STR_strcat (msgStr1,EMPTY_STR );
-						Message (-1, -1, msgStr1, OO_ERROR);
-					}
-
-					if (budgetAllYes == FALSE)
-					{
-#ifndef	MNHL_SERVER_MODE
-						TCHAR	ContinueStr[50];
-
-						_STR_GetStringResource (ContinueStr, BGT0_FORM_NUM, BGT0_CONTINUE_STR);
-						retBtn = FORM_GEN_Message (msgStr1, ContinueStr, CANCEL_STR(*OOGetEnv(NULL)), YES_TO_ALL_STR(*OOGetEnv(NULL)), 2);
-#else
-						retBtn = 2;
-#endif
-						switch (retBtn)
-						{
-							case 1://formOKReturn
-							case 3://formOKReturn
-								budgetAllYes = (retBtn == 3 ? TRUE:FALSE);
-								if (budgetAllYes)
-								{
-									SetExCommand ( ooDontUpdateBudget, fa_Set );
-								}
-
-								if (GetEnv ().GetPermission (PRM_ID_BUDGET_BLOCK) != OO_PRM_FULL)
-								{
-									DisplayError (fuNoPermission);
-									return ooErrNoMsg;//fuNoPermission;
-								}
-								//return ooNoErr;
-							break;
-
-							case 2:
-								return ooErrNoMsg;
-							break;
-
-						}
-					}
-				break;
-			}//switch of levelBlock
-		}//End Of For Looping
-	}//blocking	
-
-	if (transType == JDT && bizEnv.IsComputeBudget ())
-	{
-		Boolean					alertSent;
-		CSystemAlertParams		systemAlertsParams;
-
-		systemAlertsParams.m_fromUser = bizEnv.GetUserSignature ();
-		systemAlertsParams.m_object = JDT;
-		systemAlertsParams.m_params = this;
-		systemAlertsParams.m_primaryKey.Format(_T("%d"), transAbs);
-		systemAlertsParams.m_secondaryKey = systemAlertsParams.m_primaryKey;
-
-		systemAlertsParams.m_alertID = ALR_BUDGET_ALERT;
-		systemAlertsParams.m_flags = 0;
-		ALRSendSystemAlert (&systemAlertsParams, &alertSent);
-	}
-
-	return ooErr;	
-}
-/*************************************************************/
-
-long CTransactionJournalObject::RettypeBlockLevel(CBizEnv &bizEnv, long id)
-{
-        _TRACER("RettypeBlockLevel");
-	switch (id)
-	{
-		case POR:
-			if(bizEnv.IsApplyBudget (bl_Orders))
-			{
-				return JDT_TYPE_DOCS_BLOCK;
-			}
-		break;
-
-		case PDN:
-			if (bizEnv.IsApplyBudget (bl_Deliveries))
-			{
-				return JDT_TYPE_DOCS_BLOCK;
-			}
-		break;
-		case PRQ:
-			if (bizEnv.IsApplyBudget (bl_PurchaseRequest))
-			{
-				return JDT_TYPE_DOCS_BLOCK;
-			}
-		break;
-
-		default:
-			if (bizEnv.IsApplyBudget (bl_Accounting))
-			{
-				return JDT_TYPE_ACCOUNTING_BLOCK;
-			}
-		break;
-	}
-	return 	JDT_NOT_TYPE_DOCS_BLOCK;
-}
-HERE
-
-
-s0=<<HERE
-#include "b.h"
-a = 1;
-#ifndef a_h
-#define a_h
-b = 1;
-c=1;
-#endif
-HERE
-
-
-s1 =<<HERE
-//a = 1;
-//#define bbc
-
-//abc=1;
-
-#include "a.h"
-
-//#fdaaslk
-//c=1;
-//#include "bss.h"
-//b =1;
-HERE
-s2 =<<HERE
-#pragma once fdffd \
-dfasfd\
-fdas
-#include "b.h"
-HERE
-
-
-
-
-
-s3=<<HERE
-#ifndef ADD
-a=32;
-#else
-a=3;
-#endif
-#if 1
-a=1;
-#else
-a=2;
-#endif
-HERE
-
-
-s4=<<HERE
-
-#define		JDT_WARNING_BLOCK1	3
-#ifdef JDT_WARNING_BLOCK1
-a = 1;
-#else
-a = 2;
-#endif
-
-HERE
-s5=<<HERE
-#if 0
-a=3;
-#else
-a =1;
-#endif
-HERE
-s =<<HERE
-#define LOG(m, l) log(m, l);\
-m++;\
-l--
-#define A 10
-a=A;
-LOG("FAFAF", 10);
-LOG("B", 3);
-LOG(aaa, 3);
-HERE
-
-
-s6=<<HERE
-#if 1
-a=3;
-#else
-a =1;
-#endif
-HERE
-
-
-
-
-
-s7=<<HERE
-#ifndef B
-#define B 31
-#else
-#define A 33
-#endif
-HERE
-s=<<HERE
-#ifndef XML_RESOURCE_TOOLS_TABLE_JDT1_H
-#define XML_RESOURCE_TOOLS_TABLE_JDT1_H
-#define	JDT1_KEYNUM_JDT1CHECKA_LEN							31
-
-#endif
-
-HERE
-s8=<<HERE
-#include "JDT1.h"
-HERE
-s9=<<HERE
-#include "qa.h"
-HERE
-
-s10=<<HERE
-#define		FILE_TAB				_T("\\t\\n")
-FILE_TAB
-HERE
-s=<<HERE
-printf('-----------1');
-#if 1
-a=3;
-#else
-a =1;
-#endif
-printf('-----------2');
-#if 0
-a=33;
-#else
-a =11;
-#endif
-HERE
-
-s11=<<HERE
-try{
-    _LOGMSG(logDebugComponent, logNoteSeverity, 
-	    _T("In CTransactionJournalObject::BeforeDeleteArchivedObject - starting JEComp.execute()"))
-	    CJECompression	JEComp(GetEnv(), &JEPref);
-		
-}	
-    catch (nsDataArchive::CDataArchiveException& e){
     
-}
-HERE
-
-
-
-
-s12=<<HERE
-#ifdef QC_SHELL_ON
-		qc = TRUE;
-#else
-		qc = FALSE;
-#endif
-
-
-HERE
-s13=<<HERE
-#pragma once
-#ifdef POJDT_H
-#endif
-HERE
-s14=<<HERE
-
-		JDT1_CREDIT										=	4,
-#define	JDT1_CREDIT_LEN										20
-#define	JDT1_CREDIT_ALIAS									L"Credit"
-
-		// System Credit Amount
-		JDT1_SYS_CREDIT									=	5,
-
-    	docInfoQry.Select ().Max ().Col (tableObjRow, JDT1_CREDIT).Sub ().Max ().Col (tableObjRow, JDT1_DEBIT).As (JDT1_CREDIT_ALIAS);
-
-HERE
-s15=<<HERE
-// included from file c_macros.c
-#define TRUE true
-#define FALSE false
-#define NULL nil
-#define _LOGMSG(a,b,c)
-
-HERE
-s16=<<HERE
-#if 0
-#define B 31
-#else
-#define A 33
-#endif
-A
-HERE
-
-s17=<<HERE
-#define _DEBUG 
-#ifdef _DEBUG
-b=1;
-#ifdef _WINDOWS
-b=2;
-#else
-#endif
-#endif
-a=1;
-HERE
-
-s18=<<HERE
-#define _DEBUG 
-#ifndef _DEBUG
-b=1;
-#ifdef _WINDOWS
-b=2;
-#define _DEBUG1 1
-
-#else
-#endif
-#endif
-a=1;
-HERE
-s=<<HERE
-#define DAG_DEF_ELEMENT_SIZE	20480
-#define MAX_COND_SIZE			600
-
-#define __DAG_WORM_WRITE_LOCK__	//SBOLockGuard lockGuard (m_lock.get ())
-#define __DAG_WORM_READ_LOCK__	//SBOLockGuard lockGuard (m_lock.get ())
-#define __DAG_SET_STATIC_LOCK__	SBOCriticalSection CsGuard (GetStaticData ().m_dagSetLock)
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class DagCleaner;
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-#ifdef _DEBUG
-
-#include <unordered_map>
-
-
-typedef std::unordered_map<PDAG, DagStackInfo> DagStackSnapMap;
-
-#endif // _DEBUG
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class CDagException : public CException
-{
-public:
-	CDagException (long sboErr, const SBOString& tableAlias, const SBOString& message)
-		: CException (sboErr, L"DAG error", message + " (table " + tableAlias + ")") {}
-};
-HERE
-
-s19=<<HERE
-inline ArrayOffset  SubObjectToArrayOffSet(IN long subObject);
-
-HERE
-if !testall
-   
-    s = s19
-else
-
-    r = ""
-    for i in 0..100
-        begin
-            si = eval("s#{i}")
-        rescue
-            break
-        end
-        if si !=nil
-            r += si +"\n"
-        end
+    def dump_macros_to_file(fname)
+        s = ""
+        @macros.each{|n,v|
+            s+="#{n}=>#{v}\n"
+     }
+     save_to_file(s, fname)
     end
-    s = r
-    p(" ==== find #{i} testcase")
-end
-#$g_options = {
-#    :include_dirs=>[]
-#}
-    p "==>#{s}"
-    scanner = CScanner.new(s, false)
-    error = MyError.new("whaterver", scanner)
-    parser = Preprocessor.new(scanner, error)
-    # parser.Get
-    p "preprocess content:#{scanner.buffer}"
-    content = parser.Preprocess(false)
-    p "====== result ======"
-    p content
-    parser.show_macros
-    error.PrintListing
-end
-test()
+    def dump_classes_to_file(fname)
+        s = ""
+        list = $pre_classlist.keys.sort
+        p "=====>list classes:"
+        p list.inspect
+        list.each{|n|
+            s+="#{n}\n"
+     }
+     save_to_file(s, fname)
+     p "classes list dumped to file #{fname}"
+     
+    end
+end # class Preprocessor
+
+
+
+
+
+
+load 'macrotest.rb'
