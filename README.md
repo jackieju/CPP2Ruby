@@ -24,6 +24,8 @@ You absolutely need do some manual work. This tool's goal is helping you do the 
 
 Supported Features
 ===
+This tools supports all cpp features expect some after cpp11.
+Here describe some and explain how we support it.
 1. goto statement
 
 Althought ruby doesn't support goto, but will generate which code has same effection.
