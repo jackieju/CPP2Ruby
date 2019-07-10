@@ -80,10 +80,10 @@ end
 </pre>
 Unsupported Features
 ===
-Some cpp11 features are not supported
+Some cpp11 features and very few cpp features are not supported
 
 1. lumda
-2. operator=, because in ruby class you cannot override = to do copy construction
+2. operator=, because in ruby class you cannot override = to do copy construction.
 3. Multi call to multiple parent classs's constructor is not support, generated ruby will only call one "super(xxx)"
 
 e.g.
