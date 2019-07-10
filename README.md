@@ -36,7 +36,7 @@ Please see https://rubygems.org/gems/goto
 Although ruby doesn't support it, but will generate code which has same functionality.
 
 If the class has more than one parent class, The translator will generate normal class for the first one, 
-and from the 2nd parent class, it will generate a class with same name which include a ruby module withe the name "<name>_module", and the current class will include it.
+and from the 2nd parent class, it will generate a class with same name which include a ruby module with the name "<name>_module", and the current class will include it.
 	
 	e.g. in cpp
 	<pre>
