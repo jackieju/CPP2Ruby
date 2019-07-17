@@ -70,11 +70,13 @@ end
 
 # $g_classdefs = {}
 
-def add_class(class_name, parent=nil, modules=nil)
-    clsdef = ClassDef.new(class_name)
-    $g_classdefs = {} if $g_classdefs == nil
-    $g_classdefs[class_name] = clsdef
-end
+#def add_class(class_name, parent=nil, modules=nil)
+#    class_name = valid_class_name(class_name)
+#    
+#    clsdef = ClassDef.new(class_name)
+#    $g_classdefs = {} if $g_classdefs == nil
+#    $g_classdefs[class_name] = clsdef
+#end
 
 # when translate multiple file, will share one class tree
 $g_classdefs = {} if $g_classdefs == nil
@@ -127,10 +129,11 @@ def dump_one_as_ruby(v, module_name=nil)
                 end
             
             
-                if v[:src] && v[:src].strip != ""
+                if v[:src] #&& v[:src].strip != ""
+                    p "src:#{v[:src]}"
                     method_template =<<HERE
                 def #{method_name}#{v[:head]}#{v[:src]}
-                
+                end
 HERE
                 else
                     next
@@ -186,7 +189,6 @@ HERE
             
             wfname = ""
             wfname += "#{$output_dir}/" if $output_dir && $output_dir != ""
-            
             #if module_name && module_name != ""
             #    p "module_name:#{module_name}"
             #    
@@ -342,175 +344,13 @@ class Parser < CRParser
         return  @using_namespace
     end
     
-    # find module from scope, if not found then find in parent scope
-    def find_module_from(name, scope)
-        ret = {
-            :v=>nil,
-            :prefix=>""
-        }
-        if scope == nil # find using namespace
-            if @using_namespace
-                ret[:v]= @using_namespace.modules[name]
-                if ret[:v]
-                    ret[:prefix]= @using_namespace_str
-                end
-            end
-            return ret
-        end
-        if !scope.is_a?(ModuleDef) # skip class, functiondef
-            return find_module_from(name, scope.parentScope)
-        end
-        ret[:v] = scope.modules[name]
-        if ret[:v]
-            return ret
-        else
-            ret[:v] = scope.classes[name] # call be class
-            if ret[:v]
-                return ret
-            else
-                return find_module_from(name, scope.parentScope)
-            end
-        end
-    end
-    
-    def find_class_from(name, sc)
-         if sc
-             #p("find_class_from:#{name}, #{sc.inspect}")
-            # p sc.classes.inspect
-         end
-        ret = {
-            :v=>nil,
-            :prefix=>""
-        }
-        if !sc
-            return ret if !@using_namespace
-            ret[:v] = @using_namespace.classes[name]
-            if ret[:v]
-                ret[:prefix] = @using_namespace_str
-            end 
-            return ret
-        end
-        ret[:v] = sc.classes[name]
-        return ret if ret[:v]
-        return find_class_from(name, sc.parentScope)
-    end
-    def find_class(name)
-        p "find_class:#{name}"
-        ret = {
-            :v=>nil,
-            :prefix=>""
-        }
-      #  r = _find_class(name)
-      #  return r if r
-        
-        ar = name.split("::")
-        if ar.size == 1 # not "::", means only class no modules
-             return find_class_from(name, current_ruby_scope)
-        else
-            na = ar[0]
-            # find first module
-            if na == "" # the case "::a"
-                ret = {
-                    :v=>@root_class,
-                    :prefix=>""
-                }
-            else
-                ret = find_module_from(na, current_ruby_scope) 
-            end
-            return ret if ret[:v] == nil
-            sc = ret[:v]
-            if ar.size >2 # more thant 1 module
-                for i in 1..ar.size-2
-                    _sc = sc.modules[ar[i]]
-                    if _sc == nil
-                        _sc = sc.classes[ar[i]]
-                    end
-                    sc = _sc
-                end
-            end
-             ret[:v] = sc.classes[ar[ar.size-1]] if sc
-           
-            return ret
-        end
-        return ret
-    end
-=begin    
-    def _find_class(name)
-        ret = {
-            :v=>nil,
-            :prefix=>""
-        }
-        ar = name.split("::")
-        ret = ""
-        sc = current_ruby_scope
-        for i in 0..ar.size-1
-            na = ar[i]
-            if i == ar.size-1 # class
-                if sc.classes[na]
-                    if ret && ret !=""
-                        return "#{ret}::#{na}"
-                    else
-                        return na
-                    end
-                else 
-                    return ret
-                end
-            elsif i == 0 # first module
-                sc = find_module_from(na, sc)
-                return nil if !sc
-                ret += "#{sc.class_name}::" 
-                
-            else # module but not first
-                sc = sc.modules[na]
-                return nil if !sc
-                ret += "#{sc.class_name}::" 
-            end
-        end
-    end
-=end    
-    def find_function_from(name, sc)
-        r = sc.methods[name]
-        return if r
-        return find_function_from(name, sc.parentScope)
-    end
-    def find_function(name)
-        ret = {
-            :v=>nil,
-            :prefix=>""
-        }
-        ar = name.split(".")
-        if ar.size > 1 # has function owner
-            fn = ar[ar.size-1]
-            ar_sc = ar[0].split("::")
-            if ar_sc.size >1 # has module
-                ret = find_module_from(ar_sc[0], current_scope)
-                return ret if !ret[:v]
-                sc = ret[:v]
-                if ar_sc.size > 2 
-                    for i in 1..ar_sc.size-2
-                        sc = sc.modules[ar_sc[i]]
-                    end
-                end
-                ret[:v] = sc.methods[fn]
-                
-            else # only class
-                ret = find_class(ar_sc[0])
-                cls = ret[:v]
-                return ret if !cls
-                ret[:v] = cls.methods[fn]
-            end
-        else # only function name
-            ret[:v] = find_function_from(name, current_ruby_scope)
-        end
-        return ret
-    end
-    
-    def add_class(class_name, parent=nil, modules=nil)
-        
-        clsdef = ClassDef.new(class_name)
-        @classdefs[class_name] = clsdef
-        return clsdef
-    end
+
+    #def add_class(class_name, parent=nil, modules=nil)
+    #    class_name = valid_class_name(class_name)
+    #    clsdef = ClassDef.new(class_name)
+    #    @classdefs[class_name] = clsdef
+    #    return clsdef
+    #end
     def GetNextSym(step =1)
         _scanner = @scanner.clone()
       #  p "==>scanner clone =#{_scanner.inspect}"
@@ -1691,7 +1531,7 @@ class Parser < CRParser
  
     	        elsif _next == C_LparenSym  && ['class', 'struct'].include?(current_scope.name)# for constructor in class or struct, should not include module
     	            p "--> in class scope"
-    	            if current_scope.class_name == cs # constructor
+    	            if current_scope.orig_class_name == cs # constructor
     	                Get()
                         FunctionDefinition(current_scope.class_name, "initialize")
 	                elsif cs=="~" # deconstructor
@@ -2377,9 +2217,9 @@ class Parser < CRParser
         
         end
         
-        if @sym == C_constSym
-            Get()
-        end
+        #if @sym == C_constSym
+        #    Get()
+        #end
         
         ##====================
         # forward check one, to get type
@@ -2396,7 +2236,8 @@ class Parser < CRParser
                     _next >= C_boolSym && _next <= C_voidSym || # simple type
                     _next >= C_staticSym && _next <= C_externSym || # storage type
                     _next == C_StarSym || _next == C_AndSym || _next == C_ColonColonSym ||
-                    _next == C_LessSym # template 
+                    _next == C_LessSym ||# template
+                    (@sym >= C_staticSym && @sym <= C_voidSym || @sym == C_typenameSym) 
                 )
                )
                p "---->LocalDeclaration3, @sym=#{@sym}, curString=#{curString()}, next=#{_next}, type=#{type.inspect}, line #{curLine()}, col #{curCol()}"
@@ -2409,10 +2250,10 @@ class Parser < CRParser
                  break
               end
              p "-->sym:#{@sym}, next:#{_next}, line #{@scanner.nextSym.line }, v=#{curString()}"
-        	if (@sym >= C_staticSym && @sym <= C_externSym) 
-                p "---->LocalDeclaration11:pass storage class"
-        		storageclass += StorageClass()
-        	elsif (@sym >= C_autoSym && @sym <= C_voidSym || @sym == C_typenameSym)
+        	#if (@sym >= C_staticSym && @sym <= C_externSym) 
+            #    p "---->LocalDeclaration11:pass storage class"
+        	#	storageclass += StorageClass()
+        	if (@sym >= C_staticSym && @sym <= C_voidSym || @sym == C_typenameSym)
                 p "---->LocalDeclaration12: parse simple type"
                 _var_type = Type()
                 type += _var_type.name
@@ -2780,9 +2621,10 @@ class Parser < CRParser
         
                 fd = FunctionDefinition(class_name, fname, storageclass)
             else
-                p "--->1111:#{@sym}, #{_n}"
-                
-            	varname = current_scope.add_var(Variable.new(varname, var_type))
+                p "--->1111:#{@sym}, #{_n}, #{var_type.inspect}"
+                if var_type.storage.index("const") == nil
+                    varname = current_scope.add_var(Variable.new(varname, var_type))
+                end
                 # fc = "#{varname} = #{var_type.name}.new"
                 # fc += FunctionCall()
                 # p "fc=#{fc}"
@@ -2798,8 +2640,11 @@ class Parser < CRParser
             
             # fd = FunctionCall()
     	elsif (@sym == C_SemicolonSym ||
-    	           @sym >= C_EqualSym && @sym <= C_LbrackSym) 
-    	    varname = current_scope.add_var(Variable.new(varname, var_type))
+    	           @sym >= C_EqualSym && @sym <= C_LbrackSym)
+        p "#{var_type.inspect}" 
+            if var_type.storage.index("const") == nil
+    	        varname = current_scope.add_var(Variable.new(varname, var_type))
+            end
     # line 706 "cs.atg"
             vl = VarList(var_type, varname) # define lots of variables in one line splitted by comma
 	
@@ -2974,6 +2819,7 @@ class Parser < CRParser
         @presrc = "" # predfined code before function body source
         if !@in_preprocessing
             if class_name && class_name != ""
+               # class_name = valid_class_name(class_name)
      	       # classdef = @classdefs[class_name]
                classdef = find_class(class_name)[:v]
      	        if !classdef
@@ -3115,7 +2961,7 @@ class Parser < CRParser
         method_src = nil
         if (fb)
             #ret = "#{ret}\n#{@presrc}\n#{fb}\nend"
-            ret = "#{@presrc}\n#{fb}\nend" 
+            ret = "#{@presrc}\n#{fb}" 
             method_src = ret
             ret = ""
         end
@@ -3333,7 +3179,7 @@ class Parser < CRParser
         ret = ""
     # line 396 "cs.atg"
     	if (@sym >= C_staticSym && @sym <= C_externSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym) 
-    	    ret += curString()
+    	    ret += curString()+" "
     # line 395 "cs.atg"
     		Get();
         # } elsif (Sym == mySym) {
@@ -3409,15 +3255,17 @@ class Parser < CRParser
         is_simpleType = true
         var_type = nil
         
-        _sym = @sym
-        
+        sc = ""
         while (@sym >= C_staticSym && @sym <= C_externSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym) 
-            StorageClass() # will be ignore
+            sc = StorageClass() # will be ignore
         end
         
+        p("===>type3:#{sc}", 10)
         # skip "export", "__dll_..."
         skipUnusableType()
         pdebug("---->type2:#{@sym}, #{curString()}")
+        
+        _sym = @sym
         
     # line 423 "cs.atg"
     	case (@sym) 
@@ -3595,14 +3443,10 @@ class Parser < CRParser
             
         
     	#return ret
-        if var_type == nil
-            r =  VarType.new(ret)
-            r.is_simpleType = is_simpleType
-            return r
-        else
-            var_type.is_simpleType = is_simpleType
-             return var_type
-        end
+        var_type =  VarType.new(ret) if var_type == nil
+        var_type.is_simpleType = is_simpleType
+        var_type.storage = sc
+        return var_type
        
     end
     
@@ -4006,7 +3850,7 @@ end
             if @sym != C_SemicolonSym
                 var_type = Type()
                 varname = curString()
-            	varname = current_scope.add_var(Variable.new(varname, var_type))
+        	    varname = current_scope.add_var(Variable.new(varname, var_type))
                 Get()
                 exp1 = VarList(var_type, varname) # define lots of variables in one line splitted by comma
                 exp1 ="#{varname}#{exp1}"
@@ -5250,9 +5094,10 @@ HERE
                             if !@in_preprocessing
                                  # p "====>2330:#{current_scope.inspect}"
                         	    cs = current_scope("FunctionDefinition")
-            			        if cs && find_var(varname, cs)
+                                r = find_var(varname, cs)
+            			        if cs && r
             			             p "====>2331:"
-            			            ret += find_var(varname, cs).newname
+            			            ret += r.newname
             		            else
 =begin			            
         		                ccs =  current_class_scope
@@ -5334,12 +5179,16 @@ HERE
                  Expect(C_LparenSym)
                  if (@sym >=C_boolSym && @sym <= C_voidSym)
                      t = Type().name
+                     while(@sym == C_StarSym)
+                         Get()
+                         t+="*"
+                     end
                  else
                      t = Expression()
                  end
                  
                  Expect(C_RparenSym)
-                 ret += "c_sizeof(#{t})"
+                 ret += "c_sizeof(\"#{t}\")"
             when C_deleteSym
 	    	    Get()
 			    if @sym == C_LbrackSym # delete [] A

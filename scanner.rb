@@ -1231,7 +1231,7 @@ public
              ctx = 0
              # p "get4:#{@ch}"
 
-            if (@ch == EOF_CHAR || @ch == nil) 
+            if (@ch.to_byte == EOF_CHAR || @ch == nil) 
                 return C_EOF_Sym
             end
             
@@ -1244,7 +1244,7 @@ public
             state = @@STATE0[@ch.to_byte]
            #   p "--->111ch:#{@ch[0].ord}=#{ch[0]}, #{state}=#{state}", 10
             while(1) 
-                # p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
+             #   p "st:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
               
               Scan_NextCh()
               # p "ch:#{@ch}, #{@buffer[nextSym.pos+nextSym.len]}, stat #{state}"
@@ -1252,7 +1252,7 @@ public
           #    p "st1:#{state}, #{nextSym.len}, #{@ch}, #{@buffer[buffPos]}"
 
                 if state == 33 &&  (@ch == ' ' || @ch.to_byte == 9) # is '#', support "#   define"
-                    p "bufpos:#{buffPos}"
+                #    p "bufpos:#{buffPos}"
                     del_start = @buffPos
                     while (@ch == ' ' || @ch.to_byte == 9)
                         Scan_NextCh()
@@ -1270,6 +1270,9 @@ public
                     nextSym.len -= delnum
                   #  p "after delete333:#{@buffer}"
                 end
+                
+              #  p ("state:#{state}, #{@ch}, #{@ch.to_byte}")
+                
               case (state) 
            
               when 1

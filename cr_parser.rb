@@ -17,6 +17,11 @@ def translate_varname(varname, uncapitalize=true)
     end
     return varname
 end
+def valid_class_name(n)
+    
+    return n.upcase if n.size ==1
+    return n[0].upcase+n[1..n.size-1]
+end
 class Variable
     attr_accessor :name, :type, :newname
     def initialize(name, type, newname=name)
@@ -26,13 +31,14 @@ class Variable
     end
 end
 class VarType
-    attr_accessor :name, :ref, :is_simpleType, :type # type can be:nil, "FunctionPointer"
+    attr_accessor :name, :ref, :is_simpleType, :storage, :type # type can be:nil, "FunctionPointer"
     # simple type means can typename is identifier and can be used like A Fn(a); to instantiate using constructor 
     def initialize(name, type=nil, is_simpleType = true)
         @name = name
         @ref = 0
         @is_simpleType = is_simpleType
         @type = type
+        @storage = ""
     end
 
 end
@@ -48,9 +54,10 @@ class Scope
     end
     
     def add_var(v)
-        p "add_var:#{v.name}", 20
+        p "add_var:#{v.name} to #{@class_name}@#{self}", 20
         if @name == "class"
             v.newname = "@#{v.newname}"
+            p "add_var:#{v.name} class var #{v.newname}"
         end
         @vars[v.name] = v
         return v.newname
@@ -136,7 +143,7 @@ m[:src] = "" if m[:src] ==nil
             end
         end
             
-        if @methods[method_sig]
+        if @methods[method_sig] # change exsiting 
             method_desc = @methods[method_sig]
             method_desc[:name] = method_name
             method_desc[:args] = args
@@ -196,18 +203,24 @@ m[:src] = "" if m[:src] ==nil
     def add_class(class_name)
         
         if class_name.class == String 
+            class_name = valid_class_name(class_name)
             if @classes[class_name] == nil
                 clsdef = ClassDef.new(class_name)
-                @classes[class_name] = clsdef
+                new_class_name = clsdef.class_name # name maybe changed
+                @classes[new_class_name] = clsdef
                 clsdef.parentScope = self
-                p "===>add_class:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
+                p "===>add_class1:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
+                p "===>add_class3:parent class #{clsdef.parent}"
             end
         else
             
             clsdef = class_name
             @classes[clsdef.class_name] = clsdef
             clsdef.parentScope = self
-            p "===>add_class:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
+            clsdef.class_name = valid_class_name(clsdef.class_name)
+            p "===>add_class2:#{clsdef.class_name}@#{clsdef} to #{self.class_name}@#{self}", 20
+            p "===>add_class4:parent class #{clsdef.parent}"
+            
         end
         
 
@@ -215,10 +228,11 @@ m[:src] = "" if m[:src] ==nil
     end
 end
 class ClassDef < ModuleDef
-    attr_accessor :class_name, :parent, :methods, :src, :parentScope, :functions, :includings
+    attr_accessor :class_name, :parent, :methods, :src, :parentScope, :functions, :includings, :orig_class_name
     def initialize(class_name)
         super("class")
-        @class_name = class_name
+        @orig_class_name = class_name
+        @class_name = valid_class_name(class_name)
         @methods = {}
         @name="class"
         @includings = []
@@ -322,7 +336,204 @@ class CRParser
          end
          return nil
     end
+    # find module from scope, if not found then find in parent scope
+    def find_module_from(name, scope)
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+        if scope == nil # find using namespace
+            if @using_namespace
+                ret[:v]= @using_namespace.modules[name]
+                if ret[:v]
+                    ret[:prefix]= @using_namespace_str
+                end
+            end
+            return ret
+        end
+        if !scope.is_a?(ModuleDef) # skip class, functiondef
+            return find_module_from(name, scope.parentScope)
+        end
+        ret[:v] = scope.modules[name]
+        if ret[:v]
+            return ret
+        else
+            ret[:v] = scope.classes[name] # call be class
+            if ret[:v]
+                return ret
+            else
+                return find_module_from(name, scope.parentScope)
+            end
+        end
+    end
     
+    def find_class_from(name, sc)
+        name = valid_class_name(name)
+         if sc
+             #p("find_class_from:#{name}, #{sc.inspect}")
+            # p sc.classes.inspect
+         end
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+        if !sc
+            return ret if !@using_namespace
+            ret[:v] = @using_namespace.classes[name]
+            if ret[:v]
+                ret[:prefix] = @using_namespace_str
+            end 
+            return ret
+        end
+        ret[:v] = sc.classes[name]
+        return ret if ret[:v]
+        return find_class_from(name, sc.parentScope)
+    end
+    def find_class(name)
+        p "find_class:#{name}"
+        name = valid_class_name(name)
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+      #  r = _find_class(name)
+      #  return r if r
+        
+        ar = name.split("::")
+        if ar.size == 1 # not "::", means only class no modules
+             return find_class_from(name, current_ruby_scope)
+        else
+            na = ar[0]
+            # find first module
+            if na == "" # the case "::a"
+                ret = {
+                    :v=>@root_class,
+                    :prefix=>""
+                }
+            else
+                ret = find_module_from(na, current_ruby_scope) 
+            end
+            return ret if ret[:v] == nil
+            sc = ret[:v]
+            if ar.size >2 # more thant 1 module
+                for i in 1..ar.size-2
+                    _sc = sc.modules[ar[i]]
+                    if _sc == nil
+                        _sc = sc.classes[ar[i]]
+                    end
+                    sc = _sc
+                end
+            end
+             ret[:v] = sc.classes[ar[ar.size-1]] if sc
+           
+            return ret
+        end
+        return ret
+    end
+=begin    
+    def _find_class(name)
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+        ar = name.split("::")
+        ret = ""
+        sc = current_ruby_scope
+        for i in 0..ar.size-1
+            na = ar[i]
+            if i == ar.size-1 # class
+                if sc.classes[na]
+                    if ret && ret !=""
+                        return "#{ret}::#{na}"
+                    else
+                        return na
+                    end
+                else 
+                    return ret
+                end
+            elsif i == 0 # first module
+                sc = find_module_from(na, sc)
+                return nil if !sc
+                ret += "#{sc.class_name}::" 
+                
+            else # module but not first
+                sc = sc.modules[na]
+                return nil if !sc
+                ret += "#{sc.class_name}::" 
+            end
+        end
+    end
+=end    
+    def find_function_from(name, sc)
+        r = sc.methods[name]
+        return if r
+        return find_function_from(name, sc.parentScope)
+    end
+    def find_function(name)
+        ret = {
+            :v=>nil,
+            :prefix=>""
+        }
+        ar = name.split(".")
+        if ar.size > 1 # has function owner
+            fn = ar[ar.size-1]
+            ar_sc = ar[0].split("::")
+            if ar_sc.size >1 # has module
+                ret = find_module_from(ar_sc[0], current_scope)
+                return ret if !ret[:v]
+                sc = ret[:v]
+                if ar_sc.size > 2 
+                    for i in 1..ar_sc.size-2
+                        sc = sc.modules[ar_sc[i]]
+                    end
+                end
+                ret[:v] = sc.methods[fn]
+                
+            else # only class
+                ret = find_class(ar_sc[0])
+                cls = ret[:v]
+                return ret if !cls
+                ret[:v] = cls.methods[fn]
+            end
+        else # only function name
+            ret[:v] = find_function_from(name, current_ruby_scope)
+        end
+        return ret
+    end
+    
+    def find_var_in_class(name, scope)
+        p "find_var_in_class:#{scope}, #{scope.class_name if scope.class.to_s!="String"}"
+       if scope.class.to_s == "String"
+           scope_name = scope
+            r = find_class(scope_name) 
+            scope = r[:v]
+       end
+        if !scope
+            #throw "cannot find class #{scope_name}"
+            p "class #{scope_name} not found"
+            return nil
+        end
+        if !scope.is_a?(ClassDef)
+            throw "scope #{scope}@#{scope.class} is not a class"
+        end
+        p "list vars for class #{scope}:"
+        scope.vars.each{|k,v|
+            p "===>var:#{k}"
+        }
+        ret = scope.get_var(name)
+        return ret if ret
+        
+        # find var in parent class
+        if scope.is_a?(ClassDef)
+              p "find var in parent class #{scope.parent}"
+            _scope = scope.parent
+              p "find var in parent class2 #{_scope}"
+            if _scope
+               return find_var_in_class(name, _scope)
+            end
+        end
+        return nil
+    end
     def find_var(name, scope=nil)
          p "find_var:#{name}", 10
         scope= current_scope  if !scope
@@ -338,19 +549,30 @@ class CRParser
                 #p "scope:#{scope.inspect}"
                 throw Exception.new("===>error<====")
             end
-            scope.vars.each{|k,v|
-                p "===>var:#{k}"
-            }
-            ret = scope.get_var(name)
-            return ret if ret
+            
+            # find var in parent class
+            if scope.is_a?(ClassDef)
+                ret =  find_var_in_class(name, scope)
+                
+            else
+                scope.vars.each{|k,v|
+                    p "===>var:#{k}"
+                }
+                ret = scope.get_var(name)
+            end
+             if ret
+                 p "found var #{name}"
+                 return ret
+             end
             scope = scope.parentScope
         end
+        #throw "cannot find var #{name}"
         return nil
     end
     def canUseBreak?
         i = @sstack.size-1
         while (i>=0)
-            if @sstack[i].name == "FunctionBody" 
+            if @sstack[i].name == "FunctionBody"  || @sstack[i].name == "SwitchStatement"
                 return false
             end
             
