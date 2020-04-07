@@ -413,6 +413,8 @@ for (int i = 0, keyOff = 0; i < segmentCount && keyOff < keyLen; i++);
 
 // testcase 58 
 i = sizeof(short);
+i = sizeof(void*);
+
  i = sizeof(a->b());
 
 // testcase 59 
@@ -463,9 +465,10 @@ template<typename Obj, typename Key, typename Creator>  class ObjWrapper2;
 int a(...);
 
 // testcase 67 
+// vararg function
 class WarningLevel{};
 class ILanguageSettings{};
-B1_OBSERVER_API CBusinessException (WarningLevel warningLevel, ILanguageSettings& env, long msgUid, ...);
+//B1_OBSERVER_API CBusinessException (WarningLevel warningLevel, ILanguageSettings& env, long msgUid, ...);
 int a(...);
 int aaaaaa(...){};
 
@@ -806,7 +809,7 @@ typedef bool (*DBD_ProgressCallback) (void *userData, long curr, long max);
 typedef bool (*DBD_FilterCallback) (PDAG pDag, long rec, void *param1, void *param2);
 typedef SBOErr (*DBD_CondCallback) (void *form, DBD_Params *addedParams);
 void     SetProgressCallback (DBD_ProgressCallback progressProc, void* userData, CProgressIndicator *progressPtr);
-B1_OBSERVER_API bool IsGrossPriceMode() { return GetEnv().EnableGrossPriceMode() && GetPriceMode().CompareNoCase(SBOString(STR_PRICE_MODE_GROSS_PRICE)) == 0; }
+//B1_OBSERVER_API bool IsGrossPriceMode() { return GetEnv().EnableGrossPriceMode() && GetPriceMode().CompareNoCase(SBOString(STR_PRICE_MODE_GROSS_PRICE)) == 0; }
 
 // testcase 93 
 typedef union _BigInt
@@ -1077,6 +1080,39 @@ void A::fn(){
 
 // testcase 100 
 // test function polymophysim with different number of parameter
-void fn(){}
-void fn(int a){}
+//void fn(){}
+//void fn(int a){}
+ void		_FILE_GetApplPath (TCHAR *fullApplPath, long maxLen = 128);
+ void		_FILE_GetApplPath (SBOString& fullApplPath);
+
+
+// testcase 101 
+
+class A{
+    int B;
+}
+class A2 :A{
+}
+void A2::a(){
+    B = 1;
+}
+c = new A2;
+int d = c.B;
+
+e = AAA;
+
+const int BBB=1;
+e= BBB;
+const static CDocumentKey s_invalidBaseKey(-1,-1);
+while(1){
+switch(a){
+    case 1:
+        print(s);
+        break;
+    case 2:
+        print(s);
+        break;
+}
+}
+const auto &str = GetAttributeString (colIndex, arrayOffset, line);
 
