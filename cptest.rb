@@ -1526,6 +1526,24 @@ switch(a){
 }
 }
 const auto &str = GetAttributeString (colIndex, arrayOffset, line);
+
+HERE
+s102 =<<HERE
+/*void C(){};
+int cScanner::CheckLiteral(int id)
+{ char c;
+  c =  CurrentCh(NextSym.Pos);
+  if (IgnoreCase) c = Upcase(c);
+      }*/
+int STATE0[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                    0,0,31,111,26,32,0,96,84,24,39,40,42,94,100,95,36,41,34,2,2,2,2,2,2,2,2,2,30,81,
+                    87,80,89,0,0,1,1,1,113,1,1,1,1,1,1,1,1,114,1,1,1,1,1,1,1,1,1,1,1,1,
+                    1,37,0,38,86,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+                    1,1,1,0,82,0,112,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 HERE
 s_notsupport=<<HERE 
 // lumda
@@ -1580,11 +1598,7 @@ HERE
     save_to_file(r, "cp_testcase.cpp")
     #end
 
-if !testall
-   
-    s = s101
-else
-
+if testall == true
     r = ""
     for i in 0..200
         begin
@@ -1598,6 +1612,9 @@ else
     end
     s = r
     p(" ==== find #{i} testcase")
+else
+
+    s = eval("s#{testall}")
 end
 
 p s
@@ -1651,7 +1668,8 @@ end
 
 
 #=end
-test(true)
+#test(true)
+test(102)
 #dump_testcase
 p "$typedef:#{$typedef.inspect}"
 

@@ -2711,7 +2711,7 @@ class Parser < CRParser
             s,n = FunctionCall("#{var_type.name}.initialize")
         	ret += s
         elsif ArraySize() != ""
-            ret += " = []\n"
+           # ret += " = []\n"
         elsif !var_type.is_simpleType && var_type.type != "FunctionPointer"
         	ret += " = #{var_type.name}.new"
         end
@@ -2722,7 +2722,7 @@ class Parser < CRParser
     	if (@sym == C_EqualSym) 
     	    ret += "="
     # line 445 "cs.atg"
-    		Get();
+    		Get()
     # line 445 "cs.atg"
             #parsed = false
             #if (@sym == C_identifierSym && GetNextSym.sym == C_SemicolonSym)
@@ -2733,6 +2733,7 @@ class Parser < CRParser
             #end
     		#
             #ret += Expression() if !parsed
+            p "===>varlist13:#{@sym}"
             ret += Expression()
     # line 445 "cs.atg"
     	end
@@ -2766,7 +2767,10 @@ class Parser < CRParser
     # line 455 "cs.atg"
 
     # line 458 "cs.atg"
+    p "===>valist11:#{ret}"
     		if (@sym == C_EqualSym) 
+                p "===>valist12:#{ret}"
+                
     		    ret += " = "
     # line 458 "cs.atg"
     			Get();
@@ -3450,7 +3454,7 @@ class Parser < CRParser
        
     end
     
-    def Label
+    def LabelForSwitch
         ret = ""
     # line 674 "cs.atg"
     	if (@sym == C_caseSym) 
@@ -3461,7 +3465,15 @@ class Parser < CRParser
     		constexp=ConstExpression()
     # line 674 "cs.atg"
     		Expect(C_ColonSym)
-    		ret += "when #{constexp}\n"
+    		ret += "when #{constexp}"
+            while (@sym == C_caseSym)
+                Get()
+                constexp=ConstExpression()
+                ret += ",\n #{constexp}"
+        		Expect(C_ColonSym)
+                
+            end
+            ret += "\n"
     	elsif (@sym == C_defaultSym) 
     # line 674 "cs.atg"
     		Get()
@@ -3550,7 +3562,7 @@ HERE
     	while (@sym == C_caseSym ||
     	       @sym == C_defaultSym) 
     # line 658 "cs.atg"
-    		stmt += Label()
+    		stmt += LabelForSwitch()
     	end
         
  
@@ -4108,17 +4120,20 @@ HERE
     	
 
     	if @sym == C_LbraceSym  # {a, b, c}
+            p "===>Expression13"
     	    Get()
-    	    Expression()
+            ret += "["
+    	    ret += Expression()
     	    while (@sym==C_CommaSym)
     	        Get()
     	        if @sym==C_RbraceSym
     	            break
 	            end
-    	        Expression()
+    	        ret += "," + Expression()
 	        end
     	    Expect(C_RbraceSym)
-    	    ret += "\"\""
+            ret += "]"
+    	 #   ret += "\"\""
 	    else
     	
         # line 966 "cs.atg"
@@ -5135,7 +5150,10 @@ HERE
                     if !@in_preprocessing
                         if @sym != C_LparenSym && # not functioncall
                             !isOperator && !ret.index("::")  && !ret.index(".")
-                            if (find_method(ret))
+                            rfm = find_method(ret)
+                            if (rfm)
+                                p "found method #{rfm.inspect}"
+                                p "===>for #{ret}"
                                 ret = ":#{ret}"
                             end
                         end
