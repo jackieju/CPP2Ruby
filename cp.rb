@@ -115,7 +115,7 @@ def dump_one_as_ruby(v, module_name=nil)
     pp "dump ruby for #{v.class_name}@#{v}, #{module_name}", 20
    # pp "dump #{v.inspect}", 10
             s_methods =""
-            v.methods.each{|k,v|
+            v.ruby_methods.each{|k,v|
                 p "#{k}, #{v[:decoration]}"
                 # p "       methods signature:#{k}"
                 # p "       methods name:#{v[:name]}"
@@ -223,7 +223,7 @@ def dump_classes_as_ruby(classdefs, module_name=nil)
             p "       parentScope: #{v.parentScope}@#{v.parentScope}" if v.parentScope
             p "       modules: #{v.modules.keys}"
             p "       classes: #{v.classes.size}"
-            p "       methods: #{v.methods.size}"
+            p "       methods: #{v.ruby_methods.size}"
             p "       src: #{v.src}" if v.src
             m=""
             if v.is_a?(ModuleDef)
@@ -308,7 +308,7 @@ class Parser < CRParser
             p "       parent: #{v.parent}"
             p "       modules: #{v.modules}"
             p "       methods:"
-            v.methods.each{|k,v|
+            v.ruby_methods.each{|k,v|
                 p "       methods signature:#{k}"
                 p "       methods decc:#{v[:decoration] }"
                 
@@ -1458,10 +1458,14 @@ class Parser < CRParser
                      
                 end
                 if _next == C_ColonColonSym # A::
+            	    p "gStatement121:#{@sym}, #{curString()}"
+                    
                     #    A::~A
                     #_nn--->^
     	            _nn = GetNextSym(2) 
     	            _c_nn = getSymValue(_nn) 
+            	    p "gStatement122:#{_nn.sym}, #{_c_nn}, #{cs}"
+                    
     	            if _nn.sym == C_TildeSym # id::~
                         # LocalDeclaration() # deconstructor
                         class_name = curString()
@@ -1490,19 +1494,30 @@ class Parser < CRParser
 	                else
 	                    count = 3 # in c++, only A::B::C, A is namespace, B is class, so at most 3
 	                    _nnn = GetNext(count)
+                        vn = "#{cs}::#{_c_nn}"
 	                    while ( _nnn== C_ColonColonSym)
-	                        count +=1
+                            count +=1
 	                        GetNext(count)
+	                        vn += "::#{getSymValue(GetNextSym(count))}"
+                            
 	                        count +=1
 	                        _nnn = GetNext(count)
                         end
+                    
+                	    p "gStatement123:#{_nnn}, count=#{count}, #{getSymValue(GetNextSym(count))}"
+                        rvn = find_symbol(vn)
+                        p "vn=#{vn}, #{rvn.inspect}"
+                        if rvn
+                            
+	                        rStatement += Statement() 
+                        
                         # id::id2::id3...
-                        if _nnn == C_LessSym || # using template,e.g. A::B::C<D,F> t;
+                        elsif _nnn == C_LessSym || # using template,e.g. A::B::C<D,F> t;
                             _nnn == C_identifierSym # A::B::C t;
                             p("using template2, sym=#{@sym}, curString=#{curString()}")
                             rStatement += LocalDeclaration()
                         elsif _nnn == C_PointSym || # functioncall A::B::C.method();
-                             _nnn == C_LparenSym # functioncall A::B::C();
+                             _nnn == C_LparenSym  # functioncall A::B::C();
 	                        rStatement += Statement() 
                         else
                     	    p "gStatement11:#{@sym}, #{curString()}"
@@ -2643,7 +2658,22 @@ class Parser < CRParser
     	           @sym >= C_EqualSym && @sym <= C_LbrackSym)
         p "#{var_type.inspect}" 
             if var_type.storage.index("const") == nil
-    	        varname = current_scope.add_var(Variable.new(varname, var_type))
+                rvn = find_symbol(varname)
+                p "===>localdeclaration11321:rvn3:#{rvn}"
+                if rvn && rvn.is_a?(Variable)
+                    _ar =  varname.split("::")
+                    if _ar.size >1 && _ar[0].strip != ""
+                        for i in 0.._ar.size-2
+                            _ar[i] = valid_class_name(_ar[i])
+                        end
+                        varname = _ar.join("::")
+                    end
+                    if varname.rindex(".") == nil && varname.rindex("::")
+                        varname = replace_from_right(varname, "::", ".")
+                    end
+                else
+    	            varname = current_scope.add_var(Variable.new(varname, var_type))
+                end
             end
     # line 706 "cs.atg"
             vl = VarList(var_type, varname) # define lots of variables in one line splitted by comma
@@ -2733,8 +2763,8 @@ class Parser < CRParser
             #end
     		#
             #ret += Expression() if !parsed
-            p "===>varlist13:#{@sym}"
-            ret += Expression()
+            p "===>varlist13:#{@sym},#{curString}"
+            ret += Expression() + "\n"
     # line 445 "cs.atg"
     	end
     # line 446 "cs.atg"
@@ -3183,7 +3213,7 @@ class Parser < CRParser
         ret = ""
     # line 396 "cs.atg"
     	if (@sym >= C_staticSym && @sym <= C_externSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym) 
-    	    ret += curString()+" "
+    	    ret += curString()+" " # the space used to be for appending other storageclass, but now no such case
     # line 395 "cs.atg"
     		Get();
         # } elsif (Sym == mySym) {
@@ -3263,7 +3293,7 @@ class Parser < CRParser
         while (@sym >= C_staticSym && @sym <= C_externSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym) 
             sc = StorageClass() # will be ignore
         end
-        
+        sc = sc.strip
         p("===>type3:#{sc}", 10)
         # skip "export", "__dll_..."
         skipUnusableType()
@@ -3426,6 +3456,7 @@ class Parser < CRParser
                     
                     if !@in_preprocessing
                         r = find_class(ret)
+                        p "===>Type35:#{r.inspect}"
                         ret = r[:prefix] + "::" + ret if r[:prefix]  != ""
                     end
                     is_simpleType = false
@@ -4730,13 +4761,9 @@ HERE
                     p ("-->237:#{ret}")
                     
                     # in ruby A::B::c() should be A::B.c(), no matter c is static method or not
-                    index_collon = ret.rindex("::")
-                    index_dot = ret.rindex(".")
-                    if index_collon && index_collon > 0 && !index_dot
-                        p ("-->236:#{ret}, #{index_collon}, #{index_dot}, #{ret[0..index_collon-1]}")
-                        
-                        ret = ret[0..index_collon-1]+"."+ret[index_collon+2..ret.size-1]
-                    end
+                    ret = replace_from_right(ret, "::", ".")
+
+         
                    
                     
                     s,n = FunctionCall(ret)
@@ -4805,10 +4832,16 @@ HERE
                         # ret += FunctionCall(&fn)
                  
                           s,n =FunctionCall(ret)
+                          p "===>PostFixExp13:#{s}, #{n}"
                           if !@in_preprocessing
                               r = find_function(method_signature(ret,n))
                               if r[:v]
-                                  ret = r[:prefix]+"::"+ret
+                                  p "===>PostFixExp131:#{r[:prefix].inspect}"
+                                  
+                                  if r[:prefix] && r[:prefix] != ""
+                                      ret = r[:prefix]+"::"+ret
+                                  end
+                                  
                               end
                                 p("111->#{ret}")
                        
@@ -5051,6 +5084,7 @@ HERE
         # line 2334 "cs.atg"
         isOperator = false
                     if @sym == C_ColonColonSym
+                        p "=====>Primary21:#{varname}"
                         if !@in_preprocessing
                             r = find_class(varname)
                             if !r[:v]
@@ -5066,6 +5100,7 @@ HERE
                        end     
                            # ret += translate_varname(varname)
                            ret += varname
+                           p "=====>Primary21:#{ret}"
                        
                            #ar = []
                            #ar.push(varname)
@@ -5075,7 +5110,7 @@ HERE
                             # line 2353 "cs.atg"
                             	Get();
                             # line 2353 "cs.atg"
-                    p "====>233:#{curString()}, #{ret}"
+                    p "====>233:#{curString()}, #{ret}, #{cls}"
                             #ret += "::#{translate_varname(curString())}"
                             if @sym == C_operatorSym
                                 Get()
@@ -5083,13 +5118,25 @@ HERE
                                 p "====>234:#{curString()}, #{ret}"
                                 isOperator = true
                             else
-                                if cls && cls.functions[curString()]
-                                    ret += ".#{curString}"
+                                _vn = curString()
+                                if cls && cls.functions[_vn]
+                                    ret += ".#{_vn}"
                                 else
-                                    ret += "::#{curString}"
+                                    
+                                    p "====>235:#{_vn}, #{cls.inspect}"
+                                    
+                                    if cls.is_a?(ClassDef) && cls.vars[_vn] && cls.vars[_vn].type.storage == "static"
+                                        
+                                        ret += ".#{_vn}"
+                                        p "====>236:#{ret}"
+                                        
+                                    else
+                                        ret += "::#{_vn}"
+                                    end
                                 end
 
                             end
+                            p "====>234:#{curString()}, #{ret}"
                            
                            #ar.push(curString())
                             #Expect(C_identifierSym)
@@ -5359,13 +5406,13 @@ HERE
         #p "find_method3:#{clsdef.class_name}, #{clsdef.functions.inspect}"
         
         if (arg_num)
-            ret =  clsdef.methods[method_signature(fname, arg_num)]
+            ret =  clsdef.ruby_methods[method_signature(fname, arg_num)]
         else
             ret =  clsdef.functions[fname]
             
         end
        # p "find_method2:#{method_signature(fname, arg_num)}=>#{clsdef.class_name}, #{ret}"
-   #     p clsdef.methods.inspect
+   #     p clsdef.ruby_methods.inspect
         return ret
     end
     # line 2597 "cs.atg"

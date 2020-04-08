@@ -1,4 +1,14 @@
 load 'log.rb'
+def replace_from_right(str, a, b)
+    index_collon = str.rindex(a)
+    index_dot = str.rindex(b)
+    if index_collon && index_collon > 0 && !index_dot
+        #p ("-->236:#{str}, #{index_collon}, #{index_dot}, #{str[0..index_collon-1]}")
+    
+        str = str[0..index_collon-1]+"#{b}"+str[index_collon+2..str.size-1]
+    end
+    return str
+end
 def method_signature(method_name, arg_number)
     return "#{method_name}\#\##{arg_number}"
 end
@@ -56,7 +66,26 @@ class Scope
     def add_var(v)
         p "add_var:#{v.name} to #{@class_name}@#{self}", 20
         if @name == "class"
-            v.newname = "@#{v.newname}"
+            if v.type.storage == "static"
+                old_name = v.name
+                v.newname = "@@#{v.name}"
+                # add getter and setter for static member
+                # because cpp allow access/change value for static member outside class definition.e.g
+                # class A{ 
+                #     public: static int A= 0;
+                # }
+                # int A::a=1;
+                # but ruby cannot
+                se = self
+                se.add_method("self.#{old_name}", nil, [], "\n#{v.newname}\n" )
+                arg = {}
+                arg[:type] = v.type.name
+                arg[:name] = "v"
+                se.add_method("self.#{old_name}=", "(v)", [arg], "\n#{v.newname}=v\n")
+                
+            else
+                v.newname = "@#{v.newname}"
+            end
             p "add_var:#{v.name} class var #{v.newname}"
         end
         @vars[v.name] = v
@@ -69,12 +98,12 @@ class Scope
 
 end
 class ModuleDef < Scope
-    attr_accessor :class_name, :modules, :classes, :methods, :src, :functions, :includings
+    attr_accessor :class_name, :modules, :classes, :ruby_methods, :src, :functions, :includings
   
     def initialize(class_name)
         super("module")
         @class_name = class_name
-        @methods = {}
+        @ruby_methods = {}
         @modules = {}
         @classes = {}
         # @functions record mapping from c name to ruby name, because c can overide function with same name, we will map them to "#{cmethod_name}_v#{arg_number}"
@@ -108,7 +137,7 @@ class ModuleDef < Scope
             else
                 #if @functions[method_name].keys.size == 1 # change to new name for the old one
                 #    v = @functions[method_name].values[0]
-                #    nn = "#{method_name}_v#{@methods[v][:args].size}"
+                #    nn = "#{method_name}_v#{@ruby_methods[v][:args].size}"
                 #    @functions[method_name].delete(method_name)
                 #    @functions[method_name][nn] = v
                 #end
@@ -118,7 +147,7 @@ class ModuleDef < Scope
                
                 
                 # change first one src
-                m = @methods[first]
+                m = @ruby_methods[first]
                 if m[:poly] == nil
                     ass = ""
                     if m[:args].size > 0
@@ -143,8 +172,8 @@ m[:src] = "" if m[:src] ==nil
             end
         end
             
-        if @methods[method_sig] # change exsiting 
-            method_desc = @methods[method_sig]
+        if @ruby_methods[method_sig] # change exsiting 
+            method_desc = @ruby_methods[method_sig]
             method_desc[:name] = method_name
             method_desc[:args] = args
             method_desc[:head] = head
@@ -163,7 +192,7 @@ m[:src] = "" if m[:src] ==nil
             }
             
         else
-            @methods[method_sig]={
+            @ruby_methods[method_sig]={
                 :name=>method_name,
                 :args=>args,
                 :src=>src,
@@ -171,8 +200,8 @@ m[:src] = "" if m[:src] ==nil
                 :head=>head
             }
         end
-        p("method #{method_sig} added to #{self.class_name}@#{self}:#{@methods[method_sig].inspect} \n")
-      #  p(@methods.inspect)
+        p("method #{method_sig} added to #{self.class_name}@#{self}:#{@ruby_methods[method_sig].inspect} \n")
+      #  p(@ruby_methods.inspect)
       #  if self.class != ModuleDef
       #      p ("parent:#{self.parent}")
       #      if  self.parent
@@ -228,12 +257,12 @@ m[:src] = "" if m[:src] ==nil
     end
 end
 class ClassDef < ModuleDef
-    attr_accessor :class_name, :parent, :methods, :src, :parentScope, :functions, :includings, :orig_class_name
+    attr_accessor :class_name, :parent, :ruby_methods, :src, :parentScope, :functions, :includings, :orig_class_name
     def initialize(class_name)
         super("class")
         @orig_class_name = class_name
         @class_name = valid_class_name(class_name)
-        @methods = {}
+        @ruby_methods = {}
         @name="class"
         @includings = []
     end
@@ -242,13 +271,13 @@ class ClassDef < ModuleDef
     def to_module
         module_name = "#{@class_name}_module"
         r = ModuleDef.new(module_name)
-        r.methods = @methods
+        r.ruby_methods = @ruby_methods
         r.functions = @functions
         r.src = @src
         r.parentScope = parentScope
         r.includings = includings
         
-        @methods = {}
+        @ruby_methods = {}
         @classes = {}
         @functions = {} 
         @includings = [module_name]
@@ -385,7 +414,9 @@ class CRParser
             end 
             return ret
         end
-        ret[:v] = sc.classes[name]
+        if sc.respond_to?(:classes)
+            ret[:v] = sc.classes[name]
+        end
         return ret if ret[:v]
         return find_class_from(name, sc.parentScope)
     end
@@ -465,9 +496,15 @@ class CRParser
     end
 =end    
     def find_function_from(name, sc)
-        r = sc.methods[name]
-        return if r
-        return find_function_from(name, sc.parentScope)
+        return nil if !sc.respond_to?(:ruby_methods)
+        p "===>1111222:#{name}, #{sc.name}", 10
+        r = sc.ruby_methods[name]
+        return r if r
+        if sc.parentScope
+            return find_function_from(name, sc.parentScope)
+        else
+            return nil
+        end
     end
     def find_function(name)
         ret = {
@@ -487,18 +524,71 @@ class CRParser
                         sc = sc.modules[ar_sc[i]]
                     end
                 end
-                ret[:v] = sc.methods[fn]
+                ret[:v] = sc.ruby_methods[fn]
                 
             else # only class
                 ret = find_class(ar_sc[0])
                 cls = ret[:v]
                 return ret if !cls
-                ret[:v] = cls.methods[fn]
+                ret[:v] = cls.ruby_methods[fn]
             end
         else # only function name
             ret[:v] = find_function_from(name, current_ruby_scope)
         end
         return ret
+    end
+    
+    def find_symbol(name, scope=nil)
+        p "==>find_symbol1:#{name}", 10
+        scope= current_scope  if !scope
+        p "===>find_symbol2:#{scope.class_name}"
+        
+        ar = name.split("::")
+        if ar.size >1
+            vcn = valid_class_name(name)
+            cls = find_class(vcn)[:v]
+            return cls if cls
+            i = 0
+            parent = @root_class
+            while (i < ar.size - 1) 
+                
+                vcn = valid_class_name(ar[i])
+                p "parent=#{parent.class_name}, find #{vcn}"
+                if parent.modules[vcn]
+                    parent = parent.modules[vcn]
+                    i += 1
+                    next
+                end
+                parent.classes.each{|k,v|
+                p "classes1:#{k}"
+                }
+                if parent.classes[vcn]
+                    parent = parent.classes[vcn]
+                    i += 1
+                    next
+                end
+                 return nil 
+            end 
+            r = parent.modules[ar[i]]
+            return r if r
+            r = parent.classes[ar[i]]
+             return r if r
+            return parent.vars[ar[i]]
+        else
+            r = find_var(name, scope)
+            return r if r
+            
+            r = find_function_from(name, scope)
+            return r if r
+            
+            r = find_class_from(name, scope)
+            return r if r
+            
+            r = find_module_from(name, scope)
+            return r if r
+            
+        end
+        return nil
     end
     
     def find_var_in_class(name, scope)
