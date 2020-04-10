@@ -1210,6 +1210,11 @@ public
                     # p "get30:#{@ch}, #{@buffPos}"
                     if !ignore_crlf && ( @ch.to_byte == 13|| ch.to_byte == 10)
                         p "crlf:#{@ch.to_byte}, pos #{@buffPos}"
+                        @currSym = nextSym.clone
+                        nextSym.init(0, @currLine, @currCol - 1, @buffPos, 1)
+                        nextSym.len  = 1
+                        Scan_NextCh()
+                        
                         return C_CRLF_Sym
                     end
                     Scan_NextCh()
@@ -1237,7 +1242,10 @@ public
             
             if !ignore_crlf &&  ( @ch.to_byte == 13|| ch.to_byte == 10)
                 p "crlf:#{@ch.to_byte}, pos #{@buffPos}"
-                
+                @currSym = nextSym.clone
+                nextSym.init(0, @currLine, @currCol - 1, @buffPos, 1)
+                nextSym.len  = 1
+                 Scan_NextCh()
                 return C_CRLF_Sym
             end
             

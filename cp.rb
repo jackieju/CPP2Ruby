@@ -1260,6 +1260,21 @@ class Parser < CRParser
     # line 218 "cs.atg"
     	pdebug("===>Definition:#{@sym}, #{curString()}");
         
+        name = curString()
+        
+        if @sym == C_identifierSym && name == "__embedded__"
+            Get(false)
+            Get(false)
+            while !(@sym == C_identifierSym &&  curString == "__embedend__")
+                p "==>in embeded ruby #{curString}"
+                ret += curString
+                Get(false)
+            end
+            Get()
+            p "==>in embeded ruby2 #{@sym}, #{curString}, #{ret}"
+            return ret
+        end
+
         
        # if @sym == C_identifierSym && curString() == "template"
        if @sym == C_templateSym
@@ -1269,13 +1284,8 @@ class Parser < CRParser
             
         end
         
-        
-           
-        
-        
-        
-        
-        name = curString()
+
+    
     # line 219 "cs.atg"
     	if (@sym == C_classSym) 
     # line 219 "cs.atg"
