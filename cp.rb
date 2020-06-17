@@ -1263,13 +1263,16 @@ class Parser < CRParser
         name = curString()
         
         if @sym == C_identifierSym && name == "__embedded__"
+            Get(false) # language name
             Get(false)
-            Get(false)
+            bstart = curSym.pos
             while !(@sym == C_identifierSym &&  curString == "__embedend__")
                 p "==>in embeded ruby #{curString}"
-                ret += curString
+              #  ret += curString+" "
                 Get(false)
             end
+            bstop = curSym.pos-1
+            ret = @scanner.buffer[bstart..bstop]
             Get()
             p "==>in embeded ruby2 #{@sym}, #{curString}, #{ret}"
             return ret
@@ -4111,11 +4114,13 @@ HERE2
     in_scope("SwitchStatement")
     
     	stmt = Statement()
+        if stmt.strip != ""
     	ret =<<HERE
 case #{exp}\n
 #{stmt}
 end
 HERE
+        end
     
     out_scope()
         return ret
@@ -5587,4 +5592,4 @@ HERE
 end  # class Parser
 
 
-load 'cptest.rb'
+#load 'cptest.rb'

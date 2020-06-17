@@ -122,7 +122,7 @@ class ModuleDef < Scope
         @src += src
     end
     
-
+    # head: content in () in ruby code, including ()
     def add_method(method_name, head, args, src, acc="public")
         arg_number = args.size
         method_sig = method_signature(method_name, arg_number)
