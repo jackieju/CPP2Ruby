@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OCTG</id>
+	<description>Payment Terms</description>
+	<string_list>1100087</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>GroupNum</id>
+		<source_code_name>GROUP_NUM</source_code_name>
+		<description>Group Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>PymntGroup</id>
+		<source_code_name>GROUP_NAME</source_code_name>
+		<description>Payment Terms Group Name</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>PayDuMonth</id>
+		<source_code_name>PAY_DUE_MONTH</source_code_name>
+		<description>Start From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>E</value>
+			<description>Month End</description>
+		</valid_value>
+		<valid_value>
+			<value>H</value>
+			<description>Half Month</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Month Start</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>ExtraMonth</id>
+		<source_code_name>EXTRA_MONTH</source_code_name>
+		<description>Number of Additional Months</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ExtraDays</id>
+		<source_code_name>EXTRA_DAYS</source_code_name>
+		<description>Number of Additional Days</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>PaymntsNum</id>
+		<source_code_name>PAYMENTS_NUM</source_code_name>
+		<description>Number of Payments</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CredLimit</id>
+		<source_code_name>CREDIT_LIMIT</source_code_name>
+		<description>Credit Limit</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VolumDscnt</id>
+		<source_code_name>VOLUME_DISCOUNT</source_code_name>
+		<description>General Discount %</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LatePyChrg</id>
+		<source_code_name>LATE_PAY_CHARGE</source_code_name>
+		<description>% Interest on arrears</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ObligLimit</id>
+		<source_code_name>OBLIGO_LIMIT</source_code_name>
+		<description>Load Limit</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ListNum</id>
+		<source_code_name>LIST_NUM</source_code_name>
+		<description>Price List No.</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Payments</id>
+		<source_code_name>PAYMENTS</source_code_name>
+		<description>Partial Payment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>NumOfPmnts</id>
+		<source_code_name>NUM_OF_PMNTS</source_code_name>
+		<description>Number of Payments</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>Payment1</id>
+		<source_code_name>FIRST_PMNT</source_code_name>
+		<description>First Partial Payment</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Doc. Generation Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Restore Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>OpenRcpt</id>
+		<source_code_name>OPEN_RECIEPT</source_code_name>
+		<description>Open Incoming Payment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Cash</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Checks</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Credit</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Bank Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Bill of Exchange</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DiscCode</id>
+		<source_code_name>DISCOUNT_CODE</source_code_name>
+		<description>Discount Code</description>
+		<field_type>1</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DunningCod</id>
+		<source_code_name>DUNNING_CODE</source_code_name>
+		<description>Dunning Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BslineDate</id>
+		<source_code_name>BASELINE_DATE</source_code_name>
+		<description>Base Row Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description>Posting Date</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>System Date</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Document Date</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closing Date</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InstNum</id>
+		<source_code_name>INSTALLMENT_NUM</source_code_name>
+		<description>No. of Installments</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TolDays</id>
+		<source_code_name>TOLERANCE_DAYS</source_code_name>
+		<description>No. of Tolerance Days</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VATFirst</id>
+		<source_code_name>VAT_ON_FIRST_INST</source_code_name>
+		<description>Apply Tax on 1st Installment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CrdMthd</id>
+		<source_code_name>CREDIT_METHOD</source_code_name>
+		<description>Credit Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>L</default_value>
+		<valid_value>
+			<value>F</value>
+			<description>First Installment</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>Last Installment</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Equally</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PayInInsts</id>
+		<source_code_name>PAY_IN_INSTALLMENTS</source_code_name>
+		<description>Pay in Installments</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>ListNumLink</id>
+		<target_direct>OPLN</target_direct>
+		<object_key_column>ListNum</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>DiscCodeLink</id>
+		<target_direct>OCDC</target_direct>
+		<object_key_column>DiscCode</object_key_column>
+	</association>
+	<association>
+		<id>DunningCodLink</id>
+		<target_direct>ORIT</target_direct>
+		<object_key_column>DunningCod</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>GroupNum</column>
+	</key>
+	<key>
+		<id>ABS_ENTRY</id>
+		<unique />
+		<column>PymntGroup</column>
+	</key>
+</table>

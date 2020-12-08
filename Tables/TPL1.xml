@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TPL1</id>
+	<description>Template - Records</description>
+	<string_list>1101675</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>TplNum</id>
+		<source_code_name>TEMPLATE_NUM</source_code_name>
+		<description>Template Code</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Line No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FieldPos</id>
+		<source_code_name>Field_POS</source_code_name>
+		<description>Field Pos.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SrcArrType</id>
+		<source_code_name>SRC_ARR_TYPE</source_code_name>
+		<description>Source Array Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description>None</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Main</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Array 1</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Array 2</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Array 3</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Array 4</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Array 5</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Array 6</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>Array 7</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>Array 8</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Array 9</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description>Array 10</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description>Array 11</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>TplNumLink</id>
+		<target_direct>OTPL</target_direct>
+		<object_key_column>TplNum</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TplNum</column>
+		<column>LineNum</column>
+	</key>
+</table>

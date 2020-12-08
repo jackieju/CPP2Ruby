@@ -1,0 +1,427 @@
+<%= form_with(model: jdt2, local: true) do |form| %>
+  <% if jdt2.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(jdt2.errors.count, "error") %> prohibited this jdt2 from being saved:</h2>
+
+      <ul>
+      <% jdt2.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :AbsEntry %>
+    <%= form.number_field :AbsEntry %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTCode %>
+    <%= form.text_field :WTCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Rate %>
+    <%= form.text_field :Rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TaxbleAmnt %>
+    <%= form.text_field :TaxbleAmnt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TxblAmntSC %>
+    <%= form.text_field :TxblAmntSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TxblAmntFC %>
+    <%= form.text_field :TxblAmntFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTAmnt %>
+    <%= form.text_field :WTAmnt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTAmntSC %>
+    <%= form.text_field :WTAmntSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WTAmntFC %>
+    <%= form.text_field :WTAmntFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ApplAmnt %>
+    <%= form.text_field :ApplAmnt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ApplAmntSC %>
+    <%= form.text_field :ApplAmntSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ApplAmntFC %>
+    <%= form.text_field :ApplAmntFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Category %>
+    <%= form.text_field :Category %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Criteria %>
+    <%= form.text_field :Criteria %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Account %>
+    <%= form.text_field :Account %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Type %>
+    <%= form.text_field :Type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :RoundType %>
+    <%= form.text_field :RoundType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseType %>
+    <%= form.text_field :BaseType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseAbsEnt %>
+    <%= form.number_field :BaseAbsEnt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseLine %>
+    <%= form.number_field :BaseLine %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseNum %>
+    <%= form.number_field :BaseNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :LineNum %>
+    <%= form.number_field :LineNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BaseRef %>
+    <%= form.number_field :BaseRef %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Status %>
+    <%= form.text_field :Status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TrgType %>
+    <%= form.number_field :TrgType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TrgAbsEntr %>
+    <%= form.number_field :TrgAbsEntr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :LogInstanc %>
+    <%= form.number_field :LogInstanc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ObjType %>
+    <%= form.text_field :ObjType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Doc1LineNo %>
+    <%= form.number_field :Doc1LineNo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :WtLineType %>
+    <%= form.text_field :WtLineType %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TxblCurr %>
+    <%= form.text_field :TxblCurr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DtblCurr %>
+    <%= form.text_field :DtblCurr %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DtblRate %>
+    <%= form.text_field :DtblRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :txblRate %>
+    <%= form.text_field :txblRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :DtblAmount %>
+    <%= form.text_field :DtblAmount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsAcc %>
+    <%= form.text_field :TdsAcc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurAcc %>
+    <%= form.text_field :SurAcc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessAcc %>
+    <%= form.text_field :CessAcc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscAcc %>
+    <%= form.text_field :HscAcc %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsRate %>
+    <%= form.text_field :TdsRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurRate %>
+    <%= form.text_field :SurRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessRate %>
+    <%= form.text_field :CessRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscRate %>
+    <%= form.text_field :HscRate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsBAmt %>
+    <%= form.text_field :TdsBAmt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsBAmtSC %>
+    <%= form.text_field :TdsBAmtSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsBAmtFC %>
+    <%= form.text_field :TdsBAmtFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurBAmt %>
+    <%= form.text_field :SurBAmt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurBAmtSC %>
+    <%= form.text_field :SurBAmtSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurBAmtFC %>
+    <%= form.text_field :SurBAmtFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessBAmt %>
+    <%= form.text_field :CessBAmt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessBAmtSC %>
+    <%= form.text_field :CessBAmtSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessBAmtFC %>
+    <%= form.text_field :CessBAmtFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscBAmt %>
+    <%= form.text_field :HscBAmt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscBAmtSC %>
+    <%= form.text_field :HscBAmtSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscBAmtFC %>
+    <%= form.text_field :HscBAmtFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsAmnt %>
+    <%= form.text_field :TdsAmnt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsAmntSC %>
+    <%= form.text_field :TdsAmntSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsAmntFC %>
+    <%= form.text_field :TdsAmntFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurAmnt %>
+    <%= form.text_field :SurAmnt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurAmntSC %>
+    <%= form.text_field :SurAmntSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurAmntFC %>
+    <%= form.text_field :SurAmntFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessAmnt %>
+    <%= form.text_field :CessAmnt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessAmntSC %>
+    <%= form.text_field :CessAmntSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessAmntFC %>
+    <%= form.text_field :CessAmntFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscAmnt %>
+    <%= form.text_field :HscAmnt %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscAmntSC %>
+    <%= form.text_field :HscAmntSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscAmntFC %>
+    <%= form.text_field :HscAmntFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsAppl %>
+    <%= form.text_field :TdsAppl %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsApplSC %>
+    <%= form.text_field :TdsApplSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :TdsApplFC %>
+    <%= form.text_field :TdsApplFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurAppl %>
+    <%= form.text_field :SurAppl %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurApplSC %>
+    <%= form.text_field :SurApplSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :SurApplFC %>
+    <%= form.text_field :SurApplFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessAppl %>
+    <%= form.text_field :CessAppl %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessApplSC %>
+    <%= form.text_field :CessApplSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :CessApplFC %>
+    <%= form.text_field :CessApplFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscAppl %>
+    <%= form.text_field :HscAppl %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscApplSC %>
+    <%= form.text_field :HscApplSC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :HscApplFC %>
+    <%= form.text_field :HscApplFC %>
+  </div>
+
+  <div class="field">
+    <%= form.label :BatchNum %>
+    <%= form.number_field :BatchNum %>
+  </div>
+
+  <div class="field">
+    <%= form.label :InCSTCode %>
+    <%= form.text_field :InCSTCode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :OutCSTCode %>
+    <%= form.text_field :OutCSTCode %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

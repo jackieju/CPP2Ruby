@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>STA1</id>
+	<description>Valid Period</description>
+	<string_list>1100838</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>StaCode</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Tax Parameter Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SttType</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Tax Type</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>EfctDate</id>
+		<source_code_name>EFCT_DATE</source_code_name>
+		<description>Effective From</description>
+		<field_type>244</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Rate</id>
+		<source_code_name>RATE</source_code_name>
+		<description>Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>StaCodeLink</id>
+		<target_direct>OSTA</target_direct>
+		<object_key_column>StaCode</object_key_column>
+	</association>
+	<association>
+		<id>SttTypeLink</id>
+		<target_direct>OSTT</target_direct>
+		<object_key_column>SttType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>StaCode</column>
+		<column>SttType</column>
+		<column>EfctDate</column>
+	</key>
+</table>

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>VLG1</id>
+	<description>Validation of Recalc. From To</description>
+	<string_list>1100922</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Unique Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RecNum</id>
+		<source_code_name>REC_NUM</source_code_name>
+		<description>Record Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FromSysDat</id>
+		<source_code_name>FROM_SYS_DATE</source_code_name>
+		<description>From System Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FromDocNum</id>
+		<source_code_name>FROM_DOC_NUM</source_code_name>
+		<description>From Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FromDocTyp</id>
+		<source_code_name>FROM_DOC_TYPE</source_code_name>
+		<description>From Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ToSysDate</id>
+		<source_code_name>TO_SYS_DATE</source_code_name>
+		<description>To System Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ToDocNum</id>
+		<source_code_name>TO_DOC_NUM</source_code_name>
+		<description>To Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ToDocType</id>
+		<source_code_name>TO_DOC_TYPE</source_code_name>
+		<description>To Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CalRecOINM</id>
+		<source_code_name>CALC_REC_OINM</source_code_name>
+		<description>Calculated Record in OINM</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LastCalcTS</id>
+		<source_code_name>LAST_CALC_TSEQ</source_code_name>
+		<description>Last Calculated Trans. Seq.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SumTranVal</id>
+		<source_code_name>SUM_TR_VAL</source_code_name>
+		<description>Sum of Transaction Value</description>
+		<field_type>32</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>StrFld</id>
+		<source_code_name>STR_FLD</source_code_name>
+		<description>General String Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NumFld</id>
+		<source_code_name>NUM_FLD</source_code_name>
+		<description>General Number Field</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>IVLG</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>FromDocNumLink</id>
+		<target_direct>OINM</target_direct>
+		<object_key_column>FromDocNum</object_key_column>
+	</association>
+	<association>
+		<id>ToDocNumLink</id>
+		<target_direct>OINM</target_direct>
+		<object_key_column>ToDocNum</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>RecNum</column>
+	</key>
+</table>

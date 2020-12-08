@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>GTI1</id>
+	<description>GTS Invoice Details</description>
+	<string_list>1101378</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Line Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DisctLine</id>
+		<source_code_name>DISCT_LINE</source_code_name>
+		<description>Discount Flag</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Normal</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Discount Line</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ItemName</id>
+		<source_code_name>ITEM_NAME</source_code_name>
+		<description>Item Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemSpec</id>
+		<source_code_name>ITEM_SPEC</source_code_name>
+		<description>Item Specification</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Uom</id>
+		<source_code_name>UOM</source_code_name>
+		<description>Unit of Measurement</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NetAmount</id>
+		<source_code_name>NET_AMOUNT</source_code_name>
+		<description>Net Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VatPercent</id>
+		<source_code_name>VAT_PERCENT</source_code_name>
+		<description>VAT Percent</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VatAmount</id>
+		<source_code_name>VAT_AMOUNT</source_code_name>
+		<description>VAT Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnitPrice</id>
+		<source_code_name>UNIT_PRICE</source_code_name>
+		<description>Unit Price</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnitPricTp</id>
+		<source_code_name>UNIT_PRICE_TYPE</source_code_name>
+		<description>Unit Price Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Net</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Gross</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ItemTaxCat</id>
+		<source_code_name>ITEM_TAX_CAT</source_code_name>
+		<description>Item Tax Category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OGTI</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

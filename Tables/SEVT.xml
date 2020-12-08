@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SEVT</id>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<hana>RowBased</hana>
+	<column>
+		<id>SequenceID</id>
+		<source_code_name>SEQUENCEID</source_code_name>
+		<description sys="Y">Sequence ID</description>
+		<db_type>Identity</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SourceDB</id>
+		<source_code_name>SOURCEDB</source_code_name>
+		<description sys="Y">Event source database</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Timestamp</id>
+		<source_code_name>TIMESTAMP</source_code_name>
+		<description sys="Y">Event timestamp</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description sys="Y">Event status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Retry</id>
+		<source_code_name>RETRY</source_code_name>
+		<description sys="Y">Sending event retries</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECTTYPE</source_code_name>
+		<description sys="Y">Object type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>TransType</id>
+		<source_code_name>TRANSACTIONTYPE</source_code_name>
+		<description sys="Y">Transaction type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>FieldsInKe</id>
+		<source_code_name>FIELDSINKEY</source_code_name>
+		<description sys="Y">Number of fields in key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FieldNames</id>
+		<source_code_name>FIELDNAMES</source_code_name>
+		<description sys="Y">Names of key fields</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>FieldValue</id>
+		<source_code_name>FIELDVALUES</source_code_name>
+		<description sys="Y">Values of key fields</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>UserID</id>
+		<source_code_name>USERID</source_code_name>
+		<description sys="Y">Modified by user</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>155</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>155</edit_size>
+	</column>
+	<column>
+		<id>USER_CODE</id>
+		<source_code_name>USER_CODE</source_code_name>
+		<description sys="Y">User code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>25</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SequenceID</column>
+	</key>
+	<key>
+		<id>SOURCE_DB</id>
+		<column>SourceDB</column>
+		<column>ObjectType</column>
+		<column>FieldValue</column>
+	</key>
+</table>

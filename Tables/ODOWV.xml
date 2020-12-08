@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ODOWV</id>
+	<description>Data Ownership - Virtual Table</description>
+	<string_list>1101878</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>Object</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FilterType</id>
+		<source_code_name>FILTER_TYPE</source_code_name>
+		<description>Filter Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No Filter</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Filter by Header and Row Owners</description>
+		</valid_value>
+		<valid_value>
+			<value>H</value>
+			<description>Filter by Header Owner Only</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Object</column>
+	</key>
+</table>

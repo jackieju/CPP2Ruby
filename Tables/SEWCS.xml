@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SEWCS</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>CompDbNam</id>
+		<source_code_name>COMPANY_DB_NAME</source_code_name>
+		<description sys="Y">Company Db Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>SmpTableId</id>
+		<source_code_name>SMP_TABLE_ID</source_code_name>
+		<description sys="Y">Smp Table ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>COAtemplat</id>
+		<source_code_name>COA_TEMPLATE</source_code_name>
+		<description sys="Y">COA Template</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>LocalCurr</id>
+		<source_code_name>LOCAL_CURRENCY</source_code_name>
+		<description sys="Y">Local Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>SystemCurr</id>
+		<source_code_name>SYSTEM_CURRENCY</source_code_name>
+		<description sys="Y">System Currenct</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>UseSegAcc</id>
+		<source_code_name>USE_SEGMENT_ACCOUNTS</source_code_name>
+		<description sys="Y">Use Segment Accounts</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>StkValuat</id>
+		<source_code_name>STOCK_VALUATION</source_code_name>
+		<description sys="Y">Stock Valuation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>PricSysPWh</id>
+		<source_code_name>PRICE_SYSTEM_PER_WH</source_code_name>
+		<description sys="Y">Price System Per Warehouse</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>AllowRelSt</id>
+		<source_code_name>STOCK_RELEASE</source_code_name>
+		<description sys="Y">Stock Release w/o Cost Price</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>CostPrcLst</id>
+		<source_code_name>COST_PRICE_LIST</source_code_name>
+		<description sys="Y">Gross profit Base Price Origi</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>GrossBySal</id>
+		<source_code_name>GROSS_BY_SAL</source_code_name>
+		<description sys="Y">Calculate % GP as</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>BlkNegQuan</id>
+		<source_code_name>BLOCK_NEGATIVE_QUANT</source_code_name>
+		<description sys="Y">Block Negative Quantity</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>RoundMeth</id>
+		<source_code_name>ROUNDING_METHOD</source_code_name>
+		<description sys="Y">Rounding Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>RoundVAT</id>
+		<source_code_name>ROUND_VAT</source_code_name>
+		<description sys="Y">Round Tax Amount in Rows</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>EnblExpns</id>
+		<source_code_name>ENABLE_EXPENSES</source_code_name>
+		<description sys="Y">Manage Expenses in Documents</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>DirectRate</id>
+		<source_code_name>DIRECT_RATE</source_code_name>
+		<description sys="Y">Exchange Rate Posting</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>SumDec</id>
+		<source_code_name>SUM_DEC</source_code_name>
+		<description sys="Y">Decimal - Amounts</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PriceDec</id>
+		<source_code_name>PRICE_DEC</source_code_name>
+		<description sys="Y">Decimal - Prices</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RateDec</id>
+		<source_code_name>RATE_DEC</source_code_name>
+		<description sys="Y">Decimal - Rates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>QtyDec</id>
+		<source_code_name>QTY_DEC</source_code_name>
+		<description sys="Y">Decimal - Quantities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PercentDec</id>
+		<source_code_name>PERCENT_DEC</source_code_name>
+		<description sys="Y">Decimal - Percent</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MeasureDec</id>
+		<source_code_name>MEASURE_DEC</source_code_name>
+		<description sys="Y">Decimal - Units</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DecSep</id>
+		<source_code_name>SEPARATOR_DEC</source_code_name>
+		<description sys="Y">Decimal - Separator</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>DpmSalAct</id>
+		<source_code_name>SAL_DP_CLEARING_ACCT</source_code_name>
+		<description sys="Y">Sal-DownPayment Clearing Acct</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>DfltIncom</id>
+		<source_code_name>SAL_REVENUES_ACCOUNT</source_code_name>
+		<description sys="Y">Sales -Revenues Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>ForgnIncm</id>
+		<source_code_name>SAL_REVENUES_FORIEGN</source_code_name>
+		<description sys="Y">Sales -Revenues Foreign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>ECIncome</id>
+		<source_code_name>SAL_REVENUE_EU</source_code_name>
+		<description sys="Y">Sales -Revenue EU</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>SHandleWT</id>
+		<source_code_name>SAL_ENABLE_WT</source_code_name>
+		<description sys="Y">Sales -enable WT</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>SDfltWT</id>
+		<source_code_name>SAL_DEFUALT_WT_CODE</source_code_name>
+		<description sys="Y">Sales -Default WT Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>NINum</id>
+		<source_code_name>NI_NO</source_code_name>
+		<description sys="Y">Ni No</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpireDate</id>
+		<source_code_name>SAL_EXPIRATION_DATE</source_code_name>
+		<description sys="Y">Sales - Expiration Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CrtfcateNO</id>
+		<source_code_name>SAL_CERTIFIC_NUMBER</source_code_name>
+		<description sys="Y">Sales - Certificate Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SaleVatOff</id>
+		<source_code_name>SAL_TAX_OFFSET_ACCT</source_code_name>
+		<description sys="Y">Sales - Tax Offsetting account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>DfltExpn</id>
+		<source_code_name>PUR_EXPENSE_ACCOUNT</source_code_name>
+		<description sys="Y">Purchase - Expense Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>ForgnExpn</id>
+		<source_code_name>PUR_FORIEGN_EXP_ACCT</source_code_name>
+		<description sys="Y">Purchase-Foreign Expense Acct</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>ECExepnses</id>
+		<source_code_name>PUR_EU_EXP_ACCOUNT</source_code_name>
+		<description sys="Y">Purchase - EU Expense account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>DpmPurAct</id>
+		<source_code_name>PUR_DP_CLEARING_ACCT</source_code_name>
+		<description sys="Y">Pur-DownPayment Clearing Acct</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>ExpVarAct</id>
+		<source_code_name>PUR_VARIANCE_ACCOUNT</source_code_name>
+		<description sys="Y">Purchase - Variance accont</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>PHandleWT</id>
+		<source_code_name>PUR_WT_ENABLED</source_code_name>
+		<description sys="Y">Purchase - WT enabled</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>PDfltWT</id>
+		<source_code_name>PUR_DEFUALT_WT_CODE</source_code_name>
+		<description sys="Y">Purchase - Default WT code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>PurcVatOff</id>
+		<source_code_name>PUR_TAX_OFFSET_ACCT</source_code_name>
+		<description sys="Y">Pur - Tax Offsetting account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>ComissAct</id>
+		<source_code_name>CREDITCARD_DEPOSIT_F</source_code_name>
+		<description sys="Y">Gen - Credit Card Deposit fee</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CompDbNam</column>
+	</key>
+</table>

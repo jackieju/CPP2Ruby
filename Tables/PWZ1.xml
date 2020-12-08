@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>PWZ1</id>
+	<description>Payment Wizard - Rows 1</description>
+	<string_list>1100328</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>IdEntry</id>
+		<source_code_name>ABS_ENT</source_code_name>
+		<description>ID Entry</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardName</id>
+		<source_code_name>CARD_NAME</source_code_name>
+		<description>BP Name</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardType</id>
+		<source_code_name>CARD_TYPE</source_code_name>
+		<description sys="Y">BP Type</description>
+		<field_type>75</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Checked</id>
+		<source_code_name>CHECKED</source_code_name>
+		<description>Checked</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BPCurrency</id>
+		<source_code_name>CARD_CURR</source_code_name>
+		<description>BP Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>BPSingleP</id>
+		<source_code_name>CARD_SINGLE_PAY</source_code_name>
+		<description>BP Single Payment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>IdEntryLink</id>
+		<target_direct>OPWZ</target_direct>
+		<object_key_column>IdEntry</object_key_column>
+	</association>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>IdEntry</column>
+		<column>CardCode</column>
+	</key>
+</table>

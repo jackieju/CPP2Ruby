@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>F874</id>
+	<description>835874 Report - Selection Criteria</description>
+	<string_list>1100030</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>CardFrom</id>
+		<source_code_name>CARD_FROM</source_code_name>
+		<description>From Card</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>CardTo</id>
+		<source_code_name>CARD_TO</source_code_name>
+		<description>For Card</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>UseJDT</id>
+		<source_code_name>USE_JDT</source_code_name>
+		<description>Add Manual Transaction</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UseJDTTRC</id>
+		<source_code_name>USE_JDT_TRC</source_code_name>
+		<description>Manual Transactions Selection Criteria by Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>JDTTRCFrom</id>
+		<source_code_name>JDT_TRC_FROM</source_code_name>
+		<description>Transaction Code for Manual Trans.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>JDTRef</id>
+		<source_code_name>JDT_REF</source_code_name>
+		<description>Reference Containing Invoice No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Reference 1</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Reference 2</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CashAcct</id>
+		<source_code_name>CASH_ACCT</source_code_name>
+		<description>Petty Cash</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>UseCashTRC</id>
+		<source_code_name>USE_CASH_TRC</source_code_name>
+		<description>Petty Cash Transactions - Selection Criteria</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CashTRCFro</id>
+		<source_code_name>CASH_TRC_FROM</source_code_name>
+		<description>Transaction Code for Petty Cash</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>CardAcct</id>
+		<source_code_name>CARD_ACCT</source_code_name>
+		<description>Different Vendors</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>UseCardTRC</id>
+		<source_code_name>USE_CARD_TRC</source_code_name>
+		<description>Vendor Transaction - Selection Criteria</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CardTRCFro</id>
+		<source_code_name>CARD_TRC_FROM</source_code_name>
+		<description>Transaction Code for Various Vendors</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Path</id>
+		<source_code_name>PATH</source_code_name>
+		<description>Path for File Creation</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>ShowPrev</id>
+		<source_code_name>SHOW_PREVIUOS</source_code_name>
+		<description>Display Previous Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Filter</id>
+		<source_code_name>FILTER</source_code_name>
+		<description>Selection Criteria by Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UseCash</id>
+		<source_code_name>USE_CASH</source_code_name>
+		<description>Add Tax Transactions Counter to Petty Cash Fund</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UseCard</id>
+		<source_code_name>USE_CARD</source_code_name>
+		<description>Add Tax Transactions Counter to A/P Invoices</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>JDTTRCTo</id>
+		<source_code_name>JDT_TRC_TO</source_code_name>
+		<description>Manual Transaction Code To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CashTRCTo</id>
+		<source_code_name>CASH_TRC_TO</source_code_name>
+		<description>Cash Transaction Code To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardTRCTo</id>
+		<source_code_name>CARD_TRC_TO</source_code_name>
+		<description>Vendors Transaction Code To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UseIprtLog</id>
+		<source_code_name>USE_IMPORT_LOG</source_code_name>
+		<description>Include Import Log</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UseIprtTRC</id>
+		<source_code_name>USE_IMPORT_TRC</source_code_name>
+		<description>Select Import Log Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ImpTRCFrom</id>
+		<source_code_name>IMPORT_TRC_FROM</source_code_name>
+		<description>Import Transaction Code From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ImpTRCTo</id>
+		<source_code_name>IMPORT_TRC_TO</source_code_name>
+		<description>Import Transaction Code To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ImpJDTRef</id>
+		<source_code_name>IMPORT_JDT_REF</source_code_name>
+		<description>Reference for Import Log</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Reference 1</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Reference 2</description>
+		</valid_value>
+	</column>
+</table>

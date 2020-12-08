@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>FAM1</id>
+	<description>Fixed Asset Data Migration - Rows</description>
+	<string_list>1101833</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>WizardId</id>
+		<source_code_name>WIZARD_ID</source_code_name>
+		<description>Wizard ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Line Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT_TYPE</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<valid_value>
+			<value>1470000002</value>
+			<description>Account Determination</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000003</value>
+			<description>Depreciation Areas</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000004</value>
+			<description>Depreciation Type Pools</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000000</value>
+			<description>Depreciation Types</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000032</value>
+			<description>Asset Classes</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Items</description>
+		</valid_value>
+		<valid_value>
+			<value>35</value>
+			<description>Item Numbering</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ObjectCode</id>
+		<source_code_name>OBJECT_CODE</source_code_name>
+		<description>Object Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ObjectName</id>
+		<source_code_name>OBJECT_NAME</source_code_name>
+		<description>Object Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Successful</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Failed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Message</id>
+		<source_code_name>MESSAGE</source_code_name>
+		<description>Message</description>
+		<field_type>152</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<association>
+		<id>WizardIdLink</id>
+		<target_direct>OFAM</target_direct>
+		<object_key_column>WizardId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WizardId</column>
+		<column>LineNum</column>
+	</key>
+</table>

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OCCD</id>
+	<description>Cargo Customs Declaration Numbers</description>
+	<string_list>1100680</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>CCDNum</id>
+		<source_code_name>CCD_NR</source_code_name>
+		<description>CCD Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>40</edit_size>
+	</column>
+	<column>
+		<id>Date</id>
+		<source_code_name>DATE</source_code_name>
+		<description>Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>CustBroker</id>
+		<source_code_name>CUSTOMS_BROKER</source_code_name>
+		<description>Customs Broker</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NR</source_code_name>
+		<description>Imp./Exp. Document Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DOC_DATE</source_code_name>
+		<description>Imp./Exp. Document Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>SupNum</id>
+		<source_code_name>SUPPLY_NR</source_code_name>
+		<description>Supply Agreement Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SupDate</id>
+		<source_code_name>SUPPLY_DATE</source_code_name>
+		<description>Supply Agreement Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>CustTerm</id>
+		<source_code_name>CUSTOMS_TERMINAL</source_code_name>
+		<description>Customs Terminal</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>PayKey</id>
+		<source_code_name>PAYMENT_KEY</source_code_name>
+		<description>Payment Internal ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CCDNum</column>
+	</key>
+</table>

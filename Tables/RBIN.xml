@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RBIN</id>
+	<description>Bin Location Report</description>
+	<string_list>1101616</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>BinAbs</id>
+		<source_code_name>BIN_ABS</source_code_name>
+		<description>Bin Location Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCount</id>
+		<source_code_name>ITEM_COUNT</source_code_name>
+		<description>Count of Item</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OnHandQty</id>
+		<source_code_name>ON_HAND_QTY</source_code_name>
+		<description>On-Hand Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SnBCount</id>
+		<source_code_name>SNB_COUNT</source_code_name>
+		<description>Count of Batch/Serial Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BatchNo</id>
+		<source_code_name>BATCH_NUMBER</source_code_name>
+		<description>Batch Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>QtyVar</id>
+		<source_code_name>QTY_VARIANCE</source_code_name>
+		<description>Quantity Variance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SnbAbs</id>
+		<source_code_name>SNB_ABS</source_code_name>
+		<description>Serial/Batch AbsEntry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SerialNo</id>
+		<source_code_name>SERIAL_NUMBER</source_code_name>
+		<description>Serial Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MfrSerial</id>
+		<source_code_name>MFR_SERIAL_NUMBER</source_code_name>
+		<description>Manufacture Serial Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LotNumber</id>
+		<source_code_name>LOT_NUMBER</source_code_name>
+		<description>Lot Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SnBType</id>
+		<source_code_name>SNB_TYPE</source_code_name>
+		<description>SnB Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ItmContNeg</id>
+		<source_code_name>ITEM_COUNT_WITH_NEG</source_code_name>
+		<description>Count of Item With Negative</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BatchAttr1</id>
+		<source_code_name>BATCH_ATTR1</source_code_name>
+		<description>Batch Attribute 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BatchAttr2</id>
+		<source_code_name>BATCH_ATTR2</source_code_name>
+		<description>Batch Attribute 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepQty</id>
+		<source_code_name>REPLENISHMENT_QTY</source_code_name>
+		<description>Replenishment Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BatchAbs</id>
+		<source_code_name>BATCH_ABS</source_code_name>
+		<description>Batch Abs. Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SerialAbs</id>
+		<source_code_name>SERIAL_ABS</source_code_name>
+		<description>Serial Abs. Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>BinAbs</column>
+	</key>
+</table>

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OMDC</id>
+	<description>Master Data Cleanup</description>
+	<string_list>1101386</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Master Data Cleanup Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Create Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGN</source_code_name>
+		<description>User Signature</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>S</value>
+			<description>Saved</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Executed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UpdUser</id>
+		<source_code_name>UPD_USER</source_code_name>
+		<description>Last Update User</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

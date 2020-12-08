@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OBOD</id>
+	<description>BIOD Master Data</description>
+	<string_list>1101663</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>BIOD_ENTRY</id>
+		<source_code_name>BIOD_ENTRY</source_code_name>
+		<description>BIOD Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BIOD_UID</id>
+		<source_code_name>BIOD_USERID</source_code_name>
+		<description>User ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>BIOD_QID</id>
+		<source_code_name>BIOD_UQRID</source_code_name>
+		<description>Query Internal Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BIOD_QN</id>
+		<source_code_name>BIOD_QNAME</source_code_name>
+		<description>Query Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>BIOD_QLD</id>
+		<source_code_name>BIOD_QLASTDATE</source_code_name>
+		<description>Last Upload Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BIOD_QLT</id>
+		<source_code_name>BIOD_QLASTTIME</source_code_name>
+		<description>Last Upload Time</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>BIOD_ENTRY</column>
+	</key>
+	<key>
+		<id>USERID</id>
+		<column>BIOD_UID</column>
+	</key>
+</table>

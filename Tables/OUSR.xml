@@ -1,0 +1,1314 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OUSR</id>
+	<description>Users</description>
+	<string_list>1100171</string_list>
+	<view_type>AdministrationPlus</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>USERID</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>1</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>PASSWORD</id>
+		<source_code_name>PASSWORD</source_code_name>
+		<description>User Password</description>
+		<invisible />
+		<field_type>277</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>PASSWORD1</id>
+		<source_code_name>PASSWORD1</source_code_name>
+		<description>User Password</description>
+		<invisible />
+		<field_type>277</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PASSWORD2</id>
+		<source_code_name>PASSWORD2</source_code_name>
+		<description>User Password</description>
+		<invisible />
+		<field_type>277</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>INTERNAL_K</id>
+		<source_code_name>INTERNAL_KEY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>1</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>USER_CODE</id>
+		<source_code_name>USER_CODE</source_code_name>
+		<description>User Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>25</edit_size>
+	</column>
+	<column>
+		<id>U_NAME</id>
+		<source_code_name>_U_NAME</source_code_name>
+		<description>User Name</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>155</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>155</edit_size>
+	</column>
+	<column>
+		<id>GROUPS</id>
+		<source_code_name>GROUPS</source_code_name>
+		<description>User Group</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Regular</description>
+		</valid_value>
+		<valid_value>
+			<value>99</value>
+			<description>Deleted</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PASSWORD4</id>
+		<source_code_name>PASSWORD4</source_code_name>
+		<description>Password</description>
+		<invisible />
+		<field_type>277</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ALLOWENCES</id>
+		<source_code_name>PERMISSION1</source_code_name>
+		<description>User Confirmation</description>
+		<invisible />
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SUPERUSER</id>
+		<source_code_name>SUPERUSER</source_code_name>
+		<description>Superuser</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DISCOUNT</id>
+		<source_code_name>DISCOUNT</source_code_name>
+		<description>Max. Discount</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PASSWORD3</id>
+		<source_code_name>PASSWORD3</source_code_name>
+		<description>User Password</description>
+		<invisible />
+		<field_type>277</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Info1File</id>
+		<source_code_name>INFO1_FILE</source_code_name>
+		<description sys="Y">Info1File</description>
+		<invisible />
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Info1Field</id>
+		<source_code_name>INFO1_FIELD</source_code_name>
+		<description sys="Y">Info1Field</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Info2File</id>
+		<source_code_name>INFO2_FILE</source_code_name>
+		<description sys="Y">Info2File</description>
+		<invisible />
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Info2Field</id>
+		<source_code_name>INFO2_FIELD</source_code_name>
+		<description sys="Y">Info2Field</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Info3File</id>
+		<source_code_name>INFO3_FILE</source_code_name>
+		<description sys="Y">Info3File</description>
+		<invisible />
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Info3Field</id>
+		<source_code_name>INFO3_FIELD</source_code_name>
+		<description sys="Y">Info3Field</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Info4File</id>
+		<source_code_name>INFO4_FILE</source_code_name>
+		<description sys="Y">Info4File</description>
+		<invisible />
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Info4Field</id>
+		<source_code_name>INFO4_FIELD</source_code_name>
+		<description sys="Y">Info4Field</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>dType</id>
+		<source_code_name>NEW_DECODE</source_code_name>
+		<description sys="Y">dType</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>H</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>X</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>H</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>E_Mail</id>
+		<source_code_name>E_MAIL</source_code_name>
+		<description>E-Mail</description>
+		<field_type>245</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>PortNum</id>
+		<source_code_name>PORTABLE</source_code_name>
+		<description>Mobile Phone Number</description>
+		<field_type>246</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>OutOfOffic</id>
+		<source_code_name>OUT</source_code_name>
+		<description>Out of Office</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SendEMail</id>
+		<source_code_name>SEND_EM</source_code_name>
+		<description>Send E-Mail</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SendSMS</id>
+		<source_code_name>SEND_SMS</source_code_name>
+		<description>Send SMS</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DfltsGroup</id>
+		<source_code_name>DFLTS_GROUP</source_code_name>
+		<description>Defaults</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CashLimit</id>
+		<source_code_name>CASH_LIMIT</source_code_name>
+		<description>Cash Amount Limit</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MaxCashSum</id>
+		<source_code_name>MAX_CASH_SUM</source_code_name>
+		<description>Max. Cash Total</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Fax</id>
+		<source_code_name>FAX</source_code_name>
+		<description>Fax Number</description>
+		<field_type>251</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SendFax</id>
+		<source_code_name>SEND_FAX</source_code_name>
+		<description>Send Fax</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Locked</id>
+		<source_code_name>LOCKED</source_code_name>
+		<description>User Locked</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Department</id>
+		<source_code_name>DEPARTMENT</source_code_name>
+		<description>Department</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-2</default_value>
+	</column>
+	<column>
+		<id>Branch</id>
+		<source_code_name>BRANCH</source_code_name>
+		<description>Branch</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-2</default_value>
+	</column>
+	<column>
+		<id>UserPrefs</id>
+		<source_code_name>USER_PREFS</source_code_name>
+		<description>User Preferences</description>
+		<invisible />
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>Language</id>
+		<source_code_name>LANGUAGE</source_code_name>
+		<description>Language</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Charset</id>
+		<source_code_name>CHARSET</source_code_name>
+		<description>Font Language</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>OpenCdt</id>
+		<source_code_name>OPEN_CDT</source_code_name>
+		<description>Open Window for Credit Reference</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CdtPrvDays</id>
+		<source_code_name>CDT_PREV_DAYS</source_code_name>
+		<description>Vouchers from Last Days</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>DsplyRates</id>
+		<source_code_name>DISPLAY_RATES</source_code_name>
+		<description>Display Rate Table on start up</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AuImpRates</id>
+		<source_code_name>AUTOIMPORTRATES</source_code_name>
+		<description>Import Currency Rates Automatically</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OpenDps</id>
+		<source_code_name>OPEN_DPS</source_code_name>
+		<description>Open Postdated Checks Window</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RcrFlag</id>
+		<source_code_name>RCR_FLAG</source_code_name>
+		<description>Display Transactions Scheduled for Today</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CheckFiles</id>
+		<source_code_name>CHK_FILES</source_code_name>
+		<description>File Check</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OpenCredit</id>
+		<source_code_name>OPEN_CREDIT</source_code_name>
+		<description>Open Postdated Credit Vouchers Window</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Always</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>By Date</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CreditDay1</id>
+		<source_code_name>CREDIT_DAY1</source_code_name>
+		<description>Credit Handling Day 1</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>CreditDay2</id>
+		<source_code_name>CREDIT_DAY2</source_code_name>
+		<description>Credit Handling Day 2</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>15</default_value>
+	</column>
+	<column>
+		<id>WallPaper</id>
+		<source_code_name>WALL_PAPER</source_code_name>
+		<description>Wallpaper</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>WllPprDsp</id>
+		<source_code_name>WALLPAPER_TYPE</source_code_name>
+		<description>Wallpaper Display</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Centralized</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Full Screen</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Tile</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AdvImagePr</id>
+		<source_code_name>USE_VICTOR</source_code_name>
+		<description>Extended Image Processing</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Partial</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Full</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ContactLog</id>
+		<source_code_name>CLG_LOG</source_code_name>
+		<description>Today's Activity Alert</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LastWarned</id>
+		<source_code_name>LAST_WARNED</source_code_name>
+		<description>Last Warned Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>AlertPolFr</id>
+		<source_code_name>ALERT_FREQ</source_code_name>
+		<description>Message Check Frequency</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>5</default_value>
+	</column>
+	<column>
+		<id>ScreenLock</id>
+		<source_code_name>SCREEN_LOCK</source_code_name>
+		<description>Screen Lock Delay</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>30</default_value>
+	</column>
+	<column>
+		<id>ShowNewMsg</id>
+		<source_code_name>SHOW_MESSAGE</source_code_name>
+		<description>Open Message on Arrival</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Picture</id>
+		<source_code_name>PICT_NAME</source_code_name>
+		<description>Picture</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>Position</id>
+		<source_code_name>POSITION</source_code_name>
+		<description>Position</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>90</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>90</edit_size>
+	</column>
+	<column>
+		<id>Address</id>
+		<source_code_name>ADDRESS</source_code_name>
+		<description>Address</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>Map</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Country</id>
+		<source_code_name>COUNTRY</source_code_name>
+		<description>Country</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Tel1</id>
+		<source_code_name>TEL1</source_code_name>
+		<description>Telephone 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>Dial</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Tel2</id>
+		<source_code_name>TEL2</source_code_name>
+		<description>Telephone 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>Dial</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>GENDER</id>
+		<source_code_name>GENDER</source_code_name>
+		<description>Gender</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>F</default_value>
+		<valid_value>
+			<value>F</value>
+			<description>Female</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Male</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Birthday</id>
+		<source_code_name>BIRTHDAY</source_code_name>
+		<description>Birthday</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EnbMenuFlt</id>
+		<source_code_name>ENBMENUFLT</source_code_name>
+		<description>Enable Forbidden Menu Items</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>objType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type - History</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>12</default_value>
+	</column>
+	<column>
+		<id>logInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance - History</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>userSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>Creating User - History</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>createDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Creation Date - History</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>userSign2</id>
+		<source_code_name>USER2_SIGNATURE</source_code_name>
+		<description>Updating User - History</description>
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>updateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Date of Update - History</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OneLogPwd</id>
+		<source_code_name>ONE_LOGIN_PASSWORD</source_code_name>
+		<description>At first logon change password</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Password should not be changed at first login</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Password should be changed at first login</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>lastLogin</id>
+		<source_code_name>LAST_LOGIN_DATE</source_code_name>
+		<description>Last Logon Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LastPwds</id>
+		<source_code_name>LAST_PASSWORDS</source_code_name>
+		<description>Last Passwords 1</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>LastPwds2</id>
+		<source_code_name>LAST_PASSWORDS_2</source_code_name>
+		<description>Last Passwords 2</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>LastPwdSet</id>
+		<source_code_name>LAST_PASSWORD_CHANGE</source_code_name>
+		<description>Last Password Change</description>
+		<invisible />
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FailedLog</id>
+		<source_code_name>FAILED_LOGINS</source_code_name>
+		<description>Failed Login Count</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>PwdNeverEx</id>
+		<source_code_name>PWRD_NEVER_EXPIRES</source_code_name>
+		<description>Password Never Expires</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SalesDisc</id>
+		<source_code_name>SALES_DISCOUNT</source_code_name>
+		<description>Max. Sales Discount</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PurchDisc</id>
+		<source_code_name>PURCHASE_DISCOUNT</source_code_name>
+		<description>Max. Purchase Discount</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LstLogoutD</id>
+		<source_code_name>LAST_LOGOUT_DATE</source_code_name>
+		<description>Last Logoff Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LstLoginT</id>
+		<source_code_name>LAST_LOGIN_TIME</source_code_name>
+		<description>Last Logon Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LstLogoutT</id>
+		<source_code_name>LAST_LOGOUT_TIME</source_code_name>
+		<description>Last Logoff Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LstPwdChT</id>
+		<source_code_name>LAST_PWD_CHG_TIME</source_code_name>
+		<description>Last Password Change Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LstPwdChB</id>
+		<source_code_name>LAST_PWD_CHG_BY</source_code_name>
+		<description>Last Password Changed By</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>25</edit_size>
+	</column>
+	<column>
+		<id>RclFlag</id>
+		<source_code_name>RCL_FLAG</source_code_name>
+		<description>Display Recurring Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MobileUser</id>
+		<source_code_name>MOBILE_USER</source_code_name>
+		<description>Mobile User</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MobileIMEI</id>
+		<source_code_name>MOBILE_IMEI</source_code_name>
+		<description>Mobile IMEI</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>PrsWkCntEb</id>
+		<source_code_name>PWC_ENABLE</source_code_name>
+		<description>Personal Work Center Enable</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SnapShotId</id>
+		<source_code_name>SnapshotId</source_code_name>
+		<description>Snapshot ID</description>
+		<invisible />
+		<field_type>1250</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>STData</id>
+		<source_code_name>STData</source_code_name>
+		<description>User Password Salt</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NoSTPwdNum</id>
+		<source_code_name>NoSTPwdNum</source_code_name>
+		<description>Password encrypted w/o Salt</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>DomainUser</id>
+		<source_code_name>DOMAIN_USER</source_code_name>
+		<description>Domain user name bound in SLD</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>CUSAgree</id>
+		<source_code_name>CUS_AGREE</source_code_name>
+		<description>CUS Agreement</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>KeyUser</id>
+		<source_code_name>KEY_USER</source_code_name>
+		<description>Key User</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SrvUser</id>
+		<source_code_name>SRV_USER</source_code_name>
+		<description>Service User</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BAK_EMail</id>
+		<source_code_name>BAK_EMAIL</source_code_name>
+		<description>Backup EMail</description>
+		<field_type>245</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<association>
+		<id>DfltsGroupLink</id>
+		<target_direct>OUDG</target_direct>
+		<object_key_column>DfltsGroup</object_key_column>
+	</association>
+	<association>
+		<id>DepartmentLink</id>
+		<target_direct>OUDP</target_direct>
+		<object_key_column>Department</object_key_column>
+	</association>
+	<association>
+		<id>BranchLink</id>
+		<target_direct>OUBR</target_direct>
+		<object_key_column>Branch</object_key_column>
+	</association>
+	<association>
+		<id>CountryLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>Country</object_key_column>
+	</association>
+	<association>
+		<id>userSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>userSign</object_key_column>
+	</association>
+	<association>
+		<id>userSign2Link</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>userSign2</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>USERID</column>
+	</key>
+	<key>
+		<id>PASSWORD</id>
+		<column>PASSWORD</column>
+	</key>
+	<key>
+		<id>USER_CODE</id>
+		<unique />
+		<column>USER_CODE</column>
+	</key>
+	<key>
+		<id>INTERNAL</id>
+		<unique />
+		<column>INTERNAL_K</column>
+	</key>
+</table>

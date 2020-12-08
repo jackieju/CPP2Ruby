@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>WTM3</id>
+	<description>Approval Templates - Documents</description>
+	<string_list>1100224</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>WtmCode</id>
+		<source_code_name>WTM_CODE</source_code_name>
+		<description>Code</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TransType</id>
+		<source_code_name>OBJ_TYPE</source_code_name>
+		<description>Original Document</description>
+		<field_type>998</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<valid_value>
+			<value>23</value>
+			<description>Sales Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Sales Order</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Delivery</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Returns</description>
+		</valid_value>
+		<valid_value>
+			<value>203</value>
+			<description>A/R Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>165</value>
+			<description>A/R Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>166</value>
+			<description>A/R Correction Invoice Reversal</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>A/R Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>132</value>
+			<description>Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>(-0</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000113</value>
+			<description>Purchase Request</description>
+		</valid_value>
+		<valid_value>
+			<value>540000006</value>
+			<description>Purchase Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description>Purchase Order</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Goods Receipt PO</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description>Goods Returns</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>A/P Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>163</value>
+			<description>A/P Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>164</value>
+			<description>A/P Correction Invoice Reversal</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>A/P Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>(-1</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>59</value>
+			<description>Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>60</value>
+			<description>Goods Issue</description>
+		</valid_value>
+		<valid_value>
+			<value>1250000001</value>
+			<description>Inventory Transfer Request</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description>Inventory Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>1470000065</value>
+			<description>Inventory Counting</description>
+		</valid_value>
+		<valid_value>
+			<value>310000001</value>
+			<description>Inventory Opening Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>10000071</value>
+			<description>Inventory Posting</description>
+		</valid_value>
+		<valid_value>
+			<value>(-2</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description>Outgoing Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>(-3</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>WtmCodeLink</id>
+		<target_direct>OWTM</target_direct>
+		<object_key_column>WtmCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WtmCode</column>
+		<column>TransType</column>
+	</key>
+</table>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>EMSTT</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>MessageID</id>
+		<source_code_name>MESSAGE_ID</source_code_name>
+		<description sys="Y">Message ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Timestamp</id>
+		<source_code_name>TIMESTAMP</source_code_name>
+		<description sys="Y">Timestamp</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description sys="Y">Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ErrorID</id>
+		<source_code_name>ERROR_ID</source_code_name>
+		<description sys="Y">Error ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>MessageID</column>
+		<column>Timestamp</column>
+		<column>Status</column>
+	</key>
+</table>

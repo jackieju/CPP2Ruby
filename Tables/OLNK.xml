@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OLNK</id>
+	<description>Help Links</description>
+	<string_list>1101667</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LnkAddr</id>
+		<source_code_name>LNK_ADDR</source_code_name>
+		<description>Link Address</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>500</edit_size>
+	</column>
+	<column>
+		<id>Descr</id>
+		<source_code_name>DESCR</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Provider</id>
+		<source_code_name>PROVIDER</source_code_name>
+		<description>Provider</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>FIX1</id>
+	<description>Fixed Asset Transaction - Rows</description>
+	<string_list>1101549</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUMBER</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DprArea</id>
+		<source_code_name>DEPRECIATION_AREA</source_code_name>
+		<description>Depreciation Area ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PeriodCat</id>
+		<source_code_name>PERIOD_CATEGORY</source_code_name>
+		<description>Period Category ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PostPeriod</id>
+		<source_code_name>POSTING_SUB_PERIOD</source_code_name>
+		<description>Posting Sub Period</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RefDate</id>
+		<source_code_name>POSTING_DATE</source_code_name>
+		<description>Posting Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>APC</id>
+		<source_code_name>APC</source_code_name>
+		<description>APC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrdDpr</id>
+		<source_code_name>ORDINARY_DPR</source_code_name>
+		<description>Ordinary Depreciation</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnpDpr</id>
+		<source_code_name>UNPLANNED_DPR</source_code_name>
+		<description>Unplanned Depreciation</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDprKey1</id>
+		<source_code_name>SPECIAL_DPR_KEY1</source_code_name>
+		<description>Special Depreciation Key 01</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDpr1</id>
+		<source_code_name>SPECIAL_DPR1</source_code_name>
+		<description>Special Depreciation 01</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Qty</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DprType</id>
+		<source_code_name>NEW_DPR_TYPE</source_code_name>
+		<description>New Depreciation Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DprDate</id>
+		<source_code_name>NEW_DPR_START_DATE</source_code_name>
+		<description>New Depreciation Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RemLife</id>
+		<source_code_name>NEW_REMAINING_LIFE</source_code_name>
+		<description>New Remaining Life</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SalvageVal</id>
+		<source_code_name>NEW_SALVAGE_VALUE</source_code_name>
+		<description>New Salvage Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RecvAsst</id>
+		<source_code_name>RECEIVING_ITEM_CODE</source_code_name>
+		<description>Receiving Item Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RetirDate</id>
+		<source_code_name>RETIREMENT_DATE</source_code_name>
+		<description>Retirement Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDprKey2</id>
+		<source_code_name>SPECIAL_DPR_KEY2</source_code_name>
+		<description>Special Depreciation Key 02</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDpr2</id>
+		<source_code_name>SPECIAL_DPR2</source_code_name>
+		<description>Special Depreciation 02</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDprKey3</id>
+		<source_code_name>SPECIAL_DPR_KEY3</source_code_name>
+		<description>Special Depreciation Key 03</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransType</id>
+		<source_code_name>TRANSACTION_TYPE</source_code_name>
+		<description>Transaction Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>110</value>
+			<description>Acquisition</description>
+		</valid_value>
+		<valid_value>
+			<value>115</value>
+			<description>Subacquisition</description>
+		</valid_value>
+		<valid_value>
+			<value>120</value>
+			<description>Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>210</value>
+			<description>Full Retirement</description>
+		</valid_value>
+		<valid_value>
+			<value>220</value>
+			<description>Full Scrapping</description>
+		</valid_value>
+		<valid_value>
+			<value>230</value>
+			<description>Partial Retirement</description>
+		</valid_value>
+		<valid_value>
+			<value>240</value>
+			<description>Partial Scrapping</description>
+		</valid_value>
+		<valid_value>
+			<value>260</value>
+			<description>Low Value Asset Full Retirement</description>
+		</valid_value>
+		<valid_value>
+			<value>270</value>
+			<description>Low Value Asset Full Scrapping</description>
+		</valid_value>
+		<valid_value>
+			<value>310</value>
+			<description>Full Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>320</value>
+			<description>Partial Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>330</value>
+			<description>Asset Class Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>410</value>
+			<description>Manual Ordinary Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>420</value>
+			<description>Manual Unplanned Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>430</value>
+			<description>Manual Special Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>440</value>
+			<description>Appreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>550</value>
+			<description>Revaluation</description>
+		</valid_value>
+		<valid_value>
+			<value>510</value>
+			<description>Change of Depreciation Type</description>
+		</valid_value>
+		<valid_value>
+			<value>520</value>
+			<description>Change of Useful Life</description>
+		</valid_value>
+		<valid_value>
+			<value>530</value>
+			<description>Change of Depreciation Start Date</description>
+		</valid_value>
+		<valid_value>
+			<value>540</value>
+			<description>Change of Salvage Value</description>
+		</valid_value>
+		<valid_value>
+			<value>560</value>
+			<description>Change of Period Control</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UsefulLife</id>
+		<source_code_name>NEW_USEFUL_LIFE</source_code_name>
+		<description>New Useful Life</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Appr</id>
+		<source_code_name>APPRECIATION</source_code_name>
+		<description>Appreciation</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WriteUp</id>
+		<source_code_name>WRITE_UP</source_code_name>
+		<description>Write-Up</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DeltaDays</id>
+		<source_code_name>DELTA_REMAINING_DAYS</source_code_name>
+		<description>Delta Remaining Life in Days</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NewAstCls</id>
+		<source_code_name>NEW_ASSET_CLASS</source_code_name>
+		<description>New Asset Class</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>HistOrdDpr</id>
+		<source_code_name>HISTORIC_ORD_DPR</source_code_name>
+		<description>Historical Ordinary Depr.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDpr3</id>
+		<source_code_name>SPECIAL_DPR3</source_code_name>
+		<description>Special Depreciation 03</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransAmnt</id>
+		<source_code_name>TRANSACTION_AMOUNT</source_code_name>
+		<description>Transaction Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Remark</id>
+		<source_code_name>REMARK</source_code_name>
+		<description>Remarks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OFIX</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>DprAreaLink</id>
+		<target_direct>ODPA</target_direct>
+		<object_key_column>DprArea</object_key_column>
+	</association>
+	<association>
+		<id>SpDprKey1Link</id>
+		<target_direct>ODPP</target_direct>
+		<object_key_column>SpDprKey1</object_key_column>
+	</association>
+	<association>
+		<id>DprTypeLink</id>
+		<target_direct>ODTP</target_direct>
+		<object_key_column>DprType</object_key_column>
+	</association>
+	<association>
+		<id>RecvAsstLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>RecvAsst</object_key_column>
+	</association>
+	<association>
+		<id>SpDprKey2Link</id>
+		<target_direct>ODPP</target_direct>
+		<object_key_column>SpDprKey2</object_key_column>
+	</association>
+	<association>
+		<id>SpDprKey3Link</id>
+		<target_direct>ODPP</target_direct>
+		<object_key_column>SpDprKey3</object_key_column>
+	</association>
+	<association>
+		<id>NewAstClsLink</id>
+		<target_direct>OACS</target_direct>
+		<object_key_column>NewAstCls</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LineNum</column>
+	</key>
+	<key>
+		<id>SECONDARY</id>
+		<column>DprArea</column>
+		<column>PeriodCat</column>
+		<column>ItemCode</column>
+	</key>
+</table>

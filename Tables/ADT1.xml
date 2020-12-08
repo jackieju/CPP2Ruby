@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ADT1</id>
+	<description>Depreciation Types - Rows - History</description>
+	<string_list>1101540</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Level</id>
+		<source_code_name>LEVEL</source_code_name>
+		<description>Level</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Base</id>
+		<source_code_name>BASE</source_code_name>
+		<description>Base</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>APC</default_value>
+		<valid_value>
+			<value>APC</value>
+			<description>Acquisition Value</description>
+		</valid_value>
+		<valid_value>
+			<value>NBV</value>
+			<description>Net Book Value</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Years</id>
+		<source_code_name>YEARS</source_code_name>
+		<description>Number of Years</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Percentage</id>
+		<source_code_name>PERCENTAGE</source_code_name>
+		<description>Percentage</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Amount</id>
+		<source_code_name>AMOUNT</source_code_name>
+		<description>Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>CodeLink</id>
+		<target_direct>ODTP</target_direct>
+		<object_key_column>Code</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+		<column>Level</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

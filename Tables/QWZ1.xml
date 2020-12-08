@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>QWZ1</id>
+	<description>Query Tables</description>
+	<string_list>1100309</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Query Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Numerator</id>
+		<source_code_name>TABLE_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FileCode</id>
+		<source_code_name>FILE_CODE</source_code_name>
+		<description>Table Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>IsTemp</id>
+		<source_code_name>IS_TEMP</source_code_name>
+		<description>Is Temp</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DoJoin</id>
+		<source_code_name>DO_JOIN</source_code_name>
+		<description>Do Join</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>JoinToTbl</id>
+		<source_code_name>JOINED_TO_TABLE</source_code_name>
+		<description>Joined to Table</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NumOfConds</id>
+		<source_code_name>NUM_OF_CONDS</source_code_name>
+		<description>No. of Conds.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OuterJoin</id>
+		<source_code_name>OUTER_JOIN</source_code_name>
+		<description>Outer Join</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RightJoin</id>
+		<source_code_name>RIGHT_JOIN</source_code_name>
+		<description>Right Join</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+		<column>Numerator</column>
+	</key>
+</table>

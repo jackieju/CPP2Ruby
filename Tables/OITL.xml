@@ -1,0 +1,570 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OITL</id>
+	<description>Inventory Transactions Log</description>
+	<string_list>1101044</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>LogEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Log Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransId</id>
+		<source_code_name>TRANS_ID</source_code_name>
+		<description>Transaction ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemName</id>
+		<source_code_name>ITEM_NAME</source_code_name>
+		<description>Item Description</description>
+		<field_type>31</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ManagedBy</id>
+		<source_code_name>MANAGED_BY</source_code_name>
+		<description>Management Method</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>4</default_value>
+		<valid_value>
+			<value>10000044</value>
+			<description>BTN</description>
+		</valid_value>
+		<valid_value>
+			<value>10000045</value>
+			<description>SRN</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>ITM</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>DOC_ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocLine</id>
+		<source_code_name>DOC_LINE_NUM</source_code_name>
+		<description>Doc. Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Transact. Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NUM</source_code_name>
+		<description>Doc. Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BaseEntry</id>
+		<source_code_name>BASE_ABS_ENTRY</source_code_name>
+		<description>Base Document Internal ID</description>
+		<field_type>26</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BaseLine</id>
+		<source_code_name>BASE_LINE_NUM</source_code_name>
+		<description>Base Document Row Number</description>
+		<field_type>28</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BaseType</id>
+		<source_code_name>BASE_TYPE</source_code_name>
+		<description>Base Document Type</description>
+		<field_type>25</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Delivery</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Returns</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Sales Order</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Goods Receipt PO</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description>Goods Return</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description>Purchase Order</description>
+		</valid_value>
+		<valid_value>
+			<value>23</value>
+			<description>Sales Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>59</value>
+			<description>Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description>Inventory Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>69</value>
+			<description>Landed Costs</description>
+		</valid_value>
+		<valid_value>
+			<value>163</value>
+			<description>A/P Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>164</value>
+			<description>A/P Correction Invoice Reversal</description>
+		</valid_value>
+		<valid_value>
+			<value>165</value>
+			<description>A/R Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>166</value>
+			<description>A/R Correction Invoice Reversal</description>
+		</valid_value>
+		<valid_value>
+			<value>202</value>
+			<description>Production Order</description>
+		</valid_value>
+		<valid_value>
+			<value>203</value>
+			<description>A/R Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>A/P Down Payment</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ApplyEntry</id>
+		<source_code_name>APPLIED_ABS_ENTRY</source_code_name>
+		<description>Applied Document Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ApplyLine</id>
+		<source_code_name>APPLIED_LINE_NUM</source_code_name>
+		<description>Applied Document Line Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ApplyType</id>
+		<source_code_name>APPLIED_TYPE</source_code_name>
+		<description>Applied Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DOC_DATE</source_code_name>
+		<description>Doc. Posting Date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardName</id>
+		<source_code_name>CARD_NAME</source_code_name>
+		<description>BP Name</description>
+		<field_type>19</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocQty</id>
+		<source_code_name>DOC_QUANTITY</source_code_name>
+		<description>Doc. Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StockQty</id>
+		<source_code_name>STOCK_QUANTITY</source_code_name>
+		<description>Stock Affecting Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DefinedQty</id>
+		<source_code_name>SNB_DEFINED_QUANTITY</source_code_name>
+		<description>SnB Defined Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StockEff</id>
+		<source_code_name>STOCK_EFFECT</source_code_name>
+		<description>Stock Effect</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">ACCUM_EMPTY</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>ACCUM_ON_HAND</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">ACCUM_COMMITTED</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Creation Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LocType</id>
+		<source_code_name>LOCATION_TYPE</source_code_name>
+		<description>Location Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOCATION_CODE</source_code_name>
+		<description>Location Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AppDocNum</id>
+		<source_code_name>APPLIED_DOC_NUM</source_code_name>
+		<description>Applied Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VersionNum</id>
+		<source_code_name>VERSION_NUM</source_code_name>
+		<description sys="Y">Version Number</description>
+		<field_type>278</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Transfered</id>
+		<source_code_name>TRANSFERED</source_code_name>
+		<description sys="Y">Year Tranfer</description>
+		<field_type>111</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>Instance</id>
+		<source_code_name>INSTANCE</source_code_name>
+		<description sys="Y">INSTANCE</description>
+		<field_type>227</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>SubLineNum</id>
+		<source_code_name>SUB_LINE_NUM</source_code_name>
+		<description>Subrow Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BSubLineNo</id>
+		<source_code_name>BASE_SUB_LINE_NUM</source_code_name>
+		<description>Base Subrow Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AppSubLine</id>
+		<source_code_name>APPLIED_SUB_LINE_NUM</source_code_name>
+		<description>Applied Subrow Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ActBaseTp</id>
+		<source_code_name>ACTUAL_BASE_TYPE</source_code_name>
+		<description>Actual Base Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ActBaseEnt</id>
+		<source_code_name>ACTUAL_BASE_ENTRY</source_code_name>
+		<description>Actual Base Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ActBaseLn</id>
+		<source_code_name>ACTUAL_BASE_LINE</source_code_name>
+		<description>Actual Base Line</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ActBasSubL</id>
+		<source_code_name>ACTUAL_BASE_SUB_LINE</source_code_name>
+		<description>Actual Base Subline</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AllocateTp</id>
+		<source_code_name>ALLOCATE_TYPE</source_code_name>
+		<description>Allocate Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AllocatEnt</id>
+		<source_code_name>ALLOCATE_ENTRY</source_code_name>
+		<description>Allocate Document Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AllocateLn</id>
+		<source_code_name>ALLOCATE_LINE</source_code_name>
+		<description>Allocate Document Line</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>CreateTime</id>
+		<source_code_name>CREATE_TIME</source_code_name>
+		<description>Creation Time</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>BaseTypeLink</id>
+		<target_indirect_object>BaseType</target_indirect_object>
+		<object_key_column>BaseEntry</object_key_column>
+		<array_key_column>BaseLine</array_key_column>
+	</association>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LogEntry</column>
+	</key>
+	<key>
+		<id>DOC_INFO</id>
+		<column>ManagedBy</column>
+		<column>DocType</column>
+		<column>DocEntry</column>
+		<column>DocLine</column>
+		<column>SubLineNum</column>
+	</key>
+	<key>
+		<id>BASEREF</id>
+		<column>BaseType</column>
+		<column>BaseEntry</column>
+		<column>BaseLine</column>
+		<column>BSubLineNo</column>
+	</key>
+	<key>
+		<id>APPLYREF</id>
+		<column>ApplyType</column>
+		<column>ApplyEntry</column>
+		<column>ApplyLine</column>
+		<column>AppSubLine</column>
+	</key>
+	<key>
+		<id>TRANSID</id>
+		<column>TransId</column>
+	</key>
+	<key>
+		<id>ACTUAL_INF</id>
+		<column>ManagedBy</column>
+		<column>ActBaseTp</column>
+		<column>ActBaseEnt</column>
+		<column>ActBaseLn</column>
+		<column>ActBasSubL</column>
+	</key>
+	<key>
+		<id>ALLOC_REF</id>
+		<column>AllocateTp</column>
+		<column>AllocatEnt</column>
+		<column>AllocateLn</column>
+	</key>
+</table>

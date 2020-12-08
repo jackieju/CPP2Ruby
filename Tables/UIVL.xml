@@ -1,0 +1,1043 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>UIVL</id>
+	<description>Whse Journal</description>
+	<string_list>1101276</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>TransType</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Transaction Type</description>
+		<field_type>25</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>15</value>
+			<description>Delivery</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Returns</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>A/R Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>132</value>
+			<description>Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>(-0</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description>Goods Return</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description sys="Y">A/P Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>(-1</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>-2</value>
+			<description>Opening Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>58</value>
+			<description>Inventory Update</description>
+		</valid_value>
+		<valid_value>
+			<value>59</value>
+			<description>Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>60</value>
+			<description>Goods Issue</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description>Inventory Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>68</value>
+			<description>Work Instructions</description>
+		</valid_value>
+		<valid_value>
+			<value>(-2</value>
+			<description sys="Y">(-</description>
+		</valid_value>
+		<valid_value>
+			<value>-1</value>
+			<description>All Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>162</value>
+			<description>Inventory Revaluation</description>
+		</valid_value>
+		<valid_value>
+			<value>69</value>
+			<description>Landed Costs</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CreatedBy</id>
+		<source_code_name>CREATED_BY</source_code_name>
+		<description>Document No. Created</description>
+		<field_type>26</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BASE_REF</id>
+		<source_code_name>BASE_REF</source_code_name>
+		<description>Base Reference</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocLineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number in Document</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DATE</source_code_name>
+		<description>Posting Date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CreateTime</id>
+		<source_code_name>TIME</source_code_name>
+		<description>Generation Time</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>InQty</id>
+		<source_code_name>IN_QUANTITY</source_code_name>
+		<description>Receipt Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OutQty</id>
+		<source_code_name>OUT_QUANTITY</source_code_name>
+		<description>Issue Quantity</description>
+		<field_type>22</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Price</id>
+		<source_code_name>PRICE</source_code_name>
+		<description>Price</description>
+		<field_type>32</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Currency</id>
+		<source_code_name>CURRENCY</source_code_name>
+		<description>Price Currency</description>
+		<field_type>33</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Rate</id>
+		<source_code_name>RATE</source_code_name>
+		<description>Currency Price</description>
+		<field_type>34</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TrnsfrAct</id>
+		<source_code_name>TRANSFER_ACT</source_code_name>
+		<description>Transfer Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PriceDifAc</id>
+		<source_code_name>PRICE_DIF_ACT</source_code_name>
+		<description>Price Difference Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VarianceAc</id>
+		<source_code_name>VARIANCE_ACT</source_code_name>
+		<description>Variance Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ReturnAct</id>
+		<source_code_name>RETURNING_ACT</source_code_name>
+		<description>Returning Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExcRateAct</id>
+		<source_code_name>EXCHANGE_RATE_ACT</source_code_name>
+		<description>Exchange Rate Differences Acct</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ClearAct</id>
+		<source_code_name>GOODS_CLEARING_ACT</source_code_name>
+		<description>Goods Clearing Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CostAct</id>
+		<source_code_name>COST_OF_SALE_ACT</source_code_name>
+		<description>COGS Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WipAct</id>
+		<source_code_name>WIP_ACT</source_code_name>
+		<description>WIP Inventory Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenStock</id>
+		<source_code_name>OPEN_SUM_STOCK</source_code_name>
+		<description>Open Sum Inventory Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Creation Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PriceDiff</id>
+		<source_code_name>PRICE_DIFF_VALUE</source_code_name>
+		<description>Price Difference Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransSeq</id>
+		<source_code_name>TRANS_SEQUENCE</source_code_name>
+		<description>Transaction Sequence No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>InvntAct</id>
+		<source_code_name>INVENTORY_ACT</source_code_name>
+		<description>Inventory Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubLineNum</id>
+		<source_code_name>SUB_LINE_NUM</source_code_name>
+		<description>Subrow Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AppObjLine</id>
+		<source_code_name>APPL_OBJ_LINE</source_code_name>
+		<description>Applied Object Row</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>Expenses</id>
+		<source_code_name>EXPENSES</source_code_name>
+		<description>Inventory Expenses</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenExp</id>
+		<source_code_name>OPEN_EXPENSES</source_code_name>
+		<description>Open Expenses Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Allocation</id>
+		<source_code_name>ALLOCATION</source_code_name>
+		<description>Allocation Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenAlloc</id>
+		<source_code_name>OPEN_ALLOCATION</source_code_name>
+		<description>Open Allocation Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExpAlloc</id>
+		<source_code_name>EXP_ALLOC</source_code_name>
+		<description>Expenses Allocation Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OExpAlloc</id>
+		<source_code_name>OPEN_EXP_ALLOC</source_code_name>
+		<description>Open Expenses Allocation Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenPDiff</id>
+		<source_code_name>OPEN_PRICE_DIFF</source_code_name>
+		<description>Open Price Diff. Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExchDiff</id>
+		<source_code_name>EXCH_DIFF_VAL</source_code_name>
+		<description>Exchange Rate Difference Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenEDiff</id>
+		<source_code_name>OPEN_EXCH_DIFF</source_code_name>
+		<description>Open Exchange Rate Diff. Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NegInvAdjs</id>
+		<source_code_name>NEGTV_ADJST_VAL</source_code_name>
+		<description>Negative Inventory Adjustment Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenNegInv</id>
+		<source_code_name>OPEN_NEGTV_ADJST</source_code_name>
+		<description>Open Negative Adjustment</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NegStckAct</id>
+		<source_code_name>NEG_STOCK_ADJST_ACT</source_code_name>
+		<description>Neg. Inventory Adjustment Acct</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>BTransVal</id>
+		<source_code_name>BASED_TRANS_VAL</source_code_name>
+		<description>Base Transaction Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VarVal</id>
+		<source_code_name>VARIANCE_VAL</source_code_name>
+		<description>Variance Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BExpVal</id>
+		<source_code_name>BASED_EXP_VAL</source_code_name>
+		<description>Base Freight Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CogsVal</id>
+		<source_code_name>COGS_VAL</source_code_name>
+		<description>COGS Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BNegAVal</id>
+		<source_code_name>BASED_NEGTV_ADJST</source_code_name>
+		<description>Base Negative Adjustment Amt</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IOffIncAcc</id>
+		<source_code_name>INVT_OFFSET_INC_ACT</source_code_name>
+		<description>Inventory Offset Increase Acct</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IOffIncVal</id>
+		<source_code_name>INVT_OFFSET_INC_VAL</source_code_name>
+		<description>Inv. Offset Increase Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DOffDecAcc</id>
+		<source_code_name>INVT_OFFSET_DEC_ACT</source_code_name>
+		<description>Inventory Offset Decrease Acct</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DOffDecVal</id>
+		<source_code_name>INVT_OFFSET_DEC_VAL</source_code_name>
+		<description>Inv. Offset Decrease Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DecAcc</id>
+		<source_code_name>DEC_ACT</source_code_name>
+		<description>G/L Decrease Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DecVal</id>
+		<source_code_name>DEC_VAL</source_code_name>
+		<description>G/L Decrease Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WipVal</id>
+		<source_code_name>WIP_VAL</source_code_name>
+		<description>WIP Inventory Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WipVarAcc</id>
+		<source_code_name>WIP_VAR_ACT</source_code_name>
+		<description>WIP Variance Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WipVarVal</id>
+		<source_code_name>WIP_INV_VAL</source_code_name>
+		<description>WIP Variance Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IncAct</id>
+		<source_code_name>INC_ACT</source_code_name>
+		<description>G/L Increase Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IncVal</id>
+		<source_code_name>INC_VAL</source_code_name>
+		<description>G/L Increase Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExpCAcc</id>
+		<source_code_name>EXP_CLEARING_ACT</source_code_name>
+		<description>Expense Clearing Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CostMethod</id>
+		<source_code_name>COSTING_METHOD</source_code_name>
+		<description>Costing Method</description>
+		<field_type>10</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>A</value>
+			<description>Moving Average</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Standard</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>FIFO</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>None</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MessageID</id>
+		<source_code_name>MESSAGE_ID</source_code_name>
+		<description>Message ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LocType</id>
+		<source_code_name>LOCATION_TYPE</source_code_name>
+		<description>Location Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOCATION_CODE</source_code_name>
+		<description>Warehouse Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Upgrade</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Auto Summary</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Restore Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PostStatus</id>
+		<source_code_name>POSTING_STATUS</source_code_name>
+		<description>Posting Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>None</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description sys="Y">Partial</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description sys="Y">Complete</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SumStock</id>
+		<source_code_name>SUM_STOCK_VAL</source_code_name>
+		<description>Sum Inventory Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenCogs</id>
+		<source_code_name>OPEN_COGS_VAL</source_code_name>
+		<description>Open COGS Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenQty</id>
+		<source_code_name>OPEN_QUANTITY</source_code_name>
+		<description sys="Y">Open Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TreeID</id>
+		<source_code_name>TREE_ID</source_code_name>
+		<description>Tree ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ParentID</id>
+		<source_code_name>PARENT_ID</source_code_name>
+		<description>Parent ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>PAOffAcc</id>
+		<source_code_name>PA_OFFSET_ACT</source_code_name>
+		<description>Purchase Offset Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PAOffVal</id>
+		<source_code_name>PA_OFFSET_VAL</source_code_name>
+		<description>Purchase Offset Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenPAOff</id>
+		<source_code_name>OPEN_PA_OFFSET</source_code_name>
+		<description>Open Purchase Offset Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PAAcc</id>
+		<source_code_name>PA_ACT</source_code_name>
+		<description>Purchase Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PAVal</id>
+		<source_code_name>PA_VAL</source_code_name>
+		<description>Purchase Account Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenPA</id>
+		<source_code_name>OPEN_PA</source_code_name>
+		<description>Open Purchase Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LinkArc</id>
+		<source_code_name>LINK_ARCHIVED</source_code_name>
+		<description sys="Y">Linked To Archived Doc</description>
+		<field_type>2001</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>VersionNum</id>
+		<source_code_name>VERSION_NUM</source_code_name>
+		<description>Version Number</description>
+		<field_type>274</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BSubLineNo</id>
+		<source_code_name>BASE_SUB_LINE_NUM</source_code_name>
+		<description>Base Subrow Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>WipDebCred</id>
+		<source_code_name>WIP_DEB_CRED</source_code_name>
+		<description>WIP Account: Debit/Credit Side</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<association>
+		<id>TransTypeLink</id>
+		<target_indirect_object>TransType</target_indirect_object>
+		<object_key_column>CreatedBy</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>UITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>TrnsfrActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>TrnsfrAct</object_key_column>
+	</association>
+	<association>
+		<id>PriceDifAcLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>PriceDifAc</object_key_column>
+	</association>
+	<association>
+		<id>VarianceAcLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>VarianceAc</object_key_column>
+	</association>
+	<association>
+		<id>ReturnActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>ReturnAct</object_key_column>
+	</association>
+	<association>
+		<id>ExcRateActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>ExcRateAct</object_key_column>
+	</association>
+	<association>
+		<id>ClearActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>ClearAct</object_key_column>
+	</association>
+	<association>
+		<id>CostActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>CostAct</object_key_column>
+	</association>
+	<association>
+		<id>WipActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>WipAct</object_key_column>
+	</association>
+	<association>
+		<id>InvntActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>InvntAct</object_key_column>
+	</association>
+	<association>
+		<id>NegStckActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>NegStckAct</object_key_column>
+	</association>
+	<association>
+		<id>IOffIncAccLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>IOffIncAcc</object_key_column>
+	</association>
+	<association>
+		<id>DOffDecAccLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>DOffDecAcc</object_key_column>
+	</association>
+	<association>
+		<id>DecAccLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>DecAcc</object_key_column>
+	</association>
+	<association>
+		<id>WipVarAccLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>WipVarAcc</object_key_column>
+	</association>
+	<association>
+		<id>ExpCAccLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>ExpCAcc</object_key_column>
+	</association>
+	<association>
+		<id>MessageIDLink</id>
+		<target_direct>UILM</target_direct>
+		<object_key_column>MessageID</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>PAOffAccLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>PAOffAcc</object_key_column>
+	</association>
+	<association>
+		<id>PAAccLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>PAAcc</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TransSeq</column>
+	</key>
+	<key>
+		<id>ITEM</id>
+		<column>ItemCode</column>
+	</key>
+	<key>
+		<id>CURRENCY</id>
+		<column>Currency</column>
+	</key>
+	<key>
+		<id>DOCDATE</id>
+		<column>DocDate</column>
+	</key>
+	<key>
+		<id>DOCENTRY</id>
+		<column>CreatedBy</column>
+		<column>TransType</column>
+		<column>DocLineNum</column>
+	</key>
+	<key>
+		<id>MESSAGEID</id>
+		<column>MessageID</column>
+	</key>
+	<key>
+		<id>TREEID</id>
+		<column>TreeID</column>
+	</key>
+</table>

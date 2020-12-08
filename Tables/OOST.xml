@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OOST</id>
+	<description>Sales Stage</description>
+	<string_list>1100129</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>SalesOpportunities</info_category>
+	<column>
+		<id>Num</id>
+		<source_code_name>NUM</source_code_name>
+		<description>Sequence No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Descript</id>
+		<source_code_name>DESCRIPT</source_code_name>
+		<description>Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>StepId</id>
+		<source_code_name>STEP_ID</source_code_name>
+		<description>Stage No.</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CloPrcnt</id>
+		<source_code_name>_PERCENT</source_code_name>
+		<description>Closing Percentage</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Canceled</id>
+		<source_code_name>CANCELED</source_code_name>
+		<description>Canceled</description>
+		<field_type>10</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>MaxDays</id>
+		<source_code_name>MAX_DAYS</source_code_name>
+		<description>Maximum Days</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OptNum</id>
+		<source_code_name>OPT_NUM</source_code_name>
+		<description>Optimal Opportunity Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Num</column>
+	</key>
+	<key>
+		<id>STEP</id>
+		<unique />
+		<column>StepId</column>
+	</key>
+</table>

@@ -1,0 +1,267 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Jdt1s</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Transid</th>
+      <th>Line id</th>
+      <th>Account</th>
+      <th>Debit</th>
+      <th>Credit</th>
+      <th>Syscred</th>
+      <th>Sysdeb</th>
+      <th>Fcdebit</th>
+      <th>Fccredit</th>
+      <th>Fccurrency</th>
+      <th>Duedate</th>
+      <th>Sourceid</th>
+      <th>Sourceline</th>
+      <th>Shortname</th>
+      <th>Intrnmatch</th>
+      <th>Extrmatch</th>
+      <th>Contraact</th>
+      <th>Linememo</th>
+      <th>Ref3line</th>
+      <th>Transtype</th>
+      <th>Refdate</th>
+      <th>Ref2date</th>
+      <th>Ref1</th>
+      <th>Ref2</th>
+      <th>Createdby</th>
+      <th>Baseref</th>
+      <th>Project</th>
+      <th>Transcode</th>
+      <th>Profitcode</th>
+      <th>Taxdate</th>
+      <th>Systemrate</th>
+      <th>Mthdate</th>
+      <th>Tomthsum</th>
+      <th>Usersign</th>
+      <th>Batchnum</th>
+      <th>Finncpriod</th>
+      <th>Reltransid</th>
+      <th>Rellineid</th>
+      <th>Reltype</th>
+      <th>Loginstanc</th>
+      <th>Vatgroup</th>
+      <th>Basesum</th>
+      <th>Vatrate</th>
+      <th>Indicator</th>
+      <th>Adjtran</th>
+      <th>Revsource</th>
+      <th>Objtype</th>
+      <th>Vatdate</th>
+      <th>Paymentref</th>
+      <th>Sysbasesum</th>
+      <th>Multmatch</th>
+      <th>Vatline</th>
+      <th>Vatamount</th>
+      <th>Sysvatsum</th>
+      <th>Closed</th>
+      <th>Grossvalue</th>
+      <th>Checkabs</th>
+      <th>Linetype</th>
+      <th>Debcred</th>
+      <th>Sequencenr</th>
+      <th>Stornoacc</th>
+      <th>Balduedeb</th>
+      <th>Balduecred</th>
+      <th>Balfcdeb</th>
+      <th>Balfccred</th>
+      <th>Balscdeb</th>
+      <th>Balsccred</th>
+      <th>Isnet</th>
+      <th>Dunwizblck</th>
+      <th>Dunnlevel</th>
+      <th>Dundate</th>
+      <th>Taxtype</th>
+      <th>Taxpostacc</th>
+      <th>Stacode</th>
+      <th>Statype</th>
+      <th>Taxcode</th>
+      <th>Validfrom</th>
+      <th>Grossvalfc</th>
+      <th>Lvlupddate</th>
+      <th>Ocrcode2</th>
+      <th>Ocrcode3</th>
+      <th>Ocrcode4</th>
+      <th>Ocrcode5</th>
+      <th>Mientry</th>
+      <th>Miventry</th>
+      <th>Clsintp</th>
+      <th>Cenvatcom</th>
+      <th>Mattype</th>
+      <th>Pstngtype</th>
+      <th>Validfrom2</th>
+      <th>Validfrom3</th>
+      <th>Validfrom4</th>
+      <th>Validfrom5</th>
+      <th>Location</th>
+      <th>Wtaxcode</th>
+      <th>Equvatrate</th>
+      <th>Equvatsum</th>
+      <th>Sysequsum</th>
+      <th>Totalvat</th>
+      <th>Systvat</th>
+      <th>Wtliable</th>
+      <th>Wtline</th>
+      <th>Wtapplied</th>
+      <th>Wtapplieds</th>
+      <th>Wtappliedf</th>
+      <th>Wtsum</th>
+      <th>Wtsumfc</th>
+      <th>Wtsumsc</th>
+      <th>Payblock</th>
+      <th>Payblckref</th>
+      <th>Lictradnum</th>
+      <th>Interimtyp</th>
+      <th>Dprid</th>
+      <th>Matchref</th>
+      <th>Ordered</th>
+      <th>Cup</th>
+      <th>Cig</th>
+      <th>Bplid</th>
+      <th>Bplname</th>
+      <th>Vatregnum</th>
+      <th>Sledgerf</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @jdt1s.each do |jdt1| %>
+      <tr>
+        <td><%= jdt1.TransId %></td>
+        <td><%= jdt1.Line_ID %></td>
+        <td><%= jdt1.Account %></td>
+        <td><%= jdt1.Debit %></td>
+        <td><%= jdt1.Credit %></td>
+        <td><%= jdt1.SYSCred %></td>
+        <td><%= jdt1.SYSDeb %></td>
+        <td><%= jdt1.FCDebit %></td>
+        <td><%= jdt1.FCCredit %></td>
+        <td><%= jdt1.FCCurrency %></td>
+        <td><%= jdt1.DueDate %></td>
+        <td><%= jdt1.SourceID %></td>
+        <td><%= jdt1.SourceLine %></td>
+        <td><%= jdt1.ShortName %></td>
+        <td><%= jdt1.IntrnMatch %></td>
+        <td><%= jdt1.ExtrMatch %></td>
+        <td><%= jdt1.ContraAct %></td>
+        <td><%= jdt1.LineMemo %></td>
+        <td><%= jdt1.Ref3Line %></td>
+        <td><%= jdt1.TransType %></td>
+        <td><%= jdt1.RefDate %></td>
+        <td><%= jdt1.Ref2Date %></td>
+        <td><%= jdt1.Ref1 %></td>
+        <td><%= jdt1.Ref2 %></td>
+        <td><%= jdt1.CreatedBy %></td>
+        <td><%= jdt1.BaseRef %></td>
+        <td><%= jdt1.Project %></td>
+        <td><%= jdt1.TransCode %></td>
+        <td><%= jdt1.ProfitCode %></td>
+        <td><%= jdt1.TaxDate %></td>
+        <td><%= jdt1.SystemRate %></td>
+        <td><%= jdt1.MthDate %></td>
+        <td><%= jdt1.ToMthSum %></td>
+        <td><%= jdt1.UserSign %></td>
+        <td><%= jdt1.BatchNum %></td>
+        <td><%= jdt1.FinncPriod %></td>
+        <td><%= jdt1.RelTransId %></td>
+        <td><%= jdt1.RelLineID %></td>
+        <td><%= jdt1.RelType %></td>
+        <td><%= jdt1.LogInstanc %></td>
+        <td><%= jdt1.VatGroup %></td>
+        <td><%= jdt1.BaseSum %></td>
+        <td><%= jdt1.VatRate %></td>
+        <td><%= jdt1.Indicator %></td>
+        <td><%= jdt1.AdjTran %></td>
+        <td><%= jdt1.RevSource %></td>
+        <td><%= jdt1.ObjType %></td>
+        <td><%= jdt1.VatDate %></td>
+        <td><%= jdt1.PaymentRef %></td>
+        <td><%= jdt1.SYSBaseSum %></td>
+        <td><%= jdt1.MultMatch %></td>
+        <td><%= jdt1.VatLine %></td>
+        <td><%= jdt1.VatAmount %></td>
+        <td><%= jdt1.SYSVatSum %></td>
+        <td><%= jdt1.Closed %></td>
+        <td><%= jdt1.GrossValue %></td>
+        <td><%= jdt1.CheckAbs %></td>
+        <td><%= jdt1.LineType %></td>
+        <td><%= jdt1.DebCred %></td>
+        <td><%= jdt1.SequenceNr %></td>
+        <td><%= jdt1.StornoAcc %></td>
+        <td><%= jdt1.BalDueDeb %></td>
+        <td><%= jdt1.BalDueCred %></td>
+        <td><%= jdt1.BalFcDeb %></td>
+        <td><%= jdt1.BalFcCred %></td>
+        <td><%= jdt1.BalScDeb %></td>
+        <td><%= jdt1.BalScCred %></td>
+        <td><%= jdt1.IsNet %></td>
+        <td><%= jdt1.DunWizBlck %></td>
+        <td><%= jdt1.DunnLevel %></td>
+        <td><%= jdt1.DunDate %></td>
+        <td><%= jdt1.TaxType %></td>
+        <td><%= jdt1.TaxPostAcc %></td>
+        <td><%= jdt1.StaCode %></td>
+        <td><%= jdt1.StaType %></td>
+        <td><%= jdt1.TaxCode %></td>
+        <td><%= jdt1.ValidFrom %></td>
+        <td><%= jdt1.GrossValFc %></td>
+        <td><%= jdt1.LvlUpdDate %></td>
+        <td><%= jdt1.OcrCode2 %></td>
+        <td><%= jdt1.OcrCode3 %></td>
+        <td><%= jdt1.OcrCode4 %></td>
+        <td><%= jdt1.OcrCode5 %></td>
+        <td><%= jdt1.MIEntry %></td>
+        <td><%= jdt1.MIVEntry %></td>
+        <td><%= jdt1.ClsInTP %></td>
+        <td><%= jdt1.CenVatCom %></td>
+        <td><%= jdt1.MatType %></td>
+        <td><%= jdt1.PstngType %></td>
+        <td><%= jdt1.ValidFrom2 %></td>
+        <td><%= jdt1.ValidFrom3 %></td>
+        <td><%= jdt1.ValidFrom4 %></td>
+        <td><%= jdt1.ValidFrom5 %></td>
+        <td><%= jdt1.Location %></td>
+        <td><%= jdt1.WTaxCode %></td>
+        <td><%= jdt1.EquVatRate %></td>
+        <td><%= jdt1.EquVatSum %></td>
+        <td><%= jdt1.SYSEquSum %></td>
+        <td><%= jdt1.TotalVat %></td>
+        <td><%= jdt1.SYSTVat %></td>
+        <td><%= jdt1.WTLiable %></td>
+        <td><%= jdt1.WTLine %></td>
+        <td><%= jdt1.WTApplied %></td>
+        <td><%= jdt1.WTAppliedS %></td>
+        <td><%= jdt1.WTAppliedF %></td>
+        <td><%= jdt1.WTSum %></td>
+        <td><%= jdt1.WTSumFC %></td>
+        <td><%= jdt1.WTSumSC %></td>
+        <td><%= jdt1.PayBlock %></td>
+        <td><%= jdt1.PayBlckRef %></td>
+        <td><%= jdt1.LicTradNum %></td>
+        <td><%= jdt1.InterimTyp %></td>
+        <td><%= jdt1.DprId %></td>
+        <td><%= jdt1.MatchRef %></td>
+        <td><%= jdt1.Ordered %></td>
+        <td><%= jdt1.CUP %></td>
+        <td><%= jdt1.CIG %></td>
+        <td><%= jdt1.BPLId %></td>
+        <td><%= jdt1.BPLName %></td>
+        <td><%= jdt1.VatRegNum %></td>
+        <td><%= jdt1.SLEDGERF %></td>
+        <td><%= link_to 'Show', jdt1 %></td>
+        <td><%= link_to 'Edit', edit_jdt1_path(jdt1) %></td>
+        <td><%= link_to 'Destroy', jdt1, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Jdt1', new_jdt1_path %>

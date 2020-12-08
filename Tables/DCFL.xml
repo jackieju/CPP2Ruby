@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DCFL</id>
+	<description sys="Y">ChooseFromList Properties</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<virtual />
+	<column>
+		<id>UniqueID</id>
+		<source_code_name>UNIQUEID</source_code_name>
+		<description sys="Y">Unique ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJTYPE</source_code_name>
+		<description sys="Y">Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MltSelect</id>
+		<source_code_name>MLTSELECT</source_code_name>
+		<description sys="Y">Multi Selection</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">False</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">True</description>
+		</valid_value>
+	</column>
+</table>

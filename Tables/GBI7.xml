@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>GBI7</id>
+	<description>GBI Row 7 - Accounting Vouchers</description>
+	<string_list>1100931</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>HistoryId</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>History Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RowId</id>
+		<source_code_name>ROW_ID</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DOC_DATE</source_code_name>
+		<description>Document Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Document Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>JrnEntryNo</id>
+		<source_code_name>JE_NO</source_code_name>
+		<description>Journal Entry Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LnNo</id>
+		<source_code_name>LINE_NO</source_code_name>
+		<description>Line Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Remark</id>
+		<source_code_name>REMARK</source_code_name>
+		<description>Details of Each Line</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AcctNo</id>
+		<source_code_name>ACCT_NO</source_code_name>
+		<description>G/L Account Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Currency</id>
+		<source_code_name>CURRENCY</source_code_name>
+		<description>Transaction Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Debit</id>
+		<source_code_name>DEBIT</source_code_name>
+		<description>Debit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Credit</id>
+		<source_code_name>CREDIT</source_code_name>
+		<description>Credit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FCDebit</id>
+		<source_code_name>FC_DEBIT</source_code_name>
+		<description>Debit Foreign Currency Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FCCredit</id>
+		<source_code_name>FC_CREDIT</source_code_name>
+		<description>Credit Foreign Currency Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Rate</id>
+		<source_code_name>RATE</source_code_name>
+		<description>Exchange Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnitPrice</id>
+		<source_code_name>UNIT_PRICE</source_code_name>
+		<description>Unit Price</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EvaGrp</id>
+		<source_code_name>EVA_GRP</source_code_name>
+		<description>Evaluation Group</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SettMeth</id>
+		<source_code_name>SETT_METH</source_code_name>
+		<description>Settlement Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BillType</id>
+		<source_code_name>BILL_TYPE</source_code_name>
+		<description>Bill Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BillNo</id>
+		<source_code_name>BILL_NO</source_code_name>
+		<description>Bill Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BillDate</id>
+		<source_code_name>BILL_DATE</source_code_name>
+		<description>Bill Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AttmtNum</id>
+		<source_code_name>ATTMT_NUM</source_code_name>
+		<description>Number of Attachments</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Creator</id>
+		<source_code_name>CREATOR</source_code_name>
+		<description>Creator of the Voucher</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>155</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Approver</id>
+		<source_code_name>APPROVER</source_code_name>
+		<description>Approver of the Voucher</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>155</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Bookkeeper</id>
+		<source_code_name>BOOKKEEPER</source_code_name>
+		<description>Bookkeeper</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>155</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Cashier</id>
+		<source_code_name>CASHIER</source_code_name>
+		<description>Cashier</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>155</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Posted</id>
+		<source_code_name>POSTED</source_code_name>
+		<description>Posted Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Reversed</id>
+		<source_code_name>REVERSED</source_code_name>
+		<description>Reversed Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NUM</source_code_name>
+		<description>Document Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>HistoryIdLink</id>
+		<target_direct>OGBI</target_direct>
+		<object_key_column>HistoryId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>HistoryId</column>
+		<column>RowId</column>
+	</key>
+</table>

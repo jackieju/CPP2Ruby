@@ -1,0 +1,3 @@
+class ObjectAbbrevsMap
+
+end

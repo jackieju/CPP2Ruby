@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OPPA</id>
+	<description>Password Administration</description>
+	<string_list>1100896</string_list>
+	<view_type>AdministrationPlus</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal ID</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>SecLevel</id>
+		<source_code_name>SECURITY_LEVEL</source_code_name>
+		<description>Security Level</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>Low</default_value>
+		<valid_value>
+			<value>Low</value>
+			<description>Low</description>
+		</valid_value>
+		<valid_value>
+			<value>Medium</value>
+			<description>Medium</description>
+		</valid_value>
+		<valid_value>
+			<value>High</value>
+			<description>High</description>
+		</valid_value>
+		<valid_value>
+			<value>Custom</value>
+			<description>Custom</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PwdExp</id>
+		<source_code_name>PWD_EXPIRATION</source_code_name>
+		<description>Password Expiration</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>90</default_value>
+	</column>
+	<column>
+		<id>PwdMinLen</id>
+		<source_code_name>PWD_MIN_LENGTH</source_code_name>
+		<description>Password Minimum Length</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>4</default_value>
+	</column>
+	<column>
+		<id>MinUppers</id>
+		<source_code_name>PWD_MIN_UPPERCASES</source_code_name>
+		<description>Password Min. Uppercase Chars.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>MinLowCase</id>
+		<source_code_name>PWD_MIN_LOWCASES</source_code_name>
+		<description>Password Min. Lowercase Chars.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>MinDigits</id>
+		<source_code_name>PWD_MIN_DIGITS</source_code_name>
+		<description>Password Minimum Digits</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>MinNonAlph</id>
+		<source_code_name>PWD_MIN_NON_ALPHANUM</source_code_name>
+		<description>Password Min. Non-alphanumeric Char.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>NumPrevPwd</id>
+		<source_code_name>NOT_EQ_TO_PREV_PWD</source_code_name>
+		<description>Pwd does not match pwd rules</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>NumAuthLoc</id>
+		<source_code_name>NUM_AUTH_BEFORE_LOCK</source_code_name>
+		<description>No. of Authentications Before Acct is Locked</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>100</default_value>
+	</column>
+	<column>
+		<id>PwdExample</id>
+		<source_code_name>PWD_EXAMPLE</source_code_name>
+		<description>Password Example</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+		<default_value>abcd</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OBST</id>
+	<description>BoE Stamp Tax</description>
+	<string_list>1100967</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Key</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Amount</id>
+		<source_code_name>BST_AMOUNT</source_code_name>
+		<description>BoE Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StampTax</id>
+		<source_code_name>BST_TAX</source_code_name>
+		<description>BoE Stamp Tax</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>AMOUNT</id>
+		<unique />
+		<column>Amount</column>
+	</key>
+</table>

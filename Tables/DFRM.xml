@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DFRM</id>
+	<description sys="Y">Form Properties</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<virtual />
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description sys="Y">Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Left</id>
+		<source_code_name>LEFT</source_code_name>
+		<description sys="Y">Left</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Top</id>
+		<source_code_name>TOP</source_code_name>
+		<description sys="Y">Top</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Width</id>
+		<source_code_name>WIDTH</source_code_name>
+		<description sys="Y">Width</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Height</id>
+		<source_code_name>HEIGHT</source_code_name>
+		<description sys="Y">Height</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Title</id>
+		<source_code_name>TITLE</source_code_name>
+		<description sys="Y">Title</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UniqueID</id>
+		<source_code_name>UNIQUEID</source_code_name>
+		<description sys="Y">UniqueID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FormType</id>
+		<source_code_name>FORM_TYPE</source_code_name>
+		<description sys="Y">FormType</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">ft_Sizable</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y">ft_Fixed</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">ft_FixedNoTitle</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description sys="Y">ft_Floating</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Visible</id>
+		<source_code_name>VISIBLE</source_code_name>
+		<description sys="Y">Visible</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">True</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">False</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT_TYPE</source_code_name>
+		<description sys="Y">Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AutoMng</id>
+		<source_code_name>AUTO_MANAGED</source_code_name>
+		<description sys="Y">Auto Managed</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">True</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">False</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DefBtn</id>
+		<source_code_name>DEF_BTN</source_code_name>
+		<description sys="Y">Default Button</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>StnGridUID</id>
+		<source_code_name>STNGS_GRIDITEMUID</source_code_name>
+		<description sys="Y">Settings -GridItemUID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+</table>

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OUTX</id>
+	<description>Unreported VAT Transactions</description>
+	<string_list>1100900</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SrcObjType</id>
+		<source_code_name>SOURCE_OBJ_TYPE</source_code_name>
+		<description>Source Object Type</description>
+		<field_type>2100</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description sys="Y">Delivery notes</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description sys="Y">Revert Delivery Notes</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description sys="Y">Sales Order</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description sys="Y">Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description sys="Y">Goods Return</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description sys="Y">Purchase order</description>
+		</valid_value>
+		<valid_value>
+			<value>23</value>
+			<description sys="Y">Sales Quotation</description>
+		</valid_value>
+		<valid_value>
+			<value>112</value>
+			<description sys="Y">Document Draft</description>
+		</valid_value>
+		<valid_value>
+			<value>59</value>
+			<description sys="Y">Goods Receipt</description>
+		</valid_value>
+		<valid_value>
+			<value>60</value>
+			<description sys="Y">Goods Issue</description>
+		</valid_value>
+		<valid_value>
+			<value>28</value>
+			<description sys="Y">Journal Batches</description>
+		</valid_value>
+		<valid_value>
+			<value>140</value>
+			<description sys="Y">Payment Draft</description>
+		</valid_value>
+		<valid_value>
+			<value>123</value>
+			<description sys="Y">Checks for Payment Drafts</description>
+		</valid_value>
+		<valid_value>
+			<value>540000006</value>
+			<description>Purchase Quotation</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SrcObjAbs</id>
+		<source_code_name>SOURCE_OBJ_ABS_ENTRY</source_code_name>
+		<description>Source Object Internal ID</description>
+		<field_type>2101</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>OrdinLNum</id>
+		<source_code_name>ORDINAL_NUM</source_code_name>
+		<description sys="Y">Ordial Num (BTF &amp; Canceled)</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>Cancelled</id>
+		<source_code_name>CANCELLED</source_code_name>
+		<description>Canceled</description>
+		<field_type>10</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>SrcObjTypeLink</id>
+		<target_indirect_object>SrcObjType</target_indirect_object>
+		<object_key_column>SrcObjAbs</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>SECONDARY</id>
+		<unique />
+		<column>SrcObjType</column>
+		<column>SrcObjAbs</column>
+		<column>OrdinLNum</column>
+	</key>
+</table>

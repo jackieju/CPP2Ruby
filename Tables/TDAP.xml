@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TDAP</id>
+	<description>Temp Data Archive Pairs</description>
+	<string_list>1101273</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>Line_Id</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Obj1Type</id>
+		<source_code_name>OBJ1_TYPE</source_code_name>
+		<description>First Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj1Abs</id>
+		<source_code_name>OBJ1_ABS_ENTRY</source_code_name>
+		<description>First Object Internal No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Obj1Key1</id>
+		<source_code_name>OBJ1_KEY1</source_code_name>
+		<description>First Object ID Segment 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj1Key2</id>
+		<source_code_name>OBJ1_KEY2</source_code_name>
+		<description>First Object ID Segment 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj1Key3</id>
+		<source_code_name>OBJ1_KEY3</source_code_name>
+		<description>First Object ID Segment 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj1Key4</id>
+		<source_code_name>OBJ1_KEY4</source_code_name>
+		<description>First Object ID Segment 4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj1Key5</id>
+		<source_code_name>OBJ1_KEY5</source_code_name>
+		<description>First Object ID Segment 5</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj1Key6</id>
+		<source_code_name>OBJ1_KEY6</source_code_name>
+		<description>First Object ID Segment 6</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj2Type</id>
+		<source_code_name>OBJ2_TYPE</source_code_name>
+		<description>Second Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj2Abs</id>
+		<source_code_name>OBJ2_ABS_ENTRY</source_code_name>
+		<description>Second Object ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Obj2Key1</id>
+		<source_code_name>OBJ2_KEY1</source_code_name>
+		<description>Second Object ID Segment 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj2Key2</id>
+		<source_code_name>OBJ2_KEY2</source_code_name>
+		<description>Second Object ID Segment 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj2Key3</id>
+		<source_code_name>OBJ2_KEY3</source_code_name>
+		<description>Second Object ID Segment 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj2Key4</id>
+		<source_code_name>OBJ2_KEY4</source_code_name>
+		<description>Second Object ID Segment 4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj2Key5</id>
+		<source_code_name>OBJ2_KEY5</source_code_name>
+		<description>Second Object ID Segment 5</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Obj2Key6</id>
+		<source_code_name>OBJ2_KEY6</source_code_name>
+		<description>Second Object ID Segment 6</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Line_Id</column>
+	</key>
+</table>

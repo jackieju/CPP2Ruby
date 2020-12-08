@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RGRP</id>
+	<description sys="Y">users groups</description>
+	<view_type>MasterData</view_type>
+	<domain>System</domain>
+	<column>
+		<id>GroupCode</id>
+		<source_code_name>GROUP_CODE</source_code_name>
+		<description sys="Y">Group Code</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>GroupName</id>
+		<source_code_name>GROUP_NAME</source_code_name>
+		<description sys="Y">Group Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Perms</id>
+		<source_code_name>PERMISSIONS</source_code_name>
+		<description sys="Y">Permissions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>GroupCode</column>
+	</key>
+	<key>
+		<id>NAME</id>
+		<unique />
+		<column>GroupName</column>
+	</key>
+</table>

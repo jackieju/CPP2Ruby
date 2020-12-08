@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DAR3</id>
+	<description>Data Archive - Handwritten Documents</description>
+	<string_list>1101284</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>ArcEntry</id>
+		<source_code_name>ARC_ENTRY</source_code_name>
+		<description>Data Archive Entry</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Line_ID</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Document Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DocAbs</id>
+		<source_code_name>DOC_ABS</source_code_name>
+		<description>Doc. No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NUM</source_code_name>
+		<description>Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocSubType</id>
+		<source_code_name>DOC_SUB_TYPE</source_code_name>
+		<description>Document Sub-Type</description>
+		<field_type>266</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>--</default_value>
+	</column>
+	<column>
+		<id>PIndicator</id>
+		<source_code_name>PERIOD_INDICATOR</source_code_name>
+		<description>Period Indicator</description>
+		<field_type>264</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+		<default_value>' '</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ArcEntry</column>
+		<column>Line_ID</column>
+	</key>
+	<key>
+		<id>DOC_NUM</id>
+		<column>DocType</column>
+		<column>DocSubType</column>
+		<column>DocNum</column>
+		<column>PIndicator</column>
+	</key>
+</table>

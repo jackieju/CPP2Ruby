@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OLNG</id>
+	<description>User Language Table</description>
+	<string_list>1100729</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ShortName</id>
+		<source_code_name>SHORT_NAME</source_code_name>
+		<description>Language Short Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Language</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>SysLang</id>
+		<source_code_name>SYS_LANG</source_code_name>
+		<description>Related System Language</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Locked</id>
+		<source_code_name>LOCKED</source_code_name>
+		<description>Locked</description>
+		<field_type>212</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Upgrade</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Doc. Generation Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Restore Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+	</key>
+	<key>
+		<id>SHORT_NAME</id>
+		<unique />
+		<column>ShortName</column>
+	</key>
+</table>

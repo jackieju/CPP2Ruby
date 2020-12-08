@@ -1,0 +1,22 @@
+<%= form_with(model: ttt, local: true) do |form| %>
+  <% if ttt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ttt.errors.count, "error") %> prohibited this ttt from being saved:</h2>
+
+      <ul>
+      <% ttt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CFN1</id>
+	<description>Default Common Functions</description>
+	<string_list>1101370</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ItemIndex</id>
+		<source_code_name>ITEM_INDEX</source_code_name>
+		<description>Common Function Item Index</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserMenu</id>
+		<source_code_name>USER_MENU</source_code_name>
+		<description>User Menu Flag</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>MenuUID</id>
+		<source_code_name>MENU_UID</source_code_name>
+		<description>Menu UID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OCFN</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>ItemIndex</column>
+	</key>
+</table>

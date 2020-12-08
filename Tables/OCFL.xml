@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OCFL</id>
+	<description>Cash Flow Additional Trans.</description>
+	<string_list>1100067</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DateID</id>
+		<source_code_name>DATE</source_code_name>
+		<description>Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Dscription</id>
+		<source_code_name>DESCR</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Credit</id>
+		<source_code_name>IN_SUM</source_code_name>
+		<description>Incoming Total</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CredCur</id>
+		<source_code_name>IN_CUR</source_code_name>
+		<description>Entrance Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Debit</id>
+		<source_code_name>OUT_SUM</source_code_name>
+		<description>Outgoing Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DebCur</id>
+		<source_code_name>OUT_CUR</source_code_name>
+		<description>Issue Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>SecLevel</id>
+		<source_code_name>LEV_SQU</source_code_name>
+		<description>Security Level</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Cash Account</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Credit</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Checks</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Customer Liabilities</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Bill of Exchange</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Payable to Vendors</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Customer Forecast</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Vendor Forecast</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserId</id>
+		<source_code_name>USER_ID</source_code_name>
+		<description>User ID</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+		<column>UserId</column>
+	</key>
+</table>

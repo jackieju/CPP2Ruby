@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SXRRE</id>
+	<description sys="Y">XLR Relations</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>relid</id>
+		<source_code_name>relid</source_code_name>
+		<description sys="Y">relid</description>
+		<db_type>Identity</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>objidfrom</id>
+		<source_code_name>objidfrom</source_code_name>
+		<description sys="Y">objidfrom</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>propdefid</id>
+		<source_code_name>propdefid</source_code_name>
+		<description sys="Y">propdefid</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>seqno</id>
+		<source_code_name>seqno</source_code_name>
+		<description sys="Y">seqno</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>objidto</id>
+		<source_code_name>objidto</source_code_name>
+		<description sys="Y">objidto</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>relid</column>
+	</key>
+	<key>
+		<id>second</id>
+		<unique />
+		<column>objidfrom</column>
+		<column>propdefid</column>
+		<column>seqno</column>
+	</key>
+</table>

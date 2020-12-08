@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DPO14</id>
+	<description sys="Y">A/P Down Payment - Assembly - Rows</description>
+	<string_list>1101131</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description sys="Y">Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description sys="Y">Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ChildNum</id>
+		<source_code_name>CHILD_NUM</source_code_name>
+		<description sys="Y">Child Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description sys="Y">Item no.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WhsCode</id>
+		<source_code_name>WHS_CODE</source_code_name>
+		<description sys="Y">Warehouse Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>TotalQty</id>
+		<source_code_name>TOTAL_QUANTITY</source_code_name>
+		<description sys="Y">Total Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>OpenQty</id>
+		<source_code_name>OPEN_QUANTITY</source_code_name>
+		<description sys="Y">Remaining Open Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description sys="Y">object type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>204</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description sys="Y">Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>BaseChildN</id>
+		<source_code_name>BASE_CHILD_NUM</source_code_name>
+		<description>Base Child Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>ODPO</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>WhsCodeLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhsCode</object_key_column>
+	</association>
+	<association>
+		<id>ObjectTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjectType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+		<column>ChildNum</column>
+	</key>
+</table>

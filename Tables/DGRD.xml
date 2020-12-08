@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DGRD</id>
+	<description sys="Y">Grid Specifics</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<virtual />
+	<column>
+		<id>Selection</id>
+		<source_code_name>SELECTION_MODE</source_code_name>
+		<description sys="Y">SelectionMode</description>
+		<field_type>312</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">ms_None</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">ms_Auto</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">ms_Single</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TitleHeig</id>
+		<source_code_name>TITLE_HEIGHT</source_code_name>
+		<description sys="Y">TitleHeight</description>
+		<field_type>102</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CellHeig</id>
+		<source_code_name>CELL_HEIGHT</source_code_name>
+		<description sys="Y">CellHeight</description>
+		<field_type>101</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Collapse</id>
+		<source_code_name>COLLAPSE_LEVEL</source_code_name>
+		<description sys="Y">Collapse Level</description>
+		<field_type>604</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>DTId</id>
+		<source_code_name>DATA_TABLE_ID</source_code_name>
+		<description sys="Y">Data Table Id</description>
+		<field_type>602</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+</table>

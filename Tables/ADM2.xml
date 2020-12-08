@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ADM2</id>
+	<description>Administration Electronic Report</description>
+	<string_list>1101445</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaxAuCod</id>
+		<source_code_name>TAX_AUTH_CODE</source_code_name>
+		<description>Tax Authority Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>KeyEcoAct</id>
+		<source_code_name>KEY_ECON_ACTIVITY</source_code_name>
+		<description>Key Economic Activity</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>TaxPayType</id>
+		<source_code_name>TAX_PAYER_TYPE</source_code_name>
+		<description>Tax Payer Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description sys="Y">§94</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description sys="Y">§96</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y">§95a</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TaxLegForm</id>
+		<source_code_name>TAX_PAYER_LEGAL_FORM</source_code_name>
+		<description>Tax Payer Legal Form</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>F</value>
+			<description>Sole Proprietorship</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Company</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RegName</id>
+		<source_code_name>REGISTERED_NAME</source_code_name>
+		<description>Registered Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RegNameExt</id>
+		<source_code_name>REGISTERED_NAME_EXT</source_code_name>
+		<description>Registered Name Extension</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SoleFName</id>
+		<source_code_name>SOLE_FIRST_NAME</source_code_name>
+		<description>Sole Proprietor First Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SoleSName</id>
+		<source_code_name>SOLE_SUR_NAME</source_code_name>
+		<description>Sole Proprietor Surname</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SoleTitle</id>
+		<source_code_name>SOLE_TITLE</source_code_name>
+		<description>Sole Proprietor Title</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CityTown</id>
+		<source_code_name>CITY_TOWN_VILLAGE</source_code_name>
+		<description>City/Town/Village</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>48</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ZipCode</id>
+		<source_code_name>ZIP_CODE</source_code_name>
+		<description>Zip Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Telephone</id>
+		<source_code_name>TELEPHONE</source_code_name>
+		<description>Telephone</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>14</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Street</id>
+		<source_code_name>STREET</source_code_name>
+		<description>Street</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>38</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StreetNum</id>
+		<source_code_name>STREET_NUMBER</source_code_name>
+		<description>Street Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BuildinNum</id>
+		<source_code_name>BUILDING_NUMBER</source_code_name>
+		<description>Building Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Email</id>
+		<source_code_name>EMAIL</source_code_name>
+		<description>E-Mail</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>State</id>
+		<source_code_name>STATE</source_code_name>
+		<description>State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepType</id>
+		<source_code_name>REPRESENTATIVE_TYPE</source_code_name>
+		<description>Representative Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Sole Proprietorship</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Company</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RepCode</id>
+		<source_code_name>REPRESENTATIVE_CODE</source_code_name>
+		<description>Representative Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>1</value>
+			<description>Legal Representative</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Authorized Representative</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Common Representative, Contractual Representative</description>
+		</valid_value>
+		<valid_value>
+			<value>4a</value>
+			<description>General Appointee - Sole Proprietorship or Company</description>
+		</valid_value>
+		<valid_value>
+			<value>4b</value>
+			<description>Tax Advisor or Attorney</description>
+		</valid_value>
+		<valid_value>
+			<value>4c</value>
+			<description>Tax Advisor</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RepFName</id>
+		<source_code_name>REP_FIRST_NAME</source_code_name>
+		<description>Representative First Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepSName</id>
+		<source_code_name>REP_SUR_NAME</source_code_name>
+		<description>Representative Surname</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompName</id>
+		<source_code_name>COMPANY_NAME</source_code_name>
+		<description>Company Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BirthDate</id>
+		<source_code_name>BIRTH_DATE</source_code_name>
+		<description>Birth Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaxACNum</id>
+		<source_code_name>TAX_ADVISOR_CERT_NUM</source_code_name>
+		<description>Tax Advisor Certificate Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LegEntitID</id>
+		<source_code_name>LEGAL_ENTITY_ID</source_code_name>
+		<description>Legal Entity ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AuthFName</id>
+		<source_code_name>AUTH_FIRST_NAME</source_code_name>
+		<description>Authorized Person First Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AuthLName</id>
+		<source_code_name>AUTH_LAST_NAME</source_code_name>
+		<description>Authorized Person Last Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AuthRelat</id>
+		<source_code_name>AUTH_RELATION</source_code_name>
+		<description>Authorized Person Relation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AuthType</id>
+		<source_code_name>AUTH_TYPE</source_code_name>
+		<description>Type of Authorized Person</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>TaxPayAttr</id>
+		<source_code_name>TAXPAYER_ATTRIB</source_code_name>
+		<description>Taxpayer Attribute</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>Classifier</id>
+		<source_code_name>CLASSIFIER</source_code_name>
+		<description>Territorial/Adm. Classifier</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DeprMethod</id>
+		<source_code_name>DEPRECIATION_METHOD</source_code_name>
+		<description>Depreciation Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>SubmitPlac</id>
+		<source_code_name>PLACE_OF_SUBMIT</source_code_name>
+		<description>Place of Submission</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>BgtClass</id>
+		<source_code_name>BUDGET_CLASSIFIC</source_code_name>
+		<description>Budget Classification Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SubjOfRuF</id>
+		<source_code_name>SUBJECT_OF_RU_FED</source_code_name>
+		<description>Subject of Russian Federation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AuthFathrN</id>
+		<source_code_name>AUTH_FATHER_NAME</source_code_name>
+		<description>Father Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+	</key>
+</table>

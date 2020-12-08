@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TCD1</id>
+	<description>Key Fields for Determination</description>
+	<string_list>1100826</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsId</id>
+		<source_code_name>ABS_ID</source_code_name>
+		<description>Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TcdId</id>
+		<source_code_name>TCD_ID</source_code_name>
+		<description>Tax Determination Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KeyFld_1</id>
+		<source_code_name>KEY_FLD_1</source_code_name>
+		<description>Key Fields 1</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>KeyFld_2</id>
+		<source_code_name>KEY_FLD_2</source_code_name>
+		<description>Key Fields 2</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>KeyFld_3</id>
+		<source_code_name>KEY_FLD_3</source_code_name>
+		<description>Key Fields 3</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Priority</id>
+		<source_code_name>PRIORITY</source_code_name>
+		<description>Priority</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Descr</id>
+		<source_code_name>DESCR</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>KeyFld_4</id>
+		<source_code_name>KEY_FLD_4</source_code_name>
+		<description>Key Fields 4</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>TcdIdLink</id>
+		<target_direct>OTCD</target_direct>
+		<object_key_column>TcdId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsId</column>
+	</key>
+	<key>
+		<id>TCD1_UNI</id>
+		<unique />
+		<column>TcdId</column>
+		<column>Priority</column>
+	</key>
+</table>

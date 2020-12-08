@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DUT1</id>
+	<description sys="Y">Dunning Term Array1</description>
+	<string_list>1100514</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>TermCode</id>
+		<source_code_name>TERM_CODE</source_code_name>
+		<description>Dunning Term Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>24</edit_size>
+	</column>
+	<column>
+		<id>LevelNum</id>
+		<source_code_name>LEVEL_NUM</source_code_name>
+		<description>Level No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LetterFrmt</id>
+		<source_code_name>LETTER_FORMAT</source_code_name>
+		<description>Letter Format</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EffctAftr</id>
+		<source_code_name>EFECTIVE_AFTER</source_code_name>
+		<description>Effective after</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>LetterFee</id>
+		<source_code_name>FEE_PER_LETTER</source_code_name>
+		<description>Fee per Letter</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FeeCurr</id>
+		<source_code_name>FEE_CURR</source_code_name>
+		<description>Fee Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>MinBalance</id>
+		<source_code_name>MINIMUM_BALANCE</source_code_name>
+		<description>Mininum Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>MinBlnCurr</id>
+		<source_code_name>MIN_BALANCE_CURR</source_code_name>
+		<description>Min Balance Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>SSNum</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>CalcIntrst</id>
+		<source_code_name>CALC_INTEREST</source_code_name>
+		<description>Calc. Interest</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>TermCodeLink</id>
+		<target_direct>ODUT</target_direct>
+		<object_key_column>TermCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TermCode</column>
+		<column>LevelNum</column>
+	</key>
+</table>

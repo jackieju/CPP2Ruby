@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CCRC</id>
+	<description>Create New Company</description>
+	<string_list>1100330</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>CompName</id>
+		<source_code_name>COMP_NAME</source_code_name>
+		<description>Company Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Local</id>
+		<source_code_name>LOCALIZATION</source_code_name>
+		<description>Localization</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Language</id>
+		<source_code_name>LANGUAGE</source_code_name>
+		<description>Language</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DBName</id>
+		<source_code_name>DB_NAME</source_code_name>
+		<description>Database Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ChartOfAct</id>
+		<source_code_name>CHART_OF_ACT</source_code_name>
+		<description sys="Y">Chart of Accounts</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PeriodCat</id>
+		<source_code_name>PERIOD_CAT_ID</source_code_name>
+		<description>Period Category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubType</id>
+		<source_code_name>SUB_TYPE</source_code_name>
+		<description>Sub-Period Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Year</description>
+		</valid_value>
+		<valid_value>
+			<value>Q</value>
+			<description>Quarters</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Months</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Days</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PeriodNum</id>
+		<source_code_name>PERIOD_NUM</source_code_name>
+		<description>Number of Periods</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FinancYear</id>
+		<source_code_name>FINANCIAL_YEAR</source_code_name>
+		<description>Beginning of Financial Year</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>copyUF</id>
+		<source_code_name>COPY_UF</source_code_name>
+		<description>Copy User Fields</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>copyUO</id>
+		<source_code_name>COPY_UO</source_code_name>
+		<description>Copy User Objects</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InstallNo</id>
+		<source_code_name>INSTALLNO</source_code_name>
+		<description>Installation Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DBName</column>
+	</key>
+</table>

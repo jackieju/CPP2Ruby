@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OHET</id>
+	<description>Object: HR Employee Transfer</description>
+	<string_list>1101342</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>HumanResources</info_category>
+	<column>
+		<id>TransferID</id>
+		<source_code_name>TRANSFER_ID</source_code_name>
+		<description>Unique ID for Transfer</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransStart</id>
+		<source_code_name>TRANS_START</source_code_name>
+		<description>Transfer Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransEnd</id>
+		<source_code_name>TRANS_END</source_code_name>
+		<description>Timestamp if Status is "Sent"</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Processing Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>New</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Processing</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Sent</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Received</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Accepted</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Error</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Comment</id>
+		<source_code_name>COMMENT</source_code_name>
+		<description>Any comments</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StartTime</id>
+		<source_code_name>START_TIME</source_code_name>
+		<description>Transfer Start Time</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>EndTime</id>
+		<source_code_name>END_TIME</source_code_name>
+		<description>Time When Status Is "Sent"</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TransferID</column>
+	</key>
+</table>

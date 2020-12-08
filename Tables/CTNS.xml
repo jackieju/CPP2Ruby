@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CTNS</id>
+	<description>Transaction Notification Setting</description>
+	<string_list>1101289</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<column>
+		<id>AbsId</id>
+		<source_code_name>ABS_ID</source_code_name>
+		<description>Internal No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjectId</id>
+		<source_code_name>OBJECT_ID</source_code_name>
+		<description>Business Object ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EnableAsyN</id>
+		<source_code_name>ENABLE_ASYNC_N</source_code_name>
+		<description>Enable async notification</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>EnableTn</id>
+		<source_code_name>ENABLE_TN</source_code_name>
+		<description>Transaction Notification</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>EnablePTn</id>
+		<source_code_name>ENABLE_POST_TN</source_code_name>
+		<description>Post Transaction Notification</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsId</column>
+	</key>
+	<key>
+		<id>OBJECT_ID</id>
+		<unique />
+		<column>ObjectId</column>
+	</key>
+</table>

@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OP874</id>
+	<description>PCN874 Report - Opening Record</description>
+	<string_list>1101348</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>RecMark</id>
+		<source_code_name>RECORD_MARK</source_code_name>
+		<description>Opening Record Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>O</default_value>
+	</column>
+	<column>
+		<id>TaxIdNum</id>
+		<source_code_name>TAX_ID_NUMBER</source_code_name>
+		<description>Company Federal Tax ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>ReportDate</id>
+		<source_code_name>REPORT_DATE</source_code_name>
+		<description>Reported Month (YYYYMM)</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ActionCode</id>
+		<source_code_name>ACTION_CODE</source_code_name>
+		<description>Report Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>Timestamp</id>
+		<source_code_name>REPORT_TIMESTAMP</source_code_name>
+		<description>Report Creation Date YYYYMMDD</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SgnIncome</id>
+		<source_code_name>SIGN_TAX_INCOME</source_code_name>
+		<description>Sign - Tax-Liable Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>TaxIncome</id>
+		<source_code_name>TAXABLE_INCOME</source_code_name>
+		<description>Sum of Tax-Liable Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SgnOutVAT</id>
+		<source_code_name>SIGN_OUTPUT_VAT</source_code_name>
+		<description>Sign of Tax on Posting</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>OutputVAT</id>
+		<source_code_name>OUTPUT_VAT</source_code_name>
+		<description>Total of Tax on Posting</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>SgnIncDiff</id>
+		<source_code_name>SIGN_INCOME_DIFF</source_code_name>
+		<description>Not Used</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>+</default_value>
+	</column>
+	<column>
+		<id>TaxIncDiff</id>
+		<source_code_name>TAX_INCOME_DIFFRATE</source_code_name>
+		<description>Not Used</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>00000000000</default_value>
+	</column>
+	<column>
+		<id>SgnOutDiff</id>
+		<source_code_name>SIGN_OUTVAT_DIFF</source_code_name>
+		<description>Not Used</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>+</default_value>
+	</column>
+	<column>
+		<id>TaxOutDiff</id>
+		<source_code_name>TAX_OUTVAT_DIFFRATE</source_code_name>
+		<description>Not Used</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+		<default_value>000000000</default_value>
+	</column>
+	<column>
+		<id>LiabExTrns</id>
+		<source_code_name>LIAB_AND_EXMPT_TRANS</source_code_name>
+		<description>No. of Liable &amp; Exempt Trans.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>SgnExIncom</id>
+		<source_code_name>SIGN_EXEMPT_INCOME</source_code_name>
+		<description>Sign - Tax-Exempt Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>ExIncome</id>
+		<source_code_name>EXEMPT_INCOME</source_code_name>
+		<description>Sum of Tax-Exempt Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SgnTaxDef</id>
+		<source_code_name>SIGN_TAX_DEFINITION</source_code_name>
+		<description>Sign of Sum of Tax Definition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>TaxDef</id>
+		<source_code_name>TAX_DEFINITION</source_code_name>
+		<description>Sum of Tax Definitions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>SgnAsset</id>
+		<source_code_name>SIGN_ASSET_VAT</source_code_name>
+		<description>Sign - Equipment &amp; Assets Tax</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>AssetVAT</id>
+		<source_code_name>ASSET_VAT</source_code_name>
+		<description>Sum of Equipment &amp; Assets Tax</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>InpVatTrns</id>
+		<source_code_name>INPUT_VAT_TRANS</source_code_name>
+		<description>No. of Input VAT Transactions</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>SgnRefund</id>
+		<source_code_name>SIGN_REFUND</source_code_name>
+		<description>Sign of Total Payment/Refund</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>Refund</id>
+		<source_code_name>REFUND</source_code_name>
+		<description>Total Payment/Refund</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>RecMark</column>
+	</key>
+</table>

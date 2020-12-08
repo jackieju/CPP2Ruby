@@ -1,0 +1,2 @@
+class Ojdt < ApplicationRecord
+end

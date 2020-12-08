@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OFRT</id>
+	<description>Financial Report Templates</description>
+	<string_list>1100100</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsId</id>
+		<source_code_name>ABS_ID</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Name</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Template Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Balance Sheet</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Profit and Loss</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Trial Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Statement of Cash Flows</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Sales Unit</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Form 6111</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Cost Accounting</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Asset Devalue Provision</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Shareholder's Rights and Interests Changing</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Profit Distribution</description>
+		</valid_value>
+		<valid_value>
+			<value>V</value>
+			<description>VAT Payable Detail</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>e-Balance Sheet</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>e-Profit and Loss</description>
+		</valid_value>
+		<valid_value>
+			<value>H</value>
+			<description>Asset History Sheet</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FRTCounter</id>
+		<source_code_name>FRT_COUNTER</source_code_name>
+		<description>Financial Report Template Counter</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>MoveChk1</id>
+		<source_code_name>MOVE_CHK1</source_code_name>
+		<description sys="Y">Move Chk1</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MoveChk2</id>
+		<source_code_name>MOVE_CHK2</source_code_name>
+		<description sys="Y">Move Chk2</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MoveTo_1</id>
+		<source_code_name>MOVE_TO1</source_code_name>
+		<description sys="Y">Move To 1</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>MoveTo_2</id>
+		<source_code_name>MOVE_TO2</source_code_name>
+		<description sys="Y">Move To 2</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Title_1</id>
+		<source_code_name>TITLE1</source_code_name>
+		<description sys="Y">Title 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Title_2</id>
+		<source_code_name>TITLE2</source_code_name>
+		<description>Title 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>ShowMiss</id>
+		<source_code_name>SHOW_MISS</source_code_name>
+		<description>Display Missing Accounts</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ToTitle_1</id>
+		<source_code_name>TO_TITLE1</source_code_name>
+		<description sys="Y">Move To Title 1</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ToTitle_2</id>
+		<source_code_name>TO_TITLE2</source_code_name>
+		<description sys="Y">Move To Title 2</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description sys="Y">User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DimCode</id>
+		<source_code_name>DIM_CODE</source_code_name>
+		<description>In Which Dimension</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>DimCodeLink</id>
+		<target_direct>ODIM</target_direct>
+		<object_key_column>DimCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsId</column>
+	</key>
+	<key>
+		<id>SECOND</id>
+		<unique />
+		<column>DocType</column>
+		<column>Name</column>
+	</key>
+</table>

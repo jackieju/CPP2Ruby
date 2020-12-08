@@ -1,0 +1,769 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TZLI</id>
+	<description sys="Y" />
+	<view_type>MasterData</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Id</id>
+		<source_code_name>ID</source_code_name>
+		<description sys="Y">id</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TimeZone</id>
+		<source_code_name>TIMEZONE</source_code_name>
+		<description sys="Y">time zone</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">(GMT-12:00) International Date Line West</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">(GMT-11:00) Midway Island, Samoa</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">(GMT-10:00) Hawaii</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y">(GMT-09:00) Alaska</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description sys="Y">(GMT-08:00) Tijuana, Baja California</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description sys="Y">(GMT-08:00) Pacific Time (US &amp; Canada)</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description sys="Y">(GMT-07:00) Mountain Time (US &amp; Canada)</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description sys="Y">(GMT-07:00) Chihuahua, La Paz, Mazatlan - Old</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description sys="Y">(GMT-07:00) Chihuahua, La Paz, Mazatlan - New</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description sys="Y">(GMT-07:00) Arizona</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description sys="Y">(GMT-06:00) Saskatchewan</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description sys="Y">(GMT-06:00) Guadalajara, Mexico City, Monterrey - Old</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description sys="Y">(GMT-06:00) Guadalajara, Mexico City, Monterrey - New</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description sys="Y">(GMT-06:00) Central Time (US &amp; Canada)</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description sys="Y">(GMT-06:00) Central America</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description sys="Y">(GMT-05:00) Indiana (East)</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description sys="Y">(GMT-05:00) Eastern Time (US &amp; Canada)</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description sys="Y">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description sys="Y">(GMT-04:30) Caracas</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description sys="Y">(GMT-04:00) Santiago</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description sys="Y">(GMT-04:00) Manaus</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description sys="Y">(GMT-04:00) La Paz</description>
+		</valid_value>
+		<valid_value>
+			<value>23</value>
+			<description sys="Y">(GMT-04:00) Atlantic Time (Canada)</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description sys="Y">(GMT-03:30) Newfoundland</description>
+		</valid_value>
+		<valid_value>
+			<value>25</value>
+			<description sys="Y">(GMT-03:00) Montevideo</description>
+		</valid_value>
+		<valid_value>
+			<value>26</value>
+			<description sys="Y">(GMT-03:00) Greenland</description>
+		</valid_value>
+		<valid_value>
+			<value>27</value>
+			<description sys="Y">(GMT-03:00) Georgetown</description>
+		</valid_value>
+		<valid_value>
+			<value>28</value>
+			<description sys="Y">(GMT-03:00) Buenos Aires</description>
+		</valid_value>
+		<valid_value>
+			<value>29</value>
+			<description sys="Y">(GMT-03:00) Brasilia</description>
+		</valid_value>
+		<valid_value>
+			<value>30</value>
+			<description sys="Y">(GMT-02:00) Mid-Atlantic</description>
+		</valid_value>
+		<valid_value>
+			<value>31</value>
+			<description sys="Y">(GMT-01:00) Cape Verde Is.</description>
+		</valid_value>
+		<valid_value>
+			<value>32</value>
+			<description sys="Y">(GMT-01:00) Azores</description>
+		</valid_value>
+		<valid_value>
+			<value>33</value>
+			<description sys="Y">(GMT) Casablanca</description>
+		</valid_value>
+		<valid_value>
+			<value>34</value>
+			<description sys="Y">(GMT) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</description>
+		</valid_value>
+		<valid_value>
+			<value>35</value>
+			<description sys="Y">(GMT) Monrovia, Reykjavik</description>
+		</valid_value>
+		<valid_value>
+			<value>36</value>
+			<description sys="Y">(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</description>
+		</valid_value>
+		<valid_value>
+			<value>37</value>
+			<description sys="Y">(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</description>
+		</valid_value>
+		<valid_value>
+			<value>38</value>
+			<description sys="Y">(GMT+01:00) Brussels, Copenhagen, Madrid, Paris</description>
+		</valid_value>
+		<valid_value>
+			<value>39</value>
+			<description sys="Y">(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb</description>
+		</valid_value>
+		<valid_value>
+			<value>40</value>
+			<description sys="Y">(GMT+01:00) West Central Africa</description>
+		</valid_value>
+		<valid_value>
+			<value>41</value>
+			<description sys="Y">(GMT+02:00) Amman</description>
+		</valid_value>
+		<valid_value>
+			<value>42</value>
+			<description sys="Y">(GMT+02:00) Athens, Bucharest, Istanbul</description>
+		</valid_value>
+		<valid_value>
+			<value>43</value>
+			<description sys="Y">(GMT+02:00) Beirut</description>
+		</valid_value>
+		<valid_value>
+			<value>44</value>
+			<description sys="Y">(GMT+02:00) Cairo</description>
+		</valid_value>
+		<valid_value>
+			<value>45</value>
+			<description sys="Y">(GMT+02:00) Harare, Pretoria</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description sys="Y">(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</description>
+		</valid_value>
+		<valid_value>
+			<value>47</value>
+			<description sys="Y">(GMT+02:00) Jerusalem</description>
+		</valid_value>
+		<valid_value>
+			<value>48</value>
+			<description sys="Y">(GMT+02:00) Minsk</description>
+		</valid_value>
+		<valid_value>
+			<value>49</value>
+			<description sys="Y">(GMT+02:00) Windhoek</description>
+		</valid_value>
+		<valid_value>
+			<value>50</value>
+			<description sys="Y">(GMT+03:00) Baghdad</description>
+		</valid_value>
+		<valid_value>
+			<value>51</value>
+			<description sys="Y">(GMT+03:00) Kuwait, Riyadh</description>
+		</valid_value>
+		<valid_value>
+			<value>52</value>
+			<description sys="Y">(GMT+03:00) Moscow, St. Petersburg, Volgograd</description>
+		</valid_value>
+		<valid_value>
+			<value>53</value>
+			<description sys="Y">(GMT+03:00) Nairobi</description>
+		</valid_value>
+		<valid_value>
+			<value>54</value>
+			<description sys="Y">(GMT+03:00) Tbilisi</description>
+		</valid_value>
+		<valid_value>
+			<value>55</value>
+			<description sys="Y">(GMT+03:30) Tehran</description>
+		</valid_value>
+		<valid_value>
+			<value>56</value>
+			<description sys="Y">(GMT+04:00) Abu Dhabi, Muscat</description>
+		</valid_value>
+		<valid_value>
+			<value>57</value>
+			<description sys="Y">(GMT+04:00) Baku</description>
+		</valid_value>
+		<valid_value>
+			<value>58</value>
+			<description sys="Y">(GMT+04:00) Caucasus Standard Time</description>
+		</valid_value>
+		<valid_value>
+			<value>59</value>
+			<description sys="Y">(GMT+04:00) Port Louis</description>
+		</valid_value>
+		<valid_value>
+			<value>60</value>
+			<description sys="Y">(GMT+04:00) Yerevan</description>
+		</valid_value>
+		<valid_value>
+			<value>61</value>
+			<description sys="Y">(GMT+04:30) Kabul</description>
+		</valid_value>
+		<valid_value>
+			<value>62</value>
+			<description sys="Y">(GMT+05:00) Ekaterinburg</description>
+		</valid_value>
+		<valid_value>
+			<value>63</value>
+			<description sys="Y">(GMT+05:00) Islamabad, Karachi</description>
+		</valid_value>
+		<valid_value>
+			<value>64</value>
+			<description sys="Y">(GMT+05:00) Tashkent</description>
+		</valid_value>
+		<valid_value>
+			<value>65</value>
+			<description sys="Y">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</description>
+		</valid_value>
+		<valid_value>
+			<value>66</value>
+			<description sys="Y">(GMT+05:30) Sri Jayawardenepura</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description sys="Y">(GMT+05:45) Kathmandu</description>
+		</valid_value>
+		<valid_value>
+			<value>68</value>
+			<description sys="Y">(GMT+06:00) Almaty, Novosibirsk</description>
+		</valid_value>
+		<valid_value>
+			<value>69</value>
+			<description sys="Y">(GMT+06:00) Astana, Dhaka</description>
+		</valid_value>
+		<valid_value>
+			<value>70</value>
+			<description sys="Y">(GMT+06:30) Yangon (Rangoon)</description>
+		</valid_value>
+		<valid_value>
+			<value>71</value>
+			<description sys="Y">(GMT+07:00) Bangkok, Hanoi, Jakarta</description>
+		</valid_value>
+		<valid_value>
+			<value>72</value>
+			<description sys="Y">(GMT+07:00) Krasnoyarsk</description>
+		</valid_value>
+		<valid_value>
+			<value>73</value>
+			<description sys="Y">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</description>
+		</valid_value>
+		<valid_value>
+			<value>74</value>
+			<description sys="Y">(GMT+08:00) Irkutsk, Ulaan Bataar</description>
+		</valid_value>
+		<valid_value>
+			<value>75</value>
+			<description sys="Y">(GMT+08:00) Kuala Lumpur, Singapore</description>
+		</valid_value>
+		<valid_value>
+			<value>76</value>
+			<description sys="Y">(GMT+08:00) Perth</description>
+		</valid_value>
+		<valid_value>
+			<value>77</value>
+			<description sys="Y">(GMT+08:00) Taipei</description>
+		</valid_value>
+		<valid_value>
+			<value>78</value>
+			<description sys="Y">(GMT+09:00) Osaka, Sapporo, Tokyo</description>
+		</valid_value>
+		<valid_value>
+			<value>79</value>
+			<description sys="Y">(GMT+09:00) Seoul</description>
+		</valid_value>
+		<valid_value>
+			<value>80</value>
+			<description sys="Y">(GMT+09:00) Yakutsk</description>
+		</valid_value>
+		<valid_value>
+			<value>81</value>
+			<description sys="Y">(GMT+09:30) Adelaide</description>
+		</valid_value>
+		<valid_value>
+			<value>82</value>
+			<description sys="Y">(GMT+09:30) Darwin</description>
+		</valid_value>
+		<valid_value>
+			<value>83</value>
+			<description sys="Y">(GMT+10:00) Brisbane</description>
+		</valid_value>
+		<valid_value>
+			<value>84</value>
+			<description sys="Y">(GMT+10:00) Canberra, Melbourne, Sydney</description>
+		</valid_value>
+		<valid_value>
+			<value>85</value>
+			<description sys="Y">(GMT+10:00) Guam, Port Moresby</description>
+		</valid_value>
+		<valid_value>
+			<value>86</value>
+			<description sys="Y">(GMT+10:00) Hobart</description>
+		</valid_value>
+		<valid_value>
+			<value>87</value>
+			<description sys="Y">(GMT+10:00) Vladivostok</description>
+		</valid_value>
+		<valid_value>
+			<value>88</value>
+			<description sys="Y">(GMT+11:00) Magadan, Solomon Is., New Caledonia</description>
+		</valid_value>
+		<valid_value>
+			<value>89</value>
+			<description sys="Y">(GMT+12:00) Auckland, Wellington</description>
+		</valid_value>
+		<valid_value>
+			<value>90</value>
+			<description sys="Y">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</description>
+		</valid_value>
+		<valid_value>
+			<value>91</value>
+			<description sys="Y">(GMT+13:00) Nuku'alofa</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Offset</id>
+		<source_code_name>OFFSET</source_code_name>
+		<description sys="Y">offset from GMT/UTC time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">-720</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">-660</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">-600</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y">-540</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description sys="Y">-480</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description sys="Y">-480</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description sys="Y">-420</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description sys="Y">-420</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description sys="Y">-420</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description sys="Y">-420</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description sys="Y">-360</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description sys="Y">-360</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description sys="Y">-360</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description sys="Y">-360</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description sys="Y">-360</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description sys="Y">-300</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description sys="Y">-300</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description sys="Y">-300</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description sys="Y">-270</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description sys="Y">-240</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description sys="Y">-240</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description sys="Y">-240</description>
+		</valid_value>
+		<valid_value>
+			<value>23</value>
+			<description sys="Y">-240</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description sys="Y">-210</description>
+		</valid_value>
+		<valid_value>
+			<value>25</value>
+			<description sys="Y">-180</description>
+		</valid_value>
+		<valid_value>
+			<value>26</value>
+			<description sys="Y">-180</description>
+		</valid_value>
+		<valid_value>
+			<value>27</value>
+			<description sys="Y">-180</description>
+		</valid_value>
+		<valid_value>
+			<value>28</value>
+			<description sys="Y">-180</description>
+		</valid_value>
+		<valid_value>
+			<value>29</value>
+			<description sys="Y">-180</description>
+		</valid_value>
+		<valid_value>
+			<value>30</value>
+			<description sys="Y">-120</description>
+		</valid_value>
+		<valid_value>
+			<value>31</value>
+			<description sys="Y">-60</description>
+		</valid_value>
+		<valid_value>
+			<value>32</value>
+			<description sys="Y">-60</description>
+		</valid_value>
+		<valid_value>
+			<value>33</value>
+			<description sys="Y">0</description>
+		</valid_value>
+		<valid_value>
+			<value>34</value>
+			<description sys="Y">0</description>
+		</valid_value>
+		<valid_value>
+			<value>35</value>
+			<description sys="Y">0</description>
+		</valid_value>
+		<valid_value>
+			<value>36</value>
+			<description sys="Y">60</description>
+		</valid_value>
+		<valid_value>
+			<value>37</value>
+			<description sys="Y">60</description>
+		</valid_value>
+		<valid_value>
+			<value>38</value>
+			<description sys="Y">60</description>
+		</valid_value>
+		<valid_value>
+			<value>39</value>
+			<description sys="Y">60</description>
+		</valid_value>
+		<valid_value>
+			<value>40</value>
+			<description sys="Y">60</description>
+		</valid_value>
+		<valid_value>
+			<value>41</value>
+			<description sys="Y">120</description>
+		</valid_value>
+		<valid_value>
+			<value>42</value>
+			<description sys="Y">120</description>
+		</valid_value>
+		<valid_value>
+			<value>43</value>
+			<description sys="Y">120</description>
+		</valid_value>
+		<valid_value>
+			<value>44</value>
+			<description sys="Y">120</description>
+		</valid_value>
+		<valid_value>
+			<value>45</value>
+			<description sys="Y">120</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description sys="Y">120</description>
+		</valid_value>
+		<valid_value>
+			<value>47</value>
+			<description sys="Y">120</description>
+		</valid_value>
+		<valid_value>
+			<value>48</value>
+			<description sys="Y">120</description>
+		</valid_value>
+		<valid_value>
+			<value>49</value>
+			<description sys="Y">120</description>
+		</valid_value>
+		<valid_value>
+			<value>50</value>
+			<description sys="Y">180</description>
+		</valid_value>
+		<valid_value>
+			<value>51</value>
+			<description sys="Y">180</description>
+		</valid_value>
+		<valid_value>
+			<value>52</value>
+			<description sys="Y">180</description>
+		</valid_value>
+		<valid_value>
+			<value>53</value>
+			<description sys="Y">180</description>
+		</valid_value>
+		<valid_value>
+			<value>54</value>
+			<description sys="Y">180</description>
+		</valid_value>
+		<valid_value>
+			<value>55</value>
+			<description sys="Y">210</description>
+		</valid_value>
+		<valid_value>
+			<value>56</value>
+			<description sys="Y">240</description>
+		</valid_value>
+		<valid_value>
+			<value>57</value>
+			<description sys="Y">240</description>
+		</valid_value>
+		<valid_value>
+			<value>58</value>
+			<description sys="Y">240</description>
+		</valid_value>
+		<valid_value>
+			<value>59</value>
+			<description sys="Y">240</description>
+		</valid_value>
+		<valid_value>
+			<value>60</value>
+			<description sys="Y">240</description>
+		</valid_value>
+		<valid_value>
+			<value>61</value>
+			<description sys="Y">270</description>
+		</valid_value>
+		<valid_value>
+			<value>62</value>
+			<description sys="Y">300</description>
+		</valid_value>
+		<valid_value>
+			<value>63</value>
+			<description sys="Y">300</description>
+		</valid_value>
+		<valid_value>
+			<value>64</value>
+			<description sys="Y">300</description>
+		</valid_value>
+		<valid_value>
+			<value>65</value>
+			<description sys="Y">330</description>
+		</valid_value>
+		<valid_value>
+			<value>66</value>
+			<description sys="Y">330</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description sys="Y">345</description>
+		</valid_value>
+		<valid_value>
+			<value>68</value>
+			<description sys="Y">360</description>
+		</valid_value>
+		<valid_value>
+			<value>69</value>
+			<description sys="Y">360</description>
+		</valid_value>
+		<valid_value>
+			<value>70</value>
+			<description sys="Y">390</description>
+		</valid_value>
+		<valid_value>
+			<value>71</value>
+			<description sys="Y">420</description>
+		</valid_value>
+		<valid_value>
+			<value>72</value>
+			<description sys="Y">420</description>
+		</valid_value>
+		<valid_value>
+			<value>73</value>
+			<description sys="Y">480</description>
+		</valid_value>
+		<valid_value>
+			<value>74</value>
+			<description sys="Y">480</description>
+		</valid_value>
+		<valid_value>
+			<value>75</value>
+			<description sys="Y">480</description>
+		</valid_value>
+		<valid_value>
+			<value>76</value>
+			<description sys="Y">480</description>
+		</valid_value>
+		<valid_value>
+			<value>77</value>
+			<description sys="Y">480</description>
+		</valid_value>
+		<valid_value>
+			<value>78</value>
+			<description sys="Y">540</description>
+		</valid_value>
+		<valid_value>
+			<value>79</value>
+			<description sys="Y">540</description>
+		</valid_value>
+		<valid_value>
+			<value>80</value>
+			<description sys="Y">540</description>
+		</valid_value>
+		<valid_value>
+			<value>81</value>
+			<description sys="Y">570</description>
+		</valid_value>
+		<valid_value>
+			<value>82</value>
+			<description sys="Y">570</description>
+		</valid_value>
+		<valid_value>
+			<value>83</value>
+			<description sys="Y">600</description>
+		</valid_value>
+		<valid_value>
+			<value>84</value>
+			<description sys="Y">600</description>
+		</valid_value>
+		<valid_value>
+			<value>85</value>
+			<description sys="Y">600</description>
+		</valid_value>
+		<valid_value>
+			<value>86</value>
+			<description sys="Y">600</description>
+		</valid_value>
+		<valid_value>
+			<value>87</value>
+			<description sys="Y">600</description>
+		</valid_value>
+		<valid_value>
+			<value>88</value>
+			<description sys="Y">660</description>
+		</valid_value>
+		<valid_value>
+			<value>89</value>
+			<description sys="Y">720</description>
+		</valid_value>
+		<valid_value>
+			<value>90</value>
+			<description sys="Y">720</description>
+		</valid_value>
+		<valid_value>
+			<value>91</value>
+			<description sys="Y">780</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Id</column>
+	</key>
+</table>

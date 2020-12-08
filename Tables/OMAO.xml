@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OMAO</id>
+	<description>Mobile Add-On Setting</description>
+	<string_list>1101372</string_list>
+	<view_type>AdministrationPlus</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Add-On Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Add-On Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>URL</id>
+		<source_code_name>URL</source_code_name>
+		<description>Add-On URL</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>500</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Add-On Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>M</default_value>
+		<valid_value>
+			<value>M</value>
+			<description>Module Add-On</description>
+		</valid_value>
+		<valid_value>
+			<value>H</value>
+			<description>Home Add-On</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Provider</id>
+		<source_code_name>PROVIDER</source_code_name>
+		<description>Add-On Provider</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+	</key>
+</table>

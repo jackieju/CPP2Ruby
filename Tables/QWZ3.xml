@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>QWZ3</id>
+	<description>Query Condition Fields</description>
+	<string_list>1100311</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Query Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Numerator</id>
+		<source_code_name>COND_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OpenBrackt</id>
+		<source_code_name>OPEN_BRACKET</source_code_name>
+		<description>Open Brackets Counter</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FileCode</id>
+		<source_code_name>FILE_CODE</source_code_name>
+		<description>Table Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>FieldAlias</id>
+		<source_code_name>FIELD_ALIAS</source_code_name>
+		<description>Field Alias</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>Operation</id>
+		<source_code_name>OPERATION</source_code_name>
+		<description>Operation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CondVal</id>
+		<source_code_name>COND_VAL</source_code_name>
+		<description>Cond. Val.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>CondEndVal</id>
+		<source_code_name>COND_END_VAL</source_code_name>
+		<description>Cond. and Val.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>CompareFld</id>
+		<source_code_name>COMPARE_FLD</source_code_name>
+		<description>Compare Fields</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UseRes</id>
+		<source_code_name>USE_RES</source_code_name>
+		<description>Use Res.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CompTblIdx</id>
+		<source_code_name>COMP_TBL_IDX</source_code_name>
+		<description>Compare Table Index</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>CompFldNum</id>
+		<source_code_name>COMP_FLD_NUM</source_code_name>
+		<description>Compare Field Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Relatship</id>
+		<source_code_name>RELATIONSHIP</source_code_name>
+		<description>Relationship</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ClosBrackt</id>
+		<source_code_name>CLOSE_BRACKET</source_code_name>
+		<description>Close Brackets Counter</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Free_Text</id>
+		<source_code_name>FREE_TEXT</source_code_name>
+		<description>Free Text</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+		<column>Numerator</column>
+	</key>
+</table>

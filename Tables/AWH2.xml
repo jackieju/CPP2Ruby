@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AWH2</id>
+	<description>WTax Definition - Rows2</description>
+	<string_list>1101031</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Numerator</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Tax Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EffectDate</id>
+		<source_code_name>EFFECT_DATE</source_code_name>
+		<description>Date Effective</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Rate</id>
+		<source_code_name>RATE</source_code_name>
+		<description>Tax Rate</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>MinAmount</id>
+		<source_code_name>MIN_AMOUNT</source_code_name>
+		<description>Min. Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>MaxAmount</id>
+		<source_code_name>MAX_AMOUNT</source_code_name>
+		<description>Max. Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>WTCUR</id>
+		<source_code_name>CURRENCY</source_code_name>
+		<description>Progressive Tax Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SeqNum</id>
+		<source_code_name>SEQ_NUM</source_code_name>
+		<description>Sequence Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>CodeLink</id>
+		<target_direct>OWHT</target_direct>
+		<object_key_column>Code</object_key_column>
+	</association>
+	<association>
+		<id>WTCURLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>WTCUR</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+		<column>LineNum</column>
+		<column>SeqNum</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

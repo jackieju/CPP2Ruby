@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TPW3</id>
+	<description>Utilization and Payment</description>
+	<string_list>1100941</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Absolute Entry No</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Line Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CrTaxCtgry</id>
+		<source_code_name>CR_TAX_CTGRY</source_code_name>
+		<description>Credit Tax Category</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CrTaxType</id>
+		<source_code_name>CR_TAX_TYPE</source_code_name>
+		<description>Credit Tax Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CrUtiliz</id>
+		<source_code_name>CR_UTILIZ</source_code_name>
+		<description>Credit Utilized Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CrUtilizFC</id>
+		<source_code_name>CR_UTILIZ_FC</source_code_name>
+		<description>Credit Utilized Amount FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CrUtilizSC</id>
+		<source_code_name>CR_UTILIZ_SC</source_code_name>
+		<description>Credit Utilized Amount SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymMeth</id>
+		<source_code_name>PYM_METH</source_code_name>
+		<description>Payment Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymAmnt</id>
+		<source_code_name>PYM_AMNT</source_code_name>
+		<description>Payment Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymAmntFC</id>
+		<source_code_name>PYM_AMNT_FC</source_code_name>
+		<description>Payment Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymAmntSC</id>
+		<source_code_name>PYM_AMNT_SC</source_code_name>
+		<description>Payment Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MatType</id>
+		<source_code_name>MATERIAL_TYPE</source_code_name>
+		<description>Material Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OTPW</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>LineNumLink</id>
+		<target_direct>TPW2</target_direct>
+		<object_key_column>LineNum</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LineNum</column>
+		<column>CrTaxCtgry</column>
+		<column>CrTaxType</column>
+		<column>MatType</column>
+	</key>
+</table>

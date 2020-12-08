@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>PQW1</id>
+	<description>Purchase Quotation Generation: Line Items</description>
+	<string_list>1101324</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PQTReqDate</id>
+		<source_code_name>REQUIRED_DATE</source_code_name>
+		<description>Pur Quotation: Required Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PQTReqQty</id>
+		<source_code_name>REQUIRED_QUANTITY</source_code_name>
+		<description>Pur Quotation: Required Qty</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BuyUnitMsr</id>
+		<source_code_name>BUY_UNIT_MEASURE</source_code_name>
+		<description>Purchasing UoM</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>FreeTxt</id>
+		<source_code_name>FREE_TEXT</source_code_name>
+		<description>Free Text</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>PQTGrpNum</id>
+		<source_code_name>PQT_GROUP_NUM</source_code_name>
+		<description>Pur. Quotation Group Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PQTGrpSer</id>
+		<source_code_name>PQT_GROUP_SERIES</source_code_name>
+		<description>Pur. Quotation Group Series</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>PQTGrpHW</id>
+		<source_code_name>PQT_GROUP_HNDWIRTEN</source_code_name>
+		<description>Pur. Quotation Group Manual</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ValidUntil</id>
+		<source_code_name>VALID_UNTIL</source_code_name>
+		<description>Valid Until Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WhsCode</id>
+		<source_code_name>WAREHOUSE</source_code_name>
+		<description>Warehouse Code</description>
+		<field_type>39</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PRAbsEntry</id>
+		<source_code_name>PR_ABS_ENTRY</source_code_name>
+		<description>Purchase Request Number</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ReqName</id>
+		<source_code_name>REQUESTER_NAME</source_code_name>
+		<description>Requester Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>155</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>155</edit_size>
+	</column>
+	<column>
+		<id>PRLineNum</id>
+		<source_code_name>PR_LINE_NUMBER</source_code_name>
+		<description>Purchase Request Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PRLineStat</id>
+		<source_code_name>PR_LINE_STATUS</source_code_name>
+		<description>Purchase Request Row Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>DistriRule</id>
+		<source_code_name>DISTRIBUTION_RULE</source_code_name>
+		<description>Distribution Rule</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Project</id>
+		<source_code_name>PROJECT</source_code_name>
+		<description>Project Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VendMfrNum</id>
+		<source_code_name>VENDOR_MFR_NUM</source_code_name>
+		<description>Vendor Mfr Catalog No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>17</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>17</edit_size>
+	</column>
+	<column>
+		<id>ShipType</id>
+		<source_code_name>SHIP_TYPE</source_code_name>
+		<description>Shipping Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ItmPerUnit</id>
+		<source_code_name>ITEMS_PER_UNIT</source_code_name>
+		<description>No. of Items per Purchase Unit</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OPQW</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>WhsLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhsCode</object_key_column>
+	</association>
+	<association>
+		<id>OPRQLink</id>
+		<target_direct>OPRQ</target_direct>
+		<object_key_column>PRAbsEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

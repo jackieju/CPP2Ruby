@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>PRS1</id>
+	<description>Detail Lines of Print Sequence Definition</description>
+	<string_list>1101272</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>SeqID</id>
+		<source_code_name>SEQ_ID</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>ObjectID</id>
+		<source_code_name>OBJECT_ID</source_code_name>
+		<description>Document Object ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LaytCode</id>
+		<source_code_name>LAYOUT_CODE</source_code_name>
+		<description>Report Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>NumCopy</id>
+		<source_code_name>NUMBER_COPY</source_code_name>
+		<description>Number of Copies</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>UsrQuery</id>
+		<source_code_name>USER_QUERY</source_code_name>
+		<description>User Query to Customize</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SubDocType</id>
+		<source_code_name>SUB_DOCTYPE</source_code_name>
+		<description>Document Subtype</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>Printer</id>
+		<source_code_name>PRINTER</source_code_name>
+		<description>Printer</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Prtr1st</id>
+		<source_code_name>1ST_PAGE_PRINTER</source_code_name>
+		<description>Printer for First Page</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Use1stPrtr</id>
+		<source_code_name>USE_1ST_PAGE_PRINTER</source_code_name>
+		<description>Use 1st Page Printer</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SeqID</column>
+		<column>LineNum</column>
+	</key>
+</table>

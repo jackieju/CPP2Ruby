@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OACG</id>
+	<description>Account Category</description>
+	<string_list>1100848</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsId</id>
+		<source_code_name>ABS_ID</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>40</edit_size>
+	</column>
+	<column>
+		<id>Source</id>
+		<source_code_name>SOURCE</source_code_name>
+		<description>Source</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Balance Sheet</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Profit and Loss</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Other</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Locked</id>
+		<source_code_name>LOCKED</source_code_name>
+		<description>Locked</description>
+		<field_type>212</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DateSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Date Source</description>
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Doc. Generation Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Document Date</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<field_type>50</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsId</column>
+	</key>
+	<key>
+		<id>SECOND</id>
+		<unique />
+		<column>Source</column>
+		<column>Name</column>
+	</key>
+</table>

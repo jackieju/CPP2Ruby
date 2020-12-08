@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ODTY</id>
+	<description>BoE Document Type</description>
+	<string_list>1100807</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Document Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>DocDespt</id>
+		<source_code_name>DOC_DESPT</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>TYPE</id>
+		<unique />
+		<column>DocType</column>
+	</key>
+</table>

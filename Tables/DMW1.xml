@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DMW1</id>
+	<description>Query List</description>
+	<string_list>1100274</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>PacCode</id>
+		<source_code_name>PAC_CODE</source_code_name>
+		<description>Package Code</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>QueryCode</id>
+		<source_code_name>QUERY_CODE</source_code_name>
+		<description>Query Code</description>
+		<invisible />
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>PacCodeLink</id>
+		<target_direct>ODMW</target_direct>
+		<object_key_column>PacCode</object_key_column>
+	</association>
+	<association>
+		<id>QueryCodeLink</id>
+		<target_direct>OUQR</target_direct>
+		<object_key_column>QueryCode</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>PacCode</column>
+		<column>QueryCode</column>
+	</key>
+</table>

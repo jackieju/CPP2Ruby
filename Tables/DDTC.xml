@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DDTC</id>
+	<description sys="Y">Data Table Columns Properties</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<virtual />
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Max Length</id>
+		<source_code_name>MAXLENGTH</source_code_name>
+		<description sys="Y">Max Length</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>254</default_value>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description sys="Y">Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">ft_AlphaNumeric</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">ft_Integer</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">ft_Text</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y">ft_Date</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description sys="Y">ft_Float</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description sys="Y">ft_ShortNumber</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description sys="Y">ft_Quantity</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description sys="Y">ft_Price</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description sys="Y">ft_Rate</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description sys="Y">ft_Measure</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description sys="Y">ft_Sum</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description sys="Y">ft_Percent</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Name</column>
+	</key>
+</table>

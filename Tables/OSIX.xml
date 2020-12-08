@@ -1,0 +1,3077 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OSIX</id>
+	<description>Data for Form 6111</description>
+	<string_list>1101052</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>Code1010</id>
+		<source_code_name>01010</source_code_name>
+		<description>From Sales in Israel</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1020</id>
+		<source_code_name>01020</source_code_name>
+		<description>From Sales in Israel</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1030</id>
+		<source_code_name>01030</source_code_name>
+		<description>Provision of Services in Israel</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1040</id>
+		<source_code_name>01040</source_code_name>
+		<description>Provision of Services Abroad</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1050</id>
+		<source_code_name>01050</source_code_name>
+		<description>Income from Affiliates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1090</id>
+		<source_code_name>01090</source_code_name>
+		<description>Other Income</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Code1000</id>
+		<source_code_name>01000</source_code_name>
+		<description>Tot. Income from Sls and Srvc.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1320</id>
+		<source_code_name>01320</source_code_name>
+		<description>Purchase of Goods in Israel</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1330</id>
+		<source_code_name>01330</source_code_name>
+		<description>Raw Matls in Israel and Abroad</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1340</id>
+		<source_code_name>01340</source_code_name>
+		<description>Purchase of Goods Abroad</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1350</id>
+		<source_code_name>01350</source_code_name>
+		<description>Rate Differentials for Purch.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1360</id>
+		<source_code_name>01360</source_code_name>
+		<description>Liability Provision Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1370</id>
+		<source_code_name>01370</source_code_name>
+		<description>Purchases from Affiliates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1390</id>
+		<source_code_name>01390</source_code_name>
+		<description>Purchases and Other Costs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1400</id>
+		<source_code_name>01400</source_code_name>
+		<description>Inventory at Beginning of Term</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1450</id>
+		<source_code_name>01450</source_code_name>
+		<description>Inventory at End of Term</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1300</id>
+		<source_code_name>01300</source_code_name>
+		<description>Tot. Cost of Sls &amp; Provision</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2010</id>
+		<source_code_name>02010</source_code_name>
+		<description>Salary and Ancillary Mfg</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2020</id>
+		<source_code_name>02020</source_code_name>
+		<description>External Works</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2030</id>
+		<source_code_name>02030</source_code_name>
+		<description>Factory Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2035</id>
+		<source_code_name>02035</source_code_name>
+		<description>Perishable Equipment Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2040</id>
+		<source_code_name>02040</source_code_name>
+		<description>Transport and Storage Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2045</id>
+		<source_code_name>02045</source_code_name>
+		<description>Packing Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2050</id>
+		<source_code_name>02050</source_code_name>
+		<description>Maint. and Repair Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2055</id>
+		<source_code_name>02055</source_code_name>
+		<description>Research and Dev. Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2060</id>
+		<source_code_name>02060</source_code_name>
+		<description>Insurance</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2065</id>
+		<source_code_name>02065</source_code_name>
+		<description>Vehicle Maint. and Transp.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2070</id>
+		<source_code_name>02070</source_code_name>
+		<description>Rent and Property Management</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2075</id>
+		<source_code_name>02075</source_code_name>
+		<description>Taxes and Fees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2080</id>
+		<source_code_name>02080</source_code_name>
+		<description>Manufacturing Depreciation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2085</id>
+		<source_code_name>02085</source_code_name>
+		<description>Work Clothing</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2090</id>
+		<source_code_name>02090</source_code_name>
+		<description>Other Manufacturing Costs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2000</id>
+		<source_code_name>02000</source_code_name>
+		<description>Total Manufacturing Costs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3010</id>
+		<source_code_name>03010</source_code_name>
+		<description>Salaries and Ancillaries</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3020</id>
+		<source_code_name>03020</source_code_name>
+		<description>Expenses for Sub-contractors</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3030</id>
+		<source_code_name>03030</source_code_name>
+		<description>Commissions and Bonuses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3040</id>
+		<source_code_name>03040</source_code_name>
+		<description>Royalties - Distr. Rights</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3045</id>
+		<source_code_name>03045</source_code_name>
+		<description>Packing Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3050</id>
+		<source_code_name>03050</source_code_name>
+		<description>Maint. and Repair Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3055</id>
+		<source_code_name>03055</source_code_name>
+		<description>Research and Dev. Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3060</id>
+		<source_code_name>03060</source_code_name>
+		<description>Travel</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3065</id>
+		<source_code_name>03065</source_code_name>
+		<description>Vehicle Maint. and Transp.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3070</id>
+		<source_code_name>03070</source_code_name>
+		<description>Rent and Property Management</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3075</id>
+		<source_code_name>03075</source_code_name>
+		<description>Tenders, Fairs and Exhibitions</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3080</id>
+		<source_code_name>03080</source_code_name>
+		<description>Depreciation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3085</id>
+		<source_code_name>03085</source_code_name>
+		<description>Work Clothing</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3090</id>
+		<source_code_name>03090</source_code_name>
+		<description>Electricity and Water</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3100</id>
+		<source_code_name>03100</source_code_name>
+		<description>Commissions and Credit Cards</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3120</id>
+		<source_code_name>03120</source_code_name>
+		<description>Advertising and Sales Promo.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3190</id>
+		<source_code_name>03190</source_code_name>
+		<description>Net Miscellaneous Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3000</id>
+		<source_code_name>03000</source_code_name>
+		<description>Total Sales Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3510</id>
+		<source_code_name>03510</source_code_name>
+		<description>Salaries and Ancillaries Gen.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3520</id>
+		<source_code_name>03520</source_code_name>
+		<description>Expenses for Sub-contractors</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3530</id>
+		<source_code_name>03530</source_code_name>
+		<description>Commissions and Bonuses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3535</id>
+		<source_code_name>03535</source_code_name>
+		<description>Perishable Equipment Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3540</id>
+		<source_code_name>03540</source_code_name>
+		<description>Professional Services</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3545</id>
+		<source_code_name>03545</source_code_name>
+		<description>Packing Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3550</id>
+		<source_code_name>03550</source_code_name>
+		<description>Maint. and Repair Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3555</id>
+		<source_code_name>03555</source_code_name>
+		<description>Research and Dev. Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3560</id>
+		<source_code_name>03560</source_code_name>
+		<description>Travel</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3565</id>
+		<source_code_name>03565</source_code_name>
+		<description>Vehicle Maint. and Transp.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3570</id>
+		<source_code_name>03570</source_code_name>
+		<description>Rent and Property Mngt Fees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3575</id>
+		<source_code_name>03575</source_code_name>
+		<description>Taxes and Fees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3580</id>
+		<source_code_name>03580</source_code_name>
+		<description>Depreciation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3590</id>
+		<source_code_name>03590</source_code_name>
+		<description>Electricity and Water</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3595</id>
+		<source_code_name>03595</source_code_name>
+		<description>Security and Cleaning</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3600</id>
+		<source_code_name>03600</source_code_name>
+		<description>Courses and Professional Lit.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3610</id>
+		<source_code_name>03610</source_code_name>
+		<description>Doubtful and Lost Debts</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3620</id>
+		<source_code_name>03620</source_code_name>
+		<description>Advertising and Sales Promo.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3625</id>
+		<source_code_name>03625</source_code_name>
+		<description>Refreshments, Gifts, Donations</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3630</id>
+		<source_code_name>03630</source_code_name>
+		<description>Affiliate Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3640</id>
+		<source_code_name>03640</source_code_name>
+		<description>Management Fees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3650</id>
+		<source_code_name>03650</source_code_name>
+		<description>Mail and Comm. Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3660</id>
+		<source_code_name>03660</source_code_name>
+		<description>Overseas Travel</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3665</id>
+		<source_code_name>03665</source_code_name>
+		<description>Legal Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3680</id>
+		<source_code_name>03680</source_code_name>
+		<description>Office Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3685</id>
+		<source_code_name>03685</source_code_name>
+		<description>Work Clothing</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3690</id>
+		<source_code_name>03690</source_code_name>
+		<description>Net Miscellaneous Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3500</id>
+		<source_code_name>03500</source_code_name>
+		<description>Total Gen. and Admin Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5010</id>
+		<source_code_name>05010</source_code_name>
+		<description>To Banking Corporations</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5020</id>
+		<source_code_name>05020</source_code_name>
+		<description>To Affiliates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5030</id>
+		<source_code_name>05030</source_code_name>
+		<description>In Foreign Currency</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5040</id>
+		<source_code_name>05040</source_code_name>
+		<description>To Vendors and Creditors, For.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5050</id>
+		<source_code_name>05050</source_code_name>
+		<description>P/L from Negotiable Securities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5090</id>
+		<source_code_name>05090</source_code_name>
+		<description>Interest to Others</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5000</id>
+		<source_code_name>05000</source_code_name>
+		<description>Total Financing Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5110</id>
+		<source_code_name>05110</source_code_name>
+		<description>From Bank Corporations</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5120</id>
+		<source_code_name>05120</source_code_name>
+		<description>From Affiliates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5130</id>
+		<source_code_name>05130</source_code_name>
+		<description>From Rate Differentials</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5190</id>
+		<source_code_name>05190</source_code_name>
+		<description>Others</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5100</id>
+		<source_code_name>05100</source_code_name>
+		<description>Total Financing Incomes</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5210</id>
+		<source_code_name>05210</source_code_name>
+		<description>Cptl Gains from Fixed Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5220</id>
+		<source_code_name>05220</source_code_name>
+		<description>Other Capital Gains</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5230</id>
+		<source_code_name>05230</source_code_name>
+		<description>Income from Management Fees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5235</id>
+		<source_code_name>05235</source_code_name>
+		<description>Management Fees from Affiliate</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5240</id>
+		<source_code_name>05240</source_code_name>
+		<description>Income from Dividends</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5250</id>
+		<source_code_name>05250</source_code_name>
+		<description>Income from Rent</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5260</id>
+		<source_code_name>05260</source_code_name>
+		<description>Income from Royalties</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5290</id>
+		<source_code_name>05290</source_code_name>
+		<description>Miscellaneous</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5200</id>
+		<source_code_name>05200</source_code_name>
+		<description>Total Other Income</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5310</id>
+		<source_code_name>05310</source_code_name>
+		<description>Cptl Loss from Fixed Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5320</id>
+		<source_code_name>05320</source_code_name>
+		<description>Other Capital Loss</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5330</id>
+		<source_code_name>05330</source_code_name>
+		<description>Provision for Depreciation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5390</id>
+		<source_code_name>05390</source_code_name>
+		<description>Miscellaneous</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5300</id>
+		<source_code_name>05300</source_code_name>
+		<description>Total Other Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5510</id>
+		<source_code_name>05510</source_code_name>
+		<description>P/L from Partnership</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5500</id>
+		<source_code_name>05500</source_code_name>
+		<description>Total P/L from Partnership</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code6666</id>
+		<source_code_name>06666</source_code_name>
+		<description>Total Profit / Loss</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5610</id>
+		<source_code_name>05610</source_code_name>
+		<description>Current Taxes</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5620</id>
+		<source_code_name>05620</source_code_name>
+		<description>Deferred Taxes</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5630</id>
+		<source_code_name>05630</source_code_name>
+		<description>Taxes for Previous Years</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5600</id>
+		<source_code_name>05600</source_code_name>
+		<description>Total Taxes on Income</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5710</id>
+		<source_code_name>05710</source_code_name>
+		<description>Dividends for Distribution</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5700</id>
+		<source_code_name>05700</source_code_name>
+		<description>Total Dedication of Profits</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5810</id>
+		<source_code_name>05810</source_code_name>
+		<description>Equity Profit / Loss</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5800</id>
+		<source_code_name>05800</source_code_name>
+		<description>Total Equity Profit / Loss</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0110</id>
+		<source_code_name>00110</source_code_name>
+		<description>Surplus Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0120</id>
+		<source_code_name>00120</source_code_name>
+		<description>Book Depreciation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0130</id>
+		<source_code_name>00130</source_code_name>
+		<description>Depreciation for Tax Purposes</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0140</id>
+		<source_code_name>00140</source_code_name>
+		<description>Inc Dec in Provision for Doubt</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0150</id>
+		<source_code_name>00150</source_code_name>
+		<description>Inc Dec in Provision for Leave</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0160</id>
+		<source_code_name>00160</source_code_name>
+		<description>Inc Dec in Net Reserve</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0170</id>
+		<source_code_name>00170</source_code_name>
+		<description>Cptl G/L from Fixed Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0180</id>
+		<source_code_name>00180</source_code_name>
+		<description>P/L accumulated for negotiable</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0190</id>
+		<source_code_name>00190</source_code_name>
+		<description>Other Expenses for Adjustment</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0200</id>
+		<source_code_name>00200</source_code_name>
+		<description>Other Incomes for Adjustment</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0300</id>
+		<source_code_name>00300</source_code_name>
+		<description>Share in Partnership P/L Books</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0350</id>
+		<source_code_name>00350</source_code_name>
+		<description>Share in Partnership P/L Tax</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0400</id>
+		<source_code_name>00400</source_code_name>
+		<description>Total Taxable Income</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0410</id>
+		<source_code_name>00410</source_code_name>
+		<description>Deduction for Inflation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0420</id>
+		<source_code_name>00420</source_code_name>
+		<description>Addition for Inflation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0430</id>
+		<source_code_name>00430</source_code_name>
+		<description>Deduction for Depreciation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0440</id>
+		<source_code_name>00440</source_code_name>
+		<description>Real Cptl Gain from Securities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0470</id>
+		<source_code_name>00470</source_code_name>
+		<description>Adjustments Law - More Effects</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0480</id>
+		<source_code_name>00480</source_code_name>
+		<description>Losses from Previous Years</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0490</id>
+		<source_code_name>00490</source_code_name>
+		<description>Taxable Income / Consolidated</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0500</id>
+		<source_code_name>00500</source_code_name>
+		<description>Total Taxable Income / Loss</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0510</id>
+		<source_code_name>00510</source_code_name>
+		<description>Income Taxable at Special Rate</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0520</id>
+		<source_code_name>00520</source_code_name>
+		<description>Real Capital Gains</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0530</id>
+		<source_code_name>00530</source_code_name>
+		<description>Inflation Capital Gains</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0540</id>
+		<source_code_name>00540</source_code_name>
+		<description>Land Betterment</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0550</id>
+		<source_code_name>00550</source_code_name>
+		<description>Capital Loss Carried Over</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0560</id>
+		<source_code_name>00560</source_code_name>
+		<description>Deduct. for Inflat. Carryover</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0570</id>
+		<source_code_name>00570</source_code_name>
+		<description>Carried Over Real Differential</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7110</id>
+		<source_code_name>07110</source_code_name>
+		<description>Shekels</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7120</id>
+		<source_code_name>07120</source_code_name>
+		<description>Foreign Currency</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7150</id>
+		<source_code_name>07150</source_code_name>
+		<description>Short-term Deposits</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7100</id>
+		<source_code_name>07100</source_code_name>
+		<description>Total Cash and Cash Equivalent</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7210</id>
+		<source_code_name>07210</source_code_name>
+		<description>Government Debentures</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7220</id>
+		<source_code_name>07220</source_code_name>
+		<description>Concern Debentures</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7230</id>
+		<source_code_name>07230</source_code_name>
+		<description>Mutual Funds</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7240</id>
+		<source_code_name>07240</source_code_name>
+		<description>Shares of Israeli Companies</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7290</id>
+		<source_code_name>07290</source_code_name>
+		<description>Other Negotiable Securities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7200</id>
+		<source_code_name>07200</source_code_name>
+		<description>Total Negotiable Securities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7310</id>
+		<source_code_name>07310</source_code_name>
+		<description>Customers in Israel</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7320</id>
+		<source_code_name>07320</source_code_name>
+		<description>Customers Abroad</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7330</id>
+		<source_code_name>07330</source_code_name>
+		<description>Receivables - Bills and Checks</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7350</id>
+		<source_code_name>07350</source_code_name>
+		<description>Receivables - Income</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7360</id>
+		<source_code_name>07360</source_code_name>
+		<description>Credit Cards</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7380</id>
+		<source_code_name>07380</source_code_name>
+		<description>Provision for Doubtful Debts</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7390</id>
+		<source_code_name>07390</source_code_name>
+		<description>Other Customers</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7300</id>
+		<source_code_name>07300</source_code_name>
+		<description>Total Customers</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7410</id>
+		<source_code_name>07410</source_code_name>
+		<description>Advances to Suppliers &amp; Others</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7420</id>
+		<source_code_name>07420</source_code_name>
+		<description>Advance Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7430</id>
+		<source_code_name>07430</source_code_name>
+		<description>Income Tax, Advances less Prov</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7440</id>
+		<source_code_name>07440</source_code_name>
+		<description>Other Government Institutes</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7450</id>
+		<source_code_name>07450</source_code_name>
+		<description>Shareholders Directly</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7460</id>
+		<source_code_name>07460</source_code_name>
+		<description>Affiliates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7470</id>
+		<source_code_name>07470</source_code_name>
+		<description>Employees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7490</id>
+		<source_code_name>07490</source_code_name>
+		<description>Other Debtors and Debit Bal.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7400</id>
+		<source_code_name>07400</source_code_name>
+		<description>Total Debtors and Debit Bal.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7610</id>
+		<source_code_name>07610</source_code_name>
+		<description>For Employees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7620</id>
+		<source_code_name>07620</source_code_name>
+		<description>For Receivable Income</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7690</id>
+		<source_code_name>07690</source_code_name>
+		<description>Other Short-term Deferred Tax</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7600</id>
+		<source_code_name>07600</source_code_name>
+		<description>Total Short-term Deferred Tax</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7710</id>
+		<source_code_name>07710</source_code_name>
+		<description>Loans to Affiliates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7720</id>
+		<source_code_name>07720</source_code_name>
+		<description>Loans to Others</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7700</id>
+		<source_code_name>07700</source_code_name>
+		<description>Total Short-term Loans</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7810</id>
+		<source_code_name>07810</source_code_name>
+		<description>Stock in Company Warehouses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7820</id>
+		<source_code_name>07820</source_code_name>
+		<description>Stock in Bonded Warehouses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7830</id>
+		<source_code_name>07830</source_code_name>
+		<description>Stock en Route</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7840</id>
+		<source_code_name>07840</source_code_name>
+		<description>Stock on Consignment</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7850</id>
+		<source_code_name>07850</source_code_name>
+		<description>Stock in Process</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7860</id>
+		<source_code_name>07860</source_code_name>
+		<description>Stock of Raw Materials</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7890</id>
+		<source_code_name>07890</source_code_name>
+		<description>Other Stock</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7800</id>
+		<source_code_name>07800</source_code_name>
+		<description>Total Stock</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7000</id>
+		<source_code_name>07000</source_code_name>
+		<description>Total Current Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8010</id>
+		<source_code_name>08010</source_code_name>
+		<description>Land and Buildings</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8020</id>
+		<source_code_name>08020</source_code_name>
+		<description>Improvements to Rented Pty</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8030</id>
+		<source_code_name>08030</source_code_name>
+		<description>Machines and Equipment</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8040</id>
+		<source_code_name>08040</source_code_name>
+		<description>Vehicles</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8050</id>
+		<source_code_name>08050</source_code_name>
+		<description>Computers and Data Processing</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8060</id>
+		<source_code_name>08060</source_code_name>
+		<description>Furniture and Accessories</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8080</id>
+		<source_code_name>08080</source_code_name>
+		<description>Basic Stock</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8090</id>
+		<source_code_name>08090</source_code_name>
+		<description>Other Fixed Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8110</id>
+		<source_code_name>08110</source_code_name>
+		<description>Depreciation Accrued Building</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8120</id>
+		<source_code_name>08120</source_code_name>
+		<description>Depreciation Accrued Rental</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8130</id>
+		<source_code_name>08130</source_code_name>
+		<description>Depreciation Accrued Machinery</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8140</id>
+		<source_code_name>08140</source_code_name>
+		<description>Depreciation Accrued Vehicles</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8150</id>
+		<source_code_name>08150</source_code_name>
+		<description>Depreciation Accrued Computers</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8160</id>
+		<source_code_name>08160</source_code_name>
+		<description>Depreciation Accrued Furniture</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8180</id>
+		<source_code_name>08180</source_code_name>
+		<description>Provision for Depreciation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8190</id>
+		<source_code_name>08190</source_code_name>
+		<description>Depreciation Accrued Other</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8000</id>
+		<source_code_name>08000</source_code_name>
+		<description>Total Fixed Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8210</id>
+		<source_code_name>08210</source_code_name>
+		<description>For Loan Raising</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8220</id>
+		<source_code_name>08220</source_code_name>
+		<description>For Long-term Rental</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8290</id>
+		<source_code_name>08290</source_code_name>
+		<description>Others</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8200</id>
+		<source_code_name>08200</source_code_name>
+		<description>Total Advance LT Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8310</id>
+		<source_code_name>08310</source_code_name>
+		<description>Cost</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8320</id>
+		<source_code_name>08320</source_code_name>
+		<description>Share of Co. in Accrued P/L</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8330</id>
+		<source_code_name>08330</source_code_name>
+		<description>Distributed Dividends</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8340</id>
+		<source_code_name>08340</source_code_name>
+		<description>Loans</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8350</id>
+		<source_code_name>08350</source_code_name>
+		<description>Capital Deeds</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8300</id>
+		<source_code_name>08300</source_code_name>
+		<description>Total Investments in Held Co.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8410</id>
+		<source_code_name>08410</source_code_name>
+		<description>Investments in Other Companies</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8420</id>
+		<source_code_name>08420</source_code_name>
+		<description>Loans to Other Companies</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8440</id>
+		<source_code_name>08440</source_code_name>
+		<description>Invest. in Negot. Securities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8450</id>
+		<source_code_name>08450</source_code_name>
+		<description>Capital Deeds</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8460</id>
+		<source_code_name>08460</source_code_name>
+		<description>Investment in Partnership</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8490</id>
+		<source_code_name>08490</source_code_name>
+		<description>Other Investments</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8400</id>
+		<source_code_name>08400</source_code_name>
+		<description>Total Investments in Other Cos</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8510</id>
+		<source_code_name>08510</source_code_name>
+		<description>For Undertaking for Compens.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8520</id>
+		<source_code_name>08520</source_code_name>
+		<description>For Fixed Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8590</id>
+		<source_code_name>08590</source_code_name>
+		<description>Other</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8500</id>
+		<source_code_name>08500</source_code_name>
+		<description>Total Taxes Deferred for LT</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8610</id>
+		<source_code_name>08610</source_code_name>
+		<description>Goodwill</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8620</id>
+		<source_code_name>08620</source_code_name>
+		<description>Basic Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8630</id>
+		<source_code_name>08630</source_code_name>
+		<description>Patent and Copyrights</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8690</id>
+		<source_code_name>08690</source_code_name>
+		<description>Others</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8600</id>
+		<source_code_name>08600</source_code_name>
+		<description>Total Deferred Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8888</id>
+		<source_code_name>08888</source_code_name>
+		<description>Total Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9110</id>
+		<source_code_name>09110</source_code_name>
+		<description>Banks and Overdrafts</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9120</id>
+		<source_code_name>09120</source_code_name>
+		<description>Short-term Loans</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9130</id>
+		<source_code_name>09130</source_code_name>
+		<description>Current Maturities of LT Loans</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9140</id>
+		<source_code_name>09140</source_code_name>
+		<description>Loans from Foreign Residents</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9150</id>
+		<source_code_name>09150</source_code_name>
+		<description>Loans from Affiliates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9190</id>
+		<source_code_name>09190</source_code_name>
+		<description>Loans from Others</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9100</id>
+		<source_code_name>09100</source_code_name>
+		<description>Total Bank and ST Loans</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9210</id>
+		<source_code_name>09210</source_code_name>
+		<description>Suppliers in Israel</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9220</id>
+		<source_code_name>09220</source_code_name>
+		<description>Suppliers Abroad</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9230</id>
+		<source_code_name>09230</source_code_name>
+		<description>Bills &amp; Checks for Redemption</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9290</id>
+		<source_code_name>09290</source_code_name>
+		<description>Suppliers and Other Services</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9200</id>
+		<source_code_name>09200</source_code_name>
+		<description>Total Suppliers and Services</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9310</id>
+		<source_code_name>09310</source_code_name>
+		<description>Employees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9320</id>
+		<source_code_name>09320</source_code_name>
+		<description>Provisions for Leave</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9330</id>
+		<source_code_name>09330</source_code_name>
+		<description>Institutes for Employees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9340</id>
+		<source_code_name>09340</source_code_name>
+		<description>Income Tax Provisions less Adv</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9350</id>
+		<source_code_name>09350</source_code_name>
+		<description>Other Government Institutes</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9360</id>
+		<source_code_name>09360</source_code_name>
+		<description>Advance Rental Income</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9370</id>
+		<source_code_name>09370</source_code_name>
+		<description>Advances from Customers</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9410</id>
+		<source_code_name>09410</source_code_name>
+		<description>Other Advance Income</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9420</id>
+		<source_code_name>09420</source_code_name>
+		<description>Expenses to Pay</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9430</id>
+		<source_code_name>09430</source_code_name>
+		<description>Affiliates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9440</id>
+		<source_code_name>09440</source_code_name>
+		<description>Provision for Liability</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9450</id>
+		<source_code_name>09450</source_code_name>
+		<description>Provision for Claims</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9460</id>
+		<source_code_name>09460</source_code_name>
+		<description>Pending Provisions</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9470</id>
+		<source_code_name>09470</source_code_name>
+		<description>Bonuses and Gratuities Payable</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9480</id>
+		<source_code_name>09480</source_code_name>
+		<description>Dividend to Pay</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9490</id>
+		<source_code_name>09490</source_code_name>
+		<description>Other Creditors and Credit Bal</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9400</id>
+		<source_code_name>09400</source_code_name>
+		<description>Total Creditors and Credit Bal</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9510</id>
+		<source_code_name>09510</source_code_name>
+		<description>For Employees</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9520</id>
+		<source_code_name>09520</source_code_name>
+		<description>For Receivable Taxes</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9530</id>
+		<source_code_name>09530</source_code_name>
+		<description>Short-term Deferred Taxes</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9500</id>
+		<source_code_name>09500</source_code_name>
+		<description>Total Short-term Reserves</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9000</id>
+		<source_code_name>09000</source_code_name>
+		<description>Total Current Liabilities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9610</id>
+		<source_code_name>09610</source_code_name>
+		<description>Banks</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9620</id>
+		<source_code_name>09620</source_code_name>
+		<description>Long-term Loans less Current</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9630</id>
+		<source_code_name>09630</source_code_name>
+		<description>Loans from Affiliates</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9640</id>
+		<source_code_name>09640</source_code_name>
+		<description>Loans from Foreign Residents</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9650</id>
+		<source_code_name>09650</source_code_name>
+		<description>Long-term Loans from Others</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9660</id>
+		<source_code_name>09660</source_code_name>
+		<description>Capital Deeds</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9670</id>
+		<source_code_name>09670</source_code_name>
+		<description>Debentures</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9690</id>
+		<source_code_name>09690</source_code_name>
+		<description>Others</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9600</id>
+		<source_code_name>09600</source_code_name>
+		<description>Total Long-term Liabilities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9710</id>
+		<source_code_name>09710</source_code_name>
+		<description>Reserve for Compensation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9720</id>
+		<source_code_name>09720</source_code_name>
+		<description>Fund for Compensation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9790</id>
+		<source_code_name>09790</source_code_name>
+		<description>Other Provisions</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9700</id>
+		<source_code_name>09700</source_code_name>
+		<description>Tot Employment-end Liabilities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9810</id>
+		<source_code_name>09810</source_code_name>
+		<description>For Undertaking for Compens.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9820</id>
+		<source_code_name>09820</source_code_name>
+		<description>For Fixed Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9890</id>
+		<source_code_name>09890</source_code_name>
+		<description>Other</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9800</id>
+		<source_code_name>09800</source_code_name>
+		<description>Total LT Reserve Deferred</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9910</id>
+		<source_code_name>09910</source_code_name>
+		<description>Share Cptl Business Owner</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9920</id>
+		<source_code_name>09920</source_code_name>
+		<description>Premium for Shares</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9930</id>
+		<source_code_name>09930</source_code_name>
+		<description>Capital Funds</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9940</id>
+		<source_code_name>09940</source_code_name>
+		<description>Receipts on Account of Shares</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9950</id>
+		<source_code_name>09950</source_code_name>
+		<description>Receipts on Account of Options</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9980</id>
+		<source_code_name>09980</source_code_name>
+		<description>Accrued Profit/Loss</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9900</id>
+		<source_code_name>09900</source_code_name>
+		<description>Total Equity</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9999</id>
+		<source_code_name>09999</source_code_name>
+		<description>Total Liabilities and Capital</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1015</id>
+		<source_code_name>01015</source_code_name>
+		<description>Inc Structure Sales Contractor</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1025</id>
+		<source_code_name>01025</source_code_name>
+		<description>Inc Work Operating Contractor</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1305</id>
+		<source_code_name>01305</source_code_name>
+		<description>Labor Wages and Accompanying</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code1310</id>
+		<source_code_name>01310</source_code_name>
+		<description>Expenses for Sub-contractors</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2005</id>
+		<source_code_name>02005</source_code_name>
+		<description>Inventory at Beginning of Term</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2015</id>
+		<source_code_name>02015</source_code_name>
+		<description>Land Cost and Development</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2025</id>
+		<source_code_name>02025</source_code_name>
+		<description>Liability Provision Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3015</id>
+		<source_code_name>03015</source_code_name>
+		<description>Transport and Storage Expenses</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3025</id>
+		<source_code_name>03025</source_code_name>
+		<description>Insurance</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code3515</id>
+		<source_code_name>03515</source_code_name>
+		<description>Insurance</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0310</id>
+		<source_code_name>00310</source_code_name>
+		<description>Expenses for Prev. Years</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0320</id>
+		<source_code_name>00320</source_code_name>
+		<description>Liable Expenses for Prev. Year</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0330</id>
+		<source_code_name>00330</source_code_name>
+		<description>Inc Dec Liable Income G/L</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7805</id>
+		<source_code_name>07805</source_code_name>
+		<description>Industrial and Commercial Area</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7815</id>
+		<source_code_name>07815</source_code_name>
+		<description>Apartments Stock</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7825</id>
+		<source_code_name>07825</source_code_name>
+		<description>Building in Process Stock</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7870</id>
+		<source_code_name>07870</source_code_name>
+		<description>WIP incl. capitalization</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9435</id>
+		<source_code_name>09435</source_code_name>
+		<description>Shareholders</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code2095</id>
+		<source_code_name>02095</source_code_name>
+		<description>Inventory at End of Term</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0103</id>
+		<source_code_name>00103</source_code_name>
+		<description>Total Fin. Adjust. Due to IFRS</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0104</id>
+		<source_code_name>00104</source_code_name>
+		<description>Financ. P/L - Tax Regulation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0360</id>
+		<source_code_name>00360</source_code_name>
+		<description>USD Tax Regulation Influence</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0370</id>
+		<source_code_name>00370</source_code_name>
+		<description>Total Adjust. - Tax Regulation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0383</id>
+		<source_code_name>00383</source_code_name>
+		<description>Total Adjust. - IFRS</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0135</id>
+		<source_code_name>00135</source_code_name>
+		<description>Income/Expense from ARFL</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5150</id>
+		<source_code_name>05150</source_code_name>
+		<description>Assets Rev./Fin. Liabilities</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code5160</id>
+		<source_code_name>05160</source_code_name>
+		<description>Interest from Credit</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0600</id>
+		<source_code_name>00600</source_code_name>
+		<description>Total Tax Liable Income/Loss</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0610</id>
+		<source_code_name>00610</source_code_name>
+		<description>Tax Liable Income Special Tax</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0620</id>
+		<source_code_name>00620</source_code_name>
+		<description>Real Capital Gain</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0630</id>
+		<source_code_name>00630</source_code_name>
+		<description>Inflationary Capital Gain</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0640</id>
+		<source_code_name>00640</source_code_name>
+		<description>Real Estate Gain</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0650</id>
+		<source_code_name>00650</source_code_name>
+		<description>Capital Loss to Transfer</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code0670</id>
+		<source_code_name>00670</source_code_name>
+		<description>Loss from Bonds Since 2005</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7215</id>
+		<source_code_name>07215</source_code_name>
+		<description>Bonds - Deducted Cost</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7225</id>
+		<source_code_name>07225</source_code_name>
+		<description>Bonds - Fair Value</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code7295</id>
+		<source_code_name>07295</source_code_name>
+		<description>Noncommerical Bonds</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8025</id>
+		<source_code_name>08025</source_code_name>
+		<description>Real Estate Revaluation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8095</id>
+		<source_code_name>08095</source_code_name>
+		<description>Following Costs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8100</id>
+		<source_code_name>08100</source_code_name>
+		<description>Estimation Costs of Removal</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8105</id>
+		<source_code_name>08105</source_code_name>
+		<description>Capitalization of Credit Costs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8170</id>
+		<source_code_name>08170</source_code_name>
+		<description>Fixed Assets Revaluation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8710</id>
+		<source_code_name>08710</source_code_name>
+		<description>Noncurrent Assets for Sale</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8700</id>
+		<source_code_name>08700</source_code_name>
+		<description>Total Noncurrent Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8315</id>
+		<source_code_name>08315</source_code_name>
+		<description>Investments - Equity</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8325</id>
+		<source_code_name>08325</source_code_name>
+		<description>Investments - Fair Value</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8335</id>
+		<source_code_name>08335</source_code_name>
+		<description>Investments - Cost</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code8640</id>
+		<source_code_name>08640</source_code_name>
+		<description>Revaluation Nontangible Assets</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9605</id>
+		<source_code_name>09605</source_code_name>
+		<description>Estimation Costs of Removal</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code9960</id>
+		<source_code_name>09960</source_code_name>
+		<description>Self (Management) Buyout of CS</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<column>Code8888</column>
+	</key>
+</table>

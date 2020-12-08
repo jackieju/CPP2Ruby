@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OFCT</id>
+	<description>Sales Forecast</description>
+	<string_list>1100524</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MRP</info_category>
+	<column>
+		<id>AbsID</id>
+		<source_code_name>ABS_ID</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Code</id>
+		<source_code_name>FORECAST_CODE</source_code_name>
+		<description>Forecast Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>FORECAST_NAME</source_code_name>
+		<description>Forecast Name</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGN</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>StartDate</id>
+		<source_code_name>START_DATE</source_code_name>
+		<description>Forecast Start Date</description>
+		<field_type>256</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EndDate</id>
+		<source_code_name>END_DATE</source_code_name>
+		<description>Forecast End Date</description>
+		<field_type>256</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FormView</id>
+		<source_code_name>FORECAST_VIEW</source_code_name>
+		<description>Forecast Form View</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>D</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Daily</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Weekly</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Monthly</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsID</column>
+	</key>
+	<key>
+		<id>FCT_CODE</id>
+		<unique />
+		<column>Code</column>
+	</key>
+</table>

@@ -1,0 +1,2 @@
+class Ttt < ApplicationRecord
+end

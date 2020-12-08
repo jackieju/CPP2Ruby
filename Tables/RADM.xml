@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RADM</id>
+	<description sys="Y">Resource Administration</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>DevGroup</id>
+		<source_code_name>DEV_GROUP</source_code_name>
+		<description sys="Y">Development Group</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>ResVersion</id>
+		<source_code_name>RESOURCE_VERSION</source_code_name>
+		<description sys="Y">Resource Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>ReleaseDte</id>
+		<source_code_name>RELEASE_DATE</source_code_name>
+		<description sys="Y">Rsleade Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RelFrzDate</id>
+		<source_code_name>RELEASE_FREEZE_DATE</source_code_name>
+		<description sys="Y">GUI Freeze Date for Release</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Sp1Date</id>
+		<source_code_name>SP1_DATE</source_code_name>
+		<description sys="Y">SP1 Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Sp1FrzDate</id>
+		<source_code_name>SP1_FREEZE_DATE</source_code_name>
+		<description sys="Y">GUI Freeze Date for SP1</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Sp2Date</id>
+		<source_code_name>SP2_DATE</source_code_name>
+		<description sys="Y">SP2 Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Sp2FrzDate</id>
+		<source_code_name>SP2_FREEZE_DATE</source_code_name>
+		<description sys="Y">GUI Freeze Date for SP2</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DbLocked</id>
+		<source_code_name>DB_LOCKED</source_code_name>
+		<description sys="Y">Is DB Locked for Edit</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">Not Locked</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">GUI Freeze (Translations)</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">Read Only</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">Full Lock</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DbVersion</id>
+		<source_code_name>DB_VERSION</source_code_name>
+		<description sys="Y">Resource DB Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description sys="Y">Creation Date of DB</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CreateTime</id>
+		<source_code_name>CREATE_TIME</source_code_name>
+		<description sys="Y">Creation Time of DB</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>8</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>CanLogin</id>
+		<source_code_name>CAN_LOGIN</source_code_name>
+		<description sys="Y">Can Users Login</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>ValidPath</id>
+		<source_code_name>VALID_PATH</source_code_name>
+		<description sys="Y">Valid Path For Running</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>P4Path</id>
+		<source_code_name>P4_VERSION_PATH</source_code_name>
+		<description sys="Y">P4 Version Path</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>MDVersion</id>
+		<source_code_name>METADATA_VERSION</source_code_name>
+		<description sys="Y">Metadata Version</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>VerScpDate</id>
+		<source_code_name>VER_SCOPE_DATE</source_code_name>
+		<description sys="Y">Version Scope Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>VerScpTime</id>
+		<source_code_name>VER_SCOPE_TIME</source_code_name>
+		<description sys="Y">Version Scope Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>TransVer</id>
+		<source_code_name>TRANS_VER</source_code_name>
+		<description sys="Y">Translation Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>Flags</id>
+		<source_code_name>FLAGS</source_code_name>
+		<description sys="Y">Resource flags</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WpFileName</id>
+		<source_code_name>WP_FILE_NAME</source_code_name>
+		<description sys="Y">Wallpaper File Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+		<default_value>NotSet</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ResVersion</column>
+	</key>
+</table>

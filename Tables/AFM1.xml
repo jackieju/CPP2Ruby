@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AFM1</id>
+	<description>Tax Formula Parameter Declaration</description>
+	<string_list>1101642</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>FmlId</id>
+		<source_code_name>FML_ID</source_code_name>
+		<description>Formula ID</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DispOrder</id>
+		<source_code_name>DISPLAY_ORDER</source_code_name>
+		<description>Display Order</description>
+		<invisible />
+		<field_type>261</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VarName</id>
+		<source_code_name>VAR_NAME</source_code_name>
+		<description>Variable Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>Category</id>
+		<source_code_name>CATEGORY</source_code_name>
+		<description>Category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Input</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Output</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>In Out</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Parameter</id>
+		<source_code_name>PARAMETER</source_code_name>
+		<description>Parameter</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>35</edit_size>
+	</column>
+	<column>
+		<id>DataType</id>
+		<source_code_name>DATA_TYPE</source_code_name>
+		<description>Data Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>T</value>
+			<description>Tax Amounts</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Amounts</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Prices</description>
+		</valid_value>
+		<valid_value>
+			<value>Q</value>
+			<description>Quantities</description>
+		</valid_value>
+		<valid_value>
+			<value>%</value>
+			<description>Percents</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Integer</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>String</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Boolean</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Measures</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>FmlIdLink</id>
+		<target_direct>OFML</target_direct>
+		<object_key_column>FmlId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>FmlId</column>
+		<column>DispOrder</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

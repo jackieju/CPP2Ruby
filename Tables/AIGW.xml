@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AIGW</id>
+	<description>Item Group - Warehouse - History</description>
+	<string_list>1101458</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItmsGrpCod</id>
+		<source_code_name>GROUP_CODE</source_code_name>
+		<description>Item Group Code</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WhsCode</id>
+		<source_code_name>WHS_CODE</source_code_name>
+		<description>Warehouse Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DftBinAbs</id>
+		<source_code_name>DFT_BIN_ABS</source_code_name>
+		<description>Default Bin Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DftBinEnfd</id>
+		<source_code_name>DFT_BIN_ENFD</source_code_name>
+		<description>Default Bin Enforced [Y/N]</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Create Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign2</id>
+		<source_code_name>USER2_SIGNATURE</source_code_name>
+		<description>Updating User</description>
+		<invisible />
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Date of Update</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>ItmsGrpCodLink</id>
+		<target_direct>OITB</target_direct>
+		<object_key_column>ItmsGrpCod</object_key_column>
+	</association>
+	<association>
+		<id>WhsCodeLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhsCode</object_key_column>
+	</association>
+	<association>
+		<id>DftBinAbsLink</id>
+		<target_direct>OBIN</target_direct>
+		<object_key_column>DftBinAbs</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>UserSign2Link</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign2</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

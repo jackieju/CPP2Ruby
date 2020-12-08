@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>EPOPR</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>SrvId</id>
+		<source_code_name>SERVICE_ID</source_code_name>
+		<description sys="Y">FK to EPSRV table</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OprName</id>
+		<source_code_name>OPERATION_NAME</source_code_name>
+		<description sys="Y">name of service operation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SyncMode</id>
+		<source_code_name>SYNCHRONIZATION_MODE</source_code_name>
+		<description sys="Y">synch or a-sync mode of opr</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrmMsgType</id>
+		<source_code_name>PARAM_MESSAGE_TYPE</source_code_name>
+		<description sys="Y">operation parameter type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrcId</id>
+		<source_code_name>PROCESSOR_ID</source_code_name>
+		<description sys="Y">FK to EPPRC table</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RetMsgType</id>
+		<source_code_name>RETURN_MESSAGE_TYPE</source_code_name>
+		<description sys="Y">operation returned type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ParamName</id>
+		<source_code_name>PARAMETER_NAME</source_code_name>
+		<description sys="Y">Parameter name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SrvId</column>
+		<column>OprName</column>
+	</key>
+</table>

@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OHSV</id>
+	<description sys="Y">Hasavsevet Journal Entry</description>
+	<string_list>1100101</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>RecordKey</id>
+		<source_code_name>KEY_NUM</source_code_name>
+		<description>Record Number</description>
+		<field_type>154</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>7</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>7</edit_size>
+	</column>
+	<column>
+		<id>Ref1</id>
+		<source_code_name>REF1</source_code_name>
+		<description>Reference 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>Ref2</id>
+		<source_code_name>REF2</source_code_name>
+		<description>Reference 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>5</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+	</column>
+	<column>
+		<id>RefDate</id>
+		<source_code_name>DATE</source_code_name>
+		<description>Posting Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DueDate</id>
+		<source_code_name>DUE_DATE</source_code_name>
+		<description>Due Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CurrCode</id>
+		<source_code_name>CUR_KOD</source_code_name>
+		<description>Currency Code</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Memo</id>
+		<source_code_name>MEMO</source_code_name>
+		<description>Details</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>22</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>22</edit_size>
+	</column>
+	<column>
+		<id>DebAcct1</id>
+		<source_code_name>DEB_ACCT1</source_code_name>
+		<description>Debit Account 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CredAcct1</id>
+		<source_code_name>CRED_ACCT1</source_code_name>
+		<description>Credit Account 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DebAmnt1</id>
+		<source_code_name>DEB_AMOUNT1</source_code_name>
+		<description>Debit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>credAmnt1</id>
+		<source_code_name>CRED_AMOUNT1</source_code_name>
+		<description>Credit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>FDebAmnt1</id>
+		<source_code_name>FDEB_AMOUNT1</source_code_name>
+		<description>Debit Amount 1 in FC</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>FCredAmnt1</id>
+		<source_code_name>FCRED_AMOUNT1</source_code_name>
+		<description>Credit in FC</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>Filler</id>
+		<source_code_name>FILLER</source_code_name>
+		<description sys="Y">Filler</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>60</edit_size>
+	</column>
+	<column>
+		<id>EndField</id>
+		<source_code_name>END_FIELD</source_code_name>
+		<description>Ending Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>RecordKey</column>
+	</key>
+</table>

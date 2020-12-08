@@ -1,0 +1,787 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OTCX</id>
+	<description>Tax Code Determination</description>
+	<string_list>1101295</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Document ID</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<invisible />
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description>Item</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Service</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Item &amp; Service</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BusArea</id>
+		<source_code_name>BUS_AREA</source_code_name>
+		<description>Business Area</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description>Sales</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Purchase</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Sales &amp; Purchase</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Cond1</id>
+		<source_code_name>CONDITION1</source_code_name>
+		<description>Condition 1</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Federal Tax ID</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Ship-To Address</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Ship-To Street / PO Box</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Ship-To City</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Ship-To ZIP Code</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Ship-To County</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Ship-To State</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Ship-To Country</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Item</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Item Group</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Business Partner</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Customer Group</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Vendor Group</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Warehouse</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>G/L Account</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Customer Equalization tax</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Tax Status</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>Freight</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>UDF</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UDFTable1</id>
+		<source_code_name>COND_UDF_TABLE1</source_code_name>
+		<description>UDF Table Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NumVal1</id>
+		<source_code_name>NUM_VAL1</source_code_name>
+		<description>Numeric Value</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>StrVal1</id>
+		<source_code_name>STR_VAL1</source_code_name>
+		<description>String Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>MnyVal1</id>
+		<source_code_name>MNY_VAL1</source_code_name>
+		<description>Monetary Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Cond2</id>
+		<source_code_name>CONDITION2</source_code_name>
+		<description>Condition 2</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Federal Tax ID</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Ship-To Address</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Ship-To Street / PO Box</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Ship-To City</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Ship-To ZIP Code</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Ship-To County</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Ship-To State</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Ship-To Country</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Item</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Item Group</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Business Partner</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Customer Group</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Vendor Group</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Warehouse</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>G/L Account</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Customer Equalization tax</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Tax Status</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>Freight</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>UDF</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UDFTable2</id>
+		<source_code_name>COND_UDF_TABLE2</source_code_name>
+		<description>UDF Table Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NumVal2</id>
+		<source_code_name>NUM_VAL2</source_code_name>
+		<description>Numeric Value</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>StrVal2</id>
+		<source_code_name>STR_VAL2</source_code_name>
+		<description>String Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>MnyVal2</id>
+		<source_code_name>MNY_VAL2</source_code_name>
+		<description>Monetary Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Cond3</id>
+		<source_code_name>CONDITION3</source_code_name>
+		<description>Condition 3</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Federal Tax ID</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Ship-To Address</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Ship-To Street / PO Box</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Ship-To City</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Ship-To ZIP Code</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Ship-To County</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Ship-To State</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Ship-To Country</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Item</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Item Group</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Business Partner</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Customer Group</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Vendor Group</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Warehouse</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>G/L Account</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Customer Equalization tax</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Tax Status</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>Freight</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>UDF</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UdfTable3</id>
+		<source_code_name>COND_UDF_TABLE3</source_code_name>
+		<description>UDF Table Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NumVal3</id>
+		<source_code_name>NUM_VAL3</source_code_name>
+		<description>Numeric Value</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>StrVal3</id>
+		<source_code_name>STR_VAL3</source_code_name>
+		<description>String Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>MnyVal3</id>
+		<source_code_name>MNY_VAL3</source_code_name>
+		<description>Monetary Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Cond4</id>
+		<source_code_name>CONDITION4</source_code_name>
+		<description>Condition 4</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Federal Tax ID</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Ship-To Address</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Ship-To Street / PO Box</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Ship-To City</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Ship-To ZIP Code</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Ship-To County</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Ship-To State</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Ship-To Country</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Item</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Item Group</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Business Partner</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Customer Group</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Vendor Group</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Warehouse</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>G/L Account</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Customer Equalization tax</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Tax Status</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>Freight</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>UDF</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UdfTable4</id>
+		<source_code_name>COND_UDF_TABLE4</source_code_name>
+		<description>UDF Table Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NumVal4</id>
+		<source_code_name>NUM_VAL4</source_code_name>
+		<description>Numeric Value</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>StrVal4</id>
+		<source_code_name>STR_VAL4</source_code_name>
+		<description>String Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>MnyVal4</id>
+		<source_code_name>MNY_VAL4</source_code_name>
+		<description>Monetary Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Cond5</id>
+		<source_code_name>CONDITION5</source_code_name>
+		<description>Condition 5</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Federal Tax ID</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Ship-To Address</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Ship-To Street / PO Box</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Ship-To City</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Ship-To ZIP Code</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Ship-To County</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Ship-To State</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Ship-To Country</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Item</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Item Group</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Business Partner</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Customer Group</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Vendor Group</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Warehouse</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>G/L Account</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Customer Equalization tax</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Tax Status</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>Freight</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>UDF</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UdfTable5</id>
+		<source_code_name>COND_UDF_TABLE5</source_code_name>
+		<description>UDF Table Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NumVal5</id>
+		<source_code_name>NUM_VAL5</source_code_name>
+		<description>Numeric Value</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>StrVal5</id>
+		<source_code_name>STR_VAL5</source_code_name>
+		<description>String Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>MnyVal5</id>
+		<source_code_name>MNY_VAL5</source_code_name>
+		<description>Monetary Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Descr</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>LnTaxCode</id>
+		<source_code_name>LN_TAX_CODE</source_code_name>
+		<description>Line Tax Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FrLnTax</id>
+		<source_code_name>FR_LN_TAX</source_code_name>
+		<description>Line Freight Tax</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FrHdrTax</id>
+		<source_code_name>FR_HDR_TAX</source_code_name>
+		<description>Header Freight Tax</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UDFAlias1</id>
+		<source_code_name>COND_UDF_ALIAS1</source_code_name>
+		<description>UDF Field Alias</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>18</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>18</edit_size>
+	</column>
+	<column>
+		<id>UDFAlias2</id>
+		<source_code_name>COND_UDF_ALIAS2</source_code_name>
+		<description>UDF Field Alias</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>18</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>18</edit_size>
+	</column>
+	<column>
+		<id>UDFAlias3</id>
+		<source_code_name>COND_UDF_ALIAS3</source_code_name>
+		<description>UDF Field Alias</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>18</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>18</edit_size>
+	</column>
+	<column>
+		<id>UDFAlias4</id>
+		<source_code_name>COND_UDF_ALIAS4</source_code_name>
+		<description>UDF Field Alias</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>18</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>18</edit_size>
+	</column>
+	<column>
+		<id>UDFAlias5</id>
+		<source_code_name>COND_UDF_ALIAS5</source_code_name>
+		<description>UDF Field Alias</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>18</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>18</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+	</key>
+</table>

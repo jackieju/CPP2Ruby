@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ODPV</id>
+	<description>Fixed Assets Depreciation Value</description>
+	<string_list>1101550</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DprArea</id>
+		<source_code_name>DEPRECIATION_AREA</source_code_name>
+		<description>Depreciation Area ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PeriodCat</id>
+		<source_code_name>PERIOD_CATEGORY</source_code_name>
+		<description>Period Category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FromDate</id>
+		<source_code_name>PERIOD_START_DATE</source_code_name>
+		<description>Period Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToDate</id>
+		<source_code_name>PERIOD_TO_DATE</source_code_name>
+		<description>Period To Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrdDprPlan</id>
+		<source_code_name>ORDINARY_DPR_PLAN</source_code_name>
+		<description>Ordinary Depreciation Plan</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrdDprPost</id>
+		<source_code_name>ORDINARY_DPR_POST</source_code_name>
+		<description>Ordinary Depreciation Posted</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrdDprAct</id>
+		<source_code_name>ORDINARY_DPR_ACTUAL</source_code_name>
+		<description>Ordinary Depreciation Actual</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDprKey</id>
+		<source_code_name>SPECIAL_DPR_KEY</source_code_name>
+		<description>Special Depreciation Key</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDprPlan</id>
+		<source_code_name>SPECIAL_DPR_PLAN</source_code_name>
+		<description>Special Depreciation Plan</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDprPost</id>
+		<source_code_name>SPECIAL_DPR_POST</source_code_name>
+		<description>Special Depreciation Posted</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpDprAct</id>
+		<source_code_name>SPECIAL_DPR_ACTUAL</source_code_name>
+		<description>Special Depreciation Actual</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubPeriod</id>
+		<source_code_name>SUB_PERIOD</source_code_name>
+		<description>Sub Period</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrdDprPln1</id>
+		<source_code_name>ORDINARY_DPR_PLAN1</source_code_name>
+		<description>Ordinary Depreciation Plan 1</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrdDprPst1</id>
+		<source_code_name>ORDINARY_DPR_POST1</source_code_name>
+		<description>Ordinary Depreciation Posted 1</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrdDprAct1</id>
+		<source_code_name>ORDINARY_DPR_ACTUAL1</source_code_name>
+		<description>Ordinary Depreciation Actual 1</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>DprAreaLink</id>
+		<target_direct>ODPA</target_direct>
+		<object_key_column>DprArea</object_key_column>
+	</association>
+	<association>
+		<id>SpDprKeyLink</id>
+		<target_direct>ODPP</target_direct>
+		<object_key_column>SpDprKey</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>SECONDARY</id>
+		<unique />
+		<column>ItemCode</column>
+		<column>DprArea</column>
+		<column>PeriodCat</column>
+		<column>SubPeriod</column>
+	</key>
+</table>

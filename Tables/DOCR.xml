@@ -1,0 +1,816 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DOCR</id>
+	<description sys="Y" />
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>DocCode</id>
+		<source_code_name>CODE</source_code_name>
+		<description sys="Y">Code</description>
+		<field_type>5001</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DocName</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">Report Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>Author</id>
+		<source_code_name>AUTHOR</source_code_name>
+		<description sys="Y">Author</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>Notes</id>
+		<source_code_name>NOTES</source_code_name>
+		<description sys="Y">Remarks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>Width</id>
+		<source_code_name>WIDTH</source_code_name>
+		<description sys="Y">Width</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>595</default_value>
+	</column>
+	<column>
+		<id>Height</id>
+		<source_code_name>HEIGHT</source_code_name>
+		<description sys="Y">Height</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>842</default_value>
+	</column>
+	<column>
+		<id>LMargin</id>
+		<source_code_name>L_MARGIN</source_code_name>
+		<description sys="Y">Left Margin</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>10</default_value>
+	</column>
+	<column>
+		<id>RMargin</id>
+		<source_code_name>R_MARGIN</source_code_name>
+		<description sys="Y">Right Margin</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>30</default_value>
+	</column>
+	<column>
+		<id>TMargin</id>
+		<source_code_name>T_MARGIN</source_code_name>
+		<description sys="Y">Top Margin</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>10</default_value>
+	</column>
+	<column>
+		<id>BMargin</id>
+		<source_code_name>B_MARGIN</source_code_name>
+		<description sys="Y">Bottom Margin</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>10</default_value>
+	</column>
+	<column>
+		<id>CanChange</id>
+		<source_code_name>CAN_CHANGE</source_code_name>
+		<description sys="Y">Changable</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">TRUE</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">FALSE</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PaperSize</id>
+		<source_code_name>PAPER_SIZE</source_code_name>
+		<description sys="Y">Paper Size</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+		<default_value>A4 210 x 297 mm</default_value>
+	</column>
+	<column>
+		<id>Oreint</id>
+		<source_code_name>ORIENTATION</source_code_name>
+		<description sys="Y">Orientation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description sys="Y">Vertical</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description sys="Y">Horizontal</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>GridSize</id>
+		<source_code_name>GRID_SIZE</source_code_name>
+		<description sys="Y">Grid Size</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>10</default_value>
+	</column>
+	<column>
+		<id>GridType</id>
+		<source_code_name>GRID_TYPE</source_code_name>
+		<description sys="Y">Grid Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Compbination</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">Continuous line</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">Broken line</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y">Dots</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ShowGrid</id>
+		<source_code_name>SHOW_GRID</source_code_name>
+		<description sys="Y">Display Grid</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">TRUE</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">FALSE</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SnapGrid</id>
+		<source_code_name>SNAP_GRID</source_code_name>
+		<description sys="Y">Next to Grid</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">TRUE</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">FALSE</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Picture</id>
+		<source_code_name>PICTURE</source_code_name>
+		<description sys="Y">Picture</description>
+		<invisible />
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>TypeCode</id>
+		<source_code_name>TYPE_CODE</source_code_name>
+		<description sys="Y">Type Code</description>
+		<field_type>402</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>FrgnReport</id>
+		<source_code_name>FOREIGN_REPORT</source_code_name>
+		<description sys="Y">Foreign Language Report</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">TRUE</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">FALSE</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CanSort</id>
+		<source_code_name>CAN_SORT</source_code_name>
+		<description sys="Y">Sortable</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">TRUE</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">FALSE</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LeaderCode</id>
+		<source_code_name>LEADER_CODE</source_code_name>
+		<description sys="Y">Leader Report</description>
+		<field_type>5001</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FollowCode</id>
+		<source_code_name>FOLLOW_CODE</source_code_name>
+		<description sys="Y">Follow-Up Report</description>
+		<field_type>5001</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SwapOnScrn</id>
+		<source_code_name>SWAP_ON_SCREEN</source_code_name>
+		<description sys="Y">Convert Font in Print Preview</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">FALSE</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ScreenFont</id>
+		<source_code_name>SCREEN_FONT</source_code_name>
+		<description sys="Y">Preview Printing Font</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+		<default_value>Arial</default_value>
+	</column>
+	<column>
+		<id>ScrFOffset</id>
+		<source_code_name>SCREEN_OFFSET</source_code_name>
+		<description sys="Y">Change Font Size in Preview Pr</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>SwpInEmail</id>
+		<source_code_name>SWAP_IN_EMAIL</source_code_name>
+		<description sys="Y">Convert Font for E-mail</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">FALSE</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>EmailFont</id>
+		<source_code_name>EMAIL_FONT</source_code_name>
+		<description sys="Y">E-Mail Font</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+		<default_value>Arial</default_value>
+	</column>
+	<column>
+		<id>EmFOffset</id>
+		<source_code_name>EMAIL_OFFSET</source_code_name>
+		<description sys="Y">Change Font Size for E-Mail</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>QString</id>
+		<source_code_name>QSTRING</source_code_name>
+		<description sys="Y">Query</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>QType</id>
+		<source_code_name>QTYPE</source_code_name>
+		<description sys="Y">Query Type</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>R</default_value>
+		<valid_value>
+			<value>R</value>
+			<description sys="Y">Regular</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description sys="Y">Wizard</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Language</id>
+		<source_code_name>LANGUAGE</source_code_name>
+		<description sys="Y">Language</description>
+		<field_type>3</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>RobjCode</id>
+		<source_code_name>ROBJ_CODE</source_code_name>
+		<description sys="Y">Imp Exp Obj Code</description>
+		<field_type>401</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ExtName</id>
+		<source_code_name>EXT_NAME</source_code_name>
+		<description sys="Y">Extension Name</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExtOnErr</id>
+		<source_code_name>EXT_ON_ERR</source_code_name>
+		<description sys="Y">Action Taken On Ext Error</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y">Stop</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description sys="Y">Ignore</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description sys="Y">Promt</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>NumRepArs</id>
+		<source_code_name>NUM_REP_AREAS</source_code_name>
+		<description sys="Y">Number of Repetitive Areas</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>AlgnFooter</id>
+		<source_code_name>ALIGN_FOOTER_TO_BTM</source_code_name>
+		<description sys="Y">Allign Footer to Buttom</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Local</id>
+		<source_code_name>LOCALIZATION</source_code_name>
+		<description sys="Y">Localization</description>
+		<field_type>403</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>Numerator</id>
+		<source_code_name>NUMERATOR</source_code_name>
+		<description sys="Y">Numerator</description>
+		<field_type>404</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>NextAppId</id>
+		<source_code_name>NEXT_ITEM_APPL_ID</source_code_name>
+		<description sys="Y">Next Item AppId</description>
+		<field_type>400</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>Created</id>
+		<source_code_name>CREATED</source_code_name>
+		<description sys="Y">Creation Date</description>
+		<field_type>1</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Updated</id>
+		<source_code_name>UPDETED</source_code_name>
+		<description sys="Y">Updated Date</description>
+		<field_type>2</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UsrSgnStr</id>
+		<source_code_name>USER_SIGN_STR</source_code_name>
+		<description sys="Y">User Sign For Strings Change</description>
+		<field_type>510</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>UsrSgnAttr</id>
+		<source_code_name>USER_SIGN_ATTR</source_code_name>
+		<description sys="Y">User Sign For Attribs Change</description>
+		<field_type>511</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>TimeFormat</id>
+		<source_code_name>TIME_FORMAT</source_code_name>
+		<description sys="Y">Time Template</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">Default</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">24H</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">12H</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DateFormat</id>
+		<source_code_name>DATE_FORMAT</source_code_name>
+		<description sys="Y">Date Template</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">Default</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">DD/MM/YY</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y">DD/MM/CCYY</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description sys="Y">MM/DD/YY</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y">MM/DD/CCYY</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description sys="Y">CCYY/MM/DD</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description sys="Y">DD/Month/YYYY</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DateSep</id>
+		<source_code_name>DATE_SEPARATOR</source_code_name>
+		<description sys="Y">Date Separator</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>DecSep</id>
+		<source_code_name>DECIMAL_SEPARATOR</source_code_name>
+		<description sys="Y">Decimal Separator</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>ThousSep</id>
+		<source_code_name>THOUS_SEPARATOR</source_code_name>
+		<description sys="Y">Thousands Separator</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>Printer</id>
+		<source_code_name>PRINTER</source_code_name>
+		<description sys="Y">Printer</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>NumLayPage</id>
+		<source_code_name>NUM_LAYOUT_PAGE</source_code_name>
+		<description sys="Y">Number of Layout Pages</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NumCopy</id>
+		<source_code_name>NUM_COPY</source_code_name>
+		<description sys="Y">Number of Copies</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>GbiSupport</id>
+		<source_code_name>GBI_SETTING_SUPPORT</source_code_name>
+		<description sys="Y">GBI settings supported</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Use1stPrtr</id>
+		<source_code_name>USE_1ST_PAGE_PRINTER</source_code_name>
+		<description sys="Y">Use 1st page printer</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Prtr1st</id>
+		<source_code_name>1ST_PAGE_PRINTER</source_code_name>
+		<description sys="Y">Printer for First Page</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Shading</id>
+		<source_code_name>SHADING</source_code_name>
+		<description sys="Y">Print item backgrounds</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ForceExpXX</id>
+		<source_code_name>FORCE_EXP_XX</source_code_name>
+		<description sys="Y">Force Export XX Report</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ResCode</id>
+		<source_code_name>RES_CODE</source_code_name>
+		<description sys="Y">Resource Code from RSBD</description>
+		<field_type>600</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>RevCode</id>
+		<source_code_name>REV_CODE</source_code_name>
+		<description sys="Y">Revision Code</description>
+		<field_type>601</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>UseSysPref</id>
+		<source_code_name>USE_SYS_PREF</source_code_name>
+		<description sys="Y">Use System Preference</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TypeCode</column>
+		<column>Local</column>
+		<column>Numerator</column>
+		<column>Language</column>
+		<column>ResCode</column>
+		<column>RevCode</column>
+	</key>
+	<key>
+		<id>TYP_LOC_NM</id>
+		<column>TypeCode</column>
+		<column>Local</column>
+		<column>Numerator</column>
+	</key>
+	<key>
+		<id>TYPE_LOC</id>
+		<column>TypeCode</column>
+		<column>Local</column>
+	</key>
+	<key>
+		<id>TYPE</id>
+		<column>TypeCode</column>
+	</key>
+</table>

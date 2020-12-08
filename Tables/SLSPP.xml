@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SLSPP</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>ParamID</id>
+		<source_code_name>ParamID</source_code_name>
+		<description sys="Y">Parameter ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompID</id>
+		<source_code_name>CompID</source_code_name>
+		<description sys="Y">Component ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ParamKey</id>
+		<source_code_name>ParamKey</source_code_name>
+		<description sys="Y">Parameter Key</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ParamValue</id>
+		<source_code_name>ParamValue</source_code_name>
+		<description sys="Y">Parameter Value</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ParamID</column>
+		<column>CompID</column>
+	</key>
+</table>

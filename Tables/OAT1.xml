@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OAT1</id>
+	<description>Blanket Agreement - Rows</description>
+	<string_list>1101393</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>AgrNo</id>
+		<source_code_name>AGREEMENT_NO</source_code_name>
+		<description>Agreement No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AgrLineNum</id>
+		<source_code_name>AGREEMENT_LINE_NUM</source_code_name>
+		<description>Agreement Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemName</id>
+		<source_code_name>ITEM_NAME</source_code_name>
+		<description>Item Description</description>
+		<field_type>173</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemGroup</id>
+		<source_code_name>ITEM_GROUP</source_code_name>
+		<description>Item Group</description>
+		<field_type>66</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PlanQty</id>
+		<source_code_name>PLANNED_QUANTITY</source_code_name>
+		<description>Planned Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnitPrice</id>
+		<source_code_name>UNIT_PRICE</source_code_name>
+		<description>Unit Price</description>
+		<field_type>32</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Currency</id>
+		<source_code_name>CURRENCY</source_code_name>
+		<description>Price Currency</description>
+		<field_type>33</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CumQty</id>
+		<source_code_name>CUMULATIVE_QUANTITY</source_code_name>
+		<description>Cumulative Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CumAmntFC</id>
+		<source_code_name>CUMULATIVE_AMOUNT_FC</source_code_name>
+		<description>Cumulative Amount in FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CumAmntLC</id>
+		<source_code_name>CUMULATIVE_AMOUNT_LC</source_code_name>
+		<description>Cumulative Amount in LC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FreeTxt</id>
+		<source_code_name>FREE_TEXT</source_code_name>
+		<description>Free Text</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>InvntryUom</id>
+		<source_code_name>INVENTORY_UOM</source_code_name>
+		<description>Inventory UoM</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>VisOrder</id>
+		<source_code_name>VIS_ORDER</source_code_name>
+		<description>Visual Order</description>
+		<field_type>261</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RetPortion</id>
+		<source_code_name>RETURN_PORTION</source_code_name>
+		<description>Goods Return Probability</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WrrtyEnd</id>
+		<source_code_name>WARRANTY_END</source_code_name>
+		<description>Date When Goods Expire</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineStatus</id>
+		<source_code_name>LINE_STATUS</source_code_name>
+		<description>Row Status</description>
+		<field_type>29</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>O</value>
+			<description>Open</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PlanAmtLC</id>
+		<source_code_name>PLANNED_AMOUNT_LC</source_code_name>
+		<description>Planned Amount (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PlanAmtFC</id>
+		<source_code_name>PLANNED_AMOUNT_FC</source_code_name>
+		<description>Planned Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Discount</id>
+		<source_code_name>DISCOUNT</source_code_name>
+		<description>Line Discount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>AgreementLink</id>
+		<target_direct>OOAT</target_direct>
+		<object_key_column>AgrNo</object_key_column>
+	</association>
+	<association>
+		<id>ItemLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>ItemGroupLink</id>
+		<target_direct>OITB</target_direct>
+		<object_key_column>ItemGroup</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AgrNo</column>
+		<column>AgrLineNum</column>
+	</key>
+</table>

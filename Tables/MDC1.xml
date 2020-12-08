@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>MDC1</id>
+	<description>Master Data Cleanup - Log</description>
+	<string_list>1101387</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineID</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Line ID</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT_TYPE</source_code_name>
+		<description>Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ObjectKey</id>
+		<source_code_name>OBJECT_KEY</source_code_name>
+		<description>Object Key</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>LastDate</id>
+		<source_code_name>LAST_TRANS_DATE</source_code_name>
+		<description>Last Transaction Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Action</id>
+		<source_code_name>ACTION</source_code_name>
+		<description>Action</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>R</value>
+			<description>Remove</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Deactivate</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ObjectCode</id>
+		<source_code_name>OBJECT_CODE</source_code_name>
+		<description>Object Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>ActFailed</id>
+		<source_code_name>ACTION_FAILED</source_code_name>
+		<description>Action Failed</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OrigAction</id>
+		<source_code_name>ORIG_ACTION</source_code_name>
+		<description>Original Action</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>R</value>
+			<description>Remove</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Deactivate</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SubObjType</id>
+		<source_code_name>SUB_OBJ_TYPE</source_code_name>
+		<description>Subobject Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SubObjKey</id>
+		<source_code_name>SUB_OBJ_KEY</source_code_name>
+		<description>Subobject Key</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>SubObjNam1</id>
+		<source_code_name>SUB_OBJ_NAME1</source_code_name>
+		<description>Subobject Name 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>SubObjNam2</id>
+		<source_code_name>SUB_OBJ_NAME2</source_code_name>
+		<description>Subobject Name 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>SubObjNam3</id>
+		<source_code_name>SUB_OBJ_NAME3</source_code_name>
+		<description>Subobject Name 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OMDC</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LineID</column>
+	</key>
+</table>

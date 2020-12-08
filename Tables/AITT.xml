@@ -1,0 +1,386 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AITT</id>
+	<description>Product Tree - History</description>
+	<string_list>1100706</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Parent Item</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TreeType</id>
+		<source_code_name>TREE_TYPE</source_code_name>
+		<description>BOM Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>A</value>
+			<description>Assembly</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Sales</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Production</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Template</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PriceList</id>
+		<source_code_name>PRICE_LIST</source_code_name>
+		<description>Price List</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Qauntity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>No. of Units</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>UseFthrWhs</id>
+		<source_code_name>USE_FATHER_WHS</source_code_name>
+		<description>Issue from Parent Warehouse</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Creation Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Date of Update</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Transfered</id>
+		<source_code_name>TRANSFERED</source_code_name>
+		<description>Postponed to Next Year</description>
+		<field_type>111</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description sys="Y">Data source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Doc. Generation Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Restore Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>SCNCounter</id>
+		<source_code_name>SCN_COUNTER</source_code_name>
+		<description sys="Y">SCN Counter</description>
+		<invisible />
+		<field_type>248</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DispCurr</id>
+		<source_code_name>DISP_CURR</source_code_name>
+		<description>Display Currency</description>
+		<field_type>33</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>ToWH</id>
+		<source_code_name>TO_WAREHOUSE</source_code_name>
+		<description>Whse for Finished Product</description>
+		<field_type>8</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Object</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>66</default_value>
+	</column>
+	<column>
+		<id>LogInstac</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance - History</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign2</id>
+		<source_code_name>USER2_SIGNATURE</source_code_name>
+		<description>Updating User</description>
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OcrCode</id>
+		<source_code_name>OCR_CODE</source_code_name>
+		<description>Distribution Rule</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>HideComp</id>
+		<source_code_name>HIDE_COMPONENTS</source_code_name>
+		<description>Hide Components in Printing</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OcrCode2</id>
+		<source_code_name>OCR_CODE2</source_code_name>
+		<description>Distribution Rule2</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode3</id>
+		<source_code_name>OCR_CODE3</source_code_name>
+		<description>Distribution Rule3</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode4</id>
+		<source_code_name>OCR_CODE4</source_code_name>
+		<description>Distribution Rule4</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode5</id>
+		<source_code_name>OCR_CODE5</source_code_name>
+		<description>Distribution Rule5</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UpdateTime</id>
+		<source_code_name>UPDATE_TIME</source_code_name>
+		<description sys="Y">Time of Update</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Project</id>
+		<source_code_name>PROJECT</source_code_name>
+		<description>Project Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>CodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>Code</object_key_column>
+	</association>
+	<association>
+		<id>PriceListLink</id>
+		<target_direct>OPLN</target_direct>
+		<object_key_column>PriceList</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>UserSign2Link</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign2</object_key_column>
+	</association>
+	<association>
+		<id>OcrCodeLink</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode2Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode2</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode3Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode3</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode4Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode4</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode5Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode5</object_key_column>
+	</association>
+	<association>
+		<id>ProjectLink</id>
+		<target_direct>OPRJ</target_direct>
+		<object_key_column>Project</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+		<column>LogInstac</column>
+	</key>
+</table>

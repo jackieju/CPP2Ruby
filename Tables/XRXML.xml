@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>XRXML</id>
+	<description sys="Y">XLR company XML</description>
+	<string_list>1100920</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>XmlId</id>
+		<source_code_name>XmlId</source_code_name>
+		<description>XmlId</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>40</edit_size>
+	</column>
+	<column>
+		<id>Xml</id>
+		<source_code_name>Xml</source_code_name>
+		<description>Xml</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<column>
+		<id>Global</id>
+		<source_code_name>Global</source_code_name>
+		<description>Global</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>XmlId</column>
+		<column>Global</column>
+	</key>
+</table>

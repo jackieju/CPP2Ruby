@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ABTC</id>
+	<description>Internal Bank Operation Codes -  Log</description>
+	<string_list>1100881</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>InOpCode</id>
+		<source_code_name>OPCODE_NAME</source_code_name>
+		<description>Internal Bank Operation Code Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PstTrans</id>
+		<source_code_name>POSTING_TRANSACTION</source_code_name>
+		<description>Posting Transaction</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Incoming Bank Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Outgoing Bank Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Incoming Bill of Exchange</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Outgoing Bill of Exchange</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Outgoing Checks</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Deposit</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BPorAct</id>
+		<source_code_name>BP_OR_ACT</source_code_name>
+		<description>BP or Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>C</default_value>
+		<valid_value>
+			<value>C</value>
+			<description sys="Y">BP</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description sys="Y">Account</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PstMethod</id>
+		<source_code_name>POST_METHOD</source_code_name>
+		<description>BP Posting Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Business Partner from/to Bank Account</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Bank Interim Account or Bank Account</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>External Reconciliation</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ActFee</id>
+		<source_code_name>ACCOUNT_FEE</source_code_name>
+		<description>Account Fee</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ProjFee</id>
+		<source_code_name>PROJECT_FEE</source_code_name>
+		<description>Project Fee</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrftCntFee</id>
+		<source_code_name>PROFIT_CENTER_FEE</source_code_name>
+		<description>Fee Distribution Rule</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Date of Update</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Descript</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Operation Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrftCntFe2</id>
+		<source_code_name>PROFIT_CENTER_FEE2</source_code_name>
+		<description>Fee Distribution Rule2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrftCntFe3</id>
+		<source_code_name>PROFIT_CENTER_FEE3</source_code_name>
+		<description>Fee Distribution Rule3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrftCntFe4</id>
+		<source_code_name>PROFIT_CENTER_FEE4</source_code_name>
+		<description>Fee Distribution Rule4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrftCntFe5</id>
+		<source_code_name>PROFIT_CENTER_FEE5</source_code_name>
+		<description>Fee Distribution Rule5</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign2</id>
+		<source_code_name>USER2_SIGNATURE</source_code_name>
+		<description>Updating User</description>
+		<invisible />
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>ActFeeLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>ActFee</object_key_column>
+	</association>
+	<association>
+		<id>ProjFeeLink</id>
+		<target_direct>OPRJ</target_direct>
+		<object_key_column>ProjFee</object_key_column>
+	</association>
+	<association>
+		<id>PrftCntFeeLink</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>PrftCntFee</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>PrftCntFe2Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>PrftCntFe2</object_key_column>
+	</association>
+	<association>
+		<id>PrftCntFe3Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>PrftCntFe3</object_key_column>
+	</association>
+	<association>
+		<id>PrftCntFe4Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>PrftCntFe4</object_key_column>
+	</association>
+	<association>
+		<id>PrftCntFe5Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>PrftCntFe5</object_key_column>
+	</association>
+	<association>
+		<id>UserSign2Link</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign2</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

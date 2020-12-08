@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>MLT1</id>
+	<description>Translations in user language</description>
+	<string_list>1100731</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>TranEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Key From Header Table</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LangCode</id>
+		<source_code_name>LANG_CODE</source_code_name>
+		<description>Language Code of User Language</description>
+		<field_type>275</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Trans</id>
+		<source_code_name>TRANSLATION</source_code_name>
+		<description>Translation Content</description>
+		<field_type>280</field_type>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TranEntry</column>
+		<column>LangCode</column>
+	</key>
+</table>

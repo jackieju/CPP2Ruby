@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DCBX</id>
+	<description sys="Y">Check Box Specifics</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<virtual />
+	<column>
+		<id>Caption</id>
+		<source_code_name>CAPTION</source_code_name>
+		<description sys="Y">Caption</description>
+		<field_type>301</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DataBound</id>
+		<source_code_name>DATA_BOUND</source_code_name>
+		<description sys="Y">DataBound</description>
+		<field_type>64</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">False</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">True</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TableName</id>
+		<source_code_name>TABLE</source_code_name>
+		<description sys="Y">TableName</description>
+		<field_type>51</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Alias</id>
+		<source_code_name>ALIAS</source_code_name>
+		<description sys="Y">Alias</description>
+		<field_type>52</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Caption</column>
+	</key>
+</table>

@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OSRA</id>
+	<description>Scheduled Report Actions</description>
+	<string_list>1101327</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>ActionCode</id>
+		<source_code_name>ACTION_CODE</source_code_name>
+		<description>Action Code</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Title</id>
+		<source_code_name>TITLE</source_code_name>
+		<description>Title</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Notes</id>
+		<source_code_name>NOTES</source_code_name>
+		<description>Remark</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserKey</id>
+		<source_code_name>USER_KEY</source_code_name>
+		<description>User</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Password</id>
+		<source_code_name>PASSWORD</source_code_name>
+		<description>Password</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RunDate</id>
+		<source_code_name>RUN_DATE</source_code_name>
+		<description>Next Run Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RunTime</id>
+		<source_code_name>RUN_TIME</source_code_name>
+		<description>Next Run Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RunCounter</id>
+		<source_code_name>RUN_COUNTER</source_code_name>
+		<description>Next Run Counter</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ReportType</id>
+		<source_code_name>REPORT_TYPE</source_code_name>
+		<description>Report Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Invalid</description>
+		</valid_value>
+		<valid_value>
+			<value>115</value>
+			<description>User Query</description>
+		</valid_value>
+		<valid_value>
+			<value>857</value>
+			<description>Sales/Purchase Analysis</description>
+		</valid_value>
+		<valid_value>
+			<value>6000</value>
+			<description>Inventory Valuation</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Active</id>
+		<source_code_name>ACTIVE</source_code_name>
+		<description>Schedule Active Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>StartDate</id>
+		<source_code_name>START_DATE</source_code_name>
+		<description>Recurrence Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EndType</id>
+		<source_code_name>END_TYPE</source_code_name>
+		<description>Recurrence End Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No End</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>By Counter</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>By Date</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>EndDate</id>
+		<source_code_name>END_DATE</source_code_name>
+		<description>Recurrence End Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EndCounter</id>
+		<source_code_name>END_COUNTER</source_code_name>
+		<description>Recurrence End Counter</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>MissBehav</id>
+		<source_code_name>MISS_BEHAVIOR</source_code_name>
+		<description>Behavior of Missed Run</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>S</value>
+			<description>Skip</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Run as Soon as Possible</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RcrType</id>
+		<source_code_name>RECURRENCE_TYPE</source_code_name>
+		<description>Recurrence Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>None</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Daily</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Weekly</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Monthly</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Annually</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RcrIntervl</id>
+		<source_code_name>RECURRENCE_INTERVAL</source_code_name>
+		<description>Recurrence Interval</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>RcrSubType</id>
+		<source_code_name>RECURRENCE_SUBTYPE</source_code_name>
+		<description>Recurrence Subtype</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RcrData2</id>
+		<source_code_name>RECURRENCE_DATA2</source_code_name>
+		<description>Recurrence: Additional Data 2</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RcrData1</id>
+		<source_code_name>RECURRENCE_DATA1</source_code_name>
+		<description>Recurrence: Additional Data 1</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ErrAct</id>
+		<source_code_name>ERROR_ACTION</source_code_name>
+		<description>Action on Error</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Deactivate Immediately</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Continue</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Deactivate on Second Failure</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Deactivate on Third Failure</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Deactivate on Fourth Failure</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TransfXslt</id>
+		<source_code_name>TRANSFORM_XSLT</source_code_name>
+		<description>XSLT Transformation</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TimeOut</id>
+		<source_code_name>TIMEOUT</source_code_name>
+		<description>Rpt Creation Time-Out in Min.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>5</default_value>
+	</column>
+	<column>
+		<id>MsgTitle</id>
+		<source_code_name>MESSAGE_TITLE</source_code_name>
+		<description>Message Title</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MsgBody</id>
+		<source_code_name>MESSAGE_BODY</source_code_name>
+		<description>Message Body</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LicSrvr</id>
+		<source_code_name>LIC_SERVER</source_code_name>
+		<description>License Server</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Language</id>
+		<source_code_name>LANGUAGE</source_code_name>
+		<description>Language</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>3</default_value>
+	</column>
+	<column>
+		<id>LstRunStat</id>
+		<source_code_name>LAST_RUN_STATUS</source_code_name>
+		<description>Last Run Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Not yet executed</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Success</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>SAP Business One client stopped due to time-out</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>The next run date was not updated</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Unable to distribute result</description>
+		</valid_value>
+		<valid_value>
+			<value>X</value>
+			<description>Unspecified failure</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Successfully finished</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ErrorCount</id>
+		<source_code_name>ERROR_COUNT</source_code_name>
+		<description>Number of Failed Runs</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>PrntLayout</id>
+		<source_code_name>PRINT_LAYOUT</source_code_name>
+		<description>Print Layout</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value />
+			<description>Do Not Print</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DistLstCod</id>
+		<source_code_name>DISTRIB_LIST_CODE</source_code_name>
+		<description>Distribution List Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Finished</id>
+		<source_code_name>FINISHED</source_code_name>
+		<description>Schedule Finished Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<association>
+		<id>UserKeyLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserKey</object_key_column>
+	</association>
+	<association>
+		<id>PrintLayout</id>
+		<target_direct>RDOC</target_direct>
+		<object_key_column>PrntLayout</object_key_column>
+	</association>
+	<association>
+		<id>DistLstCodLink</id>
+		<target_direct>OMLS</target_direct>
+		<object_key_column>DistLstCod</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ActionCode</column>
+	</key>
+</table>

@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RCT2V</id>
+	<description>Payable documents</description>
+	<string_list>1102901</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>PmnEntry</id>
+		<source_code_name>PMN_ENTRY</source_code_name>
+		<description>Payment Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>DOC_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJ_TYPE</source_code_name>
+		<description>Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NUM</source_code_name>
+		<description>Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DOC_DATE</source_code_name>
+		<description>Posting Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DocDueDate</id>
+		<source_code_name>DOC_DUE_DATE</source_code_name>
+		<description>Due Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OvrdueDays</id>
+		<source_code_name>OVERDUE_DAYS</source_code_name>
+		<description>Overdue Days</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Total</id>
+		<source_code_name>TOTAL</source_code_name>
+		<description>Total Installment</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BalanceDue</id>
+		<source_code_name>BALANCE_DUE</source_code_name>
+		<description>Balance Due</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidSum</id>
+		<source_code_name>PAID_SUM</source_code_name>
+		<description>Total Paid Sum</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Selected</id>
+		<source_code_name>SELECTED</source_code_name>
+		<description>Selected</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InstId</id>
+		<source_code_name>INSTALLMENT_ID</source_code_name>
+		<description>Installment ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>DocLine</id>
+		<source_code_name>INVOICE_LINE</source_code_name>
+		<description>Row Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Installmnt</id>
+		<source_code_name>INSTALLMENTS</source_code_name>
+		<description>No. of Installments</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>ObjType</column>
+	</key>
+</table>

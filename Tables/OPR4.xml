@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OPR4</id>
+	<description>Sales Opportunity - Interests</description>
+	<string_list>1100562</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>SalesOpportunities</info_category>
+	<column>
+		<id>OprId</id>
+		<source_code_name>OPR_ID</source_code_name>
+		<description>Sequence No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Line</id>
+		<source_code_name>LINE</source_code_name>
+		<description sys="Y">Row No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IntId</id>
+		<source_code_name>INT_ID</source_code_name>
+		<description>Interest ID</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Prmry</id>
+		<source_code_name>PRMRY</source_code_name>
+		<description>Primary Interest</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>IntIdLink</id>
+		<target_direct>OOIN</target_direct>
+		<object_key_column>IntId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>OprId</column>
+		<column>Line</column>
+	</key>
+</table>

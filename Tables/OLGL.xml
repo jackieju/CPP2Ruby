@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OLGL</id>
+	<description>Legal Data</description>
+	<string_list>1101666</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SrcObjType</id>
+		<source_code_name>SOURCE_OBJ_TYPE</source_code_name>
+		<description>Source Object Type</description>
+		<field_type>2100</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>A/R Credit Memo</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SrcObjAbs</id>
+		<source_code_name>SOURCE_OBJ_ABS_ENTRY</source_code_name>
+		<description>Source Object Internal ID</description>
+		<field_type>2101</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>540000073</default_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>PrintDate</id>
+		<source_code_name>PRINT_DATE</source_code_name>
+		<description>Date of Printing</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PrintTime</id>
+		<source_code_name>PRINT_TIME</source_code_name>
+		<description>Time of Printing</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>PrBrand</id>
+		<source_code_name>PRINTER_BRAND</source_code_name>
+		<description>Printer Brand</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrType</id>
+		<source_code_name>PRINTER_TYPE</source_code_name>
+		<description>Printer Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrModel</id>
+		<source_code_name>PRINTER_MODEL</source_code_name>
+		<description>Printer Model</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrFwVer</id>
+		<source_code_name>PRINTER_FW_VERSION</source_code_name>
+		<description>Printer Firmware Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PrDllVer</id>
+		<source_code_name>PRINTER_DLL_VERSION</source_code_name>
+		<description>Printer DLL Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FisSeries</id>
+		<source_code_name>FISCAL_SERIES</source_code_name>
+		<description>Fiscal Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FisNumber</id>
+		<source_code_name>FISCAL_NUMBER</source_code_name>
+		<description>Fiscal Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocNumber</id>
+		<source_code_name>DOCUMENT_NUMBER</source_code_name>
+		<description>Document Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FisUser</id>
+		<source_code_name>FISCAL_USER</source_code_name>
+		<description>Fiscal User ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>SrcObjTypeLink</id>
+		<target_indirect_object>SrcObjType</target_indirect_object>
+		<object_key_column>SrcObjAbs</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>FisUserLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>FisUser</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>SRC_DOC</id>
+		<unique />
+		<column>SrcObjType</column>
+		<column>SrcObjAbs</column>
+	</key>
+</table>

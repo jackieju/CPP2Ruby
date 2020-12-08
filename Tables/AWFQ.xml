@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AWFQ</id>
+	<description>SWFQ History Table</description>
+	<string_list>1101826</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<column>
+		<id>SequenceID</id>
+		<source_code_name>SEQUENCE_ID</source_code_name>
+		<description>Sequence ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SourceDB</id>
+		<source_code_name>SOURCE_DB</source_code_name>
+		<description>Source DB</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Timestamp</id>
+		<source_code_name>TIME_STAMP</source_code_name>
+		<description>Time Stamp</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT_TYPE</source_code_name>
+		<description>Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransType</id>
+		<source_code_name>TRANSACTION_TYPE</source_code_name>
+		<description>Transaction Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>A</value>
+			<description>Add</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Cancel</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Delete</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FieldsInKe</id>
+		<source_code_name>FIELDS_IN_KEY</source_code_name>
+		<description>Number of Fields in Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FieldNames</id>
+		<source_code_name>FIELD_NAMES</source_code_name>
+		<description>Key Field Names</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FieldValue</id>
+		<source_code_name>FIELD_VALUES</source_code_name>
+		<description>Key Field Values</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserID</id>
+		<source_code_name>USER_ID</source_code_name>
+		<description>UserID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaskID</id>
+		<source_code_name>TASK_ID</source_code_name>
+		<description>Task ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TrigEvntID</id>
+		<source_code_name>TRIGGER_EVENT_ID</source_code_name>
+		<description>Trigger Event ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInst</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsSuccess</id>
+		<source_code_name>IS_SUCCESS</source_code_name>
+		<description>Is msg  handled successfully</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ResultMemo</id>
+		<source_code_name>RESULT_MEMO</source_code_name>
+		<description>Memo of the Result</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SequenceID</column>
+		<column>LogInst</column>
+	</key>
+</table>

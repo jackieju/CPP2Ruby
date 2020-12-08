@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>VTR2</id>
+	<description>Doc. Type Filter</description>
+	<string_list>1100721</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjectCode</id>
+		<source_code_name>OBJECT_CODE</source_code_name>
+		<description>Object Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoices</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>A/R Credit Memos</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoices</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>A/P Credit Memos</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description>Incoming Payments</description>
+		</valid_value>
+		<valid_value>
+			<value>30</value>
+			<description>Journal Entries</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description>Outgoing Payments</description>
+		</valid_value>
+		<valid_value>
+			<value>57</value>
+			<description>Checks for Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description>Inventory Transfers</description>
+		</valid_value>
+		<valid_value>
+			<value>203</value>
+			<description>A/R Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>A/P Down Payment</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FromDocNo</id>
+		<source_code_name>FROM_DOC_NO</source_code_name>
+		<description>Doc. Number From</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToDocNo</id>
+		<source_code_name>TO_DOC_NO</source_code_name>
+		<description>To Doc Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Selected</id>
+		<source_code_name>SELECTED</source_code_name>
+		<description>Is Selected Object.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>ObjectCode</column>
+	</key>
+</table>

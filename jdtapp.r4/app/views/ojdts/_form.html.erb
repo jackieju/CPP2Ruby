@@ -1,0 +1,17 @@
+<%= form_for(@ojdt) do |f| %>
+  <% if @ojdt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ojdt.errors.count, "error") %> prohibited this ojdt from being saved:</h2>
+
+      <ul>
+      <% @ojdt.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

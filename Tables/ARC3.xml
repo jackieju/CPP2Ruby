@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ARC3</id>
+	<description>Credit Vouchers History</description>
+	<string_list>1100474</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_KEY</source_code_name>
+		<description>Document No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineID</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Row No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CreditCard</id>
+		<source_code_name>CRED_CARD_CODE</source_code_name>
+		<description>Credit Card</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>CreditAcct</id>
+		<source_code_name>CREDIT_ACCT</source_code_name>
+		<description>Credit Amount</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>CrCardNum</id>
+		<source_code_name>CRED_CARD_NUM</source_code_name>
+		<description>Credit Card No.</description>
+		<field_type>286</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CardValid</id>
+		<source_code_name>CARD_DATE</source_code_name>
+		<description>Credit Card Valid Until</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>VoucherNum</id>
+		<source_code_name>VOUCHER_NUM</source_code_name>
+		<description>Credit Voucher No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>OwnerIdNum</id>
+		<source_code_name>OWNER_ID_NUM</source_code_name>
+		<description>ID Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>OwnerPhone</id>
+		<source_code_name>OWNER_PHONE</source_code_name>
+		<description>Telephone</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>Dial</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CrTypeCode</id>
+		<source_code_name>CREDIT_PAY_CODE</source_code_name>
+		<description>Payment Method Code</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>NumOfPmnts</id>
+		<source_code_name>NUM_OF_PAYMENT</source_code_name>
+		<description>No. of Payments</description>
+		<field_type>163</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>FirstDue</id>
+		<source_code_name>FIRST_DUE</source_code_name>
+		<description>1st Payment Date</description>
+		<field_type>165</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FirstSum</id>
+		<source_code_name>FIRST_SUM</source_code_name>
+		<description>First Partial Payment</description>
+		<field_type>162</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AddPmntSum</id>
+		<source_code_name>ADDITIONAL_SUM</source_code_name>
+		<description>Each Additional Payment</description>
+		<field_type>164</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CreditSum</id>
+		<source_code_name>CREDIT_SUM</source_code_name>
+		<description>Credit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CreditCur</id>
+		<source_code_name>CREDIT_CURRENCY</source_code_name>
+		<description>Credit Voucher Currency</description>
+		<field_type>33</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>CreditRate</id>
+		<source_code_name>CREDIT_RATE</source_code_name>
+		<description>Credit Voucher Rate</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ConfNum</id>
+		<source_code_name>CONF_NUM</source_code_name>
+		<description>Confirmation No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CreditType</id>
+		<source_code_name>CREDIT_TYPE</source_code_name>
+		<description>Credit Transaction Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>U</value>
+			<description>Telephone Transaction</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Regular</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Internet Transaction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CredPmnts</id>
+		<source_code_name>CRED_NUM_OF_PMNT</source_code_name>
+		<description>No. of Credit Payments</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>PlCrdStat</id>
+		<source_code_name>PLCRD_STAT</source_code_name>
+		<description>Pelecard Debit Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>MagnetStr</id>
+		<source_code_name>MAGNET_STR</source_code_name>
+		<description>Magnetic Stripe Content</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>40</edit_size>
+	</column>
+	<column>
+		<id>SpiltCred</id>
+		<source_code_name>SPLIT_CREDIT</source_code_name>
+		<description>Split Credit Voucher Payment</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ConsolNum</id>
+		<source_code_name>CONSOL_NUM</source_code_name>
+		<description>Vendor Credit Code</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>DocNumLink</id>
+		<target_direct>OVPM</target_direct>
+		<object_key_column>DocNum</object_key_column>
+	</association>
+	<association>
+		<id>CreditCardLink</id>
+		<target_direct>OCRC</target_direct>
+		<object_key_column>CreditCard</object_key_column>
+	</association>
+	<association>
+		<id>CreditAcctLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>CreditAcct</object_key_column>
+	</association>
+	<association>
+		<id>CrTypeCodeLink</id>
+		<target_direct>OCRP</target_direct>
+		<object_key_column>CrTypeCode</object_key_column>
+	</association>
+	<association>
+		<id>CreditCurLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>CreditCur</object_key_column>
+	</association>
+	<association>
+		<id>ConsolNumLink</id>
+		<target_direct>OPVL</target_direct>
+		<object_key_column>ConsolNum</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocNum</column>
+		<column>LineID</column>
+		<column>ObjType</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

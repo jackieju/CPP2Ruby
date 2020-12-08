@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>PWZ4</id>
+	<description>Payment Wizard - Rows 4</description>
+	<string_list>1100531</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>IdEntry</id>
+		<source_code_name>ABS_ENT</source_code_name>
+		<description>ID Entry</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymNum</id>
+		<source_code_name>PYM_NUM</source_code_name>
+		<description>Payment Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>Vendor's Card code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CardName</id>
+		<source_code_name>CARD_NAME</source_code_name>
+		<description>Vendor's Card Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymMeth</id>
+		<source_code_name>PYM_METH</source_code_name>
+		<description>Payment Method</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>GLAccCode</id>
+		<source_code_name>GL_ACC_CODE</source_code_name>
+		<description>G/L Account Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymAmount</id>
+		<source_code_name>PYM_AMNT</source_code_name>
+		<description>Sum of payment amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymAmntFC</id>
+		<source_code_name>PYM_AMNT_FC</source_code_name>
+		<description>Total Payment Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJ_TYPE</source_code_name>
+		<description>Object Type</description>
+		<field_type>2100</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<valid_value>
+			<value>24</value>
+			<description sys="Y">Incoming Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description sys="Y">Outgoing Payment</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RctId</id>
+		<source_code_name>RCT_ID</source_code_name>
+		<description>Document ID</description>
+		<field_type>2101</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocCurr</id>
+		<source_code_name>DOC_CURRENCY</source_code_name>
+		<description>Document Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>BankAccou</id>
+		<source_code_name>BANK_ACCOUNT</source_code_name>
+		<description>Acct No.</description>
+		<field_type>157</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>BnkDflt</id>
+		<source_code_name>BANK_DFLT</source_code_name>
+		<description>Default Bank</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BankCountr</id>
+		<source_code_name>BANK_COUNTRY</source_code_name>
+		<description>Bank Country</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BankActKey</id>
+		<source_code_name>BANK_ACT_KEY</source_code_name>
+		<description>Bank Account Internal ID</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineType</id>
+		<source_code_name>LINE_TYPE</source_code_name>
+		<description>Line Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>G</default_value>
+	</column>
+	<column>
+		<id>ManualNum</id>
+		<source_code_name>MANUAL_ENTRY_NUM</source_code_name>
+		<description>Manual Entry No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>TBankCode</id>
+		<source_code_name>TARGET_DEFAULT_BANK</source_code_name>
+		<description>Target Default Bank</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>TDflAccoun</id>
+		<source_code_name>TARGET_BANK_ACCOUNT</source_code_name>
+		<description>Target Default Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>TBankCount</id>
+		<source_code_name>TARGET_BANK_COUNTRY</source_code_name>
+		<description>Target Bank Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TargetBran</id>
+		<source_code_name>TARGET_BRANCH</source_code_name>
+		<description>Target Bank Branch</description>
+		<field_type>156</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>BcgPmnt</id>
+		<source_code_name>BCG_PMNT_LC</source_code_name>
+		<description>Payment Amount (BCG)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BcgPmntFc</id>
+		<source_code_name>BCG_PMNT_FC</source_code_name>
+		<description>Payment Amount FC (BCG)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<association>
+		<id>IdEntryLink</id>
+		<target_direct>OPWZ</target_direct>
+		<object_key_column>IdEntry</object_key_column>
+	</association>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>PymMethLink</id>
+		<target_direct>OPYM</target_direct>
+		<object_key_column>PymMeth</object_key_column>
+	</association>
+	<association>
+		<id>GLAccCodeLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>GLAccCode</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_indirect_object>ObjType</target_indirect_object>
+		<object_key_column>RctId</object_key_column>
+	</association>
+	<association>
+		<id>BankAccouLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>BankAccou</object_key_column>
+	</association>
+	<association>
+		<id>BankCountrLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>BankCountr</object_key_column>
+	</association>
+	<association>
+		<id>BankActKeyLink</id>
+		<target_direct>DSC1</target_direct>
+		<object_key_column>BankActKey</object_key_column>
+	</association>
+	<association>
+		<id>TBankCountLink</id>
+		<target_direct>OCRY</target_direct>
+		<object_key_column>TBankCount</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>IdEntry</column>
+		<column>RctId</column>
+		<column>ObjType</column>
+	</key>
+</table>

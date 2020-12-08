@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OCHP</id>
+	<description>India Chapter ID</description>
+	<string_list>1100959</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Key</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Chapter</id>
+		<source_code_name>CHAPTER</source_code_name>
+		<description>Chapter</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Heading</id>
+		<source_code_name>HEADING</source_code_name>
+		<description>Tariff Heading</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubHeading</id>
+		<source_code_name>SUB_HEADING</source_code_name>
+		<description>Tariff Subheading</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Dscription</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Description for Tariff Heading</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>120</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ChapterID</id>
+		<source_code_name>CHAPTER_ID</source_code_name>
+		<description>Chapter ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>CHAPTERID</id>
+		<unique />
+		<column>ChapterID</column>
+	</key>
+	<key>
+		<id>CHAPTER</id>
+		<unique />
+		<column>Chapter</column>
+		<column>Heading</column>
+		<column>SubHeading</column>
+	</key>
+</table>

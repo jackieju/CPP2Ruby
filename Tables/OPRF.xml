@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OPRF</id>
+	<description>Preferences</description>
+	<string_list>1100478</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>FormNumber</id>
+		<source_code_name>FORM_NUMBER</source_code_name>
+		<description sys="Y">User Form No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref1</id>
+		<source_code_name>EX_PREF_1</source_code_name>
+		<description sys="Y">Ex preferences 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref2</id>
+		<source_code_name>EX_PREF_2</source_code_name>
+		<description sys="Y">Ex preferences 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref3</id>
+		<source_code_name>EX_PREF_3</source_code_name>
+		<description sys="Y">Ex preferences 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref4</id>
+		<source_code_name>EX_PREF_4</source_code_name>
+		<description sys="Y">Ex preferences 4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref5</id>
+		<source_code_name>EX_PREF_5</source_code_name>
+		<description sys="Y">Ex preferences 5</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref6</id>
+		<source_code_name>EX_PREF_6</source_code_name>
+		<description sys="Y">Ex preferences 6</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref7</id>
+		<source_code_name>EX_PREF_7</source_code_name>
+		<description sys="Y">Ex preferences 7</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref8</id>
+		<source_code_name>EX_PREF_8</source_code_name>
+		<description sys="Y">Ex preferences 8</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref9</id>
+		<source_code_name>EX_PREF_9</source_code_name>
+		<description sys="Y">Ex preferences 9</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref10</id>
+		<source_code_name>EX_PREF_10</source_code_name>
+		<description sys="Y">Ex preferences 10</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref11</id>
+		<source_code_name>EX_PREF_11</source_code_name>
+		<description sys="Y">Ex preferences 11</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref12</id>
+		<source_code_name>EX_PREF_12</source_code_name>
+		<description sys="Y">Ex preferences 12</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref13</id>
+		<source_code_name>EX_PREF_13</source_code_name>
+		<description sys="Y">Ex preferences 13</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref14</id>
+		<source_code_name>EX_PREF_14</source_code_name>
+		<description sys="Y">Ex preferences 14</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExPref15</id>
+		<source_code_name>EX_PREF_15</source_code_name>
+		<description sys="Y">Ex preferences 15</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description sys="Y">User Signature</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>FormNumber</column>
+		<column>UserSign</column>
+	</key>
+</table>

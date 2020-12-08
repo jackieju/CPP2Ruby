@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>LOGN</id>
+	<description>System Login</description>
+	<string_list>1100046</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>A123</id>
+		<source_code_name>USER_CODE</source_code_name>
+		<description>User Code</description>
+		<invisible />
+		<field_type>301</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BB61</id>
+		<source_code_name>PASSWORD</source_code_name>
+		<description>Password</description>
+		<invisible />
+		<field_type>300</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>D1TF</id>
+		<source_code_name>SERVER</source_code_name>
+		<description>Last Server</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>127</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>127</edit_size>
+	</column>
+	<column>
+		<id>XM4R</id>
+		<source_code_name>DATABASE</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>127</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>127</edit_size>
+	</column>
+	<column>
+		<id>D699</id>
+		<source_code_name>SQL_USER</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>127</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>127</edit_size>
+	</column>
+	<column>
+		<id>NFRR</id>
+		<source_code_name>SQL_PASSWORD</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>127</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>127</edit_size>
+	</column>
+	<column>
+		<id>P1P6</id>
+		<source_code_name>DATE</source_code_name>
+		<description>Last Date</description>
+		<invisible />
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LLZX</id>
+		<source_code_name>TIME</source_code_name>
+		<description>Last Time</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>A123</column>
+		<column>BB61</column>
+	</key>
+</table>

@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OWEX</id>
+	<description>Workflow Engine Execution Entity</description>
+	<string_list>1101746</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>Id</id>
+		<source_code_name>ID</source_code_name>
+		<description>ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsActive</id>
+		<source_code_name>IS_ACTIVE</source_code_name>
+		<description>Is Active</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsConCurr</id>
+		<source_code_name>IS_CONCURRENT</source_code_name>
+		<description>Is Concurrent</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsScope</id>
+		<source_code_name>IS_SCOPE</source_code_name>
+		<description>Is Scope</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ProcInstId</id>
+		<source_code_name>PROCESS_INST_ID</source_code_name>
+		<description>Process Instance ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ParentId</id>
+		<source_code_name>PARENT_ID</source_code_name>
+		<description>Parent ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ProcDefId</id>
+		<source_code_name>PROCESS_DEF_ID</source_code_name>
+		<description>Process Definition ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ActId</id>
+		<source_code_name>ACTIVITY_ID</source_code_name>
+		<description>Activity ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DataContex</id>
+		<source_code_name>DATA_CONTEXT</source_code_name>
+		<description>Data Context</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>B1WFInstId</id>
+		<source_code_name>B1_WORKFLOW_INST_ID</source_code_name>
+		<description>Workflow Instance ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LastUpdate</id>
+		<source_code_name>LAST_UPDATE</source_code_name>
+		<description>Last update date and time</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Id</column>
+	</key>
+</table>

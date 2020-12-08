@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OUSG</id>
+	<description>Usage of Nota Fiscal</description>
+	<string_list>1100825</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>ID</id>
+		<source_code_name>USAGE_ID</source_code_name>
+		<description>Usage ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Usage</id>
+		<source_code_name>USAGE</source_code_name>
+		<description>Usage</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Locked</id>
+		<source_code_name>LOCKED</source_code_name>
+		<description>Locked</description>
+		<invisible />
+		<field_type>212</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>OBServer</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Auto Incr.</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Data Doc.</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PostTax</id>
+		<source_code_name>POSTTAXINPRICE</source_code_name>
+		<description>Post Tax in Price to Stock</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TaxOnly</id>
+		<source_code_name>TAX_ONLY</source_code_name>
+		<description>Tax Only</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CFOPIIS</id>
+		<source_code_name>CFOP_IN_IN_STATE</source_code_name>
+		<description>CFOP Incoming In-State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CFOPIOS</id>
+		<source_code_name>CFOP_IN_OUT_STATE</source_code_name>
+		<description>CFOP Incoming Out-State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CFOPII</id>
+		<source_code_name>CFOP_IN_IMPORT</source_code_name>
+		<description>CFOP Incoming Import</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CFOPOIS</id>
+		<source_code_name>CFOP_OUT_IN_STATE</source_code_name>
+		<description>CFOP Outgoing In-State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CFOPOOS</id>
+		<source_code_name>CFOP_OUT_OUT_STATE</source_code_name>
+		<description>CFOP Outgoing Out-State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CFOPOE</id>
+		<source_code_name>CFOP_OUT_EXPORT</source_code_name>
+		<description>CFOP Outgoing Export</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Descr</id>
+		<source_code_name>USAGE_DESCRIPTION</source_code_name>
+		<description>Usage Description</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>CFOPIISLink</id>
+		<target_direct>OCFP</target_direct>
+		<object_key_column>CFOPIIS</object_key_column>
+	</association>
+	<association>
+		<id>CFOPIOSLink</id>
+		<target_direct>OCFP</target_direct>
+		<object_key_column>CFOPIOS</object_key_column>
+	</association>
+	<association>
+		<id>CFOPIILink</id>
+		<target_direct>OCFP</target_direct>
+		<object_key_column>CFOPII</object_key_column>
+	</association>
+	<association>
+		<id>CFOPOISLink</id>
+		<target_direct>OCFP</target_direct>
+		<object_key_column>CFOPOIS</object_key_column>
+	</association>
+	<association>
+		<id>CFOPOOSLink</id>
+		<target_direct>OCFP</target_direct>
+		<object_key_column>CFOPOOS</object_key_column>
+	</association>
+	<association>
+		<id>CFOPOELink</id>
+		<target_direct>OCFP</target_direct>
+		<object_key_column>CFOPOE</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ID</column>
+	</key>
+</table>

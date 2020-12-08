@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OCPR</id>
+	<description>Contact Persons</description>
+	<string_list>1100077</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>CntctCode</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Contact Person Name</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Position</id>
+		<source_code_name>POSITION</source_code_name>
+		<description>Position</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>90</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>90</edit_size>
+	</column>
+	<column>
+		<id>Address</id>
+		<source_code_name>ADDRESS</source_code_name>
+		<description>Address</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>Map</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Tel1</id>
+		<source_code_name>TEL1</source_code_name>
+		<description>Telephone 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>Dial</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Tel2</id>
+		<source_code_name>TEL2</source_code_name>
+		<description>Telephone 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>Dial</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Cellolar</id>
+		<source_code_name>MOBILE_TEL</source_code_name>
+		<description>Mobile Phone</description>
+		<field_type>246</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>Dial</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Fax</id>
+		<source_code_name>FAX</source_code_name>
+		<description>Fax</description>
+		<field_type>251</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>E_MailL</id>
+		<source_code_name>E_MAIL</source_code_name>
+		<description>E-Mail</description>
+		<field_type>245</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Pager</id>
+		<source_code_name>BEEPER</source_code_name>
+		<description>Pager</description>
+		<field_type>278</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>Notes1</id>
+		<source_code_name>NOTES1</source_code_name>
+		<description>Remark 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Notes2</id>
+		<source_code_name>NOTES2</source_code_name>
+		<description>Remark 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Doc. Generation Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Restore Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Password</id>
+		<source_code_name>PASSWORD</source_code_name>
+		<description>Password</description>
+		<field_type>277</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<invisible />
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>11</default_value>
+	</column>
+	<column>
+		<id>BirthPlace</id>
+		<source_code_name>PLACE_OF_BIRTH</source_code_name>
+		<description>Place of Birth</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>BirthDate</id>
+		<source_code_name>DATE_OF_BIRTH</source_code_name>
+		<description>Date of Birth</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Gender</id>
+		<source_code_name>GENDER</source_code_name>
+		<description>Gender</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>E</default_value>
+		<valid_value>
+			<value>M</value>
+			<description>Male</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Female</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Profession</id>
+		<source_code_name>PROFESSION</source_code_name>
+		<description>Profession</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>updateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Date of Update</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>updateTime</id>
+		<source_code_name>UPDATE_TIME</source_code_name>
+		<description>Update Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Title</id>
+		<source_code_name>TITLE</source_code_name>
+		<description>Title</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>BirthCity</id>
+		<source_code_name>CITY_OF_BIRTH</source_code_name>
+		<description>City of Birth</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Active</id>
+		<source_code_name>ACTIVE</source_code_name>
+		<description>Active</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FirstName</id>
+		<source_code_name>FIRST_NAME</source_code_name>
+		<description>First Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>MiddleName</id>
+		<source_code_name>MIDDLE_NAME</source_code_name>
+		<description>Middle Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>LastName</id>
+		<source_code_name>LAST_NAME</source_code_name>
+		<description>Last Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>OwnerCode</id>
+		<source_code_name>OWNER_CODE</source_code_name>
+		<description>Document Owner</description>
+		<field_type>269</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MainAdd</id>
+		<source_code_name>MAIN_ADDRESS</source_code_name>
+		<description>Main Address</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>WeiBo</id>
+		<source_code_name>WEI_BO</source_code_name>
+		<description>Wei Bo</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>CntctType</id>
+		<source_code_name>CONTACT_TYPE</source_code_name>
+		<description>Contact Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>C</default_value>
+		<valid_value>
+			<value>C</value>
+			<description>Customer Contact</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Vendor Contact</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<association>
+		<id>OwnerCodeLink</id>
+		<target_direct>OHEM</target_direct>
+		<object_key_column>OwnerCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CntctCode</column>
+	</key>
+	<key>
+		<id>CARD</id>
+		<unique />
+		<column>CardCode</column>
+		<column>Name</column>
+	</key>
+</table>

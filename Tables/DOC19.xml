@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DOC19</id>
+	<description>Mktg Docs - Bin Allocation Data</description>
+	<string_list>1101767</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<virtual />
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BinAllocSe</id>
+		<source_code_name>BIN_ALLOC_SEQ</source_code_name>
+		<description>Bin Allocation Sequence</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Line Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubLineNum</id>
+		<source_code_name>SUB_LINE_NUM</source_code_name>
+		<description>Sub Line Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>SnBType</id>
+		<source_code_name>SNB_TYPE</source_code_name>
+		<description>SnB Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>SnBMDAbs</id>
+		<source_code_name>SNB_MD_ABS</source_code_name>
+		<description>SnB Master Data Internal No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BinAbs</id>
+		<source_code_name>BIN_ABS</source_code_name>
+		<description>Bin Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WhsCode</id>
+		<source_code_name>WHS_CODE</source_code_name>
+		<description>Warehouse Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>13</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>AllowNeg</id>
+		<source_code_name>ALLOW_NEG</source_code_name>
+		<description>Allow Enter Negative [Y/N]</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BinActTyp</id>
+		<source_code_name>BIN_ACTION_TYPE</source_code_name>
+		<description>Bin Action Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>1</value>
+			<description>Transaction In</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Transaction Out</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>SnB Complete</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Bin First Then SnB</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>OINV</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>BinAbsLink</id>
+		<target_direct>OBIN</target_direct>
+		<object_key_column>BinAbs</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>WhsCodeLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhsCode</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>BinAllocSe</column>
+	</key>
+</table>

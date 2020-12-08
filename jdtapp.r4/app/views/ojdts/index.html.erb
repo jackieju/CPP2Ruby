@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ojdts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ojdts.each do |ojdt| %>
+      <tr>
+        <td><%= link_to 'Show', ojdt %></td>
+        <td><%= link_to 'Edit', edit_ojdt_path(ojdt) %></td>
+        <td><%= link_to 'Destroy', ojdt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ojdt', new_ojdt_path %>

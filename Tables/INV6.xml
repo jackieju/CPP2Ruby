@@ -1,0 +1,664 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>INV6</id>
+	<description>A/R Invoice - Installments</description>
+	<string_list>1100449</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>InstlmntID</id>
+		<source_code_name>INSTALLMENT_ID</source_code_name>
+		<description>Installment ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>13</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>DueDate</id>
+		<source_code_name>DUE_DATE</source_code_name>
+		<description>Due Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Installment Status</description>
+		<field_type>14</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>O</value>
+			<description>Open</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DunnLevel</id>
+		<source_code_name>DUNNING_LEVEL</source_code_name>
+		<description>Dunning Level</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>InsTotal</id>
+		<source_code_name>TOTAL_SUM</source_code_name>
+		<description>Total Installment</description>
+		<field_type>9</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>InsTotalFC</id>
+		<source_code_name>TOTAL_FRGN</source_code_name>
+		<description>Total Installment (FC)</description>
+		<field_type>118</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>InsTotalSy</id>
+		<source_code_name>TOTAL_SYS</source_code_name>
+		<description>Total Installment (SC)</description>
+		<field_type>239</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidToDate</id>
+		<source_code_name>APPLIED_TO_DATE</source_code_name>
+		<description>Paid to Date</description>
+		<field_type>58</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidFC</id>
+		<source_code_name>APPLIED_FRGN</source_code_name>
+		<description>Paid (FC)</description>
+		<field_type>187</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidSys</id>
+		<source_code_name>APPLIED_SYS</source_code_name>
+		<description>Paid (SC)</description>
+		<field_type>238</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSum</id>
+		<source_code_name>VAT_SUM</source_code_name>
+		<description>Total Tax</description>
+		<field_type>7</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSumFC</id>
+		<source_code_name>VAT_FRGN</source_code_name>
+		<description>Tax Amount (FC)</description>
+		<field_type>185</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatSumSy</id>
+		<source_code_name>VAT_SYS</source_code_name>
+		<description>Tax Amount (SC)</description>
+		<field_type>236</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatPaid</id>
+		<source_code_name>VAT_APPLIED</source_code_name>
+		<description>Tax Paid to Date</description>
+		<field_type>58</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatPaidFC</id>
+		<source_code_name>VAT_APPLIED_FRGN</source_code_name>
+		<description>Tax Paid (FC)</description>
+		<field_type>187</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VatPaidSys</id>
+		<source_code_name>VAT_APPLIED_SYS</source_code_name>
+		<description>Tax Paid (SC)</description>
+		<field_type>238</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TotalExpns</id>
+		<source_code_name>TOTAL_EXPENSES</source_code_name>
+		<description>Total Freight Charges</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TotalExpFC</id>
+		<source_code_name>TOTAL_EXPENSES_FC</source_code_name>
+		<description>Total Freight Charges (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TotalExpSC</id>
+		<source_code_name>TOTAL_EXPENSES_SC</source_code_name>
+		<description>Total Freight Charges (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpAppl</id>
+		<source_code_name>EXPENSES_APPLIED</source_code_name>
+		<description>Applied Freight Charges</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpApplFC</id>
+		<source_code_name>EXPENSES_APPLIED_FC</source_code_name>
+		<description>Applied Freight Charges (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpApplSC</id>
+		<source_code_name>EXPENSES_APPLIED_SC</source_code_name>
+		<description>Applied Freight Charges (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WTSum</id>
+		<source_code_name>WT_SUM</source_code_name>
+		<description>WTax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WTSumFC</id>
+		<source_code_name>WT_SUM_FC</source_code_name>
+		<description>WTax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WTSumSC</id>
+		<source_code_name>WT_SUM_SC</source_code_name>
+		<description>WTax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WTApplied</id>
+		<source_code_name>WT_APPLIED</source_code_name>
+		<description>Applied WTax</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WTAppliedF</id>
+		<source_code_name>WT_APPLIED_FC</source_code_name>
+		<description>Applied WTax (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WTAppliedS</id>
+		<source_code_name>WT_APPLIED_SC</source_code_name>
+		<description>Applied WTax (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TotalBlck</id>
+		<source_code_name>BLOCKED_TOTAL</source_code_name>
+		<description>Total Reserved Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TotalBlckF</id>
+		<source_code_name>BLOCKED_TOTAL_FC</source_code_name>
+		<description>Total Reserved Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TotalBlckS</id>
+		<source_code_name>BLOCKED_TOTAL_SC</source_code_name>
+		<description>Total Reserved Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VATBlck</id>
+		<source_code_name>BLOCKED_VAT</source_code_name>
+		<description>Reserved Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VATBlckFC</id>
+		<source_code_name>BLOCKED_VAT_FC</source_code_name>
+		<description>Reserved Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>VATBlckSC</id>
+		<source_code_name>BLOCKED_VAT_SC</source_code_name>
+		<description>Reserved Tax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpnsBlck</id>
+		<source_code_name>BLOCKED_EXPENSES</source_code_name>
+		<description>Reserved Freight Charges</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpnsBlckF</id>
+		<source_code_name>BLOCKED_EXPENSES_FC</source_code_name>
+		<description>Reserved Freight Charges (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpnsBlckS</id>
+		<source_code_name>BLOCKED_EXPENSES_SC</source_code_name>
+		<description>Reserved Freight Charges (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WTBlocked</id>
+		<source_code_name>BLOCKED_WT</source_code_name>
+		<description>Reserved WTax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WTBlockedF</id>
+		<source_code_name>BLOCKED_WT_FC</source_code_name>
+		<description>Reserved WTax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>WTBlockedS</id>
+		<source_code_name>BLOCKED_WT_SC</source_code_name>
+		<description>Reserved WTax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>InstPrcnt</id>
+		<source_code_name>INST_PERCENT</source_code_name>
+		<description>Installment %</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DunWizBlck</id>
+		<source_code_name>DUNNING_WIZ_BLOCKED</source_code_name>
+		<description sys="Y">Wizard dunning block</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DunDate</id>
+		<source_code_name>LAST_DUNNING_DATE</source_code_name>
+		<description>Last Dunning Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Paid</id>
+		<source_code_name>PAID_TO_DATE</source_code_name>
+		<description>Paid</description>
+		<field_type>58</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidFrgn</id>
+		<source_code_name>PAID_TO_DATE_FC</source_code_name>
+		<description>Paid (FC)</description>
+		<field_type>58</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PaidSc</id>
+		<source_code_name>PAID_TO_DATE_SC</source_code_name>
+		<description>Paid (SC)</description>
+		<field_type>58</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>reserved</id>
+		<source_code_name>RESERVED</source_code_name>
+		<description>Reserved</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TaxOnExp</id>
+		<source_code_name>TAX_ON_EXPENSES</source_code_name>
+		<description>Tax on Freight</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxOnExpFc</id>
+		<source_code_name>TAX_ON_EXPENSES_FC</source_code_name>
+		<description>Tax on Expenses (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxOnExpSc</id>
+		<source_code_name>TAX_ON_EXPENSES_SC</source_code_name>
+		<description>Tax on Expenses (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxOnExpAp</id>
+		<source_code_name>TAX_ON_EXP_APPLIED</source_code_name>
+		<description>Applied Tax on Expenses</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxOnExApF</id>
+		<source_code_name>TAX_ON_EXP_APLIED_FC</source_code_name>
+		<description>Applied Tax on Expenses (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxOnExApS</id>
+		<source_code_name>TAX_ON_EXP_APLIED_SC</source_code_name>
+		<description>Applied Tax on Expenses (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxOnExBlo</id>
+		<source_code_name>BLOCKED_TAX_ON_EXP</source_code_name>
+		<description>Reserved Tax on Freight Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxOnExBlF</id>
+		<source_code_name>BLOCK_TAX_ON_EXP_FC</source_code_name>
+		<description>Reserved Tax on Freight Amt FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxOnExBlS</id>
+		<source_code_name>BLOCK_TAX_ON_EXP_SC</source_code_name>
+		<description>Reserved Tax on Freight Amt SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LvlUpdDate</id>
+		<source_code_name>LEVEL_UPDATE_DATE</source_code_name>
+		<description>Dunning Level Update Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Ordered</id>
+		<source_code_name>ORDERED</source_code_name>
+		<description>Payment Ordered</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PaidVat</id>
+		<source_code_name>VAT_PAID</source_code_name>
+		<description>Paid Vat</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PaidVatFC</id>
+		<source_code_name>VAT_PAID_FC</source_code_name>
+		<description>Paid Vat FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PaidVatSC</id>
+		<source_code_name>VAT_PAID_SC</source_code_name>
+		<description>Paid Vat SC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>OINV</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>InstlmntID</column>
+	</key>
+</table>

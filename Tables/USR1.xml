@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>USR1</id>
+	<description>Short Cut</description>
+	<string_list>1100211</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>STATUS</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>USERLINK</id>
+		<source_code_name>USERLINK</source_code_name>
+		<description>User Link</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>MODIF01</id>
+		<source_code_name>MODIF01</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF02</id>
+		<source_code_name>MODIF02</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF03</id>
+		<source_code_name>MODIF03</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF04</id>
+		<source_code_name>MODIF04</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF05</id>
+		<source_code_name>MODIF05</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF06</id>
+		<source_code_name>MODIF06</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF07</id>
+		<source_code_name>MODIF07</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF08</id>
+		<source_code_name>MODIF08</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF09</id>
+		<source_code_name>MODIF09</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF10</id>
+		<source_code_name>MODIF10</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF11</id>
+		<source_code_name>MODIF11</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF12</id>
+		<source_code_name>MODIF12</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>MODIF13</id>
+		<source_code_name>MODIF13</source_code_name>
+		<description sys="Y">Modifiers</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>ATOMID01</id>
+		<source_code_name>ATOMID01</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID02</id>
+		<source_code_name>ATOMID02</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID03</id>
+		<source_code_name>ATOMID03</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID04</id>
+		<source_code_name>ATOMID04</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID05</id>
+		<source_code_name>ATOMID05</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID06</id>
+		<source_code_name>ATOMID06</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID07</id>
+		<source_code_name>ATOMID07</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID08</id>
+		<source_code_name>ATOMID08</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID09</id>
+		<source_code_name>ATOMID09</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID10</id>
+		<source_code_name>ATOMID10</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID11</id>
+		<source_code_name>ATOMID11</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID12</id>
+		<source_code_name>ATOMID12</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ATOMID13</id>
+		<source_code_name>ATOMID13</source_code_name>
+		<description>Autom. ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID01</id>
+		<source_code_name>STRID01</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID02</id>
+		<source_code_name>STRID02</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID03</id>
+		<source_code_name>STRID03</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID04</id>
+		<source_code_name>STRID04</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID05</id>
+		<source_code_name>STRID05</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID06</id>
+		<source_code_name>STRID06</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID07</id>
+		<source_code_name>STRID07</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID08</id>
+		<source_code_name>STRID08</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID09</id>
+		<source_code_name>STRID09</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID10</id>
+		<source_code_name>STRID10</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID11</id>
+		<source_code_name>STRID11</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID12</id>
+		<source_code_name>STRID12</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>STRID13</id>
+		<source_code_name>STRID13</source_code_name>
+		<description>String ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RESERVED</id>
+		<source_code_name>RESERVED</source_code_name>
+		<description sys="Y">RESERVED</description>
+		<invisible />
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<column>
+		<id>FILLER</id>
+		<source_code_name>FILLER</source_code_name>
+		<description sys="Y">Filler</description>
+		<invisible />
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<association>
+		<id>UserIDLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>USERLINK</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>USERLINK</column>
+	</key>
+</table>

@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CTBR</id>
+	<description>Toolbars</description>
+	<string_list>1100017</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ToolbarId</id>
+		<source_code_name>TOOLBAR_ID</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Docking</id>
+		<source_code_name>DOCKING</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>LeftID</id>
+		<source_code_name>LEFT</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>TopID</id>
+		<source_code_name>TOP</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>RightID</id>
+		<source_code_name>RIGHT</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>BottomID</id>
+		<source_code_name>BOTTOM</source_code_name>
+		<description sys="Y" />
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>VisibleID</id>
+		<source_code_name>VISIBLE</source_code_name>
+		<description sys="Y" />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>UserSign</column>
+		<column>ToolbarId</column>
+	</key>
+</table>

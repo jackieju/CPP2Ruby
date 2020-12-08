@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>FRC1</id>
+	<description>Extend Cat. f. Financial Rep.</description>
+	<string_list>1100031</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>CatId</id>
+		<source_code_name>CAT_ID</source_code_name>
+		<description>Numerator</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>TemplateId</id>
+		<source_code_name>TEMPLATE_ID</source_code_name>
+		<description>Template</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AcctCode</id>
+		<source_code_name>ACCOUNT_CODE</source_code_name>
+		<description>Account Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>VisOrder</id>
+		<source_code_name>VIS_ORDER</source_code_name>
+		<description>Display Order</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CFWId</id>
+		<source_code_name>CFW_Id</source_code_name>
+		<description>Cash Flow Line Item ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CalcMethod</id>
+		<source_code_name>CACULATION_METHOD</source_code_name>
+		<description>Calculation Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+		<valid_value>
+			<value>BOP</value>
+			<description>Beginning of Period</description>
+		</valid_value>
+		<valid_value>
+			<value>EOP</value>
+			<description>End of Period</description>
+		</valid_value>
+		<valid_value>
+			<value>CPID</value>
+			<description>Current Period In Debit</description>
+		</valid_value>
+		<valid_value>
+			<value>CPIC</value>
+			<description>Current Period In Credit</description>
+		</valid_value>
+		<valid_value>
+			<value>CPIB</value>
+			<description>Current Period In Both</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SlpCode</id>
+		<source_code_name>SLP_CODE</source_code_name>
+		<description>Sales Unit Code</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PrcCode</id>
+		<source_code_name>PRC_CODE</source_code_name>
+		<description>Cost Center Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CalMethod2</id>
+		<source_code_name>CALCULATION_METHOD2</source_code_name>
+		<description>Calculation Method 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>CalMethod3</id>
+		<source_code_name>CALCULATION_METHOD3</source_code_name>
+		<description>Calculation Method 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>Linked</id>
+		<source_code_name>LINKED</source_code_name>
+		<description>Linked</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Debit</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Credit</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Sign</id>
+		<source_code_name>SIGN</source_code_name>
+		<description>Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>E</default_value>
+		<valid_value>
+			<value>E</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Positive</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Negative</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>TemplateIdLink</id>
+		<target_direct>OFRT</target_direct>
+		<object_key_column>TemplateId</object_key_column>
+	</association>
+	<association>
+		<id>AcctCodeLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>AcctCode</object_key_column>
+	</association>
+	<association>
+		<id>CFWIdLink</id>
+		<target_direct>OCFW</target_direct>
+		<object_key_column>CFWId</object_key_column>
+	</association>
+	<association>
+		<id>SlpCodeLink</id>
+		<target_direct>OSLP</target_direct>
+		<object_key_column>SlpCode</object_key_column>
+	</association>
+	<association>
+		<id>PrcCodeLink</id>
+		<target_direct>OPRC</target_direct>
+		<object_key_column>PrcCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TemplateId</column>
+		<column>CatId</column>
+		<column>AcctCode</column>
+		<column>VisOrder</column>
+	</key>
+	<key>
+		<id>ACCNT_CODE</id>
+		<column>AcctCode</column>
+	</key>
+</table>

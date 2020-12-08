@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>FLT1</id>
+	<description>856 Report - Selection Criteria</description>
+	<string_list>1100326</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>FormNo</id>
+		<source_code_name>FORM_NO</source_code_name>
+		<description>Form No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExNumData1</id>
+		<source_code_name>EX_NUM_DATA1</source_code_name>
+		<description>Extra Numeric Data 1</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExNumData2</id>
+		<source_code_name>EX_NUM_DATA2</source_code_name>
+		<description>Extra Numeric Data 2</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExNumData3</id>
+		<source_code_name>EX_NUM_DATA3</source_code_name>
+		<description>Extra Numeric Data 3</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExStrData1</id>
+		<source_code_name>EX_STRING_DATA1</source_code_name>
+		<description>Extra String Data 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExStrData2</id>
+		<source_code_name>EX_STRING_DATA2</source_code_name>
+		<description>Extra String Data 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExStrData3</id>
+		<source_code_name>EX_STRING_DATA3</source_code_name>
+		<description>Extra String Data 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FilterName</id>
+		<source_code_name>FILTER_NAME</source_code_name>
+		<description>Filter Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+		<default_value>_</default_value>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>FormNo</column>
+		<column>UserSign</column>
+		<column>Code</column>
+		<column>FilterName</column>
+	</key>
+</table>

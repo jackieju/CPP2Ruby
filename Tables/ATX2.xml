@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ATX2</id>
+	<description>Tax Invoice Operation Codes</description>
+	<string_list>1101736</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>BaseEntry</id>
+		<source_code_name>BASE_ABS_ENTRY</source_code_name>
+		<description>Base Document Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OpCode</id>
+		<source_code_name>OPERATION_CODE</source_code_name>
+		<description>Operation Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>BaseEntryLink</id>
+		<target_direct>OTSI</target_direct>
+		<object_key_column>BaseEntry</object_key_column>
+	</association>
+	<association>
+		<id>LineNumLink</id>
+		<target_direct>TSI1</target_direct>
+		<object_key_column>LineNum</object_key_column>
+	</association>
+	<association>
+		<id>OpCodeLink</id>
+		<target_direct>OBSI</target_direct>
+		<object_key_column>OpCode</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>BaseEntry</column>
+		<column>LineNum</column>
+		<column>OpCode</column>
+		<column>LogInstanc</column>
+		<column>ObjType</column>
+	</key>
+</table>

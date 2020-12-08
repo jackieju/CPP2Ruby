@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OCDC</id>
+	<description>Cash Discount</description>
+	<string_list>1100271</string_list>
+	<view_type>AdministrationPlus</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<field_type>11</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TableDesc</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>ByDate</id>
+		<source_code_name>BY_DATE</source_code_name>
+		<description>By Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Freight</id>
+		<source_code_name>FREIGHT</source_code_name>
+		<description>Freight</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Tax</id>
+		<source_code_name>TAX</source_code_name>
+		<description>Tax</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>VatCrctn</id>
+		<source_code_name>VAT_CRCTN</source_code_name>
+		<description>VAT Correction</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BaseDate</id>
+		<source_code_name>BASE_DATE</source_code_name>
+		<description>Base Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description>Posting Date</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>System Date</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Document Date</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closing Date</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+	</key>
+</table>

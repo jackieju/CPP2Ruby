@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SBDR</id>
+	<description sys="Y">Serial Batches Document Row</description>
+	<string_list>1101059</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<virtual />
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description sys="Y">Item Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemDesc</id>
+		<source_code_name>ITEM_DESCRIPTION</source_code_name>
+		<description sys="Y">Item description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WhseCode</id>
+		<source_code_name>WHS_CODE</source_code_name>
+		<description sys="Y">Whse Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WhseName</id>
+		<source_code_name>WHS_NAME</source_code_name>
+		<description sys="Y">Whse Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocQuan</id>
+		<source_code_name>DOC_QUANTITY</source_code_name>
+		<description sys="Y">Doc Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenQty</id>
+		<source_code_name>OPEN_QUANTITY</source_code_name>
+		<description sys="Y">Open Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TotalCreat</id>
+		<source_code_name>TOTAL_CREATED</source_code_name>
+		<description sys="Y">Total Created</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocRef</id>
+		<source_code_name>DOC_REF</source_code_name>
+		<description sys="Y">Document Reference</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>DOC_ENTRY</source_code_name>
+		<description sys="Y">Doc Abs Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NUM</source_code_name>
+		<description sys="Y">Doc Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description sys="Y">line num</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BaseDocTyp</id>
+		<source_code_name>BASE_DOC_TYPE</source_code_name>
+		<description sys="Y">Base Documnet Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BaseDocEnt</id>
+		<source_code_name>BASE_DOC_ENTRY</source_code_name>
+		<description sys="Y">Base Document Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BaseLine</id>
+		<source_code_name>BASE_LINE_NUM</source_code_name>
+		<description>Base Line Num</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Direction</id>
+		<source_code_name>DIRECTION</source_code_name>
+		<description sys="Y">Direction</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>In</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Out</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Allocation</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InvUoM</id>
+		<source_code_name>INV_UOM</source_code_name>
+		<description sys="Y">Inventory UoM</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TotalObj</id>
+		<source_code_name>TOTAL_OBJECTS_DEFINE</source_code_name>
+		<description sys="Y">Total Objects Defined</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>indexInDoc</id>
+		<source_code_name>INDEX_IN_DOC_ROW</source_code_name>
+		<description sys="Y">Index In SnBDocRows</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TotalSel</id>
+		<source_code_name>TOTAL_SELECTED</source_code_name>
+		<description>Total Selected</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TotalBatch</id>
+		<source_code_name>TOTAL_BATCHED</source_code_name>
+		<description>Total Batches</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjectId</id>
+		<source_code_name>OBJECT_ID</source_code_name>
+		<description>Object ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>ItemDescLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemDesc</object_key_column>
+	</association>
+	<association>
+		<id>WhseCodeLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhseCode</object_key_column>
+	</association>
+	<association>
+		<id>WhseNameLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhseName</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ItemCode</column>
+		<column>ObjectId</column>
+		<column>DocEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

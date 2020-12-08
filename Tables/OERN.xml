@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OERN</id>
+	<description>Excise Register Numbering</description>
+	<string_list>1100964</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>NumTypeID</id>
+		<source_code_name>NUMBER_TYPE_ID</source_code_name>
+		<description>ID for numbering type</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NumTypeNam</id>
+		<source_code_name>NUMBER_TYPE_NAME</source_code_name>
+		<description>Name for numbering type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>FirstNum</id>
+		<source_code_name>FIRST_NUM</source_code_name>
+		<description>First number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>NextNum</id>
+		<source_code_name>NEXT_NUM</source_code_name>
+		<description>Next Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>LastNum</id>
+		<source_code_name>LAST_NUM</source_code_name>
+		<description>Last Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGN</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ResetDate</id>
+		<source_code_name>RESET_DATE</source_code_name>
+		<description>Date of last reset</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>NumTypeID</column>
+	</key>
+</table>

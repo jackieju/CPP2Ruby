@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>FAC1</id>
+	<description>Fixed Asset Parameter Change - Rows</description>
+	<string_list>1101841</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUMBER</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DprArea</id>
+		<source_code_name>DEPRECIATION_AREA</source_code_name>
+		<description>Depreciation Area</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransType</id>
+		<source_code_name>TRANSACTION_TYPE</source_code_name>
+		<description>Transaction Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>510</value>
+			<description>Change of Depreciation Type</description>
+		</valid_value>
+		<valid_value>
+			<value>520</value>
+			<description>Change of Useful Life</description>
+		</valid_value>
+		<valid_value>
+			<value>530</value>
+			<description>Change of Depreciation Start Date</description>
+		</valid_value>
+		<valid_value>
+			<value>540</value>
+			<description>Change of Salvage Value</description>
+		</valid_value>
+		<valid_value>
+			<value>560</value>
+			<description>Change of Period Control</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OldDprType</id>
+		<source_code_name>OLD_DPR_TYPE</source_code_name>
+		<description>Old Depreciation Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NewDprType</id>
+		<source_code_name>NEW_DPR_TYPE</source_code_name>
+		<description>New Depreciation Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OldUsfLife</id>
+		<source_code_name>OLD_USEFUL_LIFE</source_code_name>
+		<description>Old Useful Life</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NewUsfLife</id>
+		<source_code_name>NEW_USEFUL_LIFE</source_code_name>
+		<description>New Useful Life</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OldDprDate</id>
+		<source_code_name>OLD_DPR_START_DATE</source_code_name>
+		<description>Old Depreciation Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NewDprDate</id>
+		<source_code_name>NEW_DPR_START_DATE</source_code_name>
+		<description>New Depreciation Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OldSalVal</id>
+		<source_code_name>OLD_SALVAGE_VALUE</source_code_name>
+		<description>Old Salvage Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NewSalVal</id>
+		<source_code_name>NEW_SALVAGE_VALUE</source_code_name>
+		<description>New Salvage Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OFAC</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>DprAreaLink</id>
+		<target_direct>ODPA</target_direct>
+		<object_key_column>DprArea</object_key_column>
+	</association>
+	<association>
+		<id>OldDprTypeLink</id>
+		<target_direct>ODTP</target_direct>
+		<object_key_column>OldDprType</object_key_column>
+	</association>
+	<association>
+		<id>NewDprTypeLink</id>
+		<target_direct>ODTP</target_direct>
+		<object_key_column>NewDprType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LineNum</column>
+	</key>
+</table>

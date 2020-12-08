@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ODAB</id>
+	<description>Dashboard</description>
+	<string_list>1101374</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Key</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PackEntry</id>
+		<source_code_name>PACKAGE_ENTRY</source_code_name>
+		<description>Package Entry</description>
+		<invisible />
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DashbdCode</id>
+		<source_code_name>DASHBOARD_CODE</source_code_name>
+		<description>Dashboard Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DashbdName</id>
+		<source_code_name>DASHBOARD_NAME</source_code_name>
+		<description>Dashboard Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DashbdPath</id>
+		<source_code_name>DASHBOARD_PATH</source_code_name>
+		<description>Dashboard Path</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Note</id>
+		<source_code_name>NOTE</source_code_name>
+		<description>Dashboard Description</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Dashboard Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>A</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Inactive</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Active</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>JobFlag</id>
+		<source_code_name>JOB_FLAG</source_code_name>
+		<description>Use Schedule Job Flag</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>JobType</id>
+		<source_code_name>JOB_TYPE</source_code_name>
+		<description>Schedule Job Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>R</default_value>
+		<valid_value>
+			<value>R</value>
+			<description>Real Time</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Periodic</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>JobSetting</id>
+		<source_code_name>JOB_SETTING</source_code_name>
+		<description>Schedule Job Time Setting</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RenewDate</id>
+		<source_code_name>RENEW_DATE</source_code_name>
+		<description>Latest Renew Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RenewTime</id>
+		<source_code_name>RENEW_TIME</source_code_name>
+		<description>Latest Renew Time</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ProcName</id>
+		<source_code_name>PROC_NAME</source_code_name>
+		<description>Procedure Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>JobName</id>
+		<source_code_name>JOB_NAME</source_code_name>
+		<description>Schedule Job Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>PackEntryLink</id>
+		<target_direct>OWPK</target_direct>
+		<object_key_column>PackEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>CODE</id>
+		<unique />
+		<column>PackEntry</column>
+		<column>DashbdCode</column>
+	</key>
+</table>

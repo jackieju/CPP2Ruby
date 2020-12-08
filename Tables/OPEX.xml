@@ -1,0 +1,1174 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OPEX</id>
+	<description>Payment Results Table</description>
+	<string_list>1100363</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PayRunDate</id>
+		<source_code_name>PAYMENT_RUN_DATE</source_code_name>
+		<description>Date of Payment Run</description>
+		<field_type>2000</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VendorNum</id>
+		<source_code_name>VENDOR_NUMBER</source_code_name>
+		<description>Vendor Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CustNum</id>
+		<source_code_name>CUSTOMER_NUMBER</source_code_name>
+		<description>Customer Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PaymMethod</id>
+		<source_code_name>PAYMENT_METHOD</source_code_name>
+		<description>Payment Means</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PaymDocNum</id>
+		<source_code_name>PAYM_DOC_NUM</source_code_name>
+		<description>Payment Document No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FiscalYear</id>
+		<source_code_name>FISCAL_YEAR</source_code_name>
+		<description>Fiscal Year</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Country</id>
+		<source_code_name>COUNTRY</source_code_name>
+		<description>Company Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompTaxNum</id>
+		<source_code_name>COMPANY_TAX_NUM</source_code_name>
+		<description>Company Tax Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayeeName</id>
+		<source_code_name>PAYEE_NAME</source_code_name>
+		<description>Payee Name</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayeeZip</id>
+		<source_code_name>PAYEE_POSTAL_CODE</source_code_name>
+		<description>Payee Zip Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayeeCity</id>
+		<source_code_name>PAYEE_CITY</source_code_name>
+		<description>Payee City</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayeeStree</id>
+		<source_code_name>PAYEE_STREET</source_code_name>
+		<description>Payee Street</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayCountry</id>
+		<source_code_name>PAYEE_COUNTRY</source_code_name>
+		<description>Payee Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayeeState</id>
+		<source_code_name>PAYEE_STATE</source_code_name>
+		<description>Payee State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkName</id>
+		<source_code_name>PAYEE_BANK_NAME</source_code_name>
+		<description>Payee Bank Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBankZip</id>
+		<source_code_name>PAYEE_BANK_ZIP</source_code_name>
+		<description>Payee Bank Zip Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkCity</id>
+		<source_code_name>PAYEE_BANK_CITY</source_code_name>
+		<description>Payee Bank City</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkStr</id>
+		<source_code_name>PAYEE_BANK_STREET</source_code_name>
+		<description>Payee Bank Street</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkCntr</id>
+		<source_code_name>PAYEE_BANK_COUNTRY</source_code_name>
+		<description>Payee Bank Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBankAct</id>
+		<source_code_name>PAYEE_BANK_ACCOUNT</source_code_name>
+		<description>Payee Bank Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkCode</id>
+		<source_code_name>PAYEE_BANK_CODE</source_code_name>
+		<description>Payee Bank Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkCtrl</id>
+		<source_code_name>PAYEE_BANK_CTRL_KEY</source_code_name>
+		<description>Payee Bank Control Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkSwif</id>
+		<source_code_name>PAYEE_BANK_SWIFT_NUM</source_code_name>
+		<description>Payee Bank BIC/SWIFT Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkIBAN</id>
+		<source_code_name>PAYEE_BANK_IBAN</source_code_name>
+		<description>Payee Bank IBAN</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymPostDat</id>
+		<source_code_name>PYM_POSTING_DATE</source_code_name>
+		<description>Payment Posting Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymBnkAcct</id>
+		<source_code_name>PYM_BANK_ACCOUNT</source_code_name>
+		<description>Payment Bank Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymBnkCntr</id>
+		<source_code_name>PYM_BANK_COUNTRY</source_code_name>
+		<description>Payment Bank Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymBnkCode</id>
+		<source_code_name>PYM_BANK_CODE</source_code_name>
+		<description>Payment Bank Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymBnkIBAN</id>
+		<source_code_name>PYM_BANK_IBAN</source_code_name>
+		<description>Payment Bank IBAN</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymGLAcct</id>
+		<source_code_name>PYM_GL_ACCOUNT</source_code_name>
+		<description>Payment G/L Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Currency</id>
+		<source_code_name>CURRENCY</source_code_name>
+		<description>Main Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymDocAmnt</id>
+		<source_code_name>PYM_DOC_AMOUNT</source_code_name>
+		<description>Payment Document Amount (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymDocCurr</id>
+		<source_code_name>PYM_DOC_CURRENCY</source_code_name>
+		<description>Payment Document Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymDcAmtFC</id>
+		<source_code_name>PYM_DOC_AMOUNT_FRGN</source_code_name>
+		<description>Payment Document Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymCshDsct</id>
+		<source_code_name>PYM_DOC_CASH_DISCOUN</source_code_name>
+		<description>Cash Discount in Payment Doc</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PyCshDscFC</id>
+		<source_code_name>PYM_DOC_CSH_DSCNT_FC</source_code_name>
+		<description>Cash Discount in Payment Doc</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymNumOfPa</id>
+		<source_code_name>PYM_DOC_NUM_OF_PAID</source_code_name>
+		<description>Number of Items Paid</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymDocRate</id>
+		<source_code_name>PYM_DOC_RATE</source_code_name>
+		<description>Payment Document Exchange Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>O</value>
+			<description>Open</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PaymWizCod</id>
+		<source_code_name>PAYMENT_WIZ_CODE</source_code_name>
+		<description>Payment Wizard Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>InstrucKey</id>
+		<source_code_name>INSTRUCTION_KEY</source_code_name>
+		<description>Instruction Key</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CllctAutho</id>
+		<source_code_name>COLLECTION_AUTHORIZ</source_code_name>
+		<description>Collection Authorization</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkPost</id>
+		<source_code_name>PAYEE_POST_OFFICE</source_code_name>
+		<description>Payee Bank Post Office</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkChNo</id>
+		<source_code_name>PAYEE_BANK_NEXT_CHO</source_code_name>
+		<description>Payee Bank Next Check No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkHsBk</id>
+		<source_code_name>PAYEE_BANK_HOUSE_BNK</source_code_name>
+		<description>Payee Bank House Bank</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PayBnkBlck</id>
+		<source_code_name>PAYEE_BANK_BLOCK</source_code_name>
+		<description>Payee Bank Block</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkCnty</id>
+		<source_code_name>PAYEE_BANK_COUNTY</source_code_name>
+		<description>Payee Bank County</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkStat</id>
+		<source_code_name>PAYEE_BANK_STATE</source_code_name>
+		<description>Payee Bank State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkBISR</id>
+		<source_code_name>PAYEE_BANK_BISR</source_code_name>
+		<description>Payee Bank BISR</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PayBnkUsr1</id>
+		<source_code_name>PAYEE_BANK_USER_NUM1</source_code_name>
+		<description>Payee Bank User No. 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkUsr2</id>
+		<source_code_name>PAYEE_BANK_USER_NUM2</source_code_name>
+		<description>Payee Bank User No. 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkUsr3</id>
+		<source_code_name>PAYEE_BANK_USER_NUM3</source_code_name>
+		<description>Payee Bank User No. 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkUsr4</id>
+		<source_code_name>PAYEE_BANK_USER_NUM4</source_code_name>
+		<description>Payee Bank User No. 4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PaymFormat</id>
+		<source_code_name>PAYMENT_FORMAT</source_code_name>
+		<description>Payment Format</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompName</id>
+		<source_code_name>COMPANY_NAME</source_code_name>
+		<description>Company Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompAddres</id>
+		<source_code_name>COMPANY_ADDRESS</source_code_name>
+		<description>Company Address</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompISRBil</id>
+		<source_code_name>COMP_ISR_BILLER_ID</source_code_name>
+		<description>Company ISR Biller ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VendISRBil</id>
+		<source_code_name>VEND_ISR_BILLER_ID</source_code_name>
+		<description>Vendor ISR Biller ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AddIdNum</id>
+		<source_code_name>COMP_ADD_ID_NUM</source_code_name>
+		<description>Additional ID No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompOrgNum</id>
+		<source_code_name>COMP_ORG_NUM</source_code_name>
+		<description>Company Organization No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkBrnc</id>
+		<source_code_name>PAYEE_BANK_BRANCH</source_code_name>
+		<description>Payee Bank Branch</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymBnkBrnc</id>
+		<source_code_name>PYM_BANK_BRANCH</source_code_name>
+		<description>Payment Bank Branch</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserName</id>
+		<source_code_name>USER_NAME</source_code_name>
+		<description>User Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>155</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserEmail</id>
+		<source_code_name>USER_E_MAIL</source_code_name>
+		<description>User E-Mail</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserPortNo</id>
+		<source_code_name>USER_PORTABLE</source_code_name>
+		<description>User Mobile Phone No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserFax</id>
+		<source_code_name>USER_FAX</source_code_name>
+		<description>User Fax No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Department</id>
+		<source_code_name>USER_DEPARTMENT</source_code_name>
+		<description>User Department</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DebitMemo</id>
+		<source_code_name>DEBIT_MEMO</source_code_name>
+		<description>Debit Memo</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>EuInTrnsfr</id>
+		<source_code_name>EU_INTERNAL_TRANSFER</source_code_name>
+		<description>EU Internal Transfer</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FilePath</id>
+		<source_code_name>FILE_PATH</source_code_name>
+		<description>File Path</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrderParty</id>
+		<source_code_name>ORDERING_PARTY</source_code_name>
+		<description>Ordering Party</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymCtrlKey</id>
+		<source_code_name>PYM_BNK_CONTROL_KEY</source_code_name>
+		<description>Payment Bank Control Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayeeTaxNo</id>
+		<source_code_name>PAYEE_TAX_NUM</source_code_name>
+		<description>Payee Tax Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymKeyCode</id>
+		<source_code_name>PAYMENT_KEY_CODE</source_code_name>
+		<description>Payment Key Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayRefDtls</id>
+		<source_code_name>PAYEE_REF_DETAILS</source_code_name>
+		<description>Payee Reference Details</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FormatName</id>
+		<source_code_name>FORMAT_NAME</source_code_name>
+		<description>Format Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CheckPmnt</id>
+		<source_code_name>CHECK_PMNT</source_code_name>
+		<description>Payment Done with Check</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PymBnkUsr1</id>
+		<source_code_name>PYM_BANK_USR1</source_code_name>
+		<description>Payment Bank User No. 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymBnkUsr2</id>
+		<source_code_name>PYM_BANK_USR2</source_code_name>
+		<description>Payment Bank User No. 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymBnkUsr3</id>
+		<source_code_name>PYM_BANK_USR3</source_code_name>
+		<description>Payment Bank User No. 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymBnkUsr4</id>
+		<source_code_name>PYM_BANK_USR4</source_code_name>
+		<description>Payment Bank User No. 4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompStreet</id>
+		<source_code_name>COMPANY_STREET</source_code_name>
+		<description>Company Street</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompBlock</id>
+		<source_code_name>COMPANY_BLOCK</source_code_name>
+		<description>Company Block</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompCity</id>
+		<source_code_name>COMPANY_CITY</source_code_name>
+		<description>Company City</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompZip</id>
+		<source_code_name>COMPANY_ZIP_CODE</source_code_name>
+		<description>Company Zip Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompCounty</id>
+		<source_code_name>COMPANY_COUNTY</source_code_name>
+		<description>Company County</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CompState</id>
+		<source_code_name>COMPANY_STATE</source_code_name>
+		<description>Company State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PymBCACode</id>
+		<source_code_name>PYM_BCACODE</source_code_name>
+		<description>Payment Bank Charges</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PaymDocTyp</id>
+		<source_code_name>PAYM_DOC_OBJTYPE</source_code_name>
+		<description>Payment Document Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PayOrderNo</id>
+		<source_code_name>PAYM_ORDER_NUM</source_code_name>
+		<description>Payment Order Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FreeText1</id>
+		<source_code_name>FREE_TEXT1</source_code_name>
+		<description>Free Text 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>FreeText2</id>
+		<source_code_name>FREE_TEXT2</source_code_name>
+		<description>Free Text 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>FreeText3</id>
+		<source_code_name>FREE_TEXT3</source_code_name>
+		<description>Free Text 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>PymBnkSwif</id>
+		<source_code_name>PYM_BANK_SWIFT_NUM</source_code_name>
+		<description>Payment Bank Swift Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PayBnkUIC</id>
+		<source_code_name>PAYEE_BANK_UIC</source_code_name>
+		<description>Payee Bank UIC Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineType</id>
+		<source_code_name>LINE_TYPE</source_code_name>
+		<description>Line Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>G</default_value>
+		<valid_value>
+			<value>G</value>
+			<description>General</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Pay on Account</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Pay to Account</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BoeKey</id>
+		<source_code_name>BOE_ABS</source_code_name>
+		<description>Bill of Exchange Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BoeCurrSta</id>
+		<source_code_name>BOE_CURR_STATUS</source_code_name>
+		<description>BoE Current Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>BoeDate</id>
+		<source_code_name>BOE_DATE</source_code_name>
+		<description>Bill of Exchange Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BoeDueDate</id>
+		<source_code_name>BOE_DUE_DATE</source_code_name>
+		<description>BoE Due Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Instruct1</id>
+		<source_code_name>INSTRUCTION1</source_code_name>
+		<description>BoE Instruction 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>Instruct2</id>
+		<source_code_name>INSTRUCTION2</source_code_name>
+		<description>BoE Instruction 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>BoeCancIns</id>
+		<source_code_name>BOE_CANCEL_INSTRUCTI</source_code_name>
+		<description>BoE Cancel Instruction</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>BoeOccCode</id>
+		<source_code_name>BOE_OCCURRENCE_CODE</source_code_name>
+		<description>BoE Occurrence Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>BoePtfID</id>
+		<source_code_name>BOE_PTF_ID</source_code_name>
+		<description>BoE Internal Portfolio ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BoeOurNum</id>
+		<source_code_name>BOE_OUR_NUMBER</source_code_name>
+		<description>Our Number in Next BoE</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BoeIntrAm</id>
+		<source_code_name>BOE_INTEREST_AMNT</source_code_name>
+		<description>BoE Interest Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BoeDiscD</id>
+		<source_code_name>BOE_DISC_DATE</source_code_name>
+		<description>BoE Discount Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BoeDisAmnt</id>
+		<source_code_name>BOE_DISC_AMNT</source_code_name>
+		<description>BoE Discount Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BoeFineD</id>
+		<source_code_name>BOE_FINE_DATE</source_code_name>
+		<description>BoE Fine Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BoeFineAmt</id>
+		<source_code_name>BOE_FINE_AMNT</source_code_name>
+		<description>BoE Fine Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BoeIntrstD</id>
+		<source_code_name>BOE_INTEREST_DATE</source_code_name>
+		<description>BoE Interest Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BoeIOFAmt</id>
+		<source_code_name>BOE_IOF_AMNT</source_code_name>
+		<description>BoE IOF Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BoeMovCode</id>
+		<source_code_name>BOE_MOVEMENT_CODE</source_code_name>
+		<description>BoE Movement Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>BarcodeRep</id>
+		<source_code_name>BARCODE_REPRESENT</source_code_name>
+		<description>Barcode Representation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>PONumber</id>
+		<source_code_name>PO_NUMBER</source_code_name>
+		<description>External Payment Order Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>POSeries</id>
+		<source_code_name>PO_SERIES</source_code_name>
+		<description>External Payment Order Series</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>PaymWizCodLink</id>
+		<target_direct>OPWZ</target_direct>
+		<object_key_column>PaymWizCod</object_key_column>
+	</association>
+	<association>
+		<id>CompStateLink</id>
+		<target_direct>OCST</target_direct>
+		<object_key_column>CompState</object_key_column>
+	</association>
+	<association>
+		<id>PymBCACodeLink</id>
+		<target_direct>OBCA</target_direct>
+		<object_key_column>PymBCACode</object_key_column>
+	</association>
+	<association>
+		<id>PayOrderNoLink</id>
+		<target_direct>OIPO</target_direct>
+		<object_key_column>PayOrderNo</object_key_column>
+	</association>
+	<association>
+		<id>BoeKeyLink</id>
+		<target_direct>OBOE</target_direct>
+		<object_key_column>BoeKey</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

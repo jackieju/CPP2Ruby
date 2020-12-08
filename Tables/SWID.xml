@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SWID</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Value</id>
+		<source_code_name>VALUE</source_code_name>
+		<description sys="Y">Value</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Rev</id>
+		<source_code_name>REVISION</source_code_name>
+		<description sys="Y">Revision</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LastUpdate</id>
+		<source_code_name>LAST_UPDATE</source_code_name>
+		<description sys="Y">Last update date and time</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Name</column>
+	</key>
+</table>

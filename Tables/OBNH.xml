@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OBNH</id>
+	<description>Bank Statement Header</description>
+	<string_list>1100891</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>IdNumber</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ActKey</id>
+		<source_code_name>BANK_ACT_KEY</source_code_name>
+		<description>Bank Account Internal Number</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BSNum</id>
+		<source_code_name>STATEMENT_INTERN_NUM</source_code_name>
+		<description>Statement Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BSDate</id>
+		<source_code_name>BS_DATE</source_code_name>
+		<description>Statement Date</description>
+		<field_type>2000</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>D</default_value>
+		<valid_value>
+			<value>E</value>
+			<description>Finalized</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Draft</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Old</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Imported</id>
+		<source_code_name>IMPORTED</source_code_name>
+		<description>Imported From File</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>StrtBlncF</id>
+		<source_code_name>START_BALANCE_F</source_code_name>
+		<description>Starting Balance (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EndBlncF</id>
+		<source_code_name>END_BALANCE_F</source_code_name>
+		<description>Ending Balance (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Currency</id>
+		<source_code_name>CURRENCY</source_code_name>
+		<description>Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StrtBlncL</id>
+		<source_code_name>START_BALANCE_L</source_code_name>
+		<description>Starting Balance (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EndBlncL</id>
+		<source_code_name>END_BALANCE_L</source_code_name>
+		<description>Ending Balance (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FileCRC</id>
+		<source_code_name>FILE_CRC</source_code_name>
+		<description>Bank Statement File Hash</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StmtGuid</id>
+		<source_code_name>STATEMENT_GUID</source_code_name>
+		<description sys="Y">Bank Statement GUID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BSFileNum</id>
+		<source_code_name>BANK_STATEMENT_NUM</source_code_name>
+		<description>Bank Statement Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PeriodAbs</id>
+		<source_code_name>PERIOD_ABS</source_code_name>
+		<description>Period Abs Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>ActKeyLink</id>
+		<target_direct>DSC1</target_direct>
+		<object_key_column>ActKey</object_key_column>
+	</association>
+	<association>
+		<id>CurrencyLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>Currency</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>IdNumber</column>
+	</key>
+	<key>
+		<id>ACT_NUM_DT</id>
+		<unique />
+		<column>ActKey</column>
+		<column>BSNum</column>
+		<column>BSDate</column>
+	</key>
+</table>

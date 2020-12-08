@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AOA3</id>
+	<description>Item Details: Activity</description>
+	<string_list>1101400</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<column>
+		<id>AgrNo</id>
+		<source_code_name>AGREEMENT_NO</source_code_name>
+		<description>Agreement No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AgrLnNum</id>
+		<source_code_name>AGREEMENT_LINE_NUM</source_code_name>
+		<description>Agreement Item Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AgrEfctNum</id>
+		<source_code_name>AGREEMENT_EFCT_NUM</source_code_name>
+		<description>Agreement Effective: Row No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ActivityID</id>
+		<source_code_name>ACTIVITY_ID</source_code_name>
+		<description>Activity ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>AgrItmDetailLnk</id>
+		<target_direct>AOAT</target_direct>
+		<object_key_column>AgrNo</object_key_column>
+	</association>
+	<association>
+		<id>ActivityLink</id>
+		<target_direct>OCLG</target_direct>
+		<object_key_column>ActivityID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AgrNo</column>
+		<column>AgrLnNum</column>
+		<column>AgrEfctNum</column>
+		<column>ActivityID</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

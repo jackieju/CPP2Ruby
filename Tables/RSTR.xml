@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RSTR</id>
+	<description sys="Y">STRL resource</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Created</id>
+		<source_code_name>CREATED</source_code_name>
+		<description sys="Y">Creation date</description>
+		<field_type>1</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Updated</id>
+		<source_code_name>UPDATED</source_code_name>
+		<description sys="Y">Update date</description>
+		<field_type>2</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Language</id>
+		<source_code_name>VER_NUM</source_code_name>
+		<description sys="Y">Language code</description>
+		<field_type>3</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description sys="Y">STRL name</description>
+		<field_type>4</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>64</edit_size>
+	</column>
+	<column>
+		<id>Num</id>
+		<source_code_name>NUM</source_code_name>
+		<description sys="Y">STRL number</description>
+		<field_type>39</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>MaxUnique</id>
+		<source_code_name>MAX_UNIQUE</source_code_name>
+		<description sys="Y">Max Unique</description>
+		<field_type>400</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Language</column>
+		<column>Name</column>
+	</key>
+	<key>
+		<id>NUM</id>
+		<unique />
+		<column>Language</column>
+		<column>Num</column>
+	</key>
+	<key>
+		<id>M_NUM</id>
+		<column>Num</column>
+	</key>
+	<key>
+		<id>M_NAME</id>
+		<column>Name</column>
+	</key>
+</table>

@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TP874</id>
+	<description>PCN874 Report - Transaction Record</description>
+	<string_list>1101347</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>PrimKey</id>
+		<source_code_name>PRIM_KEY</source_code_name>
+		<description>Primary Key (Not Exported)</description>
+		<field_type>823</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RecMark</id>
+		<source_code_name>RECORD_MARK</source_code_name>
+		<description>Document Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>?</default_value>
+		<valid_value>
+			<value>?</value>
+			<description>Undefined</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Regular Income</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>Regular Income to Undefined Customer</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Self-Employed Income</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Exempt Income</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Income from Sales to Customers on Palestinian Territory</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Regular Input Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Self-Employed Expense</description>
+		</valid_value>
+		<valid_value>
+			<value>K</value>
+			<description>Input Tax - Petty Cash</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Input Tax - Import Log</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Input Tax - A/P Invoice Palestinian Territory</description>
+		</valid_value>
+		<valid_value>
+			<value>H</value>
+			<description>Input Tax - Other</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TaxIdNum</id>
+		<source_code_name>TAX_ID_NUMBER</source_code_name>
+		<description>Licensed BP Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>InvDate</id>
+		<source_code_name>INVOICE_DATE</source_code_name>
+		<description>Document Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>InvSeries</id>
+		<source_code_name>INVOICE_SERIES</source_code_name>
+		<description>Document Series</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>InvoiceNum</id>
+		<source_code_name>INVOICE_NUM</source_code_name>
+		<description>Document Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>VatSum</id>
+		<source_code_name>VAT_SUM</source_code_name>
+		<description>VAT Amount</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>Sign</id>
+		<source_code_name>SIGN</source_code_name>
+		<description>Operation Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>Amount</id>
+		<source_code_name>AMOUNT</source_code_name>
+		<description>Operation Amount</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>UnusedFld</id>
+		<source_code_name>UNUSED_FIELD</source_code_name>
+		<description>Unused Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+		<default_value>000000000</default_value>
+	</column>
+	<column>
+		<id>JrnlEntNum</id>
+		<source_code_name>JOURNAL_ENTRY_NUM</source_code_name>
+		<description>Journal Entry Number</description>
+		<field_type>823</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>PrimKey</column>
+	</key>
+</table>

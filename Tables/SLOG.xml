@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SLOG</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>LogConfig</id>
+		<source_code_name>LOGCONFIG</source_code_name>
+		<description sys="Y">Log configuration</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UseDBConf</id>
+		<source_code_name>USEDBCONF</source_code_name>
+		<description sys="Y">Use DB configuration</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>ActLog</id>
+		<source_code_name>ACTLOG</source_code_name>
+		<description sys="Y">Activate Log</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>ModDate</id>
+		<source_code_name>MOD_DATE</source_code_name>
+		<description sys="Y">DB log modification date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LogDefConf</id>
+		<source_code_name>LOGDEFCONF</source_code_name>
+		<description sys="Y">Log Default configuration</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ReposConf</id>
+		<source_code_name>REPOSITORYCONF</source_code_name>
+		<description sys="Y">Log Repository Configuration</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AbsKey</id>
+		<source_code_name>ABSKEY</source_code_name>
+		<description sys="Y">Primary Key</description>
+		<db_type>Identity</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ModTime</id>
+		<source_code_name>MOD_TIME</source_code_name>
+		<description sys="Y">DB log modification time</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsKey</column>
+	</key>
+</table>

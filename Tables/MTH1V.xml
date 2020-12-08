@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>MTH1V</id>
+	<description>Journal Entries of External Reconciliation</description>
+	<string_list>1101585</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>MthAcctCod</id>
+		<source_code_name>ACCOUNT_CODE</source_code_name>
+		<description>Account Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsInternal</id>
+		<source_code_name>IS_INTERNAL</source_code_name>
+		<description>Reconciliation Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>E</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Internal</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>External</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MatchNum</id>
+		<source_code_name>MATCH_NUM</source_code_name>
+		<description>Reconciliation No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransID</id>
+		<source_code_name>TRANS_ABS</source_code_name>
+		<description>Transaction No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Line_ID</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RefDate</id>
+		<source_code_name>REF_DATE</source_code_name>
+		<description>Posting Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DueDate</id>
+		<source_code_name>DUE_DATE</source_code_name>
+		<description>Due Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Ref1</id>
+		<source_code_name>REF1</source_code_name>
+		<description>Reference 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Ref2</id>
+		<source_code_name>REF2</source_code_name>
+		<description>Reference 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Ref3Line</id>
+		<source_code_name>REF3_LINE</source_code_name>
+		<description>Reference 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>27</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Debit</id>
+		<source_code_name>DEBIT</source_code_name>
+		<description>Debit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Credit</id>
+		<source_code_name>CREDIT</source_code_name>
+		<description>Credit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SYSDeb</id>
+		<source_code_name>SYS_DEBIT</source_code_name>
+		<description>System Debit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SYSCred</id>
+		<source_code_name>SYS_CREDIT</source_code_name>
+		<description>System Credit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FCDebit</id>
+		<source_code_name>FC_DEBIT</source_code_name>
+		<description>Foreign Debit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FCCredit</id>
+		<source_code_name>FC_CREDIT</source_code_name>
+		<description>Foreign Credit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Currency</id>
+		<source_code_name>CURRENCY</source_code_name>
+		<description>Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineMemo</id>
+		<source_code_name>LINE_MEMO</source_code_name>
+		<description>Row Details</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>MthAcctCod</column>
+		<column>IsInternal</column>
+		<column>MatchNum</column>
+		<column>TransID</column>
+		<column>Line_ID</column>
+	</key>
+</table>

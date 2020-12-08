@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RBOX</id>
+	<description>Tax Declaration Box Report</description>
+	<string_list>1100869</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>Code</id>
+		<source_code_name>BOX_CODE</source_code_name>
+		<description>Box Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>BOX_NAME</source_code_name>
+		<description>Box Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>CompCode</id>
+		<source_code_name>BOX_COMPONENT_CODE</source_code_name>
+		<description>Component Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CompName</id>
+		<source_code_name>BOX_COMPONENT_NAME</source_code_name>
+		<description>Component Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>TaxCode</id>
+		<source_code_name>TAX_CODE</source_code_name>
+		<description>Tax Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxName</id>
+		<source_code_name>TAX_NAME</source_code_name>
+		<description>Tax Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Rate</id>
+		<source_code_name>TAX_PERCENT</source_code_name>
+		<description>Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NUMBER</source_code_name>
+		<description>Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>DOC_ENTRY</source_code_name>
+		<description>Document Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT_TYPE</source_code_name>
+		<description>Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PostDate</id>
+		<source_code_name>POSTING_DATE</source_code_name>
+		<description>Posting Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DOCUMENT_DATE</source_code_name>
+		<description>Document Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CreditSum</id>
+		<source_code_name>CREDIT_AMOUNT</source_code_name>
+		<description>Credit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DebitSum</id>
+		<source_code_name>DEBIT_AMOUNT</source_code_name>
+		<description>Debit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SummaryFld</id>
+		<source_code_name>SUMMARY_FIELD</source_code_name>
+		<description>Summary Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>B</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Base Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Tax Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description>Equalization Tax Amount</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Non-Deductible Amount</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CrditDbit</id>
+		<source_code_name>CREDIT_OR_DEBIT</source_code_name>
+		<description>Credit/Debit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>D</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Debit Side</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Credit Side</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Debit Side and Credit Side</description>
+		</valid_value>
+	</column>
+</table>

@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OSCD</id>
+	<description>Service Code Table</description>
+	<string_list>1100816</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Service</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>County</id>
+		<source_code_name>COUNTY_ENTRY</source_code_name>
+		<description>County Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ServiceCD</id>
+		<source_code_name>SERVICE_CODE</source_code_name>
+		<description>Service Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>Descrip</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>70</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>70</edit_size>
+	</column>
+	<column>
+		<id>Incomimg</id>
+		<source_code_name>INCOMING</source_code_name>
+		<description>Is Incomimg(Y/N)</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Incoming</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Outgoing</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>CountyLink</id>
+		<target_direct>OCNT</target_direct>
+		<object_key_column>County</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>CODE</id>
+		<unique />
+		<column>County</column>
+		<column>ServiceCD</column>
+	</key>
+</table>

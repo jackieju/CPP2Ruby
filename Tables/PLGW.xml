@@ -1,0 +1,577 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>PLGW</id>
+	<description>Pick List Generation Wizard</description>
+	<string_list>1101821</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<virtual />
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>AutoIssMtd</id>
+		<source_code_name>AUTO_ISSUE_MTD</source_code_name>
+		<description>Auto. Issue Method</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Single Choice</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Bin Location Code Order</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Alternative Sort Code Order</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Descending Quantity</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Ascending Quantity</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Sublvl1Fro</id>
+		<source_code_name>SUBLVL1_FROM</source_code_name>
+		<description>Sublevel 1 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Sublvl1To</id>
+		<source_code_name>SUBLVL1_TO</source_code_name>
+		<description>Sublevel 1 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Sublvl2Fro</id>
+		<source_code_name>SUBLVL2_FROM</source_code_name>
+		<description>Sublevel 2 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Sublvl2To</id>
+		<source_code_name>SUBLVL2_TO</source_code_name>
+		<description>Sublevel 2 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Sublvl3Fro</id>
+		<source_code_name>SUBLVL3_FROM</source_code_name>
+		<description>Sublevel 3 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Sublvl3To</id>
+		<source_code_name>SUBLVL3_TO</source_code_name>
+		<description>Sublevel 3 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Sublvl4Fro</id>
+		<source_code_name>SUBLVL4_FROM</source_code_name>
+		<description>Sublevel 4 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Sublvl4To</id>
+		<source_code_name>SUBLVL4_TO</source_code_name>
+		<description>Sublevel 4 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Attr1From</id>
+		<source_code_name>ATTRIBUTE1_FROM</source_code_name>
+		<description>Attribute 1 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr1To</id>
+		<source_code_name>ATTRIBUTE1_TO</source_code_name>
+		<description>Attribute 1 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr2From</id>
+		<source_code_name>ATTRIBUTE2_FROM</source_code_name>
+		<description>Attribute 2 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr2To</id>
+		<source_code_name>ATTRIBUTE2_TO</source_code_name>
+		<description>Attribute 2 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr3From</id>
+		<source_code_name>ATTRIBUTE3_FROM</source_code_name>
+		<description>Attribute 3 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr3To</id>
+		<source_code_name>ATTRIBUTE3_TO</source_code_name>
+		<description>Attribute 3 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr4From</id>
+		<source_code_name>ATTRIBUTE4_FROM</source_code_name>
+		<description>Attribute 4 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr4To</id>
+		<source_code_name>ATTRIBUTE4_TO</source_code_name>
+		<description>Attribute 4 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr5From</id>
+		<source_code_name>ATTRIBUTE5_FROM</source_code_name>
+		<description>Attribute 5 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr5To</id>
+		<source_code_name>ATTRIBUTE5_TO</source_code_name>
+		<description>Attribute 5 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr6From</id>
+		<source_code_name>ATTRIBUTE6_FROM</source_code_name>
+		<description>Attribute 6 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr6To</id>
+		<source_code_name>ATTRIBUTE6_TO</source_code_name>
+		<description>Attribute 6 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr7From</id>
+		<source_code_name>ATTRIBUTE7_FROM</source_code_name>
+		<description>Attribute 7 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr7To</id>
+		<source_code_name>ATTRIBUTE7_TO</source_code_name>
+		<description>Attribute 7 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr8From</id>
+		<source_code_name>ATTRIBUTE8_FROM</source_code_name>
+		<description>Attribute 8 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr8To</id>
+		<source_code_name>ATTRIBUTE8_TO</source_code_name>
+		<description>Attribute 8 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr9From</id>
+		<source_code_name>ATTRIBUTE9_FROM</source_code_name>
+		<description>Attribute 9 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr9To</id>
+		<source_code_name>ATTRIBUTE9_TO</source_code_name>
+		<description>Attribute 9 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr10From</id>
+		<source_code_name>ATTRIBUTE10_FROM</source_code_name>
+		<description>Attribute 10 From</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Attr10To</id>
+		<source_code_name>ATTRIBUTE10_TO</source_code_name>
+		<description>Attribute 10 To</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SplitByWhs</id>
+		<source_code_name>SPLIT_BY_WHS</source_code_name>
+		<description>Split by Warehouse</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SplitBySL1</id>
+		<source_code_name>SPLIT_BY_SL1</source_code_name>
+		<description>Split by Sublevel1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SplitBySL2</id>
+		<source_code_name>SPLIT_BY_SL2</source_code_name>
+		<description>Split by Sublevel2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SplitBySL3</id>
+		<source_code_name>SPLIT_BY_SL3</source_code_name>
+		<description>Split by Sublevel3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SplitBySL4</id>
+		<source_code_name>SPLIT_BY_SL4</source_code_name>
+		<description>Split by Sublevel4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT1</id>
+		<source_code_name>SPLIT_BY_ATTR1</source_code_name>
+		<description>Split by Attribute 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT2</id>
+		<source_code_name>SPLIT_BY_ATTR2</source_code_name>
+		<description>Split by Attribute2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT3</id>
+		<source_code_name>SPLIT_BY_ATTR3</source_code_name>
+		<description>Split by Attribute3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT4</id>
+		<source_code_name>SPLIT_BY_ATTR4</source_code_name>
+		<description>Split by Attribute4</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT5</id>
+		<source_code_name>SPLIT_BY_ATTR5</source_code_name>
+		<description>Split by Attribute5</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT6</id>
+		<source_code_name>SPLIT_BY_ATTR6</source_code_name>
+		<description>Split by Attribute6</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT7</id>
+		<source_code_name>SPLIT_BY_ATTR7</source_code_name>
+		<description>Split by Attribute7</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT8</id>
+		<source_code_name>SPLIT_BY_ATTR8</source_code_name>
+		<description>Split by Attribute8</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT9</id>
+		<source_code_name>SPLIT_BY_ATTR9</source_code_name>
+		<description>Split by Attribute9</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SptByATT10</id>
+		<source_code_name>SPLIT_BY_ATTR10</source_code_name>
+		<description>Split by Attribute10</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

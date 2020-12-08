@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SRT2</id>
+	<description>Korean Summary Report - Rows2</description>
+	<string_list>1100672</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>SumRptId</id>
+		<source_code_name>SUM_RPT_ID</source_code_name>
+		<description>Summary Rpt ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>SeqNo</id>
+		<source_code_name>SEQ_NO</source_code_name>
+		<description>Sequence Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>VATRegNum</id>
+		<source_code_name>VAT_REG_NUM</source_code_name>
+		<description>VAT Reg. Number of BP</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code on OCRD</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>CardName</id>
+		<source_code_name>CARD_NAME</source_code_name>
+		<description>BP Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>TransNo</id>
+		<source_code_name>TRANS_NO</source_code_name>
+		<description>Total Trans Number under BP</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BaseAmt</id>
+		<source_code_name>BASE_AMT</source_code_name>
+		<description>Total Base Amount under BP</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxAmt</id>
+		<source_code_name>TAX_AMT</source_code_name>
+		<description>Total Tax Amount under BP</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Remark</id>
+		<source_code_name>REMARK</source_code_name>
+		<description>Line Item Remark, do not use</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>SumRptId</column>
+		<column>SeqNo</column>
+	</key>
+</table>

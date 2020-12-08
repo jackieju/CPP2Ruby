@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OFRM</id>
+	<description>File Format</description>
+	<string_list>1100443</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>File Format Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Encoding</id>
+		<source_code_name>ENCODING</source_code_name>
+		<description>Encoding Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>FilePath</id>
+		<source_code_name>FILE_PATH</source_code_name>
+		<description>Format Project</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Link</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsSystem</id>
+		<source_code_name>IS_SYSTEM</source_code_name>
+		<description>System Format</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FrmatType</id>
+		<source_code_name>FORMAT_TYPE</source_code_name>
+		<description>Format Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Bank Statements</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Payment File</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>Legal List</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Predefined</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Boleto File</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FileContnt</id>
+		<source_code_name>FILE_CONTENT</source_code_name>
+		<description>Format Project Content</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FrmatStats</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Format Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>U</default_value>
+		<valid_value>
+			<value>A</value>
+			<description>Assigned</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Unassigned</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PaymType</id>
+		<source_code_name>PAYMENT_TYPE</source_code_name>
+		<description>Payment Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>X</default_value>
+		<valid_value>
+			<value>O</value>
+			<description>Outgoing</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Incoming</description>
+		</valid_value>
+		<valid_value>
+			<value>X</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>NAME_TYPE</id>
+		<column>Name</column>
+		<column>FrmatType</column>
+	</key>
+</table>

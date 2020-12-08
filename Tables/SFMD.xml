@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SFMD</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Version</id>
+		<source_code_name>VERSION</source_code_name>
+		<description sys="Y">Version</description>
+		<field_type>1</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Metadefs</id>
+		<source_code_name>METADEFS</source_code_name>
+		<description sys="Y">Metadefs.bin</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>ClusterID</id>
+		<source_code_name>CLUSTER_ID</source_code_name>
+		<description sys="Y">Cluster Identification</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>PatchLevel</id>
+		<source_code_name>PATCH_LEVEL</source_code_name>
+		<description sys="Y">Application Patch Level</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Version</column>
+	</key>
+</table>

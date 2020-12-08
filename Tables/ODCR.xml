@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ODCR</id>
+	<description>Checking Rule</description>
+	<string_list>1101923</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>RuleCode</id>
+		<source_code_name>RULE_CODE</source_code_name>
+		<description>Checking Rule Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>RuleDesc</id>
+		<source_code_name>RULE_DESC</source_code_name>
+		<description>Checking Rule Description</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>PastRcp</id>
+		<source_code_name>PAST_RECEIPT</source_code_name>
+		<description>Include Past Plan Receipts</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AutoATP</id>
+		<source_code_name>AUTO_ATP</source_code_name>
+		<description>ATP Check Automatically</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SLDUncfm</id>
+		<source_code_name>SLD_UNCONFIRMED</source_code_name>
+		<description>Schedule for Unconfirmed Qty</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AllowUncfm</id>
+		<source_code_name>ALLOW_UNCONFIRMED</source_code_name>
+		<description>Allow Unconfirmed Quantity</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CmltStrtg</id>
+		<source_code_name>CUMULATION_STRATEGY</source_code_name>
+		<description>Cumulation Strategy</description>
+		<field_type>219</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>R</default_value>
+		<valid_value>
+			<value>R</value>
+			<description>Required Qty on Creation; Confirmed Qty on Change</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Confirmed Qty on Creation and Change</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DeliStrtg</id>
+		<source_code_name>DELIVERY_STRATEGY</source_code_name>
+		<description>Delivery Strategy</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>D</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Delivery Proposal</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>One-Time Delivery</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Complete Delivery</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MaxPrpsls</id>
+		<source_code_name>MAX_PROPOSALS</source_code_name>
+		<description>Max. No. of Proposals</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>9</default_value>
+	</column>
+	<column>
+		<id>validFor</id>
+		<source_code_name>VALID_FOR_PERIOD</source_code_name>
+		<description>Active</description>
+		<field_type>252</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>validFrom</id>
+		<source_code_name>VALID_FROM</source_code_name>
+		<description>Active From</description>
+		<field_type>253</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>validTo</id>
+		<source_code_name>VALID_TO</source_code_name>
+		<description>Active To</description>
+		<field_type>254</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>frozenFor</id>
+		<source_code_name>FROZEN_FOR_PERIOD</source_code_name>
+		<description>Inactive</description>
+		<field_type>255</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>frozenFrom</id>
+		<source_code_name>FROZEN_FROM</source_code_name>
+		<description>Inactive From</description>
+		<field_type>256</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>frozenTo</id>
+		<source_code_name>FROZEN_TO</source_code_name>
+		<description>Inactive To</description>
+		<field_type>257</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Locked</id>
+		<source_code_name>LOCKED</source_code_name>
+		<description>Locked</description>
+		<field_type>212</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>RuleCode</column>
+	</key>
+</table>

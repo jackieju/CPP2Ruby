@@ -1,0 +1,538 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CASE1</id>
+	<description>Internal Recon. Upgrade 2007A</description>
+	<string_list>1101025</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Header Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineId</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Inconsistent Amt Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ShortName</id>
+		<source_code_name>SHORT_NAME</source_code_name>
+		<description>BP Code</description>
+		<field_type>263</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>Account</id>
+		<source_code_name>ACCT_NUM</source_code_name>
+		<description>Account Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>OrigAbsEnt</id>
+		<source_code_name>ORIG_ABS_ENTRY</source_code_name>
+		<description>Original Doc. Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OrigObjTyp</id>
+		<source_code_name>ORIG_OBJ_TYPE</source_code_name>
+		<description>Original Doc. Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>All</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>A/R Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>A/P Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description>Incoming Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>30</value>
+			<description>Journal Entry</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description>Outgoing Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>163</value>
+			<description>A/P Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>165</value>
+			<description>A/R Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>203</value>
+			<description>A/R Down Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>204</value>
+			<description>A/P Down Payment</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OrigDocNum</id>
+		<source_code_name>ORIG_DOC_NUM</source_code_name>
+		<description>Original Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OrigInsNum</id>
+		<source_code_name>ORIG_INST_NUM</source_code_name>
+		<description>Original Installment Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OrigTrnsId</id>
+		<source_code_name>ORIG_TRANS_ID</source_code_name>
+		<description>Original JE Trans. No.</description>
+		<field_type>74</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OrigTrnsLn</id>
+		<source_code_name>ORIG_TRANS_LINE_ID</source_code_name>
+		<description>Original JE Row No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LnkRecnAbs</id>
+		<source_code_name>LINK_RECON_ABS_ENTRY</source_code_name>
+		<description>Linked Recon. Doc. Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LnkRecnObj</id>
+		<source_code_name>LINK_RECON_OBJ_TYPE</source_code_name>
+		<description>Destination Object Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LnkRecnNum</id>
+		<source_code_name>LINK_RECON_DOC_NUM</source_code_name>
+		<description>Destination Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LnkRecnIns</id>
+		<source_code_name>LINK_RECON_INST_NUM</source_code_name>
+		<description>Destination Installment Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LnkRecnTrn</id>
+		<source_code_name>LINK_RECON_TRANS_ID</source_code_name>
+		<description>Linked and Recon. JE Trans No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LnkRecnLn</id>
+		<source_code_name>LINK_RECON_TRNS_LN</source_code_name>
+		<description>Linked and Recon. JE Row No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>InconsType</id>
+		<source_code_name>INCONSISTENCY_TYPE</source_code_name>
+		<description>Type of Inconsistency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<valid_value>
+			<value>1</value>
+			<description>Invoice Linked to Reconciled Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Credit Memo Linked to Reconciled Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Canceled Reconciliation</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Partial Exchange Rate Difference Recognition</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Payment Linked to Reconciled Transaction</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Journal Entry Linked to Reconciled Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Unbalanced Reconciliation</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Invoice/Credit Linked to Credit/Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Balancing Upgrade Journal Transaction</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Canceled Payment or Journal Entry</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Cancellation of Payment/JE within Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Unreconciled Balance Rows in Multiple BPs Reconciliation</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Missing Exchange Rate Difference behind Multiple BPs Reconciliation</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>Double Application of Payments of Down Payment Request</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Exchange Difference Recognition of Payments of DPM Requests</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Reconciliation of Payments Associated with DPM Request</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Unbalanced Multiple BP Reconciliation</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description>Amount Differences</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description>Double application of invoice after linking of down payment</description>
+		</valid_value>
+		<valid_value>
+			<value>20</value>
+			<description>Canceled payment of down payment request</description>
+		</valid_value>
+		<valid_value>
+			<value>21</value>
+			<description>Credit Memo based on a Year Transfered invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>22</value>
+			<description>Payment of a year transfer document</description>
+		</valid_value>
+		<valid_value>
+			<value>23</value>
+			<description>Processing of Payment Linked to Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description>Consolidating Business Partner</description>
+		</valid_value>
+		<valid_value>
+			<value>25</value>
+			<description>Multiple Control Accounts</description>
+		</valid_value>
+		<valid_value>
+			<value>26</value>
+			<description>Different Control Accounts in a Canceled Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description>None</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ReconNum</id>
+		<source_code_name>RECON_NUM</source_code_name>
+		<description>Reconciliation Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>NewRcnNum</id>
+		<source_code_name>NEW_RECON_NUM</source_code_name>
+		<description>New Reconciliation No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CredDeb</id>
+		<source_code_name>CREDIT_OR_DEBIT</source_code_name>
+		<description>Credit or Debit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>Amount</id>
+		<source_code_name>AMOUNT</source_code_name>
+		<description>Inconsistent Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AmountFC</id>
+		<source_code_name>AMOUNT_FC</source_code_name>
+		<description>Inconsistent Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AmountSC</id>
+		<source_code_name>AMOUNT_SC</source_code_name>
+		<description>Inconsistent Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TransId</id>
+		<source_code_name>TRANS_ABS</source_code_name>
+		<description>Balancing Trans. Internal ID</description>
+		<field_type>74</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TransLine</id>
+		<source_code_name>TRANS_LINE_ID</source_code_name>
+		<description>Balancing Transaction Row No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>X</id>
+		<source_code_name>X</source_code_name>
+		<description>x</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Y</id>
+		<source_code_name>Y</source_code_name>
+		<description>Y</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Z</id>
+		<source_code_name>Z</source_code_name>
+		<description>Z</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LnkObjAbsE</id>
+		<source_code_name>LINK_OBJ_ABS_ENTRY</source_code_name>
+		<description>Linked Doc. Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LinkObjTyp</id>
+		<source_code_name>LINK_OBJ_TYPE</source_code_name>
+		<description>Linked Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LinkDocNum</id>
+		<source_code_name>LINK_DOC_NUM</source_code_name>
+		<description>Linked Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LinkInsNum</id>
+		<source_code_name>LINK_INST_NUM</source_code_name>
+		<description>Linked Doc. Installment Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LinkTrnsId</id>
+		<source_code_name>LINK_TRANS_ID</source_code_name>
+		<description>Linked Doc. JE Trans. No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LinkTrnsLn</id>
+		<source_code_name>LINK_TRANS_LINE_ID</source_code_name>
+		<description>Linked Doc. JE Row No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TrnsTtlAmt</id>
+		<source_code_name>TRANS_TOTAL_AMOUNT</source_code_name>
+		<description>Balancing Trans. Total Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TrnsTtlFc</id>
+		<source_code_name>TRANS_TTL_AMOUNT_FC</source_code_name>
+		<description>Balancing Trans. Total Amt FC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>CASE</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>AccountLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>Account</object_key_column>
+	</association>
+	<association>
+		<id>OrigTrnsIdLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>OrigTrnsId</object_key_column>
+	</association>
+	<association>
+		<id>LnkRecnTrnLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>LnkRecnTrn</object_key_column>
+	</association>
+	<association>
+		<id>NewRcnNumLink</id>
+		<target_direct>OITR</target_direct>
+		<object_key_column>NewRcnNum</object_key_column>
+	</association>
+	<association>
+		<id>TransIdLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>TransId</object_key_column>
+	</association>
+	<association>
+		<id>LinkTrnsIdLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>LinkTrnsId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LineId</column>
+	</key>
+</table>

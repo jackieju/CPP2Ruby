@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AMD1</id>
+	<description>Amout Differences Report Lines</description>
+	<string_list>1100764</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PmnNum</id>
+		<source_code_name>RCT_DOCNUM</source_code_name>
+		<description>Payment Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PmnInvID</id>
+		<source_code_name>RCT_INVID</source_code_name>
+		<description>Invoice Seq. No. in Payment</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>PmnDate</id>
+		<source_code_name>RCT_DATE</source_code_name>
+		<description>Payment Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>InvType</id>
+		<source_code_name>INV_TYPE</source_code_name>
+		<description>Invoice Category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>13</default_value>
+		<valid_value>
+			<value>13</value>
+			<description sys="Y">Sales Invoice</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InvEntry</id>
+		<source_code_name>INV_DOCENTRY</source_code_name>
+		<description>Invoice Key</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>InstId</id>
+		<source_code_name>INV_INSTALLMENT_ID</source_code_name>
+		<description>Installment ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>InvTransID</id>
+		<source_code_name>INV_TRANSID</source_code_name>
+		<description>Invoice Transaction Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FCCurrency</id>
+		<source_code_name>FCURRENCY</source_code_name>
+		<description>Foreign Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>InvRate</id>
+		<source_code_name>INVOICE_RATE</source_code_name>
+		<description>Rate, Invoice</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PmnRate</id>
+		<source_code_name>PAYMENT_RATE</source_code_name>
+		<description>Rate, Payment</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Approved</id>
+		<source_code_name>APPROVED</source_code_name>
+		<description>Confirmed</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AmountDiff</id>
+		<source_code_name>AMOUNT_DIFF</source_code_name>
+		<description>Amount Difference (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxAmtDiff</id>
+		<source_code_name>TAX_AMOUNT_DIFF</source_code_name>
+		<description>Tax Difference (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TMP_JE</id>
+		<source_code_name>TMP_TRANSID</source_code_name>
+		<description>Temporary Transaction ID</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<association>
+		<id>PmnNumLink</id>
+		<target_direct>ORCT</target_direct>
+		<object_key_column>PmnNum</object_key_column>
+	</association>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>InvEntryLink</id>
+		<target_direct>OINV</target_direct>
+		<object_key_column>InvEntry</object_key_column>
+	</association>
+	<association>
+		<id>InvTransIDLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>InvTransID</object_key_column>
+	</association>
+	<association>
+		<id>FCCurrencyLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>FCCurrency</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LineNum</column>
+		<column>PmnNum</column>
+		<column>PmnInvID</column>
+	</key>
+</table>

@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SFDK</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>ID</id>
+		<source_code_name>ID</source_code_name>
+		<description sys="Y">Feedback DI</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WindowID</id>
+		<source_code_name>WINDOW_ID</source_code_name>
+		<description sys="Y">Window ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DBName</id>
+		<source_code_name>DB_NAME</source_code_name>
+		<description sys="Y">Company DB Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGN</source_code_name>
+		<description sys="Y">User Sign</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Date</id>
+		<source_code_name>DATE</source_code_name>
+		<description sys="Y">Feedback Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Time</id>
+		<source_code_name>TIME</source_code_name>
+		<description sys="Y">Feedback Time</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Version</id>
+		<source_code_name>VERSION</source_code_name>
+		<description sys="Y">Version including patch number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LOC</id>
+		<source_code_name>LOCALIZATION</source_code_name>
+		<description sys="Y">Localization</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UILang</id>
+		<source_code_name>UI_LANGUAGE</source_code_name>
+		<description sys="Y">UI Language</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Feedback</id>
+		<source_code_name>FEEDBACK</source_code_name>
+		<description sys="Y">Feedback</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>GUID</id>
+		<source_code_name>GUID</source_code_name>
+		<description sys="Y">GUID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StrLID</id>
+		<source_code_name>STR_LIST_ID</source_code_name>
+		<description sys="Y">String List ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StrIID</id>
+		<source_code_name>STR_INDEX_ID</source_code_name>
+		<description sys="Y">String Index ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MsgText</id>
+		<source_code_name>MESSAGE_TEXT</source_code_name>
+		<description sys="Y">Message text</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ID</column>
+	</key>
+</table>

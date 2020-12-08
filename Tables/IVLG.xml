@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>IVLG</id>
+	<description>Inventory Revaluation Log File</description>
+	<string_list>1100873</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Unique Key</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>UtilVer</id>
+		<source_code_name>UTILITY_VERSION</source_code_name>
+		<description>Inventory Revaluation Utility</description>
+		<invisible />
+		<field_type>1</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>B1Ver</id>
+		<source_code_name>B1_VERSION</source_code_name>
+		<description>B1 Version</description>
+		<invisible />
+		<field_type>1</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SrcDBVer</id>
+		<source_code_name>SRC_DB_VERSION</source_code_name>
+		<description>Source Database Version</description>
+		<invisible />
+		<field_type>1</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DestDBName</id>
+		<source_code_name>DEST_DB_NAME</source_code_name>
+		<description>Destination Database Name</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DestDBPath</id>
+		<source_code_name>DEST_DB_PATH</source_code_name>
+		<description>Destination Database Path</description>
+		<invisible />
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>FromDoc</id>
+		<source_code_name>FROM_DOC</source_code_name>
+		<description>Document From</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FromSysDat</id>
+		<source_code_name>FROM_SYS_DATE</source_code_name>
+		<description>System Date From</description>
+		<invisible />
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ToDoc</id>
+		<source_code_name>TO_DOC</source_code_name>
+		<description>Last calculated document</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ToSysDate</id>
+		<source_code_name>TO_SYS_DATE</source_code_name>
+		<description>To System Date</description>
+		<invisible />
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CustDbUpd</id>
+		<source_code_name>CUST_DB_WAS_UPD</source_code_name>
+		<description>Customer DB was updated</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>HistTblCrt</id>
+		<source_code_name>HIST_TBLS_CREATED</source_code_name>
+		<description>History tables created</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>SuccRecalc</id>
+		<source_code_name>RECALC_SUCCSESS</source_code_name>
+		<description>Successful recalculation</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Comment</id>
+		<source_code_name>COMMENT</source_code_name>
+		<description>Recalculation Comment</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EnblFromTo</id>
+		<source_code_name>ENBL_FROM_TO</source_code_name>
+		<description>Enabling From-To Function</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>StrFld</id>
+		<source_code_name>STR_FLD</source_code_name>
+		<description>General String Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NumFld</id>
+		<source_code_name>NUM_FLD</source_code_name>
+		<description>Include Custom from OIPF</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LoadCust</id>
+		<source_code_name>LOAD_CUST</source_code_name>
+		<description>Load Customs on Item Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>"Load Customs on Item Value" is selected</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>"Load Customs on Item Value" is not selected</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>FromDocLink</id>
+		<target_direct>OINM</target_direct>
+		<object_key_column>FromDoc</object_key_column>
+	</association>
+	<association>
+		<id>ToDocLink</id>
+		<target_direct>OINM</target_direct>
+		<object_key_column>ToDoc</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

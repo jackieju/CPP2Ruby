@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OPR6</id>
+	<description>Sales Opportunities Item</description>
+	<string_list>1101857</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>SalesOpportunities</info_category>
+	<column>
+		<id>OpprId</id>
+		<source_code_name>OPPR_ID</source_code_name>
+		<description>Sequence No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Line</id>
+		<source_code_name>LINE</source_code_name>
+		<description>Row No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Dscription</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Item/Service Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Item Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Price</id>
+		<source_code_name>PRICE</source_code_name>
+		<description>Price after Discount</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DiscPrcnt</id>
+		<source_code_name>DISCOUNT_PERCENT</source_code_name>
+		<description>Discount % per Row</description>
+		<field_type>35</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LineTotal</id>
+		<source_code_name>TOTAL</source_code_name>
+		<description>Row Total</description>
+		<field_type>36</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>OpprIdLink</id>
+		<target_direct>OOPR</target_direct>
+		<object_key_column>OpprId</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>OpprId</column>
+		<column>Line</column>
+	</key>
+</table>

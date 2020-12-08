@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OBTL</id>
+	<description>Bin Transaction Log</description>
+	<string_list>1101482</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MessageID</id>
+		<source_code_name>MESSAGE_ID</source_code_name>
+		<description>ILM Message ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BinAbs</id>
+		<source_code_name>BIN_ABS</source_code_name>
+		<description>Bin Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SnBMDAbs</id>
+		<source_code_name>SNB_MD_ABS</source_code_name>
+		<description>SnB MasterData Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ITLEntry</id>
+		<source_code_name>ITL_ENTRY</source_code_name>
+		<description>ITL Log Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<association>
+		<id>MessageIDLink</id>
+		<target_direct>OILM</target_direct>
+		<object_key_column>MessageID</object_key_column>
+	</association>
+	<association>
+		<id>BinAbsLink</id>
+		<target_direct>OBIN</target_direct>
+		<object_key_column>BinAbs</object_key_column>
+	</association>
+	<association>
+		<id>ITLEntryLink</id>
+		<target_direct>OITL</target_direct>
+		<object_key_column>ITLEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>MESSAGE_ID</id>
+		<column>MessageID</column>
+	</key>
+	<key>
+		<id>BIN_ABS</id>
+		<column>BinAbs</column>
+	</key>
+</table>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AWO2</id>
+	<description>Production Order - Base</description>
+	<string_list>1101432</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BaseEntry</id>
+		<source_code_name>BASE_ENTRY</source_code_name>
+		<description>Production Order Base Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BaseNum</id>
+		<source_code_name>BASE_NUM</source_code_name>
+		<description>Production Order Base Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BaseLine</id>
+		<source_code_name>BASE_LINE</source_code_name>
+		<description>Production Order Base Line</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>OWOR</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>BaseEntryLink</id>
+		<target_direct>RDR1</target_direct>
+		<object_key_column>BaseEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>BaseEntry</column>
+		<column>BaseLine</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RPC4</id>
+	<description>A/P Credit Memo - Tax Amount per Document</description>
+	<string_list>1100343</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>GroupNum</id>
+		<source_code_name>GROUP_NUM</source_code_name>
+		<description>Group Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>ExpnsCode</id>
+		<source_code_name>EXPENSE_CODE</source_code_name>
+		<description>Expense Code</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>RelateType</id>
+		<source_code_name>REL_TYPE</source_code_name>
+		<description>Relation Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Row</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Row Freight Charges</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Document Expenses</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Distributed Freights</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>StcCode</id>
+		<source_code_name>STC_CODE</source_code_name>
+		<description>Tax Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>StaCode</id>
+		<source_code_name>STA_CODE</source_code_name>
+		<description>Authority Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>staType</id>
+		<source_code_name>STA_TYPE</source_code_name>
+		<description>Authority Type</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TaxRate</id>
+		<source_code_name>TAX_RATE</source_code_name>
+		<description>Tax Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxAcct</id>
+		<source_code_name>TAX_ACCT</source_code_name>
+		<description>Tax Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>TaxSum</id>
+		<source_code_name>TAX_SUM</source_code_name>
+		<description>Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxSumFrgn</id>
+		<source_code_name>TAX_SUM_FRGN</source_code_name>
+		<description>Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxSumSys</id>
+		<source_code_name>TAX_SUM_SYS</source_code_name>
+		<description>Tax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseSum</id>
+		<source_code_name>BASE_SUM</source_code_name>
+		<description>Base Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseSumFrg</id>
+		<source_code_name>BASE_SUM_FRGN</source_code_name>
+		<description>Base Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseSumSys</id>
+		<source_code_name>BASE_SUM_SYS</source_code_name>
+		<description>Base Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>19</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>TaxStatus</id>
+		<source_code_name>TAX_STATUS</source_code_name>
+		<description>Tax Status</description>
+		<field_type>45</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Regular Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No Tax</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Use Tax</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>VatApplied</id>
+		<source_code_name>VAT_APPLIED</source_code_name>
+		<description>VAT Applied</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>VatAppldFC</id>
+		<source_code_name>VAT_APPLIED_FC</source_code_name>
+		<description>Applied Tax (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>VatAppldSC</id>
+		<source_code_name>VAT_APPLIED_SC</source_code_name>
+		<description>Applied Tax (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LineSeq</id>
+		<source_code_name>LINE_SEQUENCE</source_code_name>
+		<description>Line Sequence</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DeferrAcct</id>
+		<source_code_name>DEFERRED_ACCT</source_code_name>
+		<description>Deferred Tax Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>BaseType</id>
+		<source_code_name>BASE_DOC_TYPE</source_code_name>
+		<description>Base Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BaseAbs</id>
+		<source_code_name>BASE_DOC_ABS_ENTRY</source_code_name>
+		<description>Base Doc Abs Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BaseSeq</id>
+		<source_code_name>BASE_DOC_SEQUENCE</source_code_name>
+		<description>Base Doc. Line Sequence</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DeductTax</id>
+		<source_code_name>DEDUCT_TAX_AMOUNT</source_code_name>
+		<description>Deductible Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Tax</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DdctTaxFrg</id>
+		<source_code_name>DEDUCT_TAX_AMNT_FC</source_code_name>
+		<description>Deductible Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DdctTaxSys</id>
+		<source_code_name>DEDUCT_TAX_AMNT_SC</source_code_name>
+		<description>Deductible Tax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BaseAppld</id>
+		<source_code_name>BASE_SUM_APPLIED</source_code_name>
+		<description>Applied Base Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BaseApldFC</id>
+		<source_code_name>BASE_SUM_APPLIED_FC</source_code_name>
+		<description>Applied Base Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>BaseApldSC</id>
+		<source_code_name>BASE_SUM_APPLIED_SC</source_code_name>
+		<description>Applied Base Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>NonDdctPrc</id>
+		<source_code_name>NON_DEDUCT_PRC</source_code_name>
+		<description>Non Deductible %</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>NonDdctAct</id>
+		<source_code_name>NON_DEDUCT_ACT</source_code_name>
+		<description>Non Deductible Account</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>TaxInPrice</id>
+		<source_code_name>TAX_IN_PRICE</source_code_name>
+		<description>Tax Included in Price?</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Exempt</id>
+		<source_code_name>EXEMPT</source_code_name>
+		<description>Exempt?</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TaxExpAct</id>
+		<source_code_name>TAX_EXP_ACT</source_code_name>
+		<description>Expense Account for Tax</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>OnHoldTax</id>
+		<source_code_name>ON_HOLD_TAX</source_code_name>
+		<description>On Hold Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OnHoldTaxF</id>
+		<source_code_name>ON_HOLD_TAX_FC</source_code_name>
+		<description>On Hold Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OnHoldTaxS</id>
+		<source_code_name>ON_HOLD_TAX_SC</source_code_name>
+		<description>On Hold Tax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>InGrossRev</id>
+		<source_code_name>IN_GROSS_REVENUE</source_code_name>
+		<description>Included in Gross Revenue</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TaxSumOrg</id>
+		<source_code_name>TAX_SUM_ORIG</source_code_name>
+		<description>Tax Amount Original</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxSumOrgF</id>
+		<source_code_name>TAX_SUM_ORIG_FC</source_code_name>
+		<description>Tax Amount Original (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaxSumOrgS</id>
+		<source_code_name>TAX_SUM_ORIG_SC</source_code_name>
+		<description>Tax Amount Original (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>OpenTax</id>
+		<source_code_name>OPEN_SERVICE_TAX</source_code_name>
+		<description>Open Service Tax</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>OpenTaxFC</id>
+		<source_code_name>OPEN_SERVICE_TAX_FC</source_code_name>
+		<description>Open Service Tax (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>OpenTaxSC</id>
+		<source_code_name>OPEN_SERVICE_TAX_SC</source_code_name>
+		<description>Open Service Tax (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>ORPC</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ExpnsCodeLink</id>
+		<target_direct>OEXD</target_direct>
+		<object_key_column>ExpnsCode</object_key_column>
+	</association>
+	<association>
+		<id>StcCodeLink</id>
+		<target_direct>OSTC</target_direct>
+		<object_key_column>StcCode</object_key_column>
+	</association>
+	<association>
+		<id>StaCodeLink</id>
+		<target_direct>OSTA</target_direct>
+		<object_key_column>StaCode</object_key_column>
+	</association>
+	<association>
+		<id>staTypeLink</id>
+		<target_direct>OSTT</target_direct>
+		<object_key_column>staType</object_key_column>
+	</association>
+	<association>
+		<id>TaxAcctLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>TaxAcct</object_key_column>
+	</association>
+	<association>
+		<id>ObjectTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjectType</object_key_column>
+	</association>
+	<association>
+		<id>DeferrAcctLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>DeferrAcct</object_key_column>
+	</association>
+	<association>
+		<id>NonDdctActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>NonDdctAct</object_key_column>
+	</association>
+	<association>
+		<id>TaxExpActLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>TaxExpAct</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineSeq</column>
+	</key>
+	<key>
+		<id>SCONDARY</id>
+		<column>DocEntry</column>
+		<column>LineNum</column>
+		<column>GroupNum</column>
+		<column>ExpnsCode</column>
+		<column>StcCode</column>
+		<column>StaCode</column>
+		<column>staType</column>
+	</key>
+</table>

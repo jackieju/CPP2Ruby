@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DITM</id>
+	<description sys="Y">Item Properties</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<virtual />
+	<column>
+		<id>UniqueID</id>
+		<source_code_name>UNIQUEID</source_code_name>
+		<description sys="Y">UniqueID</description>
+		<field_type>300</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Top</id>
+		<source_code_name>TOP</source_code_name>
+		<description sys="Y">Top</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Left</id>
+		<source_code_name>LEFT</source_code_name>
+		<description sys="Y">Left</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Height</id>
+		<source_code_name>HEIGHT</source_code_name>
+		<description sys="Y">Height</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Width</id>
+		<source_code_name>WIDTH</source_code_name>
+		<description sys="Y">Width</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Visible</id>
+		<source_code_name>VISIBLE</source_code_name>
+		<description sys="Y">Visible</description>
+		<field_type>58</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">True</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">False</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FromPane</id>
+		<source_code_name>FROM_PANE</source_code_name>
+		<description sys="Y">FromPane</description>
+		<field_type>72</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ToPane</id>
+		<source_code_name>TO_PANE</source_code_name>
+		<description sys="Y">ToPane</description>
+		<field_type>73</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DisplayDe</id>
+		<source_code_name>DISP_DESC</source_code_name>
+		<description sys="Y">DisplayDesc</description>
+		<field_type>68</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">True</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">False</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Descripti</id>
+		<source_code_name>DESC</source_code_name>
+		<description sys="Y">Description</description>
+		<field_type>302</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RightJust</id>
+		<source_code_name>R_JUST</source_code_name>
+		<description sys="Y">RightJustified</description>
+		<field_type>63</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">True</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">False</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Enabled</id>
+		<source_code_name>ENABLED</source_code_name>
+		<description sys="Y">Enabled</description>
+		<field_type>57</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">True</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">False</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description sys="Y">Type</description>
+		<field_type>7</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>4</default_value>
+		<valid_value>
+			<value>4</value>
+			<description sys="Y">it_BUTTON</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description sys="Y">it_STATIC</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description sys="Y">it_EDIT</description>
+		</valid_value>
+		<valid_value>
+			<value>99</value>
+			<description sys="Y">it_FOLDER</description>
+		</valid_value>
+		<valid_value>
+			<value>100</value>
+			<description sys="Y">it_RECTANGLE</description>
+		</valid_value>
+		<valid_value>
+			<value>113</value>
+			<description sys="Y">it_COMBO_BOX</description>
+		</valid_value>
+		<valid_value>
+			<value>116</value>
+			<description sys="Y">it_LINKED_BUTTON</description>
+		</valid_value>
+		<valid_value>
+			<value>117</value>
+			<description sys="Y">it_PICTURE</description>
+		</valid_value>
+		<valid_value>
+			<value>118</value>
+			<description sys="Y">it_EXTEDIT</description>
+		</valid_value>
+		<valid_value>
+			<value>121</value>
+			<description sys="Y">it_CHECK_BOX</description>
+		</valid_value>
+		<valid_value>
+			<value>122</value>
+			<description sys="Y">it_OPTION_BUTTON</description>
+		</valid_value>
+		<valid_value>
+			<value>127</value>
+			<description sys="Y">it_MATRIX</description>
+		</valid_value>
+		<valid_value>
+			<value>104</value>
+			<description sys="Y">it_PANE_COMBO_BOX</description>
+		</valid_value>
+		<valid_value>
+			<value>128</value>
+			<description sys="Y">it_GRID</description>
+		</valid_value>
+		<valid_value>
+			<value>129</value>
+			<description sys="Y">it_BUTTON_COMBO</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LinkTo</id>
+		<source_code_name>LINK_TO</source_code_name>
+		<description sys="Y">LinkTo</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>UniqueID</column>
+	</key>
+</table>

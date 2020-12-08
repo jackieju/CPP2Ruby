@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SEWU</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>S_USER</id>
+		<source_code_name>S_USER</source_code_name>
+		<description sys="Y">S-Username</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<column>
+		<id>S_PASS</id>
+		<source_code_name>S_PASSWORD</source_code_name>
+		<description sys="Y">S-Password</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>S_USER</column>
+	</key>
+</table>

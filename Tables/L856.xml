@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>L856</id>
+	<description>856 Report - Record 60</description>
+	<string_list>1100045</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>DeductNum</id>
+		<source_code_name>DEDUCT_NUM</source_code_name>
+		<description>Deduction File Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>M96</id>
+		<source_code_name>M96</source_code_name>
+		<description sys="Y">96</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>96</default_value>
+	</column>
+	<column>
+		<id>Year</id>
+		<source_code_name>YEAR</source_code_name>
+		<description>Year</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Free1</id>
+		<source_code_name>FREE1</source_code_name>
+		<description sys="Y" />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>M03</id>
+		<source_code_name>M03</source_code_name>
+		<description sys="Y">3</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>3</default_value>
+	</column>
+	<column>
+		<id>IDNum</id>
+		<source_code_name>ID_NUM</source_code_name>
+		<description>Licensed Dealer No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>9</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>14</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>14</edit_size>
+	</column>
+	<column>
+		<id>CardName</id>
+		<source_code_name>CARD_NAME</source_code_name>
+		<description>BP Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>22</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>22</edit_size>
+	</column>
+	<column>
+		<id>Address</id>
+		<source_code_name>ADDRESS</source_code_name>
+		<description>Address</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>21</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>21</edit_size>
+	</column>
+	<column>
+		<id>City</id>
+		<source_code_name>CITY</source_code_name>
+		<description>City</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>13</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>13</edit_size>
+	</column>
+	<column>
+		<id>Payments</id>
+		<source_code_name>PAYMENTS</source_code_name>
+		<description>Total Payments</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Deduction</id>
+		<source_code_name>DEDUCTION</source_code_name>
+		<description>Deductions Total</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>9</edit_size>
+	</column>
+	<column>
+		<id>VATDeduct</id>
+		<source_code_name>VAT_DEDUCTION</source_code_name>
+		<description>Total Tax Deductions</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Balance</id>
+		<source_code_name>BALANCE</source_code_name>
+		<description>BP Balance</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DdctPrcnt</id>
+		<source_code_name>DEDUCT_PERCENT</source_code_name>
+		<description>Deduction %</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>DdctOffice</id>
+		<source_code_name>DEDUCT_OFFICE</source_code_name>
+		<description>Assessing Officer</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>Free2</id>
+		<source_code_name>FREE2</source_code_name>
+		<description sys="Y" />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>14</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>14</edit_size>
+	</column>
+	<column>
+		<id>Free3</id>
+		<source_code_name>FREE3</source_code_name>
+		<description sys="Y" />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>52</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>52</edit_size>
+	</column>
+	<column>
+		<id>M06</id>
+		<source_code_name>M06</source_code_name>
+		<description sys="Y">6</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>6</default_value>
+	</column>
+	<column>
+		<id>M60</id>
+		<source_code_name>M60</source_code_name>
+		<description sys="Y">60</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>60</default_value>
+	</column>
+</table>

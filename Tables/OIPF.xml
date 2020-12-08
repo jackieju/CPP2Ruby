@@ -1,0 +1,725 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OIPF</id>
+	<description>Landed Costs</description>
+	<string_list>1100109</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>NUM</source_code_name>
+		<description>Document Number</description>
+		<field_type>2</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DATE</source_code_name>
+		<description>Posting Date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DocDueDate</id>
+		<source_code_name>DUE_DATE</source_code_name>
+		<description>Due Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>SUPPLIER_CODE</source_code_name>
+		<description>Vendor Code</description>
+		<field_type>60</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>SuppName</id>
+		<source_code_name>SUPPLIER_NAME</source_code_name>
+		<description>Vendor Name</description>
+		<field_type>19</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AgentCode</id>
+		<source_code_name>AGENT_CODE</source_code_name>
+		<description>Subst. Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>AgentName</id>
+		<source_code_name>AGENT_NAME</source_code_name>
+		<description>Subst. Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>DocStatus</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Document Status</description>
+		<field_type>14</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>Open</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AgentNum</id>
+		<source_code_name>AGENT_NUM</source_code_name>
+		<description>File Number</description>
+		<field_type>170</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<column>
+		<id>Descr</id>
+		<source_code_name>COMMENT</source_code_name>
+		<description>Remarks</description>
+		<field_type>152</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>Ref1</id>
+		<source_code_name>REF1</source_code_name>
+		<description>Reference1</description>
+		<field_type>17</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Ref2</id>
+		<source_code_name>REF2</source_code_name>
+		<description>Reference 2</description>
+		<field_type>18</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocCur</id>
+		<source_code_name>DOC_CURRENCY</source_code_name>
+		<description>Document Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>DocRate</id>
+		<source_code_name>DOC_RATE</source_code_name>
+		<description>Document Rate</description>
+		<field_type>116</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ExpCustom</id>
+		<source_code_name>CUSTOM1</source_code_name>
+		<description>Projected Customs</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ActCustom</id>
+		<source_code_name>CUSTOM2</source_code_name>
+		<description>Act. Import Duty</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Vat1</id>
+		<source_code_name>VAT1</source_code_name>
+		<description>Tax 2</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Vat2</id>
+		<source_code_name>VAT2</source_code_name>
+		<description>Tax 2</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BeforeVat</id>
+		<source_code_name>TOTAL_BEFORE_VAT</source_code_name>
+		<description>Total Before Tax</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DocTotal</id>
+		<source_code_name>TOTAL_SUM</source_code_name>
+		<description>Document Total</description>
+		<field_type>9</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CostSum</id>
+		<source_code_name>TOTAL_COST</source_code_name>
+		<description>Total Costs</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DocTime</id>
+		<source_code_name>TIME</source_code_name>
+		<description>Generation Time</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Canceled</id>
+		<source_code_name>CANCELED</source_code_name>
+		<description>Canceled</description>
+		<field_type>10</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExCustomFC</id>
+		<source_code_name>CUSTOM1_FC</source_code_name>
+		<description>Projected Customs (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AcCustomFC</id>
+		<source_code_name>CUSTOM2_FC</source_code_name>
+		<description>Act. Import Duty in FC</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Vat1FC</id>
+		<source_code_name>VAT1_FC</source_code_name>
+		<description>Tax 1 (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Vat2FC</id>
+		<source_code_name>VAT2_FC</source_code_name>
+		<description>Tax 2 (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BeforVatFC</id>
+		<source_code_name>TOTAL_BEFORE_FC</source_code_name>
+		<description>Total Before Tax (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DocTotalFC</id>
+		<source_code_name>TOTAL_FRGN</source_code_name>
+		<description>Document Total (FC)</description>
+		<field_type>118</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CostSumFC</id>
+		<source_code_name>TOTAL_COST_FC</source_code_name>
+		<description>Total Costs (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CloseDate</id>
+		<source_code_name>CLOSING_DATE</source_code_name>
+		<description>Closing Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Cost_Match</id>
+		<source_code_name>COST_MATCH</source_code_name>
+		<description>Expenses Diff. for Reconciliation</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>C_Match_FC</id>
+		<source_code_name>C_MATCH_FC</source_code_name>
+		<description>Expenses Diff. for Recon. (FC)</description>
+		<invisible />
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BillOfLad</id>
+		<source_code_name>BILL_NUM</source_code_name>
+		<description>Bill of Lading No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TrnspCode</id>
+		<source_code_name>SHIP_TYPE</source_code_name>
+		<description>Delivery Category</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>CostFactor</id>
+		<source_code_name>COST_FACTOR</source_code_name>
+		<description>Expenses Factor</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Date of Update</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Creation Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Transfered</id>
+		<source_code_name>TRANSFERED</source_code_name>
+		<description>Year Transfer</description>
+		<field_type>111</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Instance</id>
+		<source_code_name>INSTANCE</source_code_name>
+		<description>Instance</description>
+		<invisible />
+		<field_type>227</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>TaxDate</id>
+		<source_code_name>TAX_DATE</source_code_name>
+		<description>Document Date</description>
+		<field_type>53</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Series</id>
+		<source_code_name>SERIES</source_code_name>
+		<description>Series</description>
+		<field_type>247</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>JdtNum</id>
+		<source_code_name>JDT_NUM</source_code_name>
+		<description>Journal Number</description>
+		<invisible />
+		<field_type>11</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>JdtMemo</id>
+		<source_code_name>JDT_MEMO</source_code_name>
+		<description>Transaction Details</description>
+		<field_type>5</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Doc. Generation Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Restore Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>69</default_value>
+	</column>
+	<column>
+		<id>ExCustomSC</id>
+		<source_code_name>CUSTOMS1_SC</source_code_name>
+		<description>Projected Customs (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ActCustSC</id>
+		<source_code_name>CUSTOMS2_SC</source_code_name>
+		<description>Actual Customs (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TtlCostSC</id>
+		<source_code_name>TOTAL_COST_SC</source_code_name>
+		<description>Total Expenditure (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>VersionNum</id>
+		<source_code_name>VERSION_NUM</source_code_name>
+		<description>Version Number</description>
+		<invisible />
+		<field_type>274</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OpenForLaC</id>
+		<source_code_name>OPEN_FOR_LANDED_COST</source_code_name>
+		<description>Open For Landed Costs</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>incCustom</id>
+		<source_code_name>INCLUDE_CUSTOM</source_code_name>
+		<description>Include Customs Expenses</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+	</column>
+	<column>
+		<id>SeqCode</id>
+		<source_code_name>SEQ_CODE</source_code_name>
+		<description>Sequence Code</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Serial</id>
+		<source_code_name>SERIAL</source_code_name>
+		<description>Serial Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SeriesStr</id>
+		<source_code_name>SERIES_STR</source_code_name>
+		<description>Series String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubStr</id>
+		<source_code_name>SUB_STR</source_code_name>
+		<description>Subseries String</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BuildDesc</id>
+		<source_code_name>BUILD_DESCRIPTOR</source_code_name>
+		<description>Build Descriptor</description>
+		<invisible />
+		<field_type>284</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>SupplCode</id>
+		<source_code_name>SUPPL_CODE</source_code_name>
+		<description>Supplementary Code</description>
+		<field_type>1251</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<association>
+		<id>CardCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>CardCode</object_key_column>
+	</association>
+	<association>
+		<id>AgentCodeLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>AgentCode</object_key_column>
+	</association>
+	<association>
+		<id>TrnspCodeLink</id>
+		<target_direct>OSHP</target_direct>
+		<object_key_column>TrnspCode</object_key_column>
+	</association>
+	<association>
+		<id>JdtNumLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>JdtNum</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+	</key>
+	<key>
+		<id>NUM</id>
+		<unique />
+		<column>DocNum</column>
+		<column>Instance</column>
+	</key>
+	<key>
+		<id>SUPPLIER</id>
+		<column>CardCode</column>
+	</key>
+	<key>
+		<id>AGENT</id>
+		<column>AgentCode</column>
+		<column>AgentNum</column>
+	</key>
+	<key>
+		<id>CURRENCY</id>
+		<column>DocCur</column>
+	</key>
+	<key>
+		<id>SERIES</id>
+		<column>Series</column>
+	</key>
+</table>

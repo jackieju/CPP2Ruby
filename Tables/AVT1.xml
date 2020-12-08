@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AVT1</id>
+	<description>Tax Definition</description>
+	<string_list>1101034</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>GROUP_CODE</source_code_name>
+		<description>Group Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EffecDate</id>
+		<source_code_name>EFFECTIVE_DATE</source_code_name>
+		<description>Effective from</description>
+		<field_type>244</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Rate</id>
+		<source_code_name>VAT_PERCENT</source_code_name>
+		<description>Rate</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>EquVatPr</id>
+		<source_code_name>EQU_VAT_PERCENT</source_code_name>
+		<description>Equalization Tax %</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>MinAmount</id>
+		<source_code_name>MIN_STAMP_TAX_AMNT</source_code_name>
+		<description>Minimum Stamp Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FixedAmout</id>
+		<source_code_name>FIXED_STAMP_TAX_AMNT</source_code_name>
+		<description>Fixed Stamp Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxType</id>
+		<source_code_name>TAX_TYPE</source_code_name>
+		<description>Tax Type (VAT or Stamp)</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>V</default_value>
+		<valid_value>
+			<value>V</value>
+			<description>VAT</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Stamp</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>DatevCode</id>
+		<source_code_name>DATEV_CODE</source_code_name>
+		<description>DATEV Code</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+		<column>EffecDate</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

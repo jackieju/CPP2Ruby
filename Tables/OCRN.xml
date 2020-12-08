@@ -1,0 +1,1134 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OCRN</id>
+	<description>Currency Codes</description>
+	<string_list>1100084</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>CurrCode</id>
+		<source_code_name>CURRENCY_CODE</source_code_name>
+		<description>Currency Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>CurrName</id>
+		<source_code_name>CURRENCY_NAME</source_code_name>
+		<description>Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ChkName</id>
+		<source_code_name>CHK_NAME</source_code_name>
+		<description>Name on Printed Checks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Chk100Name</id>
+		<source_code_name>CHK_100_NAME</source_code_name>
+		<description>Name of 100's on checks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DocCurrCod</id>
+		<source_code_name>DOC_CODE</source_code_name>
+		<description>Name on Printed Docs.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>FrgnName</id>
+		<source_code_name>F_NAME</source_code_name>
+		<description>English</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>F100Name</id>
+		<source_code_name>F_100_NAME</source_code_name>
+		<description>English Hundredth Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Locked</id>
+		<source_code_name>LOCKED</source_code_name>
+		<description>Locked</description>
+		<invisible />
+		<field_type>212</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Doc. Generation Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Restore Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>RoundSys</id>
+		<source_code_name>ROUND_SYS</source_code_name>
+		<description>Rounding</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>No Rounding</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Round to Five Hundredth</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Round to Ten Hundredth</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Round to One</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Round to Ten</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign2</id>
+		<source_code_name>_USER2_</source_code_name>
+		<description>Updating User</description>
+		<invisible />
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Decimals</id>
+		<source_code_name>DECIMALS</source_code_name>
+		<description>Decimals</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description>Default</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description>Without Decimals</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>1 Digit</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>2 Digits</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>3 Digits</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>4 Digits</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>5 Digits</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>6 Digits</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ISRCalc</id>
+		<source_code_name>ISR_CALC</source_code_name>
+		<description>ISR Calculation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RoundPym</id>
+		<source_code_name>IS_PAYMETN_ROUND</source_code_name>
+		<description>Rounding in Pmnt</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ConvUnit</id>
+		<source_code_name>IS_CONVENTIONAL_UNIT</source_code_name>
+		<description>Is a Conventional Unit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>BaseCurr</id>
+		<source_code_name>BASE_CURR</source_code_name>
+		<description>Base Currency for Conv. Unit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Factor</id>
+		<source_code_name>FACTOR</source_code_name>
+		<description>Factor</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ChkNamePl</id>
+		<source_code_name>CHK_NAME_PL</source_code_name>
+		<description>Plural for Int.Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Chk100NPl</id>
+		<source_code_name>CHK_100_NAME_PL</source_code_name>
+		<description>Plural for Hundredth Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FrgnNamePl</id>
+		<source_code_name>F_NAME_PL</source_code_name>
+		<description>Plural for English</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>F100NamePl</id>
+		<source_code_name>F_100_NAME_PL</source_code_name>
+		<description>Plural for Eng. Hundredth Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ISOCurrCod</id>
+		<source_code_name>ISO_CURR_CODE</source_code_name>
+		<description>ISO Currency Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>AED</value>
+			<description>United Arab Emirates, Dirhams</description>
+		</valid_value>
+		<valid_value>
+			<value>AFN</value>
+			<description>Afghanistan, Afghanis</description>
+		</valid_value>
+		<valid_value>
+			<value>ALL</value>
+			<description>Albania, Leke</description>
+		</valid_value>
+		<valid_value>
+			<value>AMD</value>
+			<description>Armenia, Drams</description>
+		</valid_value>
+		<valid_value>
+			<value>ANG</value>
+			<description>Netherlands Antilles, Guilders (also called Florins)</description>
+		</valid_value>
+		<valid_value>
+			<value>AOA</value>
+			<description>Angola, Kwanzas</description>
+		</valid_value>
+		<valid_value>
+			<value>ARS</value>
+			<description>Argentina, Pesos</description>
+		</valid_value>
+		<valid_value>
+			<value>AUD</value>
+			<description>Australia, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>AWG</value>
+			<description>Aruba, Guilders (also called Florins)</description>
+		</valid_value>
+		<valid_value>
+			<value>AZM</value>
+			<description>Azerbaijan, Manats [obsolete]</description>
+		</valid_value>
+		<valid_value>
+			<value>AZN</value>
+			<description>Azerbaijan, New Manats</description>
+		</valid_value>
+		<valid_value>
+			<value>BAM</value>
+			<description>Bosnia and Herzegovina, Convertible Marks</description>
+		</valid_value>
+		<valid_value>
+			<value>BBD</value>
+			<description>Barbados, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>BDT</value>
+			<description>Bangladesh, Taka</description>
+		</valid_value>
+		<valid_value>
+			<value>BGN</value>
+			<description>Bulgaria, Leva</description>
+		</valid_value>
+		<valid_value>
+			<value>BHD</value>
+			<description>Bahrain, Dinars</description>
+		</valid_value>
+		<valid_value>
+			<value>BIF</value>
+			<description>Burundi, Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>BMD</value>
+			<description>Bermuda, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>BND</value>
+			<description>Brunei, Ringgits</description>
+		</valid_value>
+		<valid_value>
+			<value>BOB</value>
+			<description>Bolivia, Bolivianos</description>
+		</valid_value>
+		<valid_value>
+			<value>BRL</value>
+			<description>Brazil, Brazilian Reals</description>
+		</valid_value>
+		<valid_value>
+			<value>BSD</value>
+			<description>Bahamas, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>BTN</value>
+			<description>Bhutan, Ngultrum</description>
+		</valid_value>
+		<valid_value>
+			<value>BWP</value>
+			<description>Botswana, Pulas</description>
+		</valid_value>
+		<valid_value>
+			<value>BYR</value>
+			<description>Belarus, Rubles</description>
+		</valid_value>
+		<valid_value>
+			<value>BZD</value>
+			<description>Belize, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>CAD</value>
+			<description>Canada, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>CDF</value>
+			<description>Congo/Kinshasa, Congolese Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>CHF</value>
+			<description>Switzerland, Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>CLP</value>
+			<description>Chile, Pesos</description>
+		</valid_value>
+		<valid_value>
+			<value>CNY</value>
+			<description>China, Yuan Renminbi</description>
+		</valid_value>
+		<valid_value>
+			<value>COP</value>
+			<description>Colombia, Pesos</description>
+		</valid_value>
+		<valid_value>
+			<value>CRC</value>
+			<description>Costa Rica, Colones</description>
+		</valid_value>
+		<valid_value>
+			<value>CUP</value>
+			<description>Cuba, Pesos</description>
+		</valid_value>
+		<valid_value>
+			<value>CVE</value>
+			<description>Cape Verde, Escudos</description>
+		</valid_value>
+		<valid_value>
+			<value>CYP</value>
+			<description>Cyprus, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>CZK</value>
+			<description>Czech Republic, Koruny</description>
+		</valid_value>
+		<valid_value>
+			<value>DJF</value>
+			<description>Djibouti, Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>DKK</value>
+			<description>Denmark, Kroner</description>
+		</valid_value>
+		<valid_value>
+			<value>DOP</value>
+			<description>Dominican Republic, Pesos</description>
+		</valid_value>
+		<valid_value>
+			<value>DZD</value>
+			<description>Algeria, Algerian Dinars</description>
+		</valid_value>
+		<valid_value>
+			<value>EEK</value>
+			<description>Estonia, Krooni</description>
+		</valid_value>
+		<valid_value>
+			<value>EGP</value>
+			<description>Egypt, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>ERN</value>
+			<description>Eritrea, Nakfa</description>
+		</valid_value>
+		<valid_value>
+			<value>ETB</value>
+			<description>Ethiopia, Birr</description>
+		</valid_value>
+		<valid_value>
+			<value>EUR</value>
+			<description>EU Member Countries, Euro</description>
+		</valid_value>
+		<valid_value>
+			<value>FJD</value>
+			<description>Fiji, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>FKP</value>
+			<description>Falkland Islands (Malvinas), Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>GBP</value>
+			<description>United Kingdom, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>GEL</value>
+			<description>Georgia, Lari</description>
+		</valid_value>
+		<valid_value>
+			<value>GGP</value>
+			<description>Guernsey, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>GHC</value>
+			<description>Ghana, Cedis</description>
+		</valid_value>
+		<valid_value>
+			<value>GHS</value>
+			<description>Ghana, Cedis</description>
+		</valid_value>
+		<valid_value>
+			<value>GIP</value>
+			<description>Gibraltar, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>GMD</value>
+			<description>Gambia, Dalasi</description>
+		</valid_value>
+		<valid_value>
+			<value>GNF</value>
+			<description>Guinea, Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>GTQ</value>
+			<description>Guatemala, Quetzales</description>
+		</valid_value>
+		<valid_value>
+			<value>GYD</value>
+			<description>Guyana, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>HKD</value>
+			<description>Hong Kong, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>HNL</value>
+			<description>Honduras, Lempiras</description>
+		</valid_value>
+		<valid_value>
+			<value>HRK</value>
+			<description>Croatia, Kuna</description>
+		</valid_value>
+		<valid_value>
+			<value>HTG</value>
+			<description>Haiti, Gourdes</description>
+		</valid_value>
+		<valid_value>
+			<value>HUF</value>
+			<description>Hungary, Forint</description>
+		</valid_value>
+		<valid_value>
+			<value>IDR</value>
+			<description>Indonesia, Rupiahs</description>
+		</valid_value>
+		<valid_value>
+			<value>ILS</value>
+			<description>Israel, New Shekels</description>
+		</valid_value>
+		<valid_value>
+			<value>IMP</value>
+			<description>Isle of Man, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>INR</value>
+			<description>India, Rupees</description>
+		</valid_value>
+		<valid_value>
+			<value>IQD</value>
+			<description>Iraq, Dinars</description>
+		</valid_value>
+		<valid_value>
+			<value>IRR</value>
+			<description>Iran, Rials</description>
+		</valid_value>
+		<valid_value>
+			<value>ISK</value>
+			<description>Iceland, Kronur</description>
+		</valid_value>
+		<valid_value>
+			<value>JEP</value>
+			<description>Jersey, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>JMD</value>
+			<description>Jamaica, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>JOD</value>
+			<description>Jordan, Dinars</description>
+		</valid_value>
+		<valid_value>
+			<value>JPY</value>
+			<description>Japan, Yen</description>
+		</valid_value>
+		<valid_value>
+			<value>KES</value>
+			<description>Kenya, Shillings</description>
+		</valid_value>
+		<valid_value>
+			<value>KGS</value>
+			<description>Kyrgyzstan, Soms</description>
+		</valid_value>
+		<valid_value>
+			<value>KHR</value>
+			<description>Cambodia, Riels</description>
+		</valid_value>
+		<valid_value>
+			<value>KMF</value>
+			<description>Comoros, Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>KPW</value>
+			<description>Korea (North), Won</description>
+		</valid_value>
+		<valid_value>
+			<value>KRW</value>
+			<description>Korea (South), Won</description>
+		</valid_value>
+		<valid_value>
+			<value>KWD</value>
+			<description>Kuwait, Dinars</description>
+		</valid_value>
+		<valid_value>
+			<value>KYD</value>
+			<description>Cayman Islands, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>KZT</value>
+			<description>Kazakhstan, Tenge</description>
+		</valid_value>
+		<valid_value>
+			<value>LAK</value>
+			<description>Laos, Kips</description>
+		</valid_value>
+		<valid_value>
+			<value>LBP</value>
+			<description>Lebanon, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>LKR</value>
+			<description>Sri Lanka, Rupees</description>
+		</valid_value>
+		<valid_value>
+			<value>LRD</value>
+			<description>Liberia, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>LSL</value>
+			<description>Lesotho, Maloti</description>
+		</valid_value>
+		<valid_value>
+			<value>LTL</value>
+			<description>Lithuania, Litai</description>
+		</valid_value>
+		<valid_value>
+			<value>LVL</value>
+			<description>Latvia, Lati</description>
+		</valid_value>
+		<valid_value>
+			<value>LYD</value>
+			<description>Libya, Dinars</description>
+		</valid_value>
+		<valid_value>
+			<value>MAD</value>
+			<description>Morocco, Dirhams</description>
+		</valid_value>
+		<valid_value>
+			<value>MDL</value>
+			<description>Moldova, Lei</description>
+		</valid_value>
+		<valid_value>
+			<value>MGA</value>
+			<description>Madagascar, Ariary</description>
+		</valid_value>
+		<valid_value>
+			<value>MKD</value>
+			<description>Macedonia, Denars</description>
+		</valid_value>
+		<valid_value>
+			<value>MMK</value>
+			<description>Myanmar (Burma), Kyats</description>
+		</valid_value>
+		<valid_value>
+			<value>MNT</value>
+			<description>Mongolia, Tugriks</description>
+		</valid_value>
+		<valid_value>
+			<value>MOP</value>
+			<description>Macau, Patacas</description>
+		</valid_value>
+		<valid_value>
+			<value>MRO</value>
+			<description>Mauritania, Ouguiyas</description>
+		</valid_value>
+		<valid_value>
+			<value>MTL</value>
+			<description>Malta, Liri</description>
+		</valid_value>
+		<valid_value>
+			<value>MUR</value>
+			<description>Mauritius, Rupees</description>
+		</valid_value>
+		<valid_value>
+			<value>MVR</value>
+			<description>Maldives (Maldive Islands), Rufiyaa</description>
+		</valid_value>
+		<valid_value>
+			<value>MWK</value>
+			<description>Malawi, Kwachas</description>
+		</valid_value>
+		<valid_value>
+			<value>MXN</value>
+			<description>Mexico, Pesos</description>
+		</valid_value>
+		<valid_value>
+			<value>MYR</value>
+			<description>Malaysia, Ringgits</description>
+		</valid_value>
+		<valid_value>
+			<value>MZM</value>
+			<description>Mozambique, Meticais [obsolete]</description>
+		</valid_value>
+		<valid_value>
+			<value>MZN</value>
+			<description>Mozambique, Meticais [newer unit, same name]</description>
+		</valid_value>
+		<valid_value>
+			<value>NAD</value>
+			<description>Namibia, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>NGN</value>
+			<description>Nigeria, Nairas</description>
+		</valid_value>
+		<valid_value>
+			<value>NIO</value>
+			<description>Nicaragua, Cordobas</description>
+		</valid_value>
+		<valid_value>
+			<value>NOK</value>
+			<description>Norway, Krone</description>
+		</valid_value>
+		<valid_value>
+			<value>NPR</value>
+			<description>Nepal, Nepal Rupees</description>
+		</valid_value>
+		<valid_value>
+			<value>NZD</value>
+			<description>New Zealand, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>OMR</value>
+			<description>Oman, Rials</description>
+		</valid_value>
+		<valid_value>
+			<value>PAB</value>
+			<description>Panama, Balboa</description>
+		</valid_value>
+		<valid_value>
+			<value>PEN</value>
+			<description>Peru, Nuevos Soles</description>
+		</valid_value>
+		<valid_value>
+			<value>PGK</value>
+			<description>Papua New Guinea, Kina</description>
+		</valid_value>
+		<valid_value>
+			<value>PHP</value>
+			<description>Philippines, Pesos</description>
+		</valid_value>
+		<valid_value>
+			<value>PKR</value>
+			<description>Pakistan, Rupees</description>
+		</valid_value>
+		<valid_value>
+			<value>PLN</value>
+			<description>Poland, Zlotych</description>
+		</valid_value>
+		<valid_value>
+			<value>PYG</value>
+			<description>Paraguay, Guarani</description>
+		</valid_value>
+		<valid_value>
+			<value>QAR</value>
+			<description>Qatar, Rials</description>
+		</valid_value>
+		<valid_value>
+			<value>ROL</value>
+			<description>Romania, Lei [obsolete]</description>
+		</valid_value>
+		<valid_value>
+			<value>RON</value>
+			<description>Romania, New Lei</description>
+		</valid_value>
+		<valid_value>
+			<value>RSD</value>
+			<description>Serbia, Dinars</description>
+		</valid_value>
+		<valid_value>
+			<value>RUB</value>
+			<description>Russia, Rubles</description>
+		</valid_value>
+		<valid_value>
+			<value>RWF</value>
+			<description>Rwanda, Rwandan Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>SAR</value>
+			<description>Saudi Arabia, Riyals</description>
+		</valid_value>
+		<valid_value>
+			<value>SBD</value>
+			<description>Solomon Islands, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>SCR</value>
+			<description>Seychelles, Rupees</description>
+		</valid_value>
+		<valid_value>
+			<value>SDD</value>
+			<description>Sudan, Dinars [obsolete]</description>
+		</valid_value>
+		<valid_value>
+			<value>SDG</value>
+			<description>Sudan, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>SEK</value>
+			<description>Sweden, Kronor</description>
+		</valid_value>
+		<valid_value>
+			<value>SGD</value>
+			<description>Singapore, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>SHP</value>
+			<description>Saint Helena, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>SIT</value>
+			<description>Slovenia, Tolars [obsolete]</description>
+		</valid_value>
+		<valid_value>
+			<value>SKK</value>
+			<description>Slovakia, Koruny</description>
+		</valid_value>
+		<valid_value>
+			<value>SLL</value>
+			<description>Sierra Leone, Leones</description>
+		</valid_value>
+		<valid_value>
+			<value>SOS</value>
+			<description>Somalia, Shillings</description>
+		</valid_value>
+		<valid_value>
+			<value>SPL</value>
+			<description>Seborga, Luigini</description>
+		</valid_value>
+		<valid_value>
+			<value>SRD</value>
+			<description>Suriname, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>STD</value>
+			<description>Sao Tome and Principe, Dobras</description>
+		</valid_value>
+		<valid_value>
+			<value>SVC</value>
+			<description>El Salvador, Colones</description>
+		</valid_value>
+		<valid_value>
+			<value>SYP</value>
+			<description>Syria, Pounds</description>
+		</valid_value>
+		<valid_value>
+			<value>SZL</value>
+			<description>Swaziland, Emalangeni</description>
+		</valid_value>
+		<valid_value>
+			<value>THB</value>
+			<description>Thailand, Baht</description>
+		</valid_value>
+		<valid_value>
+			<value>TJS</value>
+			<description>Tajikistan, Somoni</description>
+		</valid_value>
+		<valid_value>
+			<value>TMM</value>
+			<description>Turkmenistan, Manats</description>
+		</valid_value>
+		<valid_value>
+			<value>TND</value>
+			<description>Tunisia, Dinars</description>
+		</valid_value>
+		<valid_value>
+			<value>TOP</value>
+			<description>Tonga, Pa'anga</description>
+		</valid_value>
+		<valid_value>
+			<value>TRY</value>
+			<description>Turkey, New Lira</description>
+		</valid_value>
+		<valid_value>
+			<value>TTD</value>
+			<description>Trinidad and Tobago, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>TVD</value>
+			<description>Tuvalu, Tuvalu Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>TWD</value>
+			<description>Taiwan, New Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>TZS</value>
+			<description>Tanzania, Shillings</description>
+		</valid_value>
+		<valid_value>
+			<value>UAH</value>
+			<description>Ukraine, Hryvnia</description>
+		</valid_value>
+		<valid_value>
+			<value>UGX</value>
+			<description>Uganda, Shillings</description>
+		</valid_value>
+		<valid_value>
+			<value>USD</value>
+			<description>United States of America, Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>UYU</value>
+			<description>Uruguay, Pesos</description>
+		</valid_value>
+		<valid_value>
+			<value>UZS</value>
+			<description>Uzbekistan, Sums</description>
+		</valid_value>
+		<valid_value>
+			<value>VEB</value>
+			<description>Venezuela, Bolivares</description>
+		</valid_value>
+		<valid_value>
+			<value>VND</value>
+			<description>Viet Nam, Dong</description>
+		</valid_value>
+		<valid_value>
+			<value>VUV</value>
+			<description>Vanuatu, Vatu</description>
+		</valid_value>
+		<valid_value>
+			<value>WST</value>
+			<description>Samoa, Tala</description>
+		</valid_value>
+		<valid_value>
+			<value>XAF</value>
+			<description>Communaute Financiere Africaine BEAC, Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>XAG</value>
+			<description>Silver, Ounces</description>
+		</valid_value>
+		<valid_value>
+			<value>XAU</value>
+			<description>Gold, Ounces</description>
+		</valid_value>
+		<valid_value>
+			<value>XCD</value>
+			<description>East Caribbean Dollars</description>
+		</valid_value>
+		<valid_value>
+			<value>XDR</value>
+			<description>International Monetary Fund (IMF) Special Drawing Rights</description>
+		</valid_value>
+		<valid_value>
+			<value>XOF</value>
+			<description>Communaute Financiere Africaine BCEAO, Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>XPD</value>
+			<description>Palladium Ounces</description>
+		</valid_value>
+		<valid_value>
+			<value>XPF</value>
+			<description>Comptoirs Francais du Pacifique Francs</description>
+		</valid_value>
+		<valid_value>
+			<value>XPT</value>
+			<description>Platinum, Ounces</description>
+		</valid_value>
+		<valid_value>
+			<value>YER</value>
+			<description>Yemen, Rials</description>
+		</valid_value>
+		<valid_value>
+			<value>ZAR</value>
+			<description>South Africa, Rand</description>
+		</valid_value>
+		<valid_value>
+			<value>ZMK</value>
+			<description>Zambia, Kwacha</description>
+		</valid_value>
+		<valid_value>
+			<value>ZWD</value>
+			<description>Zimbabwe, Zimbabwe Dollars</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MaxInDiff</id>
+		<source_code_name>MAX_IN_PMNT_DIFF</source_code_name>
+		<description>Incoming Amt Diff. Allowed</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>MaxOutDiff</id>
+		<source_code_name>MAX_OUT_PMNT_DIFF</source_code_name>
+		<description>Outgoing Amt Diff. Allowed</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>MaxInPcnt</id>
+		<source_code_name>MAX_IN_P_DIFF_PCNT</source_code_name>
+		<description>Incoming % Diff. Allowed</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>MaxOutPcnt</id>
+		<source_code_name>MAX_OUT_P_DIFF_PCNT</source_code_name>
+		<description>Outgoing % Diff. Allowed</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ISOCurrNum</id>
+		<source_code_name>ISO_CURR_NUM</source_code_name>
+		<description>ISO Currency Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>UserSign2Link</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign2</object_key_column>
+	</association>
+	<association>
+		<id>BaseCurrLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>BaseCurr</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CurrCode</column>
+	</key>
+	<key>
+		<id>CUR_NAME</id>
+		<column>CurrName</column>
+	</key>
+</table>

@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SPRM</id>
+	<description sys="Y">[SPRM]</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description sys="Y">Abs entry</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SaCoName</id>
+		<source_code_name>SAP_CO_NAME</source_code_name>
+		<description sys="Y">SAP company name</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>MySAPCard</id>
+		<source_code_name>MY_SAP_CARD</source_code_name>
+		<description sys="Y">My SAP card</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>MeInSAP</id>
+		<source_code_name>ME_IN_SAP</source_code_name>
+		<description sys="Y">Me in SAP</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>AttUser</id>
+		<source_code_name>ATT_USER</source_code_name>
+		<description sys="Y">Attending user</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

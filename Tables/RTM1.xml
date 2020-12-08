@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RTM1</id>
+	<description>Rate Differences - Rows</description>
+	<string_list>1100294</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Reconciliation Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TransId</id>
+		<source_code_name>TRANS_ABS</source_code_name>
+		<description>Journal Key</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>JdtLine</id>
+		<source_code_name>JDT_LINE</source_code_name>
+		<description>Journal Row</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>IsSysCurr</id>
+		<source_code_name>USE_SYS_CURR</source_code_name>
+		<description>Is System Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AcctCode</id>
+		<source_code_name>ACCOUNT_CODE</source_code_name>
+		<description>G/L Account/BP Code</description>
+		<field_type>280</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>Balance</id>
+		<source_code_name>BALANCE</source_code_name>
+		<description>Balance</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FrnBlnc</id>
+		<source_code_name>FRN_BLANCE</source_code_name>
+		<description>Balance (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Valid</id>
+		<source_code_name>VALID</source_code_name>
+		<description>Confirmed</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RevalRate</id>
+		<source_code_name>REVAL_RATE</source_code_name>
+		<description>Revaluation Rate</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Rate</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Delta</id>
+		<source_code_name>DELTA</source_code_name>
+		<description>Difference in LC</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>FCCurrency</id>
+		<source_code_name>FC_CURRENCY</source_code_name>
+		<description>Foreign Currency</description>
+		<field_type>181</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>JdtAcctCod</id>
+		<source_code_name>JDT_ACCOUNT_CODE</source_code_name>
+		<description>Journal Account Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>BaseRef</id>
+		<source_code_name>BASE_REF</source_code_name>
+		<description>Base Reference</description>
+		<field_type>7</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>JdtType</id>
+		<source_code_name>JDT_TYPE</source_code_name>
+		<description>Journal Entry Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>U</default_value>
+		<valid_value>
+			<value>P</value>
+			<description>Primary</description>
+		</valid_value>
+		<valid_value>
+			<value>G</value>
+			<description>Generated</description>
+		</valid_value>
+		<valid_value>
+			<value>W</value>
+			<description>Without Primary</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Undefined Type</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RefDate</id>
+		<source_code_name>REF_DATE</source_code_name>
+		<description>Posting Date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DueDate</id>
+		<source_code_name>DUE_DATE</source_code_name>
+		<description>Due Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxDate</id>
+		<source_code_name>TAX_DATE</source_code_name>
+		<description>Document Date</description>
+		<field_type>53</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CntBlnc</id>
+		<source_code_name>CNT_BLANCE</source_code_name>
+		<description>Converted Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<association>
+		<id>TransIdLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>TransId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LineNum</column>
+		<column>TransId</column>
+		<column>JdtLine</column>
+		<column>IsSysCurr</column>
+	</key>
+	<key>
+		<id>SYS_CURR</id>
+		<column>IsSysCurr</column>
+	</key>
+</table>

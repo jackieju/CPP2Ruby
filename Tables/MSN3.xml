@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>MSN3</id>
+	<description>MRP Pegging Information</description>
+	<string_list>1100559</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MRP</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PeriodID</id>
+		<source_code_name>PERIOD_ID</source_code_name>
+		<description>Period ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseEntry</id>
+		<source_code_name>BASE_ABS_ENT</source_code_name>
+		<description>Base Document Internal ID</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BaseLine</id>
+		<source_code_name>BASE_LINE</source_code_name>
+		<description>Base Row</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BaseObj</id>
+		<source_code_name>BASE_OBJECT</source_code_name>
+		<description>Base Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseDocNum</id>
+		<source_code_name>BASE_DOC_NUM</source_code_name>
+		<description>Base Document Number</description>
+		<field_type>24</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>16</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>16</edit_size>
+	</column>
+	<column>
+		<id>BaseDue</id>
+		<source_code_name>BASE_DUE_DATE</source_code_name>
+		<description>Base Due Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>StockType</id>
+		<source_code_name>STOCK_TYPE</source_code_name>
+		<description>Stock Operation Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Stock Issue</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Stock Receipt</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LineID</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ParentCode</id>
+		<source_code_name>PARENT_CODE</source_code_name>
+		<description>Parent Item No.</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>StartDate</id>
+		<source_code_name>PERIOD_START_DATE</source_code_name>
+		<description>Period Start Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>EndDate</id>
+		<source_code_name>PERIOD_END_DATE</source_code_name>
+		<description>Period End Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WhsCode</id>
+		<source_code_name>WAREHOUSE</source_code_name>
+		<description>Warehouse Code</description>
+		<field_type>39</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>ParentCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ParentCode</object_key_column>
+	</association>
+	<association>
+		<id>WhsCodeLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhsCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>LineID</column>
+	</key>
+</table>

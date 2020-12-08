@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>IMT11</id>
+	<description>Calculated expression's constituent with sign for specifying account in specific template</description>
+	<string_list>1101042</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>TemplateId</id>
+		<source_code_name>TEMPLATE_ID</source_code_name>
+		<description sys="Y">Template ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AccountId</id>
+		<source_code_name>ACCOUNT_ID</source_code_name>
+		<description sys="Y">Account ID</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>Sign</id>
+		<source_code_name>Sign</source_code_name>
+		<description sys="Y">Sing of the constituent</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>A</default_value>
+		<valid_value>
+			<value>A</value>
+			<description sys="Y">Add</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description sys="Y">Sub</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PoSt_ID</id>
+		<source_code_name>POST_STRUCTURE_ID</source_code_name>
+		<description sys="Y">Id into Post Structure</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Positive</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<association>
+		<id>TemplateIdLink</id>
+		<target_direct>IMT1</target_direct>
+		<object_key_column>TemplateId</object_key_column>
+	</association>
+	<association>
+		<id>AccountIdLink</id>
+		<target_direct>IMT1</target_direct>
+		<object_key_column>AccountId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TemplateId</column>
+		<column>AccountId</column>
+		<column>PoSt_ID</column>
+	</key>
+</table>

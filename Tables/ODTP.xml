@@ -1,0 +1,731 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ODTP</id>
+	<description>Fixed Assets Depreciation Types</description>
+	<string_list>1101474</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Descr</id>
+		<source_code_name>DESCRIPTION</source_code_name>
+		<description>Description</description>
+		<field_type>114</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DprMeth</id>
+		<source_code_name>DEPRECIATION_METHOD</source_code_name>
+		<description>Depreciation Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>NO</default_value>
+		<valid_value>
+			<value>NO</value>
+			<description>No Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>SL</value>
+			<description>Straight Line</description>
+		</valid_value>
+		<valid_value>
+			<value>SP</value>
+			<description>Straight Line Period Control</description>
+		</valid_value>
+		<valid_value>
+			<value>DB</value>
+			<description>Declining Balance</description>
+		</valid_value>
+		<valid_value>
+			<value>ML</value>
+			<description>Multilevel</description>
+		</valid_value>
+		<valid_value>
+			<value>WO</value>
+			<description>Immediate Write-Off</description>
+		</valid_value>
+		<valid_value>
+			<value>SD</value>
+			<description>Special Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>MD</value>
+			<description>Manual Depreciation</description>
+		</valid_value>
+		<valid_value>
+			<value>CF</value>
+			<description>Accelerated</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DprTo</id>
+		<source_code_name>DPR_TO</source_code_name>
+		<description>Minimum Depreciated Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Rounding</id>
+		<source_code_name>ROUNDING</source_code_name>
+		<description>Round Year End Book Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InclSalv</id>
+		<source_code_name>INCUDE_SALVAGE</source_code_name>
+		<description>Include Salvage Value in Depr.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SalvPerc</id>
+		<source_code_name>SALVAGE_PERCETAGE</source_code_name>
+		<description>Percentage for Salvage Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PerAcq</id>
+		<source_code_name>PERIOD_ACQUISITION</source_code_name>
+		<description>Period Control for Acquisition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>PR</default_value>
+		<valid_value>
+			<value>PR</value>
+			<description>Pro Rata Temporis</description>
+		</valid_value>
+		<valid_value>
+			<value>HY</value>
+			<description>First Year Convention</description>
+		</valid_value>
+		<valid_value>
+			<value>6M</value>
+			<description>Half Year</description>
+		</valid_value>
+		<valid_value>
+			<value>FY</value>
+			<description>Full Year</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PerSubAcq</id>
+		<source_code_name>PERIOD_SUB_ACQ</source_code_name>
+		<description>Period Control Subacquisition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>PR</default_value>
+		<valid_value>
+			<value>PR</value>
+			<description>Pro Rata Temporis</description>
+		</valid_value>
+		<valid_value>
+			<value>YR</value>
+			<description>Half Year Convention</description>
+		</valid_value>
+		<valid_value>
+			<value>FY</value>
+			<description>Full Year</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PerRet</id>
+		<source_code_name>PERIOD_RETIREMENT</source_code_name>
+		<description>Period Control for Retirement</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>PR</default_value>
+		<valid_value>
+			<value>PR</value>
+			<description>Pro Rata Temporis</description>
+		</valid_value>
+		<valid_value>
+			<value>YR</value>
+			<description>Half Year Convention</description>
+		</valid_value>
+		<valid_value>
+			<value>EL</value>
+			<description>After End of Useful Life</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AcqPRTyp</id>
+		<source_code_name>ACQUISITION_PR_TYPE</source_code_name>
+		<description>Type of PRT for Acquisition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>EDB</default_value>
+		<valid_value>
+			<value>EDB</value>
+			<description>Exact Daily Base</description>
+		</valid_value>
+		<valid_value>
+			<value>FCP</value>
+			<description>First Day of Current Period</description>
+		</valid_value>
+		<valid_value>
+			<value>FNP</value>
+			<description>First Day of Next Period</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SubPRTyp</id>
+		<source_code_name>SUBACQ_PR_TYPE</source_code_name>
+		<description>Type of PR for Subacquisition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>EDB</default_value>
+		<valid_value>
+			<value>EDB</value>
+			<description>Exact Daily Base</description>
+		</valid_value>
+		<valid_value>
+			<value>FCP</value>
+			<description>First Day of Current Period</description>
+		</valid_value>
+		<valid_value>
+			<value>FNP</value>
+			<description>First Day of Next Period</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RetPRTyp</id>
+		<source_code_name>RETIREMENT_PR_TYPE</source_code_name>
+		<description>Type of PR for Retirement</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>EDB</default_value>
+		<valid_value>
+			<value>EDB</value>
+			<description>Exact Daily Base</description>
+		</valid_value>
+		<valid_value>
+			<value>LPP</value>
+			<description>Last Day of Prior Period</description>
+		</valid_value>
+		<valid_value>
+			<value>LCP</value>
+			<description>Last Day of Current Period</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PerDpRev</id>
+		<source_code_name>DEPR_TOBE_REVERSED</source_code_name>
+		<description>Depreciation to Be Reversed %</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ValidFrom</id>
+		<source_code_name>VALID_FROM</source_code_name>
+		<description>Valid From</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>19000101</default_value>
+	</column>
+	<column>
+		<id>ValidTo</id>
+		<source_code_name>VALID_TO</source_code_name>
+		<description>Valid To</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>20991231</default_value>
+	</column>
+	<column>
+		<id>sCalcMeth</id>
+		<source_code_name>STRAIGHT_LINE_CALC</source_code_name>
+		<description>Calc. Method for Straight Line</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>APC</default_value>
+		<valid_value>
+			<value>APC</value>
+			<description>Acquisition Value/Total Useful Life</description>
+		</valid_value>
+		<valid_value>
+			<value>PRC</value>
+			<description>Percentage of Acquisition Value</description>
+		</valid_value>
+		<valid_value>
+			<value>NBV</value>
+			<description>Net Book Value/Remaining Life</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>sPercent</id>
+		<source_code_name>STRAIGHT_LINE_PERC</source_code_name>
+		<description>Percentage for Straight Line</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>dBase</id>
+		<source_code_name>DECLINING_BASE</source_code_name>
+		<description>Base for Declining Balance</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>NBV</default_value>
+		<valid_value>
+			<value>NBV</value>
+			<description>Net Book Value</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>dPercent</id>
+		<source_code_name>DECLINING_PERCENTAGE</source_code_name>
+		<description>Percentage for Decl. Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>dFactor</id>
+		<source_code_name>DECLINING_FACTOR</source_code_name>
+		<description>Factor for Declining Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>dAltDprTyp</id>
+		<source_code_name>DECLINING_AUTO_TO</source_code_name>
+		<description>Auto. Change Depreciation Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>maDecBase</id>
+		<source_code_name>REDUCES_DEPRE_BASE</source_code_name>
+		<description>Reduce Depreciation Base</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>spMeth</id>
+		<source_code_name>SPECIAL_DEPR_CALC</source_code_name>
+		<description>Calc. Method for Special Depr.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>D</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Additional</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Alternative</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>spConcPer</id>
+		<source_code_name>CONCESSION_PERIOD</source_code_name>
+		<description>Concession Period in Years</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>spMaxPerc</id>
+		<source_code_name>MAX_PERCENTAGE</source_code_name>
+		<description>Maximum Percentage</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>spAdDpr</id>
+		<source_code_name>NORMAL_DEPRECIATION</source_code_name>
+		<description>Normal Depreciation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>spAlDpr</id>
+		<source_code_name>ALTER_DEPRECIATION</source_code_name>
+		<description>Alternative Depreciation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PoolID</id>
+		<source_code_name>POOL_ID</source_code_name>
+		<description>Depreciation Type Pool ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>DI API</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Doc. Generation Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Restore Wizard</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Create Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign2</id>
+		<source_code_name>USER2_SIGNATURE</source_code_name>
+		<description>Updating User</description>
+		<invisible />
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Date of Update</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DprPer</id>
+		<source_code_name>DEPRECIATION_PERIODS</source_code_name>
+		<description>Depreciation Periods</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>S</default_value>
+		<valid_value>
+			<value>S</value>
+			<description>Standard</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Individual</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PerFactor</id>
+		<source_code_name>PERIOD_FACTOR</source_code_name>
+		<description>Period Factor</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>1</default_value>
+	</column>
+	<column>
+		<id>spMaxAmnt</id>
+		<source_code_name>MAX_AMOUNT</source_code_name>
+		<description>Maximum Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>spMaxFlag</id>
+		<source_code_name>SPECIAL_MAX_FLAG</source_code_name>
+		<description>Max [Percentage\Amount]</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>P</default_value>
+		<valid_value>
+			<value>P</value>
+			<description>Percentage</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Amount</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CalcBase</id>
+		<source_code_name>CALCULATION_BASE</source_code_name>
+		<description>Calculation Base</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yearly</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Monthly</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DeprEndLFY</id>
+		<source_code_name>DEPR_END_LFY</source_code_name>
+		<description>Depr. End at Last Full Year</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>AccuPriorP</id>
+		<source_code_name>ACCU_PRIOR_PERIODS</source_code_name>
+		<description>Accu. Depr. of Prior Periods</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DeltaCoeff</id>
+		<source_code_name>DELTA_COEFFICIENT</source_code_name>
+		<description>Delta Coefficient</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>MaxDepr</id>
+		<source_code_name>MAXIMUM_DEPRECIABLE</source_code_name>
+		<description>Maximum Depreciable Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FactorFFY</id>
+		<source_code_name>FACTOR_REL_TO_F_F_Y</source_code_name>
+		<description>Factor Only Relevant to FFY</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>dAltDTypLink</id>
+		<target_direct>ODTP</target_direct>
+		<object_key_column>dAltDprTyp</object_key_column>
+	</association>
+	<association>
+		<id>spAdDprLink</id>
+		<target_direct>ODTP</target_direct>
+		<object_key_column>spAdDpr</object_key_column>
+	</association>
+	<association>
+		<id>spAlDprLink</id>
+		<target_direct>ODTP</target_direct>
+		<object_key_column>spAlDpr</object_key_column>
+	</association>
+	<association>
+		<id>poolIDLink</id>
+		<target_direct>ODPP</target_direct>
+		<object_key_column>PoolID</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>UserSign2Link</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign2</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Code</column>
+	</key>
+</table>

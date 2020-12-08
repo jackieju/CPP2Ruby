@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OTAX</id>
+	<description>VAT Transactions</description>
+	<string_list>1100898</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>SrcObjType</id>
+		<source_code_name>SOURCE_OBJ_TYPE</source_code_name>
+		<description>Source Object Type</description>
+		<field_type>2100</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>-1</default_value>
+		<valid_value>
+			<value>-1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description sys="Y">A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description sys="Y">A/R Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>165</value>
+			<description sys="Y">Correction A/R Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>166</value>
+			<description sys="Y">Correction A/R Invoice Reversals</description>
+		</valid_value>
+		<valid_value>
+			<value>18</value>
+			<description sys="Y">A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>19</value>
+			<description sys="Y">A/P Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>163</value>
+			<description sys="Y">Correction A/P Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>164</value>
+			<description sys="Y">Correction A/P Invoice Reversals</description>
+		</valid_value>
+		<valid_value>
+			<value>46</value>
+			<description sys="Y">Outgoing Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>24</value>
+			<description sys="Y">Incoming Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>57</value>
+			<description sys="Y">Check for Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>30</value>
+			<description sys="Y">Journal Transaction</description>
+		</valid_value>
+		<valid_value>
+			<value>67</value>
+			<description sys="Y">Warehouse Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>25</value>
+			<description sys="Y">Deposit</description>
+		</valid_value>
+		<valid_value>
+			<value>321</value>
+			<description sys="Y">Internal Reconciliation</description>
+		</valid_value>
+		<valid_value>
+			<value>76</value>
+			<description sys="Y">Deposit Temporary</description>
+		</valid_value>
+		<valid_value>
+			<value>140000010</value>
+			<description sys="Y">Incoming Excise Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>140000009</value>
+			<description sys="Y">Outgoing Excise Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>69</value>
+			<description sys="Y">Import file</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SrcObjAbs</id>
+		<source_code_name>SOURCE_OBJ_ABS_ENTRY</source_code_name>
+		<description>Source Object Internal ID</description>
+		<field_type>2101</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>OrdinLNum</id>
+		<source_code_name>ORDINAL_NUM</source_code_name>
+		<description sys="Y">Ordial Num (BTF &amp; Canceled)</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>Cancelled</id>
+		<source_code_name>CANCELLED</source_code_name>
+		<description>Canceled</description>
+		<field_type>10</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>SrcObjTypeLink</id>
+		<target_indirect_object>SrcObjType</target_indirect_object>
+		<object_key_column>SrcObjAbs</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>SECONDARY</id>
+		<unique />
+		<column>SrcObjType</column>
+		<column>SrcObjAbs</column>
+		<column>OrdinLNum</column>
+	</key>
+</table>

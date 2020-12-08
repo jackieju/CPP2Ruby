@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SXRTE</id>
+	<description sys="Y">XLR Terms</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>TermId</id>
+		<source_code_name>TermId</source_code_name>
+		<description sys="Y">TermId</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>Language</id>
+		<source_code_name>Language</source_code_name>
+		<description sys="Y">Language</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>Type</source_code_name>
+		<description sys="Y">Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Term</id>
+		<source_code_name>Term</source_code_name>
+		<description sys="Y">Term</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1000</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TermId</column>
+		<column>Language</column>
+	</key>
+</table>

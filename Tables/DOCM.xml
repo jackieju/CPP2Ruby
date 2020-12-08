@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DOCM</id>
+	<description>Campaign Assignment</description>
+	<string_list>1102903</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ResID1</id>
+		<source_code_name>RESOURCE_ID_1</source_code_name>
+		<description>Resource ID 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>GroupID</id>
+		<source_code_name>GROUP_ID</source_code_name>
+		<description>Group ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EmpID</id>
+		<source_code_name>EMPLOYEE_ID</source_code_name>
+		<description>Employee ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpdateUser</id>
+		<source_code_name>UPDATE_USER</source_code_name>
+		<description>Update User</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpdateTime</id>
+		<source_code_name>UPDATE_TIME</source_code_name>
+		<description>Update Time</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Permission</id>
+		<source_code_name>Permission</source_code_name>
+		<description>Permission</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>R</default_value>
+		<valid_value>
+			<value>F</value>
+			<description>Full</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Read</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>None</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>GroupIDLink</id>
+		<target_direct>ODGR</target_direct>
+		<object_key_column>GroupID</object_key_column>
+	</association>
+	<association>
+		<id>EmpIDLink</id>
+		<target_direct>OHEM</target_direct>
+		<object_key_column>EmpID</object_key_column>
+	</association>
+	<association>
+		<id>UpdateUserLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UpdateUser</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+</table>

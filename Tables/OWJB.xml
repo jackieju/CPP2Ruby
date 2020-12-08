@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OWJB</id>
+	<description>Workflow Job Entity</description>
+	<string_list>1101747</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>Id</id>
+		<source_code_name>ID</source_code_name>
+		<description>ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HandlerTyp</id>
+		<source_code_name>HANDLER_TYPE</source_code_name>
+		<description>Handler type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ExecId</id>
+		<source_code_name>EXECUTION_ID</source_code_name>
+		<description>Execution ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Rev</id>
+		<source_code_name>REVISION</source_code_name>
+		<description>Revision</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DueDate</id>
+		<source_code_name>DUE_DATE</source_code_name>
+		<description>Due date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ProcInstId</id>
+		<source_code_name>PROCESS_INST_ID</source_code_name>
+		<description>Process Instance ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HandlerCfg</id>
+		<source_code_name>HANDLER_CONFIG</source_code_name>
+		<description>Handler Configuration</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Id</column>
+	</key>
+</table>

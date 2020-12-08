@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SHQR</id>
+	<description sys="Y">Upgrade queries history</description>
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>Version</id>
+		<source_code_name>VERSION</source_code_name>
+		<description sys="Y">Version</description>
+		<field_type>1</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>TableId</id>
+		<source_code_name>TABLE_ID</source_code_name>
+		<description sys="Y">Metadata CAB</description>
+		<field_type>2</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>Instance</id>
+		<source_code_name>INSTANCE</source_code_name>
+		<description sys="Y">Query instance</description>
+		<field_type>3</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DoBefore</id>
+		<source_code_name>DO_BEFORE</source_code_name>
+		<description sys="Y">Do Before</description>
+		<field_type>4</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>QurString</id>
+		<source_code_name>QURSTRING</source_code_name>
+		<description sys="Y">Query String</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>ServerType</id>
+		<source_code_name>SERVER_TYPE</source_code_name>
+		<description sys="Y">Server Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Version</column>
+		<column>TableId</column>
+		<column>Instance</column>
+		<column>DoBefore</column>
+		<column>ServerType</column>
+	</key>
+</table>

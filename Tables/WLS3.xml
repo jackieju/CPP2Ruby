@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>WLS3</id>
+	<description>Notes of tasks</description>
+	<string_list>1101573</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<column>
+		<id>WFInstID</id>
+		<source_code_name>WF_INSTANCE_ID</source_code_name>
+		<description>Workflow Instance ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaskID</id>
+		<source_code_name>TASK_ID</source_code_name>
+		<description>Task ID</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineID</id>
+		<source_code_name>LINE_ID</source_code_name>
+		<description>Line ID</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Note</id>
+		<source_code_name>NOTE</source_code_name>
+		<description>Note</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Creator</id>
+		<source_code_name>CREATOR</source_code_name>
+		<description>Creator</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NoteDate</id>
+		<source_code_name>NOTE_DATE</source_code_name>
+		<description>Note Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Access</id>
+		<source_code_name>ACCESSIBILITY</source_code_name>
+		<description>Accessibility</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>W</default_value>
+		<valid_value>
+			<value>W</value>
+			<description>Workflow</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Task</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LogIns</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>TaskIDLink</id>
+		<target_direct>OWLS</target_direct>
+		<object_key_column>TaskID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TaskID</column>
+		<column>LineID</column>
+	</key>
+</table>

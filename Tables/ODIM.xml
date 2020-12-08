@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ODIM</id>
+	<description>Cost Accounting Dimension</description>
+	<string_list>1100957</string_list>
+	<view_type>Administration</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>DimCode</id>
+		<source_code_name>DIM_CODE</source_code_name>
+		<description>Dimension Code</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DimName</id>
+		<source_code_name>DIM_NAME</source_code_name>
+		<description>Dimension Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>DimActive</id>
+		<source_code_name>DIM_ACTIVE</source_code_name>
+		<description>Activated  [Y/N]</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DimDesc</id>
+		<source_code_name>DIM_DESC</source_code_name>
+		<description>Dimension Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DimCode</column>
+	</key>
+	<key>
+		<id>DIM_KEY</id>
+		<column>DimName</column>
+	</key>
+</table>

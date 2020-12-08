@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SCM3</id>
+	<description>Special Ledger - Analytical Accounting Configuration Rule Additional Calculations: Material</description>
+	<string_list>1100776</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>RuleID</id>
+		<source_code_name>RULE_ID</source_code_name>
+		<description>Rule Identification Number</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>FldNum</id>
+		<source_code_name>FIELD_NUM</source_code_name>
+		<description>Result Field Number</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>SrcTable</id>
+		<source_code_name>SOURCE_TABLE</source_code_name>
+		<description>Main Source Table</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SrcField</id>
+		<source_code_name>SOURCE_FIELD</source_code_name>
+		<description>Main Source Table Field</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CalcCase</id>
+		<source_code_name>CALCULATION_CASE</source_code_name>
+		<description>Additional Calcul. Expression</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>CalcTable</id>
+		<source_code_name>CALCULATION_TABLE</source_code_name>
+		<description>Main Calculation Expression</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>CondCase</id>
+		<source_code_name>CONDITION_CASE</source_code_name>
+		<description>Additional Calcul. Condition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>CondTable</id>
+		<source_code_name>CONDITION_TABLE</source_code_name>
+		<description>Main Calculation Condition</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>Grouping</id>
+		<source_code_name>GROUPING</source_code_name>
+		<description>Group by Clause</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>CallProc</id>
+		<source_code_name>CALL_PROC</source_code_name>
+		<description>Recalculation Stored Procedure Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>ExtCond</id>
+		<source_code_name>EXT_COND</source_code_name>
+		<description>Extended Special Data</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<association>
+		<id>RuleIDLink</id>
+		<target_direct>OSCM</target_direct>
+		<object_key_column>RuleID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>RuleID</column>
+		<column>FldNum</column>
+	</key>
+</table>

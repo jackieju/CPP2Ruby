@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OISL</id>
+	<description>Simulation Log File</description>
+	<string_list>1101353</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>LogEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaskType</id>
+		<source_code_name>TASK_TYPE</source_code_name>
+		<description>Type of Task</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RunID</id>
+		<source_code_name>RUN_ID</source_code_name>
+		<description>Simulation Run</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Version</id>
+		<source_code_name>VERSION</source_code_name>
+		<description>B1 Main Release Version</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>PatchLevel</id>
+		<source_code_name>PATCH_LEVEL</source_code_name>
+		<description>B1 Patch Level Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LastMsgID</id>
+		<source_code_name>LAST_MSGID</source_code_name>
+		<description>Last OILM Message ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FinishDate</id>
+		<source_code_name>FINISH_DATE</source_code_name>
+		<description>Finish Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FinishTime</id>
+		<source_code_name>FINISH_TIME</source_code_name>
+		<description>Finish Time</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserCode</id>
+		<source_code_name>USER_CODE</source_code_name>
+		<description>User Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>25</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<valid_value>
+			<value>R</value>
+			<description>In Progress</description>
+		</valid_value>
+		<valid_value>
+			<value>F</value>
+			<description>Failed</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Successful</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>LogEntry</column>
+	</key>
+</table>

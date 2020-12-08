@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OPRO</id>
+	<description>Property Object</description>
+	<string_list>1101271</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Property ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MapID</id>
+		<source_code_name>MAP_ID</source_code_name>
+		<description>Mapping ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>Input/Output Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Type</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Property Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>5</edit_size>
+		<default_value>Strin</default_value>
+		<valid_value>
+			<value>Strin</value>
+			<description>String</description>
+		</valid_value>
+		<valid_value>
+			<value>XML</value>
+			<description>XML</description>
+		</valid_value>
+		<valid_value>
+			<value>String</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Property Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>IsBlob</id>
+		<source_code_name>IS_BLOB</source_code_name>
+		<description>Is BLOB Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>TValue</id>
+		<source_code_name>TEXT_VALUE</source_code_name>
+		<description>Text Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>BValue</id>
+		<source_code_name>BLOB_VALUE</source_code_name>
+		<description>BLOB Value</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Image</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Encoding</id>
+		<source_code_name>ENCODING</source_code_name>
+		<description>Encoding</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<valid_value>
+			<value>base64</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value />
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<association>
+		<id>MapIDLink</id>
+		<target_direct>OMAP</target_direct>
+		<object_key_column>MapID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>CODE_NAME</id>
+		<unique />
+		<column>MapID</column>
+		<column>Code</column>
+		<column>Name</column>
+	</key>
+</table>

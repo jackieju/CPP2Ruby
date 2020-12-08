@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DCLB</id>
+	<description sys="Y" />
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<virtual />
+	<column>
+		<id>ForeColor</id>
+		<source_code_name>FORE_COLOR</source_code_name>
+		<description sys="Y">ForeColor</description>
+		<field_type>309</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BackColor</id>
+		<source_code_name>BACK_COLOR</source_code_name>
+		<description sys="Y">BackColor</description>
+		<field_type>310</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TextStyle</id>
+		<source_code_name>TEXT_STYLE</source_code_name>
+		<description sys="Y">TextStyle</description>
+		<field_type>43</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FontSize</id>
+		<source_code_name>FONT_SIZE</source_code_name>
+		<description sys="Y">FontSize</description>
+		<field_type>130</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SuppressZ</id>
+		<source_code_name>S_ZEROS</source_code_name>
+		<description sys="Y">SuppressZeros</description>
+		<field_type>59</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">False</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">True</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Font</id>
+		<source_code_name>FONT</source_code_name>
+		<description sys="Y">Font</description>
+		<field_type>314</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LinkObject</id>
+		<source_code_name>LINK_OBJECT_TYPE</source_code_name>
+		<description sys="Y">LinkObjectType</description>
+		<field_type>311</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CflId</id>
+		<source_code_name>CFL_ID</source_code_name>
+		<description sys="Y">ChooseFromListUID</description>
+		<field_type>600</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CflAlias</id>
+		<source_code_name>CFL_ALIAS</source_code_name>
+		<description sys="Y">ChooseFromListAlias</description>
+		<field_type>601</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CflAutofil</id>
+		<source_code_name>CFL_AUTOFILL</source_code_name>
+		<description sys="Y">ChooseFromListAutoFill</description>
+		<field_type>608</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y">False</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y">True</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ForeColor</column>
+	</key>
+</table>

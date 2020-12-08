@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OALI</id>
+	<description>Alternative Items 2</description>
+	<string_list>1100055</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>OrigItem</id>
+		<source_code_name>ORIG_ITEM</source_code_name>
+		<description>Original Item No.</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>AltItem</id>
+		<source_code_name>ALT_ITEM</source_code_name>
+		<description>Alternative Item No.</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Match</id>
+		<source_code_name>MATCH_RATE</source_code_name>
+		<description>Match Factor</description>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Remarks</id>
+		<source_code_name>REMARKS</source_code_name>
+		<description>Item Remarks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<association>
+		<id>OrigItemLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>OrigItem</object_key_column>
+	</association>
+	<association>
+		<id>AltItemLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>AltItem</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>OrigItem</column>
+		<column>AltItem</column>
+	</key>
+</table>

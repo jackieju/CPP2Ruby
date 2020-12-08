@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>FIFO1</id>
+	<description>DI MRV for FIFO Item - Output</description>
+	<string_list>1101175</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>TransSeq</id>
+		<source_code_name>TRANS_SEQUENCE</source_code_name>
+		<description>Transaction Sequence No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LayerID</id>
+		<source_code_name>LAYER_ID</source_code_name>
+		<description>Layer ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenQty</id>
+		<source_code_name>OPEN_QTY</source_code_name>
+		<description>Open Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OpenValue</id>
+		<source_code_name>OPEN_VALUE</source_code_name>
+		<description>Open Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TransType</id>
+		<source_code_name>TYPE</source_code_name>
+		<description>Transaction Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CreatedBy</id>
+		<source_code_name>CREATED_BY</source_code_name>
+		<description>Document Internal ID Created</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BASE_REF</id>
+		<source_code_name>BASE_REF</source_code_name>
+		<description>Base Reference</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DATE</source_code_name>
+		<description>Post. Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LocType</id>
+		<source_code_name>LOCATION_TYPE</source_code_name>
+		<description>Location Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOCATION_CODE</source_code_name>
+		<description>Location Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CalcPrice</id>
+		<source_code_name>CALC_PRICE</source_code_name>
+		<description>Calculated Price</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Price</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TransSeq</column>
+		<column>LayerID</column>
+	</key>
+</table>

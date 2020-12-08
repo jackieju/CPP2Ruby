@@ -1,0 +1,723 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>VBIN</id>
+	<description>Bin Location Virtual Table</description>
+	<string_list>1101789</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<virtual />
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BinCode</id>
+		<source_code_name>BIN_CODE</source_code_name>
+		<description>Bin Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>228</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>WhsCode</id>
+		<source_code_name>WHS_CODE</source_code_name>
+		<description>Warehouse Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SysBin</id>
+		<source_code_name>SYS_BIN</source_code_name>
+		<description>System Bin [Y/N]</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SL1Abs</id>
+		<source_code_name>SL1_ABS</source_code_name>
+		<description>Sublevel-1 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SL1Code</id>
+		<source_code_name>SL1_CODE</source_code_name>
+		<description>Sublevel-1 Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SL2Abs</id>
+		<source_code_name>SL2_ABS</source_code_name>
+		<description>Sublevel-2 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SL2Code</id>
+		<source_code_name>SL2_CODE</source_code_name>
+		<description>Sublevel-2 Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SL3Abs</id>
+		<source_code_name>SL3_ABS</source_code_name>
+		<description>Sublevel-3 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SL3Code</id>
+		<source_code_name>SL3_CODE</source_code_name>
+		<description>Sublevel-3 Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SL4Abs</id>
+		<source_code_name>SL4_ABS</source_code_name>
+		<description>Sublevel-4 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SL4Code</id>
+		<source_code_name>SL4_CODE</source_code_name>
+		<description>Sublevel-4 Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr1Abs</id>
+		<source_code_name>ATTR1_ABS</source_code_name>
+		<description>Attribute-1 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr1Val</id>
+		<source_code_name>ATTR1_VAL</source_code_name>
+		<description>Attribute-1 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr2Abs</id>
+		<source_code_name>ATTR2_ABS</source_code_name>
+		<description>Attribute-2 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr2Val</id>
+		<source_code_name>ATTR2_VAL</source_code_name>
+		<description>Attribute-2 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr3Abs</id>
+		<source_code_name>ATTR3_ABS</source_code_name>
+		<description>Attribute-3 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr3Val</id>
+		<source_code_name>ATTR3_VAL</source_code_name>
+		<description>Attribute-3 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr4Abs</id>
+		<source_code_name>ATTR4_ABS</source_code_name>
+		<description>Attribute-4 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr4Val</id>
+		<source_code_name>ATTR4_VAL</source_code_name>
+		<description>Attribute-4 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr5Abs</id>
+		<source_code_name>ATTR5_ABS</source_code_name>
+		<description>Attribute-5 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr5Val</id>
+		<source_code_name>ATTR5_VAL</source_code_name>
+		<description>Attribute-5 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr6Abs</id>
+		<source_code_name>ATTR6_ABS</source_code_name>
+		<description>Attribute-6 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr6Val</id>
+		<source_code_name>ATTR6_VAL</source_code_name>
+		<description>Attribute-6 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr7Abs</id>
+		<source_code_name>ATTR7_ABS</source_code_name>
+		<description>Attribute-7 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr7Val</id>
+		<source_code_name>ATTR7_VAL</source_code_name>
+		<description>Attribute-7 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr8Abs</id>
+		<source_code_name>ATTR8_ABS</source_code_name>
+		<description>Attribute-8 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr8Val</id>
+		<source_code_name>ATTR8_VAL</source_code_name>
+		<description>Attribute-8 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr9Abs</id>
+		<source_code_name>ATTR9_ABS</source_code_name>
+		<description>Attribute-9 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr9Val</id>
+		<source_code_name>ATTR9_VAL</source_code_name>
+		<description>Attribute-9 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr10Abs</id>
+		<source_code_name>ATTR10_ABS</source_code_name>
+		<description>Attribute-10 Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Attr10Val</id>
+		<source_code_name>ATTR10_VAL</source_code_name>
+		<description>Attribute-10 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Disabled</id>
+		<source_code_name>DISABLED</source_code_name>
+		<description>Disabled [Y/N]</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Descr</id>
+		<source_code_name>DESCR</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BarCode</id>
+		<source_code_name>BAR_CODE</source_code_name>
+		<description>Bar Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AltSortCod</id>
+		<source_code_name>ALT_SORT_COD</source_code_name>
+		<description>Alternative Sort Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItmRtrictT</id>
+		<source_code_name>ITM_RTRICT_TYPE</source_code_name>
+		<description>Item Restriction Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>None</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Specific Item</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Single Item Only</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Specific Item Group</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Single Item Group Only</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SpcItmCode</id>
+		<source_code_name>SPC_ITM_CODE</source_code_name>
+		<description>Specific Item Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SpcItmGrpC</id>
+		<source_code_name>SPC_ITM_GRP_C</source_code_name>
+		<description>Specific Item Group Code</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SngBatch</id>
+		<source_code_name>SNG_BATCH</source_code_name>
+		<description>Single Batch [Y/N]</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>None</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Single Batch</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RtrictType</id>
+		<source_code_name>RTRICT_TYPE</source_code_name>
+		<description>Restricted Transactions Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>None</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>All Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Inbound Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Outbound Transactions</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>All Except Inventory Transfer Transactions</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RtrictResn</id>
+		<source_code_name>RTRICT_RESN</source_code_name>
+		<description>Reason for Restriction</description>
+		<field_type>152</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RtrictDate</id>
+		<source_code_name>RTRICT_DATE</source_code_name>
+		<description>Last Updated On</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Transfered</id>
+		<source_code_name>TRANSFERED</source_code_name>
+		<description>Year Transfer [Y/N]</description>
+		<invisible />
+		<field_type>111</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>Instance</id>
+		<source_code_name>INSTANCE</source_code_name>
+		<description>Instance</description>
+		<invisible />
+		<field_type>227</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Create Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserSign2</id>
+		<source_code_name>USER2_SIGNATURE</source_code_name>
+		<description>Updating User</description>
+		<invisible />
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATE_DATE</source_code_name>
+		<description>Date of Update</description>
+		<field_type>243</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Deleted</id>
+		<source_code_name>_DELETED</source_code_name>
+		<description>Deleted</description>
+		<field_type>250</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+	</column>
+	<column>
+		<id>MinLevel</id>
+		<source_code_name>MINIMUM_LEVEL</source_code_name>
+		<description>Minimum Inventory Level</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>MaxLevel</id>
+		<source_code_name>MAXIMUM_LEVEL</source_code_name>
+		<description>Maximum Inventory Level</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemQty</id>
+		<source_code_name>ITEM_QTY</source_code_name>
+		<description>Item Qty</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemsNum</id>
+		<source_code_name>ITMES_NUM</source_code_name>
+		<description>No. of Items</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SnBNum</id>
+		<source_code_name>SNB_NUM</source_code_name>
+		<description>No. of Batches/Serials</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>WhsCodeLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhsCode</object_key_column>
+	</association>
+	<association>
+		<id>SL1AbsLink</id>
+		<target_direct>OBSL</target_direct>
+		<object_key_column>SL1Abs</object_key_column>
+	</association>
+	<association>
+		<id>SL2AbsLink</id>
+		<target_direct>OBSL</target_direct>
+		<object_key_column>SL2Abs</object_key_column>
+	</association>
+	<association>
+		<id>SL3AbsLink</id>
+		<target_direct>OBSL</target_direct>
+		<object_key_column>SL3Abs</object_key_column>
+	</association>
+	<association>
+		<id>SL4AbsLink</id>
+		<target_direct>OBSL</target_direct>
+		<object_key_column>SL4Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr1AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr1Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr2AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr2Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr3AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr3Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr4AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr4Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr5AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr5Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr6AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr6Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr7AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr7Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr8AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr8Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr9AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr9Abs</object_key_column>
+	</association>
+	<association>
+		<id>Attr10AbsLink</id>
+		<target_direct>OBAT</target_direct>
+		<object_key_column>Attr10Abs</object_key_column>
+	</association>
+	<association>
+		<id>SpcItmCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>SpcItmCode</object_key_column>
+	</association>
+	<association>
+		<id>SpcItmGrpCLink</id>
+		<target_direct>OITB</target_direct>
+		<object_key_column>SpcItmGrpC</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>UserSign2Link</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign2</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>BIN_CODE</id>
+		<unique />
+		<column>BinCode</column>
+	</key>
+	<key>
+		<id>WHS_CODE</id>
+		<column>WhsCode</column>
+	</key>
+</table>

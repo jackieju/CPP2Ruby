@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RINF</id>
+	<description sys="Y">Resource Info</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>ResKey</id>
+		<source_code_name>RESOURCE_KEY</source_code_name>
+		<description sys="Y">Resource Key</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>Remarks</id>
+		<source_code_name>REMARKS</source_code_name>
+		<description sys="Y">Remarks</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ResKey</column>
+	</key>
+</table>

@@ -1,0 +1,401 @@
+<%= form_for(@ojdtum) do |f| %>
+  <% if @ojdtum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ojdtum.errors.count, "error") %> prohibited this ojdtum from being saved:</h2>
+
+      <ul>
+      <% @ojdtum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :BatchNum %><br>
+    <%= f.number_field :BatchNum %>
+  </div>
+  <div class="field">
+    <%= f.label :TransId %><br>
+    <%= f.number_field :TransId %>
+  </div>
+  <div class="field">
+    <%= f.label :BtfStatus %><br>
+    <%= f.text_field :BtfStatus %>
+  </div>
+  <div class="field">
+    <%= f.label :TransType %><br>
+    <%= f.text_field :TransType %>
+  </div>
+  <div class="field">
+    <%= f.label :BaseRef %><br>
+    <%= f.text_field :BaseRef %>
+  </div>
+  <div class="field">
+    <%= f.label :RefDate %><br>
+    <%= f.date_select :RefDate %>
+  </div>
+  <div class="field">
+    <%= f.label :Memo %><br>
+    <%= f.text_field :Memo %>
+  </div>
+  <div class="field">
+    <%= f.label :Ref1 %><br>
+    <%= f.text_field :Ref1 %>
+  </div>
+  <div class="field">
+    <%= f.label :Ref2 %><br>
+    <%= f.text_field :Ref2 %>
+  </div>
+  <div class="field">
+    <%= f.label :CreatedBy %><br>
+    <%= f.number_field :CreatedBy %>
+  </div>
+  <div class="field">
+    <%= f.label :LocTotal %><br>
+    <%= f.text_field :LocTotal %>
+  </div>
+  <div class="field">
+    <%= f.label :FcTotal %><br>
+    <%= f.text_field :FcTotal %>
+  </div>
+  <div class="field">
+    <%= f.label :SysTotal %><br>
+    <%= f.text_field :SysTotal %>
+  </div>
+  <div class="field">
+    <%= f.label :TransCode %><br>
+    <%= f.text_field :TransCode %>
+  </div>
+  <div class="field">
+    <%= f.label :OrignCurr %><br>
+    <%= f.text_field :OrignCurr %>
+  </div>
+  <div class="field">
+    <%= f.label :TransRate %><br>
+    <%= f.text_field :TransRate %>
+  </div>
+  <div class="field">
+    <%= f.label :BtfLine %><br>
+    <%= f.number_field :BtfLine %>
+  </div>
+  <div class="field">
+    <%= f.label :TransCurr %><br>
+    <%= f.text_field :TransCurr %>
+  </div>
+  <div class="field">
+    <%= f.label :Project %><br>
+    <%= f.text_field :Project %>
+  </div>
+  <div class="field">
+    <%= f.label :DueDate %><br>
+    <%= f.date_select :DueDate %>
+  </div>
+  <div class="field">
+    <%= f.label :TaxDate %><br>
+    <%= f.date_select :TaxDate %>
+  </div>
+  <div class="field">
+    <%= f.label :PCAddition %><br>
+    <%= f.text_field :PCAddition %>
+  </div>
+  <div class="field">
+    <%= f.label :FinncPriod %><br>
+    <%= f.number_field :FinncPriod %>
+  </div>
+  <div class="field">
+    <%= f.label :DataSource %><br>
+    <%= f.text_field :DataSource %>
+  </div>
+  <div class="field">
+    <%= f.label :UpdateDate %><br>
+    <%= f.date_select :UpdateDate %>
+  </div>
+  <div class="field">
+    <%= f.label :CreateDate %><br>
+    <%= f.date_select :CreateDate %>
+  </div>
+  <div class="field">
+    <%= f.label :UserSign %><br>
+    <%= f.number_field :UserSign %>
+  </div>
+  <div class="field">
+    <%= f.label :UserSign2 %><br>
+    <%= f.number_field :UserSign2 %>
+  </div>
+  <div class="field">
+    <%= f.label :RefndRprt %><br>
+    <%= f.text_field :RefndRprt %>
+  </div>
+  <div class="field">
+    <%= f.label :LogInstanc %><br>
+    <%= f.number_field :LogInstanc %>
+  </div>
+  <div class="field">
+    <%= f.label :ObjType %><br>
+    <%= f.text_field :ObjType %>
+  </div>
+  <div class="field">
+    <%= f.label :Indicator %><br>
+    <%= f.text_field :Indicator %>
+  </div>
+  <div class="field">
+    <%= f.label :AdjTran %><br>
+    <%= f.text_field :AdjTran %>
+  </div>
+  <div class="field">
+    <%= f.label :RevSource %><br>
+    <%= f.text_field :RevSource %>
+  </div>
+  <div class="field">
+    <%= f.label :StornoDate %><br>
+    <%= f.date_select :StornoDate %>
+  </div>
+  <div class="field">
+    <%= f.label :StornoToTr %><br>
+    <%= f.number_field :StornoToTr %>
+  </div>
+  <div class="field">
+    <%= f.label :AutoStorno %><br>
+    <%= f.text_field :AutoStorno %>
+  </div>
+  <div class="field">
+    <%= f.label :Corisptivi %><br>
+    <%= f.text_field :Corisptivi %>
+  </div>
+  <div class="field">
+    <%= f.label :VatDate %><br>
+    <%= f.date_select :VatDate %>
+  </div>
+  <div class="field">
+    <%= f.label :StampTax %><br>
+    <%= f.text_field :StampTax %>
+  </div>
+  <div class="field">
+    <%= f.label :Series %><br>
+    <%= f.number_field :Series %>
+  </div>
+  <div class="field">
+    <%= f.label :Number %><br>
+    <%= f.number_field :Number %>
+  </div>
+  <div class="field">
+    <%= f.label :AutoVAT %><br>
+    <%= f.text_field :AutoVAT %>
+  </div>
+  <div class="field">
+    <%= f.label :DocSeries %><br>
+    <%= f.number_field :DocSeries %>
+  </div>
+  <div class="field">
+    <%= f.label :FolioPref %><br>
+    <%= f.text_field :FolioPref %>
+  </div>
+  <div class="field">
+    <%= f.label :FolioNum %><br>
+    <%= f.number_field :FolioNum %>
+  </div>
+  <div class="field">
+    <%= f.label :CreateTime %><br>
+    <%= f.number_field :CreateTime %>
+  </div>
+  <div class="field">
+    <%= f.label :BlockDunn %><br>
+    <%= f.text_field :BlockDunn %>
+  </div>
+  <div class="field">
+    <%= f.label :ReportEU %><br>
+    <%= f.text_field :ReportEU %>
+  </div>
+  <div class="field">
+    <%= f.label :Report347 %><br>
+    <%= f.text_field :Report347 %>
+  </div>
+  <div class="field">
+    <%= f.label :Printed %><br>
+    <%= f.text_field :Printed %>
+  </div>
+  <div class="field">
+    <%= f.label :DocType %><br>
+    <%= f.text_field :DocType %>
+  </div>
+  <div class="field">
+    <%= f.label :AttNum %><br>
+    <%= f.number_field :AttNum %>
+  </div>
+  <div class="field">
+    <%= f.label :GenRegNo %><br>
+    <%= f.text_field :GenRegNo %>
+  </div>
+  <div class="field">
+    <%= f.label :RG23APart2 %><br>
+    <%= f.number_field :RG23APart2 %>
+  </div>
+  <div class="field">
+    <%= f.label :RG23CPart2 %><br>
+    <%= f.number_field :RG23CPart2 %>
+  </div>
+  <div class="field">
+    <%= f.label :MatType %><br>
+    <%= f.number_field :MatType %>
+  </div>
+  <div class="field">
+    <%= f.label :Creator %><br>
+    <%= f.text_field :Creator %>
+  </div>
+  <div class="field">
+    <%= f.label :Approver %><br>
+    <%= f.text_field :Approver %>
+  </div>
+  <div class="field">
+    <%= f.label :Location %><br>
+    <%= f.number_field :Location %>
+  </div>
+  <div class="field">
+    <%= f.label :SeqCode %><br>
+    <%= f.number_field :SeqCode %>
+  </div>
+  <div class="field">
+    <%= f.label :Serial %><br>
+    <%= f.number_field :Serial %>
+  </div>
+  <div class="field">
+    <%= f.label :SeriesStr %><br>
+    <%= f.text_field :SeriesStr %>
+  </div>
+  <div class="field">
+    <%= f.label :SubStr %><br>
+    <%= f.text_field :SubStr %>
+  </div>
+  <div class="field">
+    <%= f.label :AutoWT %><br>
+    <%= f.text_field :AutoWT %>
+  </div>
+  <div class="field">
+    <%= f.label :WTSum %><br>
+    <%= f.text_field :WTSum %>
+  </div>
+  <div class="field">
+    <%= f.label :WTSumSC %><br>
+    <%= f.text_field :WTSumSC %>
+  </div>
+  <div class="field">
+    <%= f.label :WTSumFC %><br>
+    <%= f.text_field :WTSumFC %>
+  </div>
+  <div class="field">
+    <%= f.label :WTApplied %><br>
+    <%= f.text_field :WTApplied %>
+  </div>
+  <div class="field">
+    <%= f.label :WTAppliedS %><br>
+    <%= f.text_field :WTAppliedS %>
+  </div>
+  <div class="field">
+    <%= f.label :WTAppliedF %><br>
+    <%= f.text_field :WTAppliedF %>
+  </div>
+  <div class="field">
+    <%= f.label :BaseAmnt %><br>
+    <%= f.text_field :BaseAmnt %>
+  </div>
+  <div class="field">
+    <%= f.label :BaseAmntSC %><br>
+    <%= f.text_field :BaseAmntSC %>
+  </div>
+  <div class="field">
+    <%= f.label :BaseAmntFC %><br>
+    <%= f.text_field :BaseAmntFC %>
+  </div>
+  <div class="field">
+    <%= f.label :BaseVtAt %><br>
+    <%= f.text_field :BaseVtAt %>
+  </div>
+  <div class="field">
+    <%= f.label :BaseVtAtSC %><br>
+    <%= f.text_field :BaseVtAtSC %>
+  </div>
+  <div class="field">
+    <%= f.label :BaseVtAtFC %><br>
+    <%= f.text_field :BaseVtAtFC %>
+  </div>
+  <div class="field">
+    <%= f.label :VersionNum %><br>
+    <%= f.text_field :VersionNum %>
+  </div>
+  <div class="field">
+    <%= f.label :BaseTrans %><br>
+    <%= f.number_field :BaseTrans %>
+  </div>
+  <div class="field">
+    <%= f.label :ResidenNum %><br>
+    <%= f.text_field :ResidenNum %>
+  </div>
+  <div class="field">
+    <%= f.label :OperatCode %><br>
+    <%= f.text_field :OperatCode %>
+  </div>
+  <div class="field">
+    <%= f.label :Ref3 %><br>
+    <%= f.text_field :Ref3 %>
+  </div>
+  <div class="field">
+    <%= f.label :SSIExmpt %><br>
+    <%= f.text_field :SSIExmpt %>
+  </div>
+  <div class="field">
+    <%= f.label :SignMsg %><br>
+    <%= f.text_area :SignMsg %>
+  </div>
+  <div class="field">
+    <%= f.label :SignDigest %><br>
+    <%= f.text_area :SignDigest %>
+  </div>
+  <div class="field">
+    <%= f.label :CertifNum %><br>
+    <%= f.text_field :CertifNum %>
+  </div>
+  <div class="field">
+    <%= f.label :KeyVersion %><br>
+    <%= f.number_field :KeyVersion %>
+  </div>
+  <div class="field">
+    <%= f.label :CUP %><br>
+    <%= f.number_field :CUP %>
+  </div>
+  <div class="field">
+    <%= f.label :CIG %><br>
+    <%= f.number_field :CIG %>
+  </div>
+  <div class="field">
+    <%= f.label :SupplCode %><br>
+    <%= f.text_field :SupplCode %>
+  </div>
+  <div class="field">
+    <%= f.label :SPSrcType %><br>
+    <%= f.number_field :SPSrcType %>
+  </div>
+  <div class="field">
+    <%= f.label :SPSrcID %><br>
+    <%= f.number_field :SPSrcID %>
+  </div>
+  <div class="field">
+    <%= f.label :SPSrcDLN %><br>
+    <%= f.number_field :SPSrcDLN %>
+  </div>
+  <div class="field">
+    <%= f.label :DeferedTax %><br>
+    <%= f.text_field :DeferedTax %>
+  </div>
+  <div class="field">
+    <%= f.label :AgrNo %><br>
+    <%= f.number_field :AgrNo %>
+  </div>
+  <div class="field">
+    <%= f.label :SeqNum %><br>
+    <%= f.number_field :SeqNum %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

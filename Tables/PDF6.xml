@@ -1,0 +1,438 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>PDF6</id>
+	<description>Payment Drafts - Withholding Tax - Rows</description>
+	<string_list>1100484</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_KEY</source_code_name>
+		<description>Document Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>SSNum</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>InvoiceId</id>
+		<source_code_name>INVOICE_ID</source_code_name>
+		<description>Invoice Key</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>WTCode</id>
+		<source_code_name>WT_CODE</source_code_name>
+		<description>WTax Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>PymMean</id>
+		<source_code_name>PYM_MEAN</source_code_name>
+		<description>Payment Means</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>C</default_value>
+		<valid_value>
+			<value>C</value>
+			<description>Cash</description>
+		</valid_value>
+		<valid_value>
+			<value>K</value>
+			<description>Checks</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>Credit Card</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Bank Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Bill of Exchange</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>DueDate</id>
+		<source_code_name>DUE_DATE</source_code_name>
+		<description>Due Date</description>
+		<field_type>4</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WTSum</id>
+		<source_code_name>WT_SUM</source_code_name>
+		<description>WTax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WTSumFC</id>
+		<source_code_name>WT_SUM_FC</source_code_name>
+		<description>WTax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WTSumSC</id>
+		<source_code_name>WT_SUM_SC</source_code_name>
+		<description>WTax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Rate</id>
+		<source_code_name>RATE</source_code_name>
+		<description>Rate</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TaxbleAmnt</id>
+		<source_code_name>TAXBLE_AMOUNT</source_code_name>
+		<description>Taxable Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TxblAmntFC</id>
+		<source_code_name>TAXBLE_AMOUNT_FC</source_code_name>
+		<description>Taxable Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TxblAmntSC</id>
+		<source_code_name>TAXBLE_AMOUNT_SC</source_code_name>
+		<description>Taxable Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PymAmount</id>
+		<source_code_name>PYM_AMOUNT</source_code_name>
+		<description>Payment Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PymAmounF</id>
+		<source_code_name>PYM_AMOUNT_FC</source_code_name>
+		<description>Payment Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>PymAmounS</id>
+		<source_code_name>PYM_AMOUNT_SC</source_code_name>
+		<description>Payment Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Line</id>
+		<source_code_name>LINE</source_code_name>
+		<description>Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance - History</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>24</default_value>
+	</column>
+	<column>
+		<id>TdsBAmt</id>
+		<source_code_name>TDS_BASE_AMOUNT</source_code_name>
+		<description>TDS Base Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TdsBAmtSC</id>
+		<source_code_name>TDS_BASE_AMOUNT_SC</source_code_name>
+		<description>TDS Base Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TdsBAmtFC</id>
+		<source_code_name>TDS_BASE_AMOUNT_FC</source_code_name>
+		<description>TDS Base Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SurBAmt</id>
+		<source_code_name>SUR_BASE_AMOUNT</source_code_name>
+		<description>Surcharge Base Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SurBAmtSC</id>
+		<source_code_name>SUR_BASE_AMOUNT_SC</source_code_name>
+		<description>Surcharge Base Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SurBAmtFC</id>
+		<source_code_name>SUR_BASE_AMOUNT_FC</source_code_name>
+		<description>Surcharge Base Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CessBAmt</id>
+		<source_code_name>CESS_BASE_AMOUNT</source_code_name>
+		<description>Cess Base Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CessBAmtSC</id>
+		<source_code_name>CESS_BASE_AMOUNT_SC</source_code_name>
+		<description>Cess Base Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CessBAmtFC</id>
+		<source_code_name>CESS_BASE_AMOUNT_FC</source_code_name>
+		<description>Cess Base Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HscBAmt</id>
+		<source_code_name>HSC_BASE_AMOUNT</source_code_name>
+		<description>HSC Base Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HscBAmtSC</id>
+		<source_code_name>HSC_BASE_AMOUNT_SC</source_code_name>
+		<description>HSC Base Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HscBAmtFC</id>
+		<source_code_name>HSC_BASE_AMOUNT_FC</source_code_name>
+		<description>HSC Base Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TdsAmnt</id>
+		<source_code_name>TDS_AMOUNT</source_code_name>
+		<description>TDS Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TdsAmntSC</id>
+		<source_code_name>TDS_AMOUNT_SC</source_code_name>
+		<description>TDS Tax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TdsAmntFC</id>
+		<source_code_name>TDS_AMOUNT_FC</source_code_name>
+		<description>TDS Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SurAmnt</id>
+		<source_code_name>SUR_AMOUNT</source_code_name>
+		<description>Surcharge Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SurAmntSC</id>
+		<source_code_name>SUR_AMOUNT_SC</source_code_name>
+		<description>Surcharge Tax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SurAmntFC</id>
+		<source_code_name>SUR_AMOUNT_FC</source_code_name>
+		<description>Surcharge Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CessAmnt</id>
+		<source_code_name>CESS_AMOUNT</source_code_name>
+		<description>Cess Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CessAmntSC</id>
+		<source_code_name>CESS_AMOUNT_SC</source_code_name>
+		<description>Cess Tax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CessAmntFC</id>
+		<source_code_name>CESS_AMOUNT_FC</source_code_name>
+		<description>Cess Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HscAmnt</id>
+		<source_code_name>HSC_AMOUNT</source_code_name>
+		<description>HSC Tax Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HscAmntSC</id>
+		<source_code_name>HSC_AMOUNT_SC</source_code_name>
+		<description>HSC Tax Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>HscAmntFC</id>
+		<source_code_name>HSC_AMOUNT_FC</source_code_name>
+		<description>HSC Tax Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>DocNumLink</id>
+		<target_direct>OPDF</target_direct>
+		<object_key_column>DocNum</object_key_column>
+	</association>
+	<association>
+		<id>WTCodeLink</id>
+		<target_direct>OWHT</target_direct>
+		<object_key_column>WTCode</object_key_column>
+	</association>
+	<association>
+		<id>ObjTypeLink</id>
+		<target_direct>ADP1</target_direct>
+		<object_key_column>ObjType</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocNum</column>
+		<column>Line</column>
+	</key>
+</table>

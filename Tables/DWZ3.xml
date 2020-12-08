@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>DWZ3</id>
+	<description>Dunning Wizard Array 3 - Recommended Service Invoice</description>
+	<string_list>1101391</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>MarketingDocuments</info_category>
+	<column>
+		<id>WizardId</id>
+		<source_code_name>WIZARD_ID</source_code_name>
+		<description>Wizard ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CardCode</id>
+		<source_code_name>CARD_CODE</source_code_name>
+		<description>BP Card Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>LetterNum</id>
+		<source_code_name>LETTER_NUM</source_code_name>
+		<description>Letter Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AddChecked</id>
+		<source_code_name>ADD_CHECKED</source_code_name>
+		<description>Add Checked</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+	</column>
+	<column>
+		<id>DocAbs</id>
+		<source_code_name>DOC_ABS</source_code_name>
+		<description>Internal Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>IntrAmt</id>
+		<source_code_name>INTEREST_AMNT_LC</source_code_name>
+		<description>Interest Amount (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>IntrAmtFC</id>
+		<source_code_name>INTEREST_AMNT_FC</source_code_name>
+		<description>Interest Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>IntrAmtSC</id>
+		<source_code_name>INTEREST_AMNT_SC</source_code_name>
+		<description>Interest Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FeeAmt</id>
+		<source_code_name>FEE_AMOUNT_LC</source_code_name>
+		<description>Fee Amount (LC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FeeAmtFC</id>
+		<source_code_name>FEE_AMOUNT_FC</source_code_name>
+		<description>Fee Amount (FC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FeeAmtSC</id>
+		<source_code_name>FEE_AMOUNT_SC</source_code_name>
+		<description>Fee Amount (SC)</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>InVatGroup</id>
+		<source_code_name>INTRST_VAT_GROUP</source_code_name>
+		<description>Interest VAT Group</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>InTaxCode</id>
+		<source_code_name>INTRST_TAX_CODE</source_code_name>
+		<description>Interest Tax Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FeVatGroup</id>
+		<source_code_name>FEE_VAT_GROUP</source_code_name>
+		<description>Fee VAT Group</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>FeTaxCode</id>
+		<source_code_name>FEE_TAX_CODE</source_code_name>
+		<description>Fee Tax Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>VatPrcnt</id>
+		<source_code_name>VAT_PERCENT</source_code_name>
+		<description>VAT Percent</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Percent</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Executed</id>
+		<source_code_name>EXECUTED</source_code_name>
+		<description>Executed</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Message</id>
+		<source_code_name>MESSAGE</source_code_name>
+		<description>Message</description>
+		<field_type>152</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>DocCur</id>
+		<source_code_name>DOC_CURRENCY</source_code_name>
+		<description>Document Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>DocNum</id>
+		<source_code_name>DOC_NUM</source_code_name>
+		<description>Document Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BPLId</id>
+		<source_code_name>BPL_ID</source_code_name>
+		<description>BPL ID Assigned to Invoice</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOCATION_CODE</source_code_name>
+		<description>Location Code</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>DocCurLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>DocCur</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WizardId</column>
+		<column>CardCode</column>
+		<column>LetterNum</column>
+	</key>
+</table>

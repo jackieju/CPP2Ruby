@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>ISW2</id>
+	<description>Intrastat Reported Items</description>
+	<string_list>1101564</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>WizAbsEnt</id>
+		<source_code_name>WIZ_RUN_ABS_ENTRY</source_code_name>
+		<description>Wizard Run Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CommCode</id>
+		<source_code_name>COMMODITY_CODE</source_code_name>
+		<description>Commodity Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SerCode</id>
+		<source_code_name>SERVICE_CODE</source_code_name>
+		<description>Service Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>AddMUnit</id>
+		<source_code_name>ADDNL_MEASURE_UNIT</source_code_name>
+		<description>Additional Measure Unit</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FactorAM</id>
+		<source_code_name>FACTOR_ADD_MEASURE</source_code_name>
+		<description>Factor Additional Measure</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OriRegSta</id>
+		<source_code_name>REGION_OF_ORIGIN</source_code_name>
+		<description>Region of Origin (for Export)</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DstRegSta</id>
+		<source_code_name>DESTINATION_REGION</source_code_name>
+		<description>Destination Region (Import)</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CtryOrig</id>
+		<source_code_name>COUNTRY_OF_ORIGIN</source_code_name>
+		<description>Country of Origin</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SerSupplM</id>
+		<source_code_name>SERVICE_SUPPL_METHOD</source_code_name>
+		<description>Service Supply Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Immediate</description>
+		</valid_value>
+		<valid_value>
+			<value>R</value>
+			<description>To More Resumptions</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SerPymMeth</id>
+		<source_code_name>SERVICE_PAYM_METHOD</source_code_name>
+		<description>Service Payment Method</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>X</default_value>
+		<valid_value>
+			<value>A</value>
+			<description>Accredited to Bank Account</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Bank Transfer</description>
+		</valid_value>
+		<valid_value>
+			<value>X</value>
+			<description>Other</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ItemType</id>
+		<source_code_name>ITEM_TYPE</source_code_name>
+		<description>Item Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>I</default_value>
+		<valid_value>
+			<value>I</value>
+			<description>Item</description>
+		</valid_value>
+		<valid_value>
+			<value>S</value>
+			<description>Service</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Item not relevant to Intrastat</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ItemName</id>
+		<source_code_name>ITEM_NAME</source_code_name>
+		<description>Item Name</description>
+		<field_type>254</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DestRegCry</id>
+		<source_code_name>DEST_REGION_CRY</source_code_name>
+		<description>Destination Region Country</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OrigRegCry</id>
+		<source_code_name>ORIG_REGION_CRY</source_code_name>
+		<description>Origin Region Country</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UseWeight</id>
+		<source_code_name>USE_WEIGHT_IN_CALC</source_code_name>
+		<description>Use Wt in Add. Measure Calc.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>StatCode</id>
+		<source_code_name>STATISTICAL_CODE</source_code_name>
+		<description>Statistical Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+	</column>
+	<column>
+		<id>NatOfTrans</id>
+		<source_code_name>NATURE_OF_TRANS</source_code_name>
+		<description>Nature of Transaction</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StatProc</id>
+		<source_code_name>STAT_PROCEDURE</source_code_name>
+		<description>Statistical Procedure</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>IdEntryLink</id>
+		<target_direct>OISW</target_direct>
+		<object_key_column>WizAbsEnt</object_key_column>
+	</association>
+	<association>
+		<id>ItemLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WizAbsEnt</column>
+		<column>ItemCode</column>
+	</key>
+</table>

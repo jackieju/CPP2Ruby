@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>NNM3</id>
+	<description sys="Y">Documents Numbering -Belgium Series</description>
+	<string_list>1100626</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<hana>ColumnBasedPreload</hana>
+	<column>
+		<id>ObjectCode</id>
+		<source_code_name>OBJ_CODE</source_code_name>
+		<description sys="Y">Document</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>Series</id>
+		<source_code_name>SERIES</source_code_name>
+		<description>Series</description>
+		<field_type>247</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>DocSubType</id>
+		<source_code_name>DOC_SUB_TYPE</source_code_name>
+		<description>VAT Code for Tax Invoice Rpt</description>
+		<field_type>266</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<default_value>--</default_value>
+	</column>
+	<association>
+		<id>ObjectCodeLink</id>
+		<target_direct>ONNM</target_direct>
+		<object_key_column>ObjectCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ObjectCode</column>
+		<column>DocSubType</column>
+		<column>Series</column>
+	</key>
+	<key>
+		<id>SERIES</id>
+		<column>Series</column>
+	</key>
+</table>

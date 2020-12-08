@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>AFA2</id>
+	<description>Asset Document - Area Journal Transactions</description>
+	<string_list>1101723</string_list>
+	<view_type>LogFile</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DprArea</id>
+		<source_code_name>DEPRECIATION_AREA</source_code_name>
+		<description>Depreciation Area</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>JrnlMemo</id>
+		<source_code_name>JOURNAL_MEMO</source_code_name>
+		<description>Journal Remarks</description>
+		<field_type>5</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>ObjType</id>
+		<source_code_name>OBJECT</source_code_name>
+		<description>Object Type</description>
+		<field_type>67</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>TransNum</id>
+		<source_code_name>TRANS_NUM</source_code_name>
+		<description>Transaction Number</description>
+		<field_type>74</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>JrnlMemo1</id>
+		<source_code_name>CANCEL_JOURNAL_MEMO</source_code_name>
+		<description>Cancellation Journal Remarks</description>
+		<field_type>5</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>TransNum1</id>
+		<source_code_name>CANCEL_TRANS_NUM</source_code_name>
+		<description>Cancellation Transaction No.</description>
+		<field_type>74</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>AFAD</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>DprAreaLink</id>
+		<target_direct>ODPA</target_direct>
+		<object_key_column>DprArea</object_key_column>
+	</association>
+	<association>
+		<id>TransNumLink</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>TransNum</object_key_column>
+	</association>
+	<association>
+		<id>TransNum1Link</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>TransNum1</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+		<column>ObjType</column>
+		<column>LogInstanc</column>
+	</key>
+</table>

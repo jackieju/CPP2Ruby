@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>CPN3</id>
+	<description>Campaign - Partners</description>
+	<string_list>1101437</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>BusinessPartners</info_category>
+	<column>
+		<id>CpnNo</id>
+		<source_code_name>CAMPAIGN_NO</source_code_name>
+		<description>Campaign No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CpnLineNum</id>
+		<source_code_name>CPN_LINE_NUM</source_code_name>
+		<description>Campaign Line Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ParterId</id>
+		<source_code_name>PRT_ID</source_code_name>
+		<description>Partners</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OrlCode</id>
+		<source_code_name>ORL_CODE</source_code_name>
+		<description>Relationship Code</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>RelatCard</id>
+		<source_code_name>RELAT_CARD</source_code_name>
+		<description>Related BP</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>Memo</id>
+		<source_code_name>MEMO</source_code_name>
+		<description>Details</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>LogIns</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance - History</description>
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>VisOrder</id>
+		<source_code_name>VIS_ORDER</source_code_name>
+		<description>Visual Order</description>
+		<field_type>261</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<association>
+		<id>CpnNoLink</id>
+		<target_direct>OCPN</target_direct>
+		<object_key_column>CpnNo</object_key_column>
+	</association>
+	<association>
+		<id>ParterIdLink</id>
+		<target_direct>OPRT</target_direct>
+		<object_key_column>ParterId</object_key_column>
+	</association>
+	<association>
+		<id>OrlCodeLink</id>
+		<target_direct>OORL</target_direct>
+		<object_key_column>OrlCode</object_key_column>
+	</association>
+	<association>
+		<id>RelatCardLink</id>
+		<target_direct>OCRD</target_direct>
+		<object_key_column>RelatCard</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>CpnNo</column>
+		<column>CpnLineNum</column>
+	</key>
+</table>

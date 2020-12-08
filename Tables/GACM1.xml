@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>GACM1</id>
+	<description>GA Common Account Book</description>
+	<string_list>1101656</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<virtual />
+	<info_category>Finance</info_category>
+	<column>
+		<id>AcctBookNo</id>
+		<source_code_name>ACCTBOOKNO</source_code_name>
+		<description>Account Book Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>60</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>60</edit_size>
+	</column>
+	<column>
+		<id>BookName</id>
+		<source_code_name>BOOKNAME</source_code_name>
+		<description>Account Book Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>CmpnyName</id>
+		<source_code_name>CMPNYNAME</source_code_name>
+		<description>Company Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>OrgCode</id>
+		<source_code_name>ORGCODE</source_code_name>
+		<description>Organization Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>CmpnyType</id>
+		<source_code_name>CMPNYTYPE</source_code_name>
+		<description>Company Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Industry</id>
+		<source_code_name>INDUSTRY</source_code_name>
+		<description>Industry</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>DevelopBy</id>
+		<source_code_name>DEVELOPBY</source_code_name>
+		<description>Development By</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>200</edit_size>
+	</column>
+	<column>
+		<id>Version</id>
+		<source_code_name>VERSION</source_code_name>
+		<description>Release Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LocalCurr</id>
+		<source_code_name>LOCALCURR</source_code_name>
+		<description>Local Currency</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>FiscalYear</id>
+		<source_code_name>FISCALYEAR</source_code_name>
+		<description>Fiscal Year</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>4</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>4</edit_size>
+	</column>
+	<column>
+		<id>StndVersin</id>
+		<source_code_name>STNDVERSIN</source_code_name>
+		<description>Standard Release Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AcctBookNo</column>
+	</key>
+</table>

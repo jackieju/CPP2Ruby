@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>UWOR1</id>
+	<description>Production Order - Rows</description>
+	<string_list>1101293</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Document Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Row Number</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item No.</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>BaseQty</id>
+		<source_code_name>BASE_QTY</source_code_name>
+		<description>Base Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PlannedQty</id>
+		<source_code_name>PLANNED_QTY</source_code_name>
+		<description>Planned Quantity - Rows</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IssuedQty</id>
+		<source_code_name>ISUUED_QTY</source_code_name>
+		<description>Issued Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IssueType</id>
+		<source_code_name>ISSUE_TYPE</source_code_name>
+		<description>Production Order Issue Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>M</value>
+			<description>Manual</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Backflush</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>wareHouse</id>
+		<source_code_name>WAREHOUSE</source_code_name>
+		<description>Warehouse</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>VisOrder</id>
+		<source_code_name>VIS_ORDER</source_code_name>
+		<description>Visual Order</description>
+		<field_type>261</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>WipActCode</id>
+		<source_code_name>WIP_ACT</source_code_name>
+		<description>WIP Account Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>CompTotal</id>
+		<source_code_name>COMP_TOTAL</source_code_name>
+		<description>Total Completed Sum</description>
+		<field_type>36</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode</id>
+		<source_code_name>OCR_CODE</source_code_name>
+		<description>Distribution Rule</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode2</id>
+		<source_code_name>OCR_CODE2</source_code_name>
+		<description>Distribution Rule2</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode3</id>
+		<source_code_name>OCR_CODE3</source_code_name>
+		<description>Distribution Rule3</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode4</id>
+		<source_code_name>OCR_CODE4</source_code_name>
+		<description>Distribution Rule4</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OcrCode5</id>
+		<source_code_name>OCR_CODE5</source_code_name>
+		<description>Distribution Rule5</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOCATION_CODE</source_code_name>
+		<description>Location Code</description>
+		<field_type>500</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>LogInstanc</id>
+		<source_code_name>LOG_INSTANCE</source_code_name>
+		<description>Log Instance</description>
+		<invisible />
+		<field_type>260</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>LoadFrBOM</id>
+		<source_code_name>LOAD_FROM_BOM</source_code_name>
+		<description>Child qty was loaded from BOM</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Planned qty calculated from baseQty</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Planned qty calculated from BOM</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Planned qty calculated from recalculated baseQty value</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Project</id>
+		<source_code_name>PROJECT</source_code_name>
+		<description>Project Code</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>UomEntry</id>
+		<source_code_name>UOM_ENTRY</source_code_name>
+		<description>UoM Entry</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UomCode</id>
+		<source_code_name>UOM_CODE</source_code_name>
+		<description>UoM Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<association>
+		<id>DocEntryLink</id>
+		<target_direct>OWOR</target_direct>
+		<object_key_column>DocEntry</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>wareHouseLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>wareHouse</object_key_column>
+	</association>
+	<association>
+		<id>WipActCodeLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>WipActCode</object_key_column>
+	</association>
+	<association>
+		<id>OcrCodeLink</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode2Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode2</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode3Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode3</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode4Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode4</object_key_column>
+	</association>
+	<association>
+		<id>OcrCode5Link</id>
+		<target_direct>OOCR</target_direct>
+		<object_key_column>OcrCode5</object_key_column>
+	</association>
+	<association>
+		<id>LocCodeLink</id>
+		<target_direct>OLCT</target_direct>
+		<object_key_column>LocCode</object_key_column>
+	</association>
+	<association>
+		<id>ProjectLink</id>
+		<target_direct>OPRJ</target_direct>
+		<object_key_column>Project</object_key_column>
+	</association>
+	<association>
+		<id>UomEntryLink</id>
+		<target_direct>OUOM</target_direct>
+		<object_key_column>UomEntry</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocEntry</column>
+		<column>LineNum</column>
+	</key>
+	<key>
+		<id>ITEM_WHS</id>
+		<column>ItemCode</column>
+		<column>wareHouse</column>
+	</key>
+</table>

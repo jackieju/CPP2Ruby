@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>IWZ1</id>
+	<description>Accounts Revaluation History</description>
+	<string_list>1100523</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AcctCode</id>
+		<source_code_name>ACCOUNT_CODE</source_code_name>
+		<description>Account Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>ActName</id>
+		<source_code_name>ACCOUNT_NAME</source_code_name>
+		<description>Account Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>ActFrmBlnc</id>
+		<source_code_name>ACCOUNT_FROM_BALANCE</source_code_name>
+		<description>Account From Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ExecutLine</id>
+		<source_code_name>EXECUTED_LINE</source_code_name>
+		<description>Executed Row</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>Y</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Executed Row</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Filter Line</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ActRevCncl</id>
+		<source_code_name>ACCOUNT_REVAL_CANCEL</source_code_name>
+		<description>Account Revaluation Cancel</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>RevToAct</id>
+		<source_code_name>REVAL_TO_ACT</source_code_name>
+		<description>Revaluate To Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>ActDiffBal</id>
+		<source_code_name>ACCOUNT_DIFF_BALANCE</source_code_name>
+		<description>Account Difference Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>RvCaclDate</id>
+		<source_code_name>REVAL_CANCEL_DATE</source_code_name>
+		<description>Reval. Acct Cancellation Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ErrReason</id>
+		<source_code_name>ERROR_REASON</source_code_name>
+		<description>Error Reason</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ActLastBal</id>
+		<source_code_name>ACT_LAST_REVAL_BAL</source_code_name>
+		<description>Account Last Reval Balance</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<association>
+		<id>AbsEntryLink</id>
+		<target_direct>OIWZ</target_direct>
+		<object_key_column>AbsEntry</object_key_column>
+	</association>
+	<association>
+		<id>AcctCodeLink</id>
+		<target_direct>OACT</target_direct>
+		<object_key_column>AcctCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+		<column>AcctCode</column>
+	</key>
+</table>

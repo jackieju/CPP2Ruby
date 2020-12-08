@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>LLR1</id>
+	<description>Electronic Report Generation Result - Reports</description>
+	<string_list>1101265</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Reports</info_category>
+	<column>
+		<id>ResEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Result Internal ID</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ReportNum</id>
+		<source_code_name>REPORT_NUM</source_code_name>
+		<description>Report Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ReportCode</id>
+		<source_code_name>REPORT_CODE</source_code_name>
+		<description>Report Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Criteria</id>
+		<source_code_name>CRITERIA_DATA</source_code_name>
+		<description>Selection Criteria</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>Link</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>ResEntryLink</id>
+		<target_direct>OLLR</target_direct>
+		<object_key_column>ResEntry</object_key_column>
+	</association>
+	<association>
+		<id>ReportCodeLink</id>
+		<target_direct>RDOC</target_direct>
+		<object_key_column>ReportCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ResEntry</column>
+		<column>ReportNum</column>
+	</key>
+</table>

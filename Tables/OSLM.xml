@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OSLM</id>
+	<description>Special Ledger - Analytical Accounting Report: Material</description>
+	<string_list>1100772</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>DocID</id>
+		<source_code_name>DOC_ID</source_code_name>
+		<description>Document Identification Number</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocDate</id>
+		<source_code_name>DOC_DATE</source_code_name>
+		<description>Date of Report Generation</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Ref1</id>
+		<source_code_name>REF_1</source_code_name>
+		<description>Journal Entry Number</description>
+		<field_type>17</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Ref2</id>
+		<source_code_name>REF_2</source_code_name>
+		<description>Original JE Reference</description>
+		<field_type>18</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Document Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+	</column>
+	<column>
+		<id>DateFrom</id>
+		<source_code_name>DATE_FROM</source_code_name>
+		<description>Document Start Date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DateTo</id>
+		<source_code_name>DATE_TO</source_code_name>
+		<description>Document End Date</description>
+		<field_type>3</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TotDebit</id>
+		<source_code_name>TOTAL_DEBIT</source_code_name>
+		<description>Total Debit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TotCredit</id>
+		<source_code_name>TOTAL_CREDIT</source_code_name>
+		<description>Total Credit Amount</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>RateType</id>
+		<source_code_name>RATE_TYPE</source_code_name>
+		<description>Type of Exchange Rate</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>O</value>
+			<description sys="Y">Original document</description>
+		</valid_value>
+		<valid_value>
+			<value>E</value>
+			<description sys="Y">Execution date</description>
+		</valid_value>
+		<valid_value>
+			<value>V</value>
+			<description sys="Y">Other value</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Comment</id>
+		<source_code_name>COMMENT</source_code_name>
+		<description>Remarks</description>
+		<field_type>152</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>250</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>250</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGN</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Canceled</id>
+		<source_code_name>CANCELED</source_code_name>
+		<description>Canceled</description>
+		<invisible />
+		<field_type>10</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description sys="Y">Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description sys="Y">No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CancelDate</id>
+		<source_code_name>CANCEL_DATE</source_code_name>
+		<description>Cancellation Date</description>
+		<invisible />
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CancelUser</id>
+		<source_code_name>CANCEL_USER</source_code_name>
+		<description>Document Cancelled by</description>
+		<invisible />
+		<field_type>78</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<association>
+		<id>Ref1Link</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>Ref1</object_key_column>
+	</association>
+	<association>
+		<id>Ref2Link</id>
+		<target_direct>OJDT</target_direct>
+		<object_key_column>Ref2</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>CancelUserLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>CancelUser</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocID</column>
+	</key>
+</table>

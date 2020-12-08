@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TPS2</id>
+	<description>Tax Parameter - Return Values</description>
+	<string_list>1100833</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>TpsId</id>
+		<source_code_name>TPS_ID</source_code_name>
+		<description>Tax Parameter Set</description>
+		<invisible />
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DispOrder</id>
+		<source_code_name>DISP_ORDER</source_code_name>
+		<description>Display Order</description>
+		<invisible />
+		<field_type>261</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TprId</id>
+		<source_code_name>TPR_ID</source_code_name>
+		<description>ID of Return Values Mapping</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>TpsIdLink</id>
+		<target_direct>OTPS</target_direct>
+		<object_key_column>TpsId</object_key_column>
+	</association>
+	<association>
+		<id>TprIdLink</id>
+		<target_direct>OTPR</target_direct>
+		<object_key_column>TprId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TpsId</column>
+		<column>TprId</column>
+	</key>
+	<key>
+		<id>ORDER</id>
+		<unique />
+		<column>TpsId</column>
+		<column>DispOrder</column>
+	</key>
+</table>

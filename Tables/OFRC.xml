@@ -1,0 +1,1257 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OFRC</id>
+	<description>Financial Report Categories</description>
+	<string_list>1100099</string_list>
+	<view_type>Document</view_type>
+	<domain>User</domain>
+	<info_category>Finance</info_category>
+	<column>
+		<id>CatId</id>
+		<source_code_name>CAT_ID</source_code_name>
+		<description>Numerator</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>TemplateId</id>
+		<source_code_name>TEMPLATE_ID</source_code_name>
+		<description>Template</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Name</description>
+		<field_type>500</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>FrgnName</id>
+		<source_code_name>FOREIGN_NAME</source_code_name>
+		<description>Foreign Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Levels</id>
+		<source_code_name>LEVELS</source_code_name>
+		<description>Account Level</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>1</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Level 1</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Level 2</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Level 3</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>FatherNum</id>
+		<source_code_name>FATH_NUM</source_code_name>
+		<description>Parent Account Key</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Active</id>
+		<source_code_name>ACTIVE</source_code_name>
+		<description>Active Account</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>HasSons</id>
+		<source_code_name>HAS_SONS</source_code_name>
+		<description>Including Children</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>VisOrder</id>
+		<source_code_name>VIS_ORDER</source_code_name>
+		<description>Display Order</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>SubSum</id>
+		<source_code_name>SUB_SUM</source_code_name>
+		<description>Subtotal</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SubName</id>
+		<source_code_name>SUB_NAME</source_code_name>
+		<description>Subtotal Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Furmula</id>
+		<source_code_name>FORMULA</source_code_name>
+		<description>Formula</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Param_1</id>
+		<source_code_name>PARAM_1</source_code_name>
+		<description>Parameter 1</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_2</id>
+		<source_code_name>PARAM_2</source_code_name>
+		<description>Parameter 2</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_3</id>
+		<source_code_name>PARAM_3</source_code_name>
+		<description>Parameter 3</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_4</id>
+		<source_code_name>PARAM_4</source_code_name>
+		<description>Parameter 4</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_5</id>
+		<source_code_name>PARAM_5</source_code_name>
+		<description>Parameter 5</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_6</id>
+		<source_code_name>PARAM_6</source_code_name>
+		<description>Parameter 6</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_7</id>
+		<source_code_name>PARAM_7</source_code_name>
+		<description>Parameter 7</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_8</id>
+		<source_code_name>PARAM_8</source_code_name>
+		<description>Parameter 8</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_9</id>
+		<source_code_name>PARAM_9</source_code_name>
+		<description>Parameter 9</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_10</id>
+		<source_code_name>PARAM_10</source_code_name>
+		<description>Parameter 10</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_11</id>
+		<source_code_name>PARAM_11</source_code_name>
+		<description>Parameter 11</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_12</id>
+		<source_code_name>PARAM_12</source_code_name>
+		<description>Parameter 12</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_13</id>
+		<source_code_name>PARAM_13</source_code_name>
+		<description>Parameter 13</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_14</id>
+		<source_code_name>PARAM_14</source_code_name>
+		<description>Parameter 14</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_15</id>
+		<source_code_name>PARAM_15</source_code_name>
+		<description>Parameter 15</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_16</id>
+		<source_code_name>PARAM_16</source_code_name>
+		<description>Parameter 16</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_17</id>
+		<source_code_name>PARAM_17</source_code_name>
+		<description>Parameter 17</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_18</id>
+		<source_code_name>PARAM_18</source_code_name>
+		<description>Parameter 18</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_19</id>
+		<source_code_name>PARAM_19</source_code_name>
+		<description>Parameter 19</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_20</id>
+		<source_code_name>PARAM_20</source_code_name>
+		<description>Parameter 20</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_21</id>
+		<source_code_name>PARAM_21</source_code_name>
+		<description>Parameter 21</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_22</id>
+		<source_code_name>PARAM_22</source_code_name>
+		<description>Parameter 22</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_23</id>
+		<source_code_name>PARAM_23</source_code_name>
+		<description>Parameter 23</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_24</id>
+		<source_code_name>PARAM_24</source_code_name>
+		<description>Parameter 24</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>Param_25</id>
+		<source_code_name>PARAM_25</source_code_name>
+		<description>Parameter 25</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>OP_1</id>
+		<source_code_name>OP_1</source_code_name>
+		<description>Operator 1</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_2</id>
+		<source_code_name>OP_2</source_code_name>
+		<description>Operator 2</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_3</id>
+		<source_code_name>OP_3</source_code_name>
+		<description>Operator 3</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_4</id>
+		<source_code_name>OP_4</source_code_name>
+		<description>Operator 4</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_5</id>
+		<source_code_name>OP_5</source_code_name>
+		<description>Operator 5</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_6</id>
+		<source_code_name>OP_6</source_code_name>
+		<description>Operator 6</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_7</id>
+		<source_code_name>OP_7</source_code_name>
+		<description>Operator 7</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_8</id>
+		<source_code_name>OP_8</source_code_name>
+		<description>Operator 8</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_9</id>
+		<source_code_name>OP_9</source_code_name>
+		<description>Operator 9</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_10</id>
+		<source_code_name>OP_10</source_code_name>
+		<description>Operator 10</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_11</id>
+		<source_code_name>OP_11</source_code_name>
+		<description>Operator 11</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_12</id>
+		<source_code_name>OP_12</source_code_name>
+		<description>Operator 12</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_13</id>
+		<source_code_name>OP_13</source_code_name>
+		<description>Operator 13</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_14</id>
+		<source_code_name>OP_14</source_code_name>
+		<description>Operator 14</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_15</id>
+		<source_code_name>OP_15</source_code_name>
+		<description>Operator 15</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_16</id>
+		<source_code_name>OP_16</source_code_name>
+		<description>Operator 16</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_17</id>
+		<source_code_name>OP_17</source_code_name>
+		<description>Operator 17</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_18</id>
+		<source_code_name>OP_18</source_code_name>
+		<description>Operator 18</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_19</id>
+		<source_code_name>OP_19</source_code_name>
+		<description>Operator 19</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_20</id>
+		<source_code_name>OP_20</source_code_name>
+		<description>Operator 20</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_21</id>
+		<source_code_name>OP_21</source_code_name>
+		<description>Operator 21</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_22</id>
+		<source_code_name>OP_22</source_code_name>
+		<description>Operator 22</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_23</id>
+		<source_code_name>OP_23</source_code_name>
+		<description>Operator 23</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>OP_24</id>
+		<source_code_name>OP_24</source_code_name>
+		<description>Operator 24</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value />
+			<description>Without</description>
+		</valid_value>
+		<valid_value>
+			<value>+</value>
+			<description>Addition</description>
+		</valid_value>
+		<valid_value>
+			<value>-</value>
+			<description>Subtraction</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ProfitLoss</id>
+		<source_code_name>PROFIT_LOS</source_code_name>
+		<description>Profit and Loss</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>MoveNeg</id>
+		<source_code_name>MOVE_NEG</source_code_name>
+		<description>Move if Negative</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Dummy</id>
+		<source_code_name>DUMMY</source_code_name>
+		<description>Dummy Title</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>HideAct</id>
+		<source_code_name>HIDE_ACT</source_code_name>
+		<description>Hide Accounts</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>_USER_</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ToGroup</id>
+		<source_code_name>TO_GROUP</source_code_name>
+		<description>Move to Group</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ToTitle</id>
+		<source_code_name>TO_TITLE</source_code_name>
+		<description>Move to Title</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>LineNum</id>
+		<source_code_name>LINE_NUM</source_code_name>
+		<description>Line Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>IndentChar</id>
+		<source_code_name>INDENT_CHAR</source_code_name>
+		<description>Indent Char.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>Reversal</id>
+		<source_code_name>REVERSAL</source_code_name>
+		<description>Reversal Sign</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>TextTitle</id>
+		<source_code_name>TEXT_TITLE</source_code_name>
+		<description>Text Title</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>SumType</id>
+		<source_code_name>SUM_TYPE</source_code_name>
+		<description>Gross/Correction/Net</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>B</value>
+			<description>Gross</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Correction</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Net</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>NetIncome</id>
+		<source_code_name>NET_INCOME</source_code_name>
+		<description>Net Income</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>PLTempId</id>
+		<source_code_name>PL_TEMPLATE_ID</source_code_name>
+		<description>Profit &amp; Loss Report Template</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CustName</id>
+		<source_code_name>CUSTOM_NAME</source_code_name>
+		<description>Customized Account Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExtFromBS</id>
+		<source_code_name>EXT_FROM_BSHEET</source_code_name>
+		<description>Relevant for Bal. Sht Extract</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ExtData</id>
+		<source_code_name>EXTENDED_DATA</source_code_name>
+		<description>Extended Data</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>A</value>
+			<description>Relevant for Asset History Sheet</description>
+		</valid_value>
+		<valid_value>
+			<value>L</value>
+			<description>Relevant for Liabilities History Sheet</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>Not Relevant</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LegalRef</id>
+		<source_code_name>LEGAL_REFERENCE</source_code_name>
+		<description>Legal Reference</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>PLCatId</id>
+		<source_code_name>PL_CATID</source_code_name>
+		<description>Profit &amp; Loss Report Category</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<association>
+		<id>TemplateIdLink</id>
+		<target_direct>OFRT</target_direct>
+		<object_key_column>TemplateId</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TemplateId</column>
+		<column>CatId</column>
+	</key>
+</table>

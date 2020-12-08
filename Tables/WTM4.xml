@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>WTM4</id>
+	<description>Approval Templates - Terms</description>
+	<string_list>1100225</string_list>
+	<view_type>DocumentLine</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>WtmCode</id>
+		<source_code_name>WTM_CODE</source_code_name>
+		<description>Code</description>
+		<field_type>110</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CondId</id>
+		<source_code_name>COND_ID</source_code_name>
+		<description>Condition No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Deviation from Credit Limit</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Deviation from Commitment</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Gross Profit %</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Discount %</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Deviation from Budget</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Quantity</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Item Code</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Total</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Total Document</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Counted Quantity</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Variance</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Variance %</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description>Undefined Type</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>opCode</id>
+		<source_code_name>OP_CODE</source_code_name>
+		<description>Ratio</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>1</value>
+			<description>Greater Than</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Greater or Equal</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Less Than</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Less or Equal</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Equal</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Does not Equal</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>In Range</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Not in Range</description>
+		</valid_value>
+		<valid_value>
+			<value>0</value>
+			<description>Undefined Type</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>opValue</id>
+		<source_code_name>OP_VALUE</source_code_name>
+		<description>Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>90</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>90</edit_size>
+	</column>
+	<association>
+		<id>WtmCodeLink</id>
+		<target_direct>OWTM</target_direct>
+		<object_key_column>WtmCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>WtmCode</column>
+		<column>CondId</column>
+	</key>
+</table>

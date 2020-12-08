@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>RCON</id>
+	<description>Connection Map for CR Templates</description>
+	<string_list>1101389</string_list>
+	<view_type>AdministrationPlus</view_type>
+	<domain>User</domain>
+	<column>
+		<id>DocCode</id>
+		<source_code_name>DocCode</source_code_name>
+		<description>Internal Template Key</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ConnID</id>
+		<source_code_name>ConnectionID</source_code_name>
+		<description>Connection ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OldServer</id>
+		<source_code_name>OldServer</source_code_name>
+		<description>Old Server Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>OldDbName</id>
+		<source_code_name>OldDbName</source_code_name>
+		<description>Old Database Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NewServer</id>
+		<source_code_name>NewServer</source_code_name>
+		<description>Mapped Server Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>NewDbName</id>
+		<source_code_name>NewDbName</source_code_name>
+		<description>Mapped Database Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UserCode</id>
+		<source_code_name>UserCode</source_code_name>
+		<description>User Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubIndex</id>
+		<source_code_name>SubIndex</source_code_name>
+		<description>Subreport Index</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SubName</id>
+		<source_code_name>SubName</source_code_name>
+		<description>Subreport Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>64</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>DocCode</column>
+		<column>ConnID</column>
+	</key>
+</table>

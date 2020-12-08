@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SEWAD</id>
+	<description sys="Y" />
+	<view_type>Administration</view_type>
+	<domain>System</domain>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description sys="Y">Absolute Entry</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DbName</id>
+		<source_code_name>DB_NAME</source_code_name>
+		<description sys="Y">DB Name (common/company)</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>AddonId</id>
+		<source_code_name>ADDON_ID</source_code_name>
+		<description sys="Y">Addon ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>AddonName</id>
+		<source_code_name>ADDON_NAME</source_code_name>
+		<description sys="Y">Addon Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>128</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>128</edit_size>
+	</column>
+	<column>
+		<id>AddonVer</id>
+		<source_code_name>ADDON_VERSION</source_code_name>
+		<description sys="Y">Addon Version</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>12</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>12</edit_size>
+	</column>
+	<column>
+		<id>NameSpace</id>
+		<source_code_name>PARTNER_NAME_SPACE</source_code_name>
+		<description sys="Y">Partner Name Space</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PartName</id>
+		<source_code_name>PARTNER_NAME</source_code_name>
+		<description sys="Y">Partner Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>40</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>40</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>DBNAME</id>
+		<column>DbName</column>
+	</key>
+</table>

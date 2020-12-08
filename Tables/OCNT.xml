@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OCNT</id>
+	<description>Counties</description>
+	<string_list>1100805</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsId</id>
+		<source_code_name>ABSID</source_code_name>
+		<description>Auto Key</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Code</id>
+		<source_code_name>CODE</source_code_name>
+		<description>County Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>7</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Country</id>
+		<source_code_name>COUNTRY</source_code_name>
+		<description>Country</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>State</id>
+		<source_code_name>STATE</source_code_name>
+		<description>State</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>County Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TaxZone</id>
+		<source_code_name>TAXZONE</source_code_name>
+		<description>Tax Free Zone</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IbgeCode</id>
+		<source_code_name>IBGE_CODE</source_code_name>
+		<description>IBGE Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>GiaCode</id>
+		<source_code_name>GIA_CODE</source_code_name>
+		<description>GIA Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>StateLink</id>
+		<target_direct>OCST</target_direct>
+		<object_key_column>Country</object_key_column>
+		<object_key_column>State</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsId</column>
+	</key>
+	<key>
+		<id>UNIQUE</id>
+		<unique />
+		<column>Code</column>
+		<column>Country</column>
+		<column>State</column>
+	</key>
+</table>

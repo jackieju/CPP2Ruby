@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OISR</id>
+	<description>Service Calls</description>
+	<string_list>1100111</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<info_category>Service</info_category>
+	<column>
+		<id>RequestNum</id>
+		<source_code_name>REQUEST_NUM</source_code_name>
+		<description>Request No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Open_Date</id>
+		<source_code_name>OPEN_DATE</source_code_name>
+		<description>Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Open_Time</id>
+		<source_code_name>OPEN_TIME</source_code_name>
+		<description>Start Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Task_Id</id>
+		<source_code_name>TASK_ID</source_code_name>
+		<description>Request No. in SAP Business One</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Contact</id>
+		<source_code_name>CONTACT</source_code_name>
+		<description>Contact Person</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>30</edit_size>
+	</column>
+	<column>
+		<id>Phone</id>
+		<source_code_name>PHONE</source_code_name>
+		<description>Telephone</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>TaskType</id>
+		<source_code_name>TASK_TYPE</source_code_name>
+		<description>Request Type</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>Explanation</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Error</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Complaints</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>Dscription</id>
+		<source_code_name>DSCRIPTION</source_code_name>
+		<description>Call Description</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>254</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>254</edit_size>
+	</column>
+	<column>
+		<id>Answer</id>
+		<source_code_name>ANSWER</source_code_name>
+		<description>Troubleshooting</description>
+		<invisible />
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Call Status</description>
+		<invisible />
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>O</default_value>
+		<valid_value>
+			<value>O</value>
+			<description>Open</description>
+		</valid_value>
+		<valid_value>
+			<value>C</value>
+			<description>Closed</description>
+		</valid_value>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>RequestNum</column>
+	</key>
+</table>

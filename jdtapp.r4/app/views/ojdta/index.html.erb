@@ -1,0 +1,217 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ojdta</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Batchnum</th>
+      <th>Transid</th>
+      <th>Btfstatus</th>
+      <th>Transtype</th>
+      <th>Baseref</th>
+      <th>Refdate</th>
+      <th>Memo</th>
+      <th>Ref1</th>
+      <th>Ref2</th>
+      <th>Createdby</th>
+      <th>Loctotal</th>
+      <th>Fctotal</th>
+      <th>Systotal</th>
+      <th>Transcode</th>
+      <th>Origncurr</th>
+      <th>Transrate</th>
+      <th>Btfline</th>
+      <th>Transcurr</th>
+      <th>Project</th>
+      <th>Duedate</th>
+      <th>Taxdate</th>
+      <th>Pcaddition</th>
+      <th>Finncpriod</th>
+      <th>Datasource</th>
+      <th>Updatedate</th>
+      <th>Createdate</th>
+      <th>Usersign</th>
+      <th>Usersign2</th>
+      <th>Refndrprt</th>
+      <th>Loginstanc</th>
+      <th>Objtype</th>
+      <th>Indicator</th>
+      <th>Adjtran</th>
+      <th>Revsource</th>
+      <th>Stornodate</th>
+      <th>Stornototr</th>
+      <th>Autostorno</th>
+      <th>Corisptivi</th>
+      <th>Vatdate</th>
+      <th>Stamptax</th>
+      <th>Series</th>
+      <th>Number</th>
+      <th>Autovat</th>
+      <th>Docseries</th>
+      <th>Foliopref</th>
+      <th>Folionum</th>
+      <th>Createtime</th>
+      <th>Blockdunn</th>
+      <th>Reporteu</th>
+      <th>Report347</th>
+      <th>Printed</th>
+      <th>Doctype</th>
+      <th>Attnum</th>
+      <th>Genregno</th>
+      <th>Rg23apart2</th>
+      <th>Rg23cpart2</th>
+      <th>Mattype</th>
+      <th>Creator</th>
+      <th>Approver</th>
+      <th>Location</th>
+      <th>Seqcode</th>
+      <th>Serial</th>
+      <th>Seriesstr</th>
+      <th>Substr</th>
+      <th>Autowt</th>
+      <th>Wtsum</th>
+      <th>Wtsumsc</th>
+      <th>Wtsumfc</th>
+      <th>Wtapplied</th>
+      <th>Wtapplieds</th>
+      <th>Wtappliedf</th>
+      <th>Baseamnt</th>
+      <th>Baseamntsc</th>
+      <th>Baseamntfc</th>
+      <th>Basevtat</th>
+      <th>Basevtatsc</th>
+      <th>Basevtatfc</th>
+      <th>Versionnum</th>
+      <th>Basetrans</th>
+      <th>Residennum</th>
+      <th>Operatcode</th>
+      <th>Ref3</th>
+      <th>Ssiexmpt</th>
+      <th>Signmsg</th>
+      <th>Signdigest</th>
+      <th>Certifnum</th>
+      <th>Keyversion</th>
+      <th>Cup</th>
+      <th>Cig</th>
+      <th>Supplcode</th>
+      <th>Spsrctype</th>
+      <th>Spsrcid</th>
+      <th>Spsrcdln</th>
+      <th>Deferedtax</th>
+      <th>Agrno</th>
+      <th>Seqnum</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ojdta.each do |ojdtum| %>
+      <tr>
+        <td><%= ojdtum.BatchNum %></td>
+        <td><%= ojdtum.TransId %></td>
+        <td><%= ojdtum.BtfStatus %></td>
+        <td><%= ojdtum.TransType %></td>
+        <td><%= ojdtum.BaseRef %></td>
+        <td><%= ojdtum.RefDate %></td>
+        <td><%= ojdtum.Memo %></td>
+        <td><%= ojdtum.Ref1 %></td>
+        <td><%= ojdtum.Ref2 %></td>
+        <td><%= ojdtum.CreatedBy %></td>
+        <td><%= ojdtum.LocTotal %></td>
+        <td><%= ojdtum.FcTotal %></td>
+        <td><%= ojdtum.SysTotal %></td>
+        <td><%= ojdtum.TransCode %></td>
+        <td><%= ojdtum.OrignCurr %></td>
+        <td><%= ojdtum.TransRate %></td>
+        <td><%= ojdtum.BtfLine %></td>
+        <td><%= ojdtum.TransCurr %></td>
+        <td><%= ojdtum.Project %></td>
+        <td><%= ojdtum.DueDate %></td>
+        <td><%= ojdtum.TaxDate %></td>
+        <td><%= ojdtum.PCAddition %></td>
+        <td><%= ojdtum.FinncPriod %></td>
+        <td><%= ojdtum.DataSource %></td>
+        <td><%= ojdtum.UpdateDate %></td>
+        <td><%= ojdtum.CreateDate %></td>
+        <td><%= ojdtum.UserSign %></td>
+        <td><%= ojdtum.UserSign2 %></td>
+        <td><%= ojdtum.RefndRprt %></td>
+        <td><%= ojdtum.LogInstanc %></td>
+        <td><%= ojdtum.ObjType %></td>
+        <td><%= ojdtum.Indicator %></td>
+        <td><%= ojdtum.AdjTran %></td>
+        <td><%= ojdtum.RevSource %></td>
+        <td><%= ojdtum.StornoDate %></td>
+        <td><%= ojdtum.StornoToTr %></td>
+        <td><%= ojdtum.AutoStorno %></td>
+        <td><%= ojdtum.Corisptivi %></td>
+        <td><%= ojdtum.VatDate %></td>
+        <td><%= ojdtum.StampTax %></td>
+        <td><%= ojdtum.Series %></td>
+        <td><%= ojdtum.Number %></td>
+        <td><%= ojdtum.AutoVAT %></td>
+        <td><%= ojdtum.DocSeries %></td>
+        <td><%= ojdtum.FolioPref %></td>
+        <td><%= ojdtum.FolioNum %></td>
+        <td><%= ojdtum.CreateTime %></td>
+        <td><%= ojdtum.BlockDunn %></td>
+        <td><%= ojdtum.ReportEU %></td>
+        <td><%= ojdtum.Report347 %></td>
+        <td><%= ojdtum.Printed %></td>
+        <td><%= ojdtum.DocType %></td>
+        <td><%= ojdtum.AttNum %></td>
+        <td><%= ojdtum.GenRegNo %></td>
+        <td><%= ojdtum.RG23APart2 %></td>
+        <td><%= ojdtum.RG23CPart2 %></td>
+        <td><%= ojdtum.MatType %></td>
+        <td><%= ojdtum.Creator %></td>
+        <td><%= ojdtum.Approver %></td>
+        <td><%= ojdtum.Location %></td>
+        <td><%= ojdtum.SeqCode %></td>
+        <td><%= ojdtum.Serial %></td>
+        <td><%= ojdtum.SeriesStr %></td>
+        <td><%= ojdtum.SubStr %></td>
+        <td><%= ojdtum.AutoWT %></td>
+        <td><%= ojdtum.WTSum %></td>
+        <td><%= ojdtum.WTSumSC %></td>
+        <td><%= ojdtum.WTSumFC %></td>
+        <td><%= ojdtum.WTApplied %></td>
+        <td><%= ojdtum.WTAppliedS %></td>
+        <td><%= ojdtum.WTAppliedF %></td>
+        <td><%= ojdtum.BaseAmnt %></td>
+        <td><%= ojdtum.BaseAmntSC %></td>
+        <td><%= ojdtum.BaseAmntFC %></td>
+        <td><%= ojdtum.BaseVtAt %></td>
+        <td><%= ojdtum.BaseVtAtSC %></td>
+        <td><%= ojdtum.BaseVtAtFC %></td>
+        <td><%= ojdtum.VersionNum %></td>
+        <td><%= ojdtum.BaseTrans %></td>
+        <td><%= ojdtum.ResidenNum %></td>
+        <td><%= ojdtum.OperatCode %></td>
+        <td><%= ojdtum.Ref3 %></td>
+        <td><%= ojdtum.SSIExmpt %></td>
+        <td><%= ojdtum.SignMsg %></td>
+        <td><%= ojdtum.SignDigest %></td>
+        <td><%= ojdtum.CertifNum %></td>
+        <td><%= ojdtum.KeyVersion %></td>
+        <td><%= ojdtum.CUP %></td>
+        <td><%= ojdtum.CIG %></td>
+        <td><%= ojdtum.SupplCode %></td>
+        <td><%= ojdtum.SPSrcType %></td>
+        <td><%= ojdtum.SPSrcID %></td>
+        <td><%= ojdtum.SPSrcDLN %></td>
+        <td><%= ojdtum.DeferedTax %></td>
+        <td><%= ojdtum.AgrNo %></td>
+        <td><%= ojdtum.SeqNum %></td>
+        <td><%= link_to 'Show', ojdtum %></td>
+        <td><%= link_to 'Edit', edit_ojdtum_path(ojdtum) %></td>
+        <td><%= link_to 'Destroy', ojdtum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ojdtum', new_ojdtum_path %>

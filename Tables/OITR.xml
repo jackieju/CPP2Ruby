@@ -1,0 +1,533 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OITR</id>
+	<description>Internal Reconciliation</description>
+	<string_list>1100888</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Banking</info_category>
+	<column>
+		<id>ReconNum</id>
+		<source_code_name>RECON_NUM</source_code_name>
+		<description>Reconciliation Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>IsCard</id>
+		<source_code_name>IS_CARD</source_code_name>
+		<description>BP or Account</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>C</value>
+			<description>BP</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>G/L Account</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ReconType</id>
+		<source_code_name>RECON_TYPE</source_code_name>
+		<description>Reconciliation Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description>Manual</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Automatic</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Semi-Automatic</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Payment</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Credit Memo</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Reversal</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Zero Value</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Cancellation</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>BoE</description>
+		</valid_value>
+		<valid_value>
+			<value>9</value>
+			<description>Deposit</description>
+		</valid_value>
+		<valid_value>
+			<value>10</value>
+			<description>Bank Statement Processing</description>
+		</valid_value>
+		<valid_value>
+			<value>11</value>
+			<description>Period Closing</description>
+		</valid_value>
+		<valid_value>
+			<value>12</value>
+			<description>Correction Invoice</description>
+		</valid_value>
+		<valid_value>
+			<value>13</value>
+			<description>Inventory/Expense Allocation</description>
+		</valid_value>
+		<valid_value>
+			<value>14</value>
+			<description>WIP</description>
+		</valid_value>
+		<valid_value>
+			<value>15</value>
+			<description>Deferred Tax Interim Account</description>
+		</valid_value>
+		<valid_value>
+			<value>16</value>
+			<description>Down Payment Allocation</description>
+		</valid_value>
+		<valid_value>
+			<value>17</value>
+			<description>Auto. Conversion Difference</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ReconDate</id>
+		<source_code_name>RECON_DATE</source_code_name>
+		<description>Reconciliation Date</description>
+		<field_type>2000</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Total</id>
+		<source_code_name>TOTAL</source_code_name>
+		<description>Total Reconciliation Amount</description>
+		<field_type>9</field_type>
+		<db_type>Float</db_type>
+		<db_size>20</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>ReconCurr</id>
+		<source_code_name>RECON_CURRENCY</source_code_name>
+		<description>Reconciliation Currency</description>
+		<field_type>115</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>3</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>3</edit_size>
+	</column>
+	<column>
+		<id>Canceled</id>
+		<source_code_name>CANCELED</source_code_name>
+		<description>Canceled</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>CancelAbs</id>
+		<source_code_name>CANCEL_ABS_ENT</source_code_name>
+		<description>Canceling/-ed Reconciliation</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>IsSystem</id>
+		<source_code_name>IS_SYSTEM</source_code_name>
+		<description>System or Manual</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>InitObjTyp</id>
+		<source_code_name>INIT_OBJ_TYPE</source_code_name>
+		<description>Reconc. Initiator Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>InitObjAbs</id>
+		<source_code_name>INIT_OBJ_ABS</source_code_name>
+		<description>Reconc. Initiator Internal ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Creation Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CreateTime</id>
+		<source_code_name>CREATE_TIME</source_code_name>
+		<description>Creation Time</description>
+		<field_type>99</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>DataSource</id>
+		<source_code_name>DATA_SOURCE</source_code_name>
+		<description>Data Source</description>
+		<invisible />
+		<field_type>97</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>Unknown</description>
+		</valid_value>
+		<valid_value>
+			<value>I</value>
+			<description>Interface</description>
+		</valid_value>
+		<valid_value>
+			<value>U</value>
+			<description>Update</description>
+		</valid_value>
+		<valid_value>
+			<value>M</value>
+			<description>Import</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description>OB Server</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description>Auto Incr.</description>
+		</valid_value>
+		<valid_value>
+			<value>D</value>
+			<description>Data Doc.</description>
+		</valid_value>
+		<valid_value>
+			<value>P</value>
+			<description>Partner Implementation</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Year Transfer</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGNATURE</source_code_name>
+		<description>User Signature</description>
+		<invisible />
+		<field_type>50</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>ReconRule1</id>
+		<source_code_name>RECON_RULE_1</source_code_name>
+		<description>Reconciliation Rule 1</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description>Posting Date</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Due Date</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Document Date</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Ref. 1</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Ref. 2</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Ref. 3</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Project Code</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Control Account Code</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Posting Period</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ReconRule2</id>
+		<source_code_name>RECON_RULE_2</source_code_name>
+		<description>Reconciliation Rule 2</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description>Posting Date</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Due Date</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Document Date</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Ref. 1</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Ref. 2</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Ref. 3</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Project Code</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Control Account Code</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Posting Period</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ReconRule3</id>
+		<source_code_name>RECON_RULE_3</source_code_name>
+		<description>Reconciliation Rule 3</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>2</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>2</edit_size>
+		<valid_value>
+			<value>0</value>
+			<description>Posting Date</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Due Date</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Document Date</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Ref. 1</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Ref. 2</description>
+		</valid_value>
+		<valid_value>
+			<value>5</value>
+			<description>Ref. 3</description>
+		</valid_value>
+		<valid_value>
+			<value>6</value>
+			<description>Project Code</description>
+		</valid_value>
+		<valid_value>
+			<value>7</value>
+			<description>Control Account Code</description>
+		</valid_value>
+		<valid_value>
+			<value>8</value>
+			<description>Posting Period</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>IsMultiBP</id>
+		<source_code_name>IS_MULTI_BP</source_code_name>
+		<description>Multiple BP Reconciliation</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>VersionNum</id>
+		<source_code_name>VERSION_NUM</source_code_name>
+		<description>Version Number</description>
+		<field_type>274</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>OldMatNum</id>
+		<source_code_name>OLD_MATCH_NUM</source_code_name>
+		<description>Previous Reconciliation Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ReconJEId</id>
+		<source_code_name>RECON_TRANS_ID</source_code_name>
+		<description>JE no. created by reconciliatn</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BuildDesc</id>
+		<source_code_name>BUILD_DESCRIPTOR</source_code_name>
+		<description>Build Descriptor</description>
+		<field_type>284</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>BPLId</id>
+		<source_code_name>BPL_ID</source_code_name>
+		<description>Branch</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BPLName</id>
+		<source_code_name>BPL_NAME</source_code_name>
+		<description>Branch Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>VATRegNum</id>
+		<source_code_name>VAT_REG_NUM</source_code_name>
+		<description>VAT Reg. Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<association>
+		<id>ReconCurrLink</id>
+		<target_direct>OCRN</target_direct>
+		<object_key_column>ReconCurr</object_key_column>
+	</association>
+	<association>
+		<id>CancelAbsLink</id>
+		<target_direct>OITR</target_direct>
+		<object_key_column>CancelAbs</object_key_column>
+	</association>
+	<association>
+		<id>UserSignLink</id>
+		<target_direct>OUSR</target_direct>
+		<object_key_column>UserSign</object_key_column>
+	</association>
+	<association>
+		<id>BPLLink</id>
+		<target_direct>OBPL</target_direct>
+		<object_key_column>BPLId</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ReconNum</column>
+	</key>
+</table>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OUTB</id>
+	<description>User Tables</description>
+	<string_list>1100355</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>TableName</id>
+		<source_code_name>TABLE_NAME</source_code_name>
+		<description>Table Name</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>19</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Descr</id>
+		<source_code_name>DESCR</source_code_name>
+		<description>Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TblNum</id>
+		<source_code_name>TABLE_NUM</source_code_name>
+		<description sys="Y">Table number</description>
+		<invisible />
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjectType</id>
+		<source_code_name>OBJECT_TYPE</source_code_name>
+		<description>Object Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description>No Object</description>
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description>Master Data</description>
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description>Master Data Rows</description>
+		</valid_value>
+		<valid_value>
+			<value>3</value>
+			<description>Document</description>
+		</valid_value>
+		<valid_value>
+			<value>4</value>
+			<description>Document Rows</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>UsedInObj</id>
+		<source_code_name>USED_IN_OBJ</source_code_name>
+		<description>Used in Object</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LogTable</id>
+		<source_code_name>LOG_TABLE</source_code_name>
+		<description>Log Table</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>19</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Archivable</id>
+		<source_code_name>ARCHIVABLE</source_code_name>
+		<description>Archivable</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>ArchivDate</id>
+		<source_code_name>ARCHIVE_FIELD</source_code_name>
+		<description>Archive Date</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>18</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>18</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>TableName</column>
+	</key>
+</table>

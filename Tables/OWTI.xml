@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OWTI</id>
+	<description>Workflow Timer Definition</description>
+	<string_list>1101822</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<column>
+		<id>Id</id>
+		<source_code_name>ID</source_code_name>
+		<description>ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Name</id>
+		<source_code_name>NAME</source_code_name>
+		<description>Name</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>TemplateId</id>
+		<source_code_name>TEMPLATE_ID</source_code_name>
+		<description>Workflow Template ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StartDate</id>
+		<source_code_name>START_DATE</source_code_name>
+		<description>Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>StartTime</id>
+		<source_code_name>START_TIME</source_code_name>
+		<description>Start Time</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RepeatCnt</id>
+		<source_code_name>REPEAT_CNT</source_code_name>
+		<description>Repeat Count of the Event</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Duration</id>
+		<source_code_name>DURATION</source_code_name>
+		<description>Duration</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>200</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LastUpdate</id>
+		<source_code_name>LAST_UPDATE</source_code_name>
+		<description>Last Update Date and Time</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnScheStDt</id>
+		<source_code_name>UNSCHEDULED_DATE</source_code_name>
+		<description>Start Date of Next Schedule</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnScheStTi</id>
+		<source_code_name>UNSCHEDULED_TIME</source_code_name>
+		<description>Start Time of Next Schedule</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>UnScheReCt</id>
+		<source_code_name>UNSCHEDULED_REP_CNT</source_code_name>
+		<description>Unschedule Repeat Count</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsComplete</id>
+		<source_code_name>IS_COMPLETED</source_code_name>
+		<description>Is this timer completed</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>N</default_value>
+		<valid_value>
+			<value>Y</value>
+			<description>Yes</description>
+		</valid_value>
+		<valid_value>
+			<value>N</value>
+			<description>No</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>JobHanType</id>
+		<source_code_name>JOB_HANDLER_TYPE</source_code_name>
+		<description>Job Handler Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>JobHanConf</id>
+		<source_code_name>JOB_HANDLER_CONFIG</source_code_name>
+		<description>Job Handler Configuration</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>IsActive</id>
+		<source_code_name>IS_ACTIVE</source_code_name>
+		<description>Is this an active timer</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>Id</column>
+	</key>
+</table>

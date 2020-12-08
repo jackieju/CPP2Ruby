@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>WORF</id>
+	<description sys="Y">Object Wizard Related Files</description>
+	<view_type>Invisible</view_type>
+	<domain>System</domain>
+	<column>
+		<id>ObjName</id>
+		<source_code_name>PARENT_OBJ_CODE</source_code_name>
+		<description sys="Y">Parent Object Code</description>
+		<field_type>4</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>SonNum</id>
+		<source_code_name>SON_NUMBER</source_code_name>
+		<description sys="Y">Son Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ObjTable</id>
+		<source_code_name>OBJ_TABLE</source_code_name>
+		<description sys="Y">Son Table</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RelObj</id>
+		<source_code_name>REL_OBJ</source_code_name>
+		<description sys="Y">Object</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>RelType</id>
+		<source_code_name>REL_TYPE</source_code_name>
+		<description sys="Y">Relationship Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>L</default_value>
+		<valid_value>
+			<value>L</value>
+			<description sys="Y">Line</description>
+		</valid_value>
+		<valid_value>
+			<value>O</value>
+			<description sys="Y">Odd</description>
+		</valid_value>
+		<valid_value>
+			<value>A</value>
+			<description sys="Y">Another object contained</description>
+		</valid_value>
+	</column>
+	<column>
+		<id>LogSon</id>
+		<source_code_name>LOG_SON</source_code_name>
+		<description sys="Y">Son's Log table</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>FthrLineId</id>
+		<source_code_name>FATHER_LINE_ID</source_code_name>
+		<description sys="Y">Father's Line Id</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>UniqueId</id>
+		<source_code_name>SON_UNIQUE_ID</source_code_name>
+		<description sys="Y">Son Unique Id</description>
+		<field_type>300</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LnObjCode</id>
+		<source_code_name>LINE_OBJECT_CODE</source_code_name>
+		<description sys="Y">Line object code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SonDesc</id>
+		<source_code_name>SON_DESCRIPTION</source_code_name>
+		<description sys="Y">Son Description</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>30</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATED_DATE</source_code_name>
+		<description sys="Y">Creation date</description>
+		<field_type>1</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CreateTime</id>
+		<source_code_name>CREATED_TIME</source_code_name>
+		<description sys="Y">Creation Time</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>UpdateDate</id>
+		<source_code_name>UPDATED_DATE</source_code_name>
+		<description sys="Y">Update Date</description>
+		<field_type>2</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UpdateTime</id>
+		<source_code_name>UPDATED_TIME</source_code_name>
+		<description sys="Y">Update Time</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>Time</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>UserSign</id>
+		<source_code_name>USER_SIGN</source_code_name>
+		<description sys="Y">User Sign</description>
+		<field_type>511</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>FieldIndex</id>
+		<source_code_name>FIELD_INDEX</source_code_name>
+		<description sys="Y">Field Index</description>
+		<field_type>39</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ObjName</column>
+		<column>SonNum</column>
+	</key>
+	<key>
+		<id>UNIQUE_ID</id>
+		<unique />
+		<column>UniqueId</column>
+	</key>
+	<key>
+		<id>TABLE</id>
+		<unique />
+		<column>ObjName</column>
+		<column>ObjTable</column>
+	</key>
+</table>

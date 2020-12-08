@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>TCD2</id>
+	<description>Key Field Values</description>
+	<string_list>1100827</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>Administration</info_category>
+	<column>
+		<id>AbsId</id>
+		<source_code_name>ABS_ID</source_code_name>
+		<description>Internal Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>Tcd1Id</id>
+		<source_code_name>TCD1_ID</source_code_name>
+		<description>Tax Determination ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>DispOrder</id>
+		<source_code_name>DISP_ORDER</source_code_name>
+		<description>Display Order</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>KeyFld_1_V</id>
+		<source_code_name>KEY_FLD_1_VAL</source_code_name>
+		<description>Key Fields 1 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>KeyFld_2_V</id>
+		<source_code_name>KEY_FLD_2_VAL</source_code_name>
+		<description>Key Fields 2 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>KeyFld_3_V</id>
+		<source_code_name>KEY_FLD_3_VAL</source_code_name>
+		<description>Key Fields 3 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<column>
+		<id>KeyFld_4_V</id>
+		<source_code_name>KEY_FLD_4_VAL</source_code_name>
+		<description>Key Fields 4 Value</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>50</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>50</edit_size>
+	</column>
+	<association>
+		<id>Tcd1IdLink</id>
+		<target_direct>TCD1</target_direct>
+		<object_key_column>Tcd1Id</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsId</column>
+	</key>
+	<key>
+		<id>TCD2_UNI</id>
+		<unique />
+		<column>Tcd1Id</column>
+		<column>DispOrder</column>
+	</key>
+</table>

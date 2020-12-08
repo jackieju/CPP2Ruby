@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>UIVE</id>
+	<description>FIFO Based Sales Return</description>
+	<string_list>1101278</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>TreeID</id>
+		<source_code_name>TREE_ID</source_code_name>
+		<description>Tree ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>0</default_value>
+	</column>
+	<column>
+		<id>ParentID</id>
+		<source_code_name>PARENT_ID</source_code_name>
+		<description>Parent ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>AbsEntry</id>
+		<source_code_name>ABS_ENTRY</source_code_name>
+		<description>Internal Number</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LocType</id>
+		<source_code_name>LOCATION_TYPE</source_code_name>
+		<description>Location Type</description>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>LocCode</id>
+		<source_code_name>LOCATION_CODE</source_code_name>
+		<description>Location Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>TransSeq</id>
+		<source_code_name>TRANS_SEQUENCE</source_code_name>
+		<description>Transaction Sequence No.</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LayerID</id>
+		<source_code_name>LAYER_ID</source_code_name>
+		<description>Layer ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LayerInQty</id>
+		<source_code_name>IN_QUANTITY</source_code_name>
+		<description>Layer In Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LayerOutQ</id>
+		<source_code_name>OUT_QUANTITY</source_code_name>
+		<description>Layer Out Quantity</description>
+		<field_type>22</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>LayerVal</id>
+		<source_code_name>LAYER_VALUE</source_code_name>
+		<description>Layer Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<field_type>30</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>EntryTreeI</id>
+		<source_code_name>ENTRY_TREE_ID</source_code_name>
+		<description>Entry Tree ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>LayerCogs</id>
+		<source_code_name>LAYER_COGS</source_code_name>
+		<description>Layer - Cost of Goods Sold</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>TransSeqLink</id>
+		<target_direct>UIVL</target_direct>
+		<object_key_column>TransSeq</object_key_column>
+	</association>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>UITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>AbsEntry</column>
+	</key>
+	<key>
+		<id>TRANS_SEQ</id>
+		<column>TransSeq</column>
+		<column>LayerID</column>
+	</key>
+	<key>
+		<id>TreeID</id>
+		<column>TreeID</column>
+	</key>
+</table>

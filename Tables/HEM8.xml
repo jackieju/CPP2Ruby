@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>HEM8</id>
+	<description>Group Information</description>
+	<string_list>1101927</string_list>
+	<view_type>MasterData</view_type>
+	<domain>User</domain>
+	<info_category>HumanResources</info_category>
+	<column>
+		<id>empID</id>
+		<source_code_name>EMPLOYEE_ID</source_code_name>
+		<description>Employee No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>groupID</id>
+		<source_code_name>GROUP_ID</source_code_name>
+		<description>Group No.</description>
+		<field_type>100</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>Line</id>
+		<source_code_name>LINE</source_code_name>
+		<description>Row No.</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>6</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>6</edit_size>
+	</column>
+	<column>
+		<id>groupType</id>
+		<source_code_name>GROUP_TYPE</source_code_name>
+		<description>Group Type</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>D</default_value>
+		<valid_value>
+			<value>D</value>
+			<description>Department</description>
+		</valid_value>
+		<valid_value>
+			<value>B</value>
+			<description>Branch</description>
+		</valid_value>
+		<valid_value>
+			<value>T</value>
+			<description>Team</description>
+		</valid_value>
+	</column>
+	<association>
+		<id>empIDLink</id>
+		<target_direct>OHEM</target_direct>
+		<object_key_column>empID</object_key_column>
+	</association>
+	<association>
+		<id>grpIDLink</id>
+		<target_direct>ODGR</target_direct>
+		<object_key_column>groupID</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>empID</column>
+		<column>groupID</column>
+	</key>
+</table>

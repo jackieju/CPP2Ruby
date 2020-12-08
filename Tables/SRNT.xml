@@ -1,0 +1,289 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>SRNT</id>
+	<description>Serial Numbers in Document</description>
+	<string_list>1101048</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<virtual />
+	<info_category>InventoryAndProduction</info_category>
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>SysNumber</id>
+		<source_code_name>SYS_NUMBER</source_code_name>
+		<description>System Number</description>
+		<field_type>2</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DistNumber</id>
+		<source_code_name>DISTINCT_NUMBER</source_code_name>
+		<description>Distinct Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>36</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>MnfSerial</id>
+		<source_code_name>MANUFACTURE_SERIAL</source_code_name>
+		<description>Manufacturer Serial No.</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>LotNumber</id>
+		<source_code_name>LOT_NUMBER</source_code_name>
+		<description>Lot Number</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>32</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>32</edit_size>
+	</column>
+	<column>
+		<id>ExpDate</id>
+		<source_code_name>EXPIRY_DATE</source_code_name>
+		<description>Expiration Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>MnfDate</id>
+		<source_code_name>MANUFACTURE_DATE</source_code_name>
+		<description>Manufacturing Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>InDate</id>
+		<source_code_name>INCOME_DATE</source_code_name>
+		<description>Admission Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>GrntStart</id>
+		<source_code_name>GUARANTEE_START</source_code_name>
+		<description>Warranty Start Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>GrntExp</id>
+		<source_code_name>GUARANTEE_EXPIRY</source_code_name>
+		<description>Warranty End Date</description>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CreateDate</id>
+		<source_code_name>CREATE_DATE</source_code_name>
+		<description>Creation Date</description>
+		<field_type>242</field_type>
+		<db_type>Date</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Location</id>
+		<source_code_name>LOCATION</source_code_name>
+		<description>Location</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>100</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>100</edit_size>
+	</column>
+	<column>
+		<id>Status</id>
+		<source_code_name>STATUS</source_code_name>
+		<description>Status</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>1</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>1</edit_size>
+		<default_value>0</default_value>
+		<valid_value>
+			<value>0</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>1</value>
+			<description sys="Y" />
+		</valid_value>
+		<valid_value>
+			<value>2</value>
+			<description sys="Y" />
+		</valid_value>
+	</column>
+	<column>
+		<id>Notes</id>
+		<source_code_name>NOTES</source_code_name>
+		<description>Det.</description>
+		<db_type>Text</db_type>
+		<db_size>0</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>QUANTITY</source_code_name>
+		<description>Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CommitQty</id>
+		<source_code_name>COMMITED_QTTY</source_code_name>
+		<description>Committed Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OrderQty</id>
+		<source_code_name>ORDERED_QTTY</source_code_name>
+		<description>Ordered Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>ConsigQty</id>
+		<source_code_name>CONSIGNATION_QTTY</source_code_name>
+		<description>Consignment Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>CountedQty</id>
+		<source_code_name>COUNTED_QTTY</source_code_name>
+		<description>Counted Quantity</description>
+		<field_type>20</field_type>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Quantity</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WhsCode</id>
+		<source_code_name>WHS_CODE</source_code_name>
+		<description>Warehouse Code</description>
+		<field_type>39</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>DocType</id>
+		<source_code_name>DOC_TYPE</source_code_name>
+		<description>Document Type</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocEntry</id>
+		<source_code_name>DOC_ABS_ENT</source_code_name>
+		<description>Document ID</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>DocLineNum</id>
+		<source_code_name>DOC_LINE_NUM</source_code_name>
+		<description>Row No. in Document</description>
+		<field_type>998</field_type>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>11</edit_size>
+	</column>
+	<column>
+		<id>BSubLineNo</id>
+		<source_code_name>BASE_SUB_LINE_NUM</source_code_name>
+		<description sys="Y">Base Sub Line Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+		<default_value>-1</default_value>
+	</column>
+	<column>
+		<id>BinCode</id>
+		<source_code_name>BIN_CODE</source_code_name>
+		<description>Bin Location Code</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>228</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<column>
+		<id>BinNum</id>
+		<source_code_name>BIN_NUM</source_code_name>
+		<description>Bin Location Number</description>
+		<db_type>Integer</db_type>
+		<db_size>11</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>WhsCodeLink</id>
+		<target_direct>OWHS</target_direct>
+		<object_key_column>WhsCode</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ItemCode</column>
+		<column>SysNumber</column>
+	</key>
+	<key>
+		<id>BATCH_NUM</id>
+		<column>ItemCode</column>
+		<column>DistNumber</column>
+	</key>
+</table>

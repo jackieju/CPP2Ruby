@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<table version="11" xmlns="http://www.sap.com/schemas/BusinessOne/ResourceTools/Table">
+	<id>OFEV</id>
+	<description>Fixed Asset End Balances</description>
+	<string_list>1101844</string_list>
+	<view_type>Invisible</view_type>
+	<domain>User</domain>
+	<virtual />
+	<column>
+		<id>ItemCode</id>
+		<source_code_name>ITEM_CODE</source_code_name>
+		<description>Item Code</description>
+		<field_type>110</field_type>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>20</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>20</edit_size>
+	</column>
+	<column>
+		<id>PeriodCat</id>
+		<source_code_name>PERIOD_CATEGORY</source_code_name>
+		<description>Period Category</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>10</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>10</edit_size>
+	</column>
+	<column>
+		<id>DprArea</id>
+		<source_code_name>DEPRECIATION_AREA</source_code_name>
+		<description>Depreciation Area</description>
+		<db_type>AlphaNumeric</db_type>
+		<db_size>15</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>15</edit_size>
+	</column>
+	<column>
+		<id>APCHist</id>
+		<source_code_name>HISTORICAL_APC</source_code_name>
+		<description>Historical APC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>APC</id>
+		<source_code_name>ACQUISITION_PRO_COST</source_code_name>
+		<description>APC</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>NetNBV</id>
+		<source_code_name>NET_BOOK_VALUE</source_code_name>
+		<description>Net Book Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>HistNBV</id>
+		<source_code_name>HISTORICAL_NBV</source_code_name>
+		<description>Historical Net Book Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>OrDpAcc</id>
+		<source_code_name>ORDINARY_DPR_ACC</source_code_name>
+		<description>Accumulated Ordinary Depr.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>UnDpAcc</id>
+		<source_code_name>UNPLANNED_DPR_ACC</source_code_name>
+		<description>Accumulated Unplanned Depr.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>spDpAcc</id>
+		<source_code_name>SPECIAL_DPR_ACC</source_code_name>
+		<description>Accumulated Special Depr.</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>WriteUpAcc</id>
+		<source_code_name>WRITE_UP_ACC</source_code_name>
+		<description>Accumulated Write-Up</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>SalvageVal</id>
+		<source_code_name>SALVAGE_VALUE</source_code_name>
+		<description>Salvage Value</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>Sum</edit_type>
+		<edit_size>8</edit_size>
+	</column>
+	<column>
+		<id>Quantity</id>
+		<source_code_name>ASSET_QUANTITY</source_code_name>
+		<description>Asset Quantity</description>
+		<db_type>Float</db_type>
+		<db_size>8</db_size>
+		<edit_type>None</edit_type>
+		<edit_size>0</edit_size>
+	</column>
+	<association>
+		<id>ItemCodeLink</id>
+		<target_direct>OITM</target_direct>
+		<object_key_column>ItemCode</object_key_column>
+	</association>
+	<association>
+		<id>DprAreaLink</id>
+		<target_direct>ODPA</target_direct>
+		<object_key_column>DprArea</object_key_column>
+	</association>
+	<key>
+		<id>PRIMARY</id>
+		<unique />
+		<column>ItemCode</column>
+		<column>PeriodCat</column>
+		<column>DprArea</column>
+	</key>
+</table>
