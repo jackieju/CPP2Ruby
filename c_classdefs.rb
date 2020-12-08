@@ -67,5 +67,26 @@ $ar_classdefs = [
 ]
 
 $unusableType =[
-    "export"
+    "export",
+    "typename"
+    
 ]
+
+#files don't include
+$exclude_file=[
+    "stdio",
+    "stdio.h",
+    "malloc.h",
+    "windows.h",
+    "sql.h",
+    "sqlext.h",
+    "__DBM.*\\.h",
+    "__CORE_OS.h",
+    "WinCrypt.h",
+    "Assert.h",
+    "WWMap.h",
+    "ScopeGuard.h",
+    "TaxFormulaCombinationCache.h",
+    "_FU_P_CBusinessFormsMgr.h"
+]
+    

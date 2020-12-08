@@ -154,13 +154,13 @@ def find_file(fname, dirs=nil, recursive=false)
     i = 0
     while i < dirs.size
             dir = dirs[i]
-        p "find file #{fname} under #{dir}"
+      #  p "find file #{fname} under #{dir}"
         if recursive
             qs = "#{dir}/**/#{fname}"
         else
             qs = "#{dir}/#{fname}"
         end
-        p "find file #{fname} using pattern #{qs}"
+     #   p "find file #{fname} using pattern #{qs}"
         Dir[qs].each { |f|
             p "found file #{f} under dir"
             return f
