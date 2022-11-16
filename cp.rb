@@ -5592,4 +5592,4 @@ HERE
 end  # class Parser
 
 
-#load 'cptest.rb'
+load 'cptest.rb'

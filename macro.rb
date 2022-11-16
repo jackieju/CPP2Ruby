@@ -1724,10 +1724,10 @@ class Preprocessor < Parser
             elsif @sym == C_identifierSym 
                 v = @macros[n]
                 if v
-                    if v == "" # defined to empty string
+                    if v[:v] == "" # defined to empty string
                         s += "true"
                     else
-                        s +=  v
+                        s +=  v[:v]
                     end
                 else # not defined
                     _n = GetNextSym()

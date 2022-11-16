@@ -1570,6 +1570,9 @@ A a;
 a.pp();
 }*/
 HERE
+s103=<<HERE
+__dllexport__ void SetUIInvoker(UIInvokerBase *invoker);
+HERE
 s_notsupport=<<HERE 
 // lumda
 std::remove_copy_if (diffColsList.begin (), diffColsList.end (), std::back_inserter (newDiffColsList),
@@ -1694,7 +1697,7 @@ end
 
 #=end
 #test(true)
-#test(102)
+test(103)
 #dump_testcase
 p "$typedef:#{$typedef.inspect}"
 
