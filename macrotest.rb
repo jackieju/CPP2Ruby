@@ -1661,9 +1661,16 @@ s30=<<HERE
 
 
 HERE
+s31=<<HERE
+#define A 
+#define B A
+char* a=B;
+B1_OBSERVER_API void clear();
+
+HERE
 if !testall
    
-    s = s30
+    s = s31
 
 else
 

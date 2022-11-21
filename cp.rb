@@ -1520,8 +1520,8 @@ class Parser < CRParser
                 	    p "gStatement123:#{_nnn}, count=#{count}, #{getSymValue(GetNextSym(count))}"
                         rvn = find_symbol(vn)
                         p "vn=#{vn}, #{rvn.inspect}"
-                        if rvn
-                            
+                        #if rvn.is_a?(Variable)
+                        if rvn && ! isTypeStart()
 	                        rStatement += Statement() 
                         
                         # id::id2::id3...
@@ -2637,10 +2637,12 @@ class Parser < CRParser
                 end
             end
             p "_var_type:#{_var_type.inspect}" if _var_type
-            if ( (_var_type && _var_type.is_simpleType) || #int fn();
+            if ( #(_var_type && _var_type.is_simpleType) || #int fn();
                  _n == C_EnumSym || # A fn(enum B b);
-                isOperatorDef ||  (_n == C_RparenSym && nn != C_SemicolonSym ) || _n == C_PPPSym ||
-                hasBodyOrConstAfterParenAndBeforeSemiColon?() ||
+                isOperatorDef || 
+                (_n == C_RparenSym && nn != C_SemicolonSym ) || # A fn();
+                _n == C_PPPSym || # A fn(...)
+                hasBodyOrConstAfterParenAndBeforeSemiColon?() || # xx fn(yyy) const {zzz};
                  isTypeStart(gns)# || isFunctionFormalParamStart(offset) 
                  )# && !find_var(getSymValue(gns), current_scope) # is not var
                 # A fn();
@@ -2733,6 +2735,23 @@ class Parser < CRParser
         return ret
     end
     
+    def InitializedVar(var_type)
+        ret = ""
+        if var_type.is_simpleType 
+            Get()
+            s = Expression()
+            p "===>expre return #{s}"
+            Expect(C_RparenSym)
+            ret += " = #{s}"
+        else
+            ret += " = #{var_type.name}.new"
+            s,n = FunctionCall("#{var_type.name}.initialize")
+            ret += s
+        end
+        
+        return ret
+    end
+    
    #def isFunctionFormalParamStart(offset)
    #    _s = GetNextSym(offset)
    #    if _s.sym >= C_shortSym && _s.sym <=C_voidSym
@@ -2750,9 +2769,7 @@ class Parser < CRParser
         
         
         if @sym == C_LparenSym
-        	ret += " = #{var_type.name}.new"
-            s,n = FunctionCall("#{var_type.name}.initialize")
-        	ret += s
+        	ret += InitializedVar(var_type)
         elsif ArraySize() != ""
            # ret += " = []\n"
         elsif !var_type.is_simpleType && var_type.type != "FunctionPointer"
@@ -2799,9 +2816,7 @@ class Parser < CRParser
     # line 447 "cs.atg"
         	
             if @sym == C_LparenSym
-            	ret += " = #{var_type.name}.new"
-                s,n = FunctionCall("#{var_type.name}.initialize")
-            	ret += s
+            	ret += InitializedVar(var_type)
             elsif ArraySize() != ""
                 ret += " = []\n"
             elsif !var_type.is_simpleType 
@@ -5592,4 +5607,4 @@ HERE
 end  # class Parser
 
 
-load 'cptest.rb'
+#load 'cptest.rb'

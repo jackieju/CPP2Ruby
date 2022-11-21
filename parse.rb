@@ -49,7 +49,7 @@ def parse(s, preprocess = true, to_ruby=true)
     begin
     ret = parser.C
     rescue Exception=>e
-       
+        p "current parsing file #{$fname_after_prepro}"
         parser.dump_pos
         throw e
     end 
@@ -110,11 +110,11 @@ def preprocess(s)
    
    p "Preprocessor current line #{scanner.currLine}/#{scanner.nextSym.line}"
     begin
-        fname = "pre.#{$g_cur_parse_file.split("/").last}.#{_t}"
-       aFile = File.new(fname, "w+")
+       $fname_after_prepro = "pre.#{$g_cur_parse_file.split("/").last}.#{_t}"
+       aFile = File.new($fname_after_prepro, "w+")
        aFile.puts content
        aFile.close
-       p "Write preprocess result to file #{fname}"
+       p "Write preprocess result to file #{$fname_after_prepro}"
     rescue Exception=>e
        p e
     end

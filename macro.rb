@@ -3,7 +3,7 @@ load "cp.rb"
 
 # hide_p_in_file(__FILE__)
 class Preprocessor < Parser
-    attr_accessor :ifstack
+    attr_accessor :ifstack, :file_save
  
     def Preprocess(include_predined_file = true)
         if $g_cur_parse_file
@@ -19,6 +19,7 @@ class Preprocessor < Parser
               
          if include_predined_file 
              include_file("c_macros.c") # predefined macros
+             include_file("./c_macros.c") # same file in user's working dir
          end
 
          
@@ -2184,4 +2185,4 @@ end # class Preprocessor
 
 
 
-#load 'macrotest.rb'
+load 'macrotest.rb'

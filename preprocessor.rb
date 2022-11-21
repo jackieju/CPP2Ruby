@@ -1,3 +1,4 @@
+# NOT USED!!! already replaced by macro.rb
 # process macro of c/c++
 load "cp.rb"
 

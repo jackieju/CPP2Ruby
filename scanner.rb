@@ -1072,7 +1072,7 @@ public
               if ! c.valid_encoding?
                 c = c.encode("UTF-16be", :invalid=>:replace, :replace=>"?").encode('UTF-8')
               end
-           c = "// included file #{path} from file #{@include_stack.last} \n#{c}\n // end include file #{path}\n#includestackpop #{path}\n"   # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method Get()
+           c = "// included file #{path} from file #{@include_stack.last} \n#{c}\n // end include file #{path} from file #{@include_stack.last} \n#includestackpop #{path}\n"   # you cannot use include_stack_pop, before the sym will only be "#include",because it will stop before "_", check method Get()
            @include_stack.push(path)
            indent = ""
            for i in 1..@include_stack.size

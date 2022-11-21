@@ -1571,7 +1571,11 @@ a.pp();
 }*/
 HERE
 s103=<<HERE
-__dllexport__ void SetUIInvoker(UIInvokerBase *invoker);
+//__dllexport__ void SetUIInvoker(UIInvokerBase *invoker);
+void aaaaa(){
+    bool b(false);
+    b=true;
+}
 HERE
 s_notsupport=<<HERE 
 // lumda
@@ -1696,8 +1700,8 @@ end
 
 
 #=end
-#test(true)
-test(103)
+test(true)
+#test(103)
 #dump_testcase
 p "$typedef:#{$typedef.inspect}"
 

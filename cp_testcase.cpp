@@ -1160,5 +1160,9 @@ a.pp();
 }*/
 
 // testcase 103 
-__dllexport__ void SetUIInvoker(UIInvokerBase *invoker);
+//__dllexport__ void SetUIInvoker(UIInvokerBase *invoker);
+void aaaaa(){
+    bool b(false);
+    b=true;
+}
 
