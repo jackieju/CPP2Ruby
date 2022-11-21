@@ -1,3 +1,5 @@
+#require "common.rb"
+
 $ar_classdefs = [
     "T", # for cpp template
     "std",
@@ -26,7 +28,7 @@ $ar_classdefs = [
     "FCRoundingStruct",
     "StdMap",
     "CostAccountingFieldMap",
-    "bool",
+    #"bool",
     "AccountsArray",
     # pojdt.c
     "CPaymentDoc",
@@ -87,6 +89,29 @@ $exclude_file=[
     "WWMap.h",
     "ScopeGuard.h",
     "TaxFormulaCombinationCache.h",
-    "_FU_P_CBusinessFormsMgr.h"
+    "_FU_P_CBusinessFormsMgr.h",
+    "_BusinessObjectBase.h"
 ]
+begin
+    p "loading '#{Dir.pwd}/user_classdefs.rb'"
+  #  $LOAD_PATH<<Dir.pwd
+    load "#{Dir.pwd}/user_classdefs.rb"
+  #  require "#{Dir.pwd}/user_classdefs.rb"
     
+     $ar_classdefs.concat($user_classdefs )
+     $unusableType.concat($user_unusableTypes)
+     $exclude_file.concat($user_exclude_files)
+rescue Exception=>e
+    p e.inspect
+    p $LOAD_PAHT.inspect
+    t=<<END
+    $user_classdefs = [
+    ]
+    $user_unusableTypes=[
+    ]
+    $user_exclude_files=[
+    ]
+END
+    write_class("user_classdefs.rb", t)
+    
+end

@@ -14,3 +14,26 @@ __dllexport__ void SetUIInvoker(UIInvokerBase *invoker);
     class sSnBDirectionType;
 void        GetLineDirection     (sSnBDirectionType *direction, long m_docType, MONEY quantity, bool bForWTRToWhsDirection = false);    
  
+ 
+// lambda
+/*
+auto fn=[](int a){};
+void func3(std::vector<int>& v) {
+  std::for_each(v.begin(), v.end(), [](int) {  });
+}
+
+*/
+try
+{
+    printf("ffff");
+}
+catch (const DBMTransException& e)
+{
+    printf("ffff1");
+    
+}
+catch (const DBMException& e)
+{
+    printf("ffff33");
+    
+}

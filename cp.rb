@@ -4,8 +4,9 @@ load 'scanner.rb'
 load 'cr_parser.rb'
 load 'error.rb'
 load 'log.rb'
-load 'c_classdefs.rb'
 load 'common.rb'
+load 'c_classdefs.rb'
+
 
 def pp(m, stack=0)
 
@@ -3552,11 +3553,16 @@ class Parser < CRParser
         try_stmt = CompoundStatement()
         Expect(C_identifierSym)
         cs = prevString()
-        pdebug("===>TryStatement2, #{@sym}, #{cs}")
-        if cs == "catch"# catch (DBMException &e)
+        pdebug("===>TryStatement2, #{@sym}, #{cs}, #{curString}")
+        rescue_stmt=""
+        do_catch = false
+        if cs == "catch" # catch (DBMException &e)
+            do_catch = true
+        end
+        while do_catch
             # Get()
             
-            pdebug("===>TryStatement3, #{@sym}")
+            pdebug("===>TryStatement3, #{@sym}, #{curString}")
             
             Expect(C_LparenSym)
             # Expect(C_identifierSym)
@@ -3569,14 +3575,19 @@ class Parser < CRParser
             if (@sym == C_PPPSym)
                 Get()
                 Expect(C_RparenSym)
-                catch_stmt = CompoundStatement()
+#                catch_stmt = CompoundStatement()
+#                stmt =<<HERE
+#                begin
+#                    #{try_stmt}
+#                rescue 
+#                    #{catch_stmt}
+#                end
+#HERE
                 stmt =<<HERE
-                begin
-                    #{try_stmt}
-                rescue 
+                rescue
                     #{catch_stmt}
-                end
 HERE
+                rescue_stmt += stmt +"\n"
             else
 
             exptype = FullType()
@@ -3599,17 +3610,35 @@ HERE
             
                 catch_stmt = CompoundStatement()
             
+#                stmt =<<HERE
+#                begin
+#                    #{try_stmt}
+#                rescue #{exptype.name}=>#{expvar}
+#                    #{catch_stmt}
+#                end
+#HERE
                 stmt =<<HERE
-                begin
-                    #{try_stmt}
                 rescue #{exptype.name}=>#{expvar}
                     #{catch_stmt}
-                end
 HERE
+                rescue_stmt += stmt +"\n"
+
             end
+            if "catch" == curString()
+                Expect(C_identifierSym)
+            else 
+               do_catch = false
+            end
+            
         end
         pdebug("===>TryStatement1:#{stmt}")
-        return stmt
+        ret=<<HERE
+        begin
+            #{try_stmt}
+        #{rescue_stmt}
+        end  
+HERE
+        return ret
     end
     # line 657 "cs.atg"
     def Statement()
