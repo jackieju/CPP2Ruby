@@ -70,6 +70,8 @@ $ar_classdefs = [
 
 $unusableType =[
     "export",
+    "__dllexport__",
+    
     "typename"
     
 ]

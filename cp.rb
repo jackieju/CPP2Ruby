@@ -3575,7 +3575,7 @@ class Parser < CRParser
             if (@sym == C_PPPSym)
                 Get()
                 Expect(C_RparenSym)
-#                catch_stmt = CompoundStatement()
+                catch_stmt = CompoundStatement()
 #                stmt =<<HERE
 #                begin
 #                    #{try_stmt}
@@ -3590,7 +3590,7 @@ HERE
                 rescue_stmt += stmt +"\n"
             else
 
-            exptype = FullType()
+                exptype = FullType()
                 #Expect(C_identifierSym)
                 #expvar = prevString()
                 #Expect(C_RparenSym)
@@ -5032,7 +5032,9 @@ HERE
     	    @sym == C_LparenSym ||
             # @sym >= newSym && @sym <= C_DollarSym) 
             @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_ColonColonSym ||
-            @sym == C_defaultSym || @sym == C_operatorSym) 
+            @sym == C_defaultSym || @sym == C_operatorSym ||
+            @sym == C_LbrackSym # for lambda
+            ) 
             
     # line 1538 "cs.atg"
     		ret += PostFixExp()
@@ -5122,26 +5124,60 @@ HERE
     def Primary()
         pdebug "=====>Primary:#{@sym}, #{curString()}"
         ret = ""
-    # line 2328 "cs.atg"
-    prefix = ""
-    if @sym == C_ColonColonSym
-        Get()
-        #ret += "::"
-        prefix = "::"
-    end
-    # line 2475 "cs.atg"
+        
+        # line 2328 "cs.atg"
+        prefix = ""
+        if @sym == C_ColonColonSym
+            Get()
+            #ret += "::"
+            prefix = "::"
+        end
+        
+        # line 2475 "cs.atg"
         isExpression = false
         primary_sym = @sym
     	case @sym
+            when C_LbrackSym # lambda
+                
+                Get()
+                while (@sym != C_RbrackSym)
+                    if @sym == C_EqualSym || @sym == C_identifierSym
+                        Get()
+                    elsif  @sym == C_AndSym
+                        Get()
+                        if (@sym == C_identifierSym)
+                            Get()
+                        end
+                    end
+                    if @sym == C_CommaSym
+                        Get()
+                    end
+                end
+                Expect(C_RbrackSym)
+                r,pds = FunctionHeader()
+                head = r
+                if @sym == C_MinusGreaterSym
+                    Get()
+                    FullType()
+                end
+                fb = FunctionBody()
+                p "header:#{head}"
+                p "fb:#{fb}"
+                p "pds:#{pds.inspect}"
+                if pds && pds.size >1
+                    head = "(#{head})"
+                else
+                    head = ""
+                end
+                ret += "->#{head}{\n#{fb}\n}"
+                 
     		when C_identifierSym  
                 # varname = translate_varname()},
                 varname = prefix+curString()
-                
-		  
 
                 	Get()
-        # line 2334 "cs.atg"
-        isOperator = false
+                    # line 2334 "cs.atg"
+                    isOperator = false
                     if @sym == C_ColonColonSym
                         p "=====>Primary21:#{varname}"
                         if !@in_preprocessing
