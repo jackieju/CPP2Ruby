@@ -60,8 +60,15 @@ catch (const DBMException& e)
     printf("ffff33");
     
 }
-#endif
+
 
 auto fn=[](int a){};
 auto fn2=[&](int a)->bool{printf("ee");};
 
+#endif
+
+// for 
+for (auto &iter : resultMap)
+{
+    printf("ee");
+}

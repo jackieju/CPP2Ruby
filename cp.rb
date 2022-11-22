@@ -3949,6 +3949,9 @@ end
                  
             if @sym != C_SemicolonSym
                 var_type = Type()
+                if @sym == C_AndSym
+                    Get()
+                end
                 varname = curString()
         	    varname = current_scope.add_var(Variable.new(varname, var_type))
                 Get()
