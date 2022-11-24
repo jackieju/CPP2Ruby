@@ -1955,11 +1955,20 @@ class Parser < CRParser
             p "===>isTypeStart2:#{_n}, #{_sym11.sym}, #{getSymValue(_sym11)}, count = #{count}, "
             if  _n == C_LparenSym  # functioncall 
                 _nn_sym = GetNextSymFromSym(sym, count+1)
+                p "===>_nn_sym:#{_nn_sym.sym}"
                 if _nn_sym.sym != C_AndSym
                     return false
                 else
                     return true # template parameter:    template <size_t count> int c(const B (&t)[count], long fff){
 
+                end
+            end
+            
+            if _n == C_identifierSym 
+                _nn_sym = GetNextSymFromSym(sym, count+1)
+                p "===>_nn_sym:#{_nn_sym.sym}"
+                if _nn_sym.sym == C_LparenSym # A::B()
+                    return false
                 end
             end
             
@@ -2671,7 +2680,9 @@ class Parser < CRParser
             
             # fd = FunctionCall()
     	elsif (@sym == C_SemicolonSym ||
-    	           @sym >= C_EqualSym && @sym <= C_LbrackSym)
+    	           @sym >= C_EqualSym && @sym <= C_LbrackSym ||
+                   @sym == C_LbraceSym # list initialization. e.g.  int a{0};
+                   )
         p "#{var_type.inspect}" 
             if var_type.storage.index("const") == nil
                 rvn = find_symbol(varname)
@@ -2736,18 +2747,30 @@ class Parser < CRParser
         return ret
     end
     
-    def InitializedVar(var_type)
+    def InitializedVar(var_type, symb)
         ret = ""
-        if var_type.is_simpleType 
+        if var_type.is_simpleType   # bool a(false); => a = false
             Get()
             s = Expression()
             p "===>expre return #{s}"
             Expect(C_RparenSym)
             ret += " = #{s}"
         else
-            ret += " = #{var_type.name}.new"
-            s,n = FunctionCall("#{var_type.name}.initialize")
-            ret += s
+            if symb == C_LbraceSym      # list initialization
+                 # A a{x,y}; => a = A.new(x,y)
+                Get()
+                s,args = ActualParameters()
+                ret = args.join(", ") if args && args.size >0
+                ret = " = #{var_type.name}.new(#{ret})"
+                
+                Expect(C_RbraceSym)
+            else
+            
+                # A a(x,y); => a = A.new(x,y) 
+                ret += " = #{var_type.name}.new"
+                s,n = FunctionCall("#{var_type.name}.initialize")
+                ret += s
+            end
         end
         
         return ret
@@ -2769,8 +2792,8 @@ class Parser < CRParser
         ret = ""
         
         
-        if @sym == C_LparenSym
-        	ret += InitializedVar(var_type)
+        if @sym == C_LparenSym || @sym == C_LbraceSym
+        	ret += InitializedVar(var_type, @sym)
         elsif ArraySize() != ""
            # ret += " = []\n"
         elsif !var_type.is_simpleType && var_type.type != "FunctionPointer"
@@ -2816,8 +2839,8 @@ class Parser < CRParser
     		
     # line 447 "cs.atg"
         	
-            if @sym == C_LparenSym
-            	ret += InitializedVar(var_type)
+        if @sym == C_LparenSym || @sym == C_LbraceSym
+        	ret += InitializedVar(var_type, @sym)
             elsif ArraySize() != ""
                 ret += " = []\n"
             elsif !var_type.is_simpleType 

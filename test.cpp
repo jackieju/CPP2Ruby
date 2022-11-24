@@ -65,10 +65,21 @@ catch (const DBMException& e)
 auto fn=[](int a){};
 auto fn2=[&](int a)->bool{printf("ee");};
 
-#endif
+
 
 // for 
 for (auto &iter : resultMap)
 {
     printf("ee");
 }
+
+// functiondefinition or local declaration
+class ClientPreview;
+class SBOString;
+void a (){
+ SBOString path(ClientPreview::GetInstance ().GetResourceFolder ());
+}
+
+#endif
+class CProcedureDepends;
+	CProcedureDepends	procDepends{ env.GetLocalSettings(), upgDataPtr->GetDagSCSP(), newCompConnId, CProcedureDepends::S_UPGRADE_COMPANY };
