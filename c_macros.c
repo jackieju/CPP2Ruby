@@ -21,6 +21,18 @@
 #define __CRTDECL
 #define __dllexport__
 
+// for cpp11
+// https://gist.github.com/hang-qi/5308284
+// One shall use ON_SCOPE_EXIT() macro to create a anonymous ScopeGuard object.
+// The anonymous function "callback" will be automatically called in the 
+// deconstractor when the object is out of the scope.
+// ...
+// #define  SCOPE_GUARD_NAME_CANT(line)        _scope_guard_##line
+// #define  MAKE_SCOPE_GUARD(callback, line)   utility::ScopeGuard SCOPE_GUARD_NAME_CANT(line)(callback)
+//  
+// #define  ON_SCOPE_EXIT(callback)            MAKE_SCOPE_GUARD(callback, __LINE__)
+#define ON_SCOPE_EXIT(code) 
+
 // for B1 special
 #define B1_OBSERVER_API  __dllexport__ 
 #define B1_COMMON_API

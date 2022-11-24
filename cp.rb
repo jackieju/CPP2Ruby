@@ -3319,6 +3319,7 @@ class Parser < CRParser
     end
     
     def skipUnusableType()
+        p "==>skipUnusableType:#{$unusableType}"
         utype = [C_typenameSym]
         while (@sym == C_identifierSym && GetNext() != C_ColonColonSym || utype.include?(@sym))
             if utype.include?(@sym)
@@ -3326,6 +3327,7 @@ class Parser < CRParser
                 next
             end
             v = curString()
+            p "==>skipUnusableType1:#{v}"
             if ($unusableType.include?(v))
                 Get()
             else

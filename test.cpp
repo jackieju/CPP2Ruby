@@ -80,6 +80,13 @@ void a (){
  SBOString path(ClientPreview::GetInstance ().GetResourceFolder ());
 }
 
-#endif
+
+// list initialization
 class CProcedureDepends;
 	CProcedureDepends	procDepends{ env.GetLocalSettings(), upgDataPtr->GetDagSCSP(), newCompConnId, CProcedureDepends::S_UPGRADE_COMPANY };
+
+    
+    ON_SCOPE_EXIT(if (pDAGTemp != nullptr) pDAGTemp->Close(););
+    
+  #endif  
+    __dllexport__ virtual ~CBusinessException ();

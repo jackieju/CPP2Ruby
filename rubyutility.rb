@@ -148,7 +148,7 @@ end
 def find_file(fname, dirs=nil, recursive=false)
     if dirs == nil
         dirs = []
-        dirs.push(File.dirname(__FILE__))
+        dirs.push(File.dirname(__FILE__)) if !dir.includes?(File.dirname(__FILE__))
     end
     
     i = 0
@@ -162,7 +162,7 @@ def find_file(fname, dirs=nil, recursive=false)
         end
      #   p "find file #{fname} using pattern #{qs}"
         Dir[qs].each { |f|
-            p "found file #{f} under dir"
+            p "found file #{f} under pattern #{qs}"
             return f
         }
         i+=1

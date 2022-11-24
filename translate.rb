@@ -539,16 +539,21 @@ HERE
 end
 
 $pre_classlist={} # class found in preprocessing
-$g_search_dirs=["."]
+$g_search_dirs=[".", Dir.pwd, File.dirname(__FILE__)]
 
+
+# reset options for each target file
 def init_env(fname)
-    search_dirs = [File.dirname(__FILE__)]
+    search_dirs = $g_search_dirs.clone
     search_dirs.insert(0, File.dirname(fname))
-    $g_search_dirs.insert(0, File.dirname(fname))
+    #$g_search_dirs.insert(0, File.dirname(fname))
     # TODO seems not used
-    $g_options = {
-        :include_dirs=>search_dirs
-    }
+    
+    
+    search_dirs.uniq!
+    $g_options = {} if !$g_options
+    
+    $g_options[:include_dirs] = search_dirs
  
 end
 

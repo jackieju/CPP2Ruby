@@ -1041,9 +1041,10 @@ public
         ret = true
         dirs = nil
         if $g_options
-            $g_search_dirs = $g_options[:include_dirs] if !$g_search_dirs
-            dirs = $g_search_dirs.clone    
+           # $g_search_dirs = $g_options[:include_dirs] if !$g_search_dirs
+           dirs = $g_options[:include_dirs]  
         end
+        
         dirs = [] if !dirs
         dirs.push(dir) if dir
         path = find_file(fname, dirs)
