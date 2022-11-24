@@ -88,5 +88,7 @@ class CProcedureDepends;
     
     ON_SCOPE_EXIT(if (pDAGTemp != nullptr) pDAGTemp->Close(););
     
-  #endif  
+  
     __dllexport__ virtual ~CBusinessException ();
+     #endif 
+    SBOString typeStr (static_cast<TCHAR> (dbmAlphaNumeric));
