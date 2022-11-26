@@ -1057,7 +1057,7 @@ public
         p "=>include_stack:#{@include_stack.inspect}"
         
         if c == nil
-           c = "// include file #{fname} failed from file #{@include_stack.last}\n"
+           c = "// include failed, include file #{fname} from file #{@include_stack.last}\n"
            ret = false
            append_file("err", c)
         else
@@ -1207,7 +1207,9 @@ public
             while (@ch.to_byte >= 9 && # TAB
                     @ch.to_byte <= 10 || # LF
                    @ch.to_byte == 13 || # CR
-                   @ch == ' ') # space
+                   @ch == ' ' || # space
+                   @ch == '\\'
+                   ) 
                     # p "get30:#{@ch}, #{@buffPos}"
                     if !ignore_crlf && ( @ch.to_byte == 13|| ch.to_byte == 10)
                         p "crlf:#{@ch.to_byte}, pos #{@buffPos}"

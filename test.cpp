@@ -1,3 +1,4 @@
+#define PPPP1
 #ifdef PPPP
 __dllexport__ void SetUIInvoker(UIInvokerBase *invoker);
 
@@ -90,5 +91,59 @@ class CProcedureDepends;
     
   
     __dllexport__ virtual ~CBusinessException ();
-     #endif 
     SBOString typeStr (static_cast<TCHAR> (dbmAlphaNumeric));
+    
+    
+     bool operator< (const FirstAllocMapKey& r) const {
+         return  1 ? (m_locCode < r.m_locCode) : (m_index < r.m_index);
+    }
+
+    namespace LinkMap{
+        class CLMProviderMetaDataCached;
+    }
+    class A{
+
+     LinkMap::CLMProviderMetaDataCached *GetLinkMapRetrieverCachedData() const;
+ }
+ 
+ int a=00;
+ 
+
+
+	void OpenDAGByName (std::unique_ptr<DAG>& dag, const DBM_TableAlias table, const SBOString& contextId = L"");
+   
+
+    class DagUniquePtr;
+    class CINF;
+    void m(){
+    switch(action)
+                {
+                    case 1: //continue
+                        break;
+                    case 2: //retry
+                        goto retry;
+                    case 3: //stop and flag company
+                    case 4: //stop and do not flag company
+                    default:
+                        DagUniquePtr dagCINF(env.OpenDAG(CINF));
+                        DBD_GetAllRecs(dagCINF.get());
+                        dagCINF->SetColStr(action == 3 ? VAL_COMPANY_INVALID : VAL_COMPANY_VALID, CINF_COMPANY_STATUS);
+                        dagCINF->UpdateAll();
+                        index = 9999;
+                        break;
+                }
+    
+            }
+    
+
+    
+            stmt.Where().Col(tDoc1Table, INV1_ABS_ENTRY).EQ().Val (absEntry).And().\
+               Col(tDoc1Table, INV1_LINE_NUM).EQ().Val (lineNum);
+ 
+    
+
+            template <size_t count> int c(const B (&t)[count], long fff){}
+            bool     SetDAG (std::unique_ptr&& dag, const SBOString& objectId, ArrayOffset arrayOffset = ao_Main);   
+    
+ #endif     
+    bool OCEKHandleMenu (CORE_Event *eventPtr, void *checkPerm, void* params, unsigned long menuId, short forceFormMode = (short)formInvalidMode);

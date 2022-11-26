@@ -19,7 +19,6 @@ class Preprocessor < Parser
               
          if include_predined_file 
              include_file("c_macros.c") # predefined macros
-             include_file("./macros.c") # same file in user's working dir
          end
 
          
@@ -2185,4 +2184,4 @@ end # class Preprocessor
 
 
 
-load 'macrotest.rb'
+#load 'macrotest.rb'

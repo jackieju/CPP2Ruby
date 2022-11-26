@@ -352,6 +352,8 @@ class Parser < CRParser
     #    @classdefs[class_name] = clsdef
     #    return clsdef
     #end
+    
+    # go ahead from current sym(@scanner.nextSym), but not not move current parser 
     def GetNextSym(step =1)
         _scanner = @scanner.clone()
       #  p "==>scanner clone =#{_scanner.inspect}"
@@ -1647,10 +1649,10 @@ class Parser < CRParser
                    @sym == C_newSym || @sym == C_deleteSym || @sym == C_throwSym || @sym == C_sizeofSym || @sym == C_gotoSym ||
 		           @sym >= C_BangSym && @sym <= C_TildeSym ) 
 # line 711 "cs.atg"
-           p "===>Statements12:#{@sym}, #{curString}"
+           p "===>gStatements12:#{@sym}, #{curString}"
 
 			_ret_s = Statement()
-            p "===>Statements13:#{@sym}, #{curString}"
+            p "===>gStatements13:#{@sym}, #{curString}"
             
 			if _ret_s && _ret_s.strip != ""
 			    rStatement += "\n" if rStatement.strip != ""
@@ -1692,7 +1694,7 @@ class Parser < CRParser
         return false
   
     end
-    def filterTemplate(offset=0, do_get=true) # ignore <int, bool....>, offset is offset of < from current sym, means how many symbol between < and @sym
+    def filterTemplate(offset=0, do_get=true, del=true) # ignore <int, bool....>, offset is offset of < from current sym, means how many symbol between < and @sym
         l_count = 0 # for ingore embbed <>
         p("filterTemplate0:offset=#{offset}, #{@sym},#{curString()}", 10)
         count = offset 
@@ -1701,7 +1703,7 @@ class Parser < CRParser
             _s = GetNextSym(count)
             p("#{count}th=#{_s.sym}, #{getSymValue(_s)}")
             if  _s.sym == C_SemicolonSym || _s.sym == C_AndAndSym ||  _s.sym == C_BarBarSym 
-                return
+                return GetNextSym(offset+1)
             end
             if _s.sym == C_GreaterSym
                 l_count -=1
@@ -1721,15 +1723,18 @@ class Parser < CRParser
         end
       
         p("filterTemplate1:#{_s.sym}, #{getSymValue(_s)}")
-        if pos1 && _s
-           # @scanner.delete_in_line(GetNextSym(offset).pos, _s.pos+_s.len)
-            @scanner.delete_in_line(pos1, _s.pos+_s.len)
-            if(offset == 0 && do_get)
-                Get()
+        if del
+            if pos1 && _s
+               # @scanner.delete_in_line(GetNextSym(offset).pos, _s.pos+_s.len)
+                @scanner.delete_in_line(pos1, _s.pos+_s.len)
+                if(offset == 0 && do_get)
+                    Get()
+                end
             end
         end
         return GetNextSym(count+1) 
     end
+    
     def isTemplatedFnCall(offset)# pass <int, bool....>
         _s =  filterTemplate(offset)
         
@@ -1921,7 +1926,8 @@ class Parser < CRParser
         return fname
     end
     
-    def isTypeStart(sym=@scanner.nextSym)
+    # offset, offset of sym from current sym(@scanner.nextSym)
+    def isTypeStart(sym=@scanner.nextSym, offset=0)
         p "===>isTypeStart:#{sym.sym}, val #{getSymValue(sym)}"
         # pos1 = sym.pos
         _sym = sym.sym
@@ -1937,52 +1943,66 @@ class Parser < CRParser
                 return true
             end
             
-            _n = GetNextFromSym(sym)
-            count = 1
-            if _n == C_ColonColonSym
-                count += 1 # count=2
-                _n = GetNextFromSym(sym, count)
-                while (_n == C_ColonColonSym)
-                    count += 1
-                    _n = GetNextFromSym(sym, count)
-                    # count +=1
-                end
+            _n = sym
+            _n2 = GetNextSymFromSym(sym)
+            count = 0
+            while (_n2.sym == C_ColonColonSym)
+            #    count += 1
+                _n = GetNextSymFromSym(_n2)
+                cs += "::#{getSymValue(_n)}"
+                _n2 = GetNextSymFromSym(_n)
+                count += 2
+            end
+        
+            p "===>isTypeStart10:sym=#{_n.sym}, val=#{getSymValue(_n)}"
+            
+            if _n2.sym == C_LessSym
+                _n2 = filterTemplate(offset+count, true, false)
+              #  _n2 = GetNextSymFromSym(_n)
+                p "===>isTypeStart100:sym=#{_n2.sym}, val=#{getSymValue(_n2)}"
                 
             end
-            p "--->@sym:#{@sym}"
-            _sym11 = GetNextSymFromSym(sym, count)
-            p "==>#{@scanner.buffer[_sym11.pos]}"
-            p "===>isTypeStart2:#{_n}, #{_sym11.sym}, #{getSymValue(_sym11)}, count = #{count}, "
-            if  _n == C_LparenSym  # functioncall 
-                _nn_sym = GetNextSymFromSym(sym, count+1)
-                p "===>_nn_sym:#{_nn_sym.sym}"
-                if _nn_sym.sym != C_AndSym
-                    return false
+            
+            p "===>isTypeStart101:sym=#{_n.sym}, val=#{getSymValue(_n)}"
+            
+           # p "--->@sym:#{@sym}"
+           # _sym11 = GetNextSymFromSym(sym, count)
+           # p "==>#{@scanner.buffer[_sym11.pos]}"
+          #  p "===>isTypeStart2:#{_n}, #{_sym11.sym}, #{getSymValue(_sym11)}, count = #{count}, "
+            if  _n2.sym == C_LparenSym  # functioncall 
+                _nn_sym = GetNextSymFromSym(_n2)
+                p "===>isTypeStart11:_nn_sym:#{_nn_sym.sym}"
+                if _nn_sym.sym == C_AndSym # template parameter:    template <size_t count> int c(const B (&t)[count], long fff){
+                    return true
                 else
-                    return true # template parameter:    template <size_t count> int c(const B (&t)[count], long fff){
+                    return false 
 
                 end
             end
             
-            if _n == C_identifierSym 
-                _nn_sym = GetNextSymFromSym(sym, count+1)
-                p "===>_nn_sym:#{_nn_sym.sym}"
-                if _nn_sym.sym == C_LparenSym # A::B()
+            if _n.sym == C_identifierSym 
+              #  _nn_sym = GetNextSymFromSym(_n)
+              #  p "===>isTypeStart12:_nn_sym:#{_nn_sym.sym}"
+                if _n2.sym == C_LparenSym # A::B()
                     return false
                 end
+                
+                if _n2.sym == C_identifierSym  ||# A::B::C d; 
+                     _n2.sym == C_AndSym || # A& d;
+                     _n2.sym == C_AndAndSym  #  bool SetDAG (std::unique_ptr&& dag, ...);
+               
+                    return true
+                end    
             end
             
-            if _n == C_identifierSym  ||# A::B::C d; 
-                 _n == C_AndSym # A& d;
-               
-                return true
-            end    
+
             
             
-             
-            if _n == C_LessSym #  A::B::C<  parse using of template
-                nsym = GetNextSymFromSym(sym, count+1)
-                p("parse using template")
+=begin             
+            if _n.sym == C_LessSym #  A::B::C<  parse using of template
+#                return false if isTemplatedFnCall(offset+count)
+                nsym = GetNextSymFromSym(_n)
+                p("parse using template, #{nsym}")
                 if isTypeStart(nsym) # A::B::C<short>
                     return true
                 else
@@ -1991,20 +2011,20 @@ class Parser < CRParser
                     return false # A::B::C<123
                 end
             end
-            
-            varname = getSymValue(sym)
+=end            
+           # varname = getSymValue(sym)
             # if @classdefs[varname] != nil
             if !@in_preprocessing
             
-                if find_class(varname)[:v] || $g_classlist[varname] != nil
-                    p "found class #{varname}"
+                if find_class(cs)[:v] || $g_classlist[cs] != nil
+                    p "found class #{cs}"
                     return true
                 else
-                    p "==>isTypeStart:class #{getSymValue(sym)} not found"
+                    p "==>isTypeStart3:class #{cs} not found"
                 end
             end
         end
-       p "==>symbol #{getSymValue(sym)} is not type start!"
+       p "==>symbol #{cs} is not type start!"
         return false
     end
     $typedef = {}
@@ -2653,7 +2673,7 @@ class Parser < CRParser
                 (_n == C_RparenSym && nn != C_SemicolonSym ) || # A fn();
                 _n == C_PPPSym || # A fn(...)
                 hasBodyOrConstAfterParenAndBeforeSemiColon?() || # xx fn(yyy) const {zzz};
-                 isTypeStart(gns)# || isFunctionFormalParamStart(offset) 
+                 isTypeStart(gns, 1)# || isFunctionFormalParamStart(offset) 
                  )# && !find_var(getSymValue(gns), current_scope) # is not var
                 # A fn();
                 # A fn(a* b) in which a is type
@@ -3672,13 +3692,17 @@ HERE
     # line 657 "cs.atg"
     	pdebug("====>statement:sym=#{@sym},curString=#{curString()}")
     # line 658 "cs.atg"
+        labels = 0
     	while (@sym == C_caseSym ||
     	       @sym == C_defaultSym) 
     # line 658 "cs.atg"
     		stmt += LabelForSwitch()
+            labels += 1
     	end
+        if labels > 0
+            stmt += Definitions()
         
- 
+        else
     # line 666 "cs.atg"
         
     	case (@sym) 
@@ -3762,6 +3786,7 @@ HERE
             else 
                 GenError(96) 
     	end
+    end
     # line 671 "cs.atg"
 	    p "current symbol:#{@sym}, #{curString()}, #{@scanner.nextSym.line}"
 	    pdebug("====>statement1:#{stmt}")

@@ -76,5 +76,6 @@ typedef SBOErr (*DBD_CondCallback) (void *form, DBD_Params *addedParams);
 //#define	_Outptr_opt_
 
 // only for JE app  
-#include "ScopeGuard.h"
-#include "_CacheBase.h"
+//#include "ScopeGuard.h"
+//#include "_CacheBase.h"
+#include "./macros.c" # same file in user's working dir

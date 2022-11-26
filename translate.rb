@@ -564,6 +564,7 @@ p "Hidden_log_files=#{$Hidden_log_files}"
 # use gcc preprocess as preprocess
 $preprocessor = "my" 
 def  parse_arg(arg, a)
+    p "parse_arg:#{arg}, #{a}"
     if arg == "-pre" || arg == "-preprocess"
         $mode = "preprocess"
     elsif arg == "-parse"
@@ -575,6 +576,13 @@ def  parse_arg(arg, a)
         FileUtils.makedirs($output_dir)
     elsif arg == "-I"
         $g_search_dirs = $g_search_dirs.concat(a.split(";"))
+    elsif arg == "--testall"
+        p "run test"
+        load 'macrotest.rb'
+        load 'cptest.rb'
+       # $runtest = true
+        parse_file("test.cpp", $preprocessor, false)
+        
     end
 end
 p "args:#{$*.inspect}"
@@ -595,7 +603,7 @@ if $*.size >0
     nextisarg = false
     arg = nil
      for a in $*[0..$*.size-1]
-        p a
+        p "arg:#{a}"
         if nextisarg       
            parse_arg(arg, a)
            nextisarg = false
@@ -608,6 +616,9 @@ if $*.size >0
             next
             
         end
+    end
+    if nextisarg
+        parse_arg($*.last, nil)
     end
     p "mode=#{$mode}"
     p "output dir:#{$output_dir}"
@@ -626,7 +637,7 @@ if $*.size >0
         end
         if a.start_with?("-")
              
-            nextisarg = true if a !="-parse" && a !="-preprocess" && a !="-pre" && a !="-translate" 
+            nextisarg = true if a !="-parse" && a !="-preprocess" && a !="-pre" && a !="-translate" && a != "--testall"
             next
             
         end
