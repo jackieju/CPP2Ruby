@@ -188,8 +188,8 @@ HERE
                 end
             end
             
-            wfname = ""
-            wfname += "#{$output_dir}/" if $output_dir && $output_dir != ""
+            wfname = "#{$g_cur_parse_file}/"
+            wfname = "#{$output_dir}/#{wfname}" if $output_dir && $output_dir != ""
             #if module_name && module_name != ""
             #    p "module_name:#{module_name}"
             #    
