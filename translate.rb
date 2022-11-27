@@ -531,7 +531,7 @@ class #{class_name}
 end
 HERE
 
-    wfname = "#{$output_dir}/#{class_name.downcase}.rb"
+    wfname = "#{$output_dir}/#{$g_cur_parse_file}/#{class_name.downcase}.rb"
     
     write_class(wfname, class_template)
         }
