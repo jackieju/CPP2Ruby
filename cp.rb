@@ -508,7 +508,10 @@ class Parser < CRParser
         $exclude_file.each{|f|
             f = f.downcase
             fi = finclude.downcase
-            return false if f == fi
+            if f == fi
+                p "file #{finclude} not include because excluded"
+                return false 
+            end
             if f.index("*")
                 reg = Regexp.new(f)
                 if (fi =~ reg) == 0
@@ -1129,7 +1132,7 @@ class Parser < CRParser
         
         if @sym == C_ColonSym # enum class F : char{}
             Get()
-            Get()
+            Type()
         end
         
         if @sym == C_SemicolonSym # just "enum A;"
@@ -1931,7 +1934,7 @@ class Parser < CRParser
         p "===>isTypeStart:#{sym.sym}, val #{getSymValue(sym)}"
         # pos1 = sym.pos
         _sym = sym.sym
-        if _sym >= C_staticSym && _sym <= C_voidSym || _sym == C_INSym || _sym == C_OUTSym || @sym == C_INOUTSym
+        if _sym >= C_staticSym && _sym <= C_voidSym || _sym == C_INSym || _sym == C_OUTSym || _sym == C_INOUTSym
             return true
         end
         if _sym == C_identifierSym
@@ -3025,12 +3028,12 @@ class Parser < CRParser
                # end
                 begin 
                      Get()
-                     m = curString()
+                     m = ClassFullName()
                      p "m=#{m}, parent=#{classdef.parent}"
                      if m == classdef.parent || classdef.includings.include?(m+"_module")
                          m = "super"
                      end
-                     Expect(C_identifierSym)
+                    # Expect(C_identifierSym)
                      Expect(C_LparenSym)
                     # v = Expression()
                      v,args = ActualParameters()
@@ -3105,8 +3108,9 @@ class Parser < CRParser
     # line 545 "cs.atg"
     	if (@sym == C_identifierSym ||
     	    @sym >= C_boolSym && @sym <= C_voidSym||
-    	   @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym || @sym == C_PPPSym  || @sym == C_EnumSym ||
-            @sym == C_classSym # only for strange copy ctor A(class A&other);
+    	    @sym == C_constSym || @sym == C_INSym || @sym == C_OUTSym || @sym == C_INOUTSym || @sym == C_PPPSym  || @sym == C_EnumSym ||
+            @sym == C_classSym || # only for strange copy ctor A(class A&other);
+            @sym == C_StructSym
             ) 
     # line 545 "cs.atg"
             if @sym == C_PPPSym
@@ -3481,7 +3485,7 @@ class Parser < CRParser
     		  #  Get();
     # line 437 "cs.atg"
     			# break;
-            when C_EnumSym
+            when C_EnumSym, C_StructSym
                 Get()
                 ret += curString()
                 Expect(C_identifierSym)

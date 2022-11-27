@@ -92,7 +92,7 @@ $exclude_file=[
     "ScopeGuard.h",
     "TaxFormulaCombinationCache.h",
     "_FU_P_CBusinessFormsMgr.h",
-    "_BusinessObjectBase.h"
+  #  "_BusinessObjectBase.h"
 ]
 begin
     p "loading '#{Dir.pwd}/user_classdefs.rb'"

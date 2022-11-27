@@ -646,16 +646,16 @@ if $*.size >0
         $g_cur_parse_file = a
         
         if $mode == "parse"
-            p "begin to parse file #{a} without preprocess"
+            log_msg "begin to parse file #{a} without preprocess"
             parse_file(a, "no", false)
             # generate_ruby
         elsif $mode == "translate"
-            p "begin to translate file #{a}, preprocessor=#{$preprocessor}"
+            log_msg "begin to translate file #{a}, preprocessor=#{$preprocessor}"
             parse_file(a, $preprocessor, false)
             
             # generate_ruby    
         elsif $mode == "preprocess"
-            p "begin to preprocess file #{a}"
+            log_msg "begin to preprocess file #{a}"
             preprocess_file(a)
         end
         # translate(a)

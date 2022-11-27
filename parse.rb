@@ -72,7 +72,7 @@ def parse(s, preprocess = true, to_ruby=true)
     #     }      
     # }
     
-    p "Took #{Time.now.to_f - t_start} seconds"
+    log_msg "Took #{Time.now.to_f - t_start} seconds"
     return ret
 end
 
@@ -114,7 +114,7 @@ def preprocess(s)
        aFile = File.new($fname_after_prepro, "w+")
        aFile.puts content
        aFile.close
-       p "Write preprocess result to file #{$fname_after_prepro}"
+       log_msg "Write preprocess result to file #{$fname_after_prepro}"
     rescue Exception=>e
        p e
     end
@@ -145,7 +145,7 @@ def parse_file(fname, preprocess = "my", to_ruby=true)
            aFile = File.new(fs+".2", "w+")
            aFile.puts content
            aFile.close
-           p "Write preprocess result to file #{fname}"
+           log_msg "Write preprocess result to file #{fname}"
         rescue Exception=>e
            p e
         end

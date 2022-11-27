@@ -102,9 +102,9 @@ class CProcedureDepends;
         class CLMProviderMetaDataCached;
     }
     class A{
-
      LinkMap::CLMProviderMetaDataCached *GetLinkMapRetrieverCachedData() const;
  }
+ 
  
  int a=00;
  
@@ -143,7 +143,74 @@ class CProcedureDepends;
     
 
             template <size_t count> int c(const B (&t)[count], long fff){}
+            
             bool     SetDAG (std::unique_ptr&& dag, const SBOString& objectId, ArrayOffset arrayOffset = ao_Main);   
     
- #endif     
-    bool OCEKHandleMenu (CORE_Event *eventPtr, void *checkPerm, void* params, unsigned long menuId, short forceFormMode = (short)formInvalidMode);
+
+    
+    enum class LocalSettings : unsigned char
+    	{
+    		INVALID = -1L,
+    		Argentina = 0L,
+    		Austria,
+    		AustraliaNZ,
+    		Belgian,
+    		Brazil,
+    		Canada
+        }
+        
+        
+        class MRPPeriodDataInWarehouses: public std::map<SBOString, MRPPeriodData>
+        {
+        public:
+            // the day of whose requirement will be fulfilled.
+            MRPPeriodDataInWarehouses():std::map<SBOString, MRPPeriodData>() {IsEndOfTolerancePeriod = true;}
+            bool        IsEndOfTolerancePeriod;
+        };
+        
+        class A : public B
+        {
+            A():B(){}
+        }
+        
+
+        
+    typedef struct _ForecastKey
+    {
+        long        forecastDocEntry;
+        SBOString   itemCode;
+        SBOString   warehouse;
+        long        longDate;
+
+        bool        operator< (struct _ForecastKey const & other) const
+        {
+            if (forecastDocEntry != other.forecastDocEntry)
+            {
+                return forecastDocEntry < other.forecastDocEntry;
+            }
+            if (itemCode == other.itemCode )
+            {
+                if(warehouse == other.warehouse)
+                {
+                    return (longDate < other.longDate);
+                }
+                return warehouse < other.warehouse;
+            }
+            return (itemCode < other.itemCode);
+        }
+
+
+    } ForecastKey;
+    
+    bool        op (struct _ForecastKey const & other) const{};
+     
+    
+    
+    void        LotSizeByOrderMultiples (INOUT MRPPeriodData &curPeriodData, IN const SBOString &itemCode, IN const SBOString &curWhsCode, IN const MONEY& maxRcmQty);
+    
+     SBOErr ODOCUndoDoc      (enum ObjectMethod sourceProc);
+     
+
+#endif
+     
+    

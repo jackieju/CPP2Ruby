@@ -142,7 +142,9 @@ class Preprocessor < Parser
                #p self.inspect
                #p @scanner.inspect
              if doprepro
+                 p "-->include file2 #{finclude}"
                  ri = include_file(finclude)
+                 
                  @ifstack_before_inc.push(@ifstack.last) if ri
              end
                @directive = nil
